@@ -1,0 +1,66 @@
+<script language="JavaScript" type="text/javascript">
+    <!--
+      
+			function delFcheck ( DELID ) {
+			  var frage = confirm ( "Willst du dieses Forum wirklich l�schen?\n\n Achtung es werden: \n - alle Themen \n - und alle Beitr�ge \n in diesem Forum unwiederbringlich gel�scht!!" );
+				if ( frage == true ) {
+				  document.location.href="?forum-deleteForum-"+DELID;
+				}
+			}
+			function delCcheck ( DID ) {
+			  var frage = confirm ( "Willst du dieses Kategorie wirklich l�schen?\n\n Achtung es werden: \n - alle Forum \n - alle Themen \n - und alle Beitr�ge \n in dieser Kategorie unwiederbringlich gel�scht!!" );
+				if ( frage ) {
+				  document.location.href="?forum-deleteCategorie-"+DID;
+				}
+			}
+      function choosemods (FID) {
+        var Fenster = window.open ('admin.php?forum-choosemods&fid='+FID, 'choosemods', 'status=no,scrollbars=yes,height=400,width=300');
+        Fenster.focus();
+      }
+		//-->
+</script>
+<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/forum.png" /></td><td width="30"></td><td valign="bottom"><h1>Forum</h1></td></tr></table>
+
+<a href="admin.php?forum-newForum">Neues Forum</a> | <a href="admin.php?forum-newCategorie">Neue Kategorie</a>
+<br /><br />
+
+<table cellpadding="5" cellspacing="1" border="0" class="border">
+  <tr class="Chead">
+    <td colspan="9"><b>Foren Administrieren</b></td>
+  </tr>
+	{EXPLODE}
+  <tr class="Cdark">
+    <td><b>{cname}</b></td>
+	  <td><a href="?forum-changeCategorie-{cid}">{_lang_change}</a></td>
+		<td><a href="javascript:delCcheck({cid})">{_lang_delete}</a></td>
+		<td>Moderator</td>
+    <td><a href="?forum-moveCategorie-0-{cid}-{cpos}"><img src="include/images/icons/pfeilo.gif" border="0"></a></td>
+		<td><a href="?forum-moveCategorie-1-{cid}-{cpos}"><img src="include/images/icons/pfeilu.gif" border="0"></a></td>
+    
+    <td>lesen/sehen</td>
+    <td>antworten</td>
+    <td>themen erstellen</td>
+	</tr>
+	{EXPLODE}
+  <tr class="Cmite">
+		<td>&nbsp;&nbsp;{fname}</td>
+		<td><a href="?forum-changeForum-{fid}">{_lang_change}</a></td>
+		<td><a href="javascript:delFcheck({fid})">{_lang_delete}</a></td>
+		<td><a href="javascript:choosemods({fid})">Moderatoren</a></td>
+    <td><a href="?forum-moveForum-0-{fid}-{fpos}-{cid}"><img src="include/images/icons/pfeilo.gif" border="0"></a></td> 
+		<td><a href="?forum-moveForum-1-{fid}-{fpos}-{cid}"><img src="include/images/icons/pfeilu.gif" border="0"></a></td>
+    
+    <td align="center">{view}</td>
+    <td align="center">{reply}</td>
+    <td align="center">{start}</td>
+  </tr>
+{EXPLODE}
+</table>
+
+
+<br /><br />
+<div class="info_box">
+<p>Hier k&ouml;nnen Sie neue Foren oder/und neue Kategorien anlegen, &auml;ndern und l&ouml;schen.</p>
+<p>Sie m&uuml;ssen immer zuerst eine Kategorie anlegen. Ohne Kategorie k&ouml;nnen Sie kein Forum anlegen.</p>
+<p>Ausserdem ist es hier m&ouml;glich die Kategorien und Foren zu sortieren.</p>
+</div>

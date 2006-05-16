@@ -1,0 +1,20 @@
+<form action="index.php" method="GET">
+<input type="text" value="{search}" name="search" size="{size}" />
+&nbsp;<input type="submit" value="{_lang_search}" />
+</form>
+<hr>
+
+{EXPLODE}
+<br /><br />
+<div style="float: left">{MPL}</div>
+<div style="float: right; text-align: right">Gesamt: {gAnz}</div><br /><br />
+
+<table width="100%" cellpadding="2" cellspacing="1" border="0" class="border">
+ 
+  {EXPLODE}<tr class="{class}">
+    <td class="erstezeile" width="15"><img src="include/images/forum/{ord}.gif" width="15" height="15" border="0"></td>
+    <td class="erstezeile"><a href="?{link}">{titel}</a></td>
+  </tr>{EXPLODE}
+</table>
+
+{MPL}

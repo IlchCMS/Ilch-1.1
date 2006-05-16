@@ -1,0 +1,266 @@
+<?php 
+#   Copyright by: Manuel Staechele
+#   Support: www.ilch.de
+
+
+defined ('main') or die ( 'no direct access' );
+defined ('admin') or die ( 'only admin access' );
+
+
+require_once('include/includes/func/gallery.php');
+
+function gallery_admin_showcats ( $id , $stufe ) {
+  $q = "SELECT * FROM prefix_gallery_cats WHERE cat = ".$id." ORDER BY pos";
+	$erg = db_query($q);
+	if ( db_num_rows($erg) > 0 ) {
+ 	  while ($row = db_fetch_object($erg) ) {
+	    echo '<tr class="Cmite"><td>'.$stufe.'- <a href="?gallery-S'.$row->id.'">'.$row->name.'</a></td>';
+      echo '<td><a href="javascript:uploadImages('.$row->id.')"><img src="include/images/icons/upload.gif" title="Bilder in diese Kategorie hochladen" alt="Bilder in diese Kategorie hochladen" border="0"></td>';
+      echo '<td><a href="javascript:reloadImages('.$row->id.')"><img src="include/images/icons/reload.gif" title="Bilder in diese Kategorie erneuern / einlesen" alt="Bilder in diese Kategorie erneuern / einlesen" border="0"></a></td>';
+      echo '<td><a href="?gallery-E'.$row->id.'#edit"><img src="include/images/icons/edit.gif" border="0" alt="&auml;ndern" title="&auml;ndern"></a></td>';
+      echo '<td><a href="javascript:Kdel('.$row->id.')"><img src="include/images/icons/del.gif" border="0" alt="l&ouml;schen" title="l&ouml;schen"></a></td></tr>';
+#     echo '<td><a href="alala"><img src="include/images/icons/pfeilo.gif" border="0" title="hoch" alt="hoch"></a></td>';
+#     echo '<td><a href="alala"><img src="include/images/icons/pfeilu.gif" border="0" title="runter" alt="runter"></a></td>';
+		  gallery_admin_showcats($row->id, $stufe.' &nbsp; &nbsp;' );
+	  }
+	}
+}
+
+# Bilder einer Kategorie erneuern oder einlesen
+if ( $menu->get(1) == 'reloadImages' ) {
+  $msg = '';
+  if (isset($_POST['do_aktion']) AND $_POST['do_aktion'] == 'yes') {
+    # wenn keine aktion gewaehlt wurde
+    if (empty($_POST['aktion'])) {
+      $msg = 'Bitte eine Aktion ausw&auml;hlen<br />';
+      
+    # aktion alle bilder eines ordners einlesen
+    } elseif ($_POST['aktion'] == 'ins') {
+      if (is_dir($_POST['dir'])) {
+        $msg .= 'Bilder aus Ordner '.$_POST['dir'].' eingefugt<br />';
+        $o = opendir($_POST['dir']);
+        while($f = readdir($o)) {
+          if ($f == '.' OR $f == '..') { continue; }
+          $imgpath = $_POST['dir'].'/'.$f;
+          $size = getimagesize($imgpath);
+          if ($size[2] == 2 OR $size[2] == 3) {
+            $name = basename($imgpath);
+            $tmp = explode('.',$name);
+            $tm1 = count($tmp) -1;
+            $endung = $tmp[$tm1];
+            unset($tmp[$tm1]);
+            $name = implode('',$tmp);
+            $id = db_result(db_query("SHOW TABLE STATUS FROM `". DBDATE ."` LIKE 'prefix_gallery_imgs'"),0,'Auto_increment');
+            $bild_url = 'include/images/gallery/img_'.$id.'.'.$endung;
+            if (@copy ($imgpath,$bild_url)){
+              db_query("INSERT INTO prefix_gallery_imgs (cat,datei_name,endung,besch) VALUES (".$menu->get(2).",'".$name."','".$endung."','')");
+              $msg .= '- '.$imgpath.'<br />';
+              $bild_thumb = 'include/images/gallery/img_thumb_'.$id.'.'.$endung;
+              $bild_norm  = 'include/images/gallery/img_norm_'.$id.'.'.$endung;
+              create_thumb ($bild_url, $bild_thumb, $allgAr['gallery_preview_width']);
+              create_thumb ($bild_url, $bild_norm , $allgAr['gallery_normal_width']);
+            }
+          }
+        }
+      } else {
+        $msg = 'Konnte den Ordner '.$_POST['dir'].' nicht finden<br />';
+      }
+    
+    # aktion alle bilder erneuern mit oder ohne ueberschreiben
+    } elseif ($_POST['aktion'] == 'alle' OR $_POST['aktion'] == 'alle_no') {
+      $erg = db_query("SELECT id,endung FROM prefix_gallery_imgs WHERE cat = ".$menu->get(2));
+      while ($r = db_fetch_assoc($erg)) {
+        $endung = $r['endung'];
+        $id     = $r['id'];
+        $bild_url = 'include/images/gallery/img_'.$id.'.'.$endung;
+        if (file_exists ($bild_url)) {
+          $bild_thumb = 'include/images/gallery/img_thumb_'.$id.'.'.$endung;
+          $bild_norm  = 'include/images/gallery/img_norm_'.$id.'.'.$endung;
+          if ($_POST['aktion'] == 'alle' OR !file_exists($bild_thumb)) {
+            create_thumb ($bild_url, $bild_thumb, $allgAr['gallery_preview_width']);
+          }
+          if ($_POST['aktion'] == 'alle' OR !file_exists($bild_norm)) {
+            create_thumb ($bild_url, $bild_norm , $allgAr['gallery_normal_width']);
+          }
+        }
+      }
+      
+      if ($_POST['aktion'] == 'alle') {
+        $msg = 'Alle Bilder erneuert';
+      } else {
+        $msg = 'Alle Bilder erneuert, nicht &uuml;berschrieben';
+      }
+    }
+  }
+  
+  # anzeigen
+  $tpl = new tpl ( 'gallery/images_reload', 1);
+  $cname = 'keine Kategorie';
+  if ($menu->get(2) > 0) {
+    $cname = db_result(db_query("SELECT name FROM prefix_gallery_cats WHERE id = ".$menu->get(2)),0,0);
+  }
+  $tpl->set('cat', $menu->get(2) );
+  $tpl->set('cname',$cname);
+  $tpl->set('msg', $msg);
+  $tpl->out(0);
+  exit();
+}
+
+# Bilder in eine Kategorie hochladen
+if ( $menu->get(1) == 'uploadImages' ) {
+  $msg = '';  
+  if (isset($_POST['hochladen']) AND $_POST['hochladen'] == 'yes') {
+    foreach ($_FILES['file']['name'] AS $k => $v) {
+      if (!empty($_FILES['file']['name'][$k])) {
+        $name = $_FILES['file']['name'][$k];
+        $tmp = explode('.',$name);
+        $tm1 = count($tmp) -1;
+        $endung = $tmp[$tm1];
+        unset($tmp[$tm1]);
+        $name = implode('',$tmp);
+        $besch = escape($_POST['besch'][$k],'string');
+        $id = db_result(db_query("SHOW TABLE STATUS FROM `". DBDATE ."` LIKE 'prefix_gallery_imgs'"),0,'Auto_increment');
+        $bild_url = 'include/images/gallery/img_'.$id.'.'.$endung;
+        if (@move_uploaded_file ($_FILES['file']['tmp_name'][$k], $bild_url)) {
+          db_query("INSERT INTO prefix_gallery_imgs (cat,datei_name,endung,besch) VALUES (".$menu->get(2).",'".$name."','".$endung."','".$besch."')");
+          $msg .= 'Datei '.$name.'.'.$endung.' erfolgreich hochgeladen<br />';
+          $bild_thumb = 'include/images/gallery/img_thumb_'.$id.'.'.$endung;
+          $bild_norm  = 'include/images/gallery/img_norm_'.$id.'.'.$endung;
+          create_thumb ($bild_url, $bild_thumb, $allgAr['gallery_preview_width']);
+          create_thumb ($bild_url, $bild_norm , $allgAr['gallery_normal_width']);
+        } else {
+          $msg .= 'Datei '.$name.'.'.$endung.' konnte nicht hochgeladen werden<br />';
+        }
+      }
+    }
+  }
+  # bilder hochladen
+  
+  $anzb = 5;
+  if (isset($_GET['anzb']) AND is_numeric($_GET['anzb'])) {
+    $anzb = $_GET['anzb'];
+  }
+  $tpl = new tpl ( 'gallery/images_upload', 1);
+  $tpl->set('cat', $menu->get(2) );
+  $tpl->set('msg', $msg);
+  $tpl->out(0);
+  $class = 'Cmite';
+  for($i=1;$i<=$anzb;$i++) {
+    $tpl->set('class', ( $class == 'Cmite' ? 'Cnorm' : 'Cmite' ) );
+    $tpl->out(1);
+  }
+  $tpl->out(2);
+  exit();
+}
+
+$design = new design ( 'Admins Area', 'Admins Area', 2 );
+$design->header();
+   
+$tpl = new tpl ( 'gallery/gallery', 1);
+    
+# kategorie und link eintraege loeschen
+if ( $menu->getA(1) == 'D' ) {
+  db_query("DELETE FROM prefix_gallery_cats WHERE id = '".$menu->getE(1)."'");
+}
+
+# Bild loeschen    
+if ( $menu->getA(1) == 'd' ) {
+  $id = $menu->getE(1);
+  $row = db_fetch_assoc(db_query("SELECT endung,cat FROM prefix_gallery_imgs WHERE id = ".$id));
+  $endung = $row['endung'];
+  @unlink ('include/images/gallery/img_'.$id.'.'.$endung);
+  @unlink ('include/images/gallery/img_thumb_'.$id.'.'.$endung);
+  @unlink ('include/images/gallery/img_norm_'.$id.'.'.$endung);
+  db_query("DELETE FROM prefix_gallery_imgs WHERE id = ".$id);
+  $azk = $row['cat'];
+}
+
+# Bild Beschreibung aendern
+if ( $menu->getA(1) == 'e' ) {
+  $id = $menu->getE(1);
+  $besch = escape($_REQUEST['besch'],'string');
+  $row = db_fetch_assoc(db_query("SELECT cat FROM prefix_gallery_imgs WHERE id = ".$id));
+  db_query("UPDATE prefix_gallery_imgs SET besch = '".$besch."' WHERE id = ".$id);
+  $azk = $row['cat'];
+}
+
+# Bild erneuern
+if ( $menu->getA(1) == 'r' ) {
+  $id         = $menu->getE(1);
+  $row        = db_fetch_assoc(db_query("SELECT endung,cat FROM prefix_gallery_imgs WHERE id = ".$id));
+  $endung     = $row['endung'];
+  $bild_url   = 'include/images/gallery/img_'.$id.'.'.$endung;
+  if (file_exists ($bild_url)) {
+    $bild_thumb = 'include/images/gallery/img_thumb_'.$id.'.'.$endung;
+    $bild_norm  = 'include/images/gallery/img_norm_'.$id.'.'.$endung;
+    create_thumb ($bild_url, $bild_thumb, $allgAr['gallery_preview_width']);
+    create_thumb ($bild_url, $bild_norm , $allgAr['gallery_normal_width']);
+  }
+  $azk = $row['cat'];
+}
+
+    
+ 
+# kategorie eintrage speichern oder aendern.
+if ( isset ( $_POST['Csub']) ) {
+  if ( empty($_POST['Ccat']) ) {
+	  $_POST['Ccat'] = 0;
+	}
+	if ( empty ($_POST['Cpkey']) ) {
+    $nextpos = db_result(db_query("SELECT COUNT(*) FROM prefix_gallery_cats WHERE cat = ".$_POST['Ccat']),0,0); 
+    db_query("INSERT INTO prefix_gallery_cats (`cat`,`name`,`besch`,pos,recht) VALUES (".$_POST['Ccat'].",'".$_POST['Cname']."','".$_POST['Cdesc']."','".$nextpos."',".$_POST['Crecht'].")");
+	} else {
+	  db_query("UPDATE prefix_gallery_cats SET `cat` = '".$_POST['Ccat']."',recht=".$_POST['Crecht'].",`name` = '".$_POST['Cname']."',`besch` = '".$_POST['Cdesc']."' WHERE `id` = '".$_POST['Cpkey']."'");
+	}
+  $azk = $_POST['Ccat'];
+}
+    
+    
+  
+    if ( !isset($azk) ) {
+      $azk = 0;
+      if ( $menu->getA(1) == 'S' OR $menu->getA(1) == 'E' ) {
+        $azk = $menu->getE(1);
+      }
+    }
+    
+    $tpl->out(0); $class = 0;
+    $abf = "SELECT id,besch,datei_name,endung FROM prefix_gallery_imgs WHERE cat = ".$azk;
+    $erg = db_query($abf);
+    $i = 0;
+    while ($row = db_fetch_assoc($erg) ) {
+		  $class = ( $class == 'Cmite' ? 'Cnorm' : 'Cmite' );
+      $row['class'] = $class;
+      if ( $i <> 0 AND ($i % $allgAr['gallery_imgs_per_line'] ) == 0 ) { echo '</tr><tr>'; }
+      $tpl->set_ar_out($row,1);
+      $i++;
+    }
+    
+    # links
+    $tpl->out(2);
+    # cat
+    if ( $menu->getA(1) == 'E' ) {		 
+      $erg = db_query("SELECT id,cat as Ccat, recht as Crecht, name as Cname,pos as Cpos,`besch` as Cdesc FROM prefix_gallery_cats WHERE id = '".$menu->getE(1)."'");
+		  $_Cilch = db_fetch_assoc($erg);
+			$_Cilch['Cpkey'] = $menu->getE(1);
+		} else {
+		  $_Cilch = array (
+			  'Ccat' => '',
+				'Cpkey' => '',
+				'Cpos' => '',
+				'Cname' => '',
+        'Crecht' => '',
+				'Cdesc' => ''
+			);
+		}
+    #$_Cilch['Crecht'] = arlistee($_Cilch['Crecht'],getFuerAr());
+   	$_Cilch['Ccat']   = dblistee($_Cilch['Ccat'], "SELECT id,name FROM prefix_gallery_cats ORDER BY name");
+	  $_Cilch['Ccat']   = '<option value="0">Keine</option>'.$_Cilch['Ccat'];
+		$_Cilch['Crecht'] = dblistee($_Cilch['Crecht'],"SELECT id,name FROM prefix_grundrechte ORDER BY id DESC");
+    gallery_admin_showcats ( 0 , '' );
+    
+    $tpl->set_ar($_Cilch);
+    $tpl->out(3);
+
+$design->footer();
+?>

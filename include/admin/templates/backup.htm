@@ -1,0 +1,33 @@
+<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/backup.png" /></td><td width="30"></td><td valign="bottom"><h1>Backup</h1></td></tr></table>
+
+<form action="admin.php?backup" method="POST">
+<input type="hidden" name="sendBackup" value="yes" />
+
+  <table width="50%" cellpadding="0" cellspacing="1" border="0" >
+  <tr>
+  <td>
+    
+    <div class="warning_box">
+    <p>
+    <b>Beachten:</b> es kann keine Garantie daf&uuml;r &uuml;bernommen werden
+      das dieses Script immer einwandfrei Funktioniert und alle Daten aus der Datenbank
+      korrekt gespeichert werden!
+      </p>
+      <p>
+      Beim wiedereinspielen dieses Backups werden alle bestehenden Tabellen gel&ouml;scht und
+      durch die neuen ersetzt.
+      </p>
+      </div>
+</td>
+</tr>
+
+  <tr>
+     <td class="Cnorm"><input type="checkbox" name="gelesen" value="yes" id="gelesen" /><label style="cursor: pointer;" for="gelesen">
+       Ich habe den Text gelesen und verstanden!</label>
+     </td>
+  </tr><tr>
+    <td class="Cdark"><input type="submit" value="Backup erstellen" /></td>
+  </tr>
+</table>
+
+</form>
