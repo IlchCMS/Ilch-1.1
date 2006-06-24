@@ -74,7 +74,7 @@ function get_text ($akl) {
   $f = substr ( $akl, 0, 1);
   if (($f == 'b' OR $f == 'p') AND file_exists ( 'include/contents/selfbp/self'.$f.'/'.substr($akl,1))) {
     $t = implode("", file ('include/contents/selfbp/self'.$f.'/'.substr($akl,1)));
-    return (edit_text ($t, false));
+		return (edit_text ($t, false));
   }
  
   return ('');
