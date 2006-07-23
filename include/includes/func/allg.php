@@ -281,4 +281,59 @@ function iurlencode ($s) {
   return ($r);
 }
 
+# antispam
+function chk_antispam ($m) {
+  if (isset($_POST['antispam']) AND $_POST['antispam'] == $_SESSION['antispam'][$m]) {
+	  unset ($_SESSION['antispam'][$m]);
+	  return (true);
+	}
+	
+	return (false);
+}
+
+function get_antispam ($m, $t) {
+  
+	if (!is_array($_SESSION['antispam'])) {
+	  $_SESSION['antispam'] = array();
+	}
+	
+	$_SESSION['antispam'][$m] = array();
+	
+	$zeichen = array ('+', '-');
+	
+	mt_srand((double)microtime()*1000000);
+	$z = $zeichen[mt_rand(0,1)];
+	
+	mt_srand((double)microtime()*1040404);
+	$i1 = mt_rand (2,8);
+	
+	switch ($z) {
+	  case '+' : $i2_2 = 9 - $i1; break;
+		case '-' : $i2_2 = $i1 - 1; break;
+	}
+	
+	mt_srand((double)microtime()*1059595);
+	$i2 = mt_rand (1,$i2_2);
+	
+	if ($z == '+') {
+	  $e = $i1 + $i2;
+	} else {
+	  $e = $i1 - $i2;
+	}
+	
+	$_SESSION['antispam'][$m] = array($i1, $z, $i2, $e);
+	
+	$rs = '<span style="display: inline; width: 100px; vertical-align: middle; text-align: center; background-color: #000000; border: 0px; padding: 2px; margin: 0px;"><img src="include/images/spam/z.php?m='.$m.'&amp;w=0&amp;'.session_name().'='.session_id().'" alt=""><img src="include/images/spam/z.php?m='.$m.'&amp;w=1&amp;'.session_name().'='.session_id().'" alt=""><img src="include/images/spam/z.php?m='.$m.'&amp;w=2&amp;'.session_name().'='.session_id().'" alt=""><img src="include/images/spam/=.jpg" alt=""><input type="hidden" name="'.session_name().'" value="'.session_id().'" /><input name="antispam" size="1" maxlength="1" style="background-color: #FFFFFF; border: 0px; margin: 0px; padding: 0px;" /></span>';
+  if ($t == 0) {
+	  return ($rs);
+	} elseif ($t == 1) {
+	  return ('<tr><td class="Cmite">Antispam</td><td class="Cnorm">'.$rs.'</td></tr>');
+  } elseif ($t > 10) {
+	  return ('<label style="float:left; width: '.$t.'px; ">Antispam</label>'.$rs.'<br />');
+	} else {
+	  return ('');
+	}
+}
+# antispam
+
 ?>

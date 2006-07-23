@@ -154,7 +154,7 @@ if ( !is_numeric($menu->get(1)) )  {
 	  }
 
     # kommentar add
-  	if ( $komsOK AND !empty($_POST['name']) AND !empty($_POST['txt']) ) {
+  	if ( (loggedin() OR chk_antispam ('newskom')) AND $komsOK AND !empty($_POST['name']) AND !empty($_POST['txt']) ) {
       $_POST['txt'] = escape($_POST['txt'],'string');
 		  $_POST['name'] = escape($_POST['name'],'string');
       db_query("INSERT INTO `prefix_koms` VALUES ('',".$nid.",'NEWS','".$_POST['name']."','".$_POST['txt']."')");
@@ -181,6 +181,7 @@ if ( !is_numeric($menu->get(1)) )  {
 			'KATE'  => $kategorie,
       'NID' => $nid,
       'uname' => $_SESSION['authname'],
+			'ANTISPAM' => (loggedin()?'':get_antispam ('newskom', 0)),
 			'NAME'  => $row->news_title
 		);
 		$tpl->set_ar_out($ar, 2 );

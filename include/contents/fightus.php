@@ -39,7 +39,7 @@ foreach ($far as $v) {
 		$$v = '';
 	}
 }
-if (count($far) == $x) {
+if (count($far) == $x AND chk_antispam('fightus')) {
 	$squad = escape($squad, 'integer');
   $abf = "SELECT `mod1`,`mod2`, `mod3`,name FROM prefix_groups WHERE id = ".$squad;
 	$erg = db_query($abf);
@@ -75,6 +75,7 @@ if (count($far) == $x) {
 		}
 		$tpl->set ($v, $$v);
 	}
+	$tpl->set ('ANTISPAM', get_antispam ('fightus', 120));
 	$tpl->out(0);
 }
 $design->footer();

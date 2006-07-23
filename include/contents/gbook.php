@@ -23,14 +23,12 @@ $timeSperre = $allgAr['Gsperre'];
 
 switch($menu->get(1)) {
 case 1 :
-  $tpl = new tpl ( 'gbook.htm' );
-  
-  $_SESSION['gbook_sperre'] = md5( genkey(10) );;
-  
+
+	$tpl = new tpl ( 'gbook.htm' );
 	$ar = array (
     'uname' => $_SESSION['authname'],
     'SMILIES' => getsmilies(),
-    'schl' => $_SESSION['gbook_sperre'],
+		'ANTISPAM' => get_antispam ('gbook', 1),
     'TXTL' => $allgAr['Gtxtl']
   );
 	$tpl->set_ar_out($ar,3);
@@ -47,7 +45,7 @@ case 2 :
   AND isset($_POST['txt'])
   AND trim($_POST['name']) != ""
   AND trim($_POST['txt']) != ""
-  AND $_SESSION['gbook_sperre'] == $_POST['cho']
+  AND chk_antispam ('gbook' )
   AND strlen ($_POST['txt']) <= $allgAr['Gtxtl'] ) {
 
     $txt = escape($_POST['txt'], 'textarea');
@@ -78,7 +76,7 @@ case 2 :
 case 'show' :
   if ($allgAr['gbook_koms_for_inserts'] == 1) {
     $id = escape($menu->get(2), 'integer');
-    if (isset($_POST['name']) AND isset($_POST['text'])) {
+    if ((loggedin() OR chk_antispam('gbookkom')) AND isset($_POST['name']) AND isset($_POST['text'])) {
       $name = escape($_POST['name'], 'string');
       $text = escape($_POST['text'], 'string');
       db_query("INSERT INTO prefix_koms (name,text,uid,cat) VALUES ('".$name."', '".$text."', ".$id.", 'GBOOK')");
@@ -100,6 +98,7 @@ case 'show' :
 		}
     
     $tpl = new tpl ( 'gbook.htm' );
+		$r['ANTISPAM'] = (loggedin()?'':get_antispam('gbookkom', 0));
     $r['uname'] = $_SESSION['authname'];
     $tpl->set_ar_out($r, 4);
     $i = 1;

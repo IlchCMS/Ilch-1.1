@@ -54,7 +54,7 @@ if (loggedin()) {
   $ch_name = true;
 }
 
-if (count($far) <> $x OR $ch_name == false) {
+if (count($far) <> $x OR $ch_name == false OR !chk_antispam('joinus')) {
 	$tpl = new tpl ( 'joinus.htm' );
 	$skill  = arlistee ($skill, $skill_ar);
 	$squad = dblistee ($squad, "SELECT id,name FROM prefix_groups WHERE show_joinus = 1 ORDER BY pos");
@@ -72,6 +72,7 @@ if (count($far) <> $x OR $ch_name == false) {
   }
   $name = $xname;
   $tpl->set('readonly', (loggedin()?' readonly': ''));
+	$tpl->set('ANTISPAM', get_antispam('joinus', 100));
 	$tpl->out(0);
 } else { # eintragen
   

@@ -168,6 +168,7 @@ $lang = array
 'October' => 'October',
 'page' => 'page',
 'pat' => 'Pat',
+'pleasecopy' => 'bitte abschreiben',
 'participant' => 'Participant',
 'password' => 'Password',
 'perday' => 'per day',

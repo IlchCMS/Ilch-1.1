@@ -87,7 +87,6 @@ function RestlicheZeichenErmitteln(d)
 
 <script type='text/javascript' src='include/includes/js/bbcode.js'></script>
 <form action="index.php?gbook-2" onsubmit="return checkg()" method="POST" name="form">
-<input type="hidden" name="cho" value="{schl}" />
 
 <table width="100%" class="border" cellspacing="1" border="0" cellpadding="5">
   <tr>
@@ -121,10 +120,10 @@ function RestlicheZeichenErmitteln(d)
 		 <!-- BB Code START -->
 				</td>
       </tr><tr class="Cnorm">
-        <td width="100%"><textarea onblur="RestlicheZeichenErmitteln(this);" onchange="RestlicheZeichenErmitteln(this);" onfocus="RestlicheZeichenErmitteln(this);" onkeydown="RestlicheZeichenErmitteln(this);" onkeyup="RestlicheZeichenErmitteln(this);" cols="50" rows="10" tabindex="4" name="txt"></textarea><br />Noch <input size="3" name="Laenge" value="{TXTL}"> {_lang_signs}</td>
+        <td width="100%"><textarea style="width: 98%" onblur="RestlicheZeichenErmitteln(this);" onchange="RestlicheZeichenErmitteln(this);" onfocus="RestlicheZeichenErmitteln(this);" onkeydown="RestlicheZeichenErmitteln(this);" onkeyup="RestlicheZeichenErmitteln(this);" cols="50" rows="10" tabindex="4" name="txt"></textarea><br />Noch <input size="3" name="Laenge" value="{TXTL}"> {_lang_signs}</td>
       </tr>
     </table></td>
-	</tr><tr class="Cdark">
+	</tr>{ANTISPAM}<tr class="Cdark">
   <td></td><td><input type="submit" value="{_lang_formsub}" tabindex="5" accesskey="s"></td>
 	</tr></table></form>
 
@@ -146,8 +145,8 @@ function RestlicheZeichenErmitteln(d)
 	    <form action="index.php?gbook-show-{id}" method="POST">
         <fieldset>
           <legend>{_lang_writecomment}</legend>
-          <input type="text" name="name" value="{uname}" /> &nbsp; &nbsp; <input type="submit" value="{_lang_enter}"><br />
-          <textarea cols="50" rows="2" name="text"></textarea><br />
+          <input type="text" name="name" value="{uname}" /> &nbsp; {ANTISPAM} &nbsp; <input type="submit" value="{_lang_enter}"><br />
+          <textarea style="width: 98%" cols="50" rows="2" name="text"></textarea><br />
         </fieldset>
       </form>
       <br />

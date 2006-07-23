@@ -62,8 +62,8 @@
 	    <form action="index.php?news-{NID}" method="POST">
         <fieldset>
           <legend>{_lang_writecomment}</legend>
-          <input type="text" name="name" value="{uname}" /> &nbsp; &nbsp; <input type="submit" value="{_lang_enter}"><br />
-          <textarea cols="50" rows="2" name="txt"></textarea><br />
+          <input type="text" name="name" value="{uname}" /> &nbsp; {ANTISPAM} &nbsp; <input type="submit" value="{_lang_enter}"><br />
+          <textarea style="width: 98%" cols="50" rows="2" name="txt"></textarea><br />
         </fieldset>
       </form>
       <br />
