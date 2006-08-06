@@ -1,6 +1,7 @@
 <script language="JavaScript" type="text/javascript" src="include/includes/js/editor.js"></script> 
 
 <script language="javascript" type="text/javascript">
+<!--
 function changeAktion () {
   var akl = document.getElementById('akl').value;
   document.location.href="?selfbp=0&akl=" + akl;
@@ -12,22 +13,9 @@ function confirmDel(){
     document.location.href="?selfbp=0&del=" + akl;
   }
 }
-function submitForm() {
-	//make sure hidden and iframe values are in sync before submitting form
-	//to sync only 1 rte, use updateRTE(rte)
-	//to sync all rtes, use updateRTEs
-	updateRTE('text');
-	//updateRTEs();
-	
-	//change the following line to true to submit form
-	return true;
-}
-
-//Usage: initRTE(imagesPath, includesPath, cssFile, genXHTML)
-// initRTE("images/", "", "", true);
-
+//-->
 </script>
-<form name="RTEDemo" action="?selfbp" method="POST" onsubmit="return submitForm();">
+<form name="form" action="?selfbp" method="POST">
 
 <table cellpadding="2" cellspacing="1" border="0" class="border">
   <tr>

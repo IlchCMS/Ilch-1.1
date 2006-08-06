@@ -62,9 +62,9 @@ if ($_SESSION['authright'] <= -1 ) {
 	  $woR = '= "1"';
 }
 $limit = 3;  // Limit 
-if(empty($_GET['page'])) {  $_GET['page'] = 1;  }
-$MPL = db_make_sites ($_GET['page'] , 'WHERE recht '.$woR , $limit , "?vote" , 'poll' );
-$anfang = ($_GET['page'] - 1) * $limit;
+$page = ( $menu->getA(1) == 'p' ? $menu->getE(1) : 1 );
+$MPL = db_make_sites ($page , 'WHERE recht '.$woR , $limit , "?vote" , 'poll' );
+$anfang = ($page - 1) * $limit;
 $class = '';
 $erg = db_query('SELECT * FROM `prefix_poll` WHERE recht '.$woR.' ORDER BY poll_id DESC LIMIT '.$anfang.','.$limit);
 while ($fraRow = db_fetch_object($erg)) {

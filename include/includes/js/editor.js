@@ -67,10 +67,9 @@ function bbwy_init () {
         }
       }
 			
-			  var getDocument = document.getElementById("wysiwyg" + n).contentWindow.document;
-        getDocument.contentWindow.focus();
-        getDocument.body.style.fontSize = "";
-        getDocument.body.style.fontFamily = ""; 
+			document.getElementById("wysiwyg" + n).contentWindow.focus();
+			// doc.body.style.fontSize = "";
+			// doc.body.style.fontFamily = "";
     }
   }
 }
@@ -104,7 +103,7 @@ function bbwy_toolbars (was, n) {
 		} else if (buttons[i] == 'change') {
 		  toolbar += '<td nowrap style="width: 100px;"><input style="border: 0px; padding: 0px; margin: 0px;" type="checkbox" id="txh" onClick="bbwy_edit(this.id , \'' + n + '\');" /><label for="txh" style="cursor: pointer"> view&nbsp;Source</label></td>';
 		} else {
-		  toolbar += '<td style="width: 22px;"><img src="include/images/icons/button.' +buttons[i]+ '" border=0 unselectable="on" title="' +buttons[i]+ '" id="' +buttons[i]+ '" class="button" onClick="bbwy_edit(this.id,\'' + n + '\');"></td>';
+		  toolbar += '<td style="width: 22px;"><img src="include/images/icons/button.' +buttons[i]+ '.gif" border=0 unselectable="on" title="' +buttons[i]+ '" id="' +buttons[i]+ '" class="button" onClick="bbwy_edit(this.id,\'' + n + '\');"></td>';
 		} 
 	}
 	toolbar += '</tr></table>';

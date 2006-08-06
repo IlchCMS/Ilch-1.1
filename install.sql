@@ -90,7 +90,7 @@ INSERT INTO `prefix_config` VALUES ('allg_regeln', 'textarea', 'Allgemeine Optio
 INSERT INTO `prefix_config` VALUES ('teams_show_list', 'r2', 'Team Optionen', 'Avatar bei den Usern?', '0');
 INSERT INTO `prefix_config` VALUES ('teams_show_cat', 'r2', 'Team Optionen', 'Sollen die Squads als Kategorie angezeigt werden?', '1');
 INSERT INTO `prefix_config` VALUES ('allg_bbcode_max_img_width', 'input', 'Allgemeine Optionen', 'Wie Breit solle ein Bild maximal sein (in Pixeln)?', '230');
-
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('forum_default_avatar', 'r2', 'Forum Optionen', 'Standard Avatar anzeigen?', '1');
 
 CREATE TABLE `prefix_counter` (
   `date` date NOT NULL default '0000-00-00',
