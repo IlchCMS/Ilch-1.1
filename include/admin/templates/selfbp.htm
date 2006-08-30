@@ -22,8 +22,20 @@ function confirmDel(){
     <td class="Cmite">Aktion w&auml;hlen</td>
     <td class="Cnorm"><select id="akl" name="akl" onChange="changeAktion()">{akl}</select></td>
   </tr><tr>
-    <td class="Cmite">Name</td>
-    <td class="Cnorm"><input name="name" size="50" value="{name}" /></td>
+    <td class="Cmite">Dateiname</td>
+    <td class="Cnorm"><input name="filename" size="50" value="{filename}" /></td>
+  </tr><tr>
+    <td class="Cmite">Titel</td>
+    <td class="Cnorm"><input name="title" size="50" value="{title}" /></td>
+  </tr><tr>
+    <td class="Cmite">Hmenu</td>
+    <td class="Cnorm"><input name="hmenu" size="50" value="{hmenu}" /></td>
+  </tr><tr>
+    <td class="Cmite">Anzeige</td>
+    <td class="Cnorm">
+      <select name="view">{view}</select>
+      <input name="viewoptions" size="50" value="{viewoptions}" />
+    </td>
   </tr><tr>
     <td colspan="2" class="Cnorm">
     
@@ -43,7 +55,20 @@ function confirmDel(){
 	  <td class="Cnorm">
 		  <b>Hilfe</b><br />
 			<ol>
-			  <li>Wie binde ich denn so eine eigene Page in das Men&uuml; ein?<br />
+			  <li>
+          <ul>
+            <li><b>Dateiname:</b> Unter diesem Namen wird die Datei gespeichert und kann sie auch in der Navigation wiedergefunden werden. <br>Unbedingt auch <b>4.</b> Punkt beachten!</li>
+            <li><b>Titel</b> wird oben in der Programmleiste angezeigt</li>
+            <li><b>Hmenu</b> wird unter dem Banner angezeigt [Design abhängig]</li>
+            <li><b>Anzeige</b> Hier kann man auswählen, ob die Seite ganz <u>normal</u>, <u>Vollbild</u> (, also ohne Men&uuml;,)
+            oder in einem <u>neuen Fenster</u> angezeigt werden soll. <br>Für ein neues Fenster kann man die <u>Fenster Eigenschaften</u> noch in dem Eingabefeld dahinter festlegen. Bsp.:<br>
+            <div style="background-color:#FFFFFF">                     
+            menubar=yes, toolbar=yes, status=yes, scrollbars=yes, resizable=yes, top=50, left=300, height=500, width=350</li>
+            </div>
+          </ul>
+				</li>
+				<br /><br />
+        <li>Wie binde ich denn so eine eigene Page in das Men&uuml; ein?<br />
 				Einfach auf Navigation Klicken und den Namen aus&auml;hlen (er f&auml;ngt mit 'selfp_' an).
 				</li>
 				<br /><br />
@@ -52,7 +77,7 @@ function confirmDel(){
 		    </li>
 				<br /><br />
 				<li><b>Wichtig!</b><br />
-				Folgendes bitte beachten. Die Namen m&uuml;ssen unterschiedlich sein!
+				Folgendes bitte beachten. Die Dateiamen m&uuml;ssen unterschiedlich sein!
         Wenn Sie einen gleichen Namen verwenden, wird die schon bestehende Datei
         einfach &uuml;berschrieben!
         <br />

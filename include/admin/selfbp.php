@@ -9,6 +9,27 @@ defined ('admin') or die ( 'only admin access' );
 $design = new design ( 'Admins Area', 'Admins Area', 2 );
 $design->header();
 
+# liest die <!--@..=..@--> in den ersten 1024 Zeichen in ein Array aus
+function get_properties($t){
+      preg_match_all("|(?:<!--@(?P<name>[^=]*)=(?P<value>.*)@-->)|U",$t, $out, PREG_SET_ORDER);
+            
+      $properties= array();
+      foreach($out as $x){
+        $properties[$x[name]]=htmlspecialchars($x[value]);
+      }
+      unset($out);
+      return $properties;
+}
+
+# setzt die Eigenschaften zu einem String zusammen
+function set_properties($ar){
+  $l='';
+  foreach ($ar as $k => $v ) {
+    $l .= '<!--@'.$k.'='.$v.'@-->';
+  }
+  return ($l);
+}
+
 function rteSafe($strText) {
 	//returns safe code for preloading in the RTE
 	$tmpString = $strText;
@@ -29,12 +50,12 @@ function rteSafe($strText) {
 	
 	return $tmpString;
 }
-
+# gibt die  options für die Dateiauswahl zurück
 function get_akl ($ak) {
   $ar_l = array();
 
   if ( is_writeable ( 'include/contents/selfbp/selfp' ) ) {
-    $ar_l['pneu'] = 'Neue Seite';
+    $ar_l['pneu.php'] = 'Neue Seite';
     $o = opendir ( 'include/contents/selfbp/selfp' );
     while ($v = readdir($o) ) {
       if ( $v == '.' OR $v == '..' ) { continue; }
@@ -43,7 +64,7 @@ function get_akl ($ak) {
     closedir($o);
   }
   if ( is_writeable ( 'include/contents/selfbp/selfb' ) ) {
-    $ar_l['bneu'] = 'Neue Box';
+    $ar_l['bneu.php'] = 'Neue Box';
     $o = opendir ( 'include/contents/selfbp/selfb' );
     while ($v = readdir($o) ) {
       if ( $v == '.' OR $v == '..' ) { continue; }
@@ -59,27 +80,40 @@ function get_akl ($ak) {
   }
   return ($l);
 }
-function get_name ($akl) {
+
+function get_view($select="normal"){
+  $ar=array('normal'=>'Normal','fullscreen'=>'Vollbild','popup'=>'Neues Fenster');
+  $l = '';
+  foreach ($ar as $k => $v ) {
+    if ( $k == $select ) { $sel = ' selected'; } else { $sel = ''; }
+    $l .= '<option value="'.$k.'"'.$sel.'>'.$v.'</option>';
+  }
+  return ($l);
+}
+
+function get_filename ($akl) {
   $n = substr ($akl,1);
-  $n = str_replace('.php','',$n);
   return ($n);
 }
 
+# löscht Sonderzeichen aus dem Dateinamen
 function get_nametosave ($n) {
-  $n = preg_replace("/[^a-zA-Z0-9]/","",$n);
+  $n = preg_replace("/[^a-zA-Z0-9\.]/","",$n);
   return ($n);
 }
 
+#gibt den inhalt der ausgewählten Datei als String zurück
 function get_text ($akl) {
   $f = substr ( $akl, 0, 1);
   if (($f == 'b' OR $f == 'p') AND file_exists ( 'include/contents/selfbp/self'.$f.'/'.substr($akl,1))) {
     $t = implode("", file ('include/contents/selfbp/self'.$f.'/'.substr($akl,1)));
-		return (edit_text ($t, false));
+		return ($t);
   }
  
   return ('');
 }
 
+# fügt defined('main') hinzu, oder entfernt es
 function edit_text ($t, $add) {
   $erg = preg_match ("/^\s*<\?php defined \('main'\) or die \('no direct access'\); \?>/s", $t);
   if (!$erg AND $add) {
@@ -88,7 +122,9 @@ function edit_text ($t, $add) {
     $t = preg_replace("/\/([^>]*)>/","/\\1>\n",$t);
   } elseif ($erg AND !$add) {
     $t = preg_replace("/^\s*<\?php defined \('main'\) or die \('no direct access'\); \?>(.*)$/s","\\1",$t);
+    $t = preg_replace ("/<!--@(.*)@-->/", "", $t);
     $t = preg_replace ("/(\015\012|\015|\012)/", "", $t);
+    
   }
   return ($t);
 }
@@ -116,28 +152,32 @@ if ( !is_writable('./include/contents/selfbp/selfb') ) {
 }
 
 
-if ( isset ($_POST['text']) AND isset($_POST['name']) AND isset($_POST['akl']) ) {
+if ( isset ($_POST['text']) AND isset($_POST['filename']) AND isset($_POST['akl']) ) {
   # speichern
   $akl = $_POST['akl'];
   $text = rteSafe($_POST['text']);
+  $text = set_properties(array('title'=>$_POST['title'],'hmenu'=>$_POST['hmenu'],'view'=>$_POST['view'],'viewoptions'=>$_POST['viewoptions'])).$text;
   $text = edit_text($text, true);
-  $name = get_nametosave($_POST['name']);
   
   $a = substr ( $akl, 0, 1);
-  $e = substr ( $akl, 1 );
+  #$e = substr ( $akl, 1 );
   
-  if ( $e != 'neu' ) {
-    unlink ( 'include/contents/selfbp/self'.$a.'/'.$e );
-  }
+  #if ( $e != 'neu' ) {
+  #  unlink ( 'include/contents/selfbp/self'.$a.'/'.$e );
+  #}
   
-  $fname = 'include/contents/selfbp/self'.$a.'/'.$name.'.php';
+  $filename = get_nametosave($_POST['filename']);
+  $fname = 'include/contents/selfbp/self'.$a.'/'.$filename;
   save_file_to ( $fname, $text );
   
-  wd ('admin.php?selfbp', 'Ihre Aenderungen wurden gespeichert...', 3);
+  wd ('admin.php?selfbp=0&akl='.$a.$filename, 'Ihre Aenderungen wurden gespeichert...', 3);
 } else {
+  #anzeigen
   $tpl = new tpl ( 'selfbp', 1 );
   $akl  = '';
   if ( isset ( $_REQUEST['akl'] ) ) { $akl = $_REQUEST['akl']; }
+  
+  #löschen
   if (isset($_REQUEST['del'] )){
     $del=$_REQUEST['del'];
     $a = substr ( $del, 0, 1);
@@ -147,11 +187,15 @@ if ( isset ($_POST['text']) AND isset($_POST['name']) AND isset($_POST['akl']) )
       unlink ( 'include/contents/selfbp/self'.$a.'/'.$e );
     }
   }
-  $text = get_text($akl);
+  
+  $text= get_text($akl);
+  $properties=get_properties($text);
+  $text = edit_text ($text, false);
   $text = rteSafe($text);
-  $name = get_name($akl);
+  $filename = get_filename($akl);
   $akl  = get_akl ( $akl );
-  $tpl->set_ar_out(array('akl'=>$akl,'text'=>$text,'name'=>$name),0);
+  $view=get_view($properties['view']);
+  $tpl->set_ar_out(array('akl'=>$akl,'text'=>$text,'filename'=>$filename,'title'=>$properties['title'],'hmenu'=>$properties['hmenu'],'view'=>$view,'viewoptions'=>$properties['viewoptions']),0);
 }
 
 $design->footer();
