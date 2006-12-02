@@ -47,6 +47,15 @@ function forum_get_ordner ( $ftime, $id, $fid =0 ) {
 	}
 }
 
+function check_grp_right ($r) {
+  if ($r <= 0 AND has_right ($r)) {
+	  return (true);
+	}
+	if ($r > 0 AND isset($_SESSION['authgrp'][$r]) AND $_SESSION['authgrp'][$r] == true) {
+	  return (true);
+	}
+	return (false);
+}
 
 function check_for_pm_popup () {
   # opt_pm_popup

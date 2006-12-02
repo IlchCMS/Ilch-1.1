@@ -8,7 +8,7 @@ defined ('main') or die ( 'no direct access' );
 
 $title = $allgAr['title'].' :: Forum :: Private Nachrichten';
 $hmenu  = $extented_forum_menu.'<a class="smalfont" href="index.php?forum">Forum</a><b> &raquo; </b><a class="smalfont" href="index.php?forum-privmsg">Private Nachrichten</a>'.$extented_forum_menu_sufix;
-$design = new design ( $title , $hmenu, 1, 'forum/index.htm' );
+$design = new design ( $title , $hmenu, 1);
 $design->header();
 
 	

@@ -12,6 +12,7 @@ if ($menu->get(1) == 'showcat') {
 }
 
 if ( $menu->get(1) == 'showtopics'
+     OR $menu->get(1) == 'editforum'
      OR $menu->get(1) == 'savetopic'
      OR $menu->get(1) == 'newtopic' ) {
   $fid = escape($menu->get(2), 'integer');
@@ -48,17 +49,14 @@ if ( !empty ($fid) ) {
     a.id as cid, a.name as kat,b.name,b.view,b.start,b.reply
   FROM `prefix_forums` b
     LEFT JOIN prefix_forumcats a ON a.id = b.cid
-  WHERE (b.view  >= ".$_SESSION['authright']."
-    OR b.reply >= ".$_SESSION['authright']."
-    OR b.start >= ".$_SESSION['authright'].")
-   AND b.id = ".$fid;
+  WHERE b.id = ".$fid;
 	$aktForumErg = db_query($aktForumAbf);
   if ( db_num_rows($aktForumErg) > 0 ) {
 	  $aktForumRow = db_fetch_assoc($aktForumErg);
     $forum_rights = array (
-      'start' => has_right ($aktForumRow['start']),
-      'reply' => has_right ($aktForumRow['reply']),
-      'view'  => has_right ($aktForumRow['view']),
+      'start' => check_grp_right ($aktForumRow['start']),
+      'reply' => check_grp_right ($aktForumRow['reply']),
+      'view'  => check_grp_right ($aktForumRow['view']),
       'mods'  => forum_user_is_mod($fid),
     );
 	} else {
@@ -69,7 +67,8 @@ if ( !empty ($fid) ) {
 switch ($menu->get(1)) {
   default :            $incdatei = 'show_forum.php';   break;
 	case 'showtopics' :  $incdatei = 'show_topic.php';   break;
-	case 'showcat'    :  $incdatei = 'show_cat.php';     break;
+	case 'editforum'  :  $incdatei = 'edit_forum.php';   break;
+  case 'showcat'    :  $incdatei = 'show_cat.php';     break;
 	case 'showposts'  :  $incdatei = 'show_posts.php';   break;
 	case 'newtopic'   :  $incdatei = 'new_topic.php';    break;
 	case 'savetopic'  :  $incdatei = 'save_topic.php';   break;

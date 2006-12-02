@@ -7,7 +7,7 @@ defined ('main') or die ( 'no direct access' );
 
 $title = $allgAr['title'].' :: User :: Confirm';
 $hmenu = $extented_forum_menu.'<a class="smalfont" href="?user">User</a><b> &raquo; </b>Confirm'.$extented_forum_menu_sufix;
-$design = new design ( $title , $hmenu, 1, 'forum/index.htm' );
+$design = new design ( $title , $hmenu, 1);
 $design->header();
 
 $abgelaufen = time() - 2592000; # 30 tage

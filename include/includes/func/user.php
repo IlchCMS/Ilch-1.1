@@ -204,7 +204,7 @@ function has_right ($recht,$modul = '') {
   if ( $_SESSION['authright'] == -9 ) {
     return ( true );
   }
-  
+
   if ( !is_null($recht) ) {
     foreach ( $recht as $v ) {
       if ( ($v <= 0 AND $v >= $_SESSION['authright'] ) OR (isset($_SESSION['authgrp'][$v]) AND $_SESSION['authgrp'][$v] === true) ) {
@@ -212,14 +212,14 @@ function has_right ($recht,$modul = '') {
       }
     }
   }
-    
+
   if ( !empty($modul) AND isset($_SESSION['authmod'][$modul]) AND $_SESSION['authmod'][$modul] === true ) {
     return ( true );
   }
-    
+
   return (false);
 }
-  
+
 ### admin
 # wenn der 2. parameter weggelassen wird oder auf true gesetzt wird
 # dann wird ein login formular angezeigt, wenn der user kein admin ist.

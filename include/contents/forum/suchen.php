@@ -7,7 +7,7 @@ defined ('main') or die ( 'no direct access' );
 
 $title = $allgAr['title'].' :: Save Post';
 $hmenu  = $extented_forum_menu.'<a class="smalfont" href="?search">Suchen</a>'.$extented_forum_menu_sufix;
-$design = new design ( $title , $hmenu, 1, 'forum/index.htm' );
+$design = new design ( $title , $hmenu, 1);
 $design->header();
 
 ?>

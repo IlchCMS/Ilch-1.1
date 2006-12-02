@@ -7,7 +7,7 @@ defined ('main') or die ( 'no direct access' );
 
 $title = $allgAr['title'].' :: User :: '.$lang['listofmembers'];
 $hmenu = $extented_forum_menu.'User <b> &raquo; </b> '.$lang['listofmembers'].$extented_forum_menu_sufix;
-$design = new design ( $title , $hmenu, 1, 'forum/index.htm' );
+$design = new design ( $title , $hmenu, 1);
 $design->header();
 
 $limit = 20;  // Limit 

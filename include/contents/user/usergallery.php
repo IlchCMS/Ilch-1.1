@@ -17,7 +17,7 @@ if (empty($uid)) {
 
   $title = $allgAr['title'].' :: Users :: Gallery';
   $hmenu  = $extented_forum_menu.'<a class="smalfont" href="?user">Users</a><b> &raquo; </b>Gallery'.$extented_forum_menu_sufix;
-  $design = new design ( $title , $hmenu, 1, 'forum/index.htm' );
+  $design = new design ( $title , $hmenu, 1);
   $design->header();
   $i = 0;
   $class = 'Cmite';
@@ -42,7 +42,7 @@ $uname = db_result(db_query("SELECT name FROM prefix_user WHERE id = ".$uid),0,0
 
 $title = $allgAr['title'].' :: Users :: Gallery';
 $hmenu  = $extented_forum_menu.'<a class="smalfont" href="index.php?user">Users</a><b> &raquo; </b><a class="smalfont" href="?user-usergallery">Gallery</a><b> &raquo; </b>von '.$uname.$extented_forum_menu_sufix;
-$design = new design ( $title , $hmenu, 1, 'forum/index.htm' );
+$design = new design ( $title , $hmenu, 1);
 $design->header();
 
 

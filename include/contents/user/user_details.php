@@ -33,7 +33,7 @@ $ar = array (
 		
 $title = $allgAr['title'].' :: Users :: Details von '.$row['name'];
 $hmenu  = $extented_forum_menu.'<a class="smalfont" href="?user">Users</a><b> &raquo; </b> Details von '.$row['name'].$extented_forum_menu_sufix;
-$design = new design ( $title , $hmenu, 1, 'forum/index.htm' );
+$design = new design ( $title , $hmenu, 1);
 $design->header();
 
 $tpl = new tpl ( 'user/userdetails' );

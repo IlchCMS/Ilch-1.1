@@ -39,6 +39,21 @@ class menu {
     $this->menu_ar = $ar;
   }
   
+	# gibt ein array mit strings aus was alle sinnvollen kombinationen des menu_ar enthaelt
+	function get_string_ar () {
+	  $s = '';
+		$a = array ();
+		foreach ($this->menu_ar as $k => $v) {
+		  if ($s == '') {
+			  $s .= $v;
+			} else {
+			  $s .= '-'.$v;
+			}
+			$a[$s] = $s;
+		}
+		return ($a);
+	}
+	
   # diese funktion wird nur im admin.php und index.php
   # aufgerufen. is aber relativ zentral gell weil ohne
   # deren ok und rueckgabe laueft gar nix :)...

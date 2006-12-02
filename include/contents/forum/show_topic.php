@@ -11,7 +11,7 @@ check_forum_failure($forum_failure);
 
 $title = $allgAr['title'].' :: Forum :: '.$aktForumRow['kat'].' :: '.$aktForumRow['name'];
 $hmenu  = $extented_forum_menu.'<a class="smalfont" href="index.php?forum">Forum</a><b> &raquo; </b><a class="smalfont" href="index.php?forum-showcat-'.$aktForumRow['cid'].'">'.$aktForumRow['kat'].'</a><b> &raquo; </b>'.$aktForumRow['name'].$extented_forum_menu_sufix;
-$design = new design ( $title , $hmenu, 1, 'forum/index.htm' );
+$design = new design ( $title , $hmenu, 1);
 $design->header();
 
 	
@@ -55,8 +55,15 @@ $design->header();
 	}   } else {
 	   echo '<tr><td colspan="6" class="Cnorm"><b>keine Eintr&auml;e vorhanden</b></td></tr>';
 		}
-		$tpl->out(2);
-
+    
+    
+$tpl->out(2);
+if ( $forum_rights['mods'] == TRUE ) {
+  $tpl->set('id', $fid);
+  $tpl->out(3);
+}
+    
+    
  
 $design->footer();
 ?>

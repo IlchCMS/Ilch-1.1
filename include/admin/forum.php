@@ -65,9 +65,24 @@ switch ( $um ) {
 			);
 			$tpl = new tpl ('forum/eforum',1);
 			$ar['kats']  = dbliste('',$tpl,'kats',"SELECT id, name FROM prefix_forumcats ORDER BY name");
-			$ar['view']  = dbliste('', $tpl,'view',"SELECT id, name FROM prefix_grundrechte ORDER BY id DESC");
-			$ar['reply'] = dbliste('', $tpl,'reply',"SELECT id, name FROM prefix_grundrechte ORDER BY id DESC");
-			$ar['start'] = dbliste('', $tpl,'start',"SELECT id, name FROM prefix_grundrechte ORDER BY id DESC");
+			$ar['view']   = '<optgroup label="Grundrechte">';
+			$ar['view']  .= dbliste('', $tpl,'view',"SELECT id, name FROM prefix_grundrechte ORDER BY id DESC");
+			$ar['view']  .= '</optgroup>';
+      $ar['view']  .= '<optgroup label="Gruppen">';
+			$ar['view']  .= dbliste('', $tpl,'view',"SELECT id, name FROM prefix_groups ORDER BY id DESC");
+			$ar['view']  .= '</optgroup>';
+			$ar['reply']  = '<optgroup label="Grundrechte">';
+			$ar['reply'] .= dbliste('', $tpl,'reply',"SELECT id, name FROM prefix_grundrechte ORDER BY id DESC");
+			$ar['reply'] .= '</optgroup>';
+      $ar['reply'] .= '<optgroup label="Gruppen">';
+			$ar['reply'] .= dbliste('', $tpl,'reply',"SELECT id, name FROM prefix_groups ORDER BY id DESC");
+			$ar['reply'] .= '</optgroup>';
+			$ar['start']  = '<optgroup label="Grundrechte">';
+			$ar['start'] .= dbliste('', $tpl,'start',"SELECT id, name FROM prefix_grundrechte ORDER BY id DESC");
+			$ar['start'] .= '</optgroup>';
+      $ar['start'] .= '<optgroup label="Gruppen">';
+			$ar['start'] .= dbliste('', $tpl,'start',"SELECT id, name FROM prefix_groups ORDER BY id DESC");
+			$ar['start'] .= '</optgroup>';
 			$tpl->set_ar_out($ar,0);
 			unset($tpl);
 			$show = false;
@@ -95,9 +110,26 @@ switch ( $um ) {
 			);
 			$tpl = new tpl ('forum/eforum',1);
 			$ar['kats'] = dbliste($row->cid,$tpl,'kats',"SELECT id, name FROM prefix_forumcats ORDER BY name");
-			$ar['view'] = dbliste($row->view,$tpl,'view',"SELECT id, name FROM prefix_grundrechte ORDER BY id DESC");
-			$ar['reply'] = dbliste($row->reply,$tpl,'reply',"SELECT id, name FROM prefix_grundrechte ORDER BY id DESC");
-			$ar['start'] = dbliste($row->start,$tpl,'start',"SELECT id, name FROM prefix_grundrechte ORDER BY id DESC");
+			
+			
+			$ar['view']   = '<optgroup label="Grundrechte">';
+			$ar['view']  .= dbliste($row->view, $tpl,'view',"SELECT id, name FROM prefix_grundrechte ORDER BY id DESC");
+			$ar['view']  .= '</optgroup>';
+      $ar['view']  .= '<optgroup label="Gruppen">';
+			$ar['view']  .= dbliste($row->view, $tpl,'view',"SELECT id, name FROM prefix_groups ORDER BY id DESC");
+			$ar['view']  .= '</optgroup>';
+			$ar['reply']  = '<optgroup label="Grundrechte">';
+			$ar['reply'] .= dbliste($row->reply, $tpl,'reply',"SELECT id, name FROM prefix_grundrechte ORDER BY id DESC");
+			$ar['reply'] .= '</optgroup>';
+      $ar['reply'] .= '<optgroup label="Gruppen">';
+			$ar['reply'] .= dbliste($row->reply, $tpl,'reply',"SELECT id, name FROM prefix_groups ORDER BY id DESC");
+			$ar['reply'] .= '</optgroup>';
+			$ar['start']  = '<optgroup label="Grundrechte">';
+			$ar['start'] .= dbliste($row->start, $tpl,'start',"SELECT id, name FROM prefix_grundrechte ORDER BY id DESC");
+			$ar['start'] .= '</optgroup>';
+      $ar['start'] .= '<optgroup label="Gruppen">';
+			$ar['start'] .= dbliste($row->start, $tpl,'start',"SELECT id, name FROM prefix_groups ORDER BY id DESC");
+			$ar['start'] .= '</optgroup>';
 			$tpl->set_ar_out($ar,0);
 			unset($tpl);
 			$show = false;
@@ -136,7 +168,7 @@ switch ( $um ) {
 			$np = ( $move == 0 ? $pos -1 : $pos+1 );
 			$np = ( $np >= ( $a -1 ) ? ( $a - 1) : $np );
       $np = ( $np < 0 ? 0 : $np );
-			db_query("UPDATE prefix_forums SET pos = ".$pos." WHERE pos = ".$np);
+			db_query("UPDATE prefix_forums SET pos = ".$pos." WHERE pos = ".$np." AND cid = ".$cid);
 			db_query("UPDATE prefix_forums SET pos = ".$np." WHERE id = ".$fid);
 	  break;
 	case 'newCategorie' :
@@ -216,13 +248,17 @@ if ( $show ) {
       prefix_forums.id as fid,
       prefix_forums.name as fname,
       prefix_forums.pos as fpos,
-      vg.name as view,
-      rg.name as reply,
-      sg.name as start
+      case when view  <= 0 then vg.name else vt.name end as view,
+      case when reply <= 0 then rg.name else rt.name end as reply,
+      case when start <= 0 then sg.name else st.name end as start
     FROM prefix_forums
       LEFT JOIN prefix_grundrechte as vg ON prefix_forums.view = vg.id 
       LEFT JOIN prefix_grundrechte as rg ON rg.id = prefix_forums.reply
       LEFT JOIN prefix_grundrechte as sg ON sg.id = prefix_forums.start
+      
+			LEFT JOIN prefix_groups as vt ON prefix_forums.view = vt.id
+      LEFT JOIN prefix_groups as rt ON rt.id = prefix_forums.reply
+      LEFT JOIN prefix_groups as st ON st.id = prefix_forums.start
     WHERE prefix_forums.cid = ".$row['cid']." ORDER BY prefix_forums.pos" );
 	  while ($row1 = db_fetch_assoc($erg1) ) {
 	    $row1['class'] = $row['class'];

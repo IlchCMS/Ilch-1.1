@@ -22,7 +22,7 @@ if ( $DA_IS_WAS_FAUL === TRUE ) {
 
 $title = $allgAr['title'].' :: Users :: eMail an '.$row['name'];
 $hmenu  = $extented_forum_menu.'<a class="smalfont" href="?user">Users</a><b> &raquo; </b> eMail an '.$row['name'].$extented_forum_menu_sufix;
-$design = new design ( $title , $hmenu, 1, 'forum/index.htm' );
+$design = new design ( $title , $hmenu, 1);
 $design->header();
 
 

@@ -11,7 +11,7 @@ if ( $allgAr['forum_regist'] == 0 ) {
   # user duerfen sich nicht registrieren.
 	$title = $allgAr['title'].' :: Users :: Keine registrierung m&ouml;glich';
   $hmenu  = $extented_forum_menu.'<a class="smalfont" href="?user">User</a><b> &raquo; </b>Keine Registrierung m&ouml;glich'.$extented_forum_menu_sufix;
-  $design = new design ( $title , $hmenu, 1, 'forum/index.htm' );
+  $design = new design ( $title , $hmenu, 1);
   $design->header();
 	$tpl = new tpl ( 'user/login' );
 	echo '<b> Der Administrator hat festgelegt das man sich nicht registrieren kann </b>';
@@ -50,7 +50,7 @@ switch ( $menu->get(2) ) {
     if ( empty($name) OR empty($email) OR $name != $xname OR $ch_name == false ) {
       $title = $allgAr['title'].' :: Users :: Registrieren :: Step 2 von 3';
       $hmenu  = $extented_forum_menu.'<a class="smalfont" href="?user">User</a><b> &raquo; </b><a class="smalfont" href="?user-regist">Registrieren</a><b> &raquo; </b>Step 2 von 3'.$extented_forum_menu_sufix;
-      $design = new design ( $title , $hmenu, 1, 'forum/index.htm' );
+      $design = new design ( $title , $hmenu, 1);
 	    $design->header();
 		  if (empty($name) OR empty($email)) {
 		    $fehler = $lang['yourdata'];
@@ -77,7 +77,7 @@ switch ( $menu->get(2) ) {
       $tpl = new tpl ('user/regist' );
   		$title = $allgAr['title'].' :: Users :: Registrieren :: Step 3 von 3';
       $hmenu  = $extented_forum_menu.'<a class="smalfont" href="?user">User</a><b> &raquo; </b><a class="smalfont" href="?user-regist">Registrieren</a><b> &raquo; </b>Step 3 von 3'.$extented_forum_menu_sufix;
-      $design = new design ( $title , $hmenu, 1, 'forum/index.htm' );
+      $design = new design ( $title , $hmenu, 1);
 		  $design->header();
 		  $tpl->set_out ( 'NAME', $name, 4 );
     }

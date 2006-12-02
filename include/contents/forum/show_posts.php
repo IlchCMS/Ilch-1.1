@@ -16,7 +16,7 @@ $_SESSION['forumSEE'][$fid][$tid] = time();
 $title = $allgAr['title'].' :: Forum :: '.$aktTopicRow['name'].' :: Beitr&auml;ge zeigen';
 $hmenu  = $extented_forum_menu.'<a class="smalfont" href="index.php?forum">Forum</a><b> &raquo; </b><a class="smalfont" href="index.php?forum-showcat-'.$aktForumRow['cid'].'">'.$aktForumRow['kat'].'</a><b> &raquo; </b><a class="smalfont" href="index.php?forum-showtopics-'.$fid.'">'.$aktForumRow['name'].'</a><b> &raquo; </b>';
 $hmenu .= $aktTopicRow['name'].$extented_forum_menu_sufix;
-$design = new design ( $title , $hmenu, 1, 'forum/index.htm' );
+$design = new design ( $title , $hmenu, 1);
 $design->header();
 
 

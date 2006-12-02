@@ -192,7 +192,7 @@ function genkey ( $anz ) {
 function icmail ($mail,$bet,$txt, $from = '') {
   global $allgAr;
   if ( $from == '' ) {
-    $from = "automatische eMail <".$allgAr['adminMail'].">";
+    $from = $allgAr['allg_default_subject'].' <'.$allgAr['adminMail'].'>';
   }
   $from    = preg_replace ("/\015\012|\015|\012/", "", $from);
   $header  = "From: ".$from."\n";

@@ -8,14 +8,15 @@ defined ('main') or die ( 'no direct access' );
 
 if ( $forum_rights['mods'] == FALSE ) {
   $forum_failure[] = 'Keine Berechtigung dieses Forum zu moderiren';
-	check_forum_failure($forum_failure);
 }
+
+check_forum_failure($forum_failure);
 
 
 $title = $allgAr['title'].' :: Forum :: '.$aktForumRow['kat'].' :: '.$aktForumRow['name'].' :: '.$aktTopicRow['name'].' :: Thema &auml;ndern';
 $hmenu  = $extented_forum_menu.'<a class="smalfont" href="index.php?forum">Forum</a><b> &raquo; </b><a class="smalfont" href="index.php?forum-showcat-'.$aktForumRow['cid'].'">'.$aktForumRow['kat'].'</a><b> &raquo; </b><a class="smalfont" href="index.php?forum-showtopics-'.$fid.'">'.$aktForumRow['name'].'</a><b> &raquo; </b>';
 $hmenu .= '<a class="smalfont" href="index.php?forum-showposts-'.$tid.'">'.$aktTopicRow['name'].'</a> <b> &raquo; </b>Thema &auml;ndern'.$extented_forum_menu_sufix;
-$design = new design ( $title , $hmenu, 1, 'forum/index.htm' );
+$design = new design ( $title , $hmenu, 1);
 $design->header();
 
 $uum = $menu->get(3);

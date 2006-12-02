@@ -32,7 +32,7 @@ function getCalendar($mon, $jahr, $url, $urlod, $data, $cellpadding=2) {
   $return_str .= '<table class="border" cellpadding="'.$cellpadding.'" cellspacing="1" border="0">';
   $return_str .= '<tr class="Chead">';
   $return_str .= '<th><a href="'.str_replace('{mon}',$last_mon, str_replace('{jahr}',$last_jahr, $urlod)).'"><b>&lt;</b></a></th>';
-  $return_str .= '<th colspan="5">'.$mon.' '.$jahr.'</th>';
+  $return_str .= '<th colspan="5" align="center">'.$mon.'. '.$jahr.'</th>';
   $return_str .= '<th><a href="'.str_replace('{mon}',$next_mon, str_replace('{jahr}',$next_jahr, $urlod)).'"><b>&gt;</b></a></th>';
   $return_str .= '</tr><tr class="Cdark">';
   $return_str .= '<td>Mo</td><td>Di</td><td>Mi</td><td>Do</td><td>Fr</td><td>Sa</td><td>So</td>';

@@ -8,7 +8,7 @@ defined ('main') or die ( 'no direct access' );
 
 $title = $allgAr['title'].' :: Users :: Password Reminder';
 $hmenu  = $extented_forum_menu.'<a class="smalfont" href="?user">Users</a><b> &raquo; </b> Password Reminder'.$extented_forum_menu_sufix;
-$design = new design ( $title , $hmenu, 1, 'forum/index.htm' );
+$design = new design ( $title , $hmenu, 1);
 $design->header();
 
 

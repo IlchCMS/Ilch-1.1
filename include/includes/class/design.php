@@ -17,7 +17,10 @@ class design extends tpl {
 	  
     global $allgAr;
     
-    
+    if (!is_null($file)) {
+		  echo '<b>!!Die Funktion einen Filenamen zu uebergeben ist nicht mehr aktuell!! Bitte benutzen Sie die neue Variante</b>';
+		}
+		
 		$this->vars = array();
 		$this->file = $file; # setzte das file standart 0 weil durch was definiert
 		$this->was = $was; # 0 = smalindex, 1 = normal index , 2 = admin
@@ -41,9 +44,9 @@ class design extends tpl {
 
 	  $ar = array
 	  (
-	    'TITLE' => $title,
-		  'HMENU' => $hmenu,
-      'SITENAME' => $allgAr['title'],
+	    'TITLE' => $this->escape_explode($title),
+		  'HMENU' => $this->escape_explode($hmenu),
+      'SITENAME' => $this->escape_explode($allgAr['title']),
       'hmenuende' => '',
       'vmenuende' => '',
       'hmenubegi' => '',
@@ -52,7 +55,6 @@ class design extends tpl {
       'vmenupoint' => '',
 			'DESIGN' => $this->design
 	  );
-		
 		$tpl->set_ar($ar);
     $this->html = $tpl->get(0);
 		$this->html .= '{EXPLODE}';
@@ -69,7 +71,6 @@ class design extends tpl {
 
 	  $this->html = explode('{EXPLODE}',$this->html);
     
-    
 	}
 
 	function header () {
@@ -84,13 +85,41 @@ class design extends tpl {
       exit();
     }
 	}
-
+  
+	function escape_explode ($s) {
+	  $s = str_replace('{EXPLODE}', '&#123;EXPLODE&#125;', $s);
+	  return ($s);
+	}
+	
+	function htmlfile_ini () {
+	  global $menu;
+	  $ma = $menu->get_string_ar();
+		$ia = array();
+		if (file_exists('include/designs/'.$this->design.'/design.ini')) {
+		  $ia = parse_ini_file ('include/designs/'.$this->design.'/design.ini');
+		}
+		arsort($ma);
+		foreach ($ma as $k => $v) {
+		  if (isset($ia[$k]) AND file_exists('include/designs/'.$this->design.'/'.$ia[$k])) {
+			  return ($ia[$k]);
+			}
+		}
+		return (false);
+	}
+	
 	function htmlfile () {
-	  if ( !is_null ( $this->file ) AND file_exists ( 'include/designs/'.$this->design.'/templates/'.$this->file ) ) {
+	  $ini = $this->htmlfile_ini ();
+		/*
+		if ( !is_null ($this->file) AND file_exists ('include/designs/'.$this->design.'/templates/'.$this->file)) {
       $f = 'designs/'.$this->design.'/templates/'.$this->file;
-    } elseif ( !is_null ( $this->file ) AND file_exists ( 'include/templates/'.$this->file ) ) {
+    } elseif ( !is_null ($this->file) AND file_exists ('include/templates/'.$this->file)) {
       $f = 'templates/'.$this->file;
-    } elseif ( $this->was == 0 ) {
+		*/
+		if ($ini !== FALSE) {
+		  $f = 'designs/'.$this->design.'/'.$ini;
+    } elseif ( $this->was == 0 AND file_exists ('include/templates/'.$this->design.'/templates/small_index.htm')) {
+		  $f = 'templates/'.$this->design.'/templates/small_index.htm';
+		} elseif ( $this->was == 0) {
 		  $f = 'templates/small_index.htm';
 		} elseif ( $this->was == 1 ) {
       $f = 'designs/'.$this->design.'/index.htm';
@@ -265,7 +294,7 @@ class design extends tpl {
     }
 	  ob_start();
     require_once( $pfad );
-    $buffer = ob_get_contents();
+    $buffer = $this->escape_explode(ob_get_contents());
     ob_end_clean();
 		return($buffer);
 	}

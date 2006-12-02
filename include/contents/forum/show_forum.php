@@ -8,7 +8,7 @@ defined ('main') or die ( 'no direct access' );
 
 $title = $allgAr['title'].' :: Forum';
 $hmenu = $extented_forum_menu.'Forum'.$extented_forum_menu_sufix;
-$design = new design ( $title , $hmenu, 1, 'forum/index.htm' );
+$design = new design ( $title , $hmenu, 1);
 $design->header();
 
 if ($menu->get(1) == 'markallasread') {
@@ -31,9 +31,18 @@ FROM prefix_forums a
   LEFT JOIN prefix_forumcats k ON k.id = a.cid
   LEFT JOIN prefix_posts c ON a.last_post_id = c.id
   LEFT JOIN prefix_topics b ON c.tid = b.id
-WHERE a.view  >= ".$_SESSION['authright']."
-   OR a.reply >= ".$_SESSION['authright']."
-   OR a.start >= ".$_SESSION['authright']."
+	
+  LEFT JOIN prefix_groupusers vg ON vg.uid = ".$_SESSION['authid']." AND vg.gid = a.view
+  LEFT JOIN prefix_groupusers rg ON rg.uid = ".$_SESSION['authid']." AND rg.gid = a.reply
+  LEFT JOIN prefix_groupusers sg ON sg.uid = ".$_SESSION['authid']." AND sg.gid = a.start
+	
+WHERE (".$_SESSION['authright']." <= a.view AND a.view < 1) 
+   OR (".$_SESSION['authright']." <= a.reply AND a.reply < 1)
+   OR (".$_SESSION['authright']." <= a.start AND a.start < 1)
+	 OR vg.fid IS NOT NULL
+	 OR rg.fid IS NOT NULL
+	 OR sg.fid IS NOT NULL
+	 OR -7 >= ".$_SESSION['authright']."
 ORDER BY k.pos, a.pos";
 $erg1 = db_query($q);
 $xcid = 0;

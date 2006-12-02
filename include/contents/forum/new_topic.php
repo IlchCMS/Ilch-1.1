@@ -33,7 +33,7 @@ if (isset($_POST['Gname'])) {
 
 if (($_SESSION['klicktime'] + 15) > $dppk_time OR empty($topic) OR empty($txt) OR !empty($_POST['priview']) OR (empty($_POST['Gname']) AND !loggedin())) {
 
-  $design = new design ( $title , $hmenu, 1, 'forum/index.htm' );
+  $design = new design ( $title , $hmenu, 1);
   $design->header();
   
   $tpl = new tpl ( 'forum/newtopic' );
@@ -62,7 +62,7 @@ if (($_SESSION['klicktime'] + 15) > $dppk_time OR empty($topic) OR empty($txt) O
   # save toipc
   $_SESSION['klicktime'] = $dppk_time;
   
-  $design = new design ( $title , $hmenu, 0, 'forum/index.htm' );
+  $design = new design ( $title , $hmenu, 0);
   $design->header();
 
   if ( loggedin()) { 
