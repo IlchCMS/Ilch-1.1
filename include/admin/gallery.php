@@ -160,7 +160,9 @@ $tpl = new tpl ( 'gallery/gallery', 1);
     
 # kategorie und link eintraege loeschen
 if ( $menu->getA(1) == 'D' ) {
+  $r = db_fetch_assoc(db_query("SELECT pos, cat FROM prefix_gallery_cats WHERE id = '".$menu->getE(1)."'"));
   db_query("DELETE FROM prefix_gallery_cats WHERE id = '".$menu->getE(1)."'");
+  db_query("UPDATe prefix_gallery_cats SET pos = pos - 1 WHERE pos > ".$r['pos']." AND cat = ".$r['cat']); 
 }
 
 # Bild loeschen    
@@ -200,7 +202,25 @@ if ( $menu->getA(1) == 'r' ) {
 }
 
 if ($menu->getA(1) == 'M') {
-  echo 'move';
+  $pos = $menu->getE(2);
+  $id = $menu->getE(1);
+  $cat = db_result(db_query("SELECT cat FROM prefix_gallery_cats WHERE id = ".$id),0);
+  $nps = ( $menu->getA(2) == 'u' ? $pos + 1 : $pos - 1 );
+  $anz = db_result(db_query("SELECT COUNT(*) FROM prefix_gallery_cats WHERE cat = ".$cat),0);
+      
+  if ($nps < 0) {
+    db_query("UPDATE prefix_gallery_cats SET pos = ".$anz." WHERE id = ".$id);
+    db_query("UPDATE prefix_gallery_cats SET pos = pos -1 WHERE cat = ".$cat);
+  }
+  if ($nps >= $anz) {
+    db_query("UPDATE prefix_gallery_cats SET pos = -1 WHERE id = ".$id);
+    db_query("UPDATE prefix_gallery_cats SET pos = pos +1 WHERE cat = ".$cat);
+  }
+      
+  if ( $nps < $anz AND $nps >= 0 ) {
+    db_query("UPDATE prefix_gallery_cats SET pos = ".$pos." WHERE pos = ".$nps." AND cat = ".$cat);
+    db_query("UPDATE prefix_gallery_cats SET pos = ".$nps." WHERE id = ".$id);
+  }
 }
  
 # kategorie eintrage speichern oder aendern.
@@ -212,13 +232,21 @@ if ( isset ( $_POST['Csub']) ) {
     $nextpos = db_result(db_query("SELECT COUNT(*) FROM prefix_gallery_cats WHERE cat = ".$_POST['Ccat']),0,0); 
     db_query("INSERT INTO prefix_gallery_cats (`cat`,`name`,`besch`,pos,recht) VALUES (".$_POST['Ccat'].",'".$_POST['Cname']."','".$_POST['Cdesc']."','".$nextpos."',".$_POST['Crecht'].")");
 	} else {
-	  db_query("UPDATE prefix_gallery_cats SET `cat` = '".$_POST['Ccat']."',recht=".$_POST['Crecht'].",`name` = '".$_POST['Cname']."',`besch` = '".$_POST['Cdesc']."' WHERE `id` = '".$_POST['Cpkey']."'");
+    $r = db_fetch_assoc(db_query("SELECT cat, pos FROM prefix_gallery_cats WHERE id = ".$_POST['Cpkey']));
+    $epos = $r['pos'];
+    $akc  = $r['cat'];
+    $npos = $epos;
+    if ($akc != $_POST['Ccat']) {
+      $npos = db_result(db_query("SELECT COUNT(*) FROM prefix_gallery_cats WHERE cat = ".$_POST['Ccat']),0,0);
+    }
+	  db_query("UPDATE prefix_gallery_cats SET `cat` = '".$_POST['Ccat']."',pos=".$npos.",recht=".$_POST['Crecht'].",`name` = '".$_POST['Cname']."',`besch` = '".$_POST['Cdesc']."' WHERE `id` = '".$_POST['Cpkey']."'");
+    if ($akc != $_POST['Ccat']) {
+      db_query("UPDATE prefix_gallery_cats SET pos = pos - 1 WHERE pos > ".$epos." AND cat = ".$akc);
+    }
 	}
   $azk = $_POST['Ccat'];
 }
     
-    
-  
     if ( !isset($azk) ) {
       $azk = 0;
       if ( $menu->getA(1) == 'S' OR $menu->getA(1) == 'E' ) {

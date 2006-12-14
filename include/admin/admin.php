@@ -212,13 +212,12 @@ db_query("OPTIMIZE TABLE prefix_stats");
             echo '<table cellpadding="2" border="0" cellspacing="0">';
                         
             echo_admin_site_statistik ('Besucher nach Tagen', 'day', $smon, $ges, "schl DESC LIMIT 50" );
-            echo_admin_site_statistik ('Besucher nach Wochentagen', 'wtag', $smon, $ges, "schl DESC LIMIT 50" );
+            echo_admin_site_statistik ('Besucher nach Wochentagen', 'DAYNAME(FROM_UNIXTIME((wtag+3)*86400))', $smon, $ges, "wtag DESC LIMIT 50" );
             echo_admin_site_statistik ('Besucher nach Uhrzeit', 'stunde', $smon, $ges, "schl ASC LIMIT 50");
             echo_admin_site_statistik ('Besucher nach Browsern', 'browser', $smon, $ges, "schl DESC LIMIT 50" );
             echo_admin_site_statistik ('Besucher nach Betriebssytemen', 'os', $smon, $ges, "schl DESC LIMIT 50" );
             echo_admin_site_statistik ('Besucher nach Herkunft', 'ref', $smon, $ges, "wert DESC LIMIT 50" );
             
-
 				    echo '</table>';
 					
 						
