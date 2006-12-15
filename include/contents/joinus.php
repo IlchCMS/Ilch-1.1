@@ -57,7 +57,8 @@ if (loggedin()) {
 if (count($far) <> $x OR $ch_name == false OR !chk_antispam('joinus')) {
 	$tpl = new tpl ( 'joinus.htm' );
 	$skill  = arlistee ($skill, $skill_ar);
-	$squad = dblistee ($squad, "SELECT id,name FROM prefix_groups WHERE show_joinus = 1 ORDER BY pos");
+	$squad  = '<option value="0">choose</option>';
+  $squad .= dblistee ($squad, "SELECT id,name FROM prefix_groups WHERE show_joinus = 1 ORDER BY pos");
   if (loggedin()) { $name = $_SESSION['authname']; }
   foreach($far as $v) {
 		if ($x > 0 AND empty($_POST[$v])) {

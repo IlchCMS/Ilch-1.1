@@ -283,7 +283,7 @@ function iurlencode ($s) {
 
 # antispam
 function chk_antispam ($m) {
-  if (isset($_POST['antispam']) AND $_POST['antispam'] == $_SESSION['antispam'][$m]) {
+  if (isset($_POST['antispam']) AND md5($_POST['antispam']) == $_POST['antispam_e'.$m]) {
 	  unset ($_SESSION['antispam'][$m]);
 	  return (true);
 	}
@@ -320,10 +320,11 @@ function get_antispam ($m, $t) {
 	} else {
 	  $e = $i1 - $i2;
 	}
+  
+	$za = array ('+' => 'plus', '-' => 'minus');
+	$_SESSION['antispam'][$m] = array($i1, $za[$z], $i2);
 	
-	$_SESSION['antispam'][$m] = array($i1, $z, $i2, $e);
-	
-	$rs = '<span style="display: inline; width: 100px; vertical-align: middle; text-align: center; background-color: #000000; border: 0px; padding: 2px; margin: 0px;"><img src="include/images/spam/z.php?m='.$m.'&amp;w=0&amp;'.session_name().'='.session_id().'" alt=""><img src="include/images/spam/z.php?m='.$m.'&amp;w=1&amp;'.session_name().'='.session_id().'" alt=""><img src="include/images/spam/z.php?m='.$m.'&amp;w=2&amp;'.session_name().'='.session_id().'" alt=""><img src="include/images/spam/=.jpg" alt=""><input type="hidden" name="'.session_name().'" value="'.session_id().'" /><input name="antispam" size="1" maxlength="1" style="background-color: #FFFFFF; border: 0px; margin: 0px; padding: 0px;" /></span>';
+	$rs = '<span style="display: inline; width: 100px; vertical-align: middle; text-align: center; background-color: #000000; border: 0px; padding: 2px; margin: 0px;"><img src="include/images/spam/z.php?m='.$m.'&amp;w=0&amp;'.session_name().'='.session_id().'" alt=""><img src="include/images/spam/z.php?m='.$m.'&amp;w=1&amp;'.session_name().'='.session_id().'" alt=""><img src="include/images/spam/z.php?m='.$m.'&amp;w=2&amp;'.session_name().'='.session_id().'" alt=""><img src="include/images/spam/ist.jpg" alt=""><input name="antispam_e'.$m.'" value="'.md5($e).'" type="hidden" /><input name="antispam" size="1" maxlength="1" style="background-color: #FFFFFF; border: 0px; margin: 0px; padding: 0px;" /></span>';
   if ($t == 0) {
 	  return ($rs);
 	} elseif ($t == 1) {

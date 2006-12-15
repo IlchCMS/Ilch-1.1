@@ -21,8 +21,6 @@ function BBcode($s,$maxLength=40) {
   #$s = bbcode_autonewline($s, $coTime, $maxLength);
   
   $s = htmlentities($s);
-  $s = preg_replace ("/\015\012|\015|\012/", "\n<br />", $s);
-  
   
   # speziell bilder
   $s = bbcode_images ($s);
@@ -36,6 +34,8 @@ function BBcode($s,$maxLength=40) {
 	# smilies umwandeln
 	$s = bbcode_smiles ($s);
 	
+  $s = preg_replace ("/\015\012|\015|\012/", "\n<br />", $s);
+  
   # code zurueck ersetzten
   $s = bbcode_code_end ($s, $coTime, $result);
 	
@@ -219,9 +219,7 @@ function bbcode_simple ($s) {
     "/\[u\](.*?)\[\/u\]/si",
     "/\[url=http:\/\/(www\.)?(".$page.")(.*?)](.*?)\[\/url\]/si",
     "/\[url=http:\/\/(www\.)?(.*?)\](.*?)\[\/url\]/si",
-    "/\[\*\]([^\[]*)/is",
-    "/\[list\](.+)\[\/list\]/Usi",
-    "/\[list=1\](.+)\[\/list\]/Usi",
+    "/\[list(=1)?\](.+)\[\/list\]/Usie",
     "/(script|about|applet|activex|chrome):/is",
   );
   
@@ -231,14 +229,22 @@ function bbcode_simple ($s) {
     "<u>\\1</u>",
     "<a href=\"http://\\1\\2\\3\">\\4</a>",
     "<a href=\"http://\\1\\2\" target=\"_blank\">\\3</a>",    
-    "<li>\\1</li>",
-    "<ul>\\1</ul>",
-    "<ol>\\1</ol>",
+    "bbcode_simple_list ('\\1', '\\2')",
     "\\1&#058;",
 	);
 						
 	$s = preg_replace($search, $replace, $s);
   return ($s);
+}
+
+function bbcode_simple_list ($w, $s) {
+#  $s = preg_replace("\015\012
+  $s = preg_replace("/\[\*\]([^\[]+)/ies", "'<li>'.trim('\\1').'</li>'", trim($s));
+  if ($w == '=1') {
+    return ('<ol>'.trim($s).'</ol>');
+  }
+  
+  return ('<ul>'.trim($s).'</ul>');
 }
 
 function bbcode_smiles ($s) {

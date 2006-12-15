@@ -64,7 +64,8 @@ if (count($far) == $x AND chk_antispam('fightus')) {
 	echo sprintf($lang['leaderofxalert'], $row['name']);
 } else {
 	$clancountry  = arlistee ($clancountry, get_nationality_array() );
-	$squad = dblistee ($squad, "SELECT id,name FROM prefix_groups WHERE show_fightus = 1 ORDER BY pos");
+	$squad  = '<option value="0">choose</option>';
+  $squad .= dblistee ($squad, "SELECT id,name FROM prefix_groups WHERE show_fightus = 1 ORDER BY pos");
 	if (empty($meetingtime)) {
 		$meetingtime = date ('d.m.Y - H:i:s');
 	 }
