@@ -17,7 +17,7 @@ WHERE ((".$_SESSION['authright']." <= b.view AND b.view < 1)
 	 OR vg.fid IS NOT NULL
 	 OR rg.fid IS NOT NULL
 	 OR sg.fid IS NOT NULL
-	 OR -7 >= ".$_SESSION['authright'].")
+	 OR -9 >= ".$_SESSION['authright'].")
 ORDER BY c.time DESC
 LIMIT 0,5";
 echo '<table>';

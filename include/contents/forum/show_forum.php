@@ -42,7 +42,7 @@ WHERE (".$_SESSION['authright']." <= a.view AND a.view < 1)
 	 OR vg.fid IS NOT NULL
 	 OR rg.fid IS NOT NULL
 	 OR sg.fid IS NOT NULL
-	 OR -7 >= ".$_SESSION['authright']."
+	 OR -9 = ".$_SESSION['authright']."
 ORDER BY k.pos, a.pos";
 $erg1 = db_query($q);
 $xcid = 0;
