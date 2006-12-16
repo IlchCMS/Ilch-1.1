@@ -8,8 +8,6 @@ define ( 'admin', TRUE );
 session_name  ('sid');
 session_start ();
 
-ERROR_REPORTING (E_ALL);
-
 require_once ('include/includes/config.php');
 require_once ('include/includes/loader.php');
 

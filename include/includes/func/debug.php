@@ -10,7 +10,7 @@ $debug_output = '';
 function debug ($d,$x = 0) {
   global $debug_output;
   
-  $o = 1;
+  $o = 0;
   if ( $o == 1 AND $x == 0) {
     $debug_output .= '<span style="background-color: #FFFFFF; border:1px solid grey; color: #000000">';
 	  $debug_output .= '&nbsp;'.$d.'&nbsp;</span><br />';
