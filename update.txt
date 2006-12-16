@@ -1,8 +1,0 @@
-ALTER TABLE `ic1_gallery_cats` CHANGE `besch` `besch` TEXT NOT NULL
-ALTER TABLE `ic1_warmaps` CHANGE `opp` `opp` MEDIUMINT NOT NULL DEFAULT '0'
-ALTER TABLE `ic1_warmaps` CHANGE `owp` `owp` MEDIUMINT NOT NULL DEFAULT '0'
-ALTER TABLE `ic1_wars` CHANGE `opp` `opp` MEDIUMINT NOT NULL DEFAULT '0'
-ALTER TABLE `ic1_wars` CHANGE `owp` `owp` MEDIUMINT NOT NULL DEFAULT '0'
-
-INSERT INTO `ic1_config` ( `schl` , `typ` , `kat` , `frage` , `wert` )
-VALUES ('allg_default_subject', 'input', 'Allgemeine Optionen', 'Standard Betreff bei eMails', 'automatische eMail');  
