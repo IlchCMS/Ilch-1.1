@@ -1,5 +1,7 @@
 <?php
 
+define ( 'main' , TRUE );
+require_once('include/includes/func/db/mysql.php');
 
 $sql_file = implode('',file('update_11c_zu_11d.sql'));
 $sql_file = preg_replace ("/(\015\012|\015|\012)/", "\n", $sql_file);
