@@ -54,11 +54,15 @@ if ( !empty ($fid) ) {
   if ( db_num_rows($aktForumErg) > 0 ) {
 	  $aktForumRow = db_fetch_assoc($aktForumErg);
     $forum_rights = array (
-      'start' => check_grp_right ($aktForumRow['start']),
-      'reply' => check_grp_right ($aktForumRow['reply']),
-      'view'  => check_grp_right ($aktForumRow['view']),
+      'start' => has_right ($aktForumRow['start']),
+      'reply' => has_right (array($aktForumRow['reply'],$aktForumRow['start'])),
+      'view'  => has_right (array($aktForumRow['view'],$aktForumRow['reply'],$aktForumRow['start'])),
       'mods'  => forum_user_is_mod($fid),
     );
+    
+    if ($forum_rights['view'] == false) {
+      $forum_failure[] = $lang['forumidnotfound'];
+    }
 	} else {
 		$forum_failure[] = $lang['forumidnotfound'];
 	}

@@ -5,8 +5,6 @@
 
 defined ('main') or die ( 'no direct access' );
 
-
-
 # check ob ein fehler aufgetreten ist.
 check_forum_failure($forum_failure);
 

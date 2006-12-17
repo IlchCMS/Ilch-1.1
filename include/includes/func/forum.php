@@ -47,16 +47,6 @@ function forum_get_ordner ( $ftime, $id, $fid =0 ) {
 	}
 }
 
-function check_grp_right ($r) {
-  if ($r <= 0 AND has_right ($r)) {
-	  return (true);
-	}
-	if ($r > 0 AND isset($_SESSION['authgrp'][$r]) AND $_SESSION['authgrp'][$r] == true) {
-	  return (true);
-	}
-	return (false);
-}
-
 function check_for_pm_popup () {
   # opt_pm_popup
   if (1 == db_result(db_query("SELECT COUNT(*) FROM prefix_user where id = ".$_SESSION['authid']." AND opt_pm_popup = 1"),0,0) AND 1 <= db_result(db_query("SELECT COUNT(*) FROM prefix_pm WHERE gelesen = 0 AND status < 1 AND eid = ".$_SESSION['authid'] ),0) ) {
