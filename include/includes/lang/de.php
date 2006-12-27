@@ -340,6 +340,7 @@ $lang = array
 'registconfirm' => 'Damit Sie sich endgueltig anmelden koennen muessen Sie noch den folgenden Link bestaetigen:',
 'registconfirmlink' => 'http://%s?user-confirm&check=%s',
 'registredand' => 'registrierter und',
+'registrededand' => 'registrierte und',
 'sitemapforboard' => 'Sitemap f&uuml;r Forum',
 'sitemapfordownloads' => 'Sitemap f&uuml;r Downloads',
 'sitemapforlinks' => 'Sitemap f&uuml;r Links',

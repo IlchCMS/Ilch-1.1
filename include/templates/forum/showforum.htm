@@ -40,7 +40,7 @@
 	
 <table width="100%" border="0" cellpadding="5" cellspacing="1" class="border">
 	  <tr class="Cnorm">
-		  <td class="erstezeile">{_lang_it} {istsind} {gesonline} {_lang_guestsonline,ofthem} {useronline} {_lang_registredand} {gastonline} {_lang_guests}<br />
+		  <td class="erstezeile">{_lang_it} {istsind} {gesonline} {_lang_guestsonline,ofthem} {useronline} {_if_{useronline}=='1'}{_lang_registredand}{/_endif}{_if_{useronline}!='1'}{_lang_registrededand}RR{/_endif} {gastonline} {_lang_guests}<br />
 			{userliste}
 			</td>
 	  </tr>
