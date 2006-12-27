@@ -91,10 +91,10 @@ INSERT INTO `prefix_config` VALUES ('teams_show_list', 'r2', 'Team Optionen', 'A
 INSERT INTO `prefix_config` VALUES ('teams_show_cat', 'r2', 'Team Optionen', 'Sollen die Squads als Kategorie angezeigt werden?', '1');
 INSERT INTO `prefix_config` VALUES ('allg_bbcode_max_img_width', 'input', 'Allgemeine Optionen', 'Wie Breit solle ein Bild maximal sein (in Pixeln)?', '230');
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('forum_default_avatar', 'r2', 'Forum Optionen', 'Standard Avatar anzeigen?', '1');
-INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('allg_default_subject', 'input', 'Allgemeine Optionen', 'Standard Betreff bei eMails', 'automatische eMail');  
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('allg_default_subject', 'input', 'Allgemeine Optionen', 'Standard Betreff bei eMails', 'automatische eMail');
 
 CREATE TABLE `prefix_counter` (
-  `date` date NOT NULL default '0000-00-00',
+  `date` date NOT NULL,
   `count` smallint(5) NOT NULL default '0'
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 
