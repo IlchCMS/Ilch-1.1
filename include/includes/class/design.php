@@ -18,7 +18,7 @@ class design extends tpl {
     global $allgAr;
     
     if (!is_null($file)) {
-		  echo '<b>!!Die Funktion einen Filenamen zu uebergeben ist nicht mehr aktuell!! Bitte benutzen Sie die neue Variante</b>';
+		  echo '<div style="display: block; background-color: #FFFFFF; border: 2px solid #ff0000;">!!Man konnte in einer PHP Datei eine spezielle Index angeben. Damit das Design fuer diese Datei anders aussieht. Diese Funktion wurde ersetzt. Weitere Informationen im Forum auf ilch.de ... </div>';
 		}
 		
 		$this->vars = array();

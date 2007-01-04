@@ -20,7 +20,7 @@ while ($row = db_fetch_object($resultID)) {
 	$brk=$row->uid;
 }
 if ($guests == 1) { $guestn = $lang['guest']; }
-if (empty($content)) { $content.='<tr><td><img src="include/images/icons/offline.gif"  border="0" alt="offline"></td><td><font color="#003366">0 User </font></td><tr>'."\n"; }
+if (empty($content)) { $content.='<tr><td><img src="include/images/icons/offline.gif"  border="0" alt="offline"></td><td><font color="#003366">0 User </font></td></tr>'."\n"; }
 
 $content.='<tr><td colspan="2"><hr style="height: 0px; border: dashed #9AB1C8 0px; border-top-width: 1px;"></td></tr>'."\n";
 $where = (count($uid)>0) ? 'WHERE id NOT IN ('.implode(', ', $uid).')' : '';

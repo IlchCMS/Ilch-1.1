@@ -18,7 +18,7 @@ if ( loggedin() ) {
   wd ($wd, $lang['yourareloged']);
   $design->footer();
 } else {
-  $design = new design ( $title , $hmenu, 1, 'forum/index.htm' );
+  $design = new design ( $title , $hmenu );
   $design->header();
   $tpl = new tpl ( 'user/login.htm' );
   $tpl->set_out('WDLINK','index.php?'.$allgAr['smodul'],0);

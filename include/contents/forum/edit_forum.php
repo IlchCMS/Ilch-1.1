@@ -16,7 +16,9 @@ $hmenu  = $extented_forum_menu.'<a class="smalfont" href="index.php?forum">Forum
 $design = new design ( $title , $hmenu, 1);
 $design->header();
 
-if (isset($_POST['status'])) {
+if ((isset($_POST['del']) OR isset($_POST['shift']) OR isset($_POST['status'])) AND (empty($_POST['in']) OR (isset($_POST['in']) AND (!is_array($_POST['in']) OR count($_POST['in']) < 1)))) {
+  wd ('index.php?forum-editforum-'.$fid, 'Es wurden keine Themen gew&auml;hlt.' , 2 );
+} elseif (isset($_POST['status'])) {
   foreach ($_POST['in'] as $k => $v) {
     $astat = db_result(db_query("SELECT stat FROM prefix_topics WHERE id = ".$k), 0, 0);
     $nstat = ($astat == 1 ? 0 : 1 );
