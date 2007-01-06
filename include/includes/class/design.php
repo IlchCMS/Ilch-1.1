@@ -115,7 +115,7 @@ class design extends tpl {
     } elseif ( !is_null ($this->file) AND file_exists ('include/templates/'.$this->file)) {
       $f = 'templates/'.$this->file;
 		*/
-		if ($ini !== FALSE) {
+		if ($this->was == 1 AND $ini !== FALSE) {
 		  $f = 'designs/'.$this->design.'/'.$ini;
     } elseif ( $this->was == 0 AND file_exists ('include/templates/'.$this->design.'/templates/small_index.htm')) {
 		  $f = 'templates/'.$this->design.'/templates/small_index.htm';

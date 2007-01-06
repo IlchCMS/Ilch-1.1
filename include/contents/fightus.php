@@ -50,7 +50,7 @@ if (count($far) == $x AND chk_antispam('fightus')) {
 	$datum = $datum." ".$zeit;
 	$clanpage = get_homepage ($clanpage);
   # als upcoming war vormerken (kategorie 1)
-	db_query("INSERT INTO prefix_wars (datime,`status`,gegner,tag,page,mail,icq,wo,tid,`mod`,game,mtyp,land,txt) VALUES ('".$datum."','1','".$clanname."','".$clantag."','".$clanpage."','".$icqnumber."','".$mailaddy."','".$meetingplace."','".$squad."','".$xonx."','".$game."','".$matchtype."','".$clancountry."','".$message."')");
+	db_query("INSERT INTO prefix_wars (datime,`status`,gegner,tag,page,mail,icq,wo,tid,`mod`,game,mtyp,land,txt) VALUES ('".$datum."','1','".$clanname."','".$clantag."','".$clanpage."','".$mailaddy."','".$icqnumber."','".$meetingplace."','".$squad."','".$xonx."','".$game."','".$matchtype."','".$clancountry."','".$message."')");
   # pm an den leader
 	sendpm($_SESSION['authid'], $row['mod1'],'Fightus Anfrage', $txt, -1);
   # Wenn Co Leader != Leader

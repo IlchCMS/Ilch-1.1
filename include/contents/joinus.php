@@ -79,7 +79,7 @@ if (count($far) <> $x OR $ch_name == false OR !chk_antispam('joinus')) {
   
   $name = $xname;
 	$userreg = $lang['no'];
-  if (!loggedin()) {
+  if (!loggedin() AND $allgAr['forum_regist'] <> 0) {
     $x = user_regist ($name,$mail,genkey(8));
     $userreg = $lang['yes'];
   }
@@ -118,7 +118,7 @@ if (count($far) <> $x OR $ch_name == false OR !chk_antispam('joinus')) {
 		sendpm ($_SESSION['authid'], $row['mod4'], 'Joinus Anfrage',$mailtxt, -1);
 	}
   
-	if (!loggedin()) {
+	if (!loggedin() AND $allgAr['forum_regist'] <> 0) {
 		echo $lang['amailhasbeensenttoyouwithmailandpass'].'<br /><br />';
   }
   echo sprintf($lang['leaderofxalert'], $row['name']);

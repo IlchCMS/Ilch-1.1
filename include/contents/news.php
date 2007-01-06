@@ -18,7 +18,7 @@ function news_find_kat ($kat) {
 		$katpfad = 'include/images/news/';
 		$katjpg = $katpfad.$kat.'.jpg';
 		$katgif = $katpfad.$kat.'.gif';
-		$katpng = $katpfad.$kat.'.jpg';
+		$katpng = $katpfad.$kat.'.png';
 		
 		if ( file_exists( $katjpg ) ) {
 		  $pfadzumBild = $katjpg;
