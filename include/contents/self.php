@@ -5,6 +5,7 @@
 
 defined ('main') or die ( 'no direct access' );
 
+
 # liest die <!--@..=..@--> in den ersten 1024 Zeichen in ein Array aus
 function get_properties($file){
       $handle = fopen ($file, 'r');

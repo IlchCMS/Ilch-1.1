@@ -9,6 +9,7 @@ defined ('admin') or die ( 'only admin access' );
 $design = new design ( 'Admins Area', 'Admins Area', 2 );
 $design->header();
 
+
 # liest die <!--@..=..@--> in den ersten 1024 Zeichen in ein Array aus
 function get_properties($t){
       preg_match_all("|(?:<!--@(?P<name>[^=]*)=(?P<value>.*)@-->)|U",$t, $out, PREG_SET_ORDER);
