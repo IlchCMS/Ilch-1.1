@@ -58,7 +58,81 @@ function count_files ($cid) {
 	return ( $zges );
 }
 
+function icUpload () {
+	    
+      $name = escape($_POST['name'],'string');
+	    $version = escape($_POST['version'],'string');
+	    $autor = escape($_POST['autor'],'string');
+	    $surl = escape($_POST['surl'],'string');
+	    $ssurl = escape($_POST['ssurl'],'string');
+      $url = ( empty($_POST['url']) ? '' : escape($_POST['url'],'string') );
+	    $desc = escape($_POST['desc'],'string');
+	    $descl = escape($_POST['descl'],'textarea');
+      
+      if (empty($name)) {
+        return ('keinen Namen angegeben.');
+      }
 
+      if (empty($desc) or empty($descl)) {
+        return ('kein langer oder/und kein kurzer Text angegeben.');
+      }
+      
+      if (empty($url) AND empty($_FILES['file']['name'])) {
+        return ('Keine Datei oder Link angegeben.');
+      }
+  
+	    if (!empty ($_FILES['file']['name']) ) {
+		    $type  = trim($_FILES['file']['type']);
+		    $rtype = trim(mime_content_type ($_FILES['file']['tmp_name']));
+        $fname = escape($_FILES['file']['name'],'string');
+        $fende = preg_replace("/.+\.([a-zA-Z]+)$/", "\\1", $fname);
+        
+        if (
+		      ($fende != 'rar' AND $fende != 'zip' AND $fende != 'tar')
+          
+          OR (
+          $type != 'application/zip' AND
+		    	$type != 'application/rar' AND
+		    	$type != 'application/x-rar-compressed' AND
+		    	$type != 'application/x-zip-compressed' AND
+          $type != 'application/x-rar' AND
+          $type != 'application/x-zip' AND
+          $type != 'application/x-tar')
+          
+          OR (
+          $rtype != 'application/x-rar' AND
+          $rtype != 'application/x-zip' AND
+          $rtype != 'application/x-tar')
+
+		    ) {
+          return ('Die Datei darf nur die Endungen: .zip, .tar oder .rar haben.');
+        }
+        
+        $fname = str_replace ('.'.$fende, '', $fname);
+        $fname = preg_replace("/[^a-zA-Z0-9]/", "", $fname);
+        $fname = $fname.'.'.$fende;
+          
+		    if ( $_FILES['file']['size'] > 2097000 ) { # 2 mb (2 097 152)
+          return ('Die Datei darf NICHT gr&ouml;sser als 2 MBytes sein.');
+        }
+        
+        if (file_exists( 'include/downs/downloads/user_upload/'.$fname ) ) {
+          return ('Die Datei existiert bereits und kann nicht &uuml;berschrieben werden.');
+        }
+        
+        if ( move_uploaded_file($_FILES['file']['tmp_name'], 'include/downs/downloads/user_upload/'.$fname) ) {
+          $url = 'include/downs/downloads/user_upload/'.$fname;
+			  }
+      }
+        
+      if (empty($url)) {
+        return ('Keine Datei oder Link angegeben');
+      }
+        
+      db_query("INSERT INTO prefix_downloads (`time`,`cat`,`creater`,`version`,`url`,surl,`ssurl`,`name`,`desc`,`descl`,pos) VALUES (NOW(),-1,'".$autor."','".$version."','".$url."','".$surl."','".$ssurl."','".$name."','".$desc."','".$descl."','0')");
+        
+      return (true);
+}
 
 switch ( $menu->get(1) ) {
   default :
@@ -206,76 +280,13 @@ switch ( $menu->get(1) ) {
       $design = new design ( $title , $hmenu );
 	    $design->header();
       
-	    $finsert = false;
-	    $uinsert = true;
-	
-	    $name = escape($_POST['name'],'string');
-	    $version = escape($_POST['version'],'string');
-	    $autor = escape($_POST['autor'],'string');
-	    $surl = escape($_POST['surl'],'string');
-	    $ssurl = escape($_POST['ssurl'],'string');
-      $url = ( empty($_POST['url']) ? '' : escape($_POST['url'],'string') );
-	    $desc = escape($_POST['desc'],'string');
-	    $descl = escape($_POST['descl'],'textarea');
-	    if ( !empty($name) AND !empty($desc) AND !empty($descl) ) {
-	      $finsert = true;
-	    }
-  
-	    if ( !empty ($_FILES['file']['name']) ) {
-        $uinsert = false;
-		    $type = $_FILES['file']['type'];
-		    $fname = escape($_FILES['file']['name'],'string');
-		    $fname = str_replace(' ','',$fname);
-        if (
-		      $type == 'application/zip' OR
-		    	$type == 'application/rar' OR
-		    	$type == 'application/x-rar-compressed' OR
-		    	$type == 'application/x-zip-compressed' OR
-          $type == 'application/x-rar' OR
-          $type == 'application/x-zip' OR
-          $type == 'application/octet-stream'
-		 
-		    ) {
-		      if ( $_FILES['file']['size'] <= 2097000 ) { # 2 mb (2 097 152)
-			      if ( !file_exists( 'include/downs/downloads/user_upload/'.$fname ) ) {
-			        if ( move_uploaded_file($_FILES['file']['tmp_name'], 'include/downs/downloads/user_upload/'.$fname) ) {
-			          $uinsert = true;
-			    		  $url = 'include/downs/downloads/user_upload/'.$fname;
-			        }
-			    	} else {
-			    	  $exists = true;
-			    	}
-			    }
-		    }
-	    } else {
-		    if ( empty($url) ) {
-		      $finsert = false;
-		    }
-	    }
-	
-	    if ( $finsert AND $uinsert ) {
-	      db_query("INSERT INTO prefix_downloads (`time`,`cat`,`creater`,`version`,`url`,surl,`ssurl`,`name`,`desc`,`descl`,pos) VALUES (NOW(),-1,'".$autor."','".$version."','".$url."','".$surl."','".$ssurl."','".$name."','".$desc."','".$descl."','0')");
-		    echo 'Erfolgreich eingetragen! ... ein Moderator oder Admin dieser Seite wird den Download in n&auml;chster Zeit freischalten.';
-	    } else {
-	      ?>
-		      Es ist ein Fehler aufgetreten!<br /><br />
-		    	- Folgende Felder sind Pflicht:<br />
-		    	- - Name<br />
-		    	- - Kurz Besch.<br />
-		    	- - Beschreibung<br />
-		    	- - Link oder Upload Datei<br /><br />
-			
-			    - Wenn eine Datei hochgeladen wird:<br />
-		    	- - Die Datei darf NICHT gr&ouml;sser als 2 MBytes sein.<br />
-		    	- - Die Datei darf nur die Endungen: .zip oder .rar haben.<br /><br />
-		    	<?php
-			    if ( isset ($exists) ) {
-			      echo ' - - <b>Grund f&uuml;r den Abbruch:</b> Die Datei existiert bereits und kann nicht &uuml;berschrieben werden.<br />';
-			    }
-			    ?>
-			    <a href="javascript:history.back()">zur&uuml;ck</a>
-		    <?php
+      $re = icUpload(); 
+	    if ($re === true) {
+        echo 'Erfolgreich eingetragen! ... ein Moderator oder Admin dieser Seite wird den Download in n&auml;chster Zeit freischalten.';
+      } else {
+        echo '<b>Error:</b><br />'.$re;
       }
+      
       $design->footer();
     }
     break;

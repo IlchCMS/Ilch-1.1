@@ -26,6 +26,7 @@ require_once('include/includes/func/statistic.php');
 require_once('include/includes/func/listen.php');
 require_once('include/includes/func/forum.php');
 require_once('include/includes/func/warsys.php'); 
+require_once('include/includes/func/mime_content_type.php');
 
 # load something else
 require_once ('include/includes/lang/de.php');

@@ -18,7 +18,7 @@ class design extends tpl {
     global $allgAr;
     
     if (!is_null($file)) {
-		  echo '<div style="display: block; background-color: #FFFFFF; border: 2px solid #ff0000;">!!Man konnte in einer PHP Datei eine spezielle Index angeben. Damit das Design fuer diese Datei anders aussieht. Diese Funktion wurde ersetzt. Weitere Informationen im Forum auf ilch.de ... </div>';
+		  echo '<div style="display: block; background-color: #FFFFFF; border: 2px solid #ff0000;">!!Man konnte in einer PHP Datei eine spezielle Index angeben. Damit das Design fuer diese Datei anders aussieht. Diese Funktion wurde ersetzt. Weitere Informationen im Forum auf ilch.de ... Thema: <a href="http://www.ilch.de/forum-showposts-13758-p1.html#108812">http://www.ilch.de/forum-showposts-13758-p1.html#108812</a></div>';
 		}
 		
 		$this->vars = array();
@@ -95,14 +95,20 @@ class design extends tpl {
 	  global $menu;
 	  $ma = $menu->get_string_ar();
 		$ia = array();
-		if (file_exists('include/designs/'.$this->design.'/design.ini')) {
-		  $ia = parse_ini_file ('include/designs/'.$this->design.'/design.ini');
-		}
+		if (!file_exists('include/designs/'.$this->design.'/design.ini')) {
+      return (false);
+    }
+		$ia = parse_ini_file ('include/designs/'.$this->design.'/design.ini');
 		arsort($ma);
-		foreach ($ma as $k => $v) {
-		  if (isset($ia[$k]) AND file_exists('include/designs/'.$this->design.'/'.$ia[$k])) {
-			  return ($ia[$k]);
-			}
+		arsort ($ia);
+		foreach ($ia as $k => $v) {
+      $k = preg_replace("/[^a-zA-Z0-9-*]/", "", $k);
+		  $k = str_replace('*', '[^-]+', $k);
+		  foreach ($ma as $k1 => $v1) {
+		    if (preg_match("/".$k."/", $k1) AND file_exists('include/designs/'.$this->design.'/'.$v)) {
+          return ($v);
+			  }
+		  }
 		}
 		return (false);
 	}

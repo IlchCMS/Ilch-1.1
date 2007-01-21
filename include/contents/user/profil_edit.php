@@ -70,16 +70,16 @@ if ( empty ($_POST['submit']) ) {
 			$avatar_sql_update = '';
       if ( !empty ( $_FILES['avatarfile']['name'] ) ) {
 				$file_tmpe = $_FILES['avatarfile']['tmp_name'];
+        $rile_type = mime_content_type ($_FILES['avatarfile']['tmp_name']);
 				$file_type = $_FILES['avatarfile']['type'];
 				$file_size = $_FILES['avatarfile']['size'];
-				$file_name = $_FILES['avatarfile']['name'];
         $fmsg = $lang['avatarisnopicture']; 
-				if ( substr ( $file_type , 0 , 6 ) == 'image/' ) {
-				  $endung = preg_replace("/.*\.([^\.]+)/", "\\1", $file_name);
+				if ( substr ( $file_type , 0 , 6 ) == 'image/' AND substr ( $rile_type , 0 , 6 ) == 'image/' ) {
+				  $endung = substr ( $rile_type, 6, strlen ( $file_type ) -6 );
 				  $size   = getimagesize($file_tmpe);
           $breite = $size[0];
           $hoehe  = $size[1];
-          $fmsg   = $lang['avatarcannotupload']; 
+          $fmsg = $lang['avatarcannotupload']; 
 				  if ( $file_size <= $allgAr['Fasize'] AND $breite <= $allgAr['Fabreite'] AND $hoehe <=  $allgAr['Fahohe'] ) {
 					  $neuer_name = 'include/images/avatars/'.$_SESSION['authid'].'.'.$endung;
 						@unlink (db_result(db_query("SELECT avatar FROM prefix_user WHERE id = ".$_SESSION['authid']),0));
@@ -93,7 +93,6 @@ if ( empty ($_POST['submit']) ) {
         @unlink (db_result(db_query("SELECT avatar FROM prefix_user WHERE id = ".$_SESSION['authid']),0));
         $avatar_sql_update = "avatar = '',";
       }
-  
   # avatar speichern ENDE
   
   
