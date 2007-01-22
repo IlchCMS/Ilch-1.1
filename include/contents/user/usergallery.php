@@ -66,7 +66,7 @@ if (!empty($_FILES['file']['name']) AND is_writeable('include/images/usergallery
   require_once('include/includes/func/gallery.php');
   $size = @getimagesize ($_FILES['file']['tmp_name']);
   $fende = preg_replace("/.+\.([a-zA-Z]+)$/", "\\1", $_FILES['file']['name']);
-  if (!empty($_FILES['file']['name']) AND ($size[2] == 2 OR $size[2] == 3) AND ($fende == 'jpg' OR $fende == 'jpeg' OR $fende == 'png')) {
+  if (!empty($_FILES['file']['name']) AND $size[0] > 10 AND $size[1] > 10 AND ($size[2] == 2 OR $size[2] == 3) AND ($fende == 'jpg' OR $fende == 'jpeg' OR $fende == 'png')) {
     $name = $_FILES['file']['name'];
     $tmp = explode('.',$name);
     $tm1 = count($tmp) -1;

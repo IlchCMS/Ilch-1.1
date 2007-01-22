@@ -100,7 +100,7 @@ class design extends tpl {
     }
 		$ia = parse_ini_file ('include/designs/'.$this->design.'/design.ini');
 		arsort($ma);
-		arsort ($ia);
+		krsort ($ia);
 		foreach ($ia as $k => $v) {
       $k = preg_replace("/[^a-zA-Z0-9-*]/", "", $k);
 		  $k = str_replace('*', '[^-]+', $k);

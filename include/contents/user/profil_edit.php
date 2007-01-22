@@ -73,13 +73,14 @@ if ( empty ($_POST['submit']) ) {
         $rile_type = mime_content_type ($_FILES['avatarfile']['tmp_name']);
 				$file_type = $_FILES['avatarfile']['type'];
 				$file_size = $_FILES['avatarfile']['size'];
-        $fmsg = $lang['avatarisnopicture']; 
-				if ( substr ( $file_type , 0 , 6 ) == 'image/' AND substr ( $rile_type , 0 , 6 ) == 'image/' ) {
-				  $endung = substr ( $rile_type, 6, strlen ( $file_type ) -6 );
-				  $size   = getimagesize($file_tmpe);
+        $fmsg = $lang['avatarisnopicture'];
+        $size  = @getimagesize ($file_tmpe);
+        $endar = array (1 => 'gif', 2 => 'jpg', 3 => 'png');
+				if ( ($size[2] == 1 OR $size[2] == 2 OR $size[2] == 3) AND $size[0] > 10 AND $size[1] > 10 AND substr ( $file_type , 0 , 6 ) == 'image/' AND substr ( $rile_type , 0 , 6 ) == 'image/' ) {
+				  $endung = $endar[$size[2]];
           $breite = $size[0];
           $hoehe  = $size[1];
-          $fmsg = $lang['avatarcannotupload']; 
+          $fmsg = $lang['avatarcannotupload'];
 				  if ( $file_size <= $allgAr['Fasize'] AND $breite <= $allgAr['Fabreite'] AND $hoehe <=  $allgAr['Fahohe'] ) {
 					  $neuer_name = 'include/images/avatars/'.$_SESSION['authid'].'.'.$endung;
 						@unlink (db_result(db_query("SELECT avatar FROM prefix_user WHERE id = ".$_SESSION['authid']),0));
