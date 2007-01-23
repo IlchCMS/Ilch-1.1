@@ -62,11 +62,11 @@ if ($menu->getA(4) == 'd' AND is_numeric($menu->getE(4)) AND loggedin() AND (is_
 }
 
 # bild hochladen
-if (!empty($_FILES['file']['name']) AND is_writeable('include/images/usergallery') AND loggedin() AND $uid == $_SESSION['authid'] AND substr ( mime_content_type($_FILES['file']['tmp_name']) , 0 , 6 ) == 'image/') {
+if (!empty($_FILES['file']['name']) AND is_writeable('include/images/usergallery') AND loggedin() AND $uid == $_SESSION['authid'] AND substr ( ic_mime_type($_FILES['file']['tmp_name']) , 0 , 6 ) == 'image/') {
   require_once('include/includes/func/gallery.php');
   $size = @getimagesize ($_FILES['file']['tmp_name']);
   $fende = preg_replace("/.+\.([a-zA-Z]+)$/", "\\1", $_FILES['file']['name']);
-  if (!empty($_FILES['file']['name']) AND $size[0] > 10 AND $size[1] > 10 AND ($size[2] == 2 OR $size[2] == 3) AND ($fende == 'jpg' OR $fende == 'jpeg' OR $fende == 'png')) {
+  if (!empty($_FILES['file']['name']) AND $size[0] > 10 AND $size[1] > 10 AND ($size[2] == 2 OR $size[2] == 3 OR $size[2] == 1) AND ($fende == 'gif' OR $fende == 'jpg' OR $fende == 'jpeg' OR $fende == 'png')) {
     $name = $_FILES['file']['name'];
     $tmp = explode('.',$name);
     $tm1 = count($tmp) -1;

@@ -70,7 +70,7 @@ if ( empty ($_POST['submit']) ) {
 			$avatar_sql_update = '';
       if ( !empty ( $_FILES['avatarfile']['name'] ) ) {
 				$file_tmpe = $_FILES['avatarfile']['tmp_name'];
-        $rile_type = mime_content_type ($_FILES['avatarfile']['tmp_name']);
+        $rile_type = ic_mime_type ($_FILES['avatarfile']['tmp_name']);
 				$file_type = $_FILES['avatarfile']['type'];
 				$file_size = $_FILES['avatarfile']['size'];
         $fmsg = $lang['avatarisnopicture'];

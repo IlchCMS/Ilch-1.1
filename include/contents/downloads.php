@@ -83,7 +83,7 @@ function icUpload () {
   
 	    if (!empty ($_FILES['file']['name']) ) {
 		    $type  = trim($_FILES['file']['type']);
-		    $rtype = trim(mime_content_type ($_FILES['file']['tmp_name']));
+		    $rtype = trim(ic_mime_type ($_FILES['file']['tmp_name']));
         $fname = escape($_FILES['file']['name'],'string');
         $fende = preg_replace("/.+\.([a-zA-Z]+)$/", "\\1", $fname);
         
