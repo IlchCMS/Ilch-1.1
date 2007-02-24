@@ -24,7 +24,7 @@ switch ( $menu->get(2) ) {
   default :
 	  $title = $allgAr['title'].' :: Users :: Registrieren :: Step 1 von 3';
     $hmenu  = $extented_forum_menu.'<a class="smalfont" href="?user">User</a><b> &raquo; </b><a class="smalfont" href="?user-regist">Registrieren</a><b> &raquo; </b>Step 1 von 3'.$extented_forum_menu_sufix;
-    $design = new design ( $title , $hmenu, 1, 'forum/index.htm' );
+    $design = new design ( $title , $hmenu, 1 );
     $design->header();
 		$tpl = new tpl ( 'user/regist' );
 		$tpl->set_out('regeln', bbcode($allgAr['allg_regeln']),0);
