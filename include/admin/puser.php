@@ -39,6 +39,9 @@ if($menu->get(1) == "confirm" AND isset($_GET['check'])){
       db_query("UPDATE prefix_user SET email = '".$row['email']."' WHERE id = ". escape($id, 'integer')); 
 		  db_query("DELETE FROM prefix_usercheck WHERE `check` = '".escape($_GET['check'], 'string')."'");
       break;
+    # join us
+    case 4 :
+      break;
 		}
   }else{
     $tpl->set_out('error','User nicht auffindbar',3);
@@ -52,16 +55,19 @@ if($menu->get(1) == "del" AND isset($_GET['check'])){
 
 
 $tpl->out(0);
-$ak=array('','neuer User','neues Passwort','neue Emailadresse');
-$erg = db_query("SELECT `check`, `name`, `email`, `ak`, date_format(datime,'%k:%i Uhr %e.%c.%Y') as datime FROM `prefix_usercheck` ORDER by datime ASC");
+$ak=array('','neuer User','neues Passwort','neue Emailadresse','Join us');
+$c = 0;
+$erg = db_query("SELECT `check`, `name`, `email`, `ak`, date_format(datime,'%k:%i Uhr %e.%c.%Y') as time FROM `prefix_usercheck` ORDER by datime DESC");
 while ($row = db_fetch_assoc($erg)) {
   if ($class == 'Cmite') { $class = 'Cnorm'; } else { $class = 'Cmite'; }
+  $c++;
+  $row['c']=$c;
   $row['class']= $class;
   if($row['ak']==3){
     list ($id, $check) = explode('||', $row['check']);
     $row['name']= @db_result(db_query("SELECT name FROM prefix_user WHERE id = ".$id),0);
   }
-  $row['ak'] = $ak[$row['ak']];
+  $row['aktion'] = $ak[$row['ak']];
   $tpl->set_ar_out($row , 1);
 }
 
