@@ -100,6 +100,9 @@ function get_filename ($akl) {
 # löscht Sonderzeichen aus dem Dateinamen
 function get_nametosave ($n) {
   $n = preg_replace("/[^a-zA-Z0-9\.]/","",$n);
+  if(substr($n, -4) != ".php"){
+    $n .= '.php';
+  }
   return ($n);
 }
 
