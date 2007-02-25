@@ -82,10 +82,17 @@ function icUpload () {
       }
   
 	    if (!empty ($_FILES['file']['name']) ) {
-		    $type  = trim($_FILES['file']['type']);
+      
+        print_r($_FILES['file']);
+        
+        $type  = trim($_FILES['file']['type']);
 		    $rtype = trim(ic_mime_type ($_FILES['file']['tmp_name']));
         $fname = escape($_FILES['file']['name'],'string');
         $fende = preg_replace("/.+\.([a-zA-Z]+)$/", "\\1", $fname);
+        
+		    if ( $_FILES['file']['size'] > 2097000 ) { # 2 mb (2 097 152)
+          return ('Die Datei darf NICHT gr&ouml;sser als 2 MBytes sein.');
+        }
         
         if (
 		      ($fende != 'rar' AND $fende != 'zip' AND $fende != 'tar')
@@ -111,10 +118,6 @@ function icUpload () {
         $fname = str_replace ('.'.$fende, '', $fname);
         $fname = preg_replace("/[^a-zA-Z0-9]/", "", $fname);
         $fname = $fname.'.'.$fende;
-          
-		    if ( $_FILES['file']['size'] > 2097000 ) { # 2 mb (2 097 152)
-          return ('Die Datei darf NICHT gr&ouml;sser als 2 MBytes sein.');
-        }
         
         if (file_exists( 'include/downs/downloads/user_upload/'.$fname ) ) {
           return ('Die Datei existiert bereits und kann nicht &uuml;berschrieben werden.');

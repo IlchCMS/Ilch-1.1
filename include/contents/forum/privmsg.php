@@ -102,8 +102,10 @@ case 'showmsg' :
       $soeid = ($menu->get(4) == 's' ? 'eid' : 'sid' );
       $erg = db_query("SELECT a.gelesen, a.eid, a.sid, a.id, b.name, a.titel, a.time, a.txt FROM `prefix_pm` a LEFT JOIN prefix_user b ON a.".$soeid." = b.id WHERE a.id = ".$pid);
 		  $row = db_fetch_assoc($erg);
-      if (($row['sid'] <> $_SESSION['authid'] AND $menu->get(4) == 's') OR ($row['eid'] <> $_SESSION['authid'] AND $menu->get(4) != 's')) { $design->footer(1); }
-		  if ($row['gelesen'] == 0) {
+      if (($row['sid'] <> $_SESSION['authid'] AND $menu->get(4) == 's')
+       OR ($row['eid'] <> $_SESSION['authid'] AND $menu->get(4) != 's')) {
+         $design->footer(1); }
+		  if ($row['gelesen'] == 0 AND $menu->get(4) != 's') {
 		    db_query("UPDATE `prefix_pm` SET gelesen = 1 WHERE id = ".$pid);
 		  }
 		  $row['time'] = date('d M. Y',$row['time']);
