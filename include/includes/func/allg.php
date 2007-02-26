@@ -250,10 +250,20 @@ function get_wargameimg ($img) {
   return ('');
 }
 
+function iurlencode_help ($a) {
+  if (preg_match("/(http:|https:|ftp:)/", $a[0])) {
+    return ($a[0]);
+  }
+
+  return (rawurlencode($a[1]).substr($a[0], -1));
+}
+
 function iurlencode ($s) {
+  return (preg_replace_callback("/([^\/]+|\/[^\.])[\.\/]/", 'iurlencode_help', $s));
+  /*
   $x = 'false';
-  if (preg_match ('/(http:|https:|ftp:)[^:]+:[^@]+@.*/', $s)) {
-    $x = preg_replace('/([^:]+:[^@]+@).*/',"\\1",$s);
+  if (preg_match ('/(http:|https:|ftp:)[^:]+:[^@]+@./', $s)) {
+    $x = preg_replace('/([^:]+:[^@]+@)./',"\\1",$s);
   	$s = str_replace($x,'',$s);
 	} elseif (substr($s, 0, 7) == 'http://') {
 	  $s = substr ($s, 7);
@@ -279,6 +289,7 @@ function iurlencode ($s) {
 	
   $r = substr($r, 0, -1);
   return ($r);
+  */
 }
 
 # antispam

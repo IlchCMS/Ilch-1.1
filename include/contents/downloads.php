@@ -275,12 +275,13 @@ switch ( $menu->get(1) ) {
 	case 'down' :
     $fid = $menu->get(2);
     $recht = @db_result(db_query("SELECT `recht` FROM `prefix_downcats` LEFT JOIN `prefix_downloads` ON `prefix_downcats`.`id` = `prefix_downloads`.`cat` WHERE `prefix_downloads`.`id` = $fid"),0);
-	  $recht = (is_numeric($recht)?$recht:0);
+	  $recht = (is_int($recht)?$recht:0);
     if (has_right($recht)) {
       $row = db_fetch_assoc(db_query("SELECT url FROM prefix_downloads WHERE id = ".$fid));
       $url = iurlencode($row['url']);
-      }
-	  else $url = 'http://'.$_SERVER["HTTP_HOST"].dirname($_SERVER["SCRIPT_NAME"]).'/index.php?downloads';
+    } else {
+      $url = 'http://'.$_SERVER["HTTP_HOST"].dirname($_SERVER["SCRIPT_NAME"]).'/index.php?downloads';
+    }
     db_query("UPDATE prefix_downloads SET downs = downs +1 WHERE id = ".$fid);
 		header('location: '.$url);
 	  break;

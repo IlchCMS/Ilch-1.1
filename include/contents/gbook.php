@@ -33,14 +33,14 @@ case 1 :
   );
 	$tpl->set_ar_out($ar,3);
   
-  if (!isset($_SESSION['klicktime'])) { $_SESSION['klicktime'] = 0; }
+  if (!isset($_SESSION['klicktime_gbook'])) { $_SESSION['klicktime_gbook'] = 0; }
   
 break;
 case 2 :
 
   $dppk_time = time();
  
-  if (($_SESSION['klicktime'] + $timeSperre) < $dppk_time
+  if (($_SESSION['klicktime_gbook'] + $timeSperre) < $dppk_time
   AND isset($_POST['name'])
   AND isset($_POST['txt'])
   AND trim($_POST['name']) != ""
@@ -65,7 +65,7 @@ case 2 :
     ");
 					
     
-    $_SESSION['klicktime'] = $dppk_time;
+    $_SESSION['klicktime_gbook'] = $dppk_time;
     wd('index.php?gbook',$lang['insertsuccessful']);
 	} else {
 	  echo '- '.$lang['donotpostsofast'];
