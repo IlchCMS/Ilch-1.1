@@ -65,6 +65,7 @@ switch ( $um ) {
 				if ( $tmp[1] == 'gif' OR $tmp[1] == 'png' OR $tmp[1] == 'jpg' OR $tmp[1] == 'jpeg')  {
 					$nname = $_POST['wid'].'_'.$_POST['mid'].'.'.$tmp[1];
 					if ( move_uploaded_file ( $_FILES['f']['tmp_name'], 'include/images/wars/'.$nname) ) {
+					  @chmod('include/images/wars/'.$nname, 0777);
 						$ar = array ( 'gif'=>'gif','png'=>'png','jpg'=>'jpg','jpeg'=>'jpeg' );
 						unset($ar[$tmp[1]]);
 						foreach($ar as $v) {

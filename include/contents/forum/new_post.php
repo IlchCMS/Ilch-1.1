@@ -60,7 +60,7 @@ if (($_SESSION['klicktime'] + 15) > $dppk_time OR empty($txt) OR !empty($_POST['
   }
 
   if (isset($_POST['priview'])) {
-    $tpl->set_out('txt', bbcode($txt), 0);
+    $tpl->set_out('txt', bbcode(unescape($txt)), 0);
   }
   if (empty($txt)) {
     $txt = $xtext;

@@ -77,9 +77,11 @@ if (!empty($_FILES['file']['name']) AND is_writeable('include/images/usergallery
     $id = db_result(db_query("SHOW TABLE STATUS FROM `". DBDATE ."` LIKE 'prefix_usergallery'"),0,'Auto_increment');
     $bild_url = 'include/images/usergallery/img_'.$id.'.'.$endung;
     if (@move_uploaded_file ($_FILES['file']['tmp_name'], $bild_url)) {
+      @chmod($bild_url, 0777);
       db_query("INSERT INTO prefix_usergallery (uid,name,endung,besch) VALUES (".$uid.",'".$name."','".$endung."','".$besch."')");
       $bild_thumb = 'include/images/usergallery/img_thumb_'.$id.'.'.$endung;
       create_thumb ($bild_url, $bild_thumb, $allgAr['gallery_preview_width']);
+      @chmod($bild_thumb, 0777);
       echo '<b>Datei '.$name.'.'.$endung.' erfolgreich hochgeladen</b><br />';
       $page = $_SERVER["HTTP_HOST"]. dirname($_SERVER["SCRIPT_NAME"]);
       echo 'Bildlink: <a target="_blank" href="http://'.$page.'/'.$bild_url.'">http://'.$page.'/'.$bild_url.'</a><br />';

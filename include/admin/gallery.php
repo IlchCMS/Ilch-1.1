@@ -122,12 +122,15 @@ if ( $menu->get(1) == 'uploadImages' ) {
         $id = db_result(db_query("SHOW TABLE STATUS FROM `". DBDATE ."` LIKE 'prefix_gallery_imgs'"),0,'Auto_increment');
         $bild_url = 'include/images/gallery/img_'.$id.'.'.$endung;
         if (@move_uploaded_file ($_FILES['file']['tmp_name'][$k], $bild_url)) {
+          @chmod($bild_url, 0777);
           db_query("INSERT INTO prefix_gallery_imgs (cat,datei_name,endung,besch) VALUES (".$menu->get(2).",'".$name."','".$endung."','".$besch."')");
           $msg .= 'Datei '.$name.'.'.$endung.' erfolgreich hochgeladen<br />';
           $bild_thumb = 'include/images/gallery/img_thumb_'.$id.'.'.$endung;
           $bild_norm  = 'include/images/gallery/img_norm_'.$id.'.'.$endung;
           create_thumb ($bild_url, $bild_thumb, $allgAr['gallery_preview_width']);
+          @chmod($bild_thumb, 0777);
           create_thumb ($bild_url, $bild_norm , $allgAr['gallery_normal_width']);
+          @chmod($bild_norm, 0777);          
         } else {
           $msg .= 'Datei '.$name.'.'.$endung.' konnte nicht hochgeladen werden<br />';
         }

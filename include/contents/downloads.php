@@ -125,6 +125,7 @@ function icUpload () {
         
         if ( move_uploaded_file($_FILES['file']['tmp_name'], 'include/downs/downloads/user_upload/'.$fname) ) {
           $url = 'include/downs/downloads/user_upload/'.$fname;
+          @chmod($url, 0777);
 			  }
       }
         
@@ -263,6 +264,7 @@ switch ( $menu->get(1) ) {
     $row['surl']  = ( empty($row['surl']) ? '' : '&nbsp;&nbsp;&nbsp; <a href="'.$row['surl'].'" target="_blank">Demo/Screenshot</a>' );
 		$row['size']  = get_download_size($row['url']);
 		$row['descl'] = bbcode($row['descl']);
+		$row['version_kl'] = (empty($row['version'])?'':'('.$row['version'].')');
     $title = $allgAr['title'].' :: Downloads '.$cattitle;
     $hmenu = '<a class="smalfont" href="?downloads">Downloads</a>'.$catname;
     $design = new design ( $title , $hmenu );
@@ -272,9 +274,15 @@ switch ( $menu->get(1) ) {
 	  break;
 	case 'down' :
     $fid = $menu->get(2);
-	  db_query("UPDATE prefix_downloads SET downs = downs +1 WHERE id = ".$fid);
-		$row = db_fetch_assoc(db_query("SELECT url FROM prefix_downloads WHERE id = ".$fid));
-    header('location: '.iurlencode($row['url']));
+    $recht = @db_result(db_query("SELECT `recht` FROM `prefix_downcats` LEFT JOIN `prefix_downloads` ON `prefix_downcats`.`id` = `prefix_downloads`.`cat` WHERE `prefix_downloads`.`id` = $fid"),0);
+	  $recht = (is_numeric($recht)?$recht:0);
+    if (has_right($recht)) {
+      $row = db_fetch_assoc(db_query("SELECT url FROM prefix_downloads WHERE id = ".$fid));
+      $url = iurlencode($row['url']);
+      }
+	  else $url = 'http://'.$_SERVER["HTTP_HOST"].dirname($_SERVER["SCRIPT_NAME"]).'/index.php?downloads';
+    db_query("UPDATE prefix_downloads SET downs = downs +1 WHERE id = ".$fid);
+		header('location: '.$url);
 	  break;
   case 'upload' :
     if ( $allgAr['archiv_down_userupload'] == 1 AND loggedin() AND is_writeable ( 'include/downs/downloads/user_upload' ) ) {

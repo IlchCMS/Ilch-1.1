@@ -100,11 +100,13 @@ case 'show' :
     $tpl = new tpl ( 'gbook.htm' );
 		$r['ANTISPAM'] = (loggedin()?'':get_antispam('gbookkom', 0));
     $r['uname'] = $_SESSION['authname'];
+    $r['text'] = bbcode($r['text']);
     $tpl->set_ar_out($r, 4);
     $i = 1;
     $erg = db_query("SELECT id, name, text FROM prefix_koms WHERE uid = ".$id." AND cat = 'GBOOK' ORDER BY id DESC");
+    $anz = db_num_rows($erg)+1;
     while ($r1 = db_fetch_assoc($erg)) {
-      $r1['zahl'] = $i;
+      $r1['zahl'] = $anz - $i;
       $r1['text'] = bbcode($r1['text']);
       if (has_right(-7, 'gbook')) { $r1['text'] .= '<a href="index.php?gbook-show-'.$id.'-d'.$r1['id'].'"><img src="include/images/icons/del.gif" alt="'.$lang['delete'].'" border="0" title="'.$lang['delete'].'" /></a>'; }
       $tpl->set_ar_out($r1, 5);

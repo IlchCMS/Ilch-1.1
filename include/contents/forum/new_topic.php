@@ -45,7 +45,7 @@ if (($_SESSION['klicktime'] + 15) > $dppk_time OR empty($topic) OR empty($txt) O
   }
   
   if (isset($_POST['priview'])) {
-    $tpl->set_out('txt', bbcode($txt), 0);
+    $tpl->set_out('txt', bbcode(unescape($txt)), 0);
   }
   
   $ar = array (

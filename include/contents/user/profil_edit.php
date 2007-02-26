@@ -38,9 +38,10 @@ if ( empty ($_POST['submit']) ) {
     $row['forum_max_sig'] = $allgAr['forum_max_sig'];
     
     $tpl->set_ar_out($row,0);
-
+    if ($allgAr['forum_avatar_upload']) $tpl->out(1);
+    $tpl->set_ar_out($row,2);
 		profilefields_change ( $_SESSION['authid'] );
-		$tpl->out(1);
+		$tpl->out(3);
 		
   } else {
     $tpl = new tpl ( 'user/login.htm' );
@@ -68,7 +69,7 @@ if ( empty ($_POST['submit']) ) {
 	
   # avatar speichern START
 			$avatar_sql_update = '';
-      if ( !empty ( $_FILES['avatarfile']['name'] ) ) {
+      if ( !empty ( $_FILES['avatarfile']['name'] ) AND $allgAr['forum_avatar_upload'] ) {
 				$file_tmpe = $_FILES['avatarfile']['tmp_name'];
         $rile_type = ic_mime_type ($_FILES['avatarfile']['tmp_name']);
 				$file_type = $_FILES['avatarfile']['type'];
@@ -85,6 +86,7 @@ if ( empty ($_POST['submit']) ) {
 					  $neuer_name = 'include/images/avatars/'.$_SESSION['authid'].'.'.$endung;
 						@unlink (db_result(db_query("SELECT avatar FROM prefix_user WHERE id = ".$_SESSION['authid']),0));
             move_uploaded_file ( $file_tmpe , $neuer_name );
+            @chmod($neuer_name, 0777);
             $avatar_sql_update = "avatar = '".$neuer_name."',";
             $fmsg = $lang['pictureupload']; 
 					}

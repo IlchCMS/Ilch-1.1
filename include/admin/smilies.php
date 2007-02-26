@@ -76,6 +76,7 @@ if (isset($_POST['u'])) {
       $name = $_FILES['ar']['name'][$k];
       $bild_url = 'include/images/smiles/'.$name;
       if (@move_uploaded_file ($_FILES['ar']['tmp_name'][$k], $bild_url)) {
+        @chmod($bild_url, 0777);
         echo '"'.$name.'" wurde erfolgreich hochgeladen<br />';
       } else {
         echo 'konnte "'.$name.'" nicht hochladen<br />';

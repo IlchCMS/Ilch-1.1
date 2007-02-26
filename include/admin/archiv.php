@@ -110,6 +110,7 @@ switch ($um) {
     # file hochladen
     if ( isset ($_FILES['file']['name']) ) {
 			if ( move_uploaded_file ( $_FILES['file']['tmp_name'], $_REQUEST['f'].'/'.$_FILES['file']['name']) ) {
+			  @chmod($_REQUEST['f'].'/'.$_FILES['file']['name'], 0777);
 			  $msg = 'Datei ('.$_FILES['file']['name'].' ) <font color="#00FF00">erfolgreich hochgeladen</font><br />';
 			} else {
 			  $msg = 'Datei ( '.$_FILES['file']['name'].' ) <font color="#FF0000">nicht erfolgreich hochgeladen</font><br />';

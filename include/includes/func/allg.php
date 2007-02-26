@@ -201,7 +201,7 @@ function icmail ($mail,$bet,$txt, $from = '') {
   $header .= "Content-Transfer-Encoding: 8bit";
   
   $mail = escape_for_email($mail);
-  $bet  = escape_for_email($bet);
+  $bet  = escape_for_email($bet,true);
   
 	if ( mail ( $mail, $bet, $txt,$header) ) {
 	  return ( true );

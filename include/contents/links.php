@@ -77,7 +77,7 @@ switch ( $menu->getA(1) ) {
     $design = new design ( $title , $hmenu );
 	  $design->header();
 		$tpl = new tpl ('links' );
-    $erg = db_query("SELECT id,name,`desc` FROM prefix_linkcats WHERE cat = ".$cid);
+    $erg = db_query("SELECT id,name,`desc` FROM prefix_linkcats WHERE cat = $cid ORDER BY pos");
     if ( db_num_rows($erg) > 0 ) {
 		  $tpl->out(1); $class = 'Cnorm';
 			while ($row = db_fetch_assoc($erg) ) {
@@ -89,7 +89,7 @@ switch ( $menu->getA(1) ) {
 		  $tpl->out(3);
 		}
 		
-		$erg = db_query("select id,name,link,banner,`desc`,hits from prefix_links WHERE cat = ".$cid);
+		$erg = db_query("select id,name,link,banner,`desc`,hits from prefix_links WHERE cat = $cid ORDER BY pos");
 		if ( db_num_rows($erg) > 0 ) {
 		  $tpl->out(4); $class = 'Cnorm';
 			while($row = db_fetch_assoc($erg) ) {

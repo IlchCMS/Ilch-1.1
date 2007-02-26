@@ -45,7 +45,7 @@ if ($_SESSION['klicktime'] > ($dppk_time - 15) OR empty($txt) OR !empty($_POST['
   $tpl = new tpl ( 'forum/postedit' );
       
   if (isset($_POST['priview'])) {
-    $tpl->set_out('txt', bbcode($txt), 0);
+    $tpl->set_out('txt', bbcode(unescape($txt)), 0);
   }
   
   if (empty($txt)) {
@@ -55,7 +55,7 @@ if ($_SESSION['klicktime'] > ($dppk_time - 15) OR empty($txt) OR !empty($_POST['
   $ar = array (
     'tid' => $tid,
     'oid' => $oid,
-    'txt' => escape_for_fields(unescape($txt)),
+    'txt' => (isset($_POST['priview']) ? escape_for_fields(unescape($txt)) : escape_for_fields($txt)),
     'SMILIES' => getsmilies()
   );
   $tpl->set_ar_out($ar,1);

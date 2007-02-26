@@ -59,7 +59,7 @@ function get_akl ($ak) {
     $ar_l['pneu.php'] = 'Neue Seite';
     $o = opendir ( 'include/contents/selfbp/selfp' );
     while ($v = readdir($o) ) {
-      if ( $v == '.' OR $v == '..' ) { continue; }
+      if (substr($v,-4) != '.php') { continue; }
       $ar_l['p'.$v] = $v;
     }
     closedir($o);
@@ -68,7 +68,7 @@ function get_akl ($ak) {
     $ar_l['bneu.php'] = 'Neue Box';
     $o = opendir ( 'include/contents/selfbp/selfb' );
     while ($v = readdir($o) ) {
-      if ( $v == '.' OR $v == '..' ) { continue; }
+      if (substr($v,-4) != '.php') { continue; }
       $ar_l['b'.$v] = $v;
     }
     closedir($o);
