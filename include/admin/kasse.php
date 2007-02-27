@@ -15,6 +15,11 @@ if (isset($_POST['ksub']) AND !empty($_POST['kontodaten'])) {
   $datum = get_datum ($_POST['datum']);
   if (!is_numeric($betrag)) {
     echo 'der Betrag is keine Nummer?.. !!';
+  } elseif (is_numeric($menu->get(1))) {
+    if (db_query("UPDATE `prefix_kasse` SET name = '$name', datum = '$datum', betrag = '$betrag', verwendung = '$verwendung' WHERE id = ".$menu->get(1)))
+      echo 'Buchung wurde ge&auml;ndert ... ';
+    else echo 'Es ist ein Fehler aufgetreten, Buchung nicht ge&auml;ndert';
+    $menu->set_url(1,'');   
   } else {
     db_query("INSERT INTO prefix_kasse (datum,name,verwendung,betrag) VALUES ('".$datum."','".$name."','".$verwendung."',".$betrag.")");
     echo 'Buchung wurde gespeichert ... ';
@@ -24,10 +29,17 @@ if (isset($_POST['ksub']) AND !empty($_POST['kontodaten'])) {
 $kontodaten = db_result(db_query("SELECT t1 FROM prefix_allg WHERE k = 'kasse_kontodaten'"),0);
 $kontodaten = unescape($kontodaten);
 
+
+if (is_numeric($menu->get(1))) {
+  $r = db_fetch_assoc(db_query("SELECT name,betrag,verwendung,DATE_FORMAT(datum,'%d.%m.%Y') as datum FROM `prefix_kasse` WHERE id = ".$menu->get(1)));
+  $r['id'] = '-'.$menu->get(1);
+  }
+else {
+  $r = array ('id' => '', 'name' => '', 'betrag' => '', 'datum' => date('d.m.Y'),'verwendung' => '');
+  }
 $tpl = new tpl ('kasse', 1);
-$tpl->set('kontodaten', $kontodaten);
-$tpl->set('datum', date('d.m.Y'));
-$tpl->out(0);
+$r['kontodaten'] = $kontodaten;
+$tpl->set_ar_out($r,0);
   
 $design->footer();
 ?>

@@ -106,7 +106,8 @@ if (($_SESSION['klicktime'] + 15) > $dppk_time OR empty($txt) OR !empty($_POST['
   $topic_alerts_abf = "SELECT
       prefix_topics.name as topic,
       prefix_user.email as email,
-      prefix_user.name as user
+      prefix_user.name as user,
+      prefix_user.id as uid
     FROM prefix_topic_alerts
       LEFT JOIN prefix_topics ON prefix_topics.id = prefix_topic_alerts.tid
       LEFT JOIN prefix_user   ON prefix_user.id   = prefix_topic_alerts.uid
@@ -114,6 +115,7 @@ if (($_SESSION['klicktime'] + 15) > $dppk_time OR empty($txt) OR !empty($_POST['
       
   $topic_alerts_erg = db_query($topic_alerts_abf);
   while ($topic_alerts_row = db_fetch_assoc($topic_alerts_erg)) {
+    if ($uid == $topic_alerts_row['uid']) continue;
     $page = $_SERVER["HTTP_HOST"].$_SERVER["SCRIPT_NAME"];
     $text = sprintf ($lang['topicalertmessage'], $topic_alerts_row['user'], $topic_alerts_row['topic'], $page, $tid);
     icmail ($topic_alerts_row['email'], 'neue Antwort im Thema: "'.$topic_alerts_row['topic'].'"', $text);

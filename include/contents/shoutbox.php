@@ -10,11 +10,16 @@ defined ('main') or die ( 'no direct access' );
   $design = new design ( $title , $hmenu );
   $design->header();
 
-# delete
-if ($menu->getA(1) == 'd' AND is_numeric($menu->getE(1)) AND is_siteadmin()) {
-  db_query("DELETE FROM prefix_shoutbox WHERE id = ".$menu->getE(1));
+if (is_siteadmin()) {
+  # delete
+  if ($menu->getA(1) == 'd' AND is_numeric($menu->getE(1))) {
+    db_query("DELETE FROM prefix_shoutbox WHERE id = ".$menu->getE(1));
+  }
+  # delete all
+  if ($menu->get(1) == 'delall') {
+    db_query("DELETE FROM `prefix_shoutbox`");
+  }
 }
-
 
 $class = 'Cnorm';
 echo '<table width="100%" align="center" class="border" cellpadding="2" cellspacing="1" border="0"><tr class="Chead"><td><b>Shoutbox '.$lang['archiv'].'</b></td></tr>';
@@ -28,5 +33,8 @@ while ($row = db_fetch_assoc($erg) ) {
 	echo '<b>'.$row['nickname'].':</b> '.preg_replace( '/([^\s]{10})(?=[^\s])/', "$1\n", $row['textarea']).'</td></tr>';
 }
 echo '</table>';
+if (is_siteadmin()) {
+  echo '<a href="index.php?shoutbox-delall">'.$lang['clearshoutbox'].'</a>';
+}
 $design->footer();
 ?>

@@ -41,6 +41,7 @@ $lang = array
 'clancountry' => 'Herkunftsland',
 'clanname' => 'Clanname',
 'clanpage' => 'Clan-Hompage',
+'clearshoutbox' => 'Shoutbox leeren',
 'close' => 'schlie&szlig;en',
 'open' => '&ouml;ffnen',
 'code' => 'Code',

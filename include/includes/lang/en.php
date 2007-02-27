@@ -41,6 +41,7 @@ $lang = array
 'clancountry' => 'Country',
 'clanname' => 'Clan Name',
 'clanpage' => 'Clan Hompage',
+'clearshoutbox' => 'clear shoutbox',
 'close' => 'close',
 'open' => 'open',
 'code' => 'Code',
