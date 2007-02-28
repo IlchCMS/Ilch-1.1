@@ -130,6 +130,7 @@ CREATE TABLE `prefix_downloads` (
 
 CREATE TABLE `prefix_forumcats` (
   `id` tinyint(3) unsigned NOT NULL auto_increment,
+  `cid` tinyint(3) unsigned NOT NULL default '0',
   `name` varchar(100) NOT NULL default '',
   `pos` tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (`id`)

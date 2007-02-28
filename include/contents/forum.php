@@ -5,6 +5,27 @@
 
 defined ('main') or die ( 'no direct access' );
 
+#Kategorien aufschlüsseln
+function aktForumCats ($catAR,$trenn = 'hmenu') {
+  $out = '';
+  $i = count($catAR)-1;
+  if ($trenn == 'hmenu') {
+    while ($i > 0 ) {
+      $out .= '<a class="smalfont" href="index.php?forum-showcat-'.$catAR[$i]['id'].'">'.$catAR[$i]['name'].'</a><b> &raquo; </b>';
+      $i--;
+      }
+    $out .= '<a class="smalfont" href="index.php?forum-showcat-'.$catAR[$i]['id'].'">'.$catAR[$i]['name'].'</a>';
+    }
+  else {
+    while ($i > 0 ) {
+      $out .= $catAR[$i]['name'].' :: ';
+      $i--;
+      }
+    $out .= $catAR[$i]['name'];
+  }
+  return $out;
+}
+
 # variablen suchen und definieren.
 if ($menu->get(1) == 'showcat') {
   $cid = escape($menu->get(2), 'integer');
@@ -46,14 +67,29 @@ if ( !empty ($tid) ) {
 
 if ( !empty ($fid) ) {
   $aktForumAbf = "SELECT
-    a.id as cid, a.name as kat,b.name,b.view,b.start,b.reply
+    a.id as cid, a.cid as topcid, a.name as cat,b.name,b.view,b.start,b.reply
   FROM `prefix_forums` b
     LEFT JOIN prefix_forumcats a ON a.id = b.cid
   WHERE b.id = ".$fid;
 	$aktForumErg = db_query($aktForumAbf);
   if ( db_num_rows($aktForumErg) > 0 ) {
 	  $aktForumRow = db_fetch_assoc($aktForumErg);
-    $forum_rights = array (
+	  //Unterkategorien
+    $topcid = $aktForumRow['topcid'];
+    $catsnr = 1;
+    $aktForumRow['kat'] = array();
+	  while ( $topcid != 0 ) {
+      $tmpsql = db_fetch_object(db_query("SELECT id,cid,name FROM `prefix_forumcats` WHERE id = ".$topcid));
+      $topcid = $tmpsql->cid;
+      $aktForumRow['kat'][$catsnr] = array();
+      $aktForumRow['kat'][$catsnr]['id'] = $tmpsql->id;
+      $aktForumRow['kat'][$catsnr]['name'] = $tmpsql->name;
+      $catsnr++;
+      }
+    $aktForumRow['kat'][0]['id'] = $aktForumRow['cid'];
+    $aktForumRow['kat'][0]['name'] = $aktForumRow['cat'];
+    //Unterkategorien - Ende
+	  $forum_rights = array (
       'start' => has_right ($aktForumRow['start']),
       'reply' => has_right (array($aktForumRow['reply'],$aktForumRow['start'])),
       'view'  => has_right (array($aktForumRow['view'],$aktForumRow['reply'],$aktForumRow['start'])),
@@ -89,7 +125,6 @@ switch ($menu->get(1)) {
 if ( isset($incdatei) ) {
   require_once('include/contents/forum/'.$incdatei);
 }
-
 
 //-----------------------------------------------------------|
 

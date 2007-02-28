@@ -36,13 +36,14 @@ FROM prefix_forums a
   LEFT JOIN prefix_groupusers rg ON rg.uid = ".$_SESSION['authid']." AND rg.gid = a.reply
   LEFT JOIN prefix_groupusers sg ON sg.uid = ".$_SESSION['authid']." AND sg.gid = a.start
 	
-WHERE (".$_SESSION['authright']." <= a.view AND a.view < 1) 
+WHERE ((".$_SESSION['authright']." <= a.view AND a.view < 1) 
    OR (".$_SESSION['authright']." <= a.reply AND a.reply < 1)
    OR (".$_SESSION['authright']." <= a.start AND a.start < 1)
 	 OR vg.fid IS NOT NULL
 	 OR rg.fid IS NOT NULL
 	 OR sg.fid IS NOT NULL
-	 OR -9 = ".$_SESSION['authright']."
+	 OR -9 = ".$_SESSION['authright'].")
+	 AND k.cid = 0
 ORDER BY k.pos, a.pos";
 $erg1 = db_query($q);
 $xcid = 0;
@@ -58,9 +59,15 @@ while ($r = db_fetch_assoc($erg1) ) {
   
   if ($r['cid'] <> $xcid) {
     $tpl->out(1);
+    //Unterkategorien
+    $sql = db_query("SELECT a.name as cname, a.id as cid FROM `prefix_forumcats` a LEFT JOIN `prefix_forums` b ON a.id = b.cid WHERE a.cid = {$r['cid']} AND a.id = b.cid ORDER BY a.pos, a.name");
+    while ($ucat = db_fetch_assoc($sql)) {
+      $tpl->set_ar_out($ucat,2);
+    }
+    //Unterkategorien - Ende
     $xcid = $r['cid'];
   }
-  $tpl->out(2);
+  $tpl->set_ar_out($r,3);
 }
 
 # statistic #
@@ -77,7 +84,7 @@ $stats_array = array (
   'userliste' => user_online_liste()
 );
 
-$tpl->set_ar_out($stats_array,3);
+$tpl->set_ar_out($stats_array,4);
 
 $design->footer();
 ?>

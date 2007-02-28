@@ -6,6 +6,21 @@
 defined ('main') or die ( 'no direct access' );
 defined ('admin') or die ( 'only admin access' );
 
+function forum_admin_showcats ( $id , $stufe ) {
+  $q = "SELECT * FROM prefix_forumcats WHERE cid = ".$id." ORDER BY pos";
+	$erg = db_query($q);
+	if ( db_num_rows($erg) > 0 ) {
+ 	  while ($row = db_fetch_object($erg) ) {
+	    echo '<tr class="Cmite"><td>'.$stufe.'- <a href="?forum-S'.$row->id.'">'.$row->name.'</a></td>';
+      echo '<td><a href="admin.php?forum-changeCategorie-'.$row->id.'"><img src="include/images/icons/edit.gif" border="0" alt="&auml;ndern" title="&auml;ndern"></a></td>';
+      echo '<td><a href="javascript:delCcheck('.$row->id.')"><img src="include/images/icons/del.gif" border="0" alt="l&ouml;schen" title="l&ouml;schen"></a></td>';
+      echo '<td><a href="admin.php?forum-moveCategorie-0-'.$row->id.'-'.$row->pos.'"><img src="include/images/icons/pfeilo.gif" border="0" title="hoch" alt="hoch"></a></td>';
+      echo '<td><a href="admin.php?forum-moveCategorie-1-'.$row->id.'-'.$row->pos.'"><img src="include/images/icons/pfeilu.gif" border="0" title="runter" alt="runter"></a></td></tr>';
+		  forum_admin_showcats($row->id, $stufe.' &nbsp; &nbsp;' );
+	  }
+	}
+}
+
 $show = true;
 $um = $menu->get(1);
 
@@ -172,37 +187,20 @@ switch ( $um ) {
 			db_query("UPDATE prefix_forums SET pos = ".$np." WHERE id = ".$fid);
 	  break;
 	case 'newCategorie' :
-	  if ( empty ($_POST['sub']) ) {
-      $tpl = new tpl ('forum/categorie',1);
-			$ar = array (
-			  'ak' => 'new',
-				'sub' => 'Eintragen',
-				'cid' => '',
-				'name' => ''
-			);
-			$tpl->set_ar_out($ar,0);
-			unset($tpl);
-			$show = false;
+	  if ( empty ($_POST['cat_sub']) ) {
+			$show = true;
 		} else {
-		  $a = db_count_query("SELECT COUNT(*) as anz FROM prefix_forumcats");
-			$name = escape($_POST['name'],'string');
-			db_query("INSERT INTO prefix_forumcats (name,pos) VALUES ('".$name."',".$a.")");
+		  $name = escape($_POST['name'],'string');
+			$cid = escape($_POST['Ccat'],'integer');
+			$a = db_count_query("SELECT COUNT(*) as anz FROM prefix_forumcats WHERE cid = $cid");
+      db_query("INSERT INTO prefix_forumcats (name,pos,cid) VALUES ('".$name."',".$a.",$cid)");
 		}
 	  break;
 	case 'changeCategorie' :
-	  if ( empty ($_POST['sub']) ) {
-      $tpl = new tpl ('forum/categorie',1);
+	  if ( empty ($_POST['cat_sub']) ) {
 			$cid = escape($menu->get(2),'integer');
 			$r = db_fetch_object(db_query("SELECT name as name FROM prefix_forumcats WHERE id = ".$cid));
-			$ar = array (
-			  'ak' => 'change',
-				'sub' => '&Auml;ndern',
-				'cid' => $cid,
-				'name' => $r->name
-			);
-			$tpl->set_ar_out($ar,0);
-			unset($tpl);
-			$show = false;
+			$show = true;
 		} else {
 		  $name = escape($_POST['name'],'string');
 			$cid = escape($_POST['cid'],'integer');
@@ -225,12 +223,13 @@ switch ( $um ) {
   case 'moveCategorie' :
       $move = $menu->get(2);
       $cid = $menu->get(3);
+      $topcid = db_result(db_query("SELECT cid FROM `prefix_forumcats` WHERE id = $cid"),0);
       $pos = $menu->get(4);
-	    $a = db_count_query("SELECT COUNT(*) as anz FROM prefix_forumcats");
+	    $a = db_count_query("SELECT COUNT(*) as anz FROM prefix_forumcats WHERE cid = $topcid");
 			$np = ( $move == 0 ? $pos -1 : $pos+1 );
 			$np = ( $np >= ( $a -1 ) ? ( $a - 1) : $np );
       $np = ( $np < 0 ? 0 : $np );
-			db_query("UPDATE prefix_forumcats SET pos = ".$pos." WHERE pos = ".$np);
+			db_query("UPDATE prefix_forumcats SET pos = ".$pos." WHERE cid = ".$topcid." AND pos = ".$np);
 			db_query("UPDATE prefix_forumcats SET pos = ".$np." WHERE id = ".$cid);
 	  break;
 }
@@ -239,7 +238,9 @@ switch ( $um ) {
 if ( $show ) {
   $tpl = new tpl ( 'forum/forum', 1);
   $tpl->out(0); $class = '';
-  $erg = db_query("SELECT id as cid, name as cname, pos as cpos FROM prefix_forumcats ORDER BY pos");
+  $firstcat = @db_result(db_query("SELECT id FROM `prefix_forumcats` LIMIT 1"),0);
+  $id = ($menu->getA(1) == 'S' ? $menu->getE(1) : (is_numeric($firstcat)?$firstcat:0));
+  $erg = db_query("SELECT id, cid, name as cname, pos as cpos FROM prefix_forumcats WHERE id = $id ORDER BY pos");
   while ($row = db_fetch_assoc($erg) ) {
     $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite' );
 	  $row['class'] = $class;
@@ -259,13 +260,23 @@ if ( $show ) {
 			LEFT JOIN prefix_groups as vt ON prefix_forums.view = vt.id
       LEFT JOIN prefix_groups as rt ON rt.id = prefix_forums.reply
       LEFT JOIN prefix_groups as st ON st.id = prefix_forums.start
-    WHERE prefix_forums.cid = ".$row['cid']." ORDER BY prefix_forums.pos" );
+    WHERE prefix_forums.cid = ".$row['id']." ORDER BY prefix_forums.pos" );
 	  while ($row1 = db_fetch_assoc($erg1) ) {
 	    $row1['class'] = $row['class'];
       $tpl->set_ar_out($row1,2);
     }
   }
   $tpl->out(3);
+  
+  forum_admin_showcats(0,'');
+  $cid = (is_numeric($r->topcid)?$r->topcid:0);
+  $Cout = array();
+  $Cout['ak'] = ($um == 'changeCategorie' ? 'change' : 'new');
+  $Cout['sub'] = ($um == 'changeCategorie' ? '&auml;ndern' : 'erstellen');
+  $Cout['name'] = ($um == 'changeCategorie' ? $r->name : '');
+  $Cout['cat'] = '<option value="0">Keine</option>'.dblistee($cid, "SELECT id,name FROM prefix_forumcats ORDER BY name");
+  $tpl->set_ar_out($Cout,4);
+  
 }
 
 

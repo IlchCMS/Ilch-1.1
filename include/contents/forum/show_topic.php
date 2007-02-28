@@ -9,8 +9,8 @@ defined ('main') or die ( 'no direct access' );
 # check ob ein fehler aufgetreten ist.
 check_forum_failure($forum_failure);
 
-$title = $allgAr['title'].' :: Forum :: '.$aktForumRow['kat'].' :: '.$aktForumRow['name'];
-$hmenu  = $extented_forum_menu.'<a class="smalfont" href="index.php?forum">Forum</a><b> &raquo; </b><a class="smalfont" href="index.php?forum-showcat-'.$aktForumRow['cid'].'">'.$aktForumRow['kat'].'</a><b> &raquo; </b>'.$aktForumRow['name'].$extented_forum_menu_sufix;
+$title = $allgAr['title'].' :: Forum :: '.aktForumCats($aktForumRow['kat'],'title').' :: '.$aktForumRow['name'];
+$hmenu  = $extented_forum_menu.'<a class="smalfont" href="index.php?forum">Forum</a><b> &raquo; </b>'.aktForumCats($aktForumRow['kat']).'<b> &raquo; </b>'.$aktForumRow['name'].$extented_forum_menu_sufix;
 $design = new design ( $title , $hmenu, 1);
 $design->header();
 

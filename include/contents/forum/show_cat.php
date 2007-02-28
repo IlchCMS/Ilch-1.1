@@ -6,8 +6,8 @@
 defined ('main') or die ( 'no direct access' );
 
 
-$title = $allgAr['title'].' :: Forum :: '.$aktForumRow['kat'];
-$hmenu  = $extented_forum_menu.'<a class="smalfont" href="index.php?forum">Forum</a><b> &raquo; </b>'.$aktForumRow['kat'].$extented_forum_menu_sufix;
+$title = $allgAr['title'].' :: Forum :: '.aktForumCats($aktForumRow['kat'],'title');
+$hmenu  = $extented_forum_menu.'<a class="smalfont" href="index.php?forum">Forum</a><b> &raquo; </b>'.aktForumCats($aktForumRow['kat']).$extented_forum_menu_sufix;
 $design = new design ( $title , $hmenu, 1);
 $design->header();
 
@@ -53,10 +53,16 @@ while ($r = db_fetch_assoc($erg1) ) {
   
   if ($r['cid'] <> $xcid) {
     $tpl->out(1);
+    //Unterkategorien
+    $sql = db_query("SELECT a.name as cname, a.id as cid FROM `prefix_forumcats` a LEFT JOIN `prefix_forums` b ON a.id = b.cid WHERE a.cid = {$r['cid']} AND a.id = b.cid ORDER BY a.pos, a.name");
+    while ($ucat = db_fetch_assoc($sql)) {
+      $tpl->set_ar_out($ucat,2);
+    }
+    //Unterkategorien - Ende
     $xcid = $r['cid'];
   }
-  $tpl->out(2);
+  $tpl->out(3);
 }
-$tpl->out(3);
+$tpl->out(4);
 $design->footer();
 ?>
