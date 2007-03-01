@@ -30,7 +30,7 @@ while ($row = db_fetch_assoc($erg) ) {
   if ( is_siteadmin() ) {
 	  echo '<a href="index.php?shoutbox-d'.$row['id'].'"><img src="include/images/icons/del.gif" alt="'.$lang['delete'].'" title="'.$lang['delete'].'"></a>&nbsp;';
 	}
-	echo '<b>'.$row['nickname'].':</b> '.preg_replace( '/([^\s]{10})(?=[^\s])/', "$1\n", $row['textarea']).'</td></tr>';
+	echo '<b>'.$row['nickname'].':</b> '.preg_replace( '/([^\s]{'.$allgAr['sb_maxwordlength'].'})(?=[^\s])/', "$1\n", $row['textarea']).'</td></tr>';
 }
 echo '</table>';
 if (is_siteadmin()) {

@@ -196,13 +196,18 @@ function is_siteadmin ($m = NULL) {
 # gruppe ist. oder ob er fals angegben das modulrecht hat.
 # wenn eines von diesen 3 kriterien stimmt wird true ansonsten
 # wenn keins uebereinstimmt false zurueck gegeben.
+# wenn als recht 1 übergeben wird, wird false zurück geliefert, wenn man kein admin ist
 function has_right ($recht,$modul = '') {
   if ( !is_array($recht) AND !is_null($recht) ) {
     $recht = array ( $recht );
   }
-
+  
   if ( $_SESSION['authright'] == -9 ) {
     return ( true );
+  }
+  
+  if (in_array(1,$recht)) {
+    return ( false );
   }
 
   if ( !is_null($recht) ) {

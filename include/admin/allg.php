@@ -129,7 +129,14 @@ if ( empty ($_POST['submit']) ) {
 		  echo '<select name="'.$row['schl'].'">'.$$vname.'</select>';
 		} elseif ($row['typ'] == 'textarea') {
       echo '<textarea cols="55" rows="3" name="'.$row['schl'].'">'.$row['wert'].'</textarea>';
-    }
+    } elseif ($row['typ'] == 'grecht') {
+      $grl = dblistee($allgAr[$row['schl']],"SELECT id,name FROM prefix_grundrechte ORDER BY id ASC");
+      echo '<select name="'.$row['schl'].'">'.$grl.'</select>';
+    } elseif ($row['typ'] == 'grecht2') {
+      $grl = dblistee($allgAr[$row['schl']],"SELECT id,name FROM prefix_grundrechte ORDER BY id ASC");
+      $grl .= '<option value="1" '.($allgAr[$row['schl']] == 1?'selected':'').'>deaktiviert</option>';
+      echo '<select name="'.$row['schl'].'">'.$grl.'</select>';
+    }    
 		echo '</td></tr>'."\n\n";
 		$ch = $row['kat'];
 	}

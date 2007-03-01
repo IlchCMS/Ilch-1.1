@@ -76,7 +76,7 @@ case 2 :
 case 'show' :
   if ($allgAr['gbook_koms_for_inserts'] == 1) {
     $id = escape($menu->get(2), 'integer');
-    if ((loggedin() OR chk_antispam('gbookkom')) AND isset($_POST['name']) AND isset($_POST['text'])) {
+    if (chk_antispam('gbookkom')) AND isset($_POST['name']) AND isset($_POST['text'])) {
       $name = escape($_POST['name'], 'string');
       $text = escape($_POST['text'], 'string');
       db_query("INSERT INTO prefix_koms (name,text,uid,cat) VALUES ('".$name."', '".$text."', ".$id.", 'GBOOK')");
@@ -98,7 +98,7 @@ case 'show' :
 		}
     
     $tpl = new tpl ( 'gbook.htm' );
-		$r['ANTISPAM'] = (loggedin()?'':get_antispam('gbookkom', 0));
+		$r['ANTISPAM'] = get_antispam('gbookkom', 0);
     $r['uname'] = $_SESSION['authname'];
     $r['text'] = bbcode($r['text']);
     $tpl->set_ar_out($r, 4);
