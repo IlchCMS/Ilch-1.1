@@ -53,7 +53,7 @@ $design->header();
 		  $tpl->set_ar_out($row,1);
 
 	}   } else {
-	   echo '<tr><td colspan="6" class="Cnorm"><b>keine Eintr&auml;e vorhanden</b></td></tr>';
+	   echo '<tr><td colspan="6" class="Cnorm"><b>keine Eintr&auml;ge vorhanden</b></td></tr>';
 		}
     
     

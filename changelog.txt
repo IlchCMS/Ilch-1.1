@@ -1,0 +1,25 @@
+Changelog:
+==========
++ neue Funktionen       * Änderungen/Bugfixes
+
+Version 1.1 F
+-------------
++ Verwaltung von noch nicht registrierten Users admin.php?puser
++ Dateirechte werden nun beim Upload gesetzt
++ Posts werden beim User nun heruntergezählt, wenn ein Post gelöscht wird
++ Shoutbox überarbeitet mit Einstellungen unter Konfiguration
++ Antispam konfigurierbar
++ Kasse Ändern hinzugefügt
++ Awards Ändern hinzugefügt
++ mehrere (Unter-)Kategorien für das Forum
++ Module werden im Adminbereich nun auch in der Übersicht angezeigt
+
+* Selfpage verbessert: kein .php als Endung mehr nötig, View Source muss vorm Speichern nicht mehr entfernt werden
+* Fehlerkorrektur im PM-System
+* Downloads nur noch mit ausreichenden Rechten herunterladbar
+* Links werden nun sortiert dargestellt
+* Avatarupload nur noch wenn erlaubt
+* Escapen im Forum korrigiert
+* Betreff bei E-Mails jetzt mit Leerzeichen
+* Änderungen in der Sprachdatei
+* Gästebuchbug (wahrscheinlich) behoben

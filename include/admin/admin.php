@@ -12,7 +12,7 @@ $design->header();
 
 # script version 
 $scriptVersion = 11;
-$scriptUpdate = 'E';
+$scriptUpdate = 'F';
 
 # statistik wird bereinigt.
 $mon = date('n');
@@ -145,7 +145,23 @@ db_query("OPTIMIZE TABLE prefix_stats");
                  <br class="admix_last"/>
                </ul>
              </li>	     
-             <li class="admix_box">Module</li>
+             <li class="admix_box">Module
+             <?php
+             $modabf = db_query("SELECT * FROM `prefix_modules` WHERE ashow = 1");
+             if (db_num_rows($modabf) > 0) {
+                echo '<br /><ul>';
+                while ($modrow = db_fetch_object($modabf)) {
+                  if (file_exists('include/images/icons/admin/'.$modrow->url.'.png')) {
+                    $bild = 'include/images/icons/admin/'.$modrow->url.'.png';
+                  } else {
+                    $bild = 'include/images/icons/admin/na.png';
+                  }
+                  echo '<li><a href="admin.php?'.$modrow->url.'"><img src="'.$bild.'" alt="">'.$modrow->name.'</a></li>'."\n";
+                }
+                echo '<br class="admix_last"/></ul>';
+             }             
+             ?>             
+             </li>
            </ul>
            
            </td></td></table>

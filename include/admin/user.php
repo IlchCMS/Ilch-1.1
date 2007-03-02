@@ -224,7 +224,7 @@ switch($um) {
 		  if (isset($_POST['passw'])) {
 		    $newPass = genkey ( 8 );
 				$newPassMD5 = md5($newPass); 
-				icmail ( $row->email , 'neues Password' , "Hallo\n\nDein Password wurde soeben von einem Administrator geaendert es ist nun:\n\n$newPass\n\nGruÔøΩ der Administrator");
+				icmail ( $row->email , 'neues Password' , "Hallo\n\nDein Password wurde soeben von einem Administrator g‰endert es ist nun:\n\n$newPass\n\nGruﬂ der Administrator");
 		    db_query('UPDATE `prefix_user` SET pass = "'.$newPassMD5.'" WHERE id = "'.$_POST['uID'].'"');
 			}
 			

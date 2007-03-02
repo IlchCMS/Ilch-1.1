@@ -83,7 +83,7 @@ function icUpload () {
   
 	    if (!empty ($_FILES['file']['name']) ) {
       
-        print_r($_FILES['file']);
+        //print_r($_FILES['file']);
         
         $type  = trim($_FILES['file']['type']);
 		    $rtype = trim(ic_mime_type ($_FILES['file']['tmp_name']));
