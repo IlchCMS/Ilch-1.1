@@ -133,8 +133,7 @@ if ( empty ($_POST['submit']) ) {
       $grl = dblistee($allgAr[$row['schl']],"SELECT id,name FROM prefix_grundrechte ORDER BY id ASC");
       echo '<select name="'.$row['schl'].'">'.$grl.'</select>';
     } elseif ($row['typ'] == 'grecht2') {
-      $grl = dblistee($allgAr[$row['schl']],"SELECT id,name FROM prefix_grundrechte ORDER BY id ASC");
-      $grl .= '<option value="1" '.($allgAr[$row['schl']] == 1?'selected':'').'>deaktiviert</option>';
+      $grl = dblistee($allgAr[$row['schl']],"SELECT id,name FROM prefix_grundrechte WHERE id >= -2 ORDER BY id ASC");
       echo '<select name="'.$row['schl'].'">'.$grl.'</select>';
     }    
 		echo '</td></tr>'."\n\n";

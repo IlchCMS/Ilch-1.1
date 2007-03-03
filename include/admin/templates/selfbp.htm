@@ -13,10 +13,15 @@ function confirmDel(){
     document.location.href="?selfbp=0&del=" + akl;
   }
 }
-
+function disable_view_source(){
+  if (document.getElementById('txh').checked == true) {
+  viewText('your_textarea');
+  }
+  return true;
+}
 //-->
 </script>
-<form name="form" action="?selfbp" method="POST">
+<form name="form" action="?selfbp" method="POST" onsubmit="return disable_view_source();">
 
 <table cellpadding="2" cellspacing="1" border="0" class="border">
   <tr>

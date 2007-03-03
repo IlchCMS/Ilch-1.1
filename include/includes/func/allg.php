@@ -296,7 +296,7 @@ function iurlencode ($s) {
 function chk_antispam ($m) {
   global $allgAr;
   
-  if (is_numeric($allgAr['antispam_'.$m]) AND has_right($allgAr['antispam_'.$m])) { return (true); }
+  if (is_numeric($allgAr['antispam']) AND has_right($allgAr['antispam'])) { return (true); }
   
   if (isset($_POST['antispam']) AND md5($_POST['antispam']) == $_POST['antispam_e'.$m]) {
 	  unset ($_SESSION['antispam'][$m]);
@@ -309,7 +309,7 @@ function chk_antispam ($m) {
 function get_antispam ($m, $t) {
   global $allgAr;
   
-  if (is_numeric($allgAr['antispam_'.$m]) AND has_right($allgAr['antispam_'.$m])) { return (''); }
+  if (is_numeric($allgAr['antispam']) AND has_right($allgAr['antispam'])) { return (''); }
 
 	if (!is_array($_SESSION['antispam'])) {
 	  $_SESSION['antispam'] = array();

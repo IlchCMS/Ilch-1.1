@@ -4,7 +4,7 @@ Changelog:
 
 Version 1.1 F
 -------------
-+ Verwaltung von noch nicht registrierten Users admin.php?puser
++ Verwaltung von noch nicht registrierten Users
 + Dateirechte werden nun beim Upload gesetzt
 + Posts werden beim User nun heruntergezählt, wenn ein Post gelöscht wird
 + Shoutbox überarbeitet mit Einstellungen unter Konfiguration
