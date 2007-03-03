@@ -26,6 +26,17 @@ function gallery_admin_showcats ( $id , $stufe ) {
 	}
 }
 
+function gallery_admin_selectcats ( $id, $stufe, &$output) {
+  $q = "SELECT * FROM prefix_gallery_cats WHERE cat = ".$id." ORDER BY pos";
+	$erg = db_query($q);
+	if ( db_num_rows($erg) > 0 ) {
+ 	  while ($row = db_fetch_object($erg) ) {
+	    $output .= '<option value="'.$row->id.'">'.$stufe.' '.$row->name.'</option>';
+      gallery_admin_selectcats($row->id, $stufe.'&raquo;', $output );
+	  }
+	}
+}
+
 # Bilder einer Kategorie erneuern oder einlesen
 if ( $menu->get(1) == 'reloadImages' ) {
   $msg = '';
@@ -287,8 +298,9 @@ if ( isset ( $_POST['Csub']) ) {
 			);
 		}
     #$_Cilch['Crecht'] = arlistee($_Cilch['Crecht'],getFuerAr());
-   	$_Cilch['Ccat']   = dblistee($_Cilch['Ccat'], "SELECT id,name FROM prefix_gallery_cats ORDER BY name");
-	  $_Cilch['Ccat']   = '<option value="0">Keine</option>'.$_Cilch['Ccat'];
+   	//$_Cilch['Ccat']   = dblistee($_Cilch['Ccat'], "SELECT id,name FROM prefix_gallery_cats ORDER BY name");
+	  gallery_admin_selectcats('0','',$_Cilch['Ccat']);
+    $_Cilch['Ccat']   = '<option value="0">Keine</option>'.$_Cilch['Ccat'];
 		$_Cilch['Crecht'] = dblistee($_Cilch['Crecht'],"SELECT id,name FROM prefix_grundrechte ORDER BY id DESC");
     gallery_admin_showcats ( 0 , '' );
     

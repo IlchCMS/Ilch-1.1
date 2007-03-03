@@ -21,6 +21,17 @@ function forum_admin_showcats ( $id , $stufe ) {
 	}
 }
 
+function forum_admin_selectcats ( $id, $stufe, &$output) {
+  $q = "SELECT * FROM prefix_forumcats WHERE cid = ".$id." ORDER BY pos";
+	$erg = db_query($q);
+	if ( db_num_rows($erg) > 0 ) {
+ 	  while ($row = db_fetch_object($erg) ) {
+	    $output .= '<option value="'.$row->id.'">'.$stufe.' '.$row->name.'</option>';
+      forum_admin_selectcats($row->id, $stufe.'&raquo;', $output );
+	  }
+	}
+}
+
 $show = true;
 $um = $menu->get(1);
 
@@ -79,7 +90,8 @@ switch ( $um ) {
 				'text' => ''
 			);
 			$tpl = new tpl ('forum/eforum',1);
-			$ar['kats']  = dbliste('',$tpl,'kats',"SELECT id, name FROM prefix_forumcats ORDER BY name");
+			
+      forum_admin_selectcats(0,'',$ar['kats']);
 			$ar['view']   = '<optgroup label="Grundrechte">';
 			$ar['view']  .= dbliste('', $tpl,'view',"SELECT id, name FROM prefix_grundrechte ORDER BY id DESC");
 			$ar['view']  .= '</optgroup>';
@@ -274,7 +286,8 @@ if ( $show ) {
   $Cout['ak'] = ($um == 'changeCategorie' ? 'change' : 'new');
   $Cout['sub'] = ($um == 'changeCategorie' ? '&auml;ndern' : 'erstellen');
   $Cout['name'] = ($um == 'changeCategorie' ? $r->name : '');
-  $Cout['cat'] = '<option value="0">Keine</option>'.dblistee($cid, "SELECT id,name FROM prefix_forumcats ORDER BY name");
+  forum_admin_selectcats('0','',$Cout['cat']);
+  $Cout['cat'] = '<option value="0">Keine</option>'.$Cout['cat'];
   $tpl->set_ar_out($Cout,4);
   
 }

@@ -80,6 +80,17 @@ function archiv_downs_admin_showcats ( $id , $stufe ) {
 	}
 }
 
+function archiv_downs_admin_selectcats ( $id, $stufe, &$output) {
+  $q = "SELECT id,name,pos,cat FROM prefix_downcats WHERE cat = ".$id." ORDER BY pos";
+	$erg = db_query($q);
+	if ( db_num_rows($erg) > 0 ) {
+ 	  while ($row = db_fetch_object($erg) ) {
+	    $output .= '<option value="'.$row->id.'">'.$stufe.' '.$row->name.'</option>';
+      archiv_downs_admin_selectcats($row->id, $stufe.'&raquo;', $output );
+	  }
+	}
+}
+
 function archiv_links_admin_showcats ( $id , $stufe ) {
   $q = "SELECT * FROM prefix_linkcats WHERE cat = ".$id." ORDER BY pos";
 	$erg = db_query($q);
@@ -91,6 +102,17 @@ function archiv_links_admin_showcats ( $id , $stufe ) {
       echo '<td align="center"><a href="admin.php?archiv-links-S'.$row->id.'-O'.$row->id.'-'.$row->pos.'-'.$row->cat.'"><img src="include/images/icons/pfeilo.gif" border="0"></a></td>';
       echo '<td align="center"><a href="admin.php?archiv-links-S'.$row->id.'-U'.$row->id.'-'.$row->pos.'-'.$row->cat.'"><img src="include/images/icons/pfeilu.gif" border="0"></a></td></tr>';
 		  archiv_links_admin_showcats($row->id, $stufe.' &nbsp; &nbsp;' );
+	  }
+	}
+}
+
+function archiv_links_admin_selectcats ( $id, $stufe, &$output) {
+  $q = "SELECT * FROM prefix_linkcats WHERE cat = ".$id." ORDER BY pos";
+	$erg = db_query($q);
+	if ( db_num_rows($erg) > 0 ) {
+ 	  while ($row = db_fetch_object($erg) ) {
+	    $output .= '<option value="'.$row->id.'">'.$stufe.' '.$row->name.'</option>';
+      archiv_links_admin_selectcats($row->id, $stufe.'&raquo;', $output );
 	  }
 	}
 }
@@ -411,8 +433,8 @@ switch ($um) {
 		$_ilch['url'] = arlistee ( $dllink, get_downloads_ar() );
 		$_ilch['url'] = '<option value="neu">andere:</option>'.$_ilch['url'];
 
-	  $_ilch['cat'] = dblistee ( $_ilch['cat'], "SELECT id,name FROM prefix_downcats ORDER BY name");
-		$_ilch['cat'] = '<option value="0">Keine</option>'.$_ilch['cat'];
+	  archiv_downs_admin_selectcats('0','',$_ilch['cat']);
+    $_ilch['cat'] = '<option value="0">Keine</option>'.$_ilch['cat'];
     
     if ( !isset($azk) ) {
       $azk = 0;
@@ -456,8 +478,8 @@ switch ($um) {
 			);
 		}
     $_Cilch['Crecht'] = dblistee($_Cilch['Crecht'],"SELECT id,name FROM prefix_grundrechte ORDER BY id DESC");
-   	$_Cilch['Ccat']   = dblistee($_Cilch['Ccat'], "SELECT id,name FROM prefix_downcats ORDER BY name");
-	  $_Cilch['Ccat']   = '<option value="0">Keine</option>'.$_Cilch['Ccat'];
+   	archiv_downs_admin_selectcats('0','',$_Cilch['Ccat']);
+    $_Cilch['Ccat']   = '<option value="0">Keine</option>'.$_Cilch['Ccat'];
 		
     archiv_downs_admin_showcats ( 0 , '' );
     
@@ -605,8 +627,8 @@ switch ($um) {
       unset($c);
 		}
 
-	  $_ilch['cat'] = dblistee ( $_ilch['cat'], "SELECT id,name FROM prefix_linkcats ORDER BY name");
-		$_ilch['cat'] = '<option value="0">Keine</option>'.$_ilch['cat'];
+	  archiv_links_admin_selectcats('0','',$_ilch['cat']);
+    $_ilch['cat'] = '<option value="0">Keine</option>'.$_ilch['cat'];
     
     if ( !isset($azk) ) {
       $azk = 0;
@@ -642,8 +664,8 @@ switch ($um) {
 			);
 		}
     #$_Cilch['Crecht'] = arlistee($_Cilch['Crecht'],getFuerAr());
-   	$_Cilch['Ccat']   = dblistee($_Cilch['Ccat'], "SELECT id,name FROM prefix_linkcats ORDER BY name");
-	  $_Cilch['Ccat']   = '<option value="0">Keine</option>'.$_Cilch['Ccat'];
+   	archiv_links_admin_selectcats('0','',$_Cilch['Ccat']);
+    $_Cilch['Ccat']   = '<option value="0">Keine</option>'.$_Cilch['Ccat'];
 		
     archiv_links_admin_showcats ( 0 , '' );
     
