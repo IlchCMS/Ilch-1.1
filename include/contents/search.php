@@ -33,6 +33,7 @@ function search_finduser() {
   $tpl->out(0);
   if ( isset ( $_POST['sub'] ) AND !empty($_POST['name']) ) {
 	  $name = str_replace('*',"%",$_POST['name']);
+    $name = escape($name, 'string');
 	  $q = "SELECT name,name FROM prefix_user WHERE name like '".$name."'";
 	  $tpl->set ('username',dbliste('',$tpl,'username',$q));
 	  $tpl->out(1);
