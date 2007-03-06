@@ -2,7 +2,6 @@
 #   Copyright by: Manuel Staechele
 #   Support: www.ilch.de
 
-
 defined ('main') or die ( 'no direct access' );
 
   $title = $allgAr['title'].' :: Shoutbox '.$lang['archiv'];
@@ -17,9 +16,26 @@ if (is_siteadmin()) {
   }
   # delete all
   if ($menu->get(1) == 'delall') {
-    db_query("DELETE FROM `prefix_shoutbox`");
+    if (is_numeric($menu->get(2))) {       
+      $anz = db_result(db_query("SELECT COUNT(*) FROM `prefix_shoutbox`"),0) - $menu->get(2);
+      if ($anz > 0) {
+        db_query("DELETE FROM `prefix_shoutbox` LIMIT $anz");
+        } 
+      }
+    else { db_query("DELETE FROM `prefix_shoutbox`"); }
   }
 }
+
+echo '<script type="text/javascript">
+  function del() {
+    anz = prompt("Wieviele Einträge sollen erhalten bleiben?\n(Es werden die zuletzt geschriebenen erhalten)", "0");
+    if (parseInt(anz) != "NaN") {
+      window.location.href = "index.php?shoutbox-delall-"+anz;
+    } else {
+      alert("Du msst eine Zahl eingeben");
+    }
+  }
+</script>';
 
 $class = 'Cnorm';
 echo '<table width="100%" align="center" class="border" cellpadding="2" cellspacing="1" border="0"><tr class="Chead"><td><b>Shoutbox '.$lang['archiv'].'</b></td></tr>';
@@ -34,7 +50,7 @@ while ($row = db_fetch_assoc($erg) ) {
 }
 echo '</table>';
 if (is_siteadmin()) {
-  echo '<a href="index.php?shoutbox-delall">'.$lang['clearshoutbox'].'</a>';
+  echo '<a href="javascript:del();">'.$lang['clearshoutbox'].'</a>';
 }
 $design->footer();
 ?>
