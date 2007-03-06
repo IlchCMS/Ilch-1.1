@@ -80,13 +80,13 @@ function archiv_downs_admin_showcats ( $id , $stufe ) {
 	}
 }
 
-function archiv_downs_admin_selectcats ( $id, $stufe, &$output) {
+function archiv_downs_admin_selectcats ( $id, $stufe, &$output, $sel = 0) {
   $q = "SELECT id,name,pos,cat FROM prefix_downcats WHERE cat = ".$id." ORDER BY pos";
 	$erg = db_query($q);
 	if ( db_num_rows($erg) > 0 ) {
- 	  while ($row = db_fetch_object($erg) ) {
-	    $output .= '<option value="'.$row->id.'">'.$stufe.' '.$row->name.'</option>';
-      archiv_downs_admin_selectcats($row->id, $stufe.'&raquo;', $output );
+ 	  while ($row = db_fetch_object($erg) ) { 	    
+	    $output .= '<option value="'.$row->id.'"'.($sel == $row->id?' selected="selected"':'').'>'.$stufe.' '.$row->name.'</option>';
+      archiv_downs_admin_selectcats($row->id, $stufe.'&raquo;', $output, $sel );
 	  }
 	}
 }
@@ -106,13 +106,13 @@ function archiv_links_admin_showcats ( $id , $stufe ) {
 	}
 }
 
-function archiv_links_admin_selectcats ( $id, $stufe, &$output) {
+function archiv_links_admin_selectcats ( $id, $stufe, &$output, $sel = 0) {
   $q = "SELECT * FROM prefix_linkcats WHERE cat = ".$id." ORDER BY pos";
 	$erg = db_query($q);
 	if ( db_num_rows($erg) > 0 ) {
  	  while ($row = db_fetch_object($erg) ) {
-	    $output .= '<option value="'.$row->id.'">'.$stufe.' '.$row->name.'</option>';
-      archiv_links_admin_selectcats($row->id, $stufe.'&raquo;', $output );
+	    $output .= '<option value="'.$row->id.'"'.($sel == $row->id?' selected="selected"':'').'>'.$stufe.' '.$row->name.'</option>';
+      archiv_links_admin_selectcats($row->id, $stufe.'&raquo;', $output, $sel );
 	  }
 	}
 }
@@ -338,14 +338,23 @@ switch ($um) {
         db_query("INSERT INTO prefix_downcats (`cat`,`name`,`desc`,pos,recht) VALUES (".$_POST['Ccat'].",'".$_POST['Cname']."','".$_POST['Cdesc']."','".$pos."','".$_POST['Crecht']."')");
 	    } else {
         $alt_row = db_fetch_assoc(db_query("SELECT cat,pos FROM prefix_downcats WHERE id = ".$_POST['Cpkey']));
-        if ( $alt_row['cat'] <> $_POST['Ccat'] ) {
-          $pos = db_result(db_query("SELECT COUNT(*) FROM prefix_downcats WHERE cat = ".$_POST['Ccat']),0);
-        } else {
-          $pos = $alt_row['pos'];
+        $bool = true;
+        $tc = $_POST['Ccat'];
+        while ($tc > 0) {
+        if ($tc == $_POST['Cpkey']) { $bool = false; }
+        $tc = @db_result(db_query("SELECT cat FROM prefix_downcats WHERE id = $tc"));
         }
-        db_query("UPDATE prefix_downcats SET `cat` = '".$_POST['Ccat']."',`name` = '".$_POST['Cname']."',pos = '".$pos."',`desc` = '".$_POST['Cdesc']."', recht = '".$_POST['Crecht']."' WHERE `id` = '".$_POST['Cpkey']."'");
-	      if ( $alt_row['cat'] <> $_POST['Ccat'] ) {
-          db_query("UPDATE prefix_downcats SET pos = pos - 1 WHERE pos > ".$alt_row['pos']." AND cat = ".$alt_row['cat']); 
+        if ($bool) {         
+          if ( $alt_row['cat'] <> $_POST['Ccat'] ) {
+            $pos = db_result(db_query("SELECT COUNT(*) FROM prefix_downcats WHERE cat = ".$_POST['Ccat']),0);
+          } else {
+            $pos = $alt_row['pos'];
+          }
+  
+          db_query("UPDATE prefix_downcats SET `cat` = '".$_POST['Ccat']."',`name` = '".$_POST['Cname']."',pos = '".$pos."',`desc` = '".$_POST['Cdesc']."', recht = '".$_POST['Crecht']."' WHERE `id` = '".$_POST['Cpkey']."'");
+  	      if ( $alt_row['cat'] <> $_POST['Ccat'] ) {
+            db_query("UPDATE prefix_downcats SET pos = pos - 1 WHERE pos > ".$alt_row['pos']." AND cat = ".$alt_row['cat']); 
+          }
         }
 	    }
       $azk = $_POST['Ccat'];
@@ -478,7 +487,7 @@ switch ($um) {
 			);
 		}
     $_Cilch['Crecht'] = dblistee($_Cilch['Crecht'],"SELECT id,name FROM prefix_grundrechte ORDER BY id DESC");
-   	archiv_downs_admin_selectcats('0','',$_Cilch['Ccat']);
+   	archiv_downs_admin_selectcats('0','',$_Cilch['Ccat'],$_Cilch['Ccat']);
     $_Cilch['Ccat']   = '<option value="0">Keine</option>'.$_Cilch['Ccat'];
 		
     archiv_downs_admin_showcats ( 0 , '' );
@@ -550,14 +559,22 @@ switch ($um) {
         db_query("INSERT INTO prefix_linkcats (`cat`,`name`,`desc`,pos) VALUES (".$_POST['Ccat'].",'".$_POST['Cname']."','".$_POST['Cdesc']."','".$pos."')");
 	    } else {
         $alt_row = db_fetch_assoc(db_query("SELECT cat,pos FROM prefix_linkcats WHERE id = ".$_POST['Cpkey']));
-        if ( $alt_row['cat'] <> $_POST['Ccat'] ) {
-          $pos = db_result(db_query("SELECT COUNT(*) FROM prefix_linkcats WHERE cat = ".$_POST['Ccat']),0);
-        } else {
-          $pos = $alt_row['pos'];
+        $tc = $_POST['Ccat'];
+        $bool = true;
+        while ($tc > 0) {
+          if ($tc == $_POST['Cpkey']) { $bool = false; }
+          $tc = @db_result(db_query("SELECT cat FROM prefix_linkcats WHERE id = $tc"));
         }
-	      db_query("UPDATE prefix_linkcats SET `cat` = '".$_POST['Ccat']."',`name` = '".$_POST['Cname']."',pos = '".$pos."',`desc` = '".$_POST['Cdesc']."' WHERE `id` = '".$_POST['Cpkey']."'");
-	      if ( $alt_row['cat'] <> $_POST['Ccat'] ) {
-          db_query("UPDATE prefix_linkcats SET pos = pos - 1 WHERE pos > ".$alt_row['pos']." AND cat = ".$alt_row['cat']); 
+        if ($bool) {
+          if ( $alt_row['cat'] <> $_POST['Ccat'] ) {
+            $pos = db_result(db_query("SELECT COUNT(*) FROM prefix_linkcats WHERE cat = ".$_POST['Ccat']),0);
+          } else {
+            $pos = $alt_row['pos'];
+          }
+  	      db_query("UPDATE prefix_linkcats SET `cat` = '".$_POST['Ccat']."',`name` = '".$_POST['Cname']."',pos = '".$pos."',`desc` = '".$_POST['Cdesc']."' WHERE `id` = '".$_POST['Cpkey']."'");
+  	      if ( $alt_row['cat'] <> $_POST['Ccat'] ) {
+            db_query("UPDATE prefix_linkcats SET pos = pos - 1 WHERE pos > ".$alt_row['pos']." AND cat = ".$alt_row['cat']); 
+          }
         }
 	    }
       $azk = $_POST['Ccat'];
@@ -663,8 +680,7 @@ switch ($um) {
 				'Cdesc' => ''
 			);
 		}
-    #$_Cilch['Crecht'] = arlistee($_Cilch['Crecht'],getFuerAr());
-   	archiv_links_admin_selectcats('0','',$_Cilch['Ccat']);
+    archiv_links_admin_selectcats('0','',$_Cilch['Ccat'],$_Cilch['Ccat']);
     $_Cilch['Ccat']   = '<option value="0">Keine</option>'.$_Cilch['Ccat'];
 		
     archiv_links_admin_showcats ( 0 , '' );

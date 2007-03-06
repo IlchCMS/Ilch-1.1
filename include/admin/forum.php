@@ -21,13 +21,13 @@ function forum_admin_showcats ( $id , $stufe ) {
 	}
 }
 
-function forum_admin_selectcats ( $id, $stufe, &$output) {
+function forum_admin_selectcats ( $id, $stufe, &$output, $sel = 0) {
   $q = "SELECT * FROM prefix_forumcats WHERE cid = ".$id." ORDER BY pos";
 	$erg = db_query($q);
 	if ( db_num_rows($erg) > 0 ) {
  	  while ($row = db_fetch_object($erg) ) {
-	    $output .= '<option value="'.$row->id.'">'.$stufe.' '.$row->name.'</option>';
-      forum_admin_selectcats($row->id, $stufe.'&raquo;', $output );
+	    $output .= '<option value="'.$row->id.'"'.($sel == $row->id?' selected="selected"':'').'>'.$stufe.' '.$row->name.'</option>';
+      forum_admin_selectcats($row->id, $stufe.'&raquo;', $output, $sel );
 	  }
 	}
 }
@@ -211,12 +211,24 @@ switch ( $um ) {
 	case 'changeCategorie' :
 	  if ( empty ($_POST['cat_sub']) ) {
 			$cid = escape($menu->get(2),'integer');
-			$r = db_fetch_object(db_query("SELECT name as name FROM prefix_forumcats WHERE id = ".$cid));
+			$r = db_fetch_object(db_query("SELECT name,cid as topcid FROM prefix_forumcats WHERE id = ".$cid));
 			$show = true;
 		} else {
 		  $name = escape($_POST['name'],'string');
 			$cid = escape($_POST['cid'],'integer');
-			db_query("UPDATE prefix_forumcats SET name = '".$name."' WHERE id = ".$cid);
+			$Ccat = escape($_POST['Ccat'],'integer');
+			$r = db_fetch_object(db_query("SELECT cid, pos FROM prefix_forumcats WHERE id = ".$cid));
+			$bool = true;
+      $tc = $_POST['Ccat'];
+      while ($tc > 0) {
+        if ($tc == $_POST['Cpkey']) { $bool = false; }
+        $tc = @db_result(db_query("SELECT cat FROM prefix_forumcats WHERE id = $tc"));
+      }
+			if ($bool) {
+			  if ($r->cid == $Ccat) { $pos = $r->pos; }
+			  else { $pos = @db_result(db_query("SELECT COUNT(*) FROM prefix_forumcats WHERE cid = $Ccat")); }
+        db_query("UPDATE prefix_forumcats SET name = '".$name."', cid = $Ccat, pos = $pos WHERE id = ".$cid);
+      }
 		}
 	  break;
 	case 'deleteCategorie' :
@@ -281,12 +293,13 @@ if ( $show ) {
   $tpl->out(3);
   
   forum_admin_showcats(0,'');
-  $cid = (is_numeric($r->topcid)?$r->topcid:0);
+  $topcid = (is_numeric($r->topcid)?$r->topcid:0);
   $Cout = array();
+  $Cout['cid'] = $cid;
   $Cout['ak'] = ($um == 'changeCategorie' ? 'change' : 'new');
   $Cout['sub'] = ($um == 'changeCategorie' ? '&auml;ndern' : 'erstellen');
   $Cout['name'] = ($um == 'changeCategorie' ? $r->name : '');
-  forum_admin_selectcats('0','',$Cout['cat']);
+  forum_admin_selectcats('0','',$Cout['cat'],$topcid);
   $Cout['cat'] = '<option value="0">Keine</option>'.$Cout['cat'];
   $tpl->set_ar_out($Cout,4);
   

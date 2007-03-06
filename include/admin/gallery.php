@@ -26,13 +26,13 @@ function gallery_admin_showcats ( $id , $stufe ) {
 	}
 }
 
-function gallery_admin_selectcats ( $id, $stufe, &$output) {
+function gallery_admin_selectcats ( $id, $stufe, &$output, $sel = 0) {
   $q = "SELECT * FROM prefix_gallery_cats WHERE cat = ".$id." ORDER BY pos";
 	$erg = db_query($q);
 	if ( db_num_rows($erg) > 0 ) {
  	  while ($row = db_fetch_object($erg) ) {
-	    $output .= '<option value="'.$row->id.'">'.$stufe.' '.$row->name.'</option>';
-      gallery_admin_selectcats($row->id, $stufe.'&raquo;', $output );
+	    $output .= '<option value="'.$row->id.'"'.($sel == $row->id?' selected="selected"':'').'>'.$stufe.' '.$row->name.'</option>';
+      gallery_admin_selectcats($row->id, $stufe.'&raquo;', $output, $sel );
 	  }
 	}
 }
@@ -247,15 +247,24 @@ if ( isset ( $_POST['Csub']) ) {
     db_query("INSERT INTO prefix_gallery_cats (`cat`,`name`,`besch`,pos,recht) VALUES (".$_POST['Ccat'].",'".$_POST['Cname']."','".$_POST['Cdesc']."','".$nextpos."',".$_POST['Crecht'].")");
 	} else {
     $r = db_fetch_assoc(db_query("SELECT cat, pos FROM prefix_gallery_cats WHERE id = ".$_POST['Cpkey']));
-    $epos = $r['pos'];
-    $akc  = $r['cat'];
-    $npos = $epos;
-    if ($akc != $_POST['Ccat']) {
-      $npos = db_result(db_query("SELECT COUNT(*) FROM prefix_gallery_cats WHERE cat = ".$_POST['Ccat']),0,0);
+    
+    $bool = true;
+    $tc = $_POST['Ccat'];
+    while ($tc > 0) {
+    if ($tc == $_POST['Cpkey']) { $bool = false; }
+    $tc = @db_result(db_query("SELECT cat FROM prefix_gallery_cats WHERE id = $tc"));
     }
-	  db_query("UPDATE prefix_gallery_cats SET `cat` = '".$_POST['Ccat']."',pos=".$npos.",recht=".$_POST['Crecht'].",`name` = '".$_POST['Cname']."',`besch` = '".$_POST['Cdesc']."' WHERE `id` = '".$_POST['Cpkey']."'");
-    if ($akc != $_POST['Ccat']) {
-      db_query("UPDATE prefix_gallery_cats SET pos = pos - 1 WHERE pos > ".$epos." AND cat = ".$akc);
+    if ($bool) {    
+      $epos = $r['pos'];
+      $akc  = $r['cat'];
+      $npos = $epos;
+      if ($akc != $_POST['Ccat']) {
+        $npos = db_result(db_query("SELECT COUNT(*) FROM prefix_gallery_cats WHERE cat = ".$_POST['Ccat']),0,0);
+      }
+  	  db_query("UPDATE prefix_gallery_cats SET `cat` = '".$_POST['Ccat']."',pos=".$npos.",recht=".$_POST['Crecht'].",`name` = '".$_POST['Cname']."',`besch` = '".$_POST['Cdesc']."' WHERE `id` = '".$_POST['Cpkey']."'");
+      if ($akc != $_POST['Ccat']) {
+        db_query("UPDATE prefix_gallery_cats SET pos = pos - 1 WHERE pos > ".$epos." AND cat = ".$akc);
+      }
     }
 	}
   $azk = $_POST['Ccat'];
@@ -298,8 +307,7 @@ if ( isset ( $_POST['Csub']) ) {
 			);
 		}
     #$_Cilch['Crecht'] = arlistee($_Cilch['Crecht'],getFuerAr());
-   	//$_Cilch['Ccat']   = dblistee($_Cilch['Ccat'], "SELECT id,name FROM prefix_gallery_cats ORDER BY name");
-	  gallery_admin_selectcats('0','',$_Cilch['Ccat']);
+	  gallery_admin_selectcats('0','',$_Cilch['Ccat'],$_Cilch['Ccat']);
     $_Cilch['Ccat']   = '<option value="0">Keine</option>'.$_Cilch['Ccat'];
 		$_Cilch['Crecht'] = dblistee($_Cilch['Crecht'],"SELECT id,name FROM prefix_grundrechte ORDER BY id DESC");
     gallery_admin_showcats ( 0 , '' );

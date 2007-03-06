@@ -215,6 +215,7 @@ switch($um) {
       db_query("DELETE FROM prefix_groupusers WHERE uid = ".$uid);
       db_query("DELETE FROM prefix_modulerights WHERE uid = ".$uid);
       db_query("DELETE FROM prefix_pm WHERE eid = ".$uid);
+      db_query("DELETE FROM prefix_online WHERE uid = ".$uid);
 			wd ('?user','User wurde erfolgreich gel&ouml;scht');
 		} else {
 		  $abf = "SELECT * FROM prefix_user WHERE id = '".$uid."'";
