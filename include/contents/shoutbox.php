@@ -28,11 +28,9 @@ if (is_siteadmin()) {
 
 echo '<script type="text/javascript">
   function del() {
-    anz = prompt("Wieviele Einträge sollen erhalten bleiben?\n(Es werden die zuletzt geschriebenen erhalten)", "0");
-    if (parseInt(anz) != "NaN") {
-      window.location.href = "index.php?shoutbox-delall-"+anz;
-    } else {
-      alert("Du msst eine Zahl eingeben");
+    if (anz = prompt("Wieviele Einträge sollen erhalten bleiben?\n(Es werden die zuletzt geschriebenen erhalten)", "0")) {
+      if (anz >= 0) { window.location.href = "index.php?shoutbox-delall-"+anz; }
+      else alert("Du musst eine Zahl größer gleich 0 eingeben");
     }
   }
 </script>';
