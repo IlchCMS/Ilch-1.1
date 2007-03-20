@@ -34,14 +34,19 @@ if (isset($_POST['ins'])) {
   $datum = get_datum ($_POST['datum']);
   $wofur = escape($_POST['wofur'], 'string');
   $text  = escape($_POST['text'], 'string');
-  $team  = escape($_POST['team'], 'string');
   $platz = escape($_POST['platz'], 'string');
   $bild  = get_homepage(escape($_POST['bild'], 'string'));
-  
+  if ($_POST['atype'] == 'user') {
+    $team = escape($_POST['name'],'string');
+  } else {  
+    $team = escape($_POST['team'],'string');
+  }
+      
   if ($menu->getA(1) == 'e' AND is_numeric($menu->getE(1))) {
     $id = $menu->getE(1);
     db_query("UPDATE `prefix_awards` SET time = '$datum', platz = '$platz',
-              team = '$team', bild = '$bild', text = '$text' WHERE id = $id");
+              team = '$team', wofur = '$wofur', bild = '$bild', text = '$text' WHERE id = $id");
+    echo mysql_error();
     $menu->set_url(1,'');    
     }
   else {

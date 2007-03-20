@@ -125,7 +125,7 @@ switch($um) {
       while($row = db_fetch_assoc($erg) ) {
 	      $ck = db_count_query("SELECT COUNT(uid) FROM prefix_groupusers WHERE uid = ".$uid." AND gid = ".$row['id']);
      	  if ( $ck == 0 AND isset ( $_POST['grprhave'][$row['id']][$uid] ) ) {
-		      db_query("INSERT INTO prefix_groupusers (uid,gid) VALUES ( ".$uid.", ".$row['id']." )");
+		      db_query("INSERT INTO prefix_groupusers (uid,gid,fid) VALUES ( ".$uid.", ".$row['id'].", 3 )");
     		} elseif ( $ck == 1 AND !isset ( $_POST['grprhave'][$row['id']][$uid] ) ) {
 		      db_query("DELETE FROM prefix_groupusers WHERE uid = ".$uid." AND gid = ".$row['id']);
 		    }

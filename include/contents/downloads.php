@@ -83,12 +83,10 @@ function icUpload () {
   
 	    if (!empty ($_FILES['file']['name']) ) {
       
-        //print_r($_FILES['file']);
-        
-        $type  = trim($_FILES['file']['type']);
 		    $rtype = trim(ic_mime_type ($_FILES['file']['tmp_name']));
         $fname = escape($_FILES['file']['name'],'string');
         $fende = preg_replace("/.+\.([a-zA-Z]+)$/", "\\1", $fname);
+        $fende = strtolower($fende);
         
 		    if ( $_FILES['file']['size'] > 2097000 ) { # 2 mb (2 097 152)
           return ('Die Datei darf NICHT gr&ouml;sser als 2 MBytes sein.');
@@ -96,16 +94,7 @@ function icUpload () {
         
         if (
 		      ($fende != 'rar' AND $fende != 'zip' AND $fende != 'tar')
-          
-          OR (
-          $type != 'application/zip' AND
-		    	$type != 'application/rar' AND
-		    	$type != 'application/x-rar-compressed' AND
-		    	$type != 'application/x-zip-compressed' AND
-          $type != 'application/x-rar' AND
-          $type != 'application/x-zip' AND
-          $type != 'application/x-tar')
-          
+                   
           OR (
           $rtype != 'application/x-rar' AND
           $rtype != 'application/x-zip' AND

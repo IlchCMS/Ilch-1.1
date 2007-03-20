@@ -173,6 +173,10 @@ function site_statistic_get_os($useragent){
 			  return "Windows 2000";
 		  } elseif (preg_match("=Windows NT 5\.1|Windows XP=", $useragent)) {
 			  return "Windows XP";
+			} elseif (preg_match("=Windows NT 6\.0|Windows Vista=", $useragent)) {
+			  return "Windows Vista";
+			} elseif (preg_match("=Windows NT 5\.2|Windows Server 2003|Windows XP x64=", $useragent)) {
+			  return "Windows Server 2003\\Windows XP x64";			  
 		  } elseif (preg_match("=Windows NT 4\.0|Windows NT|WinNT4\.0=", $useragent)) {
 			  return "Windows NT";
 		  } elseif (preg_match("=Windows 98=", $useragent)) {

@@ -202,6 +202,7 @@ function icmail ($mail,$bet,$txt, $from = '') {
   
   $mail = escape_for_email($mail);
   $bet  = escape_for_email($bet,true);
+  $txt  = str_replace("\r", "\n", str_replace("\r\n", "\n",$txt));
   
 	if ( mail ( $mail, $bet, $txt,$header) ) {
 	  return ( true );

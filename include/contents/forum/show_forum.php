@@ -60,7 +60,7 @@ while ($r = db_fetch_assoc($erg1) ) {
   if ($r['cid'] <> $xcid) {
     $tpl->out(1);
     //Unterkategorien
-    $sql = db_query("SELECT a.name as cname, a.id as cid FROM `prefix_forumcats` a LEFT JOIN `prefix_forums` b ON a.id = b.cid WHERE a.cid = {$r['cid']} AND a.id = b.cid ORDER BY a.pos, a.name");
+    $sql = db_query("SELECT DISTINCT a.name as cname, a.id as cid FROM `prefix_forumcats` a LEFT JOIN `prefix_forums` b ON a.id = b.cid WHERE a.cid = {$r['cid']} AND a.id = b.cid ORDER BY a.pos, a.name");
     while ($ucat = db_fetch_assoc($sql)) {
       $tpl->set_ar_out($ucat,2);
     }

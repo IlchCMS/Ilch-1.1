@@ -78,6 +78,7 @@ $lang = array
 'files' => 'Files',
 'fileup' => 'Upload Files',
 'finduser' => 'Find User',
+'for' => 'for',
 'forgottenpassword' => 'Forgot my Password',
 'formsub' => 'Submit',
 'forward' => 'forward',

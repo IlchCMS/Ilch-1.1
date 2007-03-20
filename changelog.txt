@@ -10,9 +10,10 @@ Version 1.1 F
 + Shoutbox überarbeitet mit Einstellungen unter Konfiguration
 + Antispam konfigurierbar
 + Kasse Ändern hinzugefügt
-+ Awards Ändern hinzugefügt
++ Awards Ändern hinzugefügt und auch Awards für User bzw. irgendwen :P
 + mehrere (Unter-)Kategorien für das Forum
 + Module werden im Adminbereich nun auch in der Übersicht angezeigt
++ Erstellen von Thumbnails im  GIF Format, wenn der Webspace es unterstützt
 
 * Selfpage verbessert: kein .php als Endung mehr nötig, View Source muss vorm Speichern nicht mehr entfernt werden
 * Fehlerkorrektur im PM-System
@@ -23,3 +24,4 @@ Version 1.1 F
 * Betreff bei E-Mails jetzt mit Leerzeichen
 * Änderungen in der Sprachdatei
 * Gästebuchbug (wahrscheinlich) behoben
+* Beim Upload werden nun auch Großgeschriebene Dateiendungen akzeptiert
