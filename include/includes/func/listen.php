@@ -10,7 +10,10 @@ function dbliste ($aka, $tpl, $n, $q) {
   $l = '';
 	$e = db_query($q);
 	while($r = db_fetch_row($e) ) {
-	  $s = ( $aka == $r[0] ? ' selected' : '' );
+    $s = '';
+    if ((is_array($aka) AND isset($aka[$r[0]])) OR (is_string($aka) AND $aka == $r[0])) {
+      $s = ' selected';
+    }
 		$l .= $tpl->list_get($n, array ($s,$r[0],$r[1]));
 	}
 	return ($l);
