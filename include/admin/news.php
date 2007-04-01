@@ -62,7 +62,7 @@ if ( !empty($_REQUEST['um']) ) {
 	} elseif ( $um == 'change' ) {
 	  
 # edit
-	  $text  = addslashes($_POST['txt']);
+	  $text  = escape($_POST['txt'],'textarea');
 		
 		if ( $_POST['katLis'] == 'neu' ) {
 		  $_POST['katLis'] = $_POST['kat'];
@@ -74,7 +74,7 @@ if ( !empty($_REQUEST['um']) ) {
 				news_kat   = "'.$_POST['katLis'].'",
 				news_text  = "'.$text.'" WHERE news_id = "'.$_POST['newsID'].'" LIMIT 1');
 	  $edit = $_POST['newsID'];
-	}
+  }
 }
 # edit
 

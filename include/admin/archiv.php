@@ -442,7 +442,7 @@ switch ($um) {
 		$_ilch['url'] = arlistee ( $dllink, get_downloads_ar() );
 		$_ilch['url'] = '<option value="neu">andere:</option>'.$_ilch['url'];
 
-	  archiv_downs_admin_selectcats('0','',$_ilch['cat']);
+	  archiv_downs_admin_selectcats('0','',$_ilch['cat'],$_ilch['cat']);
     $_ilch['cat'] = '<option value="0">Keine</option>'.$_ilch['cat'];
     
     if ( !isset($azk) ) {

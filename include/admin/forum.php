@@ -89,9 +89,13 @@ switch ( $um ) {
 				'fid' => '',
 				'text' => ''
 			);
+			
 			$tpl = new tpl ('forum/eforum',1);
 			
-      forum_admin_selectcats(0,'',$ar['kats']);
+      if ($menu->getA(2) == 'c' AND is_numeric($menu->getE(2))) {$cid = $menu->getE(2); }
+      else { $cid = 0 ; } 			
+			
+      forum_admin_selectcats(0,'',$ar['kats'],$cid);
 			$ar['view']   = '<optgroup label="Grundrechte">';
 			$ar['view']  .= dbliste('', $tpl,'view',"SELECT id, name FROM prefix_grundrechte ORDER BY id DESC");
 			$ar['view']  .= '</optgroup>';
@@ -170,7 +174,7 @@ switch ( $um ) {
 			$fid = escape($_POST['fid'],'integer');
 			$r = db_fetch_object(db_query("SELECT * FROM prefix_forums WHERE id = ".$fid));
 			if ( $cid != $r->cid ) {
-			  db_query("UPDATE prefix_forums SET pos = pos -1 WHERE pos > ".$r->pos);
+			  db_query("UPDATE prefix_forums SET pos = pos -1 WHERE pos > $r->pos AND cid = $r->cid");
 				$a = db_count_query("SELECT COUNT(*) as anz FROM prefix_forums WHERE cid = ".$cid);
 			} else {
 			  $a = $r->pos;
@@ -190,7 +194,7 @@ switch ( $um ) {
       $move = $menu->get(2);
       $fid = $menu->get(3);
       $pos = $menu->get(4);
-      $cid = $menu->get(5);
+      $cid = $showcid = $menu->get(5);
 	    $a = db_count_query("SELECT COUNT(*) as anz FROM prefix_forums WHERE cid = ".$cid);
 			$np = ( $move == 0 ? $pos -1 : $pos+1 );
 			$np = ( $np >= ( $a -1 ) ? ( $a - 1) : $np );
@@ -256,14 +260,53 @@ switch ( $um ) {
 			db_query("UPDATE prefix_forumcats SET pos = ".$pos." WHERE cid = ".$topcid." AND pos = ".$np);
 			db_query("UPDATE prefix_forumcats SET pos = ".$np." WHERE id = ".$cid);
 	  break;
+  case 'repair':
+    $tpl = new tpl('forum/repair', 1);
+    if (isset($_POST['sub'])) {
+      //Kategorien
+      if ($_POST['cb_repc'] == 'on') {
+        $cats_sql = db_query("SELECT cid FROM `prefix_forumcats`");
+        while ($cats_row = db_fetch_object($cats_sql)) {
+          $ucats_sql = db_query("SELECT id FROM `prefix_forumcats` WHERE cid = $cats_row->cid ORDER BY pos, id");
+          $pos = 0;
+          while ($ucats_row = db_fetch_object($ucats_sql)) {
+            db_query("UPDATE `prefix_forumcats` SET pos = $pos WHERE id = $ucats_row->id");
+            $pos++;
+          }
+        }
+        $FK = 'Kategorien';
+      }
+      //Foren
+      if ($_POST['cb_repf'] == 'on') {
+        $cats_sql = db_query("SELECT DISTINCT cid FROM `prefix_forums`");
+        while ($cats_row = db_fetch_object($cats_sql)) {
+          $frm_sql = db_query("SELECT id FROM `prefix_forums` WHERE cid = $cats_row->cid ORDER BY pos, id");
+          $pos = 0;
+          while ($frm_row = db_fetch_object($frm_sql)) {
+            db_query("UPDATE `prefix_forums` SET pos = $pos WHERE id = $frm_row->id");
+            $pos++;
+          }
+        }      
+        if (isset($FK)) { $FK .= ' und Foren'; }
+        else { $FK = 'Foren'; }
+      }
+      if (!isset($FK)) {$FK = 'Nichts';}
+      $tpl->set_out('FK',$FK,1);      
+    } else {
+      $tpl->out(0);
+    }
+    unset($tpl);
+    $show = false;
+  break;
 }
 
 
 if ( $show ) {
   $tpl = new tpl ( 'forum/forum', 1);
-  $tpl->out(0); $class = '';
-  $firstcat = @db_result(db_query("SELECT id FROM `prefix_forumcats` LIMIT 1"),0);
-  $id = ($menu->getA(1) == 'S' ? $menu->getE(1) : (is_numeric($firstcat)?$firstcat:0));
+  $firstcat = @db_result(db_query("SELECT id FROM `prefix_forumcats` ORDER BY pos LIMIT 1"),0);
+  if (isset($showcid)) { $id = $showcid; }
+  else { $id = ($menu->getA(1) == 'S' ? $menu->getE(1) : (is_numeric($firstcat)?$firstcat:0)); }
+  $tpl->set_out('cid',$id,0); $class = '';
   $erg = db_query("SELECT id, cid, name as cname, pos as cpos FROM prefix_forumcats WHERE id = $id ORDER BY pos");
   while ($row = db_fetch_assoc($erg) ) {
     $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite' );
@@ -287,6 +330,7 @@ if ( $show ) {
     WHERE prefix_forums.cid = ".$row['id']." ORDER BY prefix_forums.pos" );
 	  while ($row1 = db_fetch_assoc($erg1) ) {
 	    $row1['class'] = $row['class'];
+      $row1['cid'] = $id;
       $tpl->set_ar_out($row1,2);
     }
   }

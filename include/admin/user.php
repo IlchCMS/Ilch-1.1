@@ -166,7 +166,7 @@ switch($um) {
     $design = new design ( 'Admins Area', 'Admins Area', 2 );
     $design->header();
 	  if ( isset ($_REQUEST['uID'])) { $uid = $_REQUEST['uID']; } else {$uid = $menu->get(2); }
-    $erg = db_query("SELECT name,email,id,recht,wohnort,homepage,aim,msn,icq,yahoo,status,staat,gebdatum,sig,opt_pm,opt_pm_popup,opt_mail,geschlecht,spezrank FROM prefix_user WHERE id = '".$uid."'");
+    $erg = db_query("SELECT name,email,id,recht,wohnort,homepage,aim,msn,icq,yahoo,status,staat,gebdatum,sig,opt_pm,opt_pm_popup,opt_mail,geschlecht,spezrank,avatar FROM prefix_user WHERE id = '".$uid."'");
 		if ( db_num_rows($erg) == 0 ) {
 	    die ('Fehler: Username nicht gefunden <a href="?user">zur&uuml;ck</a>');
 	  } else {
@@ -184,7 +184,8 @@ switch($um) {
       if ( $row['opt_mail'] == 1 ) { $row['opt_mail1'] = 'checked'; $row['opt_mail0'] = ''; } else { $row['opt_mail1'] = ''; $row['opt_mail0'] = 'checked'; }
       if ( $row['opt_pm'] == 1 ) { $row['opt_pm1'] = 'checked'; $row['opt_pm0'] = ''; } else { $row['opt_pm1'] = ''; $row['opt_pm0'] = 'checked'; }
       if ( $row['opt_pm_popup'] == 1 ) { $row['opt_pm_popup1'] = 'checked'; $row['opt_pm_popup0'] = ''; } else { $row['opt_pm_popup1'] = ''; $row['opt_pm_popup0'] = 'checked'; }
-      
+      if ( @file_exists($row['avatar']) ) { $row['avatar'] = '<img src="'.$row['avatar'].'" border="0" /><br />' ; }
+      else { $row['avatar'] = ''; }
 			$tpl->set_ar_out ($row,0);
       
 			profilefields_change ( $row['id'] );
@@ -229,6 +230,34 @@ switch($um) {
 		    db_query('UPDATE `prefix_user` SET pass = "'.$newPassMD5.'" WHERE id = "'.$_POST['uID'].'"');
 			}
 			
+			# avatar speichern START
+			$avatar_sql_update = '';
+      if ( !empty ( $_FILES['avatarfile']['name'] ) ) {
+				$file_tmpe = $_FILES['avatarfile']['tmp_name'];
+        $rile_type = ic_mime_type ($_FILES['avatarfile']['tmp_name']);
+				$file_type = $_FILES['avatarfile']['type'];
+				$file_size = $_FILES['avatarfile']['size'];
+        $fmsg = $lang['avatarisnopicture'];
+        $size  = @getimagesize ($file_tmpe);
+        $endar = array (1 => 'gif', 2 => 'jpg', 3 => 'png');
+				if ( ($size[2] == 1 OR $size[2] == 2 OR $size[2] == 3) AND $size[0] > 10 AND $size[1] > 10 AND substr ( $file_type , 0 , 6 ) == 'image/' AND substr ( $rile_type , 0 , 6 ) == 'image/' ) {
+				  $endung = $endar[$size[2]];
+          $breite = $size[0];
+          $hoehe  = $size[1];
+          $neuer_name = 'include/images/avatars/'.$uid.'.'.$endung;
+					@unlink (db_result(db_query("SELECT avatar FROM prefix_user WHERE id = ".$uid),0));
+          move_uploaded_file ( $file_tmpe , $neuer_name );
+          @chmod($neuer_name, 0777);
+          $avatar_sql_update = ', avatar = "'.$neuer_name.'"';
+          $fmsg = $lang['pictureupload']; 
+				}
+			} elseif ( isset($_POST['avatardel']) ) {
+        $fmsg = $lang['picturedelete']; 
+        @unlink (db_result(db_query("SELECT avatar FROM prefix_user WHERE id = ".$uid),0));
+        $avatar_sql_update = ', avatar = ""';
+      }
+     # avatar speichern ENDE
+			
 			profilefields_change_save ( $_POST['uID'] );
 			$usaName1     = escape($_POST['usaName1'], 'string');
       $email        = escape($_POST['email'], 'string');
@@ -267,6 +296,7 @@ switch($um) {
           opt_pm_popup = "'.$opt_pm_popup.'",
           gebdatum = "'.$gebdatum.'",
           sig = "'.$sig.'"
+          '.$avatar_sql_update.'
 				WHERE id = "'.$uid.'"');
 	  }
 		}

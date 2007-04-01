@@ -2,6 +2,16 @@ Changelog:
 ==========
 + neue Funktionen       * Änderungen/Bugfixes
 
+Version 1.1 G
+-------------
++ Avatare kann man nun auch im Adminbereich hochladen, das Avatar wird dort nicht auf Größe geprüft
+
+* Falsches Escapen beim Ändern einer News behoben (kein \" und \' mehr)
+* Adminbereich fürs Forum überarbeitet und Fehler behoben
+* Fehler im HMENU und TITLE beim Erstellen und Ändern von Themen und Posts behoben
+* Avatar löschen im Adminmenü funktionierte nicht, korrigiert
+* Vorauswahl der Kategorie im Download-Adminmenü korrigiert, nicht mehr keine sondern ausgewählte Kategorie
+
 Version 1.1 F
 -------------
 + Verwaltung von noch nicht registrierten Users
@@ -20,8 +30,9 @@ Version 1.1 F
 * Downloads nur noch mit ausreichenden Rechten herunterladbar
 * Links werden nun sortiert dargestellt
 * Avatarupload nur noch wenn erlaubt
-* Escapen im Forum korrigiert
+* Escapen im Forum korrigiert (kein \" und \' mehr)
 * Betreff bei E-Mails jetzt mit Leerzeichen
 * Änderungen in der Sprachdatei
 * Gästebuchbug (wahrscheinlich) behoben
 * Beim Upload werden nun auch Großgeschriebene Dateiendungen akzeptiert
+
