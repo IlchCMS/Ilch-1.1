@@ -13,8 +13,8 @@ if ( $forum_rights['mods'] == FALSE ) {
 check_forum_failure($forum_failure);
 
 
-$title = $allgAr['title'].' :: Forum :: '.$aktForumRow['kat'].' :: '.$aktForumRow['name'].' :: '.$aktTopicRow['name'].' :: Thema &auml;ndern';
-$hmenu  = $extented_forum_menu.'<a class="smalfont" href="index.php?forum">Forum</a><b> &raquo; </b><a class="smalfont" href="index.php?forum-showcat-'.$aktForumRow['cid'].'">'.$aktForumRow['kat'].'</a><b> &raquo; </b><a class="smalfont" href="index.php?forum-showtopics-'.$fid.'">'.$aktForumRow['name'].'</a><b> &raquo; </b>';
+$title = $allgAr['title'].' :: Forum :: '.aktForumCats($aktForumRow['kat'],'title').' :: '.$aktForumRow['name'].' :: '.$aktTopicRow['name'].' :: Thema &auml;ndern';
+$hmenu  = $extented_forum_menu.'<a class="smalfont" href="index.php?forum">Forum</a><b> &raquo; </b>'.aktForumCats($aktForumRow['kat']).'<b> &raquo; </b><a class="smalfont" href="index.php?forum-showtopics-'.$fid.'">'.$aktForumRow['name'].'</a><b> &raquo; </b>';
 $hmenu .= '<a class="smalfont" href="index.php?forum-showposts-'.$tid.'">'.$aktTopicRow['name'].'</a> <b> &raquo; </b>Thema &auml;ndern'.$extented_forum_menu_sufix;
 $design = new design ( $title , $hmenu, 1);
 $design->header();
@@ -58,23 +58,36 @@ switch($uum) {
     }
 	  break;
   case 3 : # move topic in another forum
-		if ( empty ( $_POST['sub'] ) ) {
+		if ( empty ( $_POST['sub'] ) OR $_POST['nfid'] == 'cat' ) {
 			echo '<form action="index.php?forum-edittopic-'.$tid.'-3" method="POST">';
 			echo '<input type="hidden" name="afid" value="'.$fid.'">neues Forum ausw&auml;hlen<br />';
 			echo '<select name="nfid">';			
-      $erg1 = db_query("SELECT prefix_forums.id, prefix_forums.name, prefix_forumcats.name as cname FROM `prefix_forums` left join prefix_forumcats on prefix_forumcats.id = prefix_forums.cid WHERE prefix_forums.id != ".$fid." ORDER BY prefix_forums.cid, prefix_forums.pos");
-      while ($row1 = db_fetch_assoc($erg1)) {
-        if ( empty($acid) OR $acid != $row1['cname'] ) {
-          if ( !empty($acid) AND $acid != $row1['cname'] ) {
-            echo '</optgroup>';
-          }
-          echo '<optgroup label="'.$row1['cname'].'">';
-          $acid = $row1['cname'];
+      
+      function stufe($anz, $t = 'f') {
+        $z = ($t == 'f'?'&nbsp;&nbsp;':'&raquo;');
+        for ($i=0; $i<$anz; $i++) {
+          $out .= $z;
         }
-        echo '<option value="'.$row1['id'].'">'.$row1['name'].'</option>';
-			}
-      echo '</optgroup>';
-		  echo '</select><br /><input type="checkbox" name="alertautor" value="yes" /> Den Autor &uuml;ber das verschieben informieren?<br /><input type="submit" value="Verschieben" name="sub"></form>';	
+        return $out;
+      }
+      
+      function forum_admin_selectcats ( $id, $stufe, $sel) {
+        $q = "SELECT * FROM prefix_forumcats WHERE cid = ".$id." ORDER BY pos";
+      	$erg = db_query($q);
+      	if ( db_num_rows($erg) > 0 ) {
+       	  while ($row = db_fetch_object($erg) ) {
+      	    echo '<option style="font-weight:bold;" value="cat">'.stufe($stufe,'c').' '.$row->name.'</option>';
+            forum_admin_selectcats($row->id, $stufe + 1,  $sel);
+            $sql = db_query("SELECT id, name FROM prefix_forums WHERE cid = $row->id");
+            while ($row2 = db_fetch_object($sql)) {
+            	echo '<option value="'.$row2->id.'"'.($sel == $row2->id?' selected="selected"':'').'>'.stufe($stufe).' '.$row2->name.'</option>';
+            }
+          }
+      	}
+      }
+		  
+      forum_admin_selectcats(0,0,$fid);
+      echo '</select><br /><input type="checkbox" name="alertautor" value="yes" /> Den Autor &uuml;ber das verschieben informieren?<br /><input type="submit" value="Verschieben" name="sub"></form>';	
     } else {
       $postsMinus = $aktTopicRow['rep'] + 1;
 			db_query("UPDATE `prefix_topics` SET `fid` = ".$_POST['nfid']." WHERE id = ".$tid);

@@ -184,6 +184,7 @@ switch ( $um ) {
 	  break;
 	case 'deleteForum' :
 	  $fid = escape($menu->get(2),'integer');
+	  $showcid = escape($menu->get(3),'integer');
 		db_query("DELETE FROM prefix_posts WHERE fid = ".$fid);
 		db_query("DELETE FROM prefix_topics WHERE fid = ".$fid);
 		$pos = db_result(db_query("SELECT pos FROM prefix_forums WHERE id = ".$fid),0);

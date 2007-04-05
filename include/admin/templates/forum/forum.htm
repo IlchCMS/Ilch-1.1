@@ -1,10 +1,10 @@
 <script language="JavaScript" type="text/javascript">
     <!--
       
-			function delFcheck ( DELID ) {
+			function delFcheck ( DELID, CID ) {
 			  var frage = confirm ( "Willst du dieses Forum wirklich löschen?\n\n Achtung es werden: \n - alle Themen \n - und alle Beiträge \n in diesem Forum unwiederbringlich gelöscht!!" );
 				if ( frage == true ) {
-				  document.location.href="?forum-deleteForum-"+DELID;
+				  document.location.href="?forum-deleteForum-"+DELID+"-"+CID;
 				}
 			}
 			function delCcheck ( DID ) {
@@ -38,13 +38,13 @@
 		<td></td>
     <td>lesen/sehen</td>
     <td>antworten</td>
-    <td>themen erstellen</td>
+    <td>Themen erstellen</td>
 	</tr>
 	{EXPLODE}
   <tr class="Cmite">
 		<td>&nbsp;&nbsp;{fname}</td>
 		<td><a href="?forum-changeForum-{fid}"><img src="include/images/icons/edit.gif" border="0" /></a></td>
-		<td><a href="javascript:delFcheck({fid})"><img src="include/images/icons/del.gif" border="0" /></a></td>
+		<td><a href="javascript:delFcheck({fid},{cid})"><img src="include/images/icons/del.gif" border="0" /></a></td>
 		<td><a href="javascript:choosemods({fid})">Moderatoren</a></td>
     <td><a href="?forum-moveForum-0-{fid}-{fpos}-{cid}"><img src="include/images/icons/pfeilo.gif" border="0"></a></td> 
 		<td><a href="?forum-moveForum-1-{fid}-{fpos}-{cid}"><img src="include/images/icons/pfeilu.gif" border="0"></a></td>
@@ -95,6 +95,7 @@
 <div class="info_box">
 <p>Hier k&ouml;nnen Sie neue Foren oder/und neue Kategorien anlegen, &auml;ndern und l&ouml;schen.</p>
 <p>Sie m&uuml;ssen immer zuerst eine Kategorie anlegen. Ohne Kategorie k&ouml;nnen Sie kein Forum anlegen.</p>
+<p>Um die Foren einer Kategorie zu sehen, rechts in der Kategorieansicht anklicken.</p>
 <p>Ausserdem ist es hier m&ouml;glich die Kategorien und Foren zu sortieren.</p>
 <p>Wenn das Sortieren nicht mehr richtig funktioniert, kann versucht werden das wieder zu reparieren,
    allerdings gehen dabei die Positionierungen verloren, danach sollte das Sortieren aber wieder funktionieren</p>

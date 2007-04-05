@@ -56,7 +56,9 @@ while($row = db_fetch_assoc($erg)) {
 	$row['date'] = date ('d.m.Y - H:i:s', $row['time'] );
 	$row['delete'] = '';
 	$row['change'] = '';
-	$row['avatar'] = '<br /><br /><img src="'.(file_exists($row['avatar'])?$row['avatar']:'include/images/avatars/'.$ges_ar[$row['geschlecht']].'.jpg').'" alt="User Pic" border="0" /><br />';
+	if (file_exists($row['avatar'])) { $row['avatar'] = '<br /><br /><img src="'.$row['avatar'].'" alt="User Pic" border="0" /><br />'; }
+	elseif ($allgAr['forum_default_avatar']) { $row['avatar'] = '<br /><br /><img src="include/images/avatars/'.$ges_ar[$row['geschlecht']].'.jpg" alt="User Pic" border="0" /><br />'; }
+ 	else { $row['avatar'] = ''; }
   $row['rang']   = userrang ($row['posts'],$row['erstid']);
   $row['posts']  = ($row['posts']?'<br />Posts: '.$row['posts']:'').'<br />';
 	$row['txt']    = (isset($_GET['such']) ? markword(bbcode ($row['txt']),$_GET['such']) : bbcode ($row['txt']) );
