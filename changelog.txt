@@ -5,6 +5,7 @@ Changelog:
 Version 1.1 G
 -------------
 + Avatare kann man nun auch im Adminbereich hochladen, das Avatar wird dort nicht auf Größe geprüft
++ Antispam für Kontaktformular
 
 * Konfigurationspunkt: Standard Avatar anzeigen? funktioniert nun
 * Falsches Escapen beim Ändern einer News behoben (kein \" und \' mehr)

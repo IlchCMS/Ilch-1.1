@@ -21,7 +21,7 @@ $mail = '';
 $subject = '';
 $wer  = '';
 $text = '';
-if (!empty($_POST['wer']) AND !empty($_POST['mail']) AND !empty($_POST['txt']) AND !empty($_POST['name']) AND !empty($_POST['subject']) ) {
+if (!empty($_POST['wer']) AND !empty($_POST['mail']) AND !empty($_POST['txt']) AND !empty($_POST['name']) AND !empty($_POST['subject']) AND chk_antispam('contact')) {
   $name = escape_for_email($_POST['name']);
   $mail = escape_for_email($_POST['mail']);
   $subject = escape_for_email($_POST['subject'], true);
@@ -75,6 +75,7 @@ $tpl->set('name', $name);
 $tpl->set('mail', $mail);
 $tpl->set('subject', $subject);
 $tpl->set('text', $text);
+$tpl->set('ANTISPAM', get_antispam('contact',100));
 $tpl->out(2);
 
 		
