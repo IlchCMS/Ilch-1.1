@@ -1,7 +1,7 @@
 <script language="JavaScript" type="text/javascript">
 <!--
   function delete_user ( gid , uid ) {
-		var x = confirm ( "Wollen Sie diesen User lï¿½schen?", "" );
+		var x = confirm ( "Wollen Sie diesen User löschen?", "" );
 		if ( x ) {
 		  document.location.href="?groups-addusers-"+gid+"-user_delete-"+uid;
 		}
@@ -13,6 +13,14 @@
   function finduser () {
     var Fenster = window.open ('index.php?search-finduser', 'finduser', 'status=no,scrollbars=yes,height=200,width=350');
     Fenster.focus();
+  }
+  function change_user ( gid, uid, fid , ofid, selname) {
+    var x = confirm ( "Wollen Sie die Funktion des Users wirklich ändern?", "" );
+		if ( x ) {
+		  document.location.href="admin.php?groups-addusers-"+gid+"-userchange-"+uid+"-"+fid;
+		} else {
+      document.getElementById(selname).value = ofid;
+    }  
   }
 //-->
 </script>

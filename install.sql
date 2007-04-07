@@ -96,6 +96,7 @@ INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('sb_recht', 'grecht', 'Shoutbox Optionen', 'Schreiben in der Shoutbox ab?', '0');
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('sb_limit', 'input', 'Shoutbox Optionen', 'Anzahl angezeigter Nachrichten', '5');
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('antispam', 'grecht2', 'Allgemeine Optionen', 'Antispam <small>(ab diesem Recht keine Eingabe mehr erforderlich)</small>', '-2');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('joinus_rules', 'r2', 'Team Optionen', 'Regeln bei Joinus vollst&auml;ndig anzeigen?', '0');
 
 CREATE TABLE `prefix_counter` (
   `date` date NOT NULL,
@@ -601,6 +602,7 @@ CREATE TABLE `prefix_usercheck` (
   `pass` varchar(100) NOT NULL default '',
   `datime` datetime NOT NULL default '0000-00-00 00:00:00',
   `ak` tinyint(4) NOT NULL default '0',
+  `groupid` tinyint(4) NOT NULL,   
   PRIMARY KEY  (`check`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 

@@ -73,8 +73,23 @@ if (count($far) <> $x OR $ch_name == false OR !chk_antispam('joinus')) {
   }
   $name = $xname;
   $tpl->set('readonly', (loggedin()?' readonly': ''));
-	$tpl->set('ANTISPAM', get_antispam('joinus', 100));
 	$tpl->out(0);
+	if ($allgAr['joinus_rules'] != 1) {
+    $tpl->out(1);
+  } else { 
+    $rules = '<h2>'.$lang['rules'].'</h2>';
+    $rerg = db_query('SELECT zahl,titel,text FROM `prefix_rules` ORDER BY zahl');
+    while ($rrow = db_fetch_row($rerg)) {
+            $rules .= '<table width="100%" border="0" cellpadding="5" cellspacing="1" class="border">';
+            $rules .= '<tr class="Cmite"><td><b>&sect;'.$rrow[0].'. &nbsp; '.$rrow[1].'</b></td></tr>';
+            $rules .= '<tr class="Cnorm"><td>'.bbcode($rrow[2]).'</td></tr>';
+            $rules .= '</table><br />';
+    }
+    $rules .= '<input type="checkbox" name="rules" value="'.$lang['yes'].'" />'.str_replace(array('<a target="_blank" href="index.php?rules">','</a>'),'',$lang['rulzreaded']).'<br />';     
+    $tpl->set_out('RULES',$rules,2);
+  }
+  $tpl->set('ANTISPAM', get_antispam('joinus', 100));
+  $tpl->out(3);
 } else { # eintragen
   
   $name = $xname;
@@ -84,7 +99,7 @@ if (count($far) <> $x OR $ch_name == false OR !chk_antispam('joinus')) {
     $userreg = $lang['yes'];
   }
 
-  db_query("INSERT INTO prefix_usercheck (`check`,name,datime,ak) VALUES ('".genkey(8)."','".$name."',NOW(),4)");
+  db_query("INSERT INTO prefix_usercheck (`check`,name,datime,ak,groupid) VALUES ('".genkey(8)."','".$name."',NOW(),4,$squad)");
 
   $squad = escape($squad, 'integer');
 	$abf   = "SELECT `mod1`, `mod2`, `mod4`, name FROM prefix_groups WHERE id = ".$squad;

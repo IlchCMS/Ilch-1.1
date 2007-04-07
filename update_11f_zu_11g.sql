@@ -1,0 +1,2 @@
+ALTER TABLE `prefix_usercheck` ADD `groupid` TINYINT NOT NULL ;
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('joinus_rules', 'r2', 'Team Optionen', 'Regeln bei Joinus vollst&auml;ndig anzeigen?', '0');

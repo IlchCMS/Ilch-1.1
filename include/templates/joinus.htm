@@ -11,8 +11,8 @@
 	<label style="float:left; width:100px; ">{_lang_hometown}</label><input type="text" name="hometown" value="{hometown}" /><br />
 	<label style="float:left; width:100px; ">{_lang_squad}</label><select name="squad">{squad}</select /><br />
 	<label style="float:left; width:100px; ">{_lang_ground}</label><textarea name="ground" cols="40" rows="5">{ground}</textarea><br />
-	<label style="float:left; width:100px; ">{_lang_rules}</label><input type="checkbox" name="rules" value="{_lang_yes}" />{_lang_rulzreaded}<br />
-  <br />
+	{EXPLODE}<label style="float:left; width:100px; ">{_lang_rules}</label><input type="checkbox" name="rules" value="{_lang_yes}" />{_lang_rulzreaded}<br />
+  {EXPLODE}{RULES}{EXPLODE}<br />
 	{ANTISPAM}
 	<label style="float:left; width:100px; ">&nbsp;</label><input type="submit" name="sub" value="{_lang_formsub}" /><br />
 </fieldset>

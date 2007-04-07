@@ -103,12 +103,34 @@ if ( $menu->get(3) == 'userdelete') {
 	db_query("DELETE FROM prefix_groupusers WHERE gid = ".$gid." AND uid = ".$uid);
 }
 
+if ( $menu->get(3) == 'userchange') {
+	$gid = escape($menu->get(2), 'integer');
+	$uid = escape($menu->get(4), 'integer');
+	$fid = escape($menu->get(5), 'integer');
+	db_query("UPDATE `prefix_groupusers` SET fid = $fid WHERE gid = $gid AND uid = $uid");
+}
+
 if ( $um == 'addusers' ) {
 	$design = new design ( 'Admins Area', 'Admins Area', 0 );
 	$design->header();
 	$gid = $menu->get(2);
 	$tpl = new tpl ( 'groups/users', 1);
 
+  $groupfuncs = array();
+  $erg = db_query("SELECT id,name FROM prefix_groupfuncs ORDER BY pos");
+  while ($row = db_fetch_object($erg)) {
+    $groupfuncs[$row->id] = $row->name;  
+  }
+  
+  function group_func ($gid, $uid, $fid, $gf) {
+    $out = '<select id="user'.$uid.'" onchange="change_user('.$gid.', '.$uid.', this.value, '.$fid.', \'user'.$uid.'\');">';
+    foreach ($gf as $key => $val) {
+      $out .=  '<option value="'.$key.'" '.($fid == $key ? 'selected="selected"' : '').'>'.$val.'</option>';   
+    }
+    $out .= '</select>';
+    return $out;
+  }
+  
 	$row1 = db_fetch_object(db_query("SELECT name FROM prefix_groups WHERE id = ".$gid));
 	$tpl->set('gruppe', $row1->name);
 	$tpl->set('fehler', ( empty($fehler) ? '' : $fehler ) );
@@ -129,6 +151,7 @@ if ( $um == 'addusers' ) {
 	$erg = db_query($q);
 	while($row = db_fetch_assoc($erg) ) {
 		$class = ($class == 'Cnorm' ? 'Cmite' : 'Cnorm' );
+		$row['funcname'] = group_func($gid, $row['uid'], $row['fid'], $groupfuncs);
 		$row['class'] = $class;
 		$tpl->set_ar_out($row,1);
 	}
@@ -203,10 +226,17 @@ if ($um == 'joinus') {
   if ($menu->getA(2) == 'a' AND is_numeric($menu->getE(2)) AND $menu->getE(2) <> 0) {
     $check = escape($menu->get(3), 'string');
     $id    = escape($menu->getE(2), 'integer');
+    if ($menu->get(4) == 'addtoteam') {
+      $gid = db_count_query("SELECT groupid FROM `prefix_usercheck` WHERE `check` = '$check'");
+      db_query("INSERT INTO `prefix_groupusers` (gid,uid,fid) VALUES ($gid,$id,4)");
+      $msg = 'Er wurde als Trial in das Team eingetragen.';
+    } else {
+      $msg = 'Jetzt muss er noch in ein Team aufgenommen werden.';
+    }
     db_query("DELETE FROM prefix_usercheck WHERE ak = 4 AND `check` = '".$check."'");
     db_query("UPDATE prefix_user SET recht = -3 WHERE id = ".$id." AND recht > -3");
     sendpm ($_SESSION['authid'], $id, 'Deine Joinus Anfrage', 'Du wurdest als Trial-Member aufgenommen.');
-    $msg = 'erfolgreich als Trial markiert, der User wurde darueber informiert. Jetzt muss er noch in das Team aufgenommen werden.';
+    $msg = 'erfolgreich als Trial markiert, der User wurde darueber informiert. '.$msg;
   }
   
   # aus check tabelle loeschen (nicht aufnehmen)
@@ -225,8 +255,11 @@ if ($um == 'joinus') {
   $tpl->out(0);
   
 	$class = 'Cnorm';
-  $erg = db_query("SELECT `check`, prefix_usercheck.name, prefix_user.id FROM prefix_usercheck LEFT JOIN prefix_user ON prefix_user.name = BINARY prefix_usercheck.name WHERE ak = 4");
+  $erg = db_query("SELECT `check`, prefix_usercheck.name, prefix_user.id, prefix_user.email, prefix_groups.name as groupname FROM prefix_usercheck LEFT JOIN prefix_user ON prefix_user.name = BINARY prefix_usercheck.name LEFT JOIN prefix_groups ON prefix_groups.id = prefix_usercheck.groupid WHERE ak = 4");
   while ($r = db_fetch_assoc($erg)) {
+    if ($r['id'] < 1) {
+      $r['email'] = db_count_query("SELECT email FROM `prefix_usercheck` WHERE name = '{$r['name']}' AND ak");
+    }
 		$class = ($class == 'Cnorm' ? 'Cmite' : 'Cnorm' );
 		$r['class'] = $class;
     $r['status'] = (empty($r['id'])?'Registrierung noch nicht abgeschlossen' : 'bereits Registriert');

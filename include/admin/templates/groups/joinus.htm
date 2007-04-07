@@ -29,19 +29,25 @@
 <br /><br />
 <table cellpadding="2" cellspacing="1" border="0" class="border">
   <tr class="Chead">
-			<td colspan="4"><b>Anfragen &Uuml;bersicht</b></td>
+			<td colspan="7"><b>Anfragen &Uuml;bersicht</b></td>
   </tr>
   <tr class="Cdark">
 			<td>Name</td>
+			<td>E-Mail</td>
+			<td>Team</td>
       <td>Status</td>
 			<td>als Trial aufnehmen</td>
+			<td>als Trial aber nicht ins Team aufnehmen</td>
 			<td>nicht aufnehmen</td>
 		</tr>
 {EXPLODE}
 		<tr class="{class}">
 			<td>{name}</td>
+			<td>{email}</td>
+			<td>{groupname}</td>
 			<td>{status}</td>
-			<td><a href="admin.php?groups-joinus-a{id}-{check}">als Trial aufnehmen</a></td>
+			<td><a href="admin.php?groups-joinus-a{id}-{check}-addtoteam">als Trial aufnehmen</a></td>
+			<td><a href="admin.php?groups-joinus-a{id}-{check}">als Trial aber nicht ins Team aufnehmen</a></td>
 			<td><a href="admin.php?groups-joinus-d{id}-{check}">nicht aufnehmen</a></td>
 		</tr>
 {EXPLODE}

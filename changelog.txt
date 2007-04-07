@@ -6,6 +6,9 @@ Version 1.1 G
 -------------
 + Avatare kann man nun auch im Adminbereich hochladen, das Avatar wird dort nicht auf Größe geprüft
 + Antispam für Kontaktformular
++ Team wird beim Joinus nun gespeichert, damit ist es möglich den User direkt ins Team aufzunehmen
++ Teamfunktion ohne Löschen des Users änderbar
++ Joinus, man kann wählen ob die Regeln komplett angezeigt werden
 
 * Konfigurationspunkt: Standard Avatar anzeigen? funktioniert nun
 * Falsches Escapen beim Ändern einer News behoben (kein \" und \' mehr)
