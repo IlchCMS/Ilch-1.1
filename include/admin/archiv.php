@@ -320,10 +320,14 @@ switch ($um) {
         } else {
           $pos = $alt_row['pos'];
         }
-	      db_query("UPDATE prefix_downloads SET pos = ".$pos.", `cat` = '".$_POST['cat']."',`creater` = '".$_POST['creater']."',version = '".$_POST['version']."',url = '".$_POST['url']."',surl = '".$_POST['surl']."',ssurl = '".$_POST['ssurl']."',`name` = '".$_POST['name']."',`desc` = '".$_POST['desc']."',descl = '".$_POST['descl']."' WHERE id = '".$_POST['pkey']."'");
+	      if ($_POST['refdate'] == 'on') {
+          $datum = '`time` = NOW(), ';  
+        } else { $datum = ''; }
+        db_query("UPDATE prefix_downloads SET ".$datum."pos = ".$pos.", `cat` = '".$_POST['cat']."',`creater` = '".$_POST['creater']."',version = '".$_POST['version']."',url = '".$_POST['url']."',surl = '".$_POST['surl']."',ssurl = '".$_POST['ssurl']."',`name` = '".$_POST['name']."',`desc` = '".$_POST['desc']."',descl = '".$_POST['descl']."' WHERE id = '".$_POST['pkey']."'");
 	      if ( $alt_row['cat'] <> $_POST['cat'] ) {
           db_query("UPDATE prefix_downloads SET pos = pos - 1 WHERE pos > ".$alt_row['pos']." AND cat = ".$alt_row['cat']); 
         }
+        
       }
       $azk = $_POST['cat'];
     }
@@ -411,6 +415,7 @@ switch ($um) {
 		  $_ilch = db_fetch_assoc($erg);
 			$_ilch['pkey'] = $menu->getE(2);
       $azk = $_ilch['cat'];
+      $_ilch['datum'] = '<input type="checkbox" name="refdate" /><font color="white">Datum aktualisieren</font>';
 		} else {
       if ( isset ( $azk ) ) { $c = $azk; } elseif ( $menu->getA(2) == 'S' OR $menu->getA(2) == 'E' ) { $c = $menu->getE(2); } else { $c = 0; }
 		  $_ilch = array ( 
@@ -424,7 +429,8 @@ switch ($um) {
 				'name' => '',
 				'url' => '',
 			  'desc' => '',
-				'descl' => ''
+				'descl' => '',
+				'datum' => ''
 			);
       unset($c);
 		}
@@ -449,7 +455,7 @@ switch ($um) {
       $azk = 0;
       if ( $menu->getA(2) == 'S' OR $menu->getA(2) == 'E' ) {
         $azk = $menu->getE(2);
-        if ( $azk == 'a' ) { $azk = -1; }
+        //if ( $azk == 'a' ) { $azk = 0; }
       }
     }
     
@@ -644,7 +650,7 @@ switch ($um) {
       unset($c);
 		}
 
-	  archiv_links_admin_selectcats('0','',$_ilch['cat']);
+	  archiv_links_admin_selectcats('0','',$_ilch['cat'],$_ilch['cat']);
     $_ilch['cat'] = '<option value="0">Keine</option>'.$_ilch['cat'];
     
     if ( !isset($azk) ) {

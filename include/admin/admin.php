@@ -401,7 +401,7 @@ echo '<hr><b>Neue User gestern</b><br />';
 forum_statistic_show($sql,$gsh);
 echo '</td></tr></table>';
 
-echo '<h1>Es ist ganz erlich noch mehr geplant :P</h1>';
+echo '<h1>Es ist ganz ehrlich noch mehr geplant :P</h1>';
 
 ##########################################
 				    break;

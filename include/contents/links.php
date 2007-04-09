@@ -67,10 +67,12 @@ switch ( $menu->getA(1) ) {
 				$namezw = '';
 			}
 		  $cattitle = ':: '.$titelzw.$row['name'];
-			$catname = '<b> &raquo; </b>'.$namezw.$row['name'];	
+			$catname = '<b> &raquo; </b>'.$namezw.$row['name'];
+			$catname2 = ' - '.$row['name'];
 		} else {
 		  $cattitle = '';
 			$catname = '';
+			$catname2 = '';
 		}
 		$title = $allgAr['title'].' :: links '.$cattitle;
     $hmenu = '<a class="smalfont" href="?links">Links</a>'.$catname;
@@ -91,7 +93,7 @@ switch ( $menu->getA(1) ) {
 		
 		$erg = db_query("select id,name,link,banner,`desc`,hits from prefix_links WHERE cat = $cid ORDER BY pos");
 		if ( db_num_rows($erg) > 0 ) {
-		  $tpl->out(4); $class = 'Cnorm';
+		  $tpl->set_out('catname',$catname2,4); $class = 'Cnorm';
 			while($row = db_fetch_assoc($erg) ) {
 				$class = ( $class == 'Cmite' ? 'Cnorm' : 'Cmite' );
 				$row['class'] = $class;

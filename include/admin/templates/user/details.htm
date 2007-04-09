@@ -8,7 +8,7 @@
       <td width="80%" class="Cnorm"><select name="urecht">{_list_recht@<option%1 value="%2">%3</option>}</select></td>
     </tr><tr>
       <td class="Cmite">Name</td>
-      <td class="Cnorm"><input name='usaName1' maxlength="100" value='{name}'></td>
+      <td class="Cnorm"><input name='usaName1' maxlength="100" value='{name}' onfocus="document.getElementById('fnc').style.display='';"><span id="fnc" style="display:none;"><input type="checkbox" name="forumname" /> Name im Forum &auml;ndern</span></td>
     </tr><tr>
       <td class="Cmite">eMail</td>
       <td class="Cnorm"><input name='email' maxlength="100" value='{email}'></td>

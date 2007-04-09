@@ -56,6 +56,7 @@ while($row = db_fetch_assoc($erg)) {
 	$row['date'] = date ('d.m.Y - H:i:s', $row['time'] );
 	$row['delete'] = '';
 	$row['change'] = '';
+	if (!is_numeric($row['geschlecht'])) { $row['geschlecht'] = 0; } 
 	if (file_exists($row['avatar'])) { $row['avatar'] = '<br /><br /><img src="'.$row['avatar'].'" alt="User Pic" border="0" /><br />'; }
 	elseif ($allgAr['forum_default_avatar']) { $row['avatar'] = '<br /><br /><img src="include/images/avatars/'.$ges_ar[$row['geschlecht']].'.jpg" alt="User Pic" border="0" /><br />'; }
  	else { $row['avatar'] = ''; }

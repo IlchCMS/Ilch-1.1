@@ -276,7 +276,14 @@ switch($um) {
       $opt_pm_popup = escape($_POST['opt_pm_popup'], 'integer');
       $gebdatum     = escape($_POST['gebdatum'], 'string');
       $sig          = escape($_POST['sig'], 'string');
-		  db_query('UPDATE prefix_user 
+		  //Name im Forum ändern 
+		  if ($_POST['forumname'] == 'on') {
+        $oldname = db_count_query("SELECT name FROM `prefix_user` WHERE id =".$uid);
+        if ($oldname != $usaName1) {
+          db_query("UPDATE `prefix_posts` SET erst = '$usaName1' WHERE erstid = ".$uid);
+        }      
+      }      
+      db_query('UPDATE prefix_user 
 			  SET 
 					name  = "'.$usaName1.'", 
 					recht = "'.$neues_recht.'",
@@ -297,8 +304,8 @@ switch($um) {
           gebdatum = "'.$gebdatum.'",
           sig = "'.$sig.'"
           '.$avatar_sql_update.'
-				WHERE id = "'.$uid.'"');
-	  }
+				WHERE id = "'.$uid.'"');    
+    }
 		}
 		wd('admin.php?user-1-'.$uid,'Das Profil wurde erfolgreich geaendert',2);
     $design->footer();

@@ -333,7 +333,7 @@ switch ( $um ) {
           $page = str_replace('admin.php','index.php',$_SERVER["HTTP_HOST"].$_SERVER["SCRIPT_NAME"]);
           db_query("INSERT INTO prefix_kalender (time, title, text, recht) VALUES (".$timestamp.",'Nextwar gegen ".$_POST['gegner']."', '".$_POST['mtyp']." ".$_POST['mod']." in ".$_POST['game']." gegen [url=".$_POST['page']."]".$_POST['gegner']."[/url]\n\n[url=http://".$page."?wars-more-".$wid."]details des Wars[/url]', 0)");
         }
-				$msg = '<tr class="Cmite"><td colspan="2">Erfolgreich eingetrage</td></tr>';
+				$msg = '<tr class="Cmite"><td colspan="2">Erfolgreich eingetragen</td></tr>';
 			} else {
 				db_query("UPDATE prefix_wars SET datime = '".get_datime()."', status = 2,gegner = '".$_POST['gegner']."',tag = '".$_POST['tag']."',page = '".$_POST['page']."',mail = '".$_POST['email']."',icq = '".$_POST['icq']."',wo = '".$_POST['wo']."',tid = '".$_POST['tid']."',`mod` = '".$_POST['mod']."',game = '".$_POST['game']."',mtyp = '".$_POST['mtyp']."',land = '".$_POST['land']."',txt = '".$_POST['txt']."' WHERE id = '".$_POST['pkey']."'");
         $wid = $_POST['pkey'];
