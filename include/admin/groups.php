@@ -27,6 +27,27 @@ function groups_update_modulerights_for ($ar) {
   }
 }
 
+function may_changegroup ($gi,$m = 0) {
+  global $allgAr;
+  if ($_SESSION['authright'] <= -8 OR !$allgAr['groups_forall']) {
+    return true;
+  } elseif ($gi == 0) {
+    return false;
+  } else {
+    $q = db_query("SELECT mod1, mod2".($m == 1?', mod4':'')." FROM `prefix_groups` WHERE id = $gi");
+    if (db_num_rows($q) < 1) {
+      return false;
+    } else {
+      $r = db_fetch_assoc($q);
+      if (in_array($_SESSION['authid'],$r)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+}
+
 $show = true;
 $msg  = '';
 $um   = $menu->get(1);
@@ -42,9 +63,9 @@ if ( $um == 'ins' ) {
   $zeigen		= escape($_POST['zeigen'], 'integer');
 	$fightus	= escape($_POST['fightus'], 'integer');
 	$joinus		= escape($_POST['joinus'], 'integer');
-	$gid		= escape($_POST['gid'], 'integer');
-	db_query("INSERT INTO prefix_groups (name,img,`mod1`,`mod2`,`mod3`,`mod4`,show_fightus,show_joinus,zeigen,pos) VALUES ('".$name."','".$img."',".$mod1.",".$mod2.",".$mod3.",".$mod4.",".$fightus.",".$joinus.",".$zeigen.",".$pos.")");
-
+	if (may_changegroup(0)) {
+	  db_query("INSERT INTO prefix_groups (name,img,`mod1`,`mod2`,`mod3`,`mod4`,show_fightus,show_joinus,zeigen,pos) VALUES ('".$name."','".$img."',".$mod1.",".$mod2.",".$mod3.",".$mod4.",".$fightus.",".$joinus.",".$zeigen.",".$pos.")");
+  }
   
   if (is_coadmin()) {
     groups_update_modulerights_for (array($mod1,$mod2,$mod3,$mod4));
@@ -53,22 +74,26 @@ if ( $um == 'ins' ) {
 
 if ( isset ( $_POST['ins_user'] ) ) {
 	$gid = escape($menu->get(2), 'integer');
-	if ( empty($_POST['fid']) ) {
-		$_POST['fid'] = 0;
-	}
-	$fid = 0;
-	if (!empty($_POST['fid'])) {
-	$fid = escape($_POST['fid'], 'integer');
-	}
-	$name = escape($_POST['name'], 'string');
-	$uid = @db_result(@db_query("SELECT id FROM prefix_user where name = BINARY '".$name."'"),0,0);
-	if (!empty($uid) AND 0 == db_result(db_query("SELECT COUNT(*) FROM prefix_groupusers WHERE gid = ".$gid." AND uid = ".$uid),0)) {
-		db_query("INSERT INTO prefix_groupusers (gid,uid,fid) VALUES (".$gid.",".$uid.",".$fid.")");
-	}
-	$um = 'addusers';
+	if (may_changegroup($gid,1)) {
+    if ( empty($_POST['fid']) ) {
+  		$_POST['fid'] = 0;
+  	}
+  	$fid = 0;
+  	if (!empty($_POST['fid'])) {
+  	$fid = escape($_POST['fid'], 'integer');
+  	}
+  	$name = escape($_POST['name'], 'string');
+  	$uid = @db_result(@db_query("SELECT id FROM prefix_user where name = BINARY '".$name."'"),0,0);
+  	if (!empty($uid) AND 0 == db_result(db_query("SELECT COUNT(*) FROM prefix_groupusers WHERE gid = ".$gid." AND uid = ".$uid),0)) {
+  		db_query("INSERT INTO prefix_groupusers (gid,uid,fid) VALUES (".$gid.",".$uid.",".$fid.")");
+  	}
+  }
+  $um = 'addusers';
 }
 
 if ( $um == 'ch' ) {
+  $gid		= escape($_POST['gid'], 'integer');
+  $oldopts = db_fetch_object(db_query("SELECT * FROM `prefix_groups` WHERE id = $gid"));
   $name		= escape($_POST['group_name'], 'string');
 	$img		= escape($_POST['img'], 'string');
 	$mod1		= escape($_POST['mod1'], 'integer');
@@ -78,33 +103,43 @@ if ( $um == 'ch' ) {
 	$zeigen		= escape($_POST['zeigen'], 'integer');
 	$fightus	= escape($_POST['fightus'], 'integer');
 	$joinus		= escape($_POST['joinus'], 'integer');
-	$gid		= escape($_POST['gid'], 'integer');
-	db_query("UPDATE prefix_groups SET name = '".$name."', show_fightus = ".$fightus.", show_joinus = ".$joinus.", img = '".$img."', `mod1` = ".$mod1.", `mod2` = ".$mod2.", `mod3` = ".$mod3.", `mod4` = ".$mod4.", zeigen = ".$zeigen." WHERE id = ".$gid);
+	if ($oldopts->mod2 == $_SESSION['authid']) {
+    $mod1 = $oldopts->mod1;
+  } elseif ($oldopts->mod4 == $_SESSION['authid']) {
+    $name	   = $oldopts->name;
+	  $img	   = $oldopts->img;
+    $mod1    = $oldopts->mod1;
+    $mod2    = $oldopts->mod2;
+    $mod3    = $oldopts->mod3;
+	  $zeigen	 = $oldopts->zeigen;
+	  $fightus = $oldopts->fightus;
+  }
+	
+  if (may_changegroup($gid,1)) {
+    db_query("UPDATE prefix_groups SET name = '".$name."', show_fightus = ".$fightus.", show_joinus = ".$joinus.", img = '".$img."', `mod1` = ".$mod1.", `mod2` = ".$mod2.", `mod3` = ".$mod3.", `mod4` = ".$mod4.", zeigen = ".$zeigen." WHERE id = ".$gid);
+    $msg = "Die Gruppe wude ver&auml;ndert";
+  }
   
   if (is_coadmin()) {  
     # mods wieder die richtigen modulrechte geben. dazu erst loeschen, dann eintragen.
     groups_update_modulerights_for (array($mod1,$mod2,$mod3,$mod4));
+    $msg .= ", die Modulrechte wurden erneuert. Wenn allerdings Leader, Co-Leader, Warorga oder Memberorga ge&auml;ndert wurden haben diese User immer noch die Modulrechte ... das sollte daher &uuml;berpr&uuml;ft werden.";
   }
-  
-  $msg = "Die Gruppe wude ver&auml;ndert, die Modulrechte wurden erneuert. Wenn allerdings Leader, Co-Leader, Warorga oder Memberorga ge&auml;ndert wurden haben diese User immer noch die Modulrechte ... das sollte daher &uuml;berpr&uuml;ft werden.";
-  
 }
 
-if (isset ($_GET['group_delete'])) {
-	$pos = db_result(db_query("SELECT pos FROM prefix_groups WHERE id = ".$_GET['group_delete']),0);
-  db_query("DELETE FROM prefix_groups WHERE id = ".$_GET['group_delete']);
-	db_query("DELETE FROM prefix_groupusers WHERE gid = ".$_GET['group_delete']);
+if (isset ($_GET['group_delete']) AND ($gid = escape($_GET['group_delete'],'integer') AND may_changegroup(0))) {
+	$pos = db_result(db_query("SELECT pos FROM prefix_groups WHERE id = ".$gid),0);
+  db_query("DELETE FROM prefix_groups WHERE id = ".$gid);
+	db_query("DELETE FROM prefix_groupusers WHERE gid = ".$gid);
   db_query("UPDATE prefix_groups SET pos = pos -1 WHERE pos > ".$pos);
 }
 
-if ( $menu->get(3) == 'userdelete') {
-	$gid = $menu->get(2);
-	$uid = $menu->get(4);
+if ( $menu->get(3) == 'userdelete' AND ($gid = escape($menu->get(2),'integer') AND may_changegroup($gid,1))) {
+	$uid = escape($menu->get(4),'integer');
 	db_query("DELETE FROM prefix_groupusers WHERE gid = ".$gid." AND uid = ".$uid);
 }
 
-if ( $menu->get(3) == 'userchange') {
-	$gid = escape($menu->get(2), 'integer');
+if ( $menu->get(3) == 'userchange' AND ($gid = escape($menu->get(2),'integer') AND may_changegroup($gid,1))) {
 	$uid = escape($menu->get(4), 'integer');
 	$fid = escape($menu->get(5), 'integer');
 	db_query("UPDATE `prefix_groupusers` SET fid = $fid WHERE gid = $gid AND uid = $uid");
@@ -159,7 +194,7 @@ if ( $um == 'addusers' ) {
 	$show = false;
 }
 
-if ($menu->get(1) == 'move') {
+if ($menu->get(1) == 'move' AND may_changegroup(0)) {
 	$id  = escape($menu->getE(2), 'integer');
 	$pos = db_result(db_query("SELECT pos FROM prefix_groups WHERE id = ".$id),0);
 	$anz = db_result(db_query("SELECT COUNT(*) FROM prefix_groups"),0);
@@ -254,8 +289,16 @@ if ($um == 'joinus') {
   $tpl->set('msg',(empty($msg)?'':'<table width="50%" cellpadding="2" cellspacing="1" border="0" class="border"><tr><td class="Cnorm"><b>Nachricht:</b>&nbsp;'.$msg.'</td></tr></table>'));
   $tpl->out(0);
   
+  if ($_SESSION['authright'] <= -8) {
+    $where = '';
+  } else {
+    $q = db_query("SELECT id FROM `prefix_groups` WHERE mod1 = {$SESSION['authright']} OR mod2 = {$SESSION['authright']} OR mod4 = {$SESSION['authright']}");
+    while ($r = db_fetch_object($q)) { $where .= "groupid = $r->id OR"; }
+    $where = ' AND ('.substr($where,0,-3).')';
+  }
+  
 	$class = 'Cnorm';
-  $erg = db_query("SELECT `check`, prefix_usercheck.name, prefix_user.id, prefix_user.email, prefix_groups.name as groupname FROM prefix_usercheck LEFT JOIN prefix_user ON prefix_user.name = BINARY prefix_usercheck.name LEFT JOIN prefix_groups ON prefix_groups.id = prefix_usercheck.groupid WHERE ak = 4");
+  $erg = db_query("SELECT `check`, prefix_usercheck.name, prefix_user.id, prefix_user.email, prefix_groups.name as groupname FROM prefix_usercheck LEFT JOIN prefix_user ON prefix_user.name = BINARY prefix_usercheck.name LEFT JOIN prefix_groups ON prefix_groups.id = prefix_usercheck.groupid WHERE ak = 4".$where);
   while ($r = db_fetch_assoc($erg)) {
     if ($r['id'] < 1) {
       $r['email'] = db_count_query("SELECT email FROM `prefix_usercheck` WHERE name = '{$r['name']}' AND ak");
@@ -319,6 +362,8 @@ if ( $show ) {
 		$tpl->set_ar_out($row,1);
 	}
 	$tpl->out(2);
+	if ($allgAr['groups_forall'] AND $_SESSION['authright'] > -8) { $tpl->out(3); }
+	$tpl->out(4);
 }
 
 $design->footer();
