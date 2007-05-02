@@ -124,6 +124,9 @@ if ( !is_numeric($menu->get(1)) )  {
       if ( strpos ( $row['text'] , '[PREVIEWENDE]' ) !== FALSE ) {
         $a = explode('[PREVIEWENDE]' , $row['text']);
         $row['text'] = $a[0];
+        $row['readwholenews'] = '&raquo; <a href="index.php?news-'.$row['id'].'">'.$lang['readwholenews'].'</a>  &laquo;';
+      } else {
+        $row['readwholenews'] = '';
       }
       $row['text'] = bbcode($row['text']);
       $tpl->set_ar_out($row,0);

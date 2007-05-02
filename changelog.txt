@@ -2,6 +2,14 @@ Changelog:
 ==========
 + neue Funktionen       * Änderungen/Bugfixes
 
+Version 1.1 H
+-------------
++ >>ganzen Artikel lesen<< nur wenn auch ein [PREVIEWENDE] in der News ist
+
+* User Uploads freischalten funktioniert wieder
+* ilchClan-Design wird nun auch beim IE ordentlich angezeigt
+
+
 Version 1.1 G
 -------------
 + Avatare kann man nun auch im Adminbereich hochladen, das Avatar wird dort nicht auf Größe geprüft
@@ -11,6 +19,7 @@ Version 1.1 G
 + Joinus, man kann wählen ob die Regeln komplett angezeigt werden
 + Beim Ändern eines Downloads kann Datum nun aktualisiert werden
 + Beim Ändern des Namens eines Users, kann auch der Name bei allen Forenposts geändert werden
++ Option, dass Modulrecht Gruppen, nur für eigene Gruppe(n) gilt
 
 * Konfigurationspunkt: Standard Avatar anzeigen? funktioniert nun
 * Falsches Escapen beim Ändern einer News behoben (kein \" und \' mehr)

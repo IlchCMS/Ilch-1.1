@@ -455,7 +455,7 @@ switch ($um) {
       $azk = 0;
       if ( $menu->getA(2) == 'S' OR $menu->getA(2) == 'E' ) {
         $azk = $menu->getE(2);
-        //if ( $azk == 'a' ) { $azk = 0; }
+        if ( $menu->get(2) == 'Sa' ) { $azk = -1; }
       }
     }
     
