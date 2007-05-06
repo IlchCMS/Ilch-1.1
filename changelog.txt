@@ -8,6 +8,7 @@ Version 1.1 H
 
 * User Uploads freischalten funktioniert wieder
 * ilchClan-Design wird nun auch beim IE ordentlich angezeigt
+* fehlerhafte Anzeige des Uploadformular im Content Bereich ausgebessert
 
 
 Version 1.1 G
