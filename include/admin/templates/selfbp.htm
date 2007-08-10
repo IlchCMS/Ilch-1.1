@@ -1,27 +1,7 @@
-<script language="JavaScript" type="text/javascript" src="include/includes/js/editor.js"></script> 
+<script language="JavaScript" type="text/javascript" src="include/includes/js/editor/whizzywig.js"></script>
+<script language="JavaScript" type="text/javascript" src="include/includes/js/editor/deutsch.js"></script>
 
-<script language="javascript" type="text/javascript">
-<!--
-function changeAktion () {
-  var akl = document.getElementById('akl').value;
-  document.location.href="?selfbp=0&akl=" + akl;
-}
-function confirmDel(){
-  var akl = document.getElementById('akl').value;
-	var frage = confirm ( "Willst du " + akl.substr(1) + " wirklich löschen?" );
-	if ( frage == true ) {
-    document.location.href="?selfbp=0&del=" + akl;
-  }
-}
-function disable_view_source(){
-  if (document.getElementById('txh').checked == true) {
-  viewText('your_textarea');
-  }
-  return true;
-}
-//-->
-</script>
-<form name="form" action="?selfbp" method="POST" onsubmit="return disable_view_source();">
+<form name="form" action="admin.php?selfbp" method="post" onsubmit="return checkfilename();">
 
 <table cellpadding="2" cellspacing="1" border="0" class="border">
   <tr>
@@ -29,24 +9,18 @@ function disable_view_source(){
     <td class="Cnorm"><select id="akl" name="akl" onChange="changeAktion()">{akl}</select></td>
   </tr><tr>
     <td class="Cmite">Dateiname</td>
-    <td class="Cnorm"><input name="filename" size="50" value="{filename}" /></td>
-  </tr><tr>
-    <td class="Cmite">Titel</td>
-    <td class="Cnorm"><input name="title" size="50" value="{title}" /></td>
-  </tr><tr>
-    <td class="Cmite">Hmenu</td>
-    <td class="Cnorm"><input name="hmenu" size="50" value="{hmenu}" /></td>
-  </tr><tr>
-    <td class="Cmite">Anzeige</td>
-    <td class="Cnorm">
-      <select name="view">{view}</select>
-      <input name="viewoptions" size="50" value="{viewoptions}" />
-    </td>
+    <td class="Cnorm"><input type="hidden" name="exfilename" value="{exfilename}" /><input id="filename" name="filename" size="50" value="{filename}" /></td>
   </tr><tr>
     <td colspan="2" class="Cnorm">
     
-		<textarea rows="20" cols="90" class="bbwy" id="your_textarea" name="text">{text}</textarea>
-
+<textarea style="height:350px;width:750px;" name="bbwy" id="bbwy">{text}</textarea>
+<script language="javascript" type="text/javascript">
+buttonPath = "include/images/icons/editor/";
+imageBrowse = "admin.php?selfbp-imagebrowser";
+makeWhizzyWig("bbwy", "all");
+//-->
+</script>
+    
     </td>
   </tr><tr class="Cdark">
     <td></td>
@@ -103,3 +77,28 @@ function disable_view_source(){
     
 	</tr> 
 </table>	
+<script language="javascript" type="text/javascript">
+<!--
+function changeAktion () {
+  var akl = document.getElementById('akl').value;
+  document.location.href="?selfbp=0&akl=" + akl;
+}
+function confirmDel(){
+  var akl = document.getElementById('akl').value;
+	var frage = confirm ( "Willst du " + akl.substr(1) + " wirklich löschen?" );
+	if ( frage == true ) {
+    document.location.href="?selfbp=0&del=" + akl;
+  }
+}
+function checkfilename () {
+  if (document.getElementById('filename').value != '') {
+    return (true);
+  }
+  
+  alert ('Bitte einen Dateinamen eingeben.');
+  document.getElementById('filename').style.backgroundColor="yellow";
+  document.getElementById("filename").focus();
+  return (false);
+}
+//-->
+</script>
