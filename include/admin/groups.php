@@ -13,7 +13,7 @@ function groups_update_modulerights_for ($ar) {
     2 => array ('wars', 'awaycal'),
     3 => array ('groups', 'awaycal'),
   );
-  
+
   foreach ($ar as $k => $uid) {
     if (0 == $uid) { continue; }
     foreach ($re[$k] as $r) {
@@ -66,7 +66,7 @@ if ( $um == 'ins' ) {
 	if (may_changegroup(0)) {
 	  db_query("INSERT INTO prefix_groups (name,img,`mod1`,`mod2`,`mod3`,`mod4`,show_fightus,show_joinus,zeigen,pos) VALUES ('".$name."','".$img."',".$mod1.",".$mod2.",".$mod3.",".$mod4.",".$fightus.",".$joinus.",".$zeigen.",".$pos.")");
   }
-  
+
   if (is_coadmin()) {
     groups_update_modulerights_for (array($mod1,$mod2,$mod3,$mod4));
   }
@@ -114,13 +114,13 @@ if ( $um == 'ch' ) {
 	  $zeigen	 = $oldopts->zeigen;
 	  $fightus = $oldopts->fightus;
   }
-	
+
   if (may_changegroup($gid,1)) {
     db_query("UPDATE prefix_groups SET name = '".$name."', show_fightus = ".$fightus.", show_joinus = ".$joinus.", img = '".$img."', `mod1` = ".$mod1.", `mod2` = ".$mod2.", `mod3` = ".$mod3.", `mod4` = ".$mod4.", zeigen = ".$zeigen." WHERE id = ".$gid);
-    $msg = "Die Gruppe wude ver&auml;ndert";
+    $msg = "Die Gruppe wurde ver&auml;ndert";
   }
-  
-  if (is_coadmin()) {  
+
+  if (is_coadmin()) {
     # mods wieder die richtigen modulrechte geben. dazu erst loeschen, dann eintragen.
     groups_update_modulerights_for (array($mod1,$mod2,$mod3,$mod4));
     $msg .= ", die Modulrechte wurden erneuert. Wenn allerdings Leader, Co-Leader, Warorga oder Memberorga ge&auml;ndert wurden haben diese User immer noch die Modulrechte ... das sollte daher &uuml;berpr&uuml;ft werden.";
@@ -154,18 +154,18 @@ if ( $um == 'addusers' ) {
   $groupfuncs = array();
   $erg = db_query("SELECT id,name FROM prefix_groupfuncs ORDER BY pos");
   while ($row = db_fetch_object($erg)) {
-    $groupfuncs[$row->id] = $row->name;  
+    $groupfuncs[$row->id] = $row->name;
   }
-  
+
   function group_func ($gid, $uid, $fid, $gf) {
     $out = '<select id="user'.$uid.'" onchange="change_user('.$gid.', '.$uid.', this.value, '.$fid.', \'user'.$uid.'\');">';
     foreach ($gf as $key => $val) {
-      $out .=  '<option value="'.$key.'" '.($fid == $key ? 'selected="selected"' : '').'>'.$val.'</option>';   
+      $out .=  '<option value="'.$key.'" '.($fid == $key ? 'selected="selected"' : '').'>'.$val.'</option>';
     }
     $out .= '</select>';
     return $out;
   }
-  
+
 	$row1 = db_fetch_object(db_query("SELECT name FROM prefix_groups WHERE id = ".$gid));
 	$tpl->set('gruppe', $row1->name);
 	$tpl->set('fehler', ( empty($fehler) ? '' : $fehler ) );
@@ -211,7 +211,7 @@ if ($menu->get(1) == 'move' AND may_changegroup(0)) {
     db_query("UPDATE prefix_groups SET pos = -1 WHERE id = ".$id);
     db_query("UPDATE prefix_groups SET pos = pos +1");
   }
-  
+
 	if ($npos>=0 AND $npos < $anz) {
 		db_query("UPDATE prefix_groups SET pos = ".$pos." WHERE pos = ".$npos);
 		db_query("UPDATE prefix_groups SET pos = ".$npos." WHERE id = ".$id);
@@ -256,7 +256,7 @@ if ($um == 'funcs') {
 if ($um == 'joinus') {
 	$design = new design ( 'Admins Area', 'Admins Area', 2 );
 	$design->header();
-  
+
   # als trial aufnehmen
   if ($menu->getA(2) == 'a' AND is_numeric($menu->getE(2)) AND $menu->getE(2) <> 0) {
     $check = escape($menu->get(3), 'string');
@@ -273,7 +273,7 @@ if ($um == 'joinus') {
     sendpm ($_SESSION['authid'], $id, 'Deine Joinus Anfrage', 'Du wurdest als Trial-Member aufgenommen.');
     $msg = 'erfolgreich als Trial markiert, der User wurde darueber informiert. '.$msg;
   }
-  
+
   # aus check tabelle loeschen (nicht aufnehmen)
   if ($menu->getA(2) == 'd' AND is_numeric($menu->getE(2))) {
     $check = escape($menu->get(3), 'string');
@@ -284,20 +284,18 @@ if ($um == 'joinus') {
     }
     $msg = 'erfolgreich gel&ouml;scht ..., wenn er schon registriert war wurde ihm eine Nachricht geschickt.';
   }
-  
+
   $tpl = new tpl ( 'groups/joinus', 1);
   $tpl->set('msg',(empty($msg)?'':'<table width="50%" cellpadding="2" cellspacing="1" border="0" class="border"><tr><td class="Cnorm"><b>Nachricht:</b>&nbsp;'.$msg.'</td></tr></table>'));
   $tpl->out(0);
-  
+
   if ($_SESSION['authright'] <= -8) {
     $where = '';
   } else {
-    $q = db_query("SELECT id FROM `prefix_groups` WHERE mod1 = {$SESSION['authright']} OR mod2 = {$SESSION['authright']} OR mod4 = {$SESSION['authright']}");
-    while ($r = db_fetch_object($q)) { $where .= "groupid = $r->id OR"; }
-    $where = ' AND ('.substr($where,0,-3).')';
+    $where = " AND prefix_usercheck.groupid IN (SELECT id FROM `prefix_groups` WHERE mod1 = {$_SESSION['authid']} OR mod2 = {$_SESSION['authid']} OR mod4 = {$_SESSION['authid']})";
   }
-  
-	$class = 'Cnorm';
+
+  $class = 'Cnorm';
   $erg = db_query("SELECT `check`, prefix_usercheck.name, prefix_user.id, prefix_user.email, prefix_groups.name as groupname FROM prefix_usercheck LEFT JOIN prefix_user ON prefix_user.name = BINARY prefix_usercheck.name LEFT JOIN prefix_groups ON prefix_groups.id = prefix_usercheck.groupid WHERE ak = 4".$where);
   while ($r = db_fetch_assoc($erg)) {
     if ($r['id'] < 1) {
@@ -335,7 +333,7 @@ if ( $show ) {
 		'fightusja'=>'','fightusno'=>'checked','joinusja'=>'','joinusno'=>'checked',
 		);
 	}
-  
+
 	$ar['mods1'] = dbliste ( $ar['mod1'] , $tpl, 'mods1', "SELECT id,name FROM prefix_user WHERE recht <= -4 ORDER BY name");
 	$ar['mods2'] = dbliste ( $ar['mod2'] , $tpl, 'mods2', "SELECT id,name FROM prefix_user WHERE recht <= -4 ORDER BY name");
   $ar['mods3'] = dbliste ( $ar['mod3'] , $tpl, 'mods3', "SELECT id,name FROM prefix_user WHERE recht <= -4 ORDER BY name");
@@ -350,7 +348,7 @@ if ( $show ) {
   if (0 < db_result(db_query("SELECT COUNT(*) FROM prefix_usercheck WHERE ak = 4"),0)) {
     $ar['joinu'] = '<a href="admin.php?groups-joinus"><b>Joinus Anfragen bearbeiten</b></a><br /><br />';
   }
-  
+
   $tpl->set_ar_out($ar,0);
 
 	$class = 'Cnorm';

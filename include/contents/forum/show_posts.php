@@ -1,4 +1,4 @@
-<?php 
+<?php
 #   Copyright by: Manuel Staechele
 #   Support: www.ilch.de
 
@@ -21,14 +21,14 @@ $design->header();
 # Topic Hits werden eins hochgesetzt.
 db_query('UPDATE `prefix_topics` SET hit = hit + 1 WHERE id = "'.$tid.'"');
 
-# mehrere seiten fals gefordert	 
-$limit = $allgAr['Fpanz'];  // Limit 
+# mehrere seiten fals gefordert
+$limit = $allgAr['Fpanz'];  // Limit
 $page = ($menu->getA(3) == 'p' ? $menu->getE(3) : 1 );
 $MPL = db_make_sites ($page , "WHERE tid = ".$tid , $limit , 'index.php?forum-showposts-'.$tid , 'posts' );
 $anfang = ($page - 1) * $limit;
 
 $antworten = '';
-if ($aktTopicRow['stat'] == 1 AND $forum_rights['reply'] == TRUE ) {
+if (($aktTopicRow['stat'] == 1 AND $forum_rights['reply'] == TRUE) OR ($_SESSION['authright'] <= '-7' OR $forum_rights['mods'] == TRUE)) {
   $antworten = '<b>[ <a href="index.php?forum-newpost-'.$tid.'">'.$lang['answer'].'</a> ]</b>';
 }
 
@@ -46,9 +46,9 @@ $i = $anfang +1;
 $ges_ar = array ('wurstegal', 'maennlich', 'weiblich');
 $erg = db_query("SELECT geschlecht, prefix_posts.id,txt,time,erstid,erst,sig,avatar,posts FROM `prefix_posts` LEFT JOIN prefix_user ON prefix_posts.erstid = prefix_user.id WHERE tid = ".$tid." ORDER BY time LIMIT ".$anfang.",".$limit);
 while($row = db_fetch_assoc($erg)) {
-  
+
 	$class = ( $class == 'Cnorm' ? 'Cmite' : 'Cnorm' );
-	
+
 	# define some vars.
 	$row['sig'] = ( empty($row['sig']) ? '' : '<br /><hr style="width: 50%;" align="left">'.bbcode($row['sig']) );
 	$row['TID'] = $tid;
@@ -56,7 +56,7 @@ while($row = db_fetch_assoc($erg)) {
 	$row['date'] = date ('d.m.Y - H:i:s', $row['time'] );
 	$row['delete'] = '';
 	$row['change'] = '';
-	if (!is_numeric($row['geschlecht'])) { $row['geschlecht'] = 0; } 
+	if (!is_numeric($row['geschlecht'])) { $row['geschlecht'] = 0; }
 	if (file_exists($row['avatar'])) { $row['avatar'] = '<br /><br /><img src="'.$row['avatar'].'" alt="User Pic" border="0" /><br />'; }
 	elseif ($allgAr['forum_default_avatar']) { $row['avatar'] = '<br /><br /><img src="include/images/avatars/'.$ges_ar[$row['geschlecht']].'.jpg" alt="User Pic" border="0" /><br />'; }
  	else { $row['avatar'] = ''; }
@@ -65,11 +65,11 @@ while($row = db_fetch_assoc($erg)) {
 	$row['txt']    = (isset($_GET['such']) ? markword(bbcode ($row['txt']),$_GET['such']) : bbcode ($row['txt']) );
 	$row['i']      = $i;
   $row['page']   = $page;
-  
+
 	if ( $row['erstid'] != 0 ) {
 		$row['erst'] = '<a href="index.php?user-details-'.$row['erstid'].'"><b>'.$row['erst'].'</b></a>';
 	}
-  
+
 	if ($forum_rights['mods'] == TRUE AND $i>1) {
 	  $row['delete'] = '<a href="index.php?forum-delpost-'.$tid.'-'.$row['id'].'">'.$lang['delete'].'</a>';
 	}
@@ -77,7 +77,7 @@ while($row = db_fetch_assoc($erg)) {
 	  $row['change'] = '&nbsp;<a href="index.php?forum-editpost-'.$tid.'-'.$row['id'].'">'.$lang['change'].'</a>';
 	}
 	$tpl->set_ar_out($row,1);
-  
+
   $i++;
 }
 
@@ -91,7 +91,7 @@ if (loggedin()) {
       db_query("INSERT INTO prefix_topic_alerts (tid,uid) VALUES (".$tid.", ".$_SESSION['authid'].")");
     }
   }
-  
+
   echo 'Optionen:';
   if (1 == db_result(db_query("SELECT COUNT(*) FROM prefix_topic_alerts WHERE uid = ".$_SESSION['authid']." AND tid = ".$tid),0)) {
     echo '<br />- <a href="index.php?forum-showposts-'.$tid.'-topicalert">'.$lang['nomailonreply'].'</a><br />';
