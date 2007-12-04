@@ -126,7 +126,7 @@ function edit_text ($t, $add) {
     #$t = preg_replace("/\/([^>]*)>/","/\\1>\n",$t);
   } elseif ($erg AND !$add) {
     $t = preg_replace("/^\s*<\?php defined \('main'\) or die \('no direct access'\); \?>(.*)$/s","\\1",$t);
-    #$t = preg_replace ("/<!--@(.*)@-->/", "", $t);
+    $t = preg_replace ("/<!--@(.*)@-->/", "", $t);
     #$t = preg_replace ("/(\015\012|\015|\012)/", "", $t);
   }
   return ($t);
@@ -200,7 +200,7 @@ if ( isset ($_POST['bbwy']) AND isset($_POST['filename']) AND isset($_POST['akl'
   $akl = $_POST['akl'];
   $text = $_POST['bbwy'];
   #$text = rteSafe($_POST['text']);
-  #$text = set_properties(array('title'=>$_POST['title'],'hmenu'=>$_POST['hmenu'],'view'=>$_POST['view'],'viewoptions'=>$_POST['viewoptions'])).$text;
+  $text = set_properties(array('title'=>$_POST['title'],'hmenu'=>$_POST['hmenu'],'view'=>$_POST['view'],'viewoptions'=>$_POST['viewoptions'])).$text;
   $text = edit_text(stripslashes($text), true);
   
   $a = substr ( $akl, 0, 1);
@@ -243,13 +243,13 @@ if (isset($_REQUEST['del'] )){
 }
   
 $text= get_text($akl);
-#$properties=get_properties($text);
+$properties=get_properties($text);
 $text = edit_text ($text, false);
 #$text = rteSafe($text);
 $filename = get_filename($akl);
 $akl  = get_akl ( $akl );
-#$view=get_view($properties['view']);
-$tpl->set_ar_out(array('akl'=>$akl,'text'=>$text,'filename'=>$filename,'exfilename'=>$filename),0);
+$view=get_view($properties['view']);
+$tpl->set_ar_out(array('akl'=>$akl,'text'=>$text,'filename'=>$filename,'exfilename'=>$filename,'title'=>$properties['title'],'hmenu'=>$properties['hmenu'],'view'=>$view,'viewoptions'=>$properties['viewoptions']),0);
 
 
 $design->footer();
