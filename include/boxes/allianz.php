@@ -1,7 +1,15 @@
 <?php 
 #   Copyright by Manuel Staechele
 #   Support www.ilch.de
-
+$tpl_alianz = <<< tpl
+<div align="center">
+{EXPLODE}
+</div>
+{EXPLODE}
+<a class="box" href="{link}" target="_blank">{title}</a><br />
+{EXPLODE}
+<img src="{banner}" alt="{name}" border="0">
+tpl;
 
 defined ('main') or die ( 'no direct access' );
 
@@ -17,21 +25,29 @@ defined ('main') or die ( 'no direct access' );
 	$allyLinkAr = array();
 	$allyBanaAr = array();
   $allyAktAnz = 0;
+
 	
-	$allyAbf = 'SELECT * FROM `prefix_partners` ORDER BY '.$sqlORDER.' LIMIT  0,'.$allyAnzahl;
+  $allyAbf = 'SELECT * FROM `prefix_partners` ORDER BY '.$sqlORDER.' LIMIT  0,'.$allyAnzahl;
 	$allyErg = db_query($allyAbf);
 	if ( db_num_rows($allyErg) > 0) {
-	  echo '<div align="center">';
+	  $tpl = new tpl($tpl_alianz, 3);
+    $tpl->out(0);
 		while($allyRow = db_fetch_object($allyErg)) {
-		    echo '<a class="box" href="'.$allyRow->link.'" target="_blank">';
-		    if ( empty ($allyRow->banner) OR $allyRow->banner == 'http://' ) {
-		      echo $allyRow->name;
+		    $tpl->set("link", $allyRow->link);
+        if ( empty ($allyRow->banner) OR $allyRow->banner == 'http://' ) {
+		      $tpl->set("title", $allyRow->name);
 		    } else {
-		      echo '<img src="'.$allyRow->banner.'" alt="'.$allyRow->name.'" border="0">';
+		      $tpl->set("title", $tpl->set_ar_get(
+                                              array("banner" => $allyRow->banner,
+                                                    "name"   => $allyRow->name
+                                                   )
+                                             , 3 # {EXPLODE} Nr 3
+                                             )
+                   );
 		    }
-		    echo '</a><br />';   
+		    $tpl->out(2);   
 	  }
-	  echo '</div>';
+	  $tpl->out(1);
   }
 
 ?>

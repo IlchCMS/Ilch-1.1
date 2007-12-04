@@ -22,7 +22,7 @@ class tpl
     $this->ort   = $ort;
     
 		# file bearbeiten, weil file auch ohne .htm angegeben werden kann.
-    if ( substr ( $file, -4 ) != '.htm' ) {
+    if ( ($ort != 3) AND (substr ( $file, -4 ) != '.htm') ) {
       $file .= '.htm';
     }
 		
@@ -30,6 +30,7 @@ class tpl
     # bei ort 0 wird ausserdem gecheckt ob das template
     # evtl. im ordner include/design/DESIGN/templates liegt.
     # ort = 2 das template kommt von der design classe der pfad ist ab include
+    # ort = 3 das template ist schon in der Variable $file geladen
     $design = $this->get_design ();
     if ( $this->ort == 0 ) {
       if ( file_exists ('include/designs/'.$design.'/templates/'.$file) ) {
@@ -41,9 +42,13 @@ class tpl
       $file = 'include/admin/templates/'.$file;
     } elseif ( $this->ort == 2 ) {
       $file = 'include/'.$file;
+    }elseif ( $this->ort == 3 ) {
+      $inhalt = $file;
     }
 		
-	  $inhalt = implode("", file($file) );
+	  if ($ort != 3){
+      $inhalt = implode("", file($file) );
+		}
 		
 		global $lang;
 		$this->lang = $lang;

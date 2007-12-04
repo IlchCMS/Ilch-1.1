@@ -5,11 +5,14 @@ Changelog:
 Version 1.1 I
 -------------
 
++ Template-System kann nun Templates auch aus Variablen laden.(Bsp.: /boxes/alianz.php)
+
 * Admins(ab Siteadmin) und Moderatoren können in geschlossenen Themen antworten
 * Fehler für Modulrechtler beim Freischalten von Joinus-Freigaben behoben
 2007-08-10 von manuel
 * neuer Wysiwyg-Editor im Selfpage und Box Bereich, die erweiterten Angaben dort sind weg gefallen.
   der Editor ist wesentlich besser und hat viel mehr Möglichkeiten.
+
 
 Version 1.1 H
 -------------
