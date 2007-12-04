@@ -7,6 +7,7 @@ Version 1.1 I
 
 + Template-System kann nun Templates auch aus Variablen laden.(Bsp.: /boxes/alianz.php)
 
+* Beim löschen einer Kategorie werden Bilder + DB Einträge vollständig gelöscht
 * Admins(ab Siteadmin) und Moderatoren können in geschlossenen Themen antworten
 * Fehler für Modulrechtler beim Freischalten von Joinus-Freigaben behoben
 2007-08-10 von manuel

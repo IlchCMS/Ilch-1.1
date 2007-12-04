@@ -174,9 +174,14 @@ $tpl = new tpl ( 'gallery/gallery', 1);
     
 # kategorie und link eintraege loeschen
 if ( $menu->getA(1) == 'D' ) {
-  $r = db_fetch_assoc(db_query("SELECT pos, cat FROM prefix_gallery_cats WHERE id = '".$menu->getE(1)."'"));
+  $r = db_fetch_assoc(db_query("SELECT id, pos, cat FROM prefix_gallery_cats WHERE id = '".$menu->getE(1)."'"));
+  $r2 = db_fetch_assoc(db_query("SELECT * FROM prefix_gallery_imgs WHERE cat = '".$r['id']."'"));
   db_query("DELETE FROM prefix_gallery_cats WHERE id = '".$menu->getE(1)."'");
-  db_query("UPDATe prefix_gallery_cats SET pos = pos - 1 WHERE pos > ".$r['pos']." AND cat = ".$r['cat']); 
+  db_query("UPDATE prefix_gallery_cats SET pos = pos - 1 WHERE pos > ".$r['pos']." AND cat = ".$r['cat']);
+  db_query("DELETE FROM prefix_gallery_imgs WHERE cat = '".$r['id']."'");
+  @unlink ('include/images/gallery/img_'.$r2['id'].'.'.$r2['endung']);
+  @unlink ('include/images/gallery/img_thumb_'.$r2['id'].'.'.$r2['endung']);
+  @unlink ('include/images/gallery/img_norm_'.$r2['id'].'.'.$r2['endung']);
 }
 
 # Bild loeschen    
