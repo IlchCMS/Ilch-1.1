@@ -45,21 +45,53 @@ function show_members ($gid,$tpl) {
 
 
 if ($menu->get(1) == 'show') {
-	$gid = escape($menu->get(2), 'integer');
-	$name = @db_result (db_query("SELECT name FROM prefix_groups WHERE zeigen = 1 AND id =".$gid));
-	$bild = @db_result (db_query("SELECT img FROM prefix_groups WHERE zeigen = 1 AND id =".$gid));
-  $title = $allgAr['title'].' :: Teams :: '.$name;
-	$hmenu = '<a class="smalfont" href="?teams">Teams</a> &raquo; '.$name;
-	$design = new design ( $title , $hmenu );
-	$design->header();
-	$tpl = new tpl ('teams');
-	if (!empty($bild) ) {
-    $show = '<img src="'.$bild.'" title="'.$name.'" alt="'.$name.'" border="0"></a>';
-  } else {
-	  $show = '<b>'.$name.'</b>';
+	$groups = array();  #collect given teams
+	$i = 2;
+  while($gid = escape($menu->get($i), 'integer')){
+    $groups[] = $gid;
+    $i++;
   }
-  $tpl->set_out('show', $show,0);
-  show_members ($gid,$tpl);
+  #$gid = escape($menu->get(2), 'integer');
+  if(count($groups) == 1){   #only 1 group to show
+    $gid=$groups[0];
+    $name = @db_result (db_query("SELECT name FROM prefix_groups WHERE id =".$gid));
+  	$bild = @db_result (db_query("SELECT img FROM prefix_groups WHERE id =".$gid));
+    $title = $allgAr['title'].' :: Teams :: '.$name;
+  	$hmenu = '<a class="smalfont" href="?teams">Teams</a> &raquo; '.$name;
+  	$design = new design ( $title , $hmenu );
+  	$design->header();
+  	$tpl = new tpl ('teams');
+  	if (!empty($bild) ) {
+      $show = '<img src="'.$bild.'" title="'.$name.'" alt="'.$name.'" border="0"></a>';
+    } else {
+  	  $show = '<b>'.$name.'</b>';
+    }
+    $tpl->set_out('show', $show,0);
+    show_members ($gid,$tpl);  
+  
+  }else{  #more groups to show
+    $title = $allgAr['title'].' :: Teams :: ';
+    $hmenu = '<a class="smalfont" href="?teams">Teams</a>';
+    $design = new design ( $title , $hmenu );
+    $design->header();
+    $tpl = new tpl ('teams');
+    
+    foreach($groups as $gid){
+      list($name, $bild) = 
+      $row = @db_fetch_assoc (db_query("SELECT name, img FROM prefix_groups WHERE id =".$gid));
+    	#$bild = @db_result (db_query("SELECT img FROM prefix_groups WHERE id =".$gid));
+    	
+    	if (!empty($row['img']) ) {
+        $show = '<img src="'.$row['img'].'" title="'.$row['name'].'" alt="'.$row['name'].'" border="0"></a>';
+      } else {
+    	  $show = '<b>'.$row['name'].'</b>';
+      }
+      $tpl->set_out('show', $show,0);
+      show_members ($gid,$tpl);    
+    }
+
+  }
+  
 } else {
 	$title = $allgAr['title'].' :: Teams';
 	$hmenu = 'Teams';

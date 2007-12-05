@@ -5,7 +5,8 @@ Changelog:
 Version 1.1 I
 -------------
 
-+ Template-System kann nun Templates auch aus Variablen laden.(Bsp.: /boxes/alianz.php)
++ Template-System kann Templates auch aus Variablen laden.(Bsp.: /boxes/alianz.php)
++ teams.php kann individuelle teams Kombinationen anzeigen (Bsp.: ?teams-show-1-4-2)
 
 * Beim löschen einer Kategorie werden Bilder + DB Einträge vollständig gelöscht
 * Admins(ab Siteadmin) und Moderatoren können in geschlossenen Themen antworten
@@ -13,6 +14,7 @@ Version 1.1 I
 2007-08-10 von manuel
 * neuer Wysiwyg-Editor im Selfpage und Box Bereich.
   der Editor ist wesentlich besser und hat viel mehr Möglichkeiten.
+* Team Name/Bild wird auch bei Einzelansicht angezeigt
 
 
 Version 1.1 H
