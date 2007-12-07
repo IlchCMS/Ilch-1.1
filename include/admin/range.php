@@ -1,4 +1,4 @@
-<?php 
+<?php
 #   Copyright by: Manuel Staechele
 #   Support: www.ilch.de
 
@@ -14,11 +14,11 @@ if ( empty ($um) AND empty ($_GET['um']) AND empty ($_POST['um']) ) {
 
 			$tpl = new tpl ( 'range', 1);
 			$tpl->out(0);
-			
+
 			$clas = 'cbg2';
 			$erg = db_query('SELECT * FROM `prefix_ranks` ORDER BY spez DESC, min');
 		  while ($row = db_fetch_object($erg) ) {
-				   if ( $clas == 'Cmite' ) { $clas = 'Cnorm'; } else { $clas = 'Cmite'; } 
+				   if ( $clas == 'Cmite' ) { $clas = 'Cnorm'; } else { $clas = 'Cmite'; }
 					 if ($row->spez == 1) {
 					   $min = '-';
 						 $spez = 'ja';
@@ -65,7 +65,7 @@ if ( empty ($_POST['sub']) ) {
 			$Fjch = '';
 		}
 		$Frid = $row->id;
-		$Fakt = 'change';	
+		$Fakt = 'change';
 	  }
 	$tpl = new tpl ( 'range', 1);
 	$ar = Array
@@ -84,7 +84,7 @@ if ( empty ($_POST['sub']) ) {
 	  if ( $_POST['spez'] == 1 ) {
 		  $_POST['min'] = '0';
 		}
-		db_query('INSERT INTO `prefix_ranks` VALUES ( "" , "'.$_POST['bez'].'","'.$_POST['min'].'","'.$_POST['spez'].'" ) ' );
+		db_query('INSERT INTO `prefix_ranks` (`bez`,`min`,`spez`) VALUES ( "'.$_POST['bez'].'","'.$_POST['min'].'","'.$_POST['spez'].'" ) ' );
 	  wd ('admin.php?range' , 'Erfolgreich eingetragen' , 1 );
 	} else {
 	  if ( $_POST['spez'] == 1 ) {

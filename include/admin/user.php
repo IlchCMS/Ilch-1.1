@@ -1,4 +1,4 @@
-<?php 
+<?php
 #   Copyright by: Manuel Staechele
 #   Support: www.ilch.de
 
@@ -73,13 +73,13 @@ switch($um) {
     $tpl->set('modlall', user_get_all_mod_list());
     $tpl->set('anzmods', db_result(db_query("SELECT COUNT(*) FROM prefix_modules WHERE fright = 1"),0) );
     $tpl->set_out('q',unescape($q),0);
-    
+
     $q = str_replace('*','%',$q);
     if ( strpos($q,'%') === FALSE ) {
       $q = $q.'%';
     }
-    
-    $limit = 15;  // Limit 
+
+    $limit = 15;  // Limit
     $page = ($menu->getA(1) == 'p' ? $menu->getE(1) : 1 );
     $MPL = db_make_sites ($page , "WHERE name LIKE '".$q."'" , $limit , '?user' , 'user' );
     $anfang = ($page - 1) * $limit;
@@ -95,13 +95,13 @@ switch($um) {
       	'recht' => dblistee($row->recht,"SELECT id,name FROM prefix_grundrechte ORDER BY id ASC"),
         'modslist' => user_get_mod_change_list($row->id),
     	);
-      
+
 	    $tpl->set_ar_out($ar,1);
     }
     $tpl->set_out('MPL',$MPL,2);
     $design->footer();
 	  break;
-  
+
   # modulrechte fuer einen user aendern
   case 'modulrecht' :
     $uid = intval($menu->get(2));
@@ -116,7 +116,7 @@ switch($um) {
     function closeThisWindow() { opener.focus(); window.close(); } closeThisWindow()
     //--></script></head><body></body></html><?php
     break;
-  
+
   # gruppen zugehoerigkeiten eines users aendern
   case 'gruppen' :
     $uid = $menu->get(2);
@@ -131,7 +131,7 @@ switch($um) {
 		    }
       }
     }
-    
+
 	  $user_name = db_result(db_query("SELECT name FROM prefix_user WHERE id = ".$uid),0);
 	  $tpl = new tpl ( 'user/gruppen', 1);
 	  $tpl->set_ar_out( array('username'=>$user_name,'userid'=>$uid),0);
@@ -146,7 +146,7 @@ switch($um) {
 	  }
   	$tpl->out(2);
     break;
-  
+
   # das recht eines users aendern
   case 'changeRecht' :
     $uid  = $menu->get(2);
@@ -160,7 +160,7 @@ switch($um) {
     function closeThisWindow() { opener.focus(); window.close(); } closeThisWindow()
     //--></script></head><body></body></html><?php
     break;
-    
+
   # details eines users anzeigen
 	case 1 :
     $design = new design ( 'Admins Area', 'Admins Area', 2 );
@@ -171,12 +171,12 @@ switch($um) {
 	    die ('Fehler: Username nicht gefunden <a href="?user">zur&uuml;ck</a>');
 	  } else {
 			$row = db_fetch_assoc($erg);
-      
+
 			$tpl = new tpl ( 'user/details', 1);
 			$row['recht'] = dbliste ( $row['recht'] , $tpl, 'recht', "SELECT id,name FROM prefix_grundrechte ORDER BY id ASC");
 			$row['staat'] = '<option></option>'.arliste ( $row['staat'] , get_nationality_array() , $tpl , 'staat' );
       $row['spezrank'] = '<option></option>'.dbliste ( $row['spezrank'], $tpl, 'spezrank', "SELECT id, bez FROM prefix_ranks WHERE spez = 1"  );
-      
+
       $row['geschlecht0'] = ( $row['geschlecht'] < 1 ? 'checked' : '' );
       $row['geschlecht1'] = ( $row['geschlecht'] == 1 ? 'checked' : '' );
       $row['geschlecht2'] = ( $row['geschlecht'] == 2 ? 'checked' : '' );
@@ -187,29 +187,29 @@ switch($um) {
       if ( @file_exists($row['avatar']) ) { $row['avatar'] = '<img src="'.$row['avatar'].'" border="0" /><br />' ; }
       else { $row['avatar'] = ''; }
 			$tpl->set_ar_out ($row,0);
-      
+
 			profilefields_change ( $row['id'] );
-			
+
 			$tpl->out(1);
 	  }
     $design->footer();
 	  break;
-    
+
   # details des users aendern
 	case 2 :
     $design = new design ( 'Admins Area', 'Admins Area', 2 );
     $design->header();
 	  $changeok = true;
 		$uid = escape($_POST['uID'], 'integer');
-    
+
 		$altes_recht = db_result(db_query("SELECT recht FROM prefix_user WHERE id = ".$uid),0);
     $neues_recht = escape($_POST['urecht'], 'integer');
     if (($neues_recht <= $_SESSION['authright'] OR $altes_recht <= $_SESSION['authright']) AND $_SESSION['authid'] > 1) {
       $changeok = false;
-    } 
-    
+    }
+
 		if ( $changeok ) {
-		
+
 		if (isset($_POST['userdel'])) {
 		  db_query('DELETE FROM prefix_user WHERE id = "'.$uid.'"');
 			db_query('DELETE FROM prefix_userfields WHERE uid = "'.$uid.'"');
@@ -222,14 +222,14 @@ switch($um) {
 		  $abf = "SELECT * FROM prefix_user WHERE id = '".$uid."'";
 			$erg = db_query($abf);
 			$row = db_fetch_object($erg);
-			
+
 		  if (isset($_POST['passw'])) {
 		    $newPass = genkey ( 8 );
-				$newPassMD5 = md5($newPass); 
+				$newPassMD5 = md5($newPass);
 				icmail ( $row->email , 'neues Password' , "Hallo\n\nDein Password wurde soeben von einem Administrator gäendert es ist nun:\n\n$newPass\n\nGruß der Administrator");
 		    db_query('UPDATE `prefix_user` SET pass = "'.$newPassMD5.'" WHERE id = "'.$_POST['uID'].'"');
 			}
-			
+
 			# avatar speichern START
 			$avatar_sql_update = '';
       if ( !empty ( $_FILES['avatarfile']['name'] ) ) {
@@ -249,15 +249,15 @@ switch($um) {
           move_uploaded_file ( $file_tmpe , $neuer_name );
           @chmod($neuer_name, 0777);
           $avatar_sql_update = ', avatar = "'.$neuer_name.'"';
-          $fmsg = $lang['pictureupload']; 
+          $fmsg = $lang['pictureupload'];
 				}
 			} elseif ( isset($_POST['avatardel']) ) {
-        $fmsg = $lang['picturedelete']; 
+        $fmsg = $lang['picturedelete'];
         @unlink (db_result(db_query("SELECT avatar FROM prefix_user WHERE id = ".$uid),0));
         $avatar_sql_update = ', avatar = ""';
       }
      # avatar speichern ENDE
-			
+
 			profilefields_change_save ( $_POST['uID'] );
 			$usaName1     = escape($_POST['usaName1'], 'string');
       $email        = escape($_POST['email'], 'string');
@@ -276,16 +276,17 @@ switch($um) {
       $opt_pm_popup = escape($_POST['opt_pm_popup'], 'integer');
       $gebdatum     = escape($_POST['gebdatum'], 'string');
       $sig          = escape($_POST['sig'], 'string');
-		  //Name im Forum ändern 
+		  //Name im Forum ändern
 		  if ($_POST['forumname'] == 'on') {
         $oldname = db_count_query("SELECT name FROM `prefix_user` WHERE id =".$uid);
         if ($oldname != $usaName1) {
           db_query("UPDATE `prefix_posts` SET erst = '$usaName1' WHERE erstid = ".$uid);
-        }      
-      }      
-      db_query('UPDATE prefix_user 
-			  SET 
-					name  = "'.$usaName1.'", 
+          db_query("UPDATE `prefix_topics` SET erst = '$usaName1' WHERE erst = '$oldname'");
+        }
+      }
+      db_query('UPDATE prefix_user
+			  SET
+					name  = "'.$usaName1.'",
 					recht = "'.$neues_recht.'",
 					email = "'.$email.'",
           homepage = "'.$homepage.'",
@@ -304,13 +305,13 @@ switch($um) {
           gebdatum = "'.$gebdatum.'",
           sig = "'.$sig.'"
           '.$avatar_sql_update.'
-				WHERE id = "'.$uid.'"');    
+				WHERE id = "'.$uid.'"');
     }
 		}
 		wd('admin.php?user-1-'.$uid,'Das Profil wurde erfolgreich geaendert',2);
     $design->footer();
 	  break;
-    
+
   # mal kurz nen neuen user anlegen
   case 'createNewUser' :
     $msg = '';
@@ -322,11 +323,11 @@ switch($um) {
 		    $new_pass = $_POST['pass'];
 		    $md5_pass = md5($new_pass);
 		    db_query("INSERT INTO prefix_user (name,pass,recht,regist,llogin,email)
-		    VALUES('".$_POST['name']."','".$md5_pass."',".$_POST['recht'].",'".time()."','".time()."','".$_POST['email']."')");	
+		    VALUES('".$_POST['name']."','".$md5_pass."',".$_POST['recht'].",'".time()."','".time()."','".$_POST['email']."')");
 		    $userid = db_last_id();
 		    db_query("INSERT INTO prefix_userfields (uid,fid,val) VALUES (".$userid.",2,'1')");
 		    db_query("INSERT INTO prefix_userfields (uid,fid,val) VALUES (".$userid.",3,'1')");
-		
+
 		    if (isset($_POST['info']) ) {
 		      $page = $_SERVER["HTTP_HOST"].$_SERVER["SCRIPT_NAME"];
 			    $page = str_replace('admin.php','index.php',$page);
@@ -354,7 +355,7 @@ switch($um) {
     $tpl->set('recht',dblistee($recht,"SELECT id,name FROM prefix_grundrechte ORDER BY id ASC"));
     $tpl->out(0);
     break;
-    
+
   # einen user komplett loeschen
   case 'deleteUser' :
     $uid  = $menu->get(2);
@@ -369,7 +370,7 @@ switch($um) {
       //--></script></head><body></body></html><?php
     }
     break;
-}  
+}
 
 
 

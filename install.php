@@ -1,4 +1,4 @@
-<?php 
+<?php
 #   Copyright by: Manuel Staechele
 #   Support: www.ilch.de
 
@@ -11,7 +11,7 @@
 </head>
 
 <body>
-		
+
 <form action="install.php" method="POST">
 
 <?php
@@ -21,14 +21,14 @@ if ( empty ($_POST['step']) ) {
 
 ?>
 		<input type="hidden" name="step" value="3" />
-		
+
 		<table width="700" class="border" border="0" cellspacing="1" cellpadding="3" align="center">
       <tr class="Chead">
         <td><b>Lizenz</b></td>
 			</tr><tr class="Cmite">
         <td><div style="overflow: auto; width: 690px; height: 450px;">
 <b><a target="_blank" href="http://www.gnu.de/gpl-ger.html">Deutsche inoffizielle &Uuml;bersetzung der Lizenz</a></b>
- 
+
 <H2><A NAME="SEC1" HREF="install.php#TOC1">GNU GENERAL PUBLIC LICENSE</A></H2>
 <P>
 Version 2, June 1991
@@ -36,7 +36,7 @@ Version 2, June 1991
 </P>
 
 <PRE>
-Copyright (C) 1989, 1991 Free Software Foundation, Inc.  
+Copyright (C) 1989, 1991 Free Software Foundation, Inc.
 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
 
 Everyone is permitted to copy and distribute verbatim copies
@@ -444,7 +444,7 @@ POSSIBILITY OF SUCH DAMAGES.
 <H2>END OF TERMS AND CONDITIONS</H2>
         </div>
         </td>
-      </tr><tr class="Cdark"> 
+      </tr><tr class="Cdark">
 				<td align="center"><input type="submit" value="Lizenz gelesen und akzeptiert"></td>
  			</tr>
  	</table>
@@ -454,43 +454,46 @@ POSSIBILITY OF SUCH DAMAGES.
 
 } elseif ($_POST['step'] == 3) {
   ?>
-   
+
 		<input type="hidden" name="step" value="4" />
-		
+
 		<table width="700" class="border" border="0" cellspacing="1" cellpadding="3" align="center">
       <tr class="Chead">
         <td colspan="2"><b>Voraussetzungen Pr&uuml;fen</b></td>
-			</tr><tr> 
-        <td class="Cmite"><br>include/includes/config.php" CHMOD 666<br></td>
+			</tr><tr>
+        <td class="Cmite"><br>"include/includes/config.php" CHMOD 666<br></td>
     		<td class="Cnorm"><?php if ( @is_writeable ( 'include/includes/config.php' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
-  		</tr><tr> 
-    		<td class="Cmite"><br>include/images/avatars" Schreibrechte (CHMOD 777)<br></td>
+  		</tr><tr>
+        <td class="Cmite"><br>"include/backup" Schreibrechte (CHMOD 777)<br></td>
+    		<td class="Cnorm"><?php if ( @is_writeable ( 'include/backup' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
+  		</tr><tr>
+    		<td class="Cmite"><br>"include/images/avatars" Schreibrechte (CHMOD 777)<br></td>
     		<td class="Cnorm"><?php if ( @is_writeable ( 'include/images/avatars' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
-  		</tr><tr> 
-    		<td class="Cmite"><br>include/images/gallery" Schreibrechte (CHMOD 777)<br></td>
+  		</tr><tr>
+    		<td class="Cmite"><br>"include/images/gallery" Schreibrechte (CHMOD 777)<br></td>
     		<td class="Cnorm"><?php if ( @is_writeable ( 'include/images/gallery' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
-  		</tr><tr> 
-    		<td class="Cmite"><br>include/images/usergallery" Schreibrechte (CHMOD 777)<br></td>
+  		</tr><tr>
+    		<td class="Cmite"><br>"include/images/usergallery" Schreibrechte (CHMOD 777)<br></td>
     		<td class="Cnorm"><?php if ( @is_writeable ( 'include/images/usergallery' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
-  		</tr><tr> 
-    		<td class="Cmite"><br>include/downs/downloads" Schreibrechte (CHMOD 777)<br></td>
+  		</tr><tr>
+    		<td class="Cmite"><br>"include/downs/downloads" Schreibrechte (CHMOD 777)<br></td>
     		<td class="Cnorm"><?php if ( @is_writeable ( 'include/downs/downloads' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
-  		</tr><tr> 
-    		<td class="Cmite"><br>include/downs/downloads/user_upload" Schreibrechte (CHMOD 777)<br></td>
+  		</tr><tr>
+    		<td class="Cmite"><br>"include/downs/downloads/user_upload" Schreibrechte (CHMOD 777)<br></td>
     		<td class="Cnorm"><?php if ( @is_writeable ( 'include/downs/downloads/user_upload' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
-  		</tr><tr> 
-    		<td class="Cmite"><br>include/images/wars" Schreibrechte (CHMOD 777)<br></td>
+  		</tr><tr>
+    		<td class="Cmite"><br>"include/images/wars" Schreibrechte (CHMOD 777)<br></td>
     		<td class="Cnorm"><?php if ( @is_writeable ( 'include/images/wars' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
-  		</tr><tr> 
-    		<td class="Cmite"><br>include/contents/selfbp/selfp" Schreibrechte (CHMOD 777)<br></td>
+  		</tr><tr>
+    		<td class="Cmite"><br>"include/contents/selfbp/selfp" Schreibrechte (CHMOD 777)<br></td>
     		<td class="Cnorm"><?php if ( @is_writeable ( 'include/contents/selfbp/selfp' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
-  		</tr><tr> 
-    		<td class="Cmite"><br>include/contents/selfbp/selfb" Schreibrechte (CHMOD 777)<br></td>
+  		</tr><tr>
+    		<td class="Cmite"><br>"include/contents/selfbp/selfb" Schreibrechte (CHMOD 777)<br></td>
     		<td class="Cnorm"><?php if ( @is_writeable ( 'include/contents/selfbp/selfb' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
-  		</tr><tr> 
-    		<td class="Cmite"><br>include/images/smiles" Schreibrechte (CHMOD 777)<br></td>
+  		</tr><tr>
+    		<td class="Cmite"><br>"include/images/smiles" Schreibrechte (CHMOD 777)<br></td>
     		<td class="Cnorm"><?php if ( @is_writeable ( 'include/images/smiles' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
-  		</tr><tr class="Cdark"> 
+  		</tr><tr class="Cdark">
 		    <td></td>
 				<td><input type="submit" value="Weiter ->"></td>
  			</tr>
@@ -501,29 +504,29 @@ POSSIBILITY OF SUCH DAMAGES.
 } elseif ( $_POST['step'] == 4 ) {
   ?>
 	<input type="hidden" name="step" value="5">
-		
+
 		<table width="700" class="border" border="0" cellspacing="1" cellpadding="3" align="center">
       <tr class="Chead">
         <td colspan="3"><b>Installation</b></td>
-			</tr><tr class="Cdark"> 
+			</tr><tr class="Cdark">
  		    <td colspan="3"><b>MySQL Einstellungen</b><br />Wenn Sie mit den MySQL Daten nicht zurecht kommen, also nicht wissen was Sie im folgenden eingeben sollen, lesen Sie bitte erst die Beschreibung hinter dem Feld und bei weiterer Unklarheit wenden Sie sich an Ihren Webspace Anbieter oder Ihren Systemadministrator um die n&ouml;tigen Daten zu erfahren.</td>
-		  </tr><tr> 
+		  </tr><tr>
         <td class="Cmite" width="100">Hostname</td>
     		<td class="Cnorm"><input type="text" value="localhost" name="mysql_hostname"></td>
 				<td class="Cnorm">i.d.R. localhost oder 127.0.0.1 ansonsten ein Server-Name oder eine Server-IP.</td>
-  		</tr><tr> 
+  		</tr><tr>
     		<td class="Cmite">Username</td>
     		<td class="Cnorm"><input type="text" name="mysql_username"></td>
 				<td class="Cnorm">Der Username der auf die Datenbank zugreiffen soll.</td>
-  		</tr><tr> 
+  		</tr><tr>
     		<td class="Cmite">Password</td>
     		<td class="Cnorm"><input type="text" name="mysql_passW"></td>
 				<td class="Cnorm">Das Password f&uuml;r den Username damit er sich an der Datenbank anmelden kann.</td>
-  		</tr><tr> 
+  		</tr><tr>
     		<td class="Cmite">Datenbank</td>
     		<td class="Cnorm"><input type="text" name="mysql_datenbank"></td>
 				<td class="Cnorm">Die Datenbank in der die Tabellen f&uuml;r das Clanscript angelegt werden sollen.</td>
-  		</tr><tr> 
+  		</tr><tr>
     		<td class="Cmite">Installation Nr.</td>
     		<td class="Cnorm"><select name="mysql_prefix"><?php
            for($i=1;$i<=10;$i++) {
@@ -531,21 +534,21 @@ POSSIBILITY OF SUCH DAMAGES.
            }
         ?></select></td>
 				<td class="Cnorm">Kann i.d.R. unver&auml;ndert bleiben, ausser das Script wird mehr als einmal in die selbe Datenbank installiert.</td>
-  		</tr><tr class="Cdark"> 
+  		</tr><tr class="Cdark">
     		<td colspan="3"><b>Admin anlegen</b></td>
-  		</tr><tr> 
+  		</tr><tr>
     		<td class="Cmite">Usernamen</td>
     		<td class="Cnorm"><input type="text" name="admin_name" maxlength="15"></td>
 				<td class="Cnorm">Der Nickname des Administrator Users mit dem Sie sich nach dieser Installation anmelden k&ouml;nnen.</td>
-  		</tr><tr> 
+  		</tr><tr>
     		<td class="Cmite">Passwort</td>
     		<td class="Cnorm"><input type="text" name="admin_pwd" maxlength="20"></td>
 				<td class="Cnorm">Das Password mit dem Sie sich nach der Installation zusammen mit dem Username anmelden k&ouml;nnen.</td>
-  		</tr><tr> 
+  		</tr><tr>
     		<td class="Cmite">Admin eMail</td>
     		<td class="Cnorm"><input type="text" name="admin_amail"></td>
 				<td class="Cnorm">Die eMail-Adresse des Administrator Users (also vermutlich Ihre eMail-Adresse).</td>
-      </tr><tr class="Cdark"> 
+      </tr><tr class="Cdark">
 				<td colspan="3" align="center"><input type="submit" value="Daten Speichern und Installieren" /></td>
  			</tr>
  	</table>
@@ -554,12 +557,12 @@ POSSIBILITY OF SUCH DAMAGES.
 		</html> <?php
 } elseif ( $_POST['step'] == 5 ) {
 
-  if ( 
+  if (
       empty ( $_POST['admin_name'] ) OR
 	    empty ( $_POST['admin_amail'] ) OR
 	    empty($_POST['mysql_hostname']) OR
 	    empty($_POST['mysql_username']) OR
-	    empty($_POST['mysql_datenbank']) OR 
+	    empty($_POST['mysql_datenbank']) OR
 	    empty($_POST['mysql_prefix'])
     )
   {
@@ -577,8 +580,8 @@ config;
     $open = @fopen('include/includes/config.php' , 'w' );
     if ($open) {
     	fwrite ( $open , trim($config) );
-		  fclose ( $open );	
-      require_once('include/includes/config.php'); 
+		  fclose ( $open );
+      require_once('include/includes/config.php');
     } else {
       define ( 'DBHOST', $_POST['mysql_hostname'] );   # sql host
       define ( 'DBUSER', $_POST['mysql_username']);  # sql user
@@ -586,7 +589,7 @@ config;
       define ( 'DBDATE', $_POST['mysql_datenbank']);  # sql datenbank
       define ( 'DBPREF', $_POST['mysql_prefix']); # sql prefix
     }
-    
+
 
 
 define ( 'main' , TRUE );
@@ -603,24 +606,24 @@ if (DBPREF.'allg' == @db_result(@db_query("SHOW TABLES LIKE 'prefix_allg'"),0)) 
 	  <html>
 		<head><title>... ::: [ I n s t a l l a t i o n &nbsp; f ü r &nbsp; C l a n s c r i p t &nbsp; v o n &nbsp; i l c h ] ::: ...</title>
 		<link rel="stylesheet" href="include/designs/ilchClan/style.css" type="text/css"></head>
-		<body>  
+		<body>
 		<table width="70%" class="border" border="0" cellspacing="0" cellpadding="25" align="center">
       <tr>
         <td class="Cmite">
     	    <h1 style="color: #FF0000;">FEHLER: Es ist ein <u>Fehler</u> aufgetreten!</h2>
           Die Installation wurde vermutlich schon ausgef&uuml;hrt.
           <br />Auf jeden Fall ist die allgemeine Tabelle schon vorhanden...
-          <br />Bitte ersteinmal den Status der <a href="index.php">Seite</a> checken. 
+          <br />Bitte ersteinmal den Status der <a href="index.php">Seite</a> checken.
           <br />- Wenn es die Version 1.0.5 ist, dann bitte das update ausf&uuml;hren.
           <br />- Ansonsten wurde die Version 1.1 offenbar schon installiert.
           <br /><br />Bei Fragen bitte auf <a href="http://www.ilch.de/">ilch.de</a> nachfragen.
         </td>
       </tr>
-    </table>		
+    </table>
 		</body>
 		</html>
   <?php
-  
+
   exit ();
 }
 
@@ -642,13 +645,13 @@ db_query ("UPDATE prefix_config SET wert = '".$_POST['admin_amail']."' WHERE sch
 	  <html>
 		<head><title>... ::: [ I n s t a l l a t i o n &nbsp; f ü r &nbsp; C l a n s c r i p t &nbsp; v o n &nbsp; i l c h ] ::: ...</title>
 		<link rel="stylesheet" href="include/designs/ilchClan/style.css" type="text/css"></head>
-		<body>  
+		<body>
 		<table width="70%" class="border" border="0" cellspacing="0" cellpadding="25" align="center">
       <tr>
         <td class="Cmite">
     	    <h2><b>Installation abgeschlosen</b></h2>
 					Sofern keine Fehler aufgetreten sind ist die Installation abgescholssen.
-          
+
           <?php if (!$open) { ?>
           <br /><br /><br />Weil die Datei include/includes/config.php nicht die n&ouml;tigen
           Rechte hatte bitte einfach den Inhalt des folgenden Eingabefeldes kopieren
@@ -664,10 +667,10 @@ db_query ("UPDATE prefix_config SET wert = '".$_POST['admin_amail']."' WHERE sch
 					Bitte unbedingt install.sql und install.php l&ouml;schen!
         </td>
       </tr>
-    </table>		
+    </table>
 		</body>
 		</html>
-		
+
 <?php
   }
 }

@@ -1,4 +1,4 @@
-<?php 
+<?php
 #   Copyright by Manuel Staechele
 #   Support www.ilch.de
 
@@ -6,7 +6,7 @@
 defined ('main') or die ( 'no direct access' );
 
 $lang = array
-( 
+(
 'active' => 'aktiv',
 'administrattopic' => 'Thema Administrieren',
 'adminarea' => 'Admin Bereich',
@@ -171,7 +171,7 @@ $lang = array
 'October' => 'Oktober',
 'page' => 'Seite',
 'pat' => 'Pat',
-'pleasecopy' => 'bitte abschreiben',  
+'pleasecopy' => 'bitte abschreiben',
 'participant' => 'Teilnehmer',
 'password' => 'Passwort',
 'perday' => 'pro Tag',
@@ -239,6 +239,7 @@ $lang = array
 'support' => 'Support',
 'September' => 'September',
 'text' => 'Text',
+'time' => 'Zeit',
 'the' => 'Das',
 'Thursday' => 'Donnerstag',
 'to' => 'bis', # bis heisst by ? to heist zu zum usw... :O

@@ -1,4 +1,4 @@
-<?php 
+<?php
 #   Copyright by: Manuel Staechele
 #   Support: www.ilch.de
 
@@ -16,7 +16,7 @@ $timeSperre = $allgAr['Gsperre'];
 /*
 
   gbook
-	
+
 	id , name , mail , page , ip , time , txt
 
 */
@@ -32,14 +32,14 @@ case 1 :
     'TXTL' => $allgAr['Gtxtl']
   );
 	$tpl->set_ar_out($ar,3);
-  
+
   if (!isset($_SESSION['klicktime_gbook'])) { $_SESSION['klicktime_gbook'] = 0; }
-  
+
 break;
 case 2 :
 
   $dppk_time = time();
- 
+
   if (($_SESSION['klicktime_gbook'] + $timeSperre) < $dppk_time
   AND isset($_POST['name'])
   AND isset($_POST['txt'])
@@ -52,26 +52,17 @@ case 2 :
 	  $name = escape($_POST['name'], 'string');
 	  $mail = escape($_POST['mail'], 'string');
 	  $page = escape($_POST['page'], 'string');
-	
-  	db_query("INSERT INTO prefix_gbook VALUES (
-      null,
-	    '".$name."',
-      '".$mail."',
-      '".$page."',
-      '".time()."',
-      '".getip()."',
-      '".$txt."' 
-		)
-    ");
-					
-    
+
+  	db_query("INSERT INTO prefix_gbook (`name`,`mail`,`page`,`time`,`ip`,`txt`) VALUES ('".$name."', '".$mail."', '".$page."', '".time()."', ".getip()."', '".$txt."')");
+
+
     $_SESSION['klicktime_gbook'] = $dppk_time;
     wd('index.php?gbook',$lang['insertsuccessful']);
 	} else {
 	  echo '- '.$lang['donotpostsofast'];
 	  echo '<br />- '.sprintf($lang['gbooktexttolong'], $allgAr['Gtxtl']);
 	  echo '<br />- '.$lang['plsfilloutallfields'];
-	}	
+	}
   break;
 case 'show' :
   if ($allgAr['gbook_koms_for_inserts'] == 1) {
@@ -85,18 +76,18 @@ case 'show' :
       $did = escape($menu->getE(3), 'integer');
       db_query("DELETE FROM prefix_koms WHERE uid = ".$id." AND cat = 'GBOOK' AND id = ".$did);
     }
-    
+
 
     $r  = db_fetch_assoc(db_query("SELECT time, name, mail, page, txt as text, id FROM prefix_gbook WHERE id = ".$id));
     $r['datum'] = date('d.m.Y', $r['time']);
     if ($r['page'] != '') {
       $r['page'] = get_homepage($r['page']);
-      $r['page'] = ' &nbsp; <a href="'.$r['page'].'" target="_blank"><img src="include/images/icons/page.gif" border="0" alt="Homepage '.$lang['from'].' '.$r['name'].'"></a>'; 
+      $r['page'] = ' &nbsp; <a href="'.$r['page'].'" target="_blank"><img src="include/images/icons/page.gif" border="0" alt="Homepage '.$lang['from'].' '.$r['name'].'"></a>';
 		}
-		if ($r['mail'] != '') { 
-	    $r['mail'] = ' &nbsp; <a href="mailto:'.escape_email_to_show($r['mail']).'"><img src="include/images/icons/mail.gif" border="0" alt="E-Mail '.$lang['from'].' '.$r['name'].'"></a>'; 
+		if ($r['mail'] != '') {
+	    $r['mail'] = ' &nbsp; <a href="mailto:'.escape_email_to_show($r['mail']).'"><img src="include/images/icons/mail.gif" border="0" alt="E-Mail '.$lang['from'].' '.$r['name'].'"></a>';
 		}
-    
+
     $tpl = new tpl ( 'gbook.htm' );
 		$r['ANTISPAM'] = get_antispam('gbookkom', 0);
     $r['uname'] = $_SESSION['authname'];
@@ -117,37 +108,37 @@ case 'show' :
   break;
 default :
 
-  $limit = $allgAr['gbook_posts_per_site'];  // Limit 
+  $limit = $allgAr['gbook_posts_per_site'];  // Limit
   $page = ( $menu->getA(1) == 'p' ? escape($menu->getE(1), 'integer') : 1 );
   $MPL = db_make_sites ($page , "" , $limit , "?gbook" , 'gbook' );
   $anfang = ($page - 1) * $limit;
-  
+
 	$tpl = new tpl ( 'gbook.htm' );
-	
-  $ei1 = @db_query("SELECT COUNT(ID) FROM prefix_gbook"); 
+
+  $ei1 = @db_query("SELECT COUNT(ID) FROM prefix_gbook");
   $ein    = @db_result($ei1,0);
-	
+
 	$ar = array ('EINTRAGE' => $ein );
 	$tpl->set_ar_out($ar,0);
-	
+
 	$erg = db_query("SELECT * FROM prefix_gbook ORDER BY time DESC LIMIT ".$anfang.",".$limit) or die (db_error());
 	while ($row = db_fetch_object($erg)) {
-	  
+
     $page = '';
     $mail = '';
 		if ($row->page) {
       $row->page = get_homepage($row->page);
-      $page = ' &nbsp; <a href="'.$row->page.'" target="_blank"><img src="include/images/icons/page.gif" border="0" alt="Homepage '.$lang['from'].' '.$row->name.'"></a>'; 
+      $page = ' &nbsp; <a href="'.$row->page.'" target="_blank"><img src="include/images/icons/page.gif" border="0" alt="Homepage '.$lang['from'].' '.$row->name.'"></a>';
 		}
-		if ($row->mail) { 
-	    $mail = ' &nbsp; <a href="mailto:'.escape_email_to_show($row->mail).'"><img src="include/images/icons/mail.gif" border="0" alt="E-Mail '.$lang['from'].' '.$row->name.'"></a>'; 
+		if ($row->mail) {
+	    $mail = ' &nbsp; <a href="mailto:'.escape_email_to_show($row->mail).'"><img src="include/images/icons/mail.gif" border="0" alt="E-Mail '.$lang['from'].' '.$row->name.'"></a>';
 		}
     $koms = '';
     if ($allgAr['gbook_koms_for_inserts'] == 1) {
       $koms = db_result(db_query("SELECT COUNT(*) FROM prefix_koms WHERE uid = ".$row->id." AND cat = 'GBOOK'"),0,0);
       $koms = '<a href="index.php?gbook-show-'.$row->id.'">'.$koms.' '.$lang['comments'].'</a>';
     }
-    
+
 		$ar = array ( 'NAME' => $row->name,
 		                'DATE' => date("d.m.Y",$row->time),
                     'koms' => $koms,
@@ -156,7 +147,7 @@ default :
 										'PAGE' => $page,
 										'TEXT' => BBCode($row->txt)
 		  );
-      
+
 			$tpl->set_ar_out($ar,1);
 	}
 	$tpl->set_out('SITELINK', $MPL, 2 );

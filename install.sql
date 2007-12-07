@@ -11,16 +11,16 @@ CREATE TABLE `prefix_allg` (
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 
-INSERT INTO `prefix_allg` VALUES (1, 'kontakt', '', '1', '1', '', '', '', '#webmaster@test.de|Allgemein');
-INSERT INTO `prefix_allg` VALUES (2, 'impressum', 'Verantwortlich für diese Seite:', 'Max Mustermann', 'Muster Str. 43', '12345 Musterhausen', '', '', '');
-INSERT INTO `prefix_allg` VALUES (3, 'kasse_kontodaten', '', '', '', '', '', '', 'Kontoinhaber: Max Mustermann\r\nBankname: Muster Sparkasse\r\nKontonummer: 123\r\nBankleitzahl: 123\r\nBIC: 123\r\nIBAN: 123\r\nVerwendungszweck: Spende für ilch.de ;-)');
-INSERT INTO `prefix_allg` VALUES (4, 'picofx', 'pic', '0', '', '', '', '', '');
-INSERT INTO `prefix_allg` VALUES (5, 'picofx', 'directory', '0', '', '', '', '', '');
-INSERT INTO `prefix_allg` VALUES (6, 'picofx', 'interval', '0', '', '', '', '', '');
-INSERT INTO `prefix_allg` VALUES (7, 'picofx', 'nextchange', '0', '', '', '', '', '');
-INSERT INTO `prefix_allg` VALUES (8, 'picofx', 'picwidth', '100', '', '', '', '', '');
-INSERT INTO `prefix_allg` VALUES (9, 'trainzeiten', '', '', '', '', '', '', 'Kein Train#Kein Train#Kein Train#Kein Train#Kein Train#Kein Train#Kein Train');
-   
+INSERT INTO `prefix_allg` (`id`,`k`,`v1`,`v2`,`v3`,`v4`,`v5`,`v6`,`t1`) VALUES (1, 'kontakt', '', '1', '1', '', '', '', '#webmaster@test.de|Allgemein');
+INSERT INTO `prefix_allg` (`id`,`k`,`v1`,`v2`,`v3`,`v4`,`v5`,`v6`,`t1`) VALUES (2, 'impressum', 'Verantwortlich für diese Seite:', 'Max Mustermann', 'Muster Str. 43', '12345 Musterhausen', '', '', '');
+INSERT INTO `prefix_allg` (`id`,`k`,`v1`,`v2`,`v3`,`v4`,`v5`,`v6`,`t1`) VALUES (3, 'kasse_kontodaten', '', '', '', '', '', '', 'Kontoinhaber: Max Mustermann\r\nBankname: Muster Sparkasse\r\nKontonummer: 123\r\nBankleitzahl: 123\r\nBIC: 123\r\nIBAN: 123\r\nVerwendungszweck: Spende für ilch.de ;-)');
+INSERT INTO `prefix_allg` (`id`,`k`,`v1`,`v2`,`v3`,`v4`,`v5`,`v6`,`t1`) VALUES (4, 'picofx', 'pic', '0', '', '', '', '', '');
+INSERT INTO `prefix_allg` (`id`,`k`,`v1`,`v2`,`v3`,`v4`,`v5`,`v6`,`t1`) VALUES (5, 'picofx', 'directory', '0', '', '', '', '', '');
+INSERT INTO `prefix_allg` (`id`,`k`,`v1`,`v2`,`v3`,`v4`,`v5`,`v6`,`t1`) VALUES (6, 'picofx', 'interval', '0', '', '', '', '', '');
+INSERT INTO `prefix_allg` (`id`,`k`,`v1`,`v2`,`v3`,`v4`,`v5`,`v6`,`t1`) VALUES (7, 'picofx', 'nextchange', '0', '', '', '', '', '');
+INSERT INTO `prefix_allg` (`id`,`k`,`v1`,`v2`,`v3`,`v4`,`v5`,`v6`,`t1`) VALUES (8, 'picofx', 'picwidth', '100', '', '', '', '', '');
+INSERT INTO `prefix_allg` (`id`,`k`,`v1`,`v2`,`v3`,`v4`,`v5`,`v6`,`t1`) VALUES (9, 'trainzeiten', '', '', '', '', '', '', 'Kein Train#Kein Train#Kein Train#Kein Train#Kein Train#Kein Train#Kein Train');
+
 CREATE TABLE `prefix_awards` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `time` date NOT NULL default '0000-00-00',
@@ -51,45 +51,45 @@ CREATE TABLE `prefix_config` (
   PRIMARY KEY  (`schl`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 
-INSERT INTO `prefix_config` VALUES ('gbook_posts_per_site', 'input', 'G&auml;stebuch Optionen', 'Eintr&auml;ge pro Seite', '20');
-INSERT INTO `prefix_config` VALUES ('gallery_imgs_per_line', 'input', 'Gallery Optionen', 'Bilder pro Zeile', '4');
-INSERT INTO `prefix_config` VALUES ('Aanz', 'input', 'Archiv Optionen', 'Anzahl Banner in der Partner Box', '3');
-INSERT INTO `prefix_config` VALUES ('Nlimit', 'input', 'News Optionen', 'News pro Seite', '5');
-INSERT INTO `prefix_config` VALUES ('Ftanz', 'input', 'Forum Optionen', 'Themen auf einer Seite', '20');
-INSERT INTO `prefix_config` VALUES ('Fpanz', 'input', 'Forum Optionen', 'Posts auf einer Seite', '20');
-INSERT INTO `prefix_config` VALUES ('forum_avatar_upload', 'r2', 'Forum Optionen', 'Avatar Upload?', '1');
-INSERT INTO `prefix_config` VALUES ('gallery_imgs_per_site', 'input', 'Gallery Optionen', 'Bilder pro Seite', '12');
-INSERT INTO `prefix_config` VALUES ('gallery_preview_width', 'input', 'Gallery Optionen', 'Breite der Vorschaubilder', '80');
-INSERT INTO `prefix_config` VALUES ('Fpmf', 'r2', 'Forum Optionen', 'Nachrichten Function', '1');
-INSERT INTO `prefix_config` VALUES ('gfx', 's', 'Allgemeine Optionen', 'Standart Design', 'ilchClan');
-INSERT INTO `prefix_config` VALUES ('adminMail', 'input', 'Allgemeine Optionen', 'Administrator eMail', 'test');
-INSERT INTO `prefix_config` VALUES ('smodul', 's', 'Allgemeine Optionen', 'Start Modul der Seite', 'news');
-INSERT INTO `prefix_config` VALUES ('title', 'input', 'Allgemeine Optionen', 'Titel der Seite', 'Das Clanscript für jeden!');
-INSERT INTO `prefix_config` VALUES ('Fabreite', 'input', 'Forum Optionen', 'max Breite f&uuml;r den avata', '80');
-INSERT INTO `prefix_config` VALUES ('Fahohe', 'input', 'Forum Optionen', 'max H&ouml;he f&uuml;r den avata', '80');
-INSERT INTO `prefix_config` VALUES ('Fasize', 'input', 'Forum Optionen', 'max Gr&ouml;&szlig;e in Bytes f&uuml;r den avata', '16161');
-INSERT INTO `prefix_config` VALUES ('Gsperre', 'input', 'G&auml;stebuch Optionen', 'Ip Sperre in Sekunden', '3600');
-INSERT INTO `prefix_config` VALUES ('Gtxtl', 'input', 'G&auml;stebuch Optionen', 'max Text l&auml;nge im G&auml;stebuch', '600');
-INSERT INTO `prefix_config` VALUES ('Aart', 'r2', 'Archiv Optionen', 'Soll die Partner Box sortiert werden', '0');
-INSERT INTO `prefix_config` VALUES ('Ngkoms', 'r2', 'News Optionen', 'D&uuml;rfen G&auml;ste Kommentare schreiben?', '1');
-INSERT INTO `prefix_config` VALUES ('Nukoms', 'r2', 'News Optionen', 'D&uuml;rfen User Kommentare schreiben?', '1');
-INSERT INTO `prefix_config` VALUES ('allg_menupoint_access', 'r2', 'Allgemeine Optionen', 'Zugriff auf nicht im Men&uuml; verlinkte Module f&uuml;r alle?', '1');
-INSERT INTO `prefix_config` VALUES ('forum_regist', 'r2', 'Forum Optionen', 'D&uuml;rfen sich User registrieren?', '1');
-INSERT INTO `prefix_config` VALUES ('forum_regist_user_pass', 'r2', 'Forum Optionen', 'Passwort vom User beim registrieren selber w&auml;hlbar?', '1');
-INSERT INTO `prefix_config` VALUES ('forum_regist_confirm_link', 'r2', 'Forum Optionen', 'Registrierung per Link im eMail best&auml;tigen?', '1');
-INSERT INTO `prefix_config` VALUES ('archiv_down_userupload', 'r2', 'Archiv Optionen', 'D&uuml;rfen User Dateien hochladen?', '1');
-INSERT INTO `prefix_config` VALUES ('show_session_id', 'r2', 'Allgemeine Optionen', 'SessionID bei G&auml;sten anzeigen?', '1');
-INSERT INTO `prefix_config` VALUES ('wars_last_komms', 's', 'Wars Optionen', 'Kommentare für Lastwars', '0');
-INSERT INTO `prefix_config` VALUES ('wars_last_limit', 'input', 'Wars Optionen', 'Lastwars pro Seite.', '15');
-INSERT INTO `prefix_config` VALUES ('forum_usergallery', 'r2', 'Forum Optionen', 'Darf jeder User seine eigene Gallery haben?', '1');
-INSERT INTO `prefix_config` VALUES ('gallery_normal_width', 'input', 'Gallery Optionen', 'Breite der normalen Bilder', '500');
-INSERT INTO `prefix_config` VALUES ('gallery_img_koms', 'r2', 'Gallery Optionen', 'Kommentare für Bilder zulassen?', '1');
-INSERT INTO `prefix_config` VALUES ('forum_max_sig', 'input', 'Forum Optionen', 'max. Anzahl Zeichen in der Signatur', '200');
-INSERT INTO `prefix_config` VALUES ('gbook_koms_for_inserts', 'r2', 'G&auml;stebuch Optionen', 'Kommentare f&uuml;r G&auml;stebucheintr&auml;ge?', '1');
-INSERT INTO `prefix_config` VALUES ('allg_regeln', 'textarea', 'Allgemeine Optionen', 'Die Regeln für die Seite (bbcode erlaubt)', '[list]\r\n[*]Die Registrierung ist völlig Kostenlos\r\n[*]Die Betreiber der Seite übernehmen keine Haftung.\r\n[*]Bitte verhalten Sie sich angemessen und mit Respekt gegenüber den anderen Community Mitgliedern.\r\n[/list]');
-INSERT INTO `prefix_config` VALUES ('teams_show_list', 'r2', 'Team Optionen', 'Avatar bei den Usern?', '0');
-INSERT INTO `prefix_config` VALUES ('teams_show_cat', 'r2', 'Team Optionen', 'Sollen die Squads als Kategorie angezeigt werden?', '1');
-INSERT INTO `prefix_config` VALUES ('allg_bbcode_max_img_width', 'input', 'Allgemeine Optionen', 'Wie Breit solle ein Bild maximal sein (in Pixeln)?', '230');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('gbook_posts_per_site', 'input', 'G&auml;stebuch Optionen', 'Eintr&auml;ge pro Seite', '20');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('gallery_imgs_per_line', 'input', 'Gallery Optionen', 'Bilder pro Zeile', '4');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('Aanz', 'input', 'Archiv Optionen', 'Anzahl Banner in der Partner Box', '3');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('Nlimit', 'input', 'News Optionen', 'News pro Seite', '5');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('Ftanz', 'input', 'Forum Optionen', 'Themen auf einer Seite', '20');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('Fpanz', 'input', 'Forum Optionen', 'Posts auf einer Seite', '20');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('forum_avatar_upload', 'r2', 'Forum Optionen', 'Avatar Upload?', '1');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('gallery_imgs_per_site', 'input', 'Gallery Optionen', 'Bilder pro Seite', '12');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('gallery_preview_width', 'input', 'Gallery Optionen', 'Breite der Vorschaubilder', '80');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('Fpmf', 'r2', 'Forum Optionen', 'Nachrichten Function', '1');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('gfx', 's', 'Allgemeine Optionen', 'Standart Design', 'ilchClan');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('adminMail', 'input', 'Allgemeine Optionen', 'Administrator eMail', 'test');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('smodul', 's', 'Allgemeine Optionen', 'Start Modul der Seite', 'news');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('title', 'input', 'Allgemeine Optionen', 'Titel der Seite', 'Das Clanscript für jeden!');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('Fabreite', 'input', 'Forum Optionen', 'max Breite f&uuml;r den avata', '80');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('Fahohe', 'input', 'Forum Optionen', 'max H&ouml;he f&uuml;r den avata', '80');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('Fasize', 'input', 'Forum Optionen', 'max Gr&ouml;&szlig;e in Bytes f&uuml;r den avata', '16161');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('Gsperre', 'input', 'G&auml;stebuch Optionen', 'Ip Sperre in Sekunden', '3600');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('Gtxtl', 'input', 'G&auml;stebuch Optionen', 'max Text l&auml;nge im G&auml;stebuch', '600');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('Aart', 'r2', 'Archiv Optionen', 'Soll die Partner Box sortiert werden', '0');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('Ngkoms', 'r2', 'News Optionen', 'D&uuml;rfen G&auml;ste Kommentare schreiben?', '1');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('Nukoms', 'r2', 'News Optionen', 'D&uuml;rfen User Kommentare schreiben?', '1');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('allg_menupoint_access', 'r2', 'Allgemeine Optionen', 'Zugriff auf nicht im Men&uuml; verlinkte Module f&uuml;r alle?', '1');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('forum_regist', 'r2', 'Forum Optionen', 'D&uuml;rfen sich User registrieren?', '1');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('forum_regist_user_pass', 'r2', 'Forum Optionen', 'Passwort vom User beim registrieren selber w&auml;hlbar?', '1');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('forum_regist_confirm_link', 'r2', 'Forum Optionen', 'Registrierung per Link im eMail best&auml;tigen?', '1');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('archiv_down_userupload', 'r2', 'Archiv Optionen', 'D&uuml;rfen User Dateien hochladen?', '1');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('show_session_id', 'r2', 'Allgemeine Optionen', 'SessionID bei G&auml;sten anzeigen?', '1');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('wars_last_komms', 's', 'Wars Optionen', 'Kommentare für Lastwars', '0');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('wars_last_limit', 'input', 'Wars Optionen', 'Lastwars pro Seite.', '15');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('forum_usergallery', 'r2', 'Forum Optionen', 'Darf jeder User seine eigene Gallery haben?', '1');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('gallery_normal_width', 'input', 'Gallery Optionen', 'Breite der normalen Bilder', '500');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('gallery_img_koms', 'r2', 'Gallery Optionen', 'Kommentare für Bilder zulassen?', '1');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('forum_max_sig', 'input', 'Forum Optionen', 'max. Anzahl Zeichen in der Signatur', '200');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('gbook_koms_for_inserts', 'r2', 'G&auml;stebuch Optionen', 'Kommentare f&uuml;r G&auml;stebucheintr&auml;ge?', '1');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('allg_regeln', 'textarea', 'Allgemeine Optionen', 'Die Regeln für die Seite (bbcode erlaubt)', '[list]\r\n[*]Die Registrierung ist völlig Kostenlos\r\n[*]Die Betreiber der Seite übernehmen keine Haftung.\r\n[*]Bitte verhalten Sie sich angemessen und mit Respekt gegenüber den anderen Community Mitgliedern.\r\n[/list]');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('teams_show_list', 'r2', 'Team Optionen', 'Avatar bei den Usern?', '0');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('teams_show_cat', 'r2', 'Team Optionen', 'Sollen die Squads als Kategorie angezeigt werden?', '1');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('allg_bbcode_max_img_width', 'input', 'Allgemeine Optionen', 'Wie Breit solle ein Bild maximal sein (in Pixeln)?', '230');
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('forum_default_avatar', 'r2', 'Forum Optionen', 'Standard Avatar anzeigen?', '1');
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('allg_default_subject', 'input', 'Allgemeine Optionen', 'Standard Absender bei eMails', 'automatische eMail');
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('sb_maxwordlength', 'input', 'Shoutbox Optionen', 'Maximale Wortl&auml;nge in der Shoutbox', '10');
@@ -203,10 +203,10 @@ CREATE TABLE `prefix_groupfuncs` (
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 
-INSERT INTO `prefix_groupfuncs` VALUES (1, 'Leader', 1);
-INSERT INTO `prefix_groupfuncs` VALUES (2, 'Co-Leader', 2);
-INSERT INTO `prefix_groupfuncs` VALUES (3, 'Member', 3);
-INSERT INTO `prefix_groupfuncs` VALUES (4, 'Trial', 4);
+INSERT INTO `prefix_groupfuncs` (`id`,`name`,`pos`) VALUES (1, 'Leader', 1);
+INSERT INTO `prefix_groupfuncs` (`id`,`name`,`pos`) VALUES (2, 'Co-Leader', 2);
+INSERT INTO `prefix_groupfuncs` (`id`,`name`,`pos`) VALUES (3, 'Member', 3);
+INSERT INTO `prefix_groupfuncs` (`id`,`name`,`pos`) VALUES (4, 'Trial', 4);
 
 CREATE TABLE `prefix_groups` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
@@ -236,16 +236,16 @@ CREATE TABLE `prefix_grundrechte` (
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM;
 
-INSERT INTO `prefix_grundrechte` VALUES (0, 'Gast');
-INSERT INTO `prefix_grundrechte` VALUES (-1, 'User');
-INSERT INTO `prefix_grundrechte` VALUES (-2, 'Superuser');
-INSERT INTO `prefix_grundrechte` VALUES (-3, 'Trialmember');
-INSERT INTO `prefix_grundrechte` VALUES (-4, 'Member');
-INSERT INTO `prefix_grundrechte` VALUES (-5, 'CoLeader');
-INSERT INTO `prefix_grundrechte` VALUES (-6, 'Leader');
-INSERT INTO `prefix_grundrechte` VALUES (-7, 'SiteAdmin');
-INSERT INTO `prefix_grundrechte` VALUES (-8, 'CoAdmin');
-INSERT INTO `prefix_grundrechte` VALUES (-9, 'Admin');
+INSERT INTO `prefix_grundrechte` (`id`,`name`) VALUES (0, 'Gast');
+INSERT INTO `prefix_grundrechte` (`id`,`name`) VALUES (-1, 'User');
+INSERT INTO `prefix_grundrechte` (`id`,`name`) VALUES (-2, 'Superuser');
+INSERT INTO `prefix_grundrechte` (`id`,`name`) VALUES (-3, 'Trialmember');
+INSERT INTO `prefix_grundrechte` (`id`,`name`) VALUES (-4, 'Member');
+INSERT INTO `prefix_grundrechte` (`id`,`name`) VALUES (-5, 'CoLeader');
+INSERT INTO `prefix_grundrechte` (`id`,`name`) VALUES (-6, 'Leader');
+INSERT INTO `prefix_grundrechte` (`id`,`name`) VALUES (-7, 'SiteAdmin');
+INSERT INTO `prefix_grundrechte` (`id`,`name`) VALUES (-8, 'CoAdmin');
+INSERT INTO `prefix_grundrechte` (`id`,`name`) VALUES (-9, 'Admin');
 
 CREATE TABLE `prefix_history` (
   `id` smallint(6) NOT NULL auto_increment,
@@ -315,44 +315,44 @@ CREATE TABLE `prefix_menu` (
   PRIMARY KEY  (`pos`,`wo`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 
-INSERT INTO `prefix_menu` VALUES (1, 0, 3, 0, 0, 'Menü', 'allianz.php');
-INSERT INTO `prefix_menu` VALUES (1, 11, 3, 0, 0, 'Clan Menü', 'allianz.php');
-INSERT INTO `prefix_menu` VALUES (1, 22, 1, 0, 0, 'Login', 'login.php');
-INSERT INTO `prefix_menu` VALUES (1, 5, 7, 0, 0, 'Links', 'links');
-INSERT INTO `prefix_menu` VALUES (1, 6, 7, 0, 0, 'Downloads', 'downloads');
-INSERT INTO `prefix_menu` VALUES (1, 7, 7, 0, 0, 'Gallery', 'gallery');
-INSERT INTO `prefix_menu` VALUES (1, 2, 7, 0, 0, 'Forum', 'forum');
-INSERT INTO `prefix_menu` VALUES (1, 15, 7, 0, 0, 'Wars', 'wars');
-INSERT INTO `prefix_menu` VALUES (1, 23, 1, 0, 0, 'Shoutbox', 'shoutbox.php');
-INSERT INTO `prefix_menu` VALUES (1, 19, 7, 0, 0, 'Awards', 'awards');
-INSERT INTO `prefix_menu` VALUES (1, 13, 7, 1, 0, 'Fightus', 'fightus');
-INSERT INTO `prefix_menu` VALUES (1, 14, 7, 1, 0, 'Joinus', 'joinus');
-INSERT INTO `prefix_menu` VALUES (1, 20, 7, 0, 0, 'Regeln', 'rules');
-INSERT INTO `prefix_menu` VALUES (1, 12, 7, 0, 0, 'Squads', 'teams');
-INSERT INTO `prefix_menu` VALUES (1, 3, 7, 1, 0, 'Mitglieder', 'user');
-INSERT INTO `prefix_menu` VALUES (2, 1, 1, 0, 0, 'Umfrage', 'vote.php');
-INSERT INTO `prefix_menu` VALUES (2, 2, 1, 0, 0, 'Allianz', 'allianz.php');
-INSERT INTO `prefix_menu` VALUES (2, 3, 1, 0, 0, 'Statistik', 'statistik.php');
-INSERT INTO `prefix_menu` VALUES (3, 2, 1, 0, 0, 'Lastwars', 'lastwars.php');
-INSERT INTO `prefix_menu` VALUES (3, 3, 1, 0, 0, 'Nextwars', 'nextwars.php');
-INSERT INTO `prefix_menu` VALUES (2, 4, 1, 0, 0, 'Newsletter', 'newsletter.php');
-INSERT INTO `prefix_menu` VALUES (3, 1, 1, 0, 0, 'Last Forum', 'lastforum.php');
-INSERT INTO `prefix_menu` VALUES (3, 4, 1, 0, 0, 'Last News', 'lastnews.php');
-INSERT INTO `prefix_menu` VALUES (2, 5, 1, 0, 0, 'Designs', 'designs.php');
-INSERT INTO `prefix_menu` VALUES (1, 17, 7, 0, -3, 'Training', 'trains');
-INSERT INTO `prefix_menu` VALUES (1, 10, 7, 0, 0, 'Impressum', 'impressum');
-INSERT INTO `prefix_menu` VALUES (1, 21, 7, 0, 0, 'History', 'history');
-INSERT INTO `prefix_menu` VALUES (1, 1, 7, 0, 0, 'News', 'news');
-INSERT INTO `prefix_menu` VALUES (3, 0, 1, 0, 0, 'Kalender', 'calender.php');
-INSERT INTO `prefix_menu` VALUES (1, 9, 7, 0, 0, 'Kontakt', 'contact');
-INSERT INTO `prefix_menu` VALUES (1, 8, 7, 0, 0, 'Kalender', 'kalender');
-INSERT INTO `prefix_menu` VALUES (3, 5, 1, 0, 0, 'PicOfX', 'picofx.php');
-INSERT INTO `prefix_menu` VALUES (1, 16, 7, 0, 0, 'Kasse', 'kasse');
-INSERT INTO `prefix_menu` VALUES (2, 0, 1, 0, 0, 'Suchen', 'search.php');
-INSERT INTO `prefix_menu` VALUES (1, 4, 7, 0, 0, 'Gbook', 'gbook');
-INSERT INTO `prefix_menu` VALUES (3, 6, 1, 0, 0, 'Geburtstag', 'geburtstag.php');
-INSERT INTO `prefix_menu` VALUES (2, 6, 1, 0, 0, 'Online', 'online.php');
-INSERT INTO `prefix_menu` VALUES (1, 18, 7, 0, -3, 'Away', 'awaycal');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (1, 0, 3, 0, 0, 'Menü', 'allianz.php');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (1, 11, 3, 0, 0, 'Clan Menü', 'allianz.php');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (1, 22, 1, 0, 0, 'Login', 'login.php');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (1, 5, 7, 0, 0, 'Links', 'links');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (1, 6, 7, 0, 0, 'Downloads', 'downloads');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (1, 7, 7, 0, 0, 'Gallery', 'gallery');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (1, 2, 7, 0, 0, 'Forum', 'forum');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (1, 15, 7, 0, 0, 'Wars', 'wars');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (1, 23, 1, 0, 0, 'Shoutbox', 'shoutbox.php');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (1, 19, 7, 0, 0, 'Awards', 'awards');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (1, 13, 7, 1, 0, 'Fightus', 'fightus');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (1, 14, 7, 1, 0, 'Joinus', 'joinus');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (1, 20, 7, 0, 0, 'Regeln', 'rules');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (1, 12, 7, 0, 0, 'Squads', 'teams');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (1, 3, 7, 1, 0, 'Mitglieder', 'user');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (2, 1, 1, 0, 0, 'Umfrage', 'vote.php');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (2, 2, 1, 0, 0, 'Allianz', 'allianz.php');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (2, 3, 1, 0, 0, 'Statistik', 'statistik.php');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (3, 2, 1, 0, 0, 'Lastwars', 'lastwars.php');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (3, 3, 1, 0, 0, 'Nextwars', 'nextwars.php');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (2, 4, 1, 0, 0, 'Newsletter', 'newsletter.php');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (3, 1, 1, 0, 0, 'Last Forum', 'lastforum.php');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (3, 4, 1, 0, 0, 'Last News', 'lastnews.php');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (2, 5, 1, 0, 0, 'Designs', 'designs.php');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (1, 17, 7, 0, -3, 'Training', 'trains');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (1, 10, 7, 0, 0, 'Impressum', 'impressum');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (1, 21, 7, 0, 0, 'History', 'history');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (1, 1, 7, 0, 0, 'News', 'news');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (3, 0, 1, 0, 0, 'Kalender', 'calender.php');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (1, 9, 7, 0, 0, 'Kontakt', 'contact');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (1, 8, 7, 0, 0, 'Kalender', 'kalender');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (3, 5, 1, 0, 0, 'PicOfX', 'picofx.php');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (1, 16, 7, 0, 0, 'Kasse', 'kasse');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (2, 0, 1, 0, 0, 'Suchen', 'search.php');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (1, 4, 7, 0, 0, 'Gbook', 'gbook');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (3, 6, 1, 0, 0, 'Geburtstag', 'geburtstag.php');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (2, 6, 1, 0, 0, 'Online', 'online.php');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (1, 18, 7, 0, -3, 'Away', 'awaycal');
 
 CREATE TABLE `prefix_modulerights` (
   `uid` mediumint(9) NOT NULL default '0',
@@ -370,18 +370,18 @@ CREATE TABLE `prefix_modules` (
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 
-INSERT INTO `prefix_modules` VALUES (1, 'gallery', 'Gallery', 1, 0, 1);
-INSERT INTO `prefix_modules` VALUES (2, 'news', 'News', 1, 0, 1);
-INSERT INTO `prefix_modules` VALUES (3, 'groups', 'Gruppen', 1, 0, 1);
-INSERT INTO `prefix_modules` VALUES (4, 'rules', 'Regeln', 1, 0, 1);
-INSERT INTO `prefix_modules` VALUES (5, 'awards', 'Awards', 1, 0, 1);
-INSERT INTO `prefix_modules` VALUES (6, 'forum', 'Forum', 1, 0, 1);
-INSERT INTO `prefix_modules` VALUES (7, 'archiv-downloads', 'Downloads', 1, 0, 1);
-INSERT INTO `prefix_modules` VALUES (8, 'kalender', 'Kalender', 1, 0, 1);
-INSERT INTO `prefix_modules` VALUES (9, 'wars', 'Wars', 1, 0, 1);
-INSERT INTO `prefix_modules` VALUES (10, 'kasse', 'Kasse', 1, 0, 1);
-INSERT INTO `prefix_modules` VALUES (11, 'gbook', 'Gbook', 1, 0, 1);
-INSERT INTO `prefix_modules` VALUES (12, 'awaycal', 'Awaycal', 0, 0, 1);
+INSERT INTO `prefix_modules` (`id`,`url`,`name`,`gshow`,`ashow`,`fright`) VALUES (1, 'gallery', 'Gallery', 1, 0, 1);
+INSERT INTO `prefix_modules` (`id`,`url`,`name`,`gshow`,`ashow`,`fright`) VALUES (2, 'news', 'News', 1, 0, 1);
+INSERT INTO `prefix_modules` (`id`,`url`,`name`,`gshow`,`ashow`,`fright`) VALUES (3, 'groups', 'Gruppen', 1, 0, 1);
+INSERT INTO `prefix_modules` (`id`,`url`,`name`,`gshow`,`ashow`,`fright`) VALUES (4, 'rules', 'Regeln', 1, 0, 1);
+INSERT INTO `prefix_modules` (`id`,`url`,`name`,`gshow`,`ashow`,`fright`) VALUES (5, 'awards', 'Awards', 1, 0, 1);
+INSERT INTO `prefix_modules` (`id`,`url`,`name`,`gshow`,`ashow`,`fright`) VALUES (6, 'forum', 'Forum', 1, 0, 1);
+INSERT INTO `prefix_modules` (`id`,`url`,`name`,`gshow`,`ashow`,`fright`) VALUES (7, 'archiv-downloads', 'Downloads', 1, 0, 1);
+INSERT INTO `prefix_modules` (`id`,`url`,`name`,`gshow`,`ashow`,`fright`) VALUES (8, 'kalender', 'Kalender', 1, 0, 1);
+INSERT INTO `prefix_modules` (`id`,`url`,`name`,`gshow`,`ashow`,`fright`) VALUES (9, 'wars', 'Wars', 1, 0, 1);
+INSERT INTO `prefix_modules` (`id`,`url`,`name`,`gshow`,`ashow`,`fright`) VALUES (10, 'kasse', 'Kasse', 1, 0, 1);
+INSERT INTO `prefix_modules` (`id`,`url`,`name`,`gshow`,`ashow`,`fright`) VALUES (11, 'gbook', 'Gbook', 1, 0, 1);
+INSERT INTO `prefix_modules` (`id`,`url`,`name`,`gshow`,`ashow`,`fright`) VALUES (12, 'awaycal', 'Awaycal', 0, 0, 1);
 
 CREATE TABLE `prefix_news` (
   `news_id` int(10) unsigned NOT NULL auto_increment,
@@ -414,7 +414,7 @@ CREATE TABLE `prefix_partners` (
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 
-INSERT INTO `prefix_partners` VALUES (1, 0, 'www.ilch.de', 'http://www.ilch.de/images/banner/copy_by_ilch.gif', 'http://www.ilch.de');
+INSERT INTO `prefix_partners` (`id`,`pos`,`name`,`banner`,`link`) VALUES (1, 0, 'www.ilch.de', 'http://www.ilch.de/images/banner/copy_by_ilch.gif', 'http://www.ilch.de');
 
 CREATE TABLE `prefix_pm` (
   `id` mediumint(8) unsigned NOT NULL auto_increment,
@@ -463,22 +463,22 @@ CREATE TABLE `prefix_profilefields` (
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 
-INSERT INTO `prefix_profilefields` VALUES (1, 'msn', 12, 3);
-INSERT INTO `prefix_profilefields` VALUES (2, 'opt_pm', 9, 3);
-INSERT INTO `prefix_profilefields` VALUES (3, 'opt_mail', 8, 3);
-INSERT INTO `prefix_profilefields` VALUES (4, 'yahoo', 13, 3);
-INSERT INTO `prefix_profilefields` VALUES (5, 'sig', 6, 3);
-INSERT INTO `prefix_profilefields` VALUES (6, 'wohnort', 4, 3);
-INSERT INTO `prefix_profilefields` VALUES (7, 'icq', 11, 3);
-INSERT INTO `prefix_profilefields` VALUES (8, 'gebdatum', 1, 3);
-INSERT INTO `prefix_profilefields` VALUES (9, 'geschlecht', 2, 3);
-INSERT INTO `prefix_profilefields` VALUES (10, 'staat', 0, 3);
-INSERT INTO `prefix_profilefields` VALUES (11, 'status', 3, 3);
-INSERT INTO `prefix_profilefields` VALUES (12, 'Kontakt', 7, 2);
-INSERT INTO `prefix_profilefields` VALUES (13, 'aim', 14, 3);
-INSERT INTO `prefix_profilefields` VALUES (14, 'homepage', 5, 3);
-INSERT INTO `prefix_profilefields` VALUES (15, 'opt_pm_popup', 10, 3);
-INSERT INTO `prefix_profilefields` VALUES (16, 'usergallery', 15, 3);
+INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (1, 'msn', 12, 3);
+INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (2, 'opt_pm', 9, 3);
+INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (3, 'opt_mail', 8, 3);
+INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (4, 'yahoo', 13, 3);
+INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (5, 'sig', 6, 3);
+INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (6, 'wohnort', 4, 3);
+INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (7, 'icq', 11, 3);
+INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (8, 'gebdatum', 1, 3);
+INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (9, 'geschlecht', 2, 3);
+INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (10, 'staat', 0, 3);
+INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (11, 'status', 3, 3);
+INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (12, 'Kontakt', 7, 2);
+INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (13, 'aim', 14, 3);
+INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (14, 'homepage', 5, 3);
+INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (15, 'opt_pm_popup', 10, 3);
+INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (16, 'usergallery', 15, 3);
 
 CREATE TABLE `prefix_ranks` (
   `id` mediumint(8) unsigned NOT NULL auto_increment,
@@ -488,19 +488,19 @@ CREATE TABLE `prefix_ranks` (
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 
-INSERT INTO `prefix_ranks` VALUES (1, 'Grünschnabel', 1, 0);
-INSERT INTO `prefix_ranks` VALUES (2, 'Jungspund', 25, 0);
-INSERT INTO `prefix_ranks` VALUES (3, 'Mitglied', 50, 0);
-INSERT INTO `prefix_ranks` VALUES (4, 'Eroberer', 75, 0);
-INSERT INTO `prefix_ranks` VALUES (6, 'Doppel-As', 150, 0);
-INSERT INTO `prefix_ranks` VALUES (7, 'Tripel-As', 250, 0);
-INSERT INTO `prefix_ranks` VALUES (8, 'Haudegen', 500, 0);
-INSERT INTO `prefix_ranks` VALUES (9, 'Routinier', 1000, 0);
-INSERT INTO `prefix_ranks` VALUES (15, 'König', 2000, 0);
-INSERT INTO `prefix_ranks` VALUES (11, 'Kaiser', 5000, 0);
-INSERT INTO `prefix_ranks` VALUES (12, 'Legende', 7000, 0);
-INSERT INTO `prefix_ranks` VALUES (13, 'Foren Gott', 10000, 0);
-INSERT INTO `prefix_ranks` VALUES (14, 'Administrator', 0, 1);
+INSERT INTO `prefix_ranks` (`id`,`bez`,`min`,`spez`) VALUES (1, 'Grünschnabel', 1, 0);
+INSERT INTO `prefix_ranks` (`id`,`bez`,`min`,`spez`) VALUES (2, 'Jungspund', 25, 0);
+INSERT INTO `prefix_ranks` (`id`,`bez`,`min`,`spez`) VALUES (3, 'Mitglied', 50, 0);
+INSERT INTO `prefix_ranks` (`id`,`bez`,`min`,`spez`) VALUES (4, 'Eroberer', 75, 0);
+INSERT INTO `prefix_ranks` (`id`,`bez`,`min`,`spez`) VALUES (6, 'Doppel-As', 150, 0);
+INSERT INTO `prefix_ranks` (`id`,`bez`,`min`,`spez`) VALUES (7, 'Tripel-As', 250, 0);
+INSERT INTO `prefix_ranks` (`id`,`bez`,`min`,`spez`) VALUES (8, 'Haudegen', 500, 0);
+INSERT INTO `prefix_ranks` (`id`,`bez`,`min`,`spez`) VALUES (9, 'Routinier', 1000, 0);
+INSERT INTO `prefix_ranks` (`id`,`bez`,`min`,`spez`) VALUES (15, 'König', 2000, 0);
+INSERT INTO `prefix_ranks` (`id`,`bez`,`min`,`spez`) VALUES (11, 'Kaiser', 5000, 0);
+INSERT INTO `prefix_ranks` (`id`,`bez`,`min`,`spez`) VALUES (12, 'Legende', 7000, 0);
+INSERT INTO `prefix_ranks` (`id`,`bez`,`min`,`spez`) VALUES (13, 'Foren Gott', 10000, 0);
+INSERT INTO `prefix_ranks` (`id`,`bez`,`min`,`spez`) VALUES (14, 'Administrator', 0, 1);
 
 CREATE TABLE `prefix_rules` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
@@ -525,16 +525,16 @@ CREATE TABLE `prefix_smilies` (
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 
-INSERT INTO `prefix_smilies` VALUES (1, ':)', 'Smilie', '1.gif');
-INSERT INTO `prefix_smilies` VALUES (2, ':D', 'Lachen', '2.gif');
-INSERT INTO `prefix_smilies` VALUES (3, ':O', 'Opssss', '3.gif');
-INSERT INTO `prefix_smilies` VALUES (4, ':P', 'Auslachen', '4.gif');
-INSERT INTO `prefix_smilies` VALUES (5, ';)', 'Zwinker', '5.gif');
-INSERT INTO `prefix_smilies` VALUES (6, ':(', 'Traurig', '6.gif');
-INSERT INTO `prefix_smilies` VALUES (7, ':S', 'Grummel', '7.gif');
-INSERT INTO `prefix_smilies` VALUES (8, ':|', 'Sauer', '8.gif');
-INSERT INTO `prefix_smilies` VALUES (9, ':\'(', 'Weinen', '9.gif');
-INSERT INTO `prefix_smilies` VALUES (10, ':@', 'Veraergert', '10.gif');
+INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (1, ':)', 'Smilie', '1.gif');
+INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (2, ':D', 'Lachen', '2.gif');
+INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (3, ':O', 'Opssss', '3.gif');
+INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (4, ':P', 'Auslachen', '4.gif');
+INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (5, ';)', 'Zwinker', '5.gif');
+INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (6, ':(', 'Traurig', '6.gif');
+INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (7, ':S', 'Grummel', '7.gif');
+INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (8, ':|', 'Sauer', '8.gif');
+INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (9, ':\'(', 'Weinen', '9.gif');
+INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (10, ':@', 'Veraergert', '10.gif');
 
 
 CREATE TABLE `prefix_stats` (
@@ -603,7 +603,7 @@ CREATE TABLE `prefix_usercheck` (
   `pass` varchar(100) NOT NULL default '',
   `datime` datetime NOT NULL default '0000-00-00 00:00:00',
   `ak` tinyint(4) NOT NULL default '0',
-  `groupid` tinyint(4) NOT NULL,   
+  `groupid` tinyint(4) NOT NULL,
   PRIMARY KEY  (`check`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 

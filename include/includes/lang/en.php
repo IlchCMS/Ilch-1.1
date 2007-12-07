@@ -1,4 +1,4 @@
-<?php 
+<?php
 #   Copyright by Manuel Staechele
 #   Support www.ilch.de
 #   English lang file for ilchClan
@@ -6,7 +6,7 @@
 defined ('main') or die ( 'no direct access' );
 
 $lang = array
-( 
+(
 'active' => 'active',
 'administrattopic' => 'Administer Topic',
 'adminarea' => 'Admin Area',
@@ -238,6 +238,7 @@ $lang = array
 'support' => 'Support',
 'September' => 'September',
 'text' => 'Text',
+'time' => 'time',
 'the' => 'the',
 'Thursday' => 'Thursday',
 'to' => 'to', # bis heisst by ? to heist zu zum usw... :O

@@ -1,4 +1,4 @@
-<?php 
+<?php
 #   Copyright by Manuel Staechele
 #   Support www.ilch.de
 
@@ -11,20 +11,20 @@ define ('USERUPTIME', 180);
 ##
 ###
 ####
-##### alle online 
+##### alle online
 function ges_online() {
   $dif = date('Y-m-d H:i:s', time() - USERUPTIME);
 	$erg = db_query("SELECT COUNT(*) FROM `prefix_online` WHERE uptime > '". $dif."'");
   $anz = db_result($erg,0);
   return ($anz);
-} 
+}
 
 ##
 ###
 ####
 ##### nur die user
 function ges_user_online() {
-  $dif = date('Y-m-d H:i:s', time() - USERUPTIME); 
+  $dif = date('Y-m-d H:i:s', time() - USERUPTIME);
 	$erg = db_query("SELECT COUNT(*) FROM `prefix_online` WHERE uid > 0 and uptime > '". $dif."'");
 	$anz = db_result($erg,0);
   return ($anz);
@@ -45,8 +45,8 @@ function ges_gast_online() {
 ###
 ####
 ##### user online liste
-function user_online_liste(){ 
-	$OnListe = ''; 
+function user_online_liste(){
+	$OnListe = '';
   $dif = date('Y-m-d H:i:s', time() - USERUPTIME);
 	$erg = db_query("SELECT DISTINCT uid, name, prefix_ranks.bez, spezrank FROM `prefix_online` left join prefix_user on prefix_user.id = prefix_online.uid left join prefix_ranks ON prefix_ranks.id = prefix_user.spezrank WHERE uid > 0 and uptime > '". $dif."'");
 	while($row = db_fetch_object($erg)) {
@@ -62,8 +62,8 @@ function user_online_liste(){
 
 #
 ## user onloine list fuer admin + gaeste
-function user_admin_online_liste () { 
-	$OnListe = ''; 
+function user_admin_online_liste () {
+	$OnListe = '';
   $class = '';
   $dif = date('Y-m-d H:i:s', time() - USERUPTIME);
 	$erg = db_query("SELECT DISTINCT uid, DATE_FORMAT(uptime, '%d.%m.%Y - %H:%i:%s') as datum, ipa, name FROM `prefix_online` left join prefix_user on prefix_user.id = prefix_online.uid WHERE uptime > '". $dif."' ORDER BY uid DESC");
@@ -72,7 +72,7 @@ function user_admin_online_liste () {
     if ( $row->uid == 0) {
       $name = 'Gast';
     }
-	
+
 	$host_patterns = array(
 		'/crawl-[0-9]{1,3}-[0-9]{1,3}-[0-9]{1,3}-[0-9]{1,3}\.googlebot\.com/si',
 	  '/[a-z]*[0-9]*\.inktomisearch\.com/si',
@@ -92,14 +92,14 @@ function user_admin_online_liste () {
 		'Arcor DSL',
 		'Bot Exalead',
 		'Telekom Austria DSL'
-	);	
-	
+	);
+
     $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite' );
     $OnListe .= '<tr class="'.$class.'">';
     $OnListe .= '<td>'. $name .'</td>';
     $OnListe .= '<td>'. $row->datum .'</td>';
     $OnListe .= '<td>'. $row->ipa .'</td>';
-    $OnListe .= '<td>'. preg_replace($host_patterns, $host_names, @gethostbyaddr ( $row->ipa )) .'</td>'; 
+    $OnListe .= '<td>'. preg_replace($host_patterns, $host_names, @gethostbyaddr ( $row->ipa )) .'</td>';
     $OnListe .= '</tr>';
   }
 	#$OnListe = substr($OnListe,0,strlen($OnListe) - 3);
@@ -131,13 +131,13 @@ function site_statistic () {
 		  $ur = ( isset ($_SERVER['HTTP_REFERER']) ? site_statistic_get_referer($_SERVER['HTTP_REFERER']) : '' );
 		  db_query("INSERT INTO prefix_stats (wtag,stunde,`day`,mon,yar,os,browser,ip,ref)
 			VALUES(".$wt.",".$st.",".$d.",".$m.",".$y.",'".$os."','".$br."','".$ip."','".$ur."')");
-		
+
 		  $dc = ( strlen ($d) == 1 ? '0'.$d : $d );
 			$mc = ( strlen ($m) == 1 ? '0'.$m : $m );
 		  $cdate = $y.'-'.$mc.'-'.$dc;
 			$query = "SELECT COUNT(date) FROM `prefix_counter` WHERE `date` = '".$cdate."'";
 		  if ( db_result(db_query($query),0) == 0 ) {
-		    db_query('INSERT INTO `prefix_counter` VALUES ( "'.$cdate.'" , "1" ) ' );
+		    db_query('INSERT INTO `prefix_counter` (`date`,`count`) VALUES ( "'.$cdate.'" , "1" ) ' );
 		  } else {
 		    db_query('UPDATE `prefix_counter` SET `count` = `count` +1 WHERE `date` = "'.$cdate.'"');
 		  }
@@ -154,7 +154,7 @@ function site_statistic_get_browser($useragent) {
 		  } elseif (preg_match("=Opera/([0-9]{1,2}).[0-9]{1,2}=", $useragent, $browser)) {
 			  return "Opera ".$browser[1];
 		  } elseif (preg_match("=Konqueror=", $useragent)) {
-			  return "Konqueror"; 
+			  return "Konqueror";
 		  } elseif (preg_match("=Netscape/7.[0-9]{1,2}=", $useragent)) {
 			  return "Netscape Navigator 7";
 		  } elseif (preg_match("=^Mozilla.*Firefox\/(.*)$=", $useragent, $browser)) {
@@ -167,7 +167,7 @@ function site_statistic_get_browser($useragent) {
 			  return 0;
 		  }
 }
-	
+
 function site_statistic_get_os($useragent){
 		  if (preg_match("=Windows NT 5\.0|Windows 2000=", $useragent)) {
 			  return "Windows 2000";
@@ -176,7 +176,7 @@ function site_statistic_get_os($useragent){
 			} elseif (preg_match("=Windows NT 6\.0|Windows Vista=", $useragent)) {
 			  return "Windows Vista";
 			} elseif (preg_match("=Windows NT 5\.2|Windows Server 2003|Windows XP x64=", $useragent)) {
-			  return "Windows Server 2003\\Windows XP x64";			  
+			  return "Windows Server 2003\\Windows XP x64";
 		  } elseif (preg_match("=Windows NT 4\.0|Windows NT|WinNT4\.0=", $useragent)) {
 			  return "Windows NT";
 		  } elseif (preg_match("=Windows 98=", $useragent)) {
@@ -194,7 +194,7 @@ function site_statistic_get_os($useragent){
 			  return 0;
 		  }
 }
-		
+
 function site_statistic_get_referer ( $referer ) {
 			if ( ! empty ($referer) ) {
 			  $refzar = parse_url($referer);

@@ -1,4 +1,4 @@
-<?php 
+<?php
 #   Copyright by: Manuel Staechele
 #   Support: www.ilch.de
 
@@ -11,7 +11,7 @@ $hmenu  = $extented_forum_menu.'<a class="smalfont" href="index.php?forum">Forum
 $design = new design ( $title , $hmenu, 1);
 $design->header();
 
-	
+
 if ( $allgAr['Fpmf'] != 1 ) {
   echo 'Private Nachrichten wurden von dem Administrator komplet gesperrt';
   echo '<br><a href="javascript:history.back(-1)">zurück</a>';
@@ -25,7 +25,7 @@ if ( $allgAr['Fpmf'] != 1 ) {
   echo 'Im <a href="index.php?user-profil">Profil</a> einstellen das du die PrivMsg Funktion nutzen m&ouml;chtest';
   $design->footer(1);
 }
-  
+
 $uum = $menu->get(2);
 switch ( $uum ) {
 case 'new' :
@@ -33,7 +33,7 @@ case 'new' :
       $show_formular = true;
       $txt = '';
       $bet = '';
-      
+
       if (isset($_POST['sub'])) {
 				$txt  = escape($_POST['txt'], 'textarea');
         $bet  = escape($_POST['bet'], 'string');
@@ -44,8 +44,8 @@ case 'new' :
           echo 'Dieser Empf&auml;nger konnte nicht gefunden werden';
         }
       }
-      
-      
+
+
       if ($show_formular === true) {
         $name = '';
         $empfid = 0;
@@ -87,13 +87,13 @@ case 'new' :
             $ar['BET'] = preg_replace("/(re)\(\d+\):(.*)/i", "\\1(".$x."):\\2", $ar['BET']);
           }
         }
-        
+
 				$tpl = new tpl ( 'forum/pm/new' );
 		    $tpl->set_ar_out($ar,0);
       } else {
-        $eid  = db_result(db_query("SELECT id FROM prefix_user WHERE name = BINARY '".$name."'"),0);					
+        $eid  = db_result(db_query("SELECT id FROM prefix_user WHERE name = BINARY '".$name."'"),0);
 				sendpm($_SESSION['authid'], $eid, $bet, $txt);
-		    wd('index.php?forum-privmsg','Die Nachricht wurde erfolgreich gesendet'); 
+		    wd('index.php?forum-privmsg','Die Nachricht wurde erfolgreich gesendet');
       }
   break;
 case 'showmsg' :
@@ -108,7 +108,7 @@ case 'showmsg' :
 		  if ($row['gelesen'] == 0 AND $menu->get(4) != 's') {
 		    db_query("UPDATE `prefix_pm` SET gelesen = 1 WHERE id = ".$pid);
 		  }
-		  $row['time'] = date('d M. Y',$row['time']);
+		  $row['time'] = date('d M. Y - H:i',$row['time']);
 			$row['anhang'] = urlencode($row['txt']);
 			$row['txt'] = bbcode(unescape($row['txt']));
 			if ($menu->get(4) == 's') {
@@ -124,10 +124,10 @@ case 'delete' :
    elseif ($menu->get(3) != '' AND $menu->get(4) == 's') { $_POST['delsids'][] = $menu->get(3); }
       if ( empty($_POST['delids']) AND empty($_POST['delsids'])) {
 	      echo 'Es wurde keine Nachricht zum l&ouml;schen gew&auml;hlt <br /><br />';
-		    echo '<a href="javascript:history.back(-1)"><b>&laquo;</b> zur&uuml;ck</a>';		
+		    echo '<a href="javascript:history.back(-1)"><b>&laquo;</b> zur&uuml;ck</a>';
       } else {
         if ( (empty($_POST['delids']) AND empty($_POST['delsids'])) OR empty($_POST['sub']) ) {
-				  
+
 					$delids = (empty($_POST['delids'])?$_POST['delsids']:$_POST['delids']);
 					$s = (empty($_POST['delids'])?'':'s');
 					echo '<form action="index.php?forum-privmsg-delete" method="POST">';
@@ -140,7 +140,7 @@ case 'delete' :
 				  echo '<br>Wollen Sie ';
 				  echo ($i > 1 ? 'die ('.$i.') Nachrichten ' : 'die Nachricht ' );
 					echo 'wirklich löschen ?<br><br><input type="submit" value=" Ja " name="sub"> &nbsp; &nbsp; <input type="button" value="Nein" onclick="document.location.href =\'?forum-privmsg\'"></form>';
-					
+
 			  } else {
 					$delids = (empty($_POST['delids'])?$_POST['delsids']:$_POST['delids']);
 					$s = (empty($_POST['delids'])?'':'s');
@@ -166,28 +166,44 @@ case 'delete' :
   break;
 case 'showsend' :
   $tpl = new tpl ( 'forum/pm/showsend' );
-  $tpl->out(0); $class = 'Cmite';
-  $abf = "SELECT a.titel, b.name as empf, a.id FROM `prefix_pm` a left join prefix_user b ON a.eid = b.id WHERE a.sid = ".$_SESSION['authid']." AND a.status >= 0 ORDER BY time DESC";
+  $ad = $menu->getA(3) == 'a' ? 'ASC' : 'DESC';
+  $tpl->set_out('ad',$ad == 'ASC'?'d':'a',0); $class = 'Cmite';
+  switch ($menu->getE(3)) {
+    default: case '3': $order = "a.time $ad"; break;
+             case '2': $order = "b.name $ad, a.time DESC"; break;
+             case '1': $order = "a.titel $ad, a.time DESC"; break;
+  }
+  $abf = "SELECT a.titel, b.name as empf, a.id, a.`time` FROM `prefix_pm` a left join prefix_user b ON a.eid = b.id WHERE a.sid = ".$_SESSION['authid']." AND a.status >= 0 ORDER BY $order";
   $erg = db_query($abf);
   while ($row = db_fetch_assoc($erg)) {
     $class = ( $class == 'Cmite' ? 'Cnorm' : 'Cmite' );
-		$row['class'] = $class;
-	  $tpl->set_ar_out($row,1);
+	$row['class'] = $class;
+    $row['date'] = date('d.m.Y',$row['time']);
+    $row['time'] = date('H:i',$row['time']);
+	$tpl->set_ar_out($row,1);
   }
   $tpl->out(2);
   break;
 default :
 		  # message übersicht.
       $tpl = new tpl ( 'forum/pm/show' );
-      $tpl->out(0); $class = 'Cmite';
-      $abf = "SELECT a.titel as BET, a.gelesen as NEW, b.name as ABS, a.id as ID FROM `prefix_pm` a left join prefix_user b ON a.sid = b.id WHERE a.eid = ".$_SESSION['authid']." AND a.status <= 0 ORDER BY time DESC";
+      $ad = $menu->getA(3) == 'a' ? 'ASC' : 'DESC';
+      $tpl->set_out('ad',$ad == 'ASC'?'d':'a',0); $class = 'Cmite';
+      switch ($menu->getE(2)) {
+        default: case '3': $order = "a.time $ad"; break;
+                 case '2': $order = "b.name $ad, a.time DESC"; break;
+                 case '1': $order = "a.titel $ad, a.time DESC"; break;
+      }
+      $abf = "SELECT a.titel as BET, a.gelesen as NEW, b.name as ABS, a.id as ID, a.`time` FROM `prefix_pm` a left join prefix_user b ON a.sid = b.id WHERE a.eid = ".$_SESSION['authid']." AND a.status <= 0 ORDER BY $order";
       $erg = db_query($abf);
       while ($row = db_fetch_assoc($erg)) {
-			  $class = ( $class == 'Cmite' ? 'Cnorm' : 'Cmite' );
+        $class = ( $class == 'Cmite' ? 'Cnorm' : 'Cmite' );
         $row['NEW'] = ($row['NEW'] == 0 ? '<b><i>neu</i></b>' : '' );
-				$row['CLASS'] = $class;
+        $row['CLASS'] = $class;
         $row['BET'] = (trim($row['BET']) == '' ? ' -- kein Nachrichtentitel -- ' : $row['BET']);
-	      $tpl->set_ar_out($row,1);
+        $row['date'] = date('d.m.Y',$row['time']);
+        $row['time'] = date('H:i',$row['time']);
+        $tpl->set_ar_out($row,1);
       }
       $tpl->out(2);
   break;

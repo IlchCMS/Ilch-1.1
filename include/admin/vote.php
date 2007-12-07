@@ -1,4 +1,4 @@
-<?php 
+<?php
 #   Copyright by: Manuel Staechele
 #   Support: www.ilch.de
 
@@ -10,26 +10,26 @@ $design = new design ( 'Admins Area', 'Admins Area', 2 );
 $design->header();
 
 function showVote ($id) {
-  
+
 	$maxRow = db_fetch_object(db_query('SELECT MAX(res) as res FROM `prefix_poll_res` WHERE poll_id = "'.$id.'"'));
 	$gesRow = db_fetch_object(db_query('SELECT SUM(res) as res FROM `prefix_poll_res` WHERE poll_id = "'.$id.'"'));
 	$max = $maxRow->res;
   $ges = $gesRow->res;
 	$erg = db_query('SELECT antw, res FROM `prefix_poll_res` WHERE poll_id = "'.$id.'" ORDER BY sort');
 	while ($row = db_fetch_object($erg)) {
-	  if ( !empty($row->res) ) {  
+	  if ( !empty($row->res) ) {
 		  $weite = ($row->res / $max) * 200;
 		  $prozent = $row->res * 100 / $ges;
 		  $prozent = round($prozent,0);
 		} else {
 		  $weite = 0;
 			$prozent = 0;
-		}      
+		}
     echo '<tr><td width="30%">'.$row->antw.'</td>';
     echo '<td width="50%"><hr width="'.$weite.'" align="left"></td>';
 		echo '<td width="10%">'.$prozent.'%</td>';
 		echo '<td width="20%" align="right">'.$row->res.'</td></tr>';
-		    
+
   }
 	echo '<tr><td colspan="4" align="right">Gesamt: &nbsp; '.$ges.'</td></tr>';
 }
@@ -58,19 +58,19 @@ if ( $menu->get(1) == 5 ) {
 	  db_query('UPDATE `prefix_poll` SET stat = "'.$_GET['ak'].'" WHERE poll_id = "'.$_GET['id'].'"');
 }
 
-    
-    
-    
-// A L L E   V O T E S   W E R D E N   A N G E Z E I G T			
-  
+
+
+
+// A L L E   V O T E S   W E R D E N   A N G E Z E I G T
+
 
     if ( isset($_POST['sub']) ) {
 	    if ( empty($_POST['vid']) ) {
-		    db_query('INSERT INTO `prefix_poll` VALUES ( "" , "'.$_POST['frage'].'" , "'.$_POST['poll_recht'].'" , "1" , "" ) ' );
+		    db_query('INSERT INTO `prefix_poll` (`frage`,`recht`,`stat`,`text`) VALUES ( "'.$_POST['frage'].'" , "'.$_POST['poll_recht'].'" , "1" ,"") ' );
 			  $poll_id = db_last_id(); $i = 1;
 			  foreach ($_POST['antw'] as $v) {
 			    if ( ! empty ($v) ) {
-				   db_query('INSERT INTO `prefix_poll_res` VALUES ( "'.$i.'" , "'.$poll_id.'" , "'.$v.'" , "" ) ' );
+				   db_query('INSERT INTO `prefix_poll_res` (`sort`,`poll_id`,`antw`,`res`) VALUES ( "'.$i.'" , "'.$poll_id.'" , "'.$v.'" , "" ) ' );
 	         $i++;
 				  }
 		    }
@@ -80,7 +80,7 @@ if ( $menu->get(1) == 5 ) {
 				foreach ($_POST['antw'] as $k => $v) {
 				  $a = db_count_query("SELECT COUNT(*) FROM prefix_poll_res WHERE poll_id = ".$_POST['vid']." AND sort = ".$k);
 					if ( $a == 0 AND $v != '' ) {
-					  db_query ("INSERT INTO `prefix_poll_res` VALUES ( '".$i."' , '".$_POST['vid']."' , '".$v."' , '' )");
+					  db_query ("INSERT INTO `prefix_poll_res` (`sort`,`poll_id`,`antw`,`res`) VALUES ( '".$i."' , '".$_POST['vid']."' , '".$v."' , '' )");
 						$i++;
 					} elseif ( $a == 1 AND $v == '' ) {
 					  db_query ("DELETE FROM `prefix_poll_res` WHERE poll_id = ".$_POST['vid']." AND sort = ".$k);
@@ -90,7 +90,7 @@ if ( $menu->get(1) == 5 ) {
 					}
 				}
       }
-		} 
+		}
 		if ( empty($_POST['add']) ) {
 			if ( isset($_GET['vid']) ) {
 			  $row1 = db_fetch_object(db_query('SELECT frage, recht FROM `prefix_poll` WHERE poll_id = "'.$_GET['vid'].'"'));
@@ -114,11 +114,11 @@ if ( $menu->get(1) == 5 ) {
 			  $anzFeld++;
 				$_POST['antw'][] = '';
 			}
-			
+
 			echo '<form action="admin.php?vote" method="POST">';
 			echo '<input type="hidden" name="vid" value="'.$_POST['vid'].'" />';
       echo '<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/vote.png" /></td><td width="30"></td><td valign="bottom"><h1>Umfrage</h1></td></tr></table>';
-      
+
 			echo '<table width="100%" cellpadding="2" cellspacing="1" border="0" class="border">';
 		  echo '<tr><td width="100" class="Cmite">Frage</td>';
 		  echo '<td width="500" class="Cnorm"><input type="text" size="40" value="'.$_POST['frage'].'" name="frage"></td></tr>';
@@ -133,13 +133,13 @@ if ( $menu->get(1) == 5 ) {
 			  echo '</td></tr>'."\n";
 		  }
 		  echo '<tr class="Cdark"><td></td><td><input name="sub" type="submit" value="'.$lang['formsub'].'"></td></tr>';
-		  echo '</table></form>'; 
-		  echo '<table width="100%" cellpadding="3" cellspacing="1" border="0" class="border">'; 
+		  echo '</table></form>';
+		  echo '<table width="100%" cellpadding="3" cellspacing="1" border="0" class="border">';
 		  echo '<tr class="Chead"><td colspan="5"><b>Vote verwalten</b></td></tr>';
 			?>
 <script language="JavaScript" type="text/javascript">
     <!--
-      
+
 			function delcheck ( DELID ) {
 			  var frage = confirm ( "Willst du diesen Eintrag wirklich löschen?" );
 				if ( frage == true ) {
@@ -149,7 +149,7 @@ if ( $menu->get(1) == 5 ) {
 		//-->
 </script>
 			<?php
-			
+
 			$abf = 'SELECT * FROM `prefix_poll` ORDER BY poll_id DESC';
 		  $erg = db_query($abf); $class = '';
       while ($row = db_fetch_object($erg)) {
@@ -164,7 +164,7 @@ if ( $menu->get(1) == 5 ) {
 			  echo '<tr class="'.$class.'">';
 			  echo '<td><a  href="javascript:delcheck('.$row->poll_id.')">l&ouml;schen</a></td>';
 				echo '<td><a href="?vote=0&vid='.$row->poll_id.'">&auml;ndern</a></td>';
-			  echo '<td><a href="?vote-5=0&ak='.$up.'&id='.$row->poll_id.'">'.$coo.'</a></td>';				
+			  echo '<td><a href="?vote-5=0&ak='.$up.'&id='.$row->poll_id.'">'.$coo.'</a></td>';
 			  echo '<td><a href="?vote=0&showVote='.$row->poll_id.'">zeigen</a></td>';
 			  echo '<td>'.$row->frage.'</td>';
 			  echo '</tr>';

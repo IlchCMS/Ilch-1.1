@@ -1,4 +1,4 @@
-<?php 
+<?php
 #   Copyright by: Manuel Staechele
 #   Support: www.ilch.de
 
@@ -14,12 +14,12 @@ $design = new design ( $title , $hmenu );
 
 
 function news_find_kat ($kat) {
-    
+
 		$katpfad = 'include/images/news/';
 		$katjpg = $katpfad.$kat.'.jpg';
 		$katgif = $katpfad.$kat.'.gif';
 		$katpng = $katpfad.$kat.'.png';
-		
+
 		if ( file_exists( $katjpg ) ) {
 		  $pfadzumBild = $katjpg;
 		} elseif ( file_exists ( $katgif ) ) {
@@ -27,13 +27,13 @@ function news_find_kat ($kat) {
 		} elseif ( file_exists ( $katpng ) ) {
 		  $pfadzumBild = $katpng;
 		}
-		
+
 		if ( !empty( $pfadzumBild ) ) {
 			$kategorie = '<img style="" src="'.$pfadzumBild.'" alt="'.$kat.'">';
 		} else {
 		  $kategorie = '<b>'.$kat.'</b><br /><br />';
 		}
-		
+
 		return ( $kategorie );
 }
 
@@ -44,17 +44,17 @@ if ( !is_numeric($menu->get(1)) )  {
   {
       #ob_clean();
       $feed_type = $menu->get(1);
-      
+
     $abf = "SELECT MAX(news_time) AS last_update FROM prefix_news";
     $erg = db_query($abf);
     $row = db_fetch_assoc($erg);
     $last_update = str_replace(' ', 'T', $row['last_update']) . 'Z';
-    
+
     $abf = "SELECT
       a.news_title as title,
       a.news_id as id,";
-    $abf .= ($feed_type == 'atom') ? 'a.news_time as datum,' : "DATE_FORMAT(a.news_time,'%a, %e %b %y %H:%i:%s') as datum,"; 
-    $abf .=  
+    $abf .= ($feed_type == 'atom') ? 'a.news_time as datum,' : "DATE_FORMAT(a.news_time,'%a, %e %b %y %H:%i:%s') as datum,";
+    $abf .=
      "a.news_kat as kate,
       a.news_text as text,
       b.name as username
@@ -64,7 +64,7 @@ if ( !is_numeric($menu->get(1)) )  {
     ORDER BY news_time ASC LIMIT 15";
     $erg = db_query($abf);
     $tpl = new tpl( 'news_'.$menu->get(1).'.htm' );
-    
+
     header('Content-type: application/' . $menu->get(1)  . '+xml');
 
     $tpl->set_ar_out(array('FEEDTITLE' => $allgAr['title'],
@@ -75,7 +75,7 @@ if ( !is_numeric($menu->get(1)) )  {
       {
           $row['datum'] = str_replace(' ', 'T', $row['datum']) . 'Z';
       }
-      
+
       $a = explode('[PREVIEWENDE]', $row['text']);
       $tpl->set_ar_out(array('TITLE' => $row['title'],
                              'TXT' => bbcode($a[0]),
@@ -94,9 +94,9 @@ if ( !is_numeric($menu->get(1)) )  {
     $page = ( $menu->getA(1) == 'p' ? $menu->getE(1) : 1 );
     $MPL = db_make_sites ($page , "WHERE news_recht >= ".$_SESSION['authright'] , $limit , '?news' , 'news' );
     $anfang = ($page - 1) * $limit;
-    
+
     $tpl = new tpl ( 'news.htm' );
-    
+
     $abf = "SELECT
       a.news_title as title,
       a.news_id as id,
@@ -109,16 +109,16 @@ if ( !is_numeric($menu->get(1)) )  {
     LEFT JOIN prefix_user as b ON a.user_id = b.id
     WHERE ".$_SESSION['authright']." <= a.news_recht
        OR a.news_recht = 0
-    ORDER BY news_time DESC 
+    ORDER BY news_time DESC
     LIMIT ".$anfang.",".$limit;
     #echo '<pre>'.$abf.'</pre>';
-    
+
     $erg = db_query($abf);
     while ($row = db_fetch_assoc($erg)) {
-      
+
       $k0m  = db_query("SELECT COUNT(ID) FROM `prefix_koms` WHERE uid = ".$row['id']." AND cat = 'NEWS'");
       $row['kom']  = db_result($k0m,0);
-      
+
       $row['kate'] = news_find_kat($row['kate']);
       $row['datum'] = $lang[$row['dayofweek']].' '.$row['datum'];
       if ( strpos ( $row['text'] , '[PREVIEWENDE]' ) !== FALSE ) {
@@ -135,10 +135,10 @@ if ( !is_numeric($menu->get(1)) )  {
     unset($tpl);
   }
 
-  
-  
+
+
 } else {
- 
+
  $design->header();
  $nid = escape($menu->get(1), 'integer');
  $row = db_fetch_object(db_query("SELECT * FROM `prefix_news` WHERE news_id = '".$nid."'"));
@@ -160,10 +160,10 @@ if ( !is_numeric($menu->get(1)) )  {
   	if ( (loggedin() OR chk_antispam ('newskom')) AND $komsOK AND !empty($_POST['name']) AND !empty($_POST['txt']) ) {
       $_POST['txt'] = escape($_POST['txt'],'string');
 		  $_POST['name'] = escape($_POST['name'],'string');
-      db_query("INSERT INTO `prefix_koms` VALUES ('',".$nid.",'NEWS','".$_POST['name']."','".$_POST['txt']."')");
-	  } 
+      db_query("INSERT INTO `prefix_koms` (`uid`,`cat`,`name`,`text`) VALUES (".$nid.",'NEWS','".$_POST['name']."','".$_POST['txt']."')");
+	  }
 	  # kommentar add
-		
+
     # kommentar loeschen
     if ($menu->getA(2) == 'd' AND is_numeric($menu->getE(2)) AND has_right(-7, 'news')) {
       $kommentar_id = escape($menu->getE(2),'integer');
@@ -171,13 +171,13 @@ if ( !is_numeric($menu->get(1)) )  {
     }
     # kommentar loeschen
     $kategorie = news_find_kat($row->news_kat);
-		
+
 		$textToShow = bbcode($row->news_text);
 		$textToShow = str_replace('[PREVIEWENDE]','',$textToShow);
 		if ( !empty($such) ) {
 		  $textToShow = markword($textToShow,$such);
 		}
-		
+
 		$tpl = new tpl ( 'news.htm' );
 		$ar = array (
       'TEXT'  => $textToShow,
@@ -188,7 +188,7 @@ if ( !is_numeric($menu->get(1)) )  {
 			'NAME'  => $row->news_title
 		);
 		$tpl->set_ar_out($ar, 2 );
-		
+
 		if ($komsOK) {
 		  $tpl->set_ar_out ( array ( 'NAME' => $row->news_title , 'NID' => $nid ), 3 );
 		}
