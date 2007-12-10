@@ -3,7 +3,7 @@
 <table width="100%">
   <tr>
 	  <td valign="top" width="60%" rowspan="2">
-    
+
       <table cellpadding="3" border="0" cellspacing="5" class="border">
         <tr>
         {EXPLODE}
@@ -11,11 +11,11 @@
           <table cellpadding="2" border="0" cellspacing="1" class="border">
             <tr>
               <td valign="top" class="{class}">
-              
+
           <table cellpadding="1" border="0" cellspacing="0" class="border">
             <tr>
               <td class="Cmite"><a href="javascript:del({id})"><img src="include/images/icons/del.gif" border="0" title="l&ouml;schen" alt="l&ouml;schen"></a></td>
-            </tr><tr>    
+            </tr><tr>
               <td class="Cnorm"><a href="javascript:edit('{besch}',{id})"><img src="include/images/icons/edit.gif" title="&auml;ndern" border="0" alt="&auml;ndern"></a></td>
             </tr><tr>
               <td class="Cmite"><a href="javascript:reload({id})"><img src="include/images/icons/reload.gif" border="0" title="erneuern" alt="erneuern"></a></td>
@@ -77,13 +77,11 @@
 </td></td></table>
 <script language="JavaScript" type="text/javascript">
 <!--
-  
+
   function Kdel ( id1 ) {
-    var x = confirm ( "Diese Kategorie wirklich löschen?" );
-		if ( x ) {
-		  document.location.href="?gallery-D"+id1;
-		}
-	}
+    var Fenster = window.open ('admin.php?gallery-D' + id1, 'delKat', 'status=yes,scrollbars=yes,height=150,width=550,left=300,top=50');
+    Fenster.focus();
+  }
   function del ( id1 ) {
     var x = confirm ( "Dieses Bild wirklich löschen?" );
 		if ( x ) {

@@ -1,4 +1,4 @@
-<?php 
+<?php
 #   Copyright by: Manuel Staechele
 #   Support: www.ilch.de
 
@@ -44,7 +44,7 @@ if ( $menu->get(1) == 'reloadImages' ) {
     # wenn keine aktion gewaehlt wurde
     if (empty($_POST['aktion'])) {
       $msg = 'Bitte eine Aktion ausw&auml;hlen<br />';
-      
+
     # aktion alle bilder eines ordners einlesen
     } elseif ($_POST['aktion'] == 'ins') {
       if (is_dir($_POST['dir'])) {
@@ -76,7 +76,7 @@ if ( $menu->get(1) == 'reloadImages' ) {
       } else {
         $msg = 'Konnte den Ordner '.$_POST['dir'].' nicht finden<br />';
       }
-    
+
     # aktion alle bilder erneuern mit oder ohne ueberschreiben
     } elseif ($_POST['aktion'] == 'alle' OR $_POST['aktion'] == 'alle_no') {
       $erg = db_query("SELECT id,endung FROM prefix_gallery_imgs WHERE cat = ".$menu->get(2));
@@ -95,7 +95,7 @@ if ( $menu->get(1) == 'reloadImages' ) {
           }
         }
       }
-      
+
       if ($_POST['aktion'] == 'alle') {
         $msg = 'Alle Bilder erneuert';
       } else {
@@ -103,7 +103,7 @@ if ( $menu->get(1) == 'reloadImages' ) {
       }
     }
   }
-  
+
   # anzeigen
   $tpl = new tpl ( 'gallery/images_reload', 1);
   $cname = 'keine Kategorie';
@@ -119,7 +119,7 @@ if ( $menu->get(1) == 'reloadImages' ) {
 
 # Bilder in eine Kategorie hochladen
 if ( $menu->get(1) == 'uploadImages' ) {
-  $msg = '';  
+  $msg = '';
   if (isset($_POST['hochladen']) AND $_POST['hochladen'] == 'yes') {
     foreach ($_FILES['file']['name'] AS $k => $v) {
       if (!empty($_FILES['file']['name'][$k])) {
@@ -141,7 +141,7 @@ if ( $menu->get(1) == 'uploadImages' ) {
           create_thumb ($bild_url, $bild_thumb, $allgAr['gallery_preview_width']);
           @chmod($bild_thumb, 0777);
           create_thumb ($bild_url, $bild_norm , $allgAr['gallery_normal_width']);
-          @chmod($bild_norm, 0777);          
+          @chmod($bild_norm, 0777);
         } else {
           $msg .= 'Datei '.$name.'.'.$endung.' konnte nicht hochgeladen werden<br />';
         }
@@ -149,7 +149,7 @@ if ( $menu->get(1) == 'uploadImages' ) {
     }
   }
   # bilder hochladen
-  
+
   $anzb = 5;
   if (isset($_GET['anzb']) AND is_numeric($_GET['anzb'])) {
     $anzb = $_GET['anzb'];
@@ -167,24 +167,54 @@ if ( $menu->get(1) == 'uploadImages' ) {
   exit();
 }
 
-$design = new design ( 'Admins Area', 'Admins Area', 2 );
-$design->header();
-   
-$tpl = new tpl ( 'gallery/gallery', 1);
-    
-# kategorie und link eintraege loeschen
+# Kategorie löschen
 if ( $menu->getA(1) == 'D' ) {
-  $r = db_fetch_assoc(db_query("SELECT id, pos, cat FROM prefix_gallery_cats WHERE id = '".$menu->getE(1)."'"));
-  $r2 = db_fetch_assoc(db_query("SELECT * FROM prefix_gallery_imgs WHERE cat = '".$r['id']."'"));
-  db_query("DELETE FROM prefix_gallery_cats WHERE id = '".$menu->getE(1)."'");
-  db_query("UPDATE prefix_gallery_cats SET pos = pos - 1 WHERE pos > ".$r['pos']." AND cat = ".$r['cat']);
-  db_query("DELETE FROM prefix_gallery_imgs WHERE cat = '".$r['id']."'");
-  @unlink ('include/images/gallery/img_'.$r2['id'].'.'.$r2['endung']);
-  @unlink ('include/images/gallery/img_thumb_'.$r2['id'].'.'.$r2['endung']);
-  @unlink ('include/images/gallery/img_norm_'.$r2['id'].'.'.$r2['endung']);
+
+    $tpl = new tpl('gallery/delkat', 1);
+    $tpl->out(0);
+    //Kategorie und alle Bilder löschen
+    if ($menu->get(2) == 'delall') {
+        $r = db_fetch_assoc(db_query("SELECT id, pos, cat FROM prefix_gallery_cats WHERE id = '".$menu->getE(1)."'"));
+        db_query("DELETE FROM prefix_gallery_cats WHERE id = '".$menu->getE(1)."'");
+        db_query("UPDATE prefix_gallery_cats SET pos = pos - 1 WHERE pos > ".$r['pos']." AND cat = ".$r['cat']);
+        $sql = db_query("SELECT * FROM prefix_gallery_imgs WHERE cat = '{$r['id']}'");
+        while($r2 = db_fetch_assoc($sql)){
+            @unlink ('include/images/gallery/img_'.$r2['id'].'.'.$r2['endung']);
+            @unlink ('include/images/gallery/img_thumb_'.$r2['id'].'.'.$r2['endung']);
+            @unlink ('include/images/gallery/img_norm_'.$r2['id'].'.'.$r2['endung']);
+        }
+        db_query("DELETE FROM prefix_gallery_imgs WHERE cat = '".$r['id']."'");
+        echo 'Kategorie und Bilder gel&ouml;scht<br />';
+        $tpl->out(2);
+    } elseif ($menu->get(2) == 'delkat') {
+        $r = db_fetch_assoc(db_query("SELECT id, pos, cat FROM prefix_gallery_cats WHERE id = '".$menu->getE(1)."'"));
+        db_query("DELETE FROM prefix_gallery_cats WHERE id = '".$menu->getE(1)."'");
+        db_query("UPDATE prefix_gallery_cats SET pos = pos - 1 WHERE pos > ".$r['pos']." AND cat = ".$r['cat']);
+        db_query("DELETE FROM prefix_gallery_imgs WHERE cat = '".$r['id']."'");
+        echo 'Nur Kategorie gel&ouml;scht, Bilder noch auf dem FTP<br />';
+        $tpl->out(2);
+    } elseif (isset($_POST['move']) AND $_POST['cat'] != $menu->getE(1)) {
+        $r = db_fetch_assoc(db_query("SELECT id, pos, cat FROM prefix_gallery_cats WHERE id = '".$menu->getE(1)."'"));
+        db_query("DELETE FROM prefix_gallery_cats WHERE id = '".$menu->getE(1)."'");
+        db_query("UPDATE prefix_gallery_cats SET pos = pos - 1 WHERE pos > ".$r['pos']." AND cat = ".$r['cat']);
+        db_query("UPDATE prefix_gallery_imgs set cat = '{$_POST['cat']}' WHERE cat = '".$r['id']."'");
+        echo 'Bilder in Kategorie "'.@db_result(db_query("SELECT name FROM prefix_gallery_cats WHERE id = '{$_POST['cat']}'"),0).'" verschoben und alte Kategorie gel&ouml;scht.<br />';
+        $tpl->out(2);
+    } else {
+        $row = array('id' => $menu->getE(1));
+        gallery_admin_selectcats('0','',$row['cats'],$row['cats']);
+        $row['cats'] = '<option value="0">Keine</option>'.$row['cats'];
+        $tpl->set_ar_out($row,1);
+    }
+    $tpl->out(3);
+    exit();
 }
 
-# Bild loeschen    
+$design = new design ( 'Admins Area', 'Admins Area', 2 );
+$design->header();
+$tpl = new tpl ( 'gallery/gallery', 1);
+
+# Bild loeschen
 if ( $menu->getA(1) == 'd' ) {
   $id = $menu->getE(1);
   $row = db_fetch_assoc(db_query("SELECT endung,cat FROM prefix_gallery_imgs WHERE id = ".$id));
@@ -226,7 +256,7 @@ if ($menu->getA(1) == 'M') {
   $cat = db_result(db_query("SELECT cat FROM prefix_gallery_cats WHERE id = ".$id),0);
   $nps = ( $menu->getA(2) == 'u' ? $pos + 1 : $pos - 1 );
   $anz = db_result(db_query("SELECT COUNT(*) FROM prefix_gallery_cats WHERE cat = ".$cat),0);
-      
+
   if ($nps < 0) {
     db_query("UPDATE prefix_gallery_cats SET pos = ".$anz." WHERE id = ".$id);
     db_query("UPDATE prefix_gallery_cats SET pos = pos -1 WHERE cat = ".$cat);
@@ -235,31 +265,31 @@ if ($menu->getA(1) == 'M') {
     db_query("UPDATE prefix_gallery_cats SET pos = -1 WHERE id = ".$id);
     db_query("UPDATE prefix_gallery_cats SET pos = pos +1 WHERE cat = ".$cat);
   }
-      
+
   if ( $nps < $anz AND $nps >= 0 ) {
     db_query("UPDATE prefix_gallery_cats SET pos = ".$pos." WHERE pos = ".$nps." AND cat = ".$cat);
     db_query("UPDATE prefix_gallery_cats SET pos = ".$nps." WHERE id = ".$id);
   }
 }
- 
+
 # kategorie eintrage speichern oder aendern.
 if ( isset ( $_POST['Csub']) ) {
   if ( empty($_POST['Ccat']) ) {
 	  $_POST['Ccat'] = 0;
 	}
 	if ( empty ($_POST['Cpkey']) ) {
-    $nextpos = db_result(db_query("SELECT COUNT(*) FROM prefix_gallery_cats WHERE cat = ".$_POST['Ccat']),0,0); 
+    $nextpos = db_result(db_query("SELECT COUNT(*) FROM prefix_gallery_cats WHERE cat = ".$_POST['Ccat']),0,0);
     db_query("INSERT INTO prefix_gallery_cats (`cat`,`name`,`besch`,pos,recht) VALUES (".$_POST['Ccat'].",'".$_POST['Cname']."','".$_POST['Cdesc']."','".$nextpos."',".$_POST['Crecht'].")");
 	} else {
     $r = db_fetch_assoc(db_query("SELECT cat, pos FROM prefix_gallery_cats WHERE id = ".$_POST['Cpkey']));
-    
+
     $bool = true;
     $tc = $_POST['Ccat'];
     while ($tc > 0) {
     if ($tc == $_POST['Cpkey']) { $bool = false; }
     $tc = @db_result(db_query("SELECT cat FROM prefix_gallery_cats WHERE id = $tc"));
     }
-    if ($bool) {    
+    if ($bool) {
       $epos = $r['pos'];
       $akc  = $r['cat'];
       $npos = $epos;
@@ -274,14 +304,14 @@ if ( isset ( $_POST['Csub']) ) {
 	}
   $azk = $_POST['Ccat'];
 }
-    
+
     if ( !isset($azk) ) {
       $azk = 0;
       if ( $menu->getA(1) == 'S' OR $menu->getA(1) == 'E' ) {
         $azk = $menu->getE(1);
       }
     }
-    
+
     $tpl->out(0); $class = 0;
     $abf = "SELECT id,besch,datei_name,endung FROM prefix_gallery_imgs WHERE cat = ".$azk;
     $erg = db_query($abf);
@@ -293,11 +323,11 @@ if ( isset ( $_POST['Csub']) ) {
       $tpl->set_ar_out($row,1);
       $i++;
     }
-    
+
     # links
     $tpl->out(2);
     # cat
-    if ( $menu->getA(1) == 'E' ) {		 
+    if ( $menu->getA(1) == 'E' ) {
       $erg = db_query("SELECT id,cat as Ccat, recht as Crecht, name as Cname,pos as Cpos,`besch` as Cdesc FROM prefix_gallery_cats WHERE id = '".$menu->getE(1)."'");
 		  $_Cilch = db_fetch_assoc($erg);
 			$_Cilch['Cpkey'] = $menu->getE(1);
@@ -316,7 +346,7 @@ if ( isset ( $_POST['Csub']) ) {
     $_Cilch['Ccat']   = '<option value="0">Keine</option>'.$_Cilch['Ccat'];
 		$_Cilch['Crecht'] = dblistee($_Cilch['Crecht'],"SELECT id,name FROM prefix_grundrechte ORDER BY id DESC");
     gallery_admin_showcats ( 0 , '' );
-    
+
     $tpl->set_ar($_Cilch);
     $tpl->out(3);
 

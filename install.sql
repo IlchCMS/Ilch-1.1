@@ -592,7 +592,7 @@ CREATE TABLE `prefix_user` (
   `msn` varchar(50) NOT NULL default '',
   `yahoo` varchar(50) NOT NULL default '',
   `aim` varchar(50) NOT NULL default '',
-  `sig` text NOT NULL,
+  `sig` text NOT NULL default '',
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 

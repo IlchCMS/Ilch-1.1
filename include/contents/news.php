@@ -61,14 +61,15 @@ if ( !is_numeric($menu->get(1)) )  {
     FROM prefix_news as a
     LEFT JOIN prefix_user as b ON a.user_id = b.id
     WHERE a.news_recht = 0
-    ORDER BY news_time ASC LIMIT 15";
+    ORDER BY news_time DESC LIMIT 15";
     $erg = db_query($abf);
     $tpl = new tpl( 'news_'.$menu->get(1).'.htm' );
 
     header('Content-type: application/' . $menu->get(1)  . '+xml');
 
     $tpl->set_ar_out(array('FEEDTITLE' => $allgAr['title'],
-                           'UPDATED' => $last_update), 0);
+                           'UPDATED' => $last_update,
+                           'SITEURL' => 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF'])), 0);
     while ($row = db_fetch_assoc($erg))
     {
       if($feed_type == 'atom')

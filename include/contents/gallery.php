@@ -1,4 +1,4 @@
-<?php 
+<?php
 #   Copyright by: Manuel Staechele
 #   Support: www.ilch.de
 
@@ -44,7 +44,7 @@ function count_files ($cid) {
 function get_cats_array ( $cid , $ar ) {
 	if ( empty($cid) ) {
 	  return ($ar);
-	} else { 
+	} else {
 	  $erg = db_query("SELECT cat,id,name FROM prefix_gallery_cats WHERE id = ".$cid);
 		$row = db_fetch_assoc($erg);
 		$ar[$row['id']] = $row['name'];
@@ -72,21 +72,21 @@ if ($menu->get(1) == 'showOrig') {
   $size = getimagesize('include/images/gallery/img_'.$row['id'].'.'.$row['endung']);
 	$breite = $size[0] + 5;
   $hoehe = $size[1] + 5;
-  
+
   # vote zahlen
   if (isset($_GET['doVote']) AND is_numeric($_GET['doVote']) AND !isset ($_SESSION['galleryDoVote'][$row['id']])) {
     $_SESSION['galleryDoVote'][$row['id']] = 'o';
-    $row['vote_wertung'] = round ( ( ( $row['vote_wertung'] * $row['vote_klicks'] ) + $_GET['doVote'] ) / ( $row['vote_klicks'] + 1 ) , 3 ); 
+    $row['vote_wertung'] = round ( ( ( $row['vote_wertung'] * $row['vote_klicks'] ) + $_GET['doVote'] ) / ( $row['vote_klicks'] + 1 ) , 3 );
     $row['vote_klicks']++;
     db_query("UPDATE prefix_gallery_imgs SET vote_wertung = ".$row['vote_wertung'].", vote_klicks = ".$row['vote_klicks']." WHERE id = ".$row['id']);
   }
-  
+
   # klicks zaehlen
   if (!isset($_SESSION['galleryDoKlick'][$row['id']])) {
     $_SESSION['galleryDoKlick'][$row['id']] = 'o';
     db_query("UPDATE prefix_gallery_imgs SET klicks = klicks + 1 WHERE id = ".$row['id']);
   }
-  
+
   # page vor und ruck dev
   $next = $page + 1;
   $last = $page - 1;
@@ -98,11 +98,11 @@ if ($menu->get(1) == 'showOrig') {
   $diashow = $next.'=0&amp;diashow=start';
   if (isset($_GET['diashow']) AND ($_GET['diashow'] == 'start' OR $_GET['diashow'] == 'shownext')) {
     $sek = 4;
-    if (isset($_GET['sek'])) { $sek = $_GET['sek']; } 
+    if (isset($_GET['sek'])) { $sek = $_GET['sek']; }
     $diashow_html = '<meta http-equiv="refresh" content="'.$sek.'; URL=index.php?gallery-show-'.$cid.'-p'.$next.'=0&amp;diashow=shownext&amp;sek='.$sek.'">';
     $diashow = $page.'=0&amp;diashow=stop';
   }
-  
+
   # anzeigen
   $tpl = new tpl ('gallery_show');
   $arr = array (
@@ -121,7 +121,7 @@ if ($menu->get(1) == 'showOrig') {
     'hoehe' => $hoehe
   );
   $tpl->set_ar_out($arr,0);
-  
+
   # kommentare
   if ($allgAr['gallery_img_koms'] == 1) {
     # eintragen
@@ -130,12 +130,12 @@ if ($menu->get(1) == 'showOrig') {
       $text = escape($_POST['text'],'string');
       db_query("INSERT INTO prefix_koms (name,text,uid,cat) VALUES ('".$name."','".$text."',".$row['id'].",'GALLERYIMG')");
     }
-    
+
     # loeschen
     if (isset($_GET['delete']) AND is_admin()) {
       db_query("DELETE FROM prefix_koms WHERE id = ".$_GET['delete']);
     }
-    
+
     # zeigen
     $tpl->set('uname', $_SESSION['authname']);
     $tpl->out(1);
@@ -154,7 +154,7 @@ if ($menu->get(1) == 'showOrig') {
   }
 } else {
 		$cid = ( $menu->get(1) ? escape($menu->get(1),'integer') : 0 );
-		$erg = db_query("SELECT cat,name FROM prefix_gallery_cats WHERE id = ".$cid);
+		$erg = db_query("SELECT cat,name FROM prefix_gallery_cats WHERE recht >= {$_SESSION['authright']} AND id = ".$cid);
 		$cname = 'Gallery';
     if ( db_num_rows($erg) > 0 ) {
 		  $row = db_fetch_assoc($erg);
@@ -168,7 +168,7 @@ if ($menu->get(1) == 'showOrig') {
 				$namezw = '';
 			}
 		  $cattitle = ':: '.$titelzw.$row['name'];
-			$catname = '<b> &raquo; </b>'.$namezw.$row['name'];	
+			$catname = '<b> &raquo; </b>'.$namezw.$row['name'];
 		} else {
 		  $cattitle = '';
 			$catname = '';
@@ -178,7 +178,7 @@ if ($menu->get(1) == 'showOrig') {
     $design = new design ( $title , $hmenu );
 	  $design->header();
 		$tpl = new tpl ('gallery' );
-    $erg = db_query("SELECT id,name,`besch` FROM prefix_gallery_cats WHERE cat = ".$cid." ORDER BY pos");
+    $erg = db_query("SELECT id,name,`besch` FROM prefix_gallery_cats WHERE recht >= {$_SESSION['authright']} AND cat = ".$cid." ORDER BY pos");
     if ( db_num_rows($erg) > 0 ) {
 		  $tpl->out(1); $class = 'Cnorm';
 			while ($row = db_fetch_assoc($erg) ) {
@@ -189,7 +189,7 @@ if ($menu->get(1) == 'showOrig') {
       }
 		  $tpl->out(3);
 		}
-    
+
     $limit = $img_per_site;
     $page = ($menu->getA(2) == 'p' ? escape($menu->getE(2), 'integer') : 1 );
     $MPL = db_make_sites ($page , '' , $limit , '?gallery-'.$cid , "gallery_imgs LEFT JOIN prefix_gallery_cats ON prefix_gallery_imgs.cat = prefix_gallery_cats.id WHERE prefix_gallery_imgs.cat = ".$cid." AND (recht >= ".$_SESSION['authright']." OR recht IS NULL)");
