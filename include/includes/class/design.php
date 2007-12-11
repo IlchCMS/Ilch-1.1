@@ -297,6 +297,7 @@ class design extends tpl {
     function get_boxcontent ($box)
     {
         global $lang, $allgAr, $menu;
+        global $ILCH_HEADER_ADDITIONS;
         if (file_exists('include/boxes/' . $box)) {
             $pfad = 'include/boxes/' . $box;
         } elseif (file_exists ('include/contents/selfbp/selfb/' . str_replace('self_', '', $box))) {
