@@ -4,12 +4,13 @@ Changelog:
 
 Version 1.1 I
 -------------
-
-+ Template-System kann Templates auch aus Variablen laden.(Bsp.: /boxes/alianz.php)
 + teams.php kann individuelle teams Kombinationen anzeigen (Bsp.: ?teams-show-1-4-2)
 + Auswahl beim Löschen einer Gallerykategorie
 + Backupsystem überarbeitet
++ Überarbeitung der Klassen tpl,menu und design (für Entwickler in die Doku schauen) - update von xajax auf 0.2.5
++ ausführliche Fehleranzeige bei Datenbankfehlern für (Co-)Admins
 
+* Fehleranzeige fest in index.php/admin.php verankert
 * Gallerykategorien werden nur noch bei ausreichenden Rechten angezeigt
 * RSS/ATOM korrigiert/verbessert
 * Beim Ändern eines Namens werden auch Themen berücksichtig

@@ -1,9 +1,12 @@
-<?php 
+<?php
 #   Copyright by: Manuel Staechele
 #   Support: www.ilch.de
 
 define ( 'main' , TRUE );
 define ( 'admin', TRUE );
+
+error_reporting(E_COMPILE_WARNING);
+ini_set('display_errors','On');
 
 session_name  ('sid');
 session_start ();

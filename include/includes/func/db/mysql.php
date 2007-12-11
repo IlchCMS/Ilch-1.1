@@ -1,4 +1,4 @@
-<?php 
+<?php
 #   Copyright by Manuel Staechele
 #   Support www.ilch.de
 
@@ -10,7 +10,7 @@ $count_query_xyzXYZ = 0;
 function db_connect () {
   define ( 'CONN', @mysql_pconnect(DBHOST, DBUSER, DBPASS));
   $db = @mysql_select_db(DBDATE, CONN);
-	
+
   if (!CONN) {
     die('Verbindung nicht m&ouml;glich, bitte pr&uuml;fen Sie ihre mySQL Daten wie Passwort, Username und Host<br />');
   }
@@ -23,11 +23,19 @@ function db_close () {
   mysql_close ( CONN );
 }
 
+function db_check_error (&$r, $q) {
+  if (!$r AND mysql_errno(CONN) <> 0 AND is_coadmin()) {
+  	// var_export (debug_backtrace(), true)
+    echo('<font color="#FF0000">MySQL Error:</font><br>'.mysql_errno(CONN).' : '.mysql_error(CONN).'<br>in Query:<br>'.$q.'<pre>'.debug_bt().'</pre>');
+  }
+  return ($r);
+}
+
 function db_query ($q) {
 
   global $count_query_xyzXYZ;
   $count_query_xyzXYZ++;
-  
+
   if (preg_match ("/^UPDATE `?prefix_\S+`?\s+SET/is", $q)) {
     $q = preg_replace("/^UPDATE `?prefix_(\S+?)`?([\s\.,]|$)/i","UPDATE `".DBPREF."\\1`\\2", $q);
   } elseif (preg_match ("/^INSERT INTO `?prefix_\S+`?\s+[a-z0-9\s,\)\(]*?VALUES/is", $q)) {
@@ -36,11 +44,10 @@ function db_query ($q) {
     $q = preg_replace("/prefix_(\S+?)([\s\.,]|$)/", DBPREF."\\1\\2", $q);
   }
 
-  #$e = mysql_query ( $q , CONN ) or die ( mysql_error(CONN) );
-  return (mysql_query ( $q , CONN ));  
+  return (db_check_error(@mysql_query($q, CONN), $q));
 }
-	
-function db_result ($erg, $zeile, $spalte=0) {
+
+function db_result ($erg, $zeile=0, $spalte=0) {
   return (mysql_result ($erg,$zeile,$spalte));
 }
 
@@ -84,19 +91,19 @@ function db_check_erg ($erg) {
 }
 
 function db_make_sites ($page ,$where ,$limit ,$link ,$table, $anzahl = NULL) {
-	
-  $hvmax = 4; // hinten und vorne links nach page 
+
+  $hvmax = 4; // hinten und vorne links nach page
 	$maxpage = ''; if ( empty ($MPL) ) { $MPL = ''; }
 	if ( is_null ( $anzahl ) ) {
-    $resultID = db_query ( "SELECT COUNT(*) FROM prefix_".$table." ".$where );	
+    $resultID = db_query ( "SELECT COUNT(*) FROM prefix_".$table." ".$where );
     $total    = db_result($resultID,0);
   } else {
     $total = $anzahl;
   }
-  if ($limit < $total) {  
-	  $maxpage = $total / $limit;  
-	  if (is_double($maxpage)) {  
-		  $maxpage = ceil($maxpage);  
+  if ($limit < $total) {
+	  $maxpage = $total / $limit;
+	  if (is_double($maxpage)) {
+		  $maxpage = ceil($maxpage);
 		}
 		$ibegin = $page - $hvmax;
 		$iende  = $page + $hvmax ;
@@ -110,7 +117,7 @@ function db_make_sites ($page ,$where ,$limit ,$link ,$table, $anzahl = NULL) {
 		if ($vgl3 < $ibegin ) {
 		  $ibegin = $vgl3;
 		}
-		
+
 		if ($ibegin < 1) {
 		  $ibegin = 1;
 		}
@@ -122,10 +129,10 @@ function db_make_sites ($page ,$where ,$limit ,$link ,$table, $anzahl = NULL) {
 		  $vMPL = '<a href="'.$link.'-p1">&laquo;</a> ';
 		}
 		$MPL = $vMPL.'[ ';
-		for($i=$ibegin; $i <= $iende; $i++) {  
-      if($i == $page) {  
-				$MPL .= $i;  
-			} else {  
+		for($i=$ibegin; $i <= $iende; $i++) {
+      if($i == $page) {
+				$MPL .= $i;
+			} else {
 			  $MPL .= '<a href="'.$link.'-p'.$i.'">'.$i.'</a>';
 			}
       if ($i != $iende) {
