@@ -13,7 +13,7 @@ function XAJAX_showCalendar ($m,$j,$f) {
   $objResponse = new xajaxResponse();
 
   $content = '<table border="0" cellpadding="1" cellspacing="1" class="border"><tr><td class="Cnorm"><a href="javascript:close'.$f.'();">schliessen</a></td></tr></table>';
-  $content .= getAdminCalendar($m, $j, 'javascript:set'.$f.'(\'{jahr}-{mon}-{tag}\')', 'javascript:xajax_XAJAX_showCalendar({mon},{jahr},\''.$f.'\')', '');
+  $content .= getCalendar($m, $j, 'javascript:void(0);" onclick="set'.$f.'(\'{jahr}-{mon}-{tag}\')', 'javascript:void(0);" onclick="xajax_XAJAX_showCalendar({mon},{jahr},\''.$f.'\')', '');
 
   $objResponse->assign('skalender'.$f, 'style.display', 'block' );
   $objResponse->assign('skalender'.$f, 'innerHTML', $content);

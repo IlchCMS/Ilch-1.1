@@ -15,7 +15,7 @@ function get_properties($file){
       
       $properties= array();
       foreach($out as $x){
-        $properties[$x[name]]=$x[value];
+        $properties[$x['name']]=$x['value'];
       }
       unset($out);
       return $properties;
