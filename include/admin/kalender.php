@@ -1,4 +1,4 @@
-<?php 
+<?php
 # Kalender Script © by Nickel
 # ueberarbeitet von manuel staechele
 
@@ -9,17 +9,17 @@ defined ('admin') or die ( 'only admin access' );
 function XAJAX_showCalendar ($m,$j,$f) {
   if (empty($m)) { $m = date('n'); }
   if (empty($j)) { $j = date('Y'); }
-  
+
   $objResponse = new xajaxResponse();
-  
+
   $content = '<table border="0" cellpadding="1" cellspacing="1" class="border"><tr><td class="Cnorm"><a href="javascript:close'.$f.'();">schliessen</a></td></tr></table>';
-  $content .= getCalendar($m, $j, 'javascript:set'.$f.'(\'{jahr}-{mon}-{tag}\')', 'javascript:xajax_XAJAX_showCalendar({mon},{jahr},\''.$f.'\')', '');
-  
-  $objResponse->addAssign('skalender'.$f, 'style.display', 'block' );
-  $objResponse->addAssign('skalender'.$f, 'innerHTML', $content);
-  
+  $content .= getAdminCalendar($m, $j, 'javascript:set'.$f.'(\'{jahr}-{mon}-{tag}\')', 'javascript:xajax_XAJAX_showCalendar({mon},{jahr},\''.$f.'\')', '');
+
+  $objResponse->assign('skalender'.$f, 'style.display', 'block' );
+  $objResponse->assign('skalender'.$f, 'innerHTML', $content);
+
   # return object
-  return ($objResponse->getXML());
+  return $objResponse;
 }
 
 function checkzyklusins ($x,$i0,$i1,$i2,$z,$sar) {
@@ -38,7 +38,7 @@ function checkzyklusins ($x,$i0,$i1,$i2,$z,$sar) {
   } elseif ($z == 'jae' AND ($i1 == $sar[1] AND $i2 == $sar[2])) {
     return (true);
   }
-  
+
   return (false);
 }
 
@@ -49,7 +49,7 @@ function zyklusinsert ($sar,$ear,$z,$_POST) {
     $sm = 1;
     $em = 12;
     if ($sar[0] == $i0) { $sm = $sar[1]; }
-    if ($ear[0] == $i0) { $em = $ear[1]; }      
+    if ($ear[0] == $i0) { $em = $ear[1]; }
     for($i1=$sm;$i1<=$em;$i1++) {
       $st = 1;
       $et = date('t', mktime (0,0,0,$i1,1,$i0));
@@ -73,7 +73,7 @@ function zyklusinsert ($sar,$ear,$z,$_POST) {
 # AJAX Start
 $xajax = new xajax('http://'.$_SERVER["HTTP_HOST"].$_SERVER["SCRIPT_NAME"].'?kalender=0');
 $xajax->registerFunction("XAJAX_showCalendar");
-$xajax->processRequests();
+$xajax->processRequest();
 
 # DESIGN
 $design = new design ( 'Admins Area', 'Admins Area', 2 );
@@ -102,9 +102,9 @@ if (!empty($_REQUEST['um'])) {
     $z  = $_POST['zyklus'];
   }
   $text = escape($_POST['txt'], 'string');
-  
+
   $time = mktime ($_POST['stunde'], $_POST['minute'],0,$sar[1],$sar[2],$sar[0]);
-  
+
 	// Einfuegen
   if ($_REQUEST['um'] == 'insert') {
     if (!empty($z)) {
@@ -112,14 +112,14 @@ if (!empty($_REQUEST['um'])) {
     } else {
       db_query("INSERT INTO `prefix_kalender` (time,title,text,recht) VALUES (".$time.",'".$_POST['title']."','".$text."','".$_POST['recht']."')");
     }
-    
+
   // Aendern
 	} elseif ($_REQUEST['um'] == 'change') {
-		
+
     if (isset($_POST['gid']) AND $_POST['gid'] == 'yes') {
       $gid1 = db_result(db_query("SELECT gid FROM prefix_kalender WHERE id = ".$_POST['EID']),0,0);
     }
-    
+
     if (isset($_POST['gid']) AND $_POST['gid'] == 'yes' AND $gid1 > 0) {
       db_query("UPDATE `prefix_kalender` SET
 				  title	= '".$_POST['title']."',
@@ -181,7 +181,7 @@ $ars = array (); for($i=0;$i<24;$i++){$ars[$i]=$i;}
 
 $tpl = new tpl ( 'kalender.htm', 1 );
 
-$limit = 30;  // Limit 
+$limit = 30;  // Limit
 $page = ($menu->getA(1) == 'p' ? $menu->getE(1) : 1 );
 $MPL = db_make_sites ($page , '' , $limit , "?kalender" , 'kalender' );
 $anfang = ($page - 1) * $limit;
