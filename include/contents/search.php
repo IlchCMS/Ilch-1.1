@@ -73,9 +73,16 @@ $design->header();
 
 $tpl = new tpl ('search');
 $tpl->set ('size', 30);
+
+if ($_GET['searchfor'] == 'user')
+  $tpl->set('checked2','checked="checked"');
+else
+  $tpl->set('checked1','checked="checked"');
+  
 if ($such != 'augt' AND $such != 'aeit' AND $such != 'aubt') {
-  $tpl->set_out('search',escape_for_fields($such),0);
+  $tpl->set('search',escape_for_fields($such),0);
 }
+$tpl->out(0);
 
 if (!empty($such)) {
   $page = 1;
@@ -120,14 +127,22 @@ if (!empty($such)) {
     $str_forum = '';
     $str_news  = '';
     $str_downs  = '';
+	$str_downs_ = '';
 	  foreach($serar as $v) {
 	    $str = str_replace('\'','',$v);
 		  $str = str_replace('"','',$str);
       $str = addslashes($str);
 		  if ( !empty($str) ) {
+		   if($_GET['searchfor'] == 'posts') {
 		    $str_forum .= "txt LIKE '%".$str."%' AND ";
-        $str_news  .= "news_text LIKE '%".$str."%' AND ";
-        $str_downs  .= "`descl` LIKE '%".$str."%' AND ";
+			$str_news  .= "news_text LIKE '%".$str."%' AND ";
+        	$str_downs  .= "`descl` LIKE '%".$str."%' AND ";
+			$str_downs_ .= "name LIKE '%".$str."%' AND ";
+		   } else {
+			$str_forum .= "prefix_posts.erst LIKE '%".$str."%' AND ";
+		  	$str_news  .= "`name` LIKE '%".$str."%' AND ";
+       		$str_downs  .= "`creater` LIKE '%".$str."%' AND ";
+		   }
 		  }
 	  }
     
@@ -137,8 +152,10 @@ if (!empty($such)) {
         news_title as titel,
         'news' as typ,
         news_id as id,
-        news_time as time
+        news_time as time,
+		prefix_user.name as autor
       FROM prefix_news
+	  LEFT JOIN prefix_user ON prefix_news.user_id = prefix_user.id
       WHERE (".$str_news." 1 = 1)
         AND (news_time >= ". $x .")
       
@@ -149,7 +166,8 @@ if (!empty($such)) {
         prefix_topics.name as titel,
         'foru' as typ,
         prefix_topics.id as id,
-        time as time
+        time as time,
+		prefix_posts.erst as autor
       FROM prefix_posts
         LEFT JOIN prefix_topics ON prefix_topics.id = prefix_posts.tid
         LEFT JOIN prefix_forums ON prefix_forums.id = prefix_topics.fid
@@ -165,9 +183,11 @@ if (!empty($such)) {
         CONCAT( name, ' ', version ) AS titel,
         'down' as typ,
         id,
-        UNIX_TIMESTAMP(time) as time
+        UNIX_TIMESTAMP(time) as time,
+		creater as autor
       FROM prefix_downloads
       WHERE (".$str_downs." 1 = 1)
+	  	OR (".$str_downs_." 1 = 1)
         AND (time >= ". $x .")
     )
     
@@ -178,7 +198,7 @@ if (!empty($such)) {
 
   $q .= " LIMIT ".$anfang.",".$limit;
   
-  $MPL = db_make_sites ($page , "" , $limit , "index.php?search=".urlencode($such)."&amp;page=", "", $gAnz );
+  $MPL = db_make_sites ($page , "" , $limit , "index.php?search=".urlencode($such)."&amp;searchfor=".$_GET['searchfor']."&amp;page=", "", $gAnz );
   $tpl->set_ar_out(array('MPL'=>$MPL,'gAnz'=>$gAnz),1);
   
   $q = db_query($q);

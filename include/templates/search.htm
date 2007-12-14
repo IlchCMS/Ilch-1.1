@@ -1,6 +1,8 @@
 <form action="index.php" method="GET">
 <input type="text" value="{search}" name="search" size="{size}" />
-&nbsp;<input type="submit" value="{_lang_search}" />
+&nbsp;<input type="submit" value="{_lang_search}" /><br />
+<input type="radio" name="searchfor" value="posts" {checked1} />&nbsp;Nach Beitr&auml;gen<br />
+<input type="radio" name="searchfor" value="user" {checked2} />&nbsp;Nach Autor
 </form>
 <hr>
 
@@ -13,7 +15,7 @@
  
   {EXPLODE}<tr class="{class}">
     <td class="erstezeile" width="15"><img src="include/images/forum/{ord}.gif" width="15" height="15" border="0"></td>
-    <td class="erstezeile"><a href="?{link}">{titel}</a></td>
+    <td class="erstezeile"><a href="?{link}">{titel} von {autor}</a></td>
   </tr>{EXPLODE}
 </table>
 
