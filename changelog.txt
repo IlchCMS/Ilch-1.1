@@ -9,6 +9,7 @@ Version 1.1 I
 + Backupsystem überarbeitet
 + Überarbeitung der Klassen tpl,menu und design (für Entwickler in die Doku schauen) - update von xajax auf 0.2.5
 + ausführliche Fehleranzeige bei Datenbankfehlern für (Co-)Admins
++ Profil Länderauswahl alphabetisch sortiert
 
 * Fehleranzeige fest in index.php/admin.php verankert
 * Gallerykategorien werden nur noch bei ausreichenden Rechten angezeigt

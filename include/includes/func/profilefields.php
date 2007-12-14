@@ -1,4 +1,4 @@
-<?php 
+<?php
 #   Copyright by Manuel Staechele
 #   Support www.ilch.de
 
@@ -55,9 +55,9 @@ function profilefields_show ($uid) {
   $a = array ();
   $q = db_query("SHOW COLUMNS FROM prefix_user");
   while ($r = db_fetch_assoc($q)) {
-    $a[$r['Field']] = $r['Field']; 
+    $a[$r['Field']] = $r['Field'];
   }
-  
+
   $q = db_query("SELECT id, `show`, func FROM prefix_profilefields WHERE func < 4 ORDER BY pos");
   while ( $r = db_fetch_assoc($q)) {
     if ( $r['func'] == 1 ) {
@@ -123,13 +123,14 @@ function profilefields_show_spez_staat ($value,$uid) {
 # help funcs
 function get_nationality_array () {
   $ar = array();
-	$o = opendir ( 'include/images/flags' );
-	while ( $f = readdir ( $o ) ) {
-	  if ( $f != '.' AND $f != '..' ) {
-		  $ar[$f] = $f;
-		}
-	}
-	return ( $ar );
+    $o = opendir ( 'include/images/flags' );
+    while ( $f = readdir ( $o ) ) {
+      if ( $f != '.' AND $f != '..' ) {
+          $ar[$f] = str_replace('.gif','',$f);
+        }
+    }
+    asort($ar);
+    return ( $ar );
 }
 
 function profilefields_show_echo_standart ( $k, $v ) {
