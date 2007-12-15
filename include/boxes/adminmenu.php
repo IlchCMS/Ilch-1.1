@@ -1,4 +1,4 @@
-<?php 
+<?php
 #   Copyright by Manuel Staechele
 #   Support www.ilch.de
 
@@ -7,7 +7,7 @@ defined ('main') or die ( 'no direct access' );
 if (is_coadmin()) {
   ?><script language="JavaScript" type="text/javascript">
 <!--
-  
+
   function createNewUser() {
     var Fenster = window.open ('admin.php?user-createNewUser', 'createNewUser', 'status=yes,scrollbars=yes,height=200,width=350,left=300,top=50');
     Fenster.focus();
@@ -36,6 +36,7 @@ if ( is_coadmin() ) {
       ['<img src="include/images/icons/admin/smilies.png" width="16" height="16">', 'Smilies', 'admin.php?smilies', null, null],
       ['<img src="include/images/icons/admin/newsletter.png" width="16" height="16">', 'Newsletter', 'admin.php?newsletter', null, null],
       ['<img src="include/images/icons/admin/version_check.png" width="16" height="16">', 'Versions Kontrolle', 'admin.php?admin-versionsKontrolle', null, null],
+      ['<img src="include/images/icons/admin/version_check.png" width="16" height="16">', 'Server Konfiguration', 'admin.php?checkconf', null, null],
       ['<img src="include/images/icons/admin/stats_site.png" width="16" height="16">', 'Statistik', null, null, null,
         ['<img src="include/images/icons/admin/stats_visitor.png" width="16" height="16">', 'Besucher', 'admin.php?admin-besucherStatistik', null, null],
         ['<img src="include/images/icons/admin/stats_site.png" width="16" height="16">', 'Seite', 'admin.php?admin-siteStatistik', null, null],
@@ -51,9 +52,9 @@ if ( is_coadmin() ) {
       ['<img src="include/images/icons/admin/user_profile_fields.png" width="16" height="16">', 'Profilefelder', 'admin.php?profilefields', null, null],
       ['<img src="include/images/icons/admin/user_add.png" width="16" height="16">', 'neuen User', 'javascript: createNewUser();',null ,null],
     ],
-    
+
     [null, 'Eigene Box/Page', 'admin.php?selfbp', null, null],
-    
+
     [null, 'Clanbox', null, null, null,
       ['<img src="include/images/icons/admin/wars_next.png" width="16" height="16">', 'Nextwars', 'admin.php?wars-next', null, null],
       ['<img src="include/images/icons/admin/wars_last.png" width="16" height="16">', 'Lastwars', 'admin.php?wars-last', null, null],
@@ -64,7 +65,7 @@ if ( is_coadmin() ) {
       ['<img src="include/images/icons/admin/history.png" width="16" height="16">', 'History', 'admin.php?history', null, null],
       ['<img src="include/images/icons/admin/training_times.png" width="16" height="16">', 'Trainzeiten', 'admin.php?trains', null, null],
     ],
-    
+
     [null, 'Content', null, null, null,
       ['<img src="include/images/icons/admin/news.png" width="16" height="16">', 'News', 'admin.php?news', null, null],
       ['<img src="include/images/icons/admin/forum.png" width="16" height="16">', 'Forum', 'admin.php?forum', null, null],
@@ -81,7 +82,7 @@ if ( is_coadmin() ) {
         ['<img src="include/images/icons/admin/picofx.png" width="16" height="16">', 'Pic of X', 'admin.php?picofx', null, null],
       ],
     ],
-    
+
     [null, 'Module', null, null, null,
 		<?php
 		$erg = db_query("SELECT url, name FROM prefix_modules WHERE ashow = 1");
@@ -104,6 +105,6 @@ if ( is_coadmin() ) {
   }
   echo "],";
 }
-?> 
+?>
 ];
 --></SCRIPT>

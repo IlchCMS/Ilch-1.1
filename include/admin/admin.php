@@ -1,4 +1,4 @@
-<?php 
+<?php
 #   Copyright by: Manuel Staechele
 #   Support: www.ilch.de
 
@@ -10,7 +10,7 @@ defined ('admin') or die ( 'only admin access' );
 $design = new design ( 'Admins Area', 'Admins Area', 2 );
 $design->header();
 
-# script version 
+# script version
 $scriptVersion = 11;
 $scriptUpdate = 'H';
 
@@ -26,22 +26,22 @@ db_query("OPTIMIZE TABLE prefix_stats");
 
 
     $um = $menu->get(1);
-    switch($um) 
-    { 
-        
+    switch($um)
+    {
+
         default :
 				{
            ?>
 <table width="100%" border="0" cellspacing="0" cellpadding="5" class="rand">
-  <tr class="Chead"> 
+  <tr class="Chead">
     <td><b>Willkommen bei ilchClan - Administration!</b></td>
   </tr>
 
-  <tr> 
+  <tr>
     <td class="Cnorm">
 
-    
-    
+
+
            <table width="100%"><tr><td valign="top" width="100%">
            <!--
            Hallo, hier k&ouml;nnen Sie alle m&ouml;glichen Einstellungen vornehmen.
@@ -58,7 +58,7 @@ db_query("OPTIMIZE TABLE prefix_stats");
           <!-- </td><td valign="top" width="60%"> -->
            <br />
            <h3 style="display:inline;">Ein &Uuml;berblick &uuml;ber alle Inhalte</h3>
-           
+
            <script type="text/javascript">
            function toggle_mimg()
            {
@@ -72,13 +72,13 @@ db_query("OPTIMIZE TABLE prefix_stats");
                {
                    class_name = "admix";
                    link_text = "Listen-Ansicht";
-                   
+
                }
                document.getElementById('cpm').className = class_name;
                document.getElementById('list_toggle').innerHTML = link_text;
            }
            </script>
-           
+
            <ul id="cpm" class="admix">
              <li class="admix_box">Admin<br />
                <ul>
@@ -89,9 +89,10 @@ db_query("OPTIMIZE TABLE prefix_stats");
                  <li><a href="admin.php?smilies"><img src="include/images/icons/admin/smilies.png" alt="">Smiles</a></li>
                  <li><a href="admin.php?newsletter"><img src="include/images/icons/admin/newsletter.png" alt="">Newsletter</a></li>
                  <li><a href="admin.php?admin-versionsKontrolle"><img src="include/images/icons/admin/version_check.png" alt="">Versions Kontrolle</a></li>
+                 <li><a href="admin.php?checkconf"><img src="include/images/icons/admin/version_check.png" alt="">Server Konfiguration</a></li>
                  <br class="admix_last"/>
                </ul>
-             </li> 
+             </li>
 	     <li class="admix_box">Statistik<br />
                    <ul>
                      <li><a href="admin.php?admin-besucherStatistik"><img src="include/images/icons/admin/stats_visitor.png" alt="">Besucher</a></li>
@@ -133,8 +134,8 @@ db_query("OPTIMIZE TABLE prefix_stats");
                  <li><a href="admin.php?kalender"><img src="include/images/icons/admin/calendar.png" alt="">Kalender</a></li>
                  <li><a href="admin.php?contact"><img src="include/images/icons/admin/contact.png" alt="">Kontakt</a></li>
                  <li><a href="admin.php?impressum"><img src="include/images/icons/admin/imprint.png" alt="">Impressum</a></li>
-                 <li><a href="admin.php?selfbp"><img src="include/images/icons/admin/self_page_box.png" alt="">Eigene Box/Page</a></li>                 
-                 <li><a href="admin.php?gbook"><img src="include/images/icons/admin/guestbook.png" alt="">G&auml;stebuch</a></li>                 
+                 <li><a href="admin.php?selfbp"><img src="include/images/icons/admin/self_page_box.png" alt="">Eigene Box/Page</a></li>
+                 <li><a href="admin.php?gbook"><img src="include/images/icons/admin/guestbook.png" alt="">G&auml;stebuch</a></li>
                  <br class="admix_last"/>
                </ul>
              </li>
@@ -144,7 +145,7 @@ db_query("OPTIMIZE TABLE prefix_stats");
                  <li><a href="admin.php?archiv-partners"><img src="include/images/icons/admin/partners.png" alt="">Partner</a></li>
                  <br class="admix_last"/>
                </ul>
-             </li>	     
+             </li>
              <li class="admix_box">Module
              <?php
              $modabf = db_query("SELECT * FROM `prefix_modules` WHERE ashow = 1");
@@ -159,11 +160,11 @@ db_query("OPTIMIZE TABLE prefix_stats");
                   echo '<li><a href="admin.php?'.$modrow->url.'"><img src="'.$bild.'" alt="">'.$modrow->name.'</a></li>'."\n";
                 }
                 echo '<br class="admix_last"/></ul>';
-             }             
-             ?>             
+             }
+             ?>
              </li>
            </ul>
-           
+
            </td></td></table>
 
 		</td>
@@ -174,23 +175,23 @@ db_query("OPTIMIZE TABLE prefix_stats");
            <?php
 				   break;
         }
-        
-				case 'versionsKontrolle' : 
+
+				case 'versionsKontrolle' :
         {
-        
+
           // ICON Anzeige...
           echo '<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/version_check.png" /></td><td width="30"></td><td valign="bottom"><h1>Versionskontrolle</h1></td></tr></table>';
 
-        
+
 						echo 'Scripte Version: '.$scriptVersion.'<br />Update Version: '.$scriptUpdate.'<br /><br />';
 						echo '<script language="JavaScript" type="text/javascript" src="http://www.ilch.de/down/ilchClan/update.php?version='.$scriptVersion.'&update='.$scriptUpdate.'"></script>';
 						#echo '<iframe width="100%" height="60" src="http://www.ilch.de/down/ilchClan/update.php?version='.$scriptVersion.'&update='.$scriptUpdate.'"></iframe>';
 
-						break; 
+						break;
         }
-				
+
 				#####################################
-				
+
 				case 'besucherStatistik' :
 				{
             function echo_admin_site_statistik ($title, $col, $smon, $ges, $orderQuery ) {
@@ -214,34 +215,34 @@ db_query("OPTIMIZE TABLE prefix_stats");
                 echo '<td  width="50" align="right">'.$wert.'</td></tr>';
               }
             }
-            
+
             // ICON Anzeige...
             echo '<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/stats_visitor.png" /></td><td width="30"></td><td valign="bottom"><h1>Besucher Statistik</h1></td></tr></table>';
-            
+
             echo '<a href="admin.php?admin-besucherUebersicht">&Uuml;bersicht</a>&nbsp;<b>|</b>&nbsp;<a href="?admin-besucherStatistik-'.$lastmon.'" title="'.$lastmon.'. '.$lastjahr.'">letzter Monat</a>&nbsp;<b>|</b>&nbsp;<a href="?admin-besucherStatistik-'.$mon.'" title="'.$mon.'. '.$jahr.'">dieser Monat</a>';
             $smon  = $menu->get(2);
             if ( empty($smon) ) { $smon = $mon; }
-            
-            
+
+
             $ges = db_result(db_query("SELECT COUNT(*) FROM prefix_stats WHERE mon = ".$smon),0,0);
             echo '<br /><br /><b>Gesamt diesen Monat: '.$ges.'</b>';
             echo '<table cellpadding="2" border="0" cellspacing="0">';
-                        
+
             echo_admin_site_statistik ('Besucher nach Tagen', 'day', $smon, $ges, "schl DESC LIMIT 50" );
             echo_admin_site_statistik ('Besucher nach Wochentagen', 'DAYNAME(FROM_UNIXTIME((wtag+3)*86400))', $smon, $ges, "wtag DESC LIMIT 50" );
             echo_admin_site_statistik ('Besucher nach Uhrzeit', 'stunde', $smon, $ges, "schl ASC LIMIT 50");
             echo_admin_site_statistik ('Besucher nach Browsern', 'browser', $smon, $ges, "schl DESC LIMIT 50" );
             echo_admin_site_statistik ('Besucher nach Betriebssytemen', 'os', $smon, $ges, "schl DESC LIMIT 50" );
             echo_admin_site_statistik ('Besucher nach Herkunft', 'ref', $smon, $ges, "wert DESC LIMIT 50" );
-            
+
 				    echo '</table>';
-					
-						
+
+
 				    break;
 				}
-        
-        
-        
+
+
+
 
 				case 'userOnline' :
         {
@@ -260,7 +261,7 @@ db_query("OPTIMIZE TABLE prefix_stats");
           ?>
           </table>
           <?php
-          
+
           break;
 				}
 				case 'besucherUebersicht' :
@@ -273,7 +274,7 @@ db_query("OPTIMIZE TABLE prefix_stats");
               }
               return ($m);
             }
-        
+
             function echo_admin_site_uebersicht ($schl, $wert, $max, $ges) {
               $wert = ( empty($wert) ? 1 : $wert );
               $weite = ($wert / $max ) * 100;
@@ -288,16 +289,16 @@ db_query("OPTIMIZE TABLE prefix_stats");
               echo '<td width="50" align="right">'.$prozent.'%</td>';
               echo '<td  width="50" align="right">'.$wert.'</td></tr>';
             }
-          
+
           // ICON Anzeige...
           echo '<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/stats_visitor.png" /></td><td width="30"></td><td valign="bottom"><h1>Besucher Statistik</h1></td></tr></table>';
-  
-          
+
+
           echo '<a href="admin.php?admin-besucherUebersicht">&Uuml;bersicht</a>&nbsp;<b>|</b>&nbsp;<a href="?admin-besucherStatistik-'.$lastmon.'" title="'.$lastmon.'. '.$lastjahr.'">letzter Monat</a>&nbsp;<b>|</b>&nbsp;<a href="?admin-besucherStatistik-'.$mon.'" title="'.$mon.'. '.$jahr.'">dieser Monat</a>';
-            
+
           echo '<br /><br /><table cellpadding="0" border="0" cellspacing="0" width="100%">';
           echo '<tr><td valign="top" width="33%"><b>Nach Tagen (letzten 5 Monate):</b><br />';
-          
+
           echo '<table cellpadding="0" border="0" cellspacing="0" width="90%">';
           $max = db_result(db_query("SELECT MAX(`count`) FROM prefix_counter"),0);
           $ges = db_result(db_query("SELECT SUM(`count`) FROM prefix_counter"),0);
@@ -306,9 +307,9 @@ db_query("OPTIMIZE TABLE prefix_stats");
             echo_admin_site_uebersicht ($r['datum'], $r['sum'], $max, $ges);
           }
           echo '</table>';
-          
+
           echo '</td><td valign="top" width="33%"><b>Nach Monaten:</b><br />';
-          
+
           echo '<table cellpadding="0" border="0" cellspacing="0" width="90%">';
           $max = get_max_from_x("SELECT SUM(`count`) FROM prefix_counter GROUP BY MONTH(`date`), YEAR(`date`)");
           $erg = db_query("SELECT SUM(`count`) as sum, MONTH(`date`) as monat, YEAR(`date`) as jahr FROM prefix_counter GROUP BY monat, jahr ORDER BY jahr DESC, monat DESC");
@@ -316,9 +317,9 @@ db_query("OPTIMIZE TABLE prefix_stats");
             echo_admin_site_uebersicht ((strlen($r['monat'])==1?'0':'').$r['monat'].'.'.$r['jahr'], $r['sum'], $max, $ges);
           }
           echo '</table>';
-          
+
           echo '</td><td valign="top" width="33%"><b>Nach Jahren:</b><br />';
-          
+
           echo '<table cellpadding="0" border="0" cellspacing="0" width="90%">';
           $max = get_max_from_x("SELECT SUM(`count`) FROM prefix_counter GROUP BY YEAR(`date`)");
           $erg = db_query("SELECT SUM(`count`) as sum, YEAR(`date`) as jahr FROM prefix_counter GROUP BY jahr ORDER BY jahr DESC");
@@ -326,10 +327,10 @@ db_query("OPTIMIZE TABLE prefix_stats");
             echo_admin_site_uebersicht ($r['jahr'], $r['sum'], $max, $ges);
           }
           echo '</table>';
-          
+
           echo '</td></tr></table>';
           break;
-          
+
         }
 				case 'siteStatistik' :
 				{
@@ -406,7 +407,7 @@ echo '<h1>Es ist ganz ehrlich noch mehr geplant :P</h1>';
 ##########################################
 				    break;
 				}
-				
+
 		}
 
 $design->footer();

@@ -395,7 +395,13 @@ $lang = array
 
 'joinusprivmsg' => "Hallo,\n%s möchte %s beitreten.\n\nFolgende Angaben hat er gemacht:\nSkill: %s\neMail: %s\nWohnort: %s\nAlter: %s\nICQ: %s\nFav.Map: %s\nGrund: %s\n\nEr hat die Regeln akzeptiert: %s\n\nWurde direkt als User registriert: %s\nWenn dort nein steht dann war er zum Zeitpunkt der Anfrage schon User.\n\nIm Adminmenu unter Teams kannst du ihn freischalten, oder die Anfrage löschen. Wenn er als User registriert wurde, muss er die Registrierung jenach Einstellung erst bestätigen.",
 
-'ende' => 'ende'
+'ende' => 'ende',
+
+'phpserverconf' => 'PHP Server Konfiguration',
+'filesystemrights' => 'Dateisystem Rechte',
+'correct' => 'Richtig',
+'incorrect' => 'Falsch'
+
 );
 
 #$x = array();

@@ -393,11 +393,16 @@ $lang = array
 
 'joinusprivmsg' => "Hello,\n%s wants to join %s.\n\ns/he provided the following data:\nSkill: %s\neMail: %s\nCity: %s\nAge: %s\nICQ: %s\nFav.Map: %s\nReason: %s\n\nAccepted the rules: %s\n\nHas been directly registered as a user: %s\nIf no, s/he has already been a user when the request was made.\n\nIn the Admins Area &raquo; Team you can either activate the user or delete the request. If s/he has been registered as a user, s/he might have to confirm the registration first (depending on the site's settings.",
 
-'ende' => 'ende'
+'ende' => 'ende',
+
+'phpserverconf' => 'PHP Server Configuration',
+'filesystemrights' => 'Filesystem Rights',
+'correct' => 'OK',
+'incorrect' => 'incorrect'
 );
 
-$x = array();
-foreach ($lang as $k => $v) { $x[$k] = 'NIX'; }
+#$x = array();
+#foreach ($lang as $k => $v) { $x[$k] = 'NIX'; }
 #$lang = $x;
 
 ?>
