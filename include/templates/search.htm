@@ -1,8 +1,10 @@
 <form action="index.php" method="GET">
-<input type="text" value="{search}" name="search" size="{size}" />
-&nbsp;<input type="submit" value="{_lang_search}" /><br />
-<input type="radio" name="searchfor" value="posts" {checked1} />&nbsp;Nach Beitr&auml;gen<br />
-<input type="radio" name="searchfor" value="user" {checked2} />&nbsp;Nach Autor
+<table>
+<tr><td width="25%">Beitrag:</td><td><input type="text" value="{search}" name="search" size="{size}" /></td></tr>
+<tr><td width="25%">Autor:</td><td><input type="text" value="{autor}" name="autor" size="{size}" /></td></tr>
+<tr height="1px"><td></td></tr>
+<tr><td width="25%"></td><td><input type="submit" value="{_lang_search}" /></td></tr>
+</table>
 </form>
 <hr>
 

@@ -74,17 +74,15 @@ $design->header();
 $tpl = new tpl ('search');
 $tpl->set ('size', 30);
 
-if ($_GET['searchfor'] == 'user')
-  $tpl->set('checked2','checked="checked"');
-else
-  $tpl->set('checked1','checked="checked"');
-  
+$autor = escape($_GET['autor'],'string');
+$tpl->set ('autor', $autor);
+
 if ($such != 'augt' AND $such != 'aeit' AND $such != 'aubt') {
   $tpl->set('search',escape_for_fields($such),0);
 }
 $tpl->out(0);
 
-if (!empty($such)) {
+if (!empty($such) OR !empty($autor)) {
   $page = 1;
   if (isset($_GET['page'])) {
     $page = str_replace('-p','',$_GET['page']);
@@ -124,27 +122,29 @@ if (!empty($such)) {
     $such = str_replace('&','',$such);
   
 	  $serar = explode(' ', $such);
-    $str_forum = '';
-    $str_news  = '';
+    $str_forum	= '';
+	$str_forum_a = '';
+    $str_news	= '';
+	$str_news_a = '';
     $str_downs  = '';
 	$str_downs_ = '';
+	$str_downs_a = '';
 	  foreach($serar as $v) {
 	    $str = str_replace('\'','',$v);
 		  $str = str_replace('"','',$str);
       $str = addslashes($str);
 		  if ( !empty($str) ) {
-		   if($_GET['searchfor'] == 'posts') {
 		    $str_forum .= "txt LIKE '%".$str."%' AND ";
 			$str_news  .= "news_text LIKE '%".$str."%' AND ";
         	$str_downs  .= "`descl` LIKE '%".$str."%' AND ";
 			$str_downs_ .= "name LIKE '%".$str."%' AND ";
-		   } else {
-			$str_forum .= "prefix_posts.erst LIKE '%".$str."%' AND ";
-		  	$str_news  .= "`name` LIKE '%".$str."%' AND ";
-       		$str_downs  .= "`creater` LIKE '%".$str."%' AND ";
-		   }
 		  }
 	  }
+	  if($_GET['autor'] != '') {
+		    $str_forum_a .= "prefix_posts.erst LIKE '%".$autor."%' AND ";
+		  	$str_news_a .= "`name` LIKE '%".$autor."%' AND ";
+       		$str_downs_a .= "`creater` LIKE '%".$autor."%' AND ";
+		  }
     
     $q = "(
       SELECT DISTINCT
@@ -155,8 +155,9 @@ if (!empty($such)) {
         news_time as time,
 		prefix_user.name as autor
       FROM prefix_news
-	  LEFT JOIN prefix_user ON prefix_news.user_id = prefix_user.id
+	  	LEFT JOIN prefix_user ON prefix_news.user_id = prefix_user.id
       WHERE (".$str_news." 1 = 1)
+	  	AND (".$str_news_a." 1 = 1)
         AND (news_time >= ". $x .")
       
     ) UNION (
@@ -173,6 +174,7 @@ if (!empty($such)) {
         LEFT JOIN prefix_forums ON prefix_forums.id = prefix_topics.fid
       WHERE (prefix_forums.view >= ".$_SESSION['authright']." OR prefix_forums.reply >= ".$_SESSION['authright']." OR prefix_forums.start >= ".$_SESSION['authright'].")
         AND (".$str_forum." 1 = 1)
+		AND (".$str_forum_a." 1 = 1)
         AND (time >= ". $x .")
       GROUP BY prefix_topics.id
 
@@ -188,6 +190,7 @@ if (!empty($such)) {
       FROM prefix_downloads
       WHERE (".$str_downs." 1 = 1)
 	  	OR (".$str_downs_." 1 = 1)
+		AND (".$str_downs_a." 1 = 1)
         AND (time >= ". $x .")
     )
     
@@ -198,7 +201,7 @@ if (!empty($such)) {
 
   $q .= " LIMIT ".$anfang.",".$limit;
   
-  $MPL = db_make_sites ($page , "" , $limit , "index.php?search=".urlencode($such)."&amp;searchfor=".$_GET['searchfor']."&amp;page=", "", $gAnz );
+  $MPL = db_make_sites ($page , "" , $limit , "index.php?search=".urlencode($such)."&amp;autor=".$_GET['autor']."&amp;page=", "", $gAnz );
   $tpl->set_ar_out(array('MPL'=>$MPL,'gAnz'=>$gAnz),1);
   
   $q = db_query($q);
