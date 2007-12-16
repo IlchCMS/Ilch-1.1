@@ -16,23 +16,23 @@ function user_auth () {
   if (!user_key_in_db()
    OR !isset($_SESSION['authid'])
    OR (isset($_SESSION['authsess']) AND $_SESSION['authsess'] != $cn)) {
-    
+
     debug ('user - nicht in db oder nicht authid');
-    
+
     user_set_guest_vars();
     user_set_user_online ();
-    
+
     # wenn cn cookie vorhanden
     # dann checken ob er sich damit einloggen darf
     if (isset($_COOKIE[$cn])) {
       user_auto_login_check();
     }
-    
+
     # gruppen, und modulzugehoerigkeit setzten
     user_set_grps_and_modules();
   }
 }
-  
+
 function user_check_url_rewrite() {
   global $allgAr;
   if ( !loggedin() AND $allgAr['show_session_id'] == 0 ) {
@@ -50,7 +50,7 @@ function user_update_database () {
   db_query("UPDATE prefix_online SET uptime = now() WHERE sid = '".session_id()."'");
   db_query("DELETE FROM prefix_online WHERE uptime < '". $dif."'");
   if ( loggedin() ) {
-    db_query("UPDATE prefix_user SET llogin = '".time()."' WHERE id = '".$_SESSION['authid']."'"); 
+    db_query("UPDATE prefix_user SET llogin = '".time()."' WHERE id = '".$_SESSION['authid']."'");
   }
 }
 
@@ -61,7 +61,7 @@ function user_set_user_online () {
   }
   $_SESSION['authgfx'] = $allgAr['gfx'];
 }
-  
+
 function user_key_in_db() {
   if ( 1 == db_result(db_query("SELECT COUNT(*) FROM prefix_online WHERE sid = '".session_id()."'"),0) ) {
     return ( true );
@@ -100,7 +100,7 @@ function user_login_check () {
   }
   return ( false );
 }
-  
+
 function user_auto_login_check () {
   $cn = session_und_cookie_name();
   $dat = explode('=',$_COOKIE[$cn]);
@@ -130,19 +130,21 @@ function user_auto_login_check () {
   user_logout ();
   return (false);
 }
-  
+
 function user_set_guest_vars() {
   $_SESSION['authname']  = 'Gast';
   $_SESSION['authid']    = 0;
   $_SESSION['authright'] = 0;
   $_SESSION['lastlogin'] = time();
+  $_SESSION['authgrp'] = array();
+  $_SESSION['authmod'] = array();
   $_SESSION['authsess']  = session_und_cookie_name();
 }
 
 function user_markallasread () {
   $_SESSION['lastlogin'] = time();
 }
-  
+
 function user_logout () {
   #global $allgAr;
   #$_SESSION = array();
@@ -156,7 +158,7 @@ function user_logout () {
   #setcookie(session_und_cookie_name(), "", time()-999999999999, "/" );
   #session_destroy();
 }
-  
+
 function user_set_grps_and_modules () {
   $_SESSION['authgrp'] = array();
   $_SESSION['authmod'] = array();
@@ -183,7 +185,7 @@ function is_admin () {
 }
 function is_coadmin () {
   if ( has_right(-8) ) { return ( true ); } else { return ( false ); }
-} 
+}
 function is_siteadmin ($m = NULL) {
   if ( has_right(-7) ) { return ( true ); }
   if ( !is_null($m) AND has_right(NULL, $m)) { return (true); }
@@ -200,7 +202,7 @@ function has_right ($recht,$modul = '') {
   if ( !is_array($recht) AND !is_null($recht) ) {
     $recht = array ( $recht );
   }
-  
+
   if ( $_SESSION['authright'] == -9 ) {
     return ( true );
   }
@@ -224,16 +226,16 @@ function has_right ($recht,$modul = '') {
 # wenn der 2. parameter weggelassen wird oder auf true gesetzt wird
 # dann wird ein login formular angezeigt, wenn der user kein admin ist.
 # wird der parameter auf false gesetzt wird das login formular nicht angezeigt.
-# erste parameter ist das menu objekt... 
+# erste parameter ist das menu objekt...
 function user_has_admin_right (&$menu,$sl=true) {
   if ( $_SESSION['authright'] <= -8 ) {  # co leader...
     return ( true );
   } else {
     $uri_to_check1 = $menu->get(0);
-    $uri_to_check2 = $menu->get(1); 
+    $uri_to_check2 = $menu->get(1);
 	  if ( count($_SESSION['authmod']) < 1 OR !loggedin() ) {
 		  if ( $sl === true ) {
-        if ( !loggedin() ) { 
+        if ( !loggedin() ) {
           $tpl = new tpl ( 'user/login.htm' );
     	    $tpl->set_out('WDLINK','admin.php',0);
         } else {
@@ -261,21 +263,21 @@ function user_has_admin_right (&$menu,$sl=true) {
 
 function user_regist ($name, $mail, $pass) {
   global $allgAr, $lang;
-  
+
   $erg = db_query("SELECT id FROM prefix_user WHERE name = BINARY '".$name."'");
   if (db_num_rows($erg) > 0) {
     return (false);
   }
-  
+
   if ( $allgAr['forum_regist_user_pass'] == 0 ) {
 		$new_pass = genkey(8);
   } else {
 	  $new_pass = $pass;
 	}
-  
+
   $md5_pass = md5($new_pass);
 	$confirmlinktext = '';
-		
+
 	# confirm insert in confirm tb not confirm insert in user tb
 	if ( $allgAr['forum_regist_confirm_link'] == 1 ) {
 		# confirm link + text ... bit of shit put it in languages file
@@ -286,14 +288,35 @@ function user_regist ($name, $mail, $pass) {
 		VALUES ('".$id."','".$name."','".$mail."','".$md5_pass."',NOW(),1)");
   } else {
 	  db_query("INSERT INTO prefix_user (name,pass,recht,regist,llogin,email,status,opt_mail,opt_pm)
-		VALUES('".$name."','".$md5_pass."',-1,'".time()."','".time()."','".$mail."',1,1,1)");	
+		VALUES('".$name."','".$md5_pass."',-1,'".time()."','".time()."','".$mail."',1,1,1)");
 		$userid = db_last_id();
 	}
   $regmail = sprintf($lang['registemail'],$name, $confirmlinktext, $name, $new_pass);
-  	
+
 	icmail($mail,'Anmeldung',$regmail); # email an user
-  
+
   return (true);
+}
+
+function user_remove($uid){
+    $row = @db_fetch_object(db_query("SELECT recht,avatar FROM prefix_user WHERE id = ".$uid));
+    if ( $uid <> 1 AND ($_SESSION['authid'] == $uid OR (is_coadmin() AND $_SESSION['authright'] > $row->recht))) {
+        db_query("DELETE FROM prefix_user WHERE id = ".$uid);
+        db_query("DELETE FROM prefix_userfields WHERE uid = ".$uid);
+        db_query("DELETE FROM prefix_groupusers WHERE uid = ".$uid);
+        db_query("DELETE FROM prefix_modulerights WHERE uid = ".$uid);
+        db_query("DELETE FROM prefix_pm WHERE eid = ".$uid);
+        db_query("DELETE FROM prefix_online WHERE uid = ".$uid);
+        //Usergallery entfernen
+        $sql = db_query("SELECT id,endung FROM prefix_usergallery WHERE uid = ".$uid);
+        while( $row = db_fetch_object($sql) ){
+            @unlink("include/images/usergallery/img_$row->id.$row->endung");
+            @unlink("include/images/usergallery/img_thumb_$row->id.$row->endung");
+        }
+        db_query("DELETE FROM prefix_usergallery WHERE uid = ".$uid);
+        //Avatar
+        @unlink($row->avatar);
+    }
 }
 
 function sendpm ($sid,$eid,$ti,$te,$status = 0) {

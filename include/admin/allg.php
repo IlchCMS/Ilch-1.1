@@ -1,4 +1,4 @@
-<?php 
+<?php
 #   Copyright by: Manuel Staechele
 #   Support: www.ilch.de
 
@@ -19,15 +19,15 @@ if (!is_admin()) {
 function get_links_array () {
   $ar = array ();
   $handle=opendir('include/contents');
-  while ($ver = readdir ($handle)) { 
-    if ($ver != "." AND $ver != ".." AND !is_dir('include/contents/'.$ver) ) { 
+  while ($ver = readdir ($handle)) {
+    if ($ver != "." AND $ver != ".." AND !is_dir('include/contents/'.$ver) ) {
 	    $n = explode('.',$ver);
       $ar[$n[0]] = $ver;
     }
   }
   closedir($handle);
   $handle=opendir('include/contents/selfbp/selfp');
-  while ($ver = readdir ($handle)) { 
+  while ($ver = readdir ($handle)) {
     if ($ver == "." OR $ver == ".." OR is_dir('include/contents/selfbp/selfp/'.$ver) ) { continue; }
 	  $n = explode('.',$ver);
     if ( file_exists ( 'include/contents/'.$ver) OR file_exists ( 'include/contents/'.$n[0].'.php') ) {
@@ -44,9 +44,9 @@ function get_links_array () {
 function admin_allg_gfx ( $ak ) {
 	$gfx = '';
 	$o = opendir('include/designs');
-  while ($ver = readdir ($o)) { 
+  while ($ver = readdir ($o)) {
     if ($ver != "." AND $ver != ".." AND is_dir('include/designs/'.$ver) ) {
-			
+
 			if ($ver == $ak) {
 			  $sel = ' selected';
 			} else {
@@ -60,7 +60,7 @@ function admin_allg_gfx ( $ak ) {
 }
 function admin_allg_smodul ( $ak ) {
 	$ordner = array();
-  $handle=opendir('include/contents'); 
+  $handle=opendir('include/contents');
   while ($ver = readdir ($handle)) {
     if ($ver == '.' OR $ver == '..' OR is_dir ('include/contents/'.$ver)) { continue; }
     $lver = explode('.',$ver);
@@ -91,17 +91,17 @@ function admin_allg_wars_last_komms ( $ak ) {
 if ( empty ($_POST['submit']) ) {
   $gfx             = admin_allg_gfx( $allgAr['gfx'] );
   $smodul          = admin_allg_smodul ( $allgAr['smodul'] );
-  $wars_last_komms = admin_allg_wars_last_komms ( $allgAr['wars_last_komms'] ); 
-  
+  $wars_last_komms = admin_allg_wars_last_komms ( $allgAr['wars_last_komms'] );
+
   echo '<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/konfiguration.png" /></td><td width="30"></td><td valign="bottom"><h1>Konfiguration</h1></td></tr></table>';
-  
+
   echo '<form action="admin.php?allg" method="POST">';
 	echo '<table cellpadding="3" cellspacing="1" class="border" border="0">';
 #	echo '<tr class="Chead"><td colspan="2"><b>Konfiguration</b></td></tr>';
-	
+
 	$ch = '';
-	
-  $abf = 'SELECT * FROM `prefix_config` ORDER BY kat,typ ASC';
+
+  $abf = 'SELECT * FROM `prefix_config` ORDER BY kat,pos,typ ASC';
 	$erg = db_query($abf);
 	while($row = db_fetch_assoc($erg) ) {
 	  if ( $ch != $row['kat'] ) {
@@ -128,22 +128,24 @@ if ( empty ($_POST['submit']) ) {
 		  $vname = $row['schl'];
 		  echo '<select name="'.$row['schl'].'">'.$$vname.'</select>';
 		} elseif ($row['typ'] == 'textarea') {
-      echo '<textarea cols="55" rows="3" name="'.$row['schl'].'">'.$row['wert'].'</textarea>';
-    } elseif ($row['typ'] == 'grecht') {
-      $grl = dblistee($allgAr[$row['schl']],"SELECT id,name FROM prefix_grundrechte ORDER BY id ASC");
-      echo '<select name="'.$row['schl'].'">'.$grl.'</select>';
-    } elseif ($row['typ'] == 'grecht2') {
-      $grl = dblistee($allgAr[$row['schl']],"SELECT id,name FROM prefix_grundrechte WHERE id >= -2 ORDER BY id ASC");
-      echo '<select name="'.$row['schl'].'">'.$grl.'</select>';
-    }    
+          echo '<textarea cols="55" rows="3" name="'.$row['schl'].'">'.$row['wert'].'</textarea>';
+        } elseif ($row['typ'] == 'grecht') {
+          $grl = dblistee($allgAr[$row['schl']],"SELECT id,name FROM prefix_grundrechte ORDER BY id ASC");
+          echo '<select name="'.$row['schl'].'">'.$grl.'</select>';
+        } elseif ($row['typ'] == 'grecht2') {
+          $grl = dblistee($allgAr[$row['schl']],"SELECT id,name FROM prefix_grundrechte WHERE id >= -2 ORDER BY id ASC");
+          echo '<select name="'.$row['schl'].'">'.$grl.'</select>';
+        } elseif ($row['typ'] == 'password' ) {
+		  echo '<input size="50" type="password" name="'.$row['schl'].'" value="***" />';
+		}
 		echo '</td></tr>'."\n\n";
 		$ch = $row['kat'];
 	}
-	
+
 	echo '<tr class="Cdark"><td></td><td><input type="submit" value="Absenden" name="submit"></td></tr>';
-	
+
 	echo '</table>';
-	
+
 	echo '</form>';
 
 
@@ -151,12 +153,19 @@ if ( empty ($_POST['submit']) ) {
 	$abf = 'SELECT * FROM `prefix_config` ORDER BY kat';
 	$erg = db_query($abf);
 	while($row = db_fetch_assoc($erg) ) {
+	  if ($row['typ'] == 'password' AND $_POST[$row['schl']] == '***') {
+	      continue;
+	  } else {
+	      require_once('include/includes/class/cipher.php');
+          $cipher = new cipher(DBDATE.DBUSER.DBPASS);
+          $_POST[$row['schl']] = $cipher->encrypt($_POST[$row['schl']]);
+      }
 	  db_query('UPDATE `prefix_config` SET wert = "'.$_POST[$row['schl']].'" WHERE schl = "'.$row['schl'].'"');
 	}
   wd ('admin.php?allg', 'Erfolgreich ge&auml;ndert' , 2);
-  
+
 }
- 
+
 //-----------------------------------------------------------|
 $design->footer();
 ?>

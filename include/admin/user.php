@@ -360,19 +360,12 @@ switch($um) {
   case 'deleteUser' :
     $uid  = $menu->get(2);
     if ( $uid <> 1 ) {
-		  db_query("DELETE FROM prefix_user WHERE id = ".$uid);
-			db_query("DELETE FROM prefix_userfields WHERE uid = ".$uid);
-      db_query("DELETE FROM prefix_groupusers WHERE uid = ".$uid);
-      db_query("DELETE FROM prefix_modulerights WHERE uid = ".$uid);
-      db_query("DELETE FROM prefix_pm WHERE eid = ".$uid);
+	   user_remove($uid);
       ?><html><head><script language="JavaScript" type="text/javascript"><!--
       function closeThisWindow() { opener.location.reload(); opener.focus(); window.close(); } closeThisWindow()
       //--></script></head><body></body></html><?php
     }
     break;
 }
-
-
-
 
 ?>

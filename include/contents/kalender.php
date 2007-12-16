@@ -1,4 +1,4 @@
-<?php 
+<?php
 # Kalender Script © by Nickel
 
 defined ('main') or die ( 'no direct access' );
@@ -52,8 +52,8 @@ $aus = array();
 $where1 = mktime(0 ,0,0,$month,1,$year);
 $where2 = mktime(24,0,0,$month,date('t',$where1),$year);
 
-$result = db_query("SELECT * 
-	FROM prefix_kalender 
+$result = db_query("SELECT *
+	FROM prefix_kalender
 	WHERE ((time > ".$where1." AND time < ".$where2.") OR id = ".$eid.")
 		AND ".$_SESSION['authright']." <= recht
 	ORDER BY time LIMIT 200");
@@ -75,7 +75,7 @@ $result = db_query("SELECT
   FROM prefix_user
   WHERE MONTH(gebdatum) = ".$month."
 	  OR id = ".$ueid."
-	ORDER BY gebdatum LIMIT 200");
+	ORDER BY MONTH(gebdatum),DAY(gebdatum) LIMIT 200");
 while ($r = db_fetch_assoc($result)) {
   list($y,$m,$d) = explode('-',$r['gebdatum']);
 	$date  = mktime(0,0,0,$m,$d,date('Y'));
@@ -120,7 +120,7 @@ if ($eid) {
 	$aus['DEATIL_TEXT'] = BBcode($data_id[$eid]['text']);
 	$tpl->set_ar_out($aus,2);
 	unset($aus);
-} 
+}
 //Liste der Tage (Monats-Ansicht)
 elseif ($view == 0) {
 	for($i=0;$i<$days;$i++) {
@@ -131,7 +131,7 @@ elseif ($view == 0) {
 				$text .= '<a href="?kalender-v'.$view.'-e'.$info['id'].'">'.$info['title'].'</a>;&nbsp;';
 			}
 		}
-		
+
 		$aus['LIST_I'] = $i+1;
 		$aus['LIST_D'] = $arr_day[date('w',mktime(0,0,0,$month,$i+1,$year))];
 		$aus['LIST_T'] = $text;

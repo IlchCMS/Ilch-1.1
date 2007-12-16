@@ -1,4 +1,4 @@
-<?php 
+<?php
 #   Copyright by Manuel Staechele
 #   Support www.ilch.de
 
@@ -8,12 +8,12 @@ defined ('main') or die ( 'no direct access' );
 ###
 ####
 #####  W E I T E R L E I T U N G S   F U N K T I O N
-function wd ($wdLINK,$wdTEXT,$wdZEIT=3) {  
+function wd ($wdLINK,$wdTEXT,$wdZEIT=3) {
 	global $lang;
 
   if (!is_array($wdLINK)) {
 	  $urls  = '<a href="'.$wdLINK.'">'.$lang['forward2'].'</a>';
-	  $wdURL = $wdLINK; 
+	  $wdURL = $wdLINK;
 	} else {
 	  $urls  = '';
     $i = 0;
@@ -31,10 +31,10 @@ function wd ($wdLINK,$wdTEXT,$wdZEIT=3) {
     'LINK' => $urls,
 	  'URL'  => $wdURL,
 		'ZEIT' => $wdZEIT,
-		'TEXT' => $wdTEXT 
+		'TEXT' => $wdTEXT
 	);
 	$tpl->set_ar_out ( $ar, 0 );
-	unset($tpl); 
+	unset($tpl);
 }
 
 ##
@@ -86,12 +86,12 @@ function getDmon ($mon) {
 ####
 ##### a l l g e m e i n e s   A r r a y
 function getAllgAr () {
-  
+
 	# v1 = schluessel
 	# v2 = wert
 	# v3 = feldtyp
   # v4 = kurze beschreibung wenn n�tig
-	
+
 	$ar = array();
 	$abf = "SELECT schl, wert FROM `prefix_config`";
 	$erg = db_query($abf);
@@ -107,7 +107,7 @@ function getAllgAr () {
 ##### UserRang ermitteln
 function userrang ($post,$uid) {
   global $global_user_rang_array;
-  
+
   if (!isset($global_user_rang_array[$uid])) {
     if (!isset($global_user_rang_array)) {
       $global_user_rang_array = array();
@@ -125,8 +125,8 @@ function userrang ($post,$uid) {
     }
     $global_user_rang_array[$uid] = $rRang;
   }
-  
-  return ($global_user_rang_array[$uid]); 
+
+  return ($global_user_rang_array[$uid]);
 }
 
 
@@ -134,12 +134,12 @@ function userrang ($post,$uid) {
 ###
 ####
 ##### makiert suchwoerter
-function  markword($text,$such) { 
+function  markword($text,$such) {
   $erg  = '<span style="background-color: #EBF09B;">';
   $erg .= $such."</span>";
 	$text = str_replace($such,$erg,$text);
-  return $text; 
-} 
+  return $text;
+}
 
 
 ##
@@ -156,7 +156,7 @@ function getsmilies () {
 
     $b .= 'x.document.write ("<a href=\"javascript:opener.put(\''.addslashes(addslashes($row->ent)).'\')\">");';
     $b .= 'x.document.write ("<img style=\"border: 0px; padding: 5px;\" src=\"include/images/smiles/'.$row->url.'\" title=\"'.$row->emo.'\"></a>");';
-        
+
     if ($i<12) {
       # float einbauen
       if($i%$zeilen == 0 AND $i <> 0) { $a .= '<br /><br />'; }
@@ -180,16 +180,16 @@ function getsmilies () {
 function genkey ( $anz ) {
 	$letterArray = array ('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','1','2','3','4','5','6','7','8','9','0','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','1','2','3','4','5','6','7','8','9','0');
   $key = '';
-	for ($i=0;$i < $anz ; $i ++) 
-	{   
+	for ($i=0;$i < $anz ; $i ++)
+	{
 	    mt_srand((double)microtime()*1000000);
 	    $zufallZahl = mt_rand(0,62);
-      $key .= $letterArray[$zufallZahl];		
-  } 
+      $key .= $letterArray[$zufallZahl];
+  }
 	return ( $key );
 }
 
-function icmail ($mail,$bet,$txt, $from = '') {
+function icmail ($mail,$bet,$txt, $from = '', $html=false) {
   global $allgAr;
   if ( $from == '' ) {
     $from = $allgAr['allg_default_subject'].' <'.$allgAr['adminMail'].'>';
@@ -197,18 +197,21 @@ function icmail ($mail,$bet,$txt, $from = '') {
   $from    = preg_replace ("/\015\012|\015|\012/", "", $from);
   $header  = "From: ".$from."\n";
   $header .= "MIME-Version: 1.0\n";
-  $header .= "Content-Type: text/plain; charset=\"iso-8859-1\";\n";
+  $header .= "Content-Type: ".($html?"text/html":"text/plain")."; charset=\"iso-8859-1\";\n";
   $header .= "Content-Transfer-Encoding: 8bit";
-  
+
   $mail = escape_for_email($mail);
   $bet  = escape_for_email($bet,true);
   $txt  = str_replace("\r", "\n", str_replace("\r\n", "\n",$txt));
-  
-	if ( mail ( $mail, $bet, $txt,$header) ) {
+
+  if ($allgAr['mail_smtp']) {
+      require_once('include/includes/func/smtp.php');
+      return smtpmail($mail, $bet ,$txt , $header );
+  } elseif ( mail ( $mail, $bet, $txt, $header) ) {
 	  return ( true );
-	} else {
+  } else {
 	  return ( false );
-	}
+  }
 }
 
 
@@ -276,18 +279,18 @@ function iurlencode ($s) {
 	  $s = substr ($s, 6);
 	  $x = 'ftp://';
 	}
-	
-	
+
+
 	$a = explode('/', $s);
   $r = '';
   for ($i=0;$i<count($a);$i++) {
     $r .= rawurlencode($a[$i]).'/';
   }
-	
+
 	if ($x !== 'false') {
 	  $r = $x.$r;
 	}
-	
+
   $r = substr($r, 0, -1);
   return ($r);
   */
@@ -296,53 +299,53 @@ function iurlencode ($s) {
 # antispam
 function chk_antispam ($m) {
   global $allgAr;
-  
+
   if (is_numeric($allgAr['antispam']) AND has_right($allgAr['antispam'])) { return (true); }
-  
+
   if (isset($_POST['antispam']) AND md5($_POST['antispam']) == $_POST['antispam_e'.$m]) {
 	  unset ($_SESSION['antispam'][$m]);
 	  return (true);
 	}
-	
+
 	return (false);
 }
 
 function get_antispam ($m, $t) {
   global $allgAr;
-  
+
   if (is_numeric($allgAr['antispam']) AND has_right($allgAr['antispam'])) { return (''); }
 
 	if (!is_array($_SESSION['antispam'])) {
 	  $_SESSION['antispam'] = array();
 	}
-	
+
 	$_SESSION['antispam'][$m] = array();
-	
+
 	$zeichen = array ('+', '-');
-	
+
 	mt_srand((double)microtime()*1000000);
 	$z = $zeichen[mt_rand(0,1)];
-	
+
 	mt_srand((double)microtime()*1040404);
 	$i1 = mt_rand (2,8);
-	
+
 	switch ($z) {
 	  case '+' : $i2_2 = 9 - $i1; break;
 		case '-' : $i2_2 = $i1 - 1; break;
 	}
-	
+
 	mt_srand((double)microtime()*1059595);
 	$i2 = mt_rand (1,$i2_2);
-	
+
 	if ($z == '+') {
 	  $e = $i1 + $i2;
 	} else {
 	  $e = $i1 - $i2;
 	}
-  
+
 	$za = array ('+' => 'plus', '-' => 'minus');
 	$_SESSION['antispam'][$m] = array($i1, $za[$z], $i2);
-	
+
 	$rs = '<span style="display: inline; width: 100px; vertical-align: middle; text-align: center; background-color: #000000; border: 0px; padding: 2px; margin: 0px;"><img src="include/images/spam/z.php?m='.$m.'&amp;w=0&amp;'.session_name().'='.session_id().'" alt=""><img src="include/images/spam/z.php?m='.$m.'&amp;w=1&amp;'.session_name().'='.session_id().'" alt=""><img src="include/images/spam/z.php?m='.$m.'&amp;w=2&amp;'.session_name().'='.session_id().'" alt=""><img src="include/images/spam/ist.jpg" alt=""><input name="antispam_e'.$m.'" value="'.md5($e).'" type="hidden" /><input name="antispam" size="1" maxlength="1" style="background-color: #FFFFFF; border: 0px; margin: 0px; padding: 0px;" /></span>';
   if ($t == 0) {
 	  return ($rs);
@@ -355,5 +358,43 @@ function get_antispam ($m, $t) {
 	}
 }
 # antispam
+
+// Funktion scandir für PHP 4
+if (version_compare(phpversion(), '5.0.0') == -1) {
+    function scandir($dir)
+    {
+        $dh = opendir($dir);
+        while (false !== ($filename = readdir($dh))) $files[] = $filename;
+        sort($files);
+        return $files;
+    }
+}
+
+// Funktion, die die Größe aller Dateien im Ordner zusammenrechnet
+function dirsize($dir)
+{
+    if (!is_dir($dir)) {
+        return -1;
+    }
+    $size = 0;
+    $files = array_slice(scandir($dir), 2);
+    foreach ($files as $filenr => $file) {
+        if (is_dir($dir . $file)) {
+            $size += dirsize($dir . $file . '/');
+        } else {
+            $size += @filesize($dir . $file);
+        }
+    }
+    return $size;
+}
+
+//Rechnet bytes in KB oder MB um
+function nicebytes($bytes){
+    if ($bytes<1000000) {
+        return round($bytes/1024,2).' KB';
+    } else {
+        return round($bytes/(1024*1024),2).' MB';
+    }
+}
 
 ?>

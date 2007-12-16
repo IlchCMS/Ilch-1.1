@@ -60,13 +60,12 @@ while($row = db_fetch_assoc($erg)) {
 	if (file_exists($row['avatar'])) { $row['avatar'] = '<br /><br /><img src="'.$row['avatar'].'" alt="User Pic" border="0" /><br />'; }
 	elseif ($allgAr['forum_default_avatar']) { $row['avatar'] = '<br /><br /><img src="include/images/avatars/'.$ges_ar[$row['geschlecht']].'.jpg" alt="User Pic" border="0" /><br />'; }
  	else { $row['avatar'] = ''; }
-  $row['rang']   = userrang ($row['posts'],$row['erstid']);
-  $row['posts']  = ($row['posts']?'<br />Posts: '.$row['posts']:'').'<br />';
+    $row['rang']   = userrang ($row['posts'],$row['erstid']);
 	$row['txt']    = (isset($_GET['such']) ? markword(bbcode ($row['txt']),$_GET['such']) : bbcode ($row['txt']) );
 	$row['i']      = $i;
-  $row['page']   = $page;
+    $row['page']   = $page;
 
-	if ( $row['erstid'] != 0 ) {
+	if ( $row['posts'] != 0 ) {
 		$row['erst'] = '<a href="index.php?user-details-'.$row['erstid'].'"><b>'.$row['erst'].'</b></a>';
 	}
 
@@ -76,6 +75,7 @@ while($row = db_fetch_assoc($erg)) {
 	if ( $forum_rights['reply'] == TRUE AND loggedin() ) {
 	  $row['change'] = '&nbsp;<a href="index.php?forum-editpost-'.$tid.'-'.$row['id'].'">'.$lang['change'].'</a>';
 	}
+	$row['posts']  = ($row['posts']?'<br />Posts: '.$row['posts']:'').'<br />';
 	$tpl->set_ar_out($row,1);
 
   $i++;

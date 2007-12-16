@@ -19,7 +19,7 @@
 	  <td colspan="2">{text}</td>
 	</tr>
     <tr>
-      <td width="50%"><a href="index.php?news-{id}">{kom} {_lang_comments} </a></td>
+      <td width="50%"><a href="index.php?news-{id}">{kom} {_if_{kom}=='1'}{_lang_comment}{_else_}{_lang_comments}{/_endif} </a></td>
       <td width="50%">
         <div align="right">{readwholenews}</div>
       </td>

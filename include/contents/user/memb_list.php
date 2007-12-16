@@ -1,4 +1,4 @@
-<?php 
+<?php
 #   Copyright by: Manuel Staechele
 #   Support: www.ilch.de
 
@@ -10,13 +10,15 @@ $hmenu = $extented_forum_menu.'User <b> &raquo; </b> '.$lang['listofmembers'].$e
 $design = new design ( $title , $hmenu, 1);
 $design->header();
 
-$limit = 20;  // Limit 
+$limit = 20;  // Limit
 $page = ($menu->getA(1) == 'p' ? $menu->getE(1) : 1 );
 $MPL = db_make_sites ($page , "" , $limit , '?user' , 'user' );
 $anfang = ($page - 1) * $limit;
 
 $tpl = new tpl ( 'user/memb_list.htm' );
 $tpl->set_out ( 'SITELINK', $MPL, 0);
+
+$filtername = isset($_GET['filtername']) ? "WHERE prefix_user.name LIKE '%".escape($_GET['filtername'],'string')."%'" : "";
 
 $class = '';
 $erg = db_query("SELECT
@@ -27,6 +29,7 @@ $erg = db_query("SELECT
   prefix_user.name
 FROM prefix_user
  LEFT JOIN prefix_grundrechte ON prefix_user.recht = prefix_grundrechte.id
+ $filtername
 ORDER by recht,prefix_user.posts DESC LIMIT ".$anfang.",".$limit);
 while ($row = db_fetch_object($erg)) {
 
@@ -41,7 +44,7 @@ while ($row = db_fetch_object($erg)) {
 	);
 	$tpl->set_ar_out($ar,1);
 }
-$tpl->out(2);
+$tpl->set_out('filtername',escape($_GET['filtername'],'string'),2);
 
 $design->footer();
 ?>

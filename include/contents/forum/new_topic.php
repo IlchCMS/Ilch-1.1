@@ -1,4 +1,4 @@
-<?php 
+<?php
 #   Copyright by: Manuel Staechele
 #   Support: www.ilch.de
 
@@ -31,47 +31,48 @@ if (isset($_POST['Gname'])) {
   $xnn = trim(escape_nickname($_POST['Gname']));
 }
 
-if (($_SESSION['klicktime'] + 15) > $dppk_time OR empty($topic) OR empty($txt) OR !empty($_POST['priview']) OR (empty($_POST['Gname']) AND !loggedin())) {
+if (($_SESSION['klicktime'] + 15) > $dppk_time OR empty($topic) OR empty($txt) OR !empty($_POST['priview']) OR (empty($_POST['Gname']) AND !loggedin()) OR !chk_antispam ('newtopic')) {
 
   $design = new design ( $title , $hmenu, 1);
   $design->header();
-  
+
   $tpl = new tpl ( 'forum/newtopic' );
-  
+
   $name = '';
   if ( !loggedin() ) {
-    $name  = '<tr><td class="Cmite"0><b>'.$lang['name'].'</b></td>'; 
+    $name  = '<tr><td class="Cmite"0><b>'.$lang['name'].'</b></td>';
     $name .= '<td class="Cnorm"><input type="text" value="'.unescape($xnn).'" maxlength="15" name="Gname"></td></tr>';
   }
-  
+
   if (isset($_POST['priview'])) {
     $tpl->set_out('txt', bbcode(unescape($txt)), 0);
   }
-  
+
   $ar = array (
     'name'    => $name,
     'txt'     => escape_for_fields(unescape($txt)),
     'topic'   => escape_for_fields(unescape($topic)),
-	  'fid'     => $fid,
-	  'SMILIES' => getsmilies()
+	'fid'     => $fid,
+	'SMILIES' => getsmilies(),
+	'antispam'=> get_antispam('newtopic',1)
   );
   $tpl->set_ar_out($ar,1);
-  
+
 } else {
-  
+
   # save toipc
   $_SESSION['klicktime'] = $dppk_time;
-  
+
   $design = new design ( $title , $hmenu, 0);
   $design->header();
 
-  if ( loggedin()) { 
-    $uid = $_SESSION['authid']; 
+  if ( loggedin()) {
+    $uid = $_SESSION['authid'];
 	  $erst = escape($_SESSION['authname'],'string');
 	  db_query("UPDATE `prefix_user` set posts = posts+1 WHERE id = ".$uid);
-	} else  { 
-	  $erst = $xnn; 
-		$uid = 0; 
+	} else  {
+	  $erst = $xnn;
+		$uid = 0;
   }
 
   db_query("INSERT INTO `prefix_topics` (fid, name, erst, stat) VALUES ( ".$fid.", '".$topic."', '".$erst."', 1 )");
@@ -86,10 +87,10 @@ if (($_SESSION['klicktime'] + 15) > $dppk_time OR empty($topic) OR empty($txt) O
 
   db_query ("INSERT INTO `prefix_posts` (tid,fid,erst,erstid,time,txt) VALUES ( ".$tid.", ".$fid.", '".$erst."', ".$uid.", ".$time.", '".$txt."')");
   $pid = db_last_id();
-				
+
   db_query("UPDATE `prefix_topics` SET last_post_id = ".$pid." WHERE id = ".$tid);
   db_query("UPDATE `prefix_forums` SET posts = posts + 1, last_post_id = ".$pid.", topics = topics + 1 WHERE id = ".$fid);
-			  
+
   # toipc als gelesen markieren
   $_SESSION['forumSEE'][$fid][$tid] = time();
 
