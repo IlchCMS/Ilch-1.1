@@ -99,7 +99,7 @@ class menu {
       if ($this->get(0) == 'self') {
         $where = "(path = '".$this->get(0)."-".$this->get(1)."' OR path = '".$this->get(1)."')";
       }
-      $r = @db_result(@db_query("SELECT recht FROM prefix_menu WHERE ".$where),0);
+      $r = @db_result(@db_query("SELECT recht FROM prefix_menu WHERE ".$where." ORDER BY LENGTH(path) DESC"),0);
       if (($r != '' AND !has_right($r)) OR ($r == '' AND $allgAr['allg_menupoint_access'] == 0)) {
         $exit = true;
       }
@@ -110,7 +110,8 @@ class menu {
     # usw. nicht mehr einloggen, bzw. es kann
     # sich sonst keiner registrieren. deshalb is das
     # user modul immer frei geschaltet
-    if ($exit === true AND $this->get(0) == 'user') {
+    $alwaysallowed = array('regist','login','1','2','confirm','password_reminder','13');
+    if ($exit === true AND $this->get(0) == 'user' AND in_array($this->get(1),$alwaysallowed)) {
       $exit = false;
       debug ('o');
     }
