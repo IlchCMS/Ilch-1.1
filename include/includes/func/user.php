@@ -300,7 +300,7 @@ function user_regist ($name, $mail, $pass) {
 
 function user_remove($uid){
     $row = @db_fetch_object(db_query("SELECT recht,avatar FROM prefix_user WHERE id = ".$uid));
-    if ( $uid <> 1 AND ($_SESSION['authid'] == $uid OR (is_coadmin() AND $_SESSION['authright'] > $row->recht))) {
+    if ( $uid <> 1 AND ($_SESSION['authid'] == $uid OR $_SESSION['authid'] == 1 OR (is_coadmin() AND $_SESSION['authright'] < $row->recht))) {
         db_query("DELETE FROM prefix_user WHERE id = ".$uid);
         db_query("DELETE FROM prefix_userfields WHERE uid = ".$uid);
         db_query("DELETE FROM prefix_groupusers WHERE uid = ".$uid);
@@ -309,9 +309,9 @@ function user_remove($uid){
         db_query("DELETE FROM prefix_online WHERE uid = ".$uid);
         //Usergallery entfernen
         $sql = db_query("SELECT id,endung FROM prefix_usergallery WHERE uid = ".$uid);
-        while( $row = db_fetch_object($sql) ){
-            @unlink("include/images/usergallery/img_$row->id.$row->endung");
-            @unlink("include/images/usergallery/img_thumb_$row->id.$row->endung");
+        while( $r = db_fetch_object($sql) ){
+            @unlink("include/images/usergallery/img_$r->id.$r->endung");
+            @unlink("include/images/usergallery/img_thumb_$r->id.$r->endung");
         }
         db_query("DELETE FROM prefix_usergallery WHERE uid = ".$uid);
         //Avatar

@@ -67,7 +67,9 @@ while($row = db_fetch_assoc($erg)) {
 
 	if ( $row['posts'] != 0 ) {
 		$row['erst'] = '<a href="index.php?user-details-'.$row['erstid'].'"><b>'.$row['erst'].'</b></a>';
-	}
+	} elseif ( $row['erstid'] != 0 ) {
+        $row['rang'] = 'gel&ouml;schter User';
+    }
 
 	if ($forum_rights['mods'] == TRUE AND $i>1) {
 	  $row['delete'] = '<a href="index.php?forum-delpost-'.$tid.'-'.$row['id'].'">'.$lang['delete'].'</a>';
