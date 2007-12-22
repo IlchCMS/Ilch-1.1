@@ -75,6 +75,10 @@ $tpl = new tpl ('search');
 $tpl->set ('size', 30);
 
 $autor = escape($_GET['autor'],'string');
+for($i=1;$i<=3;$i++){
+if($_GET['in'] == $i) $tpl->set ('checked'.$i, 'checked="checked"');
+}
+if(!isset($_GET['in'])) $tpl->set ('checked1', 'checked="checked"');
 $tpl->set ('autor', $autor);
 
 if ($such != 'augt' AND $such != 'aeit' AND $such != 'aubt') {
@@ -134,18 +138,70 @@ if (!empty($such) OR !empty($autor)) {
 		  $str = str_replace('"','',$str);
       $str = addslashes($str);
 		  if ( !empty($str) ) {
-		    $str_forum .= "txt LIKE '%".$str."%' AND ";
-			$str_news  .= "news_text LIKE '%".$str."%' AND ";
-        	$str_downs  .= "`descl` LIKE '%".$str."%' AND ";
-			$str_downs_ .= "name LIKE '%".$str."%' AND ";
+		    if($_GET['in'] == 1) $str_forum .= "txt LIKE '%".$str."%' AND ";
+			elseif($_GET['in'] == 2) $str_news  .= "news_text LIKE '%".$str."%' AND ";
+        	elseif($_GET['in'] == 3) {
+			 $str_downs  .= "`descl` LIKE '%".$str."%' AND ";
+			 $str_downs_ .= "name LIKE '%".$str."%' AND ";
+			}
 		  }
 	  }
 	  if($_GET['autor'] != '') {
-		    $str_forum_a .= "prefix_posts.erst LIKE '%".$autor."%' AND ";
-		  	$str_news_a .= "`name` LIKE '%".$autor."%' AND ";
-       		$str_downs_a .= "`creater` LIKE '%".$autor."%' AND ";
+		    if($_GET['in'] == 1) $str_forum_a .= "prefix_posts.erst LIKE '%".$autor."%' AND ";
+		  	elseif($_GET['in'] == 2) $str_news_a .= "`name` LIKE '%".$autor."%' AND ";
+       		elseif($_GET['in'] == 3) $str_downs_a .= "`creater` LIKE '%".$autor."%' AND ";
 		  }
-    
+
+// 1 = forum, ist immer standart
+	$q = "
+	  SELECT DISTINCT
+        prefix_topics.fid as fid,
+        prefix_topics.name as titel,
+        'foru' as typ,
+        prefix_topics.id as id,
+        time as time,
+		prefix_posts.erst as autor
+      FROM prefix_posts
+        LEFT JOIN prefix_topics ON prefix_topics.id = prefix_posts.tid
+        LEFT JOIN prefix_forums ON prefix_forums.id = prefix_topics.fid
+      WHERE (prefix_forums.view >= ".$_SESSION['authright']." OR prefix_forums.reply >= ".$_SESSION['authright']." OR prefix_forums.start >= ".$_SESSION['authright'].")
+        AND (".$str_forum." 1 = 1)
+		AND (".$str_forum_a." 1 = 1)
+        AND (time >= ". $x .")
+      GROUP BY prefix_topics.id
+	  ORDER BY time DESC";
+if($_GET['in'] == 2) {
+	$q = "
+	  SELECT DISTINCT
+        0 as fid,
+        news_title as titel,
+        'news' as typ,
+        news_id as id,
+        news_time as time,
+		prefix_user.name as autor
+      FROM prefix_news
+	  	LEFT JOIN prefix_user ON prefix_news.user_id = prefix_user.id
+      WHERE (".$str_news." 1 = 1)
+	  	AND (".$str_news_a." 1 = 1)
+        AND (news_time >= ". $x .")
+	  ORDER BY time DESC";
+} elseif($_GET['in'] == 3) {
+	$q = "
+	  SELECT DISTINCT
+        0 as fid,
+        CONCAT( name, ' ', version ) AS titel,
+        'down' as typ,
+        id,
+        UNIX_TIMESTAMP(time) as time,
+		creater as autor
+      FROM prefix_downloads
+      WHERE (".$str_downs." 1 = 1)
+	  	OR (".$str_downs_." 1 = 1)
+		AND (".$str_downs_a." 1 = 1)
+        AND (time >= ". $x .")
+	  ORDER BY time DESC"; }
+
+/*
     $q = "(
       SELECT DISTINCT
         0 as fid,
@@ -195,6 +251,7 @@ if (!empty($such) OR !empty($autor)) {
     )
     
     ORDER BY time DESC";
+*/
           
     $gAnz = db_num_rows(db_query($q));
   }
