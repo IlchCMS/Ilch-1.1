@@ -53,7 +53,7 @@ case 2 :
 	  $mail = escape($_POST['mail'], 'string');
 	  $page = escape($_POST['page'], 'string');
 
-  	db_query("INSERT INTO prefix_gbook (`name`,`mail`,`page`,`time`,`ip`,`txt`) VALUES ('".$name."', '".$mail."', '".$page."', '".time()."', ".getip()."', '".$txt."')");
+  	db_query("INSERT INTO prefix_gbook (`name`,`mail`,`page`,`time`,`ip`,`txt`) VALUES ('".$name."', '".$mail."', '".$page."', '".time()."', '".getip()."', '".$txt."')");
 
 
     $_SESSION['klicktime_gbook'] = $dppk_time;
