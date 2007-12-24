@@ -7,9 +7,11 @@ defined ('main') or die ( 'no direct access' );
 
 
 if ($aktTopicRow['stat'] == 0 OR $forum_rights['reply'] == FALSE ) {
-  if ( $aktTopicRow['stat'] == 0 AND $_SESSION['authright'] <= '-7' ) {
+  if ( $aktTopicRow['stat'] == 0 AND $_SESSION['authright'] > '-7') {
+  	 if($forum_rights['mods'] == FALSE)
 	  $forum_failure[] = $lang['topicclosed'];
-	} elseif ($aktTopicRow['stat'] != 0 AND $_SESSION['authright'] >= '-7' OR $forum_rights['mods'] == FALSE) {
+	} elseif ($aktTopicRow['stat'] != 0 AND $_SESSION['authright'] > '-7') {
+	 if($forum_rights['mods'] == FALSE)
 	  $forum_failure[] = $lang['nopermission'];
 	}
 	check_forum_failure($forum_failure);
