@@ -1,11 +1,20 @@
-<?php 
+<?php
 #   Copyright by Manuel Staechele
 #   Support www.ilch.de
 
 
 defined ('main') or die ( 'no direct access' );
 
-$tpl = new tpl ('search');
+$suchtpl = <<<HTML
+<form action="index.php?search" method="GET">
+<input type="text" value="{search}" name="search" size="{size}" /><br />
+<input type="hidden" name="in" value="2" />
+<input type="submit" value="{_lang_search}" /><br />
+</form>
+<a href="index.php?search">{_lang_exsearch}</a>
+HTML;
+
+$tpl = new tpl ($suchtpl,3);
 $tpl->set ('size', 16);
 $tpl->set ('search', escape($_GET['search'],'string'));
 $tpl->set ('autor', escape($_GET['autor'],'string'));

@@ -6,6 +6,7 @@ Version 1.1 I
 -------------
 + teams.php kann individuelle teams Kombinationen anzeigen (Bsp.: ?teams-show-1-4-2)
 + Auswahl beim Löschen einer Gallerykategorie
++ Bilder können in andere Kategorien verschoben werden
 + Backupsystem überarbeitet
 + Überarbeitung der Klassen tpl,menu und design (für Entwickler in die Doku schauen) - update von xajax auf 0.5b4
 + ausführliche Fehleranzeige bei Datenbankfehlern für (Co-)Admins
@@ -26,7 +27,8 @@ Version 1.1 I
 * Fehler für Modulrechtler beim Freischalten von Joinus-Freigaben behoben
 * neuer Wysiwyg-Editor im Selfpage und Box Bereich (der Editor ist wesentlich besser und hat viel mehr Möglichkeiten)
 * Team Name/Bild wird auch bei Einzelansicht angezeigt
-
+* Moderatoren können nur noch in von ihnen verwaltete Foren verschieben
+(* Alle kurzen SQL Inserts wurden verbessert)
 
 Version 1.1 H
 -------------

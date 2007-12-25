@@ -88,7 +88,7 @@ if ( empty ($_POST['submit']) ) {
             move_uploaded_file ( $file_tmpe , $neuer_name );
             @chmod($neuer_name, 0777);
             $avatar_sql_update = "avatar = '".$neuer_name."',";
-            $fmsg = $lang['pictureupload'];
+            $fmsg = $lang['pictureuploaded'];
 					}
 				}
 			} elseif ( isset($_POST['avatarloeschen']) ) {

@@ -1,4 +1,4 @@
-<?php 
+<?php
 #   Copyright by: Manuel Staechele
 #   Support: www.ilch.de
 
@@ -50,7 +50,7 @@ switch ( $um ) {
       # find user id
       $name = escape($_POST['name'], 'string');
       $uid = @db_result(@db_query("SELECT id FROM prefix_user where name = BINARY '".$name."'"),0,0);
-      
+
       if (!empty($uid) AND 0 == db_result(db_query("SELECT COUNT(*) FROM prefix_forummods WHERE uid = ".$uid." AND fid = ".$fid),0)) {
         db_query("INSERT INTO prefix_forummods (uid,fid) VALUES (".$uid.", ".$fid.")");
       }
@@ -60,7 +60,7 @@ switch ( $um ) {
       $uid = escape($menu->getE(2), 'integer');
       db_query("DELETE FROM prefix_forummods WHERE uid = ".$uid." AND fid = ".$fid);
     }
-    
+
     $tpl = new tpl ('forum/mods', 1);
     $tpl->set('fid', $fid);
     $tpl->out(0);
@@ -81,7 +81,7 @@ switch ( $um ) {
 			  wd ( 'admin.php?forum-newCategorie', 'Erst eine neue Kategorie anlegen dann ein Forum' );
 				die ();
 			}
-			
+
       $ar = array(
 			  'ak' => 'new',
 				'sub' => 'Eintragen',
@@ -89,12 +89,12 @@ switch ( $um ) {
 				'fid' => '',
 				'text' => ''
 			);
-			
+
 			$tpl = new tpl ('forum/eforum',1);
-			
+
       if ($menu->getA(2) == 'c' AND is_numeric($menu->getE(2))) {$cid = $menu->getE(2); }
-      else { $cid = 0 ; } 			
-			
+      else { $cid = 0 ; }
+
       forum_admin_selectcats(0,'',$ar['kats'],$cid);
 			$ar['view']   = '<optgroup label="Grundrechte">';
 			$ar['view']  .= dbliste('', $tpl,'view',"SELECT id, name FROM prefix_grundrechte ORDER BY id DESC");
@@ -141,8 +141,8 @@ switch ( $um ) {
 			);
 			$tpl = new tpl ('forum/eforum',1);
 			$ar['kats'] = dbliste($row->cid,$tpl,'kats',"SELECT id, name FROM prefix_forumcats ORDER BY name");
-			
-			
+
+
 			$ar['view']   = '<optgroup label="Grundrechte">';
 			$ar['view']  .= dbliste($row->view, $tpl,'view',"SELECT id, name FROM prefix_grundrechte ORDER BY id DESC");
 			$ar['view']  .= '</optgroup>';
@@ -227,7 +227,7 @@ switch ( $um ) {
       $tc = $_POST['Ccat'];
       while ($tc > 0) {
         if ($tc == $_POST['Cpkey']) { $bool = false; }
-        $tc = @db_result(db_query("SELECT cat FROM prefix_forumcats WHERE id = $tc"));
+        $tc = @db_result(db_query("SELECT cid FROM prefix_forumcats WHERE id = $tc"));
       }
 			if ($bool) {
 			  if ($r->cid == $Ccat) { $pos = $r->pos; }
@@ -237,7 +237,7 @@ switch ( $um ) {
 		}
 	  break;
 	case 'deleteCategorie' :
-	    
+
 			$cid = escape($menu->get(2),'integer');
 			$e = db_query("SELECT id FROM prefix_forums WHERE cid = ".$cid);
 			while ($r = db_fetch_row($e) ) {
@@ -287,12 +287,12 @@ switch ( $um ) {
             db_query("UPDATE `prefix_forums` SET pos = $pos WHERE id = $frm_row->id");
             $pos++;
           }
-        }      
+        }
         if (isset($FK)) { $FK .= ' und Foren'; }
         else { $FK = 'Foren'; }
       }
       if (!isset($FK)) {$FK = 'Nichts';}
-      $tpl->set_out('FK',$FK,1);      
+      $tpl->set_out('FK',$FK,1);
     } else {
       $tpl->out(0);
     }
@@ -321,10 +321,10 @@ if ( $show ) {
       case when reply <= 0 then rg.name else rt.name end as reply,
       case when start <= 0 then sg.name else st.name end as start
     FROM prefix_forums
-      LEFT JOIN prefix_grundrechte as vg ON prefix_forums.view = vg.id 
+      LEFT JOIN prefix_grundrechte as vg ON prefix_forums.view = vg.id
       LEFT JOIN prefix_grundrechte as rg ON rg.id = prefix_forums.reply
       LEFT JOIN prefix_grundrechte as sg ON sg.id = prefix_forums.start
-      
+
 			LEFT JOIN prefix_groups as vt ON prefix_forums.view = vt.id
       LEFT JOIN prefix_groups as rt ON rt.id = prefix_forums.reply
       LEFT JOIN prefix_groups as st ON st.id = prefix_forums.start
@@ -336,7 +336,7 @@ if ( $show ) {
     }
   }
   $tpl->out(3);
-  
+
   forum_admin_showcats(0,'');
   $topcid = (is_numeric($r->topcid)?$r->topcid:0);
   $Cout = array();
@@ -347,7 +347,7 @@ if ( $show ) {
   forum_admin_selectcats('0','',$Cout['cat'],$topcid);
   $Cout['cat'] = '<option value="0">Keine</option>'.$Cout['cat'];
   $tpl->set_ar_out($Cout,4);
-  
+
 }
 
 

@@ -107,7 +107,7 @@ if ( empty ($_POST['submit']) ) {
 	  if ( $ch != $row['kat'] ) {
 		  echo '<tr><td colspan="2" class="Cdark"><b>'.$row['kat'].'</b></td></tr>';
 		}
-		echo '<tr><td nowrap class="Cmite">'.$row['frage'].'</td>';
+		echo '<tr><td class="Cmite">'.$row['frage'].'</td>';
 		echo '<td class="Cnorm">';
 		if ( $row['typ'] == 'input' ) {
 		  echo '<input size="50" type="text" name="'.$row['schl'].'" value="'.$row['wert'].'">';

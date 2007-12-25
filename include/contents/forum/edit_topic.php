@@ -1,4 +1,4 @@
-<?php 
+<?php
 #   Copyright by: Manuel Staechele
 #   Support: www.ilch.de
 
@@ -24,7 +24,7 @@ $tid = $menu->get(2);
 switch($uum) {
   case 1 : # change topic title
     db_query("UPDATE `prefix_topics` SET name = '".$_REQUEST['newTopic']."' WHERE id = '".$tid."'");
-		wd ( array ( 
+		wd ( array (
 			'zur&uuml;ck zum Thema' => 'index.php?forum-showposts-'.$tid,
 		  'zur Themen &Uuml;bersicht' => 'index.php?forum-showtopics-'.$fid
 		) , 'Das Themas wurde umbennant' , 3 );
@@ -61,8 +61,8 @@ switch($uum) {
 		if ( empty ( $_POST['sub'] ) OR $_POST['nfid'] == 'cat' ) {
 			echo '<form action="index.php?forum-edittopic-'.$tid.'-3" method="POST">';
 			echo '<input type="hidden" name="afid" value="'.$fid.'">neues Forum ausw&auml;hlen<br />';
-			echo '<select name="nfid">';			
-      
+			echo '<select name="nfid">';
+
       function stufe($anz, $t = 'f') {
         $z = ($t == 'f'?'&nbsp;&nbsp;':'&raquo;');
         for ($i=0; $i<$anz; $i++) {
@@ -70,7 +70,7 @@ switch($uum) {
         }
         return $out;
       }
-      
+
       function forum_admin_selectcats ( $id, $stufe, $sel) {
         $q = "SELECT * FROM prefix_forumcats WHERE cid = ".$id." ORDER BY pos";
       	$erg = db_query($q);
@@ -80,14 +80,17 @@ switch($uum) {
             forum_admin_selectcats($row->id, $stufe + 1,  $sel);
             $sql = db_query("SELECT id, name FROM prefix_forums WHERE cid = $row->id");
             while ($row2 = db_fetch_object($sql)) {
-            	echo '<option value="'.$row2->id.'"'.($sel == $row2->id?' selected="selected"':'').'>'.stufe($stufe).' '.$row2->name.'</option>';
+                if (!forum_user_is_mod($row2->id)) {
+       	            continue;
+       	        }
+            	echo '<option value="'.$row2->id.'"'.($sel == $row2->id?' selected="selected"':'').'>'.stufe($stufe+1).' '.$row2->name.'</option>';
             }
           }
       	}
       }
-		  
+
       forum_admin_selectcats(0,0,$fid);
-      echo '</select><br /><input type="checkbox" name="alertautor" value="yes" /> Den Autor &uuml;ber das verschieben informieren?<br /><input type="submit" value="Verschieben" name="sub"></form>';	
+      echo '</select><br /><input type="checkbox" name="alertautor" value="yes" /> Den Autor &uuml;ber das verschieben informieren?<br /><input type="submit" value="Verschieben" name="sub"></form>';
     } else {
       $postsMinus = $aktTopicRow['rep'] + 1;
 			db_query("UPDATE `prefix_topics` SET `fid` = ".$_POST['nfid']." WHERE id = ".$tid);
@@ -97,8 +100,8 @@ switch($uum) {
 		  if ( empty($apid) ) { $apid = 0; }
       db_query("UPDATE `prefix_forums` SET last_post_id = ".$apid.", `posts` = `posts` - ".$postsMinus.", `topics` = `topics` - 1 WHERE id = ".$_POST['afid']);
 			db_query("UPDATE `prefix_forums` SET last_post_id = ".$npid.", `posts` = `posts` + ".$postsMinus.", `topics` = `topics` + 1 WHERE id = ".$_POST['nfid']);
-      
-      
+
+
       # autor benachrichtigen
       if (isset($_POST['alertautor']) AND $_POST['alertautor'] == 'yes') {
 	      $uid = db_result(db_query("SELECT erstid FROM prefix_posts WHERE tid = ".$tid." ORDER BY id ASC LIMIT 1"),0);
@@ -112,8 +115,8 @@ switch($uum) {
         $txt .= "\n- [url=http://".$page."?forum-showtopics-".$_POST['afid']."]Link zum alten Forum[/url]";
         sendpm($_SESSION['authid'], $uid, 'Thema verschoben',$txt);
       }
-      
-      
+
+
 			wd ( array (
 			 'neue Themen Übersicht' => 'index.php?forum-showtopics-'.$_POST['nfid'],
 			 'alte Themen Übersicht' => 'index.php?forum-showtopics-'.$_POST['afid'],
@@ -129,7 +132,7 @@ switch($uum) {
   case 5 : # change topic art
     $nart = ( $aktTopicRow['art'] == 0 ? 1 : 0 );
 		db_query("UPDATE `prefix_topics` SET art = '".$nart."' WHERE id = ".$tid );
-		wd ( array ( 
+		wd ( array (
 		  'zur&uuml;ck zum Thema' => 'index.php?forum-showposts-'.$tid,
 			'zur Themen &Uuml;bersicht' => 'index.php?forum-showtopics-'.$fid
 		) , 'Die Art des Themas wurde ge&auml;ndert' , 3 );

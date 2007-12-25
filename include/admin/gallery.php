@@ -10,18 +10,22 @@ defined ('admin') or die ( 'only admin access' );
 require_once('include/includes/func/gallery.php');
 
 function gallery_admin_showcats ( $id , $stufe ) {
+    global $menu;
   $q = "SELECT * FROM prefix_gallery_cats WHERE cat = ".$id." ORDER BY pos";
 	$erg = db_query($q);
 	if ( db_num_rows($erg) > 0 ) {
  	  while ($row = db_fetch_object($erg) ) {
-	    echo '<tr class="Cmite"><td>'.$stufe.'- <a href="?gallery-S'.$row->id.'">'.$row->name.'</a></td>';
+ 	  if ($menu->getE('S') == $row->id) {
+ 	      $row->name = '<strong>'.$row->name.'</strong>';
+ 	  }
+	  echo '<tr class="Cmite"><td>'.$stufe.'- <a href="?gallery-S'.$row->id.'">'.$row->name.'</a></td>';
       echo '<td><a href="javascript:uploadImages('.$row->id.')"><img src="include/images/icons/upload.gif" title="Bilder in diese Kategorie hochladen" alt="Bilder in diese Kategorie hochladen" border="0"></td>';
       echo '<td><a href="javascript:reloadImages('.$row->id.')"><img src="include/images/icons/reload.gif" title="Bilder in diese Kategorie erneuern / einlesen" alt="Bilder in diese Kategorie erneuern / einlesen" border="0"></a></td>';
       echo '<td><a href="admin.php?gallery-E'.$row->id.'#edit"><img src="include/images/icons/edit.gif" border="0" alt="&auml;ndern" title="&auml;ndern"></a></td>';
       echo '<td><a href="javascript:Kdel('.$row->id.')"><img src="include/images/icons/del.gif" border="0" alt="l&ouml;schen" title="l&ouml;schen"></a></td>';
       echo '<td><a href="admin.php?gallery-M'.$row->id.'-o'.$row->pos.'"><img src="include/images/icons/pfeilo.gif" border="0" title="hoch" alt="hoch"></a></td>';
       echo '<td><a href="admin.php?gallery-M'.$row->id.'-u'.$row->pos.'"><img src="include/images/icons/pfeilu.gif" border="0" title="runter" alt="runter"></a></td></tr>';
-		  gallery_admin_showcats($row->id, $stufe.' &nbsp; &nbsp;' );
+	  gallery_admin_showcats($row->id, $stufe.' &nbsp; &nbsp;' );
 	  }
 	}
 }
@@ -208,6 +212,16 @@ if ( $menu->getA(1) == 'D' ) {
     }
     $tpl->out(3);
     exit();
+}
+
+#Bilder verschieben
+if (isset($_POST['movepics'])) {
+    if (count($_POST['img']) > 0) {
+        $pics = implode(',',$_POST['img']);
+        $cat = escape($_POST['movecat'],'integer');
+        db_query("UPDATE prefix_gallery_imgs SET cat = $cat WHERE id IN ($pics);");
+        $menu->set_url(1,'S'.$cat);
+    }
 }
 
 $design = new design ( 'Admins Area', 'Admins Area', 2 );

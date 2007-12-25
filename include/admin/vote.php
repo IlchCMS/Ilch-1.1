@@ -154,7 +154,7 @@ if ( $menu->get(1) == 5 ) {
 		  $erg = db_query($abf); $class = '';
       while ($row = db_fetch_object($erg)) {
         if ($row->stat == 1) {
-			    $coo = 'schliesen';
+			    $coo = 'schlie&szlig;en';
 			 	  $up = 0;
 		    } else {
 			    $coo = '&ouml;ffnen';

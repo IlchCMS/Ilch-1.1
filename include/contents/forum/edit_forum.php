@@ -1,4 +1,4 @@
-<?php 
+<?php
 #   Copyright by: Manuel Staechele
 #   Support: www.ilch.de
 
@@ -26,7 +26,7 @@ if ((isset($_POST['del']) OR isset($_POST['shift']) OR isset($_POST['status'])) 
   }
   wd ( 'index.php?forum-showtopics-'.$fid , 'Status ge&auml;ndert' , 2 );
 } elseif (empty($_POST['del']) AND empty($_POST['shift'])) {
-  $limit = $allgAr['Ftanz'];  // Limit 
+  $limit = $allgAr['Ftanz'];  // Limit
   $page = ( $menu->getA(3) == 'p' ? $menu->getE(3) : 1 );
   $MPL = db_make_sites ($page , "WHERE fid = '$fid'" , $limit , '?forum-editforum-'.$fid , 'topics' );
   $anfang = ($page - 1) * $limit;
@@ -42,7 +42,7 @@ if ((isset($_POST['del']) OR isset($_POST['shift']) OR isset($_POST['status'])) 
   $erg = db_query($q);
   while($row = db_fetch_assoc($erg) ) {
     $row['date'] = date('d.m.y - H:i',$row['time']);
-    $tpl->set_ar_out($row, 1);  
+    $tpl->set_ar_out($row, 1);
   }
   $tpl->out(2);
 } elseif (isset($_POST['del']) AND isset($_POST['dely']) AND $_POST['dely'] == 'yes') {
@@ -74,7 +74,7 @@ if ((isset($_POST['del']) OR isset($_POST['shift']) OR isset($_POST['status'])) 
     $pmin += db_result(db_query("SELECT rep FROM prefix_topics WHERE id = ".$k), 0, 0);
 	  db_query("UPDATE `prefix_topics` SET `fid` = ".$_POST['nfid']." WHERE id = ".$k);
 		db_query("UPDATE prefix_posts SET `fid` = ".$_POST['nfid']." WHERE tid = ".$k);
-  
+
     # autor benachrichtigen
     if (isset($_POST['alertautor']) AND $_POST['alertautor'] == 'yes') {
 	    $uid = db_result(db_query("SELECT erstid FROM prefix_posts WHERE tid = ".$k." ORDER BY id ASC LIMIT 1"),0);
@@ -92,8 +92,8 @@ if ((isset($_POST['del']) OR isset($_POST['shift']) OR isset($_POST['status'])) 
 	$npid = db_result(db_query("SELECT MAX(id) FROM prefix_posts WHERE fid = ".$_POST['nfid']),0);
   if ( empty($apid) ) { $apid = 0; }
   db_query("UPDATE `prefix_forums` SET last_post_id = ".$apid.", `posts` = `posts` - ".$pmin.", `topics` = `topics` - ".$tmin." WHERE id = ".$_POST['afid']);
-	db_query("UPDATE `prefix_forums` SET last_post_id = ".$npid.", `posts` = `posts` + ".$pmin.", `topics` = `topics` + ".$tmin." WHERE id = ".$_POST['nfid']);      
-      
+	db_query("UPDATE `prefix_forums` SET last_post_id = ".$npid.", `posts` = `posts` + ".$pmin.", `topics` = `topics` + ".$tmin." WHERE id = ".$_POST['nfid']);
+
 	wd ( array (
 	 'neue Themen Übersicht' => 'index.php?forum-showtopics-'.$_POST['nfid'],
 	 'alte Themen Übersicht' => 'index.php?forum-showtopics-'.$_POST['afid'],
@@ -109,7 +109,7 @@ if ((isset($_POST['del']) OR isset($_POST['shift']) OR isset($_POST['status'])) 
     echo 'Sicher die ausgewahlten Themen loeschen? <input type="submit" value="'.$lang['yes'].'" name="del" />';
   } elseif (isset($_POST['shift']) AND $_POST['nfid'] != 'cat') {
     echo '<input type="hidden" name="afid" value="'.$fid.'">neues Forum ausw&auml;hlen<br />';
-    echo '<select name="nfid">';	
+    echo '<select name="nfid">';
       function stufe($anz, $t = 'f') {
         $z = ($t == 'f'?'&nbsp;&nbsp;':'&raquo;');
         for ($i=0; $i<$anz; $i++) {
@@ -117,7 +117,7 @@ if ((isset($_POST['del']) OR isset($_POST['shift']) OR isset($_POST['status'])) 
         }
         return $out;
       }
-      
+
       function forum_admin_selectcats ( $id, $stufe, $sel) {
         $q = "SELECT * FROM prefix_forumcats WHERE cid = ".$id." ORDER BY pos";
       	$erg = db_query($q);
@@ -127,16 +127,19 @@ if ((isset($_POST['del']) OR isset($_POST['shift']) OR isset($_POST['status'])) 
             forum_admin_selectcats($row->id, $stufe + 1,  $sel);
             $sql = db_query("SELECT id, name FROM prefix_forums WHERE cid = $row->id");
             while ($row2 = db_fetch_object($sql)) {
-            	echo '<option value="'.$row2->id.'"'.($sel == $row2->id?' selected="selected"':'').'>'.stufe($stufe).' '.$row2->name.'</option>';
+                if (!forum_user_is_mod($row2->id)) {
+       	            continue;
+       	        }
+            	echo '<option value="'.$row2->id.'"'.($sel == $row2->id?' selected="selected"':'').'>'.stufe($stufe+1).' '.$row2->name.'</option>';
             }
           }
       	}
       }
-		  
+
       forum_admin_selectcats(0,0,$fid);
 		echo '</select><br /><input type="checkbox" name="alertautor" value="yes" /> Die Autoren &uuml;ber das verschieben informieren?<br /><input type="submit" value="'.$lang['shift'].'" name="shift">';
   }
-  
+
   echo '</form>';
 }
 
