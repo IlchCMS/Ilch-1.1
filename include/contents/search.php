@@ -96,7 +96,7 @@ if ($such != 'augt' AND $such != 'aeit' AND $such != 'aubt') {
 if(isset($_GET['days']))
 	$days = ($_GET['days'] == 0 ? 360 : intval($_GET['days']));
 else $days = 360;
-$days_ar = array(  360 => 'alle Beiträge (1 Jahr)',
+$days_ar = array(  360 => 'alle Beitr&auml;ge (1 Jahr)',
                 1   => '1 Tag',
                 7   => '7 Tage',
                 14  => '2 Wochen',
