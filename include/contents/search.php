@@ -79,22 +79,26 @@ $tpl->set ('size', 30);
 
 $gAnz = 0;
 $autor = '';
-if(isset($_GET['autor']))
+if(isset($_GET['autor'])) {
 	$autor = escape($_GET['autor'],'string');
+}
 $tpl->set ('autor', $autor);
 
-if(isset($_GET['in']))
+if(isset($_GET['in'])) {
 	for($i=1;$i<=3;$i++){
-		if($_GET['in'] == $i) $tpl->set ('checked'.$i, 'checked="checked"');
+		if($_GET['in'] == $i) {
+			$tpl->set ('checked'.$i, 'checked="checked"');
+		}
 	}
-else $tpl->set ('checked1', 'checked="checked"');
+} else $tpl->set ('checked1', 'checked="checked"');
 
 if ($such != 'augt' AND $such != 'aeit' AND $such != 'aubt') {
   $tpl->set('search',escape_for_fields($such),0);
 }
 
-if(isset($_GET['days']))
+if(isset($_GET['days'])) {
 	$days = ($_GET['days'] == 0 ? 360 : intval($_GET['days']));
+}
 else $days = 360;
 $days_ar = array(  360 => 'alle Beitr&auml;ge (1 Jahr)',
                 1   => '1 Tag',
@@ -135,18 +139,28 @@ if (!empty($such) OR !empty($autor)) {
 		  $str = str_replace('"','',$str);
       $str = addslashes($str);
 		  if ( !empty($str) ) {
-		    if($_GET['in'] == 1) $str_forum .= "txt LIKE '%".$str."%' AND ";
-			elseif($_GET['in'] == 2) $str_news  .= "news_text LIKE '%".$str."%' AND ";
+		    if($_GET['in'] == 1) {
+				$str_forum .= "txt LIKE '%".$str."%' AND ";
+			}
+			elseif($_GET['in'] == 2) {
+				$str_news  .= "news_text LIKE '%".$str."%' AND ";
+			}
         	elseif($_GET['in'] == 3) {
-			 $str_downs  .= "`descl` LIKE '%".$str."%' AND ";
-			 $str_downs_ .= "name LIKE '%".$str."%' AND ";
+				$str_downs  .= "`descl` LIKE '%".$str."%' AND ";
+				$str_downs_ .= "name LIKE '%".$str."%' AND ";
 			}
 		  }
 	  }
-	  if($_GET['autor'] != '') {
-		    if($_GET['in'] == 1) $str_forum_a .= "prefix_posts.erst LIKE '%".$autor."%' AND ";
-		  	elseif($_GET['in'] == 2) $str_news_a .= "`name` LIKE '%".$autor."%' AND ";
-       		elseif($_GET['in'] == 3) $str_downs_a .= "`creater` LIKE '%".$autor."%' AND ";
+	  if(isset($_GET['autor'])) {
+		    if($_GET['in'] == 1) {
+				$str_forum_a .= "prefix_posts.erst LIKE '%".$autor."%' AND ";
+			}
+		  	elseif($_GET['in'] == 2) {
+				$str_news_a .= "`name` LIKE '%".$autor."%' AND ";
+			}
+       		elseif($_GET['in'] == 3) {
+			$str_downs_a .= "`creater` LIKE '%".$autor."%' AND ";
+			}
 	}
 
 // 1 = forum, ist immer standart
@@ -167,7 +181,8 @@ if (!empty($such) OR !empty($autor)) {
         AND (time >= ". $x .")
       GROUP BY prefix_topics.id
 	  ORDER BY time DESC";
-if($_GET['in'] == 2) {
+if(isset($_GET['in'])) {
+  if($_GET['in'] == 2) {
 	$q = "
 	  SELECT DISTINCT
         0 as fid,
@@ -182,7 +197,7 @@ if($_GET['in'] == 2) {
 	  	AND (".$str_news_a." 1 = 1)
         AND (news_time >= ". $x .")
 	  ORDER BY time DESC";
-} elseif($_GET['in'] == 3) {
+  } elseif($_GET['in'] == 3) {
 	$q = "
 	  SELECT DISTINCT
         0 as fid,
@@ -192,17 +207,19 @@ if($_GET['in'] == 2) {
         UNIX_TIMESTAMP(time) as time,
 		creater as autor
       FROM prefix_downloads
-      WHERE (".$str_downs." 1 = 1)
-	  	OR (".$str_downs_." 1 = 1)
+      WHERE ((".$str_downs." 1 = 1)
+	  	OR (".$str_downs_." 1 = 1))
 		AND (".$str_downs_a." 1 = 1)
         AND (time >= ". $x .")
-	  ORDER BY time DESC"; }
+	  ORDER BY time DESC";
+  }
+}
 
     $gAnz = db_num_rows(db_query($q));
 
   $q .= " LIMIT ".$anfang.",".$limit;
 
-  $MPL = db_make_sites ($page , "" , $limit , "index.php?search=".urlencode($such)."&amp;autor=".$_GET['autor']."&amp;page=", "", $gAnz );
+  $MPL = db_make_sites ($page , "" , $limit , "index.php?search=".urlencode($such)."&amp;autor=".urlencode($autor)."&amp;in=".$_GET['in']."&amp;days=".$_GET['days']."&amp;page=", "", $gAnz );
   $tpl->set_ar_out(array('MPL'=>$MPL,'gAnz'=>$gAnz),1);
 
   $q = db_query($q);
