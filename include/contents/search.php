@@ -78,18 +78,24 @@ $tpl = new tpl ('search');
 $tpl->set ('size', 30);
 
 $gAnz = 0;
-$autor = escape($_GET['autor'],'string');
-for($i=1;$i<=3;$i++){
-if($_GET['in'] == $i) $tpl->set ('checked'.$i, 'checked="checked"');
-}
-if(!isset($_GET['in'])) $tpl->set ('checked1', 'checked="checked"');
+$autor = '';
+if(isset($_GET['autor']))
+	$autor = escape($_GET['autor'],'string');
 $tpl->set ('autor', $autor);
+
+if(isset($_GET['in']))
+	for($i=1;$i<=3;$i++){
+		if($_GET['in'] == $i) $tpl->set ('checked'.$i, 'checked="checked"');
+	}
+else $tpl->set ('checked1', 'checked="checked"');
 
 if ($such != 'augt' AND $such != 'aeit' AND $such != 'aubt') {
   $tpl->set('search',escape_for_fields($such),0);
 }
 
-$days = ($_GET['days'] == 0 ? 360 : intval($_GET['days']));
+if(isset($_GET['days']))
+	$days = ($_GET['days'] == 0 ? 360 : intval($_GET['days']));
+else $days = 360;
 $days_ar = array(  360 => 'alle Beiträge (1 Jahr)',
                 1   => '1 Tag',
                 7   => '7 Tage',
