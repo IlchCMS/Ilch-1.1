@@ -177,7 +177,7 @@ class tpl
 
     ) {
       return ($tr[4]);
-    } elseif (isset($this->keys[$tr[1]]) AND $tr[6]){
+    } elseif (isset($this->keys[$tr[1]]) AND isset($tr[6])){
       return ($tr[6]);
     }
     return ('');
