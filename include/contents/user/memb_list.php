@@ -44,7 +44,7 @@ while ($row = db_fetch_object($erg)) {
 	);
 	$tpl->set_ar_out($ar,1);
 }
-$tpl->set_out('filtername',escape($_GET['filtername'],'string'),2);
+$tpl->set_out('filtername',escape(isset($_GET['filtername'])?$_GET['filtername']:'','string'),2);
 
 $design->footer();
 ?>
