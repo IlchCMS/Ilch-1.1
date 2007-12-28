@@ -12,7 +12,7 @@ $design->header();
 
 # script version
 $scriptVersion = 11;
-$scriptUpdate = 'H';
+$scriptUpdate = 'I';
 
 # statistik wird bereinigt.
 $mon = date('n');

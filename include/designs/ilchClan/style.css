@@ -2,15 +2,15 @@
   css Datei copyright by ilch.de
   erstellt von scaRFhogg
   seite: www.daiwai.de
-  
+
   --
-  
+
   Design copyright by ilch.de
   erstellt von fanguro
   seite: www.zurro.de
-  
+
   --
-  
+
   Support auf www.ilch.de
 */
 
@@ -40,7 +40,7 @@ body {
 }
 #header h1 {
   display: inline;
-  position: absolute; 
+  position: absolute;
   top: 110px; left: 100px;
   color: #fff;
   font-family: 'Trebuchet MS';
@@ -53,11 +53,11 @@ body {
 }
 #top2 font {
   display: inline;
-  position: absolute; 
+  position: absolute;
   left: 172px;
   margin-top: 2px;
   font-size: 10px;
-	text-decoration: none; 
+	text-decoration: none;
 }
 #content {
   background: url(img/contentbg.gif);
@@ -109,7 +109,7 @@ body {
   min-height: 100px;
   overflow: auto;
 }
-#right_col1 { 
+#right_col1 {
   width: 141px;
   float: left;
   padding-top: 0px;
@@ -118,7 +118,7 @@ body {
   padding-bottom: 0px;
   overflow: hidden;
 }
-#right_col2 { 
+#right_col2 {
   width: 141px;
   float: right;
   padding-top: 0px;
@@ -129,7 +129,7 @@ body {
 }
 
 #right_col1 .menu_heading,
-#right_col2 .menu_heading 
+#right_col2 .menu_heading
 {
   color:#fff;
   font-size:11px;
@@ -149,7 +149,7 @@ body {
   margin:0;
   padding: 5px 0 0 2px;
   background: url(img/box_menu_trennlinie.gif) no-repeat bottom;
-} 
+}
 
 #left_col li ul
 {
@@ -170,41 +170,46 @@ body {
   text-decoration: none;
 }
 
-td 
+td
 {
-  font-family: Verdana; 
+  font-family: Verdana;
   font-size: 12px;
 }
 
-a, #left_col .Cmite a, #left_col .Cnorm a, #left_col .Cdark a 
+a, #left_col .Cmite a, #left_col .Cnorm a, #left_col .Cdark a
 {
-  color: #003366; 
-	font-family: Verdana; 
-	font-size: 11px; 
-	text-decoration: underline; 
+  color: #003366;
+	font-family: Verdana;
+	font-size: 11px;
+	text-decoration: underline;
 }
 
-a:hover 
-{   
-  text-decoration: none;  
+a:hover
+{
+  text-decoration: none;
 }
 
-a.box 
-{ 
-  color: #003366; 
-	font-family: Verdana; 
-	font-size: 11px; 
-	text-decoration: underline; 
+a.box
+{
+  color: #003366;
+	font-family: Verdana;
+	font-size: 11px;
+	text-decoration: underline;
 }
 
-a.box:hover 
-{   
-  text-decoration: none;  
+a.box:hover
+{
+  text-decoration: none;
 }
 
 .Chead
 {
   background: #16639b;
+  color: #9dbdd4;
+}
+
+.Chead a
+{
   color: #9dbdd4;
 }
 
@@ -225,7 +230,7 @@ a.box:hover
   color: #000000;
 }
 
-.Cnorm 
+.Cnorm
 {
   background-color: #e5e5e5;
 }
@@ -243,31 +248,31 @@ a.box:hover
   border: solid #185685 1px;
 }
 
-.smalfont 
-{ 
+.smalfont
+{
     font-size: 10px;
-		text-decoration: none; 
+		text-decoration: none;
 }
 
-.border 
-{ 
-   background-color: #185685; 
+.border
+{
+   background-color: #185685;
 }
-hr 
-{ 
-    height: 0px; 
-		border: solid #003366 0px; 
-		border-top-width: 1px; 
+hr
+{
+    height: 0px;
+		border: solid #003366 0px;
+		border-top-width: 1px;
 }
 
 input, textarea, select
-{ 
-    color: #000000;  
-    font: 12px Verdana;  
+{
+    color: #000000;
+    font: 12px Verdana;
     border-color: #185685;
   	border-width: 1px;
-    border-style: solid;  
-    font-weight: none;  
-    text-decoration: none;  
-    background-color: #EFEFEF;  
+    border-style: solid;
+    font-weight: none;
+    text-decoration: none;
+    background-color: #EFEFEF;
 }

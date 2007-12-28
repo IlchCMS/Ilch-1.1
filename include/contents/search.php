@@ -219,7 +219,7 @@ if(isset($_GET['in'])) {
 
   $q .= " LIMIT ".$anfang.",".$limit;
 
-  $MPL = db_make_sites ($page , "" , $limit , "index.php?search=".urlencode($such)."&amp;autor=".urlencode($autor)."&amp;in=".$_GET['in']."&amp;days=".$_GET['days']."&amp;page=", "", $gAnz );
+  $MPL = db_make_sites ($page , "" , $limit , "index.php?search=".urlencode($such)."&autor=".urlencode($autor)."&in=".$_GET['in']."&days=".$days."&page=", "", $gAnz );
   $tpl->set_ar_out(array('MPL'=>$MPL,'gAnz'=>$gAnz),1);
 
   $q = db_query($q);

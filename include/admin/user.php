@@ -339,7 +339,7 @@ switch($um) {
           unset($tpl);
 		      icmail ( $_POST['email'], 'Admin hat dich angelegt', $txt );
 		    }
-		    $msg = 'Benutzer angelegt <a href="javascript:closeThisWindow()">Fenster schliesen</a>';
+		    $msg = 'Benutzer angelegt <a href="javascript:closeThisWindow()">Fenster schlieﬂen</a>';
       }
     }
     $pass = '';
