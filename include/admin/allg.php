@@ -155,7 +155,7 @@ if ( empty ($_POST['submit']) ) {
 	while($row = db_fetch_assoc($erg) ) {
 	  if ($row['typ'] == 'password' AND $_POST[$row['schl']] == '***') {
 	      continue;
-	  } else {
+	  } elseif ($row['typ'] == 'password') {
 	      require_once('include/includes/class/cipher.php');
           $cipher = new cipher(DBDATE.DBUSER.DBPASS);
           $_POST[$row['schl']] = $cipher->encrypt($_POST[$row['schl']]);

@@ -117,7 +117,7 @@ if (!empty($such) OR !empty($autor)) {
   }
 
 
-  $limit = 25;  // Limit
+  $limit = 1;  // Limit
   $anfang = ($page - 1) * $limit;
 
   $x = time() - (3600 * 24 * $days);
@@ -170,7 +170,7 @@ if (!empty($such) OR !empty($autor)) {
         prefix_topics.name as titel,
         'foru' as typ,
         prefix_topics.id as id,
-        time as time,
+        `time`,
 		prefix_posts.erst as autor
       FROM prefix_posts
         LEFT JOIN prefix_topics ON prefix_topics.id = prefix_posts.tid
@@ -189,14 +189,14 @@ if(isset($_GET['in'])) {
         news_title as titel,
         'news' as typ,
         news_id as id,
-        news_time as time,
+        news_time as `time`,
 		prefix_user.name as autor
       FROM prefix_news
 	  	LEFT JOIN prefix_user ON prefix_news.user_id = prefix_user.id
       WHERE (".$str_news." 1 = 1)
 	  	AND (".$str_news_a." 1 = 1)
         AND (news_time >= ". $x .")
-	  ORDER BY time DESC";
+	  ORDER BY `time` DESC";
   } elseif($_GET['in'] == 3) {
 	$q = "
 	  SELECT DISTINCT
@@ -204,14 +204,14 @@ if(isset($_GET['in'])) {
         CONCAT( name, ' ', version ) AS titel,
         'down' as typ,
         id,
-        UNIX_TIMESTAMP(time) as time,
+        UNIX_TIMESTAMP(`time`) as `time`,
 		creater as autor
       FROM prefix_downloads
       WHERE ((".$str_downs." 1 = 1)
 	  	OR (".$str_downs_." 1 = 1))
 		AND (".$str_downs_a." 1 = 1)
-        AND (time >= ". $x .")
-	  ORDER BY time DESC";
+        AND (UNIX_TIMESTAMP(`time`) >= ". $x .")
+	  ORDER BY UNIX_TIMESTAMP(`time`) DESC";
   }
 }
 

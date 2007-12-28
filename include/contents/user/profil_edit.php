@@ -37,6 +37,7 @@ if ( empty ($_POST['submit']) ) {
     $row['Fasize'] = $allgAr['Fasize'];
     $row['forum_max_sig'] = $allgAr['forum_max_sig'];
     $row['uid'] = $_SESSION['authid'];
+    $row['forum_usergallery'] = $allgAr['forum_usergallery'];
     $tpl->set_ar_out($row,0);
     if ($allgAr['forum_avatar_upload']) $tpl->out(1);
     $tpl->set_ar_out($row,2);

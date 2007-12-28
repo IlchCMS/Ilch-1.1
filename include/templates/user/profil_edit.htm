@@ -16,9 +16,9 @@
 			<label style="float:left; width:35%;">{_lang_mails}<span class="smalfont"> {_lang_fromotherusers}?</span></label><input id="opt_mail1" type="radio" value="1" name="opt_mail" {opt_mail1} /><label for="opt_mail1"> {_lang_yes}</label>, <input id="opt_mail0" type="radio" value="0" name="opt_mail" {opt_mail0} /><label for="opt_mail0"> {_lang_no}</label><br style="clear:both;" />
 			<label style="float:left; width:35%;">{_lang_privatemessages}<span class="smalfont"> {_lang_fromotherusers}?</span></label><input id="opt_pm1" type="radio" value="1" name="opt_pm" {opt_pm1} /><label for="opt_pm1"> {_lang_yes}</label>, <input id="opt_pm0" type="radio" value="0" name="opt_pm" {opt_pm0} /><label for="opt_pm0"> {_lang_no}</label><br style="clear:both;" />
 			<label style="float:left; width:35%;">{_lang_privatemessages}<span class="smalfont"> {_lang_popupbynewmsg}?</span></label><input id="opt_pm_popup1" type="radio" value="1" name="opt_pm_popup" {opt_pm_popup1} /><label for="opt_pm_popup1"> {_lang_yes}</label>, <input id="opt_pm_popup0" type="radio" value="0" name="opt_pm_popup" {opt_pm_popup0} /><label for="opt_pm_popup0"> {_lang_no}</label><br  style="fclear:both;" /><br />
-			<div align="center">
+			{_if_{forum_usergallery}=='1'}<div align="center">
                 <a href="index.php?user-usergallery-{uid}">Usergallery</a> &nbsp; <a href="index.php?user-remove"/></a>
-            </div><br />
+            </div>{/_endif}<br />
             {EXPLODE}
       <fieldset>
       <legend>{_lang_removeaccount}</legend>
