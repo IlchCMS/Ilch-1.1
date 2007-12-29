@@ -10,7 +10,7 @@ $such = $menu->get(1);
 if ($such == 'aeit') {
     if (isset($_POST['name'])) {
         $name = escape($_POST['name'],'string');
-        $uid = db_result(db_query("SELECT id FROM prefix_user WHERE name = BINARY '".$name."'"));
+        $uid = @db_result(db_query("SELECT id FROM prefix_user WHERE name = BINARY '".$name."'"));
         if ($uid > 0) {
             $menu->set_url(2,$uid);
         }

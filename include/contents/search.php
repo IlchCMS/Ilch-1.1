@@ -117,7 +117,7 @@ if (!empty($such) OR !empty($autor)) {
   }
 
 
-  $limit = 1;  // Limit
+  $limit = 25;  // Limit
   $anfang = ($page - 1) * $limit;
 
   $x = time() - (3600 * 24 * $days);
