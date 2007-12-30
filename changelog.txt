@@ -10,14 +10,16 @@ Version 1.1 I
 + Backupsystem überarbeitet
 + Überarbeitung der Klassen tpl,menu und design (für Entwickler in die Doku schauen) - update von xajax auf 0.5b4
 + ausführliche Fehleranzeige bei Datenbankfehlern für (Co-)Admins
++ Mails können über SMTP versendet werden
++ Seite mit Serverinformationen im Adminbereich
 + Profil Länderauswahl alphabetisch sortiert
 + Antispam im Forum
 + User kann sich selbst löschen und Löschung eines Users sauberer (Gallery, Avatar, DB Einträge)
 + Suche nach Beiträgen oder Autor
++ Eigene Beiträge von jedem zu betrachten, Link zum ersten neuen Beitrag bei neue Themen, nun forum-aeit/aubt/augt statt search-*
 + In Memberliste Namen filtern
-+ Mails können über SMTP versendet werden
-+ Seite mit Serverinformationen im Adminbereich
 
+* Beachtung von Teamrechten bei Suche
 * Fehleranzeige fest in index.php/admin.php verankert
 * Gallerykategorien werden nur noch bei ausreichenden Rechten angezeigt
 * RSS/ATOM korrigiert/verbessert + Ein-/Mehrzahl Kommentare

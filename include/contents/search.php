@@ -153,7 +153,7 @@ if (!empty($such) OR !empty($autor)) {
 	  }
 	  if(isset($_GET['autor'])) {
 		    if($_GET['in'] == 1) {
-				$str_forum_a .= "prefix_posts.erst LIKE '%".$autor."%' AND ";
+				$str_forum_a .= "c.erst LIKE '%".$autor."%' AND ";
 			}
 		  	elseif($_GET['in'] == 2) {
 				$str_news_a .= "`name` LIKE '%".$autor."%' AND ";
@@ -166,20 +166,26 @@ if (!empty($such) OR !empty($autor)) {
 // 1 = forum, ist immer standart
 	$q = "
 	  SELECT DISTINCT
-        prefix_topics.fid as fid,
-        prefix_topics.name as titel,
+        a.fid as fid,
+        a.name as titel,
         'foru' as typ,
-        prefix_topics.id as id,
+        a.id as id,
         `time`,
-		prefix_posts.erst as autor
-      FROM prefix_posts
-        LEFT JOIN prefix_topics ON prefix_topics.id = prefix_posts.tid
-        LEFT JOIN prefix_forums ON prefix_forums.id = prefix_topics.fid
-      WHERE (prefix_forums.view >= ".$_SESSION['authright']." OR prefix_forums.reply >= ".$_SESSION['authright']." OR prefix_forums.start >= ".$_SESSION['authright'].")
+		c.erst as autor
+      FROM prefix_posts c
+        LEFT JOIN prefix_topics a ON a.id = c.tid
+        LEFT JOIN prefix_forums b ON b.id = a.fid
+        LEFT JOIN prefix_groupusers vg ON vg.uid = ".$_SESSION['authid']." AND vg.gid = b.view
+        LEFT JOIN prefix_groupusers rg ON rg.uid = ".$_SESSION['authid']." AND rg.gid = b.reply
+        LEFT JOIN prefix_groupusers sg ON sg.uid = ".$_SESSION['authid']." AND sg.gid = b.start
+      WHERE (((b.view >= ".$_SESSION['authright']." AND b.view <= 0) OR
+            (b.reply >= ".$_SESSION['authright']." AND b.reply <= 0) OR
+            (b.start >= ".$_SESSION['authright']." AND b.start <= 0)) OR
+            (vg.fid IS NOT NULL OR rg.fid IS NOT NULL OR sg.fid IS NOT NULL OR ".$_SESSION['authright']." = -9))
         AND (".$str_forum." 1 = 1)
 		AND (".$str_forum_a." 1 = 1)
         AND (time >= ". $x .")
-      GROUP BY prefix_topics.id
+      GROUP BY a.id
 	  ORDER BY time DESC";
 if(isset($_GET['in'])) {
   if($_GET['in'] == 2) {

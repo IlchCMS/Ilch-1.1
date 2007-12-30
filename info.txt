@@ -1,6 +1,6 @@
-ilchClan 1.1 F
+ilchClan 1.1 I
 
-05. März 2007
+30. Dezember 2007
 
 Copyright (c) 2005 by Manuel Staechele
 
