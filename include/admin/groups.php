@@ -134,7 +134,7 @@ if (isset ($_GET['group_delete']) AND ($gid = escape($_GET['group_delete'],'inte
   db_query("UPDATE prefix_groups SET pos = pos -1 WHERE pos > ".$pos);
 }
 
-if ( $menu->get(3) == 'userdelete' AND ($gid = escape($menu->get(2),'integer') AND may_changegroup($gid,1))) {
+if ( $menu->get(3) == 'user_delete' AND ($gid = escape($menu->get(2),'integer') AND may_changegroup($gid,1))) {
 	$uid = escape($menu->get(4),'integer');
 	db_query("DELETE FROM prefix_groupusers WHERE gid = ".$gid." AND uid = ".$uid);
 }
