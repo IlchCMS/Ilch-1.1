@@ -75,7 +75,7 @@ $result = db_query("SELECT
   FROM prefix_user
   WHERE MONTH(gebdatum) = ".$month."
 	  OR id = ".$ueid."
-	ORDER BY MONTH(gebdatum),DAY(gebdatum) LIMIT 200");
+	ORDER BY MONTH(gebdatum), DAYOFMONTH(gebdatum) LIMIT 200");
 while ($r = db_fetch_assoc($result)) {
   list($y,$m,$d) = explode('-',$r['gebdatum']);
 	$date  = mktime(0,0,0,$m,$d,date('Y'));

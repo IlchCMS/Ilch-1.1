@@ -6,7 +6,7 @@ define ( 'main' , TRUE );
 define ( 'admin', TRUE );
 
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
-ini_set('display_errors','On');
+@ini_set('display_errors','On');
 
 session_name  ('sid');
 session_start ();
