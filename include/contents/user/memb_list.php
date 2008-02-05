@@ -11,14 +11,34 @@ $design = new design ( $title , $hmenu, 1);
 $design->header();
 
 $limit = 20;  // Limit
-$page = ($menu->getA(1) == 'p' ? $menu->getE(1) : 1 );
-$MPL = db_make_sites ($page , "" , $limit , '?user' , 'user' );
+
+
+$tpl = new tpl ( 'user/memb_list.htm' );
+
+if($menu->exists('filtername')){
+  $page = ($menu->getA(3) == 'p' ? $menu->getE(3) : 1 );
+  $filtername = escape($menu->get(2), 'string');
+}else{
+  $page = ($menu->getA(1) == 'p' ? $menu->getE(1) : 1 );
+}
+
 $anfang = ($page - 1) * $limit;
 
 $tpl = new tpl ( 'user/memb_list.htm' );
-$tpl->set_out ( 'SITELINK', $MPL, 0);
 
-$filtername = isset($_GET['filtername']) ? "WHERE prefix_user.name LIKE '%".escape($_GET['filtername'],'string')."%'" : "";
+if(isset($_GET['filtername']) AND !empty($_GET['filtername'])){
+  $filtername = escape($_GET['filtername'], 'string');
+}
+
+if(!empty($filtername)){
+  $sql_search=" WHERE prefix_user.name LIKE '%".$filtername."%'";
+  $MPL = db_make_sites ($page , $sql_search , $limit , '?user-filtername-'.$filtername , 'user' );
+}else{
+  $sql_search="";
+  $MPL = db_make_sites ($page , "" , $limit , '?user' , 'user' );
+}
+
+$tpl->set_out ( 'SITELINK', $MPL, 0);
 
 $class = '';
 $erg = db_query("SELECT
@@ -29,7 +49,7 @@ $erg = db_query("SELECT
   prefix_user.name
 FROM prefix_user
  LEFT JOIN prefix_grundrechte ON prefix_user.recht = prefix_grundrechte.id
- $filtername
+ $sql_search
 ORDER by recht,prefix_user.posts DESC LIMIT ".$anfang.",".$limit);
 while ($row = db_fetch_object($erg)) {
 
@@ -44,7 +64,7 @@ while ($row = db_fetch_object($erg)) {
 	);
 	$tpl->set_ar_out($ar,1);
 }
-$tpl->set_out('filtername',escape(isset($_GET['filtername'])?$_GET['filtername']:'','string'),2);
+$tpl->set_out('filtername',$filtername ? $filtername : '',2);
 
 $design->footer();
 ?>
