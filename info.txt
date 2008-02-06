@@ -19,7 +19,7 @@ d a n k e
   - Scarfhogg für die Design Anpassung und die Icons im Adminbereich und vieles mehr!
   - Scorp für die super Hilfe bei den Templates.
   - jihi für die Hilfe zwischendurch.
-  - fanguro für das neue Standart Design
+  - fanguro für das neue Standard Design
   - Rock@Wulf für sein AwayCalender und Kassen Modul.
   - Nickel für sein Kalender Modul.
   - s_down für die Geburtstagsbox

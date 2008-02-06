@@ -62,7 +62,7 @@ INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('gallery_imgs_per_site', 'input', 'Gallery Optionen', 'Bilder pro Seite', '12');
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('gallery_preview_width', 'input', 'Gallery Optionen', 'Breite der Vorschaubilder', '80');
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('Fpmf', 'r2', 'Forum Optionen', 'Nachrichten Function', '1');
-INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('gfx', 's', 'Allgemeine Optionen', 'Standart Design', 'ilchClan');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('gfx', 's', 'Allgemeine Optionen', 'Standard Design', 'ilchClan');
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('adminMail', 'input', 'Allgemeine Optionen', 'Administrator eMail', 'test');
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('smodul', 's', 'Allgemeine Optionen', 'Start Modul der Seite', 'news');
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('title', 'input', 'Allgemeine Optionen', 'Titel der Seite', 'Das Clanscript für jeden!');
