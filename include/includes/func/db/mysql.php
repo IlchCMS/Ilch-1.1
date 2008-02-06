@@ -9,7 +9,7 @@ $count_query_xyzXYZ = 0;
 
 function db_connect () {
   if (defined('CONN')) {
-      return null;
+    return;
   }
   define ( 'CONN', @mysql_pconnect(DBHOST, DBUSER, DBPASS));
   $db = @mysql_select_db(DBDATE, CONN);

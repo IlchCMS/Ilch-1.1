@@ -1,4 +1,4 @@
-<?php 
+<?php
 #   Copyright by Manuel Staechele
 #   Support www.ilch.de
 
@@ -13,7 +13,7 @@ if ( !empty($_POST['temp_ch']) ) {
   $_SESSION['authgfx'] = $_POST['temp_ch'];
 	wd ( '' , '' , 0 );
 } else {
-echo '<form action="index.php?'.$menu->get(0).'" method="POST">';
+echo '<form action="index.php?'.$menu->get_complete().'" method="POST">';
 echo '<div align="center">';
 echo '<select name="temp_ch" onchange="this.form.submit();">';
 $o = opendir ('include/designs');

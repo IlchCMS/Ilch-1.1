@@ -2,6 +2,15 @@ Changelog:
 ==========
 + neue Funktionen       * Änderungen/Bugfixes
 
+Version 1.1 J
+-------------
+* Filtern in der Memberliste (Multipages)
+* Löschen von Usern im Adminbereich - Teams
+* Inkompatibilität mit alten MySQL Versionen beim Kalender
+* Design- und Shoutbox leiten beim Aufruf nun auch wieder auf die Seite, auf der man war (menu Klasse erweitert)
+* mysql.php angepasst, damit keine Fehler bei alten Installationsdateien von Modulen kommen
+* Fehler bei Windowsservern und der Onlineanzeige behoben
+
 Version 1.1 I
 -------------
 + teams.php kann individuelle teams Kombinationen anzeigen (Bsp.: ?teams-show-1-4-2)

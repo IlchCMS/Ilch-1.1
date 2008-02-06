@@ -107,10 +107,10 @@ function user_admin_online_liste () {
 }
 
 function getip() {
-  if (getenv("HTTP_X_FORWARDED_FOR")) {
-     return (getenv("HTTP_X_FORWARDED_FOR"));
+  if ($_SERVER["HTTP_X_FORWARDED_FOR"]) {
+     return ($_SERVER["HTTP_X_FORWARDED_FOR"]);
   } else {
-     return (getenv("REMOTE_ADDR"));
+     return ($_SERVER["REMOTE_ADDR"]);
   }
 }
 

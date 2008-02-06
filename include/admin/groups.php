@@ -107,12 +107,12 @@ if ( $um == 'ch' ) {
     $mod1 = $oldopts->mod1;
   } elseif ($oldopts->mod4 == $_SESSION['authid']) {
     $name	   = $oldopts->name;
-	  $img	   = $oldopts->img;
+	$img	   = $oldopts->img;
     $mod1    = $oldopts->mod1;
     $mod2    = $oldopts->mod2;
     $mod3    = $oldopts->mod3;
-	  $zeigen	 = $oldopts->zeigen;
-	  $fightus = $oldopts->fightus;
+	$zeigen	 = $oldopts->zeigen;
+	$fightus = $oldopts->show_fightus;
   }
 
   if (may_changegroup($gid,1)) {

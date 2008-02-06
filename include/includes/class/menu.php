@@ -110,7 +110,7 @@ class menu {
     # usw. nicht mehr einloggen, bzw. es kann
     # sich sonst keiner registrieren. deshalb is das
     # user modul immer frei geschaltet
-    $alwaysallowed = array('regist','login','1','2','confirm','password_reminder','13');
+    $alwaysallowed = array('regist','login','1','2','confirm','password_reminder','13','3','logout');
     if ($exit === true AND $this->get(0) == 'user' AND in_array($this->get(1),$alwaysallowed)) {
       $exit = false;
       debug ('o');
@@ -187,6 +187,11 @@ class menu {
     } else {
       return ( '' );
     }
+  }
+
+  # gibt den kompletten "Pfad" aus
+  function get_complete(){
+      return implode('-',$this->menu_ar);
   }
 }
 ?>

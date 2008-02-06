@@ -20,7 +20,7 @@ defined ('main') or die ( 'no direct access' );
 	  }
   }
   if (has_right($allgAr['sb_recht'])){
-  echo '<form action="index.php" method="POST">';
+  echo '<form action="index.php?'.$menu->get_complete().'" method="POST">';
   echo '<input type="text" size="15" name="shoutbox_nickname" value="'.$shoutbox_VALUE_name.'" onFocus="if (value == \''.$shoutbox_VALUE_name.'\') {value = \'\'}" onBlur="if (value == \'\') {value = \''.$shoutbox_VALUE_name.'\'}" maxlength="15">';
   echo '<br /><textarea style="width: 80%" cols="15" rows="2" name="shoutbox_textarea"></textarea><br />';
 	echo get_antispam ('shoutbox', 0);
