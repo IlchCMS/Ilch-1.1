@@ -10,6 +10,7 @@ Version 1.1 J
 * Design- und Shoutbox leiten beim Aufruf nun auch wieder auf die Seite, auf der man war (menu Klasse erweitert)
 * mysql.php angepasst, damit keine Fehler bei alten Installationsdateien von Modulen kommen
 * Fehler bei Windowsservern und der Onlineanzeige behoben
+* Fehler beim Ausloggen behoben, wenn user.php nicht verlinkt war
 
 Version 1.1 I
 -------------
