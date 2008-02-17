@@ -307,7 +307,7 @@ class design extends tpl {
         } elseif (file_exists('include/boxes/' . $box . '.htm')) {
             $pfad = 'include/boxes/' . $box . '.htm';
         } elseif (file_exists ('include/contents/selfbp/selfb/' . str_replace('self_', '', $box) . '.php')) {
-            $pfad = 'include/contents/selfbp/selfb/' . str_replace('self_', '', $box) . '.htm';
+            $pfad = 'include/contents/selfbp/selfb/' . str_replace('self_', '', $box) . '.php';
         } elseif (file_exists ('include/contents/selfbp/selfb/' . str_replace('self_', '', $box) . '.htm')) {
             $pfad = 'include/contents/selfbp/selfb/' . str_replace('self_', '', $box) . '.htm';
         } else {

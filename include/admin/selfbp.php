@@ -1,4 +1,4 @@
-<?php 
+<?php
 #   Copyright by: Manuel Staechele
 #   Support: www.ilch.de
 
@@ -13,7 +13,7 @@ $design->header();
 # liest die <!--@..=..@--> in den ersten 1024 Zeichen in ein Array aus
 function get_properties($t){
       preg_match_all("|(?:<!--@(?P<name>[^=]*)=(?P<value>.*)@-->)|U",$t, $out, PREG_SET_ORDER);
-            
+
       $properties= array();
       foreach($out as $x){
         $properties[$x[name]]=htmlspecialchars($x[value]);
@@ -34,21 +34,21 @@ function set_properties($ar){
 function rteSafe($strText) {
 	//returns safe code for preloading in the RTE
 	$tmpString = $strText;
-	
+
 	//convert all types of single quotes
 	$tmpString = str_replace(chr(145), chr(39), $tmpString);
 	$tmpString = str_replace(chr(146), chr(39), $tmpString);
 	$tmpString = str_replace("'", "&#39;", $tmpString);
-	
+
 	//convert all types of double quotes
 	$tmpString = str_replace(chr(147), chr(34), $tmpString);
 	$tmpString = str_replace(chr(148), chr(34), $tmpString);
   $tmpString = str_replace("\\\"", "\"", $tmpString);
-	
+
 	//replace carriage returns & line feeds
 	$tmpString = str_replace(chr(10), " ", $tmpString);
 	$tmpString = str_replace(chr(13), " ", $tmpString);
-	
+
 	return $tmpString;
 }
 # gibt die  options für die Dateiauswahl zurück
@@ -73,7 +73,7 @@ function get_akl ($ak) {
     }
     closedir($o);
   }
-  
+
   $l = '';
   foreach ($ar_l as $k => $v ) {
     if ( $k == $ak ) { $sel = ' selected'; } else { $sel = ''; }
@@ -113,7 +113,7 @@ function get_text ($akl) {
     $t = implode("", file ('include/contents/selfbp/self'.$f.'/'.substr($akl,1)));
 		return ($t);
   }
- 
+
   return ('');
 }
 
@@ -202,24 +202,24 @@ if ( isset ($_POST['bbwy']) AND isset($_POST['filename']) AND isset($_POST['akl'
   #$text = rteSafe($_POST['text']);
   $text = set_properties(array('title'=>$_POST['title'],'hmenu'=>$_POST['hmenu'],'view'=>$_POST['view'],'viewoptions'=>$_POST['viewoptions'])).$text;
   $text = edit_text(stripslashes($text), true);
-  
+
   $a = substr ( $akl, 0, 1);
   #$e = substr ( $akl, 1 );
-  
+
   #if ( $e != 'neu' ) {
   #  unlink ( 'include/contents/selfbp/self'.$a.'/'.$e );
   #}
-  
+
   if (!empty($_POST['exfilename']) AND $_POST['exfilename'] != $_POST['filename']) {
     $exfilename = escape($_POST['exfilename'], 'string');
-    unlink('include/contents/selfbp/self'.$a.'/'.$exfilename);
+    @unlink('include/contents/selfbp/self'.$a.'/'.$exfilename);
 
-  } 
-  
+  }
+
   $filename = get_nametosave($_POST['filename']);
   $fname = 'include/contents/selfbp/self'.$a.'/'.$filename;
   save_file_to ( $fname, $text );
-  
+
   wd ('admin.php?selfbp=0&akl='.$a.$filename, 'Ihre Aenderungen wurden gespeichert...', 3);
   $design->footer(1);
 }
@@ -227,21 +227,21 @@ if ( isset ($_POST['bbwy']) AND isset($_POST['filename']) AND isset($_POST['akl'
 #anzeigen
 $tpl = new tpl ( 'selfbp', 1 );
 $akl  = '';
-if ( isset ( $_REQUEST['akl'] ) ) {
+if ( isset ( $_REQUEST['akl'] ) AND substr($_REQUEST['akl'],1,7) != 'neu.php' ) {
   $akl = $_REQUEST['akl'];
 }
-  
+
 #löschen
 if (isset($_REQUEST['del'] )){
   $del=$_REQUEST['del'];
   $a = substr ( $del, 0, 1);
   $e = substr ( $del, 1 );
- 
+
   if ( $e != 'neu' ) {
     unlink ( 'include/contents/selfbp/self'.$a.'/'.$e );
   }
 }
-  
+
 $text= get_text($akl);
 $properties=get_properties($text);
 $text = edit_text ($text, false);

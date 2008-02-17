@@ -77,7 +77,11 @@ function session_und_cookie_name () {
 function user_login_check () {
   if ( isset ($_POST['user_login_sub']) AND isset ($_POST['name']) AND isset ($_POST['pass']) ) {
     debug ('posts vorhanden');
-    $erg = db_query("SELECT name,id,recht,pass,llogin FROM prefix_user WHERE name = BINARY '".$_POST['name']."'");
+    $name = escape_nickname($_POST['name']);
+    if ($name != $_POST['name'] OR strlen($_POST['name']) > 15) {
+        return false;
+    }
+    $erg = db_query("SELECT name,id,recht,pass,llogin FROM prefix_user WHERE name = BINARY '".$name."'");
     if ( db_num_rows($erg) == 1 ) {
       debug ('user gefunden');
       $row = db_fetch_assoc($erg);

@@ -11,6 +11,8 @@ Version 1.1 J
 * mysql.php angepasst, damit keine Fehler bei alten Installationsdateien von Modulen kommen
 * Fehler bei Windowsservern und der Onlineanzeige behoben
 * Fehler beim Ausloggen behoben, wenn user.php nicht verlinkt war
+* Einige Fehler im Zusammenhang mit Selfpages/-boxes behoben
+* Sicherheitslücke geschlossen
 
 Version 1.1 I
 -------------
