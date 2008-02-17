@@ -27,4 +27,5 @@ db_close();
 debug('anzahl sql querys: '.$count_query_xyzXYZ);
 debug('',1,false);
 
+
 ?>
