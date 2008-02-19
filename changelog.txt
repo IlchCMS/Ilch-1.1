@@ -4,6 +4,8 @@ Changelog:
 
 Version 1.1 J
 -------------
++ design-Klasse etwas erweitert
+
 * Filtern in der Memberliste (Multipages)
 * Löschen von Usern im Adminbereich - Teams
 * Inkompatibilität mit alten MySQL Versionen beim Kalender

@@ -6,7 +6,9 @@ defined ('main') or die ('no direct access');
 if (!isset($ILCH_HEADER_ADDITIONS)) {
     $ILCH_HEADER_ADDITIONS = '';
 }
-
+if (!isset($ILCH_BODYEND_ADDITIONS)) {
+    $ILCH_BODYEND_ADDITIONS = '';
+}
 class design extends tpl {
     var $html;
     var $design;
@@ -90,8 +92,20 @@ class design extends tpl {
         unset ($this->html[0]);
     }
 
+    function addtobodyend($text)
+    {
+        if (isset($this->html[1])) {
+            $this->html[1] = str_replace('</body>',$text."\n</body>" , $this->html[1] );
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     function footer ($exit = 0)
     {
+        global $ILCH_BODYEND_ADDITIONS;
+        $this->addtobodyend($ILCH_BODYEND_ADDITIONS);
         echo $this->html[1];
         unset ($this->html[1]);
         if ($exit == 1) {
@@ -296,8 +310,7 @@ class design extends tpl {
 
     function get_boxcontent ($box)
     {
-        global $lang, $allgAr, $menu;
-        global $ILCH_HEADER_ADDITIONS;
+        global $lang, $allgAr, $menu,$ILCH_HEADER_ADDITIONS,$ILCH_BODYEND_ADDITIONS;
         if (file_exists('include/boxes/' . $box)) {
             $pfad = 'include/boxes/' . $box;
         } elseif (file_exists ('include/contents/selfbp/selfb/' . str_replace('self_', '', $box))) {
