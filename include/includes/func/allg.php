@@ -302,7 +302,7 @@ function chk_antispam ($m) {
 
   if (is_numeric($allgAr['antispam']) AND has_right($allgAr['antispam'])) { return (true); }
 
-  if (isset($_POST['antispam']) AND md5($_POST['antispam']) == $_POST['antispam_e'.$m]) {
+  if (isset($_POST['antispam']) AND $_POST['antispam'] == $_SESSION['antispam'][$m][3]) {
 	  unset ($_SESSION['antispam'][$m]);
 	  return (true);
 	}
@@ -321,32 +321,14 @@ function get_antispam ($m, $t) {
 
 	$_SESSION['antispam'][$m] = array();
 
-	$zeichen = array ('+', '-');
-
 	mt_srand((double)microtime()*1000000);
-	$z = $zeichen[mt_rand(0,1)];
+	$i1 = mt_rand (1,9);
+	$i2 = mt_rand (1,9);
+	$i3 = mt_rand (1,9);
 
-	mt_srand((double)microtime()*1040404);
-	$i1 = mt_rand (2,8);
+	$_SESSION['antispam'][$m] = array($i1, $i2, $i3, $i1.$i2.$i3);
 
-	switch ($z) {
-	  case '+' : $i2_2 = 9 - $i1; break;
-		case '-' : $i2_2 = $i1 - 1; break;
-	}
-
-	mt_srand((double)microtime()*1059595);
-	$i2 = mt_rand (1,$i2_2);
-
-	if ($z == '+') {
-	  $e = $i1 + $i2;
-	} else {
-	  $e = $i1 - $i2;
-	}
-
-	$za = array ('+' => 'plus', '-' => 'minus');
-	$_SESSION['antispam'][$m] = array($i1, $za[$z], $i2);
-
-	$rs = '<span style="display: inline; width: 100px; vertical-align: middle; text-align: center; background-color: #000000; border: 0px; padding: 2px; margin: 0px;"><img src="include/images/spam/z.php?m='.$m.'&amp;w=0&amp;'.session_name().'='.session_id().'" alt=""><img src="include/images/spam/z.php?m='.$m.'&amp;w=1&amp;'.session_name().'='.session_id().'" alt=""><img src="include/images/spam/z.php?m='.$m.'&amp;w=2&amp;'.session_name().'='.session_id().'" alt=""><img src="include/images/spam/ist.jpg" alt=""><input name="antispam_e'.$m.'" value="'.md5($e).'" type="hidden" /><input name="antispam" size="1" maxlength="1" style="background-color: #FFFFFF; border: 0px; margin: 0px; padding: 0px;" /></span>';
+	$rs = '<span style="display: inline; width: 100px; vertical-align: middle; text-align: center; background-color: #000000; border: 0px; padding: 2px; margin: 0px;"><img src="include/images/spam/z.php?m='.$m.'&amp;w=0&amp;'.session_name().'='.session_id().'" alt=""><img src="include/images/spam/z.php?m='.$m.'&amp;w=1&amp;'.session_name().'='.session_id().'" alt=""><img src="include/images/spam/z.php?m='.$m.'&amp;w=2&amp;'.session_name().'='.session_id().'" alt=""><input name="antispam" size="3" maxlength="3" style="background-color: #FFFFFF; border: 0px; margin: 0px; padding: 0px;" /></span>';
   if ($t == 0) {
 	  return ($rs);
 	} elseif ($t == 1) {

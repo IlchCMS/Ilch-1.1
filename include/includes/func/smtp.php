@@ -25,11 +25,9 @@ function smtpmail($mail_to, $subject, $message, $headers = '')
 global $allgAr;
 $smtp_host = $allgAr['mail_smtp_host'];
 $smtp_username = $allgAr['mail_smtp_login'];
-$smtp_password = $allgAr['mail_smtp_password'];
-
-require_once('include/includes/class/cipher.php');
-$cipher = new cipher(DBDATE.DBUSER.DBPASS);
-$allgAr['mail_smtp_password'] = $cipher->decrypt($allgAr['mail_smtp_password']);
+require_once('include/includes/class/AzDGCrypt.class.inc.php');
+$cr64 = new AzDGCrypt(DBDATE.DBUSER.DBPREF);
+$smtp_password = $cr64->decrypt($allgAr['mail_smtp_password']);
 
 $absender = $allgAr['mail_smtp_email'];
 

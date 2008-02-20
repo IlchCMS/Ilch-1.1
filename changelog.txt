@@ -15,6 +15,8 @@ Version 1.1 J
 * Fehler beim Ausloggen behoben, wenn user.php nicht verlinkt war
 * Einige Fehler im Zusammenhang mit Selfpages/-boxes behoben
 * Sicherheitslücke geschlossen
+* cipher-Klasse durch AzDGCrypt-Klasse ersetzt (damit auch PHP4 unterstützt wird) -> !!SMTP-Passwort muss neu gespeichert werden!!
+* Antispam etwas überarbeitet
 
 Version 1.1 I
 -------------

@@ -156,9 +156,9 @@ if ( empty ($_POST['submit']) ) {
 	  if ($row['typ'] == 'password' AND $_POST[$row['schl']] == '***') {
 	      continue;
 	  } elseif ($row['typ'] == 'password') {
-	      require_once('include/includes/class/cipher.php');
-          $cipher = new cipher(DBDATE.DBUSER.DBPASS);
-          $_POST[$row['schl']] = $cipher->encrypt($_POST[$row['schl']]);
+	      require_once('include/includes/class/AzDGCrypt.class.inc.php');
+          $cr64 = new AzDGCrypt(DBDATE.DBUSER.DBPREF);
+          $_POST[$row['schl']] = $cr64->crypt($_POST[$row['schl']]);
       }
 	  db_query('UPDATE `prefix_config` SET wert = "'.$_POST[$row['schl']].'" WHERE schl = "'.$row['schl'].'"');
 	}
