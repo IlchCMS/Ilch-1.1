@@ -36,10 +36,6 @@ function escape ($var, $type) {
 function escape_nickname ($t) {
   $t = preg_replace("/[^a-zA-Z0-9-\[\]\*\ \+=\._\|]/","",$t);
   $t = substr($t, 0, 15);
-  $l = strlen($t);
-  if ($l < 3) {
-    $t .= genkey(3-$l);
-  }
   $t = escape($t, 'string');
   return ($t);
 }
