@@ -33,7 +33,7 @@ function user_get_mod_change_list ($uid) {
   $erg = db_query("SELECT prefix_modules.id, uid FROM prefix_modules LEFT JOIN prefix_modulerights ON prefix_modulerights.mid = prefix_modules.id AND prefix_modulerights.uid = ".$uid." WHERE fright = 1 ORDER BY prefix_modules.name");
   while ($r = db_fetch_assoc($erg)) {
     if ($r['uid'] == '') { $c = ''; } else { $c = ' checked'; }
-    $l .= '<td align="center"><input onChange="changeModulRecht('.$r['id'].','.$uid.')" type="checkbox" id="MN'.$r['id'].$uid.'" name="MN'.$r['id'].$uid.'" '.$c.' /></td>';
+    $l .= '<td align="center"><input onChange="changeModulRecht('.$r['id'].','.$uid.')" type="checkbox" id="MN'.$r['id'].'-'.$uid.'" name="MN'.$r['id'].'-'.$uid.'" '.$c.' /></td>';
   }
   return ($l);
 }

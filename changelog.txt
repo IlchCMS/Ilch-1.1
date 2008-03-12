@@ -2,6 +2,10 @@ Changelog:
 ==========
 + neue Funktionen       * Änderungen/Bugfixes
 
+Version 1.1 K
+-------------
+* Fehler beim ändern der Modulrechte in der Userverwaltung behoben
+
 Version 1.1 J
 -------------
 + design-Klasse etwas erweitert

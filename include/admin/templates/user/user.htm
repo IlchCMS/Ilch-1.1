@@ -53,7 +53,7 @@
   }
   function changeModulRecht ( modul, uid ) {
     var aktion = 'loeschen';
-    if ( document.getElementById("MN" + modul + uid).checked == true ) {
+    if ( document.getElementById("MN" + modul + "-" + uid).checked == true ) {
       aktion = 'eintragen';
     }
     var Fenster = window.open ('admin.php?user-modulrecht-' +uid+ '=0&modul=' + modul + '&aktion=' + aktion, 'changeModulRecht', 'status=no,scrollbars=no,height=10,width=10');
