@@ -2,14 +2,14 @@
 <script language="JavaScript" type="text/javascript" src="include/includes/js/editor/deutsch.js"></script>
 
 <form name="form" action="admin.php?selfbp" method="post" onsubmit="return checkfilename();">
-
+<input type="hidden" name="wysiwyg" value="{wysiwyg}" /><input type="hidden" name="toggle" value="0" />
 <table cellpadding="2" cellspacing="1" border="0" class="border">
   <tr>
     <td class="Cmite">Aktion w&auml;hlen</td>
     <td class="Cnorm"><select id="akl" name="akl" onChange="changeAktion()">{akl}</select></td>
   </tr><tr>
     <td class="Cmite">Dateiname</td>
-    <td class="Cnorm"><input type="hidden" name="exfilename" value="{exfilename}" /><input id="filename" name="filename" size="50" value="{filename}" /></td>
+    <td class="Cnorm"><input type="hidden" name="exfilename" value="{exfilename}" /><input id="filename" name="filename" size="50" value="{filename}" onchange="showToggleBtn();" /></td>
   </tr><tr>
     <td class="Cmite">Titel</td>
     <td class="Cnorm"><input name="title" size="50" value="{title}" /></td>
@@ -24,19 +24,15 @@
     </td>
   </tr><tr>
     <td colspan="2" class="Cnorm">
-    
 <textarea style="height:350px;width:750px;" name="bbwy" id="bbwy">{text}</textarea>
-<script language="javascript" type="text/javascript">
-buttonPath = "include/images/icons/editor/";
-imageBrowse = "admin.php?selfbp-imagebrowser";
-makeWhizzyWig("bbwy", "all");
-//-->
-</script>
-    
+{wysiwyg_editor}
     </td>
   </tr><tr class="Cdark">
     <td></td>
-    <td><input type="submit" name="submit" value="Speichern">&nbsp;<input type="button" value="Löschen" onclick="confirmDel()"></td>
+    <td><input type="submit" name="submit_form" value="Speichern">&nbsp;
+    <input type="button" value="Löschen" onclick="confirmDel()">&nbsp;
+    <input type="button" value="Toggle WYSIWYG" name="toggleBtn" onclick="toggleWYSIWYG();" style="display:none;" />
+    </td>
   </tr>
 </table>
 </form>
@@ -54,20 +50,20 @@ makeWhizzyWig("bbwy", "all");
             <li><b>Hmenu</b> wird unter dem Banner angezeigt [Design abhängig]</li>
             <li><b>Anzeige</b> Hier kann man auswählen, ob die Seite ganz <u>normal</u>, <u>Vollbild</u> (, also ohne Men&uuml;,)
             oder in einem <u>neuen Fenster</u> angezeigt werden soll. <br>Für ein neues Fenster kann man die <u>Fenster Eigenschaften</u> noch in dem Eingabefeld dahinter festlegen. Bsp.:<br>
-            <div style="background-color:#FFFFFF">                     
+            <div style="background-color:#FFFFFF">
             menubar=yes, toolbar=yes, status=yes, scrollbars=yes, resizable=yes, top=50, left=300, height=500, width=350</li>
             </div>
           </ul>
 				</li>
-				<br /><br />
+				<br />
         <li>Wie binde ich denn so eine eigene Page in das Men&uuml; ein?<br />
 				Einfach auf Navigation Klicken und den Namen aus&auml;hlen (er f&auml;ngt mit 'selfp_' an).
 				</li>
-				<br /><br />
+				<br />
 				<li>Und eigene Boxen?<br />
 				Auch sehr einfach. Auf Navigation klicken und den Namen aus&auml;hlen (er f&auml;ngt mit 'selfb_' an).
 		    </li>
-				<br /><br />
+				<br />
 				<li><b>Wichtig!</b><br />
 				Folgendes bitte beachten. Die Dateiamen m&uuml;ssen unterschiedlich sein!
         Wenn Sie einen gleichen Namen verwenden, wird die schon bestehende Datei
@@ -83,14 +79,20 @@ makeWhizzyWig("bbwy", "all");
         <br />
         Bitte unbedingt diese drei Punkte beachten, andernfalls kann es zu Datenverlust
         oder sonstigem unerw&uuml;nstem Verhalten kommen.
-		    </li>
+		    </li><br />
+		    <li>
+            <b>Toggle WYSIWYG</b><br />
+            Da der verwendete Editor bei komplexeren HTML Elementen wie iframes oder eingef&uuml;gten Videos einfach Sachen herausl&ouml;scht,
+            was zur Folge hat, dass die Elemente nicht funktionieren, kann man den Editor auch deaktivieren. In dem Modus kann man HTML eingeben,
+            ohne dass daran &Auml;nderungen vorgenommen werden.<br />
+            Ist erst nach Eingabe eines Namens verf&uuml;gbar, da beim Toggeln gespeichert wird.
+            </li>
 				<br /><br />
     </td>
-    
-	</tr> 
-</table>	
-<script language="javascript" type="text/javascript">
-<!--
+
+	</tr>
+</table>
+<script type="text/javascript">
 function changeAktion () {
   var akl = document.getElementById('akl').value;
   document.location.href="?selfbp=0&akl=" + akl;
@@ -103,14 +105,28 @@ function confirmDel(){
   }
 }
 function checkfilename () {
-  if (document.getElementById('filename').value != '') {
+  var filename = document.getElementById('filename');
+  if (filename.value != '') {
     return (true);
   }
-  
+
   alert ('Bitte einen Dateinamen eingeben.');
-  document.getElementById('filename').style.backgroundColor="yellow";
-  document.getElementById("filename").focus();
+  filename.style.backgroundColor="yellow";
+  filename.focus();
   return (false);
 }
-//-->
+function toggleWYSIWYG(){
+    document.forms['form'].wysiwyg.value = document.forms['form'].wysiwyg.value == 1 ? 0 : 1;
+    document.forms['form'].toggle.value = 1;
+    document.forms['form'].action = window.location;
+    document.forms['form'].submit();
+}
+function showToggleBtn(){
+    if (document.forms['form'].filename.value.length > 0) {
+        document.forms['form'].toggleBtn.style.display = '';
+    } else {
+        document.forms['form'].toggleBtn.style.display = 'none';
+    }
+}
+showToggleBtn();
 </script>

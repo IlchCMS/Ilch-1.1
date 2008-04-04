@@ -18,10 +18,10 @@ if (!is_admin()) {
 function get_def($dbname, $table) {
     $def = "";
     if(isset($_POST['drop'])) {
-        $def .= "DROP TABLE IF EXISTS $table;\n";
+        $def .= "DROP TABLE IF EXISTS `$table`;\n";
     }
-    $def .= "CREATE TABLE $table (\n";
-    $result = mysql_db_query($dbname, "SHOW FIELDS FROM $table",CONN);
+    $def .= "CREATE TABLE `$table` (\n";
+    $result = mysql_db_query($dbname, "SHOW FIELDS FROM `$table`",CONN);
     while($row = mysql_fetch_array($result)) {
         $def .= "    `".$row['Field']."` ".$row['Type'];
         if ($row["Default"] != "") $def .= " DEFAULT '".$row['Default']."'";
@@ -30,7 +30,7 @@ function get_def($dbname, $table) {
         	$def .= ",\n";
      }
      $def = ereg_replace(",\n$","", $def);
-     $result = mysql_db_query($dbname, "SHOW KEYS FROM $table",CONN);
+     $result = mysql_db_query($dbname, "SHOW KEYS FROM `$table`",CONN);
      while($row = mysql_fetch_array($result)) {
           $kname = $row['Key_name'];
           if(($kname != "PRIMARY") && ($row['Non_unique'] == 0)) $kname="UNIQUE|$kname";
@@ -43,7 +43,7 @@ function get_def($dbname, $table) {
           else if (substr($x,0,6) == "UNIQUE") $def .= "   UNIQUE ".substr($x,7)." (" . implode($columns, ", ") . ")";
           else $def .= "   KEY $x (" . implode($columns, ", ") . ")";
      }
-     $result = mysql_db_query($dbname, "SHOW TABLE STATUS FROM $dbname LIKE '$table'",CONN);
+     $result = mysql_db_query($dbname, "SHOW TABLE STATUS FROM `$dbname` LIKE '$table'",CONN);
      $auto_inc = mysql_result($result,0,'Auto_increment');
      $def .= "\n)".($auto_inc != '' ? " AUTO_INCREMENT=$auto_inc":'').";";
      return (stripslashes($def));
@@ -51,15 +51,15 @@ function get_def($dbname, $table) {
 
 function get_content($dbname, $table) {
      $content="";
-     $result = mysql_db_query($dbname, "SHOW FIELDS FROM $table",CONN);
+     $result = mysql_db_query($dbname, "SHOW FIELDS FROM `$table`",CONN);
      $fields = '(';
      while($row = mysql_fetch_row($result)){
          $fields .= '`'.$row[0].'`,';
      }
      $fields = substr($fields,0,-1).')';
-     $result = mysql_db_query($dbname, "SELECT * FROM $table",CONN);
+     $result = mysql_db_query($dbname, "SELECT * FROM `$table`",CONN);
      while($row = mysql_fetch_row($result)) {
-         $insert = "INSERT INTO $table $fields VALUES (";
+         $insert = "INSERT INTO `$table` $fields VALUES (";
          for($j=0; $j<mysql_num_fields($result);$j++) {
             if(!isset($row[$j])) $insert .= "NULL,";
             else if($row[$j] != "") $insert .= "'".addslashes($row[$j])."',";

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*      ìlchClan Pic of the X modul
 -------------------------------------------------------------|
      Copyright       :   © by Manuel (ìlch) Staechele        |
@@ -11,6 +11,12 @@
 defined ('main') or die ( 'no direct access' );
 defined ('admin') or die ( 'only admin access' );
 
+function getGalleryCats($cats,$cat,&$op,$sel,$lvl){
+    foreach ($cats[$cat] as $k => $v) {
+        $op .= '<option value="'.$k.'"'.($sel == $k ? 'selected="selected"' : '').'> '.$lvl.' '.$v.'</option>';
+        getGalleryCats($cats,$k,$op,$sel,$lvl.'-');
+    }
+}
 
 $design = new design ( 'Admins Area', 'Admins Area', 2 );
 $design->header();
@@ -24,8 +30,8 @@ if ( empty ( $um ) )
     {
         $picofxOpts[$saRow['v1']] = $saRow['v2'];
     }
-    
-    
+
+
     ?>
     <h2><b>Pic of the X verwalten</b></h2>
     <br /><br /><form action="admin.php?picofx-update" method="POST">
@@ -35,20 +41,23 @@ if ( empty ( $um ) )
           <b>Einstellungen</b></td></tr>
             <tr><td class="Cmite" width="20%">Kategorie</td><td class="Cnorm">
             <select name="directory">
-            <option value="">gallery</option> 
+            <option value="">gallery</option>
             <?php
 
-            $erg = db_query("SELECT id,name FROM prefix_gallery_cats ORDER BY pos");
-            while ($r = db_fetch_assoc($erg)) {
-              $sel = ($r['id'] == $picofxOpts['directory']? ' selected' : '' );
-              echo '<option value="'.$r['id'].'"'.$sel.'> -- '.$r['name'].'</option>'; 
+            $erg = db_query("SELECT id,cat,name FROM prefix_gallery_cats ORDER BY cat,pos");
+            $cats = array();
+            while ($r = db_fetch_object($erg)) {
+              $cats[$r->cat][$r->id] = $r->name;
             }
+            $outputcats = '';
+            getGalleryCats($cats,0,$outputcats,$picofxOpts['directory'],'-');
+            echo $outputcats;
 
             $int_opts = array('0' => 'bei jedem Seitenaufruf', '1' => 'jeden Tag', '7' => 'jede Woche', '30' => 'jeden Monat', 'c' => 'selbstdefiniert');
             ?></select></td></tr>
-            <tr><td class="Cmite">Wechseln</td><td class="Cnorm"> 
+            <tr><td class="Cmite">Wechseln</td><td class="Cnorm">
             <select name="change">
-            <?php 
+            <?php
             foreach($int_opts as $key => $val)
             {
                 $sel = '';
@@ -63,7 +72,7 @@ if ( empty ( $um ) )
                     $sel = ' selected';
                     $cval = $picofxOpts['interval'];
                 }
-                
+
                 echo '<option value="'.$key.'"'.$sel.'>'.$val.'</option>'."\n";
             }
 
@@ -75,7 +84,7 @@ if ( empty ( $um ) )
 
             <tr><td class="Cmite">Thumbnail Breite</td><td class="Cnorm" valign="top"><input type="text" value="<?php echo $picofxOpts['picwidth'] ?>" name="picwidth" size="3" maxlength="3"> Pixel</td></tr>
             <tr class="Cdark"><td></td><td><input type="submit" value="Speichern"></td></tr></table>
-        
+
     </td></tr></table></form>
 
 <?php
@@ -104,7 +113,7 @@ elseif($um == 'update')
         }
         $picofxNextChange = date('Y-m-d', time() + 3600 * 24 * $change);
     }
-    
+
     if(strval($change) == 'x')
     {
         echo 'c '.$change;

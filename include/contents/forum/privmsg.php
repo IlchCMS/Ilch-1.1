@@ -187,7 +187,7 @@ case 'showsend' :
 default :
 		  # message übersicht.
       $tpl = new tpl ( 'forum/pm/show' );
-      $ad = $menu->getA(3) == 'a' ? 'ASC' : 'DESC';
+      $ad = $menu->getA(2) == 'a' ? 'ASC' : 'DESC';
       $tpl->set_out('ad',$ad == 'ASC'?'d':'a',0); $class = 'Cmite';
       switch ($menu->getE(2)) {
         default: case '3': $order = "a.time $ad"; break;

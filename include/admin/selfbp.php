@@ -7,8 +7,6 @@ defined ('main') or die ( 'no direct access' );
 defined ('admin') or die ( 'only admin access' );
 
 $design = new design ( 'Admins Area', 'Admins Area', 2 );
-$design->header();
-
 
 # liest die <!--@..=..@--> in den ersten 1024 Zeichen in ein Array aus
 function get_properties($t){
@@ -94,6 +92,9 @@ function get_view($select="normal"){
 
 function get_filename ($akl) {
   $n = substr ($akl,1);
+  if ($n == 'neu.php') {
+      return '';
+  }
   return ($n);
 }
 
@@ -200,7 +201,7 @@ if ( isset ($_POST['bbwy']) AND isset($_POST['filename']) AND isset($_POST['akl'
   $akl = $_POST['akl'];
   $text = $_POST['bbwy'];
   #$text = rteSafe($_POST['text']);
-  $text = set_properties(array('title'=>$_POST['title'],'hmenu'=>$_POST['hmenu'],'view'=>$_POST['view'],'viewoptions'=>$_POST['viewoptions'])).$text;
+  $text = set_properties(array('title'=>$_POST['title'],'hmenu'=>$_POST['hmenu'],'view'=>$_POST['view'],'viewoptions'=>$_POST['viewoptions'],'wysiwyg'=>$_POST['wysiwyg'])).$text;
   $text = edit_text(stripslashes($text), true);
 
   $a = substr ( $akl, 0, 1);
@@ -220,14 +221,19 @@ if ( isset ($_POST['bbwy']) AND isset($_POST['filename']) AND isset($_POST['akl'
   $fname = 'include/contents/selfbp/self'.$a.'/'.$filename;
   save_file_to ( $fname, $text );
 
-  wd ('admin.php?selfbp=0&akl='.$a.$filename, 'Ihre Aenderungen wurden gespeichert...', 3);
-  $design->footer(1);
+  if ($_POST['toggle'] == 0) {
+      $design->header();
+      wd ('admin.php?selfbp=0&akl='.$a.$filename, 'Ihre Aenderungen wurden gespeichert...', 13);
+      $design->footer(1);
+  }
 }
 
 #anzeigen
+$design->header();
+
 $tpl = new tpl ( 'selfbp', 1 );
 $akl  = '';
-if ( isset ( $_REQUEST['akl'] ) AND substr($_REQUEST['akl'],1,7) != 'neu.php' ) {
+if ( isset ( $_REQUEST['akl'] ) ) {
   $akl = $_REQUEST['akl'];
 }
 
@@ -244,13 +250,17 @@ if (isset($_REQUEST['del'] )){
 
 $text= get_text($akl);
 $properties=get_properties($text);
+if (!isset($properties['wysiwyg'])) {
+    $properties['wysiwyg'] = 1;
+}
 $text = edit_text ($text, false);
 #$text = rteSafe($text);
 $filename = get_filename($akl);
 $akl  = get_akl ( $akl );
 $view=get_view($properties['view']);
-$tpl->set_ar_out(array('akl'=>$akl,'text'=>$text,'filename'=>$filename,'exfilename'=>$filename,'title'=>$properties['title'],'hmenu'=>$properties['hmenu'],'view'=>$view,'viewoptions'=>$properties['viewoptions']),0);
-
-
+$tpl->set_ar_out(array('akl'=>$akl,'text'=>$text,'filename'=>$filename,'exfilename'=>$filename,'wysiwyg'=> $properties['wysiwyg'],
+                       'title'=>$properties['title'],'hmenu'=>$properties['hmenu'],'view'=>$view,'viewoptions'=>$properties['viewoptions'],
+                       'wysiwyg_editor' => $properties['wysiwyg'] == 1 ? '<script type="text/javascript">buttonPath = "include/images/icons/editor/"; imageBrowse = "admin.php?selfbp-imagebrowser"; makeWhizzyWig("bbwy", "all");</script>' : '')
+                       ,0);
 $design->footer();
 ?>

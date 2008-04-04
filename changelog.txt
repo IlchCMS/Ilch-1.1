@@ -4,7 +4,18 @@ Changelog:
 
 Version 1.1 K
 -------------
-* Fehler beim ändern der Modulrechte in der Userverwaltung behoben
++ Toggle WYSIWYG beim SelfpageEditor im Adminbereich hinzugefügt
+
+* Fehler beim Ändern der Modulrechte in der Userverwaltung behoben + Löschen von Usern
+* Fehler beim Antispam behoben, wenn 2 Seiten gleichzeitig geöffnet wurden
+* Fehler beim Backup mit "speziellen" Datenbanknamen behoben (z.B. kilu.de)
+* Fehler im Adminbereich Navigation behoben, die beim Ändern eines Eintrages auftreten konnten
+* Fehler beim Selfpageeditor im Zusammenhang mit Datien die neu.php heißen behoben
+* Fehler in der Shoutbox behoben, wo es möglich war ohne Rechte zu einzutragen
+* Fehler bei PMs mit der Sortierung behoben (Dank an boehserdavid ;))
+* Fehler im Kalender, wo Termine am 1. des Monats um 0:00Uhr nicht angezeigt wurden (Dank an boehserdavid ;))
+* Im Kontankformular längere E-Mailadressen erlaubt
+* Gallerykategorien im Adminbereich von PicOfX werden ordentlich sortiert angezeigt
 
 Version 1.1 J
 -------------

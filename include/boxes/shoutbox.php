@@ -9,17 +9,17 @@ defined ('main') or die ( 'no direct access' );
   } else {
     $shoutbox_VALUE_name = 'Nickname';
   }
-  if ( !empty($_POST['shoutbox_submit']) AND chk_antispam ('shoutbox')) {
-		$shoutbox_nickname = escape($_POST['shoutbox_nickname'],'string');
-    $shoutbox_nickname = substr($shoutbox_nickname, 0, 15);
-	  $shoutbox_textarea = escape($_POST['shoutbox_textarea'],'textarea');
-		$shoutbox_textarea = preg_replace("/\[.?(url|b|i|u|img|code|quote)[^\]]*?\]/i","",$shoutbox_textarea);
-		$shoutbox_textarea = strip_tags($shoutbox_textarea);
-    if ( !empty($shoutbox_nickname) AND !empty($shoutbox_textarea) ) {
-	    db_query('INSERT INTO `prefix_shoutbox` (`nickname`,`textarea`) VALUES ( "'.$shoutbox_nickname.'" , "'.$shoutbox_textarea.'" ) ' );
-	  }
-  }
   if (has_right($allgAr['sb_recht'])){
+    if ( !empty($_POST['shoutbox_submit']) AND chk_antispam ('shoutbox')) {
+    	$shoutbox_nickname = escape($_POST['shoutbox_nickname'],'string');
+    $shoutbox_nickname = substr($shoutbox_nickname, 0, 15);
+      $shoutbox_textarea = escape($_POST['shoutbox_textarea'],'textarea');
+    	$shoutbox_textarea = preg_replace("/\[.?(url|b|i|u|img|code|quote)[^\]]*?\]/i","",$shoutbox_textarea);
+    	$shoutbox_textarea = strip_tags($shoutbox_textarea);
+    if ( !empty($shoutbox_nickname) AND !empty($shoutbox_textarea) ) {
+        db_query('INSERT INTO `prefix_shoutbox` (`nickname`,`textarea`) VALUES ( "'.$shoutbox_nickname.'" , "'.$shoutbox_textarea.'" ) ' );
+      }
+    }
   echo '<form action="index.php?'.$menu->get_complete().'" method="POST">';
   echo '<input type="text" size="15" name="shoutbox_nickname" value="'.$shoutbox_VALUE_name.'" onFocus="if (value == \''.$shoutbox_VALUE_name.'\') {value = \'\'}" onBlur="if (value == \'\') {value = \''.$shoutbox_VALUE_name.'\'}" maxlength="15">';
   echo '<br /><textarea style="width: 80%" cols="15" rows="2" name="shoutbox_textarea"></textarea><br />';

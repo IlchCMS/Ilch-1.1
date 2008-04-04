@@ -54,7 +54,7 @@ $where2 = mktime(24,0,0,$month,date('t',$where1),$year);
 
 $result = db_query("SELECT *
 	FROM prefix_kalender
-	WHERE ((time > ".$where1." AND time < ".$where2.") OR id = ".$eid.")
+	WHERE ((time >= ".$where1." AND time < ".$where2.") OR id = ".$eid.")
 		AND ".$_SESSION['authright']." <= recht
 	ORDER BY time LIMIT 200");
 while ($row = db_fetch_assoc($result)) {
