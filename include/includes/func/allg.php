@@ -326,7 +326,7 @@ function get_antispam ($m, $t) {
 	$i2 = mt_rand (1,9);
 	$i3 = mt_rand (1,9);
 
-    $id = uniqid();
+    $id = uniqid('antispam');
 	$_SESSION['antispam'][$m] = array($i1, $i2, $i3);
 	$_SESSION['antispam'][$id][$m] = $i1.$i2.$i3;
 

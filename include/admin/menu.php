@@ -1,4 +1,4 @@
-<?php
+<?php 
 #   Copyright by: Manuel Staechele
 #   Support: www.ilch.de
 
@@ -16,11 +16,11 @@ function show_menu ( $wo ) {
 	$class = '';
   echo '<table class="border" cellpadding="3" cellspacing="1" border="0">';
 	while ($row = db_fetch_assoc($erg) ) {
-
+		
     $subhauptx = $row['was'];
 		$whileMenP = ($subhauptx >= 7 ? TRUE : FALSE );
 	  $class = ( $class == 'Cdark' ? 'Cmite' : 'Cdark' );
-
+    
     echo '<tr class="'.$class.'"><td>'.$row['pos'].'</td><td>'.($whileMenP?'':'<b>').($whileMenP?str_repeat('-&nbsp;',$row['ebene']+1):'').$row['name'].($whileMenP?'':'</b>').'</td>';
     echo '<td><a href="?menu-'.$row['wo'].'-l-'.$row['pos'].'"><img src="include/images/icons/pfeill.gif" alt="" border="0" title="nach links"></a></td>';
     echo '<td><a href="?menu-'.$row['wo'].'-r-'.$row['pos'].'"><img src="include/images/icons/pfeilr.gif" alt="" border="0" title="nach rechts"></a></td>';
@@ -75,16 +75,16 @@ function menu_update_menupos_m1 ($wo, $pos) {
 }
 function get_boxes_array () {
   $ar = array ();
-  $handle=opendir('include/boxes');
-  while ($ver = readdir ($handle)) {
-    if ($ver != "." AND $ver != ".." AND !is_dir('include/boxes/'.$ver) AND strpos($ver,'adminmenu') === FALSE ) {
+  $handle=opendir('include/boxes'); 
+  while ($ver = readdir ($handle)) { 
+    if ($ver != "." AND $ver != ".." AND !is_dir('include/boxes/'.$ver) AND strpos($ver,'adminmenu') === FALSE ) { 
 	    $ar[$ver] = $ver;
     }
   }
   closedir($handle);
-  $handle=opendir('include/contents/selfbp/selfb');
-  while ($ver = readdir ($handle)) {
-    if ($ver != "." AND $ver != ".." AND !is_dir('include/contents/selfbp/selfb/'.$ver) ) {
+  $handle=opendir('include/contents/selfbp/selfb'); 
+  while ($ver = readdir ($handle)) { 
+    if ($ver != "." AND $ver != ".." AND !is_dir('include/contents/selfbp/selfb/'.$ver) ) { 
 	    $ar['self_'.$ver] = 'self_'.$ver;
     }
   }
@@ -96,15 +96,15 @@ function get_boxes_array () {
 function get_links_array () {
   $ar = array ();
   $handle=opendir('include/contents');
-  while ($ver = readdir ($handle)) {
-    if ($ver != "." AND $ver != ".." AND !is_dir('include/contents/'.$ver) ) {
+  while ($ver = readdir ($handle)) { 
+    if ($ver != "." AND $ver != ".." AND !is_dir('include/contents/'.$ver) ) { 
 	    $n = explode('.',$ver);
       $ar[$n[0]] = $ver;
     }
   }
   closedir($handle);
   $handle=opendir('include/contents/selfbp/selfp');
-  while ($ver = readdir ($handle)) {
+  while ($ver = readdir ($handle)) { 
     if ($ver == "." OR $ver == ".." OR is_dir('include/contents/selfbp/selfp/'.$ver) ) { continue; }
 	  $n = explode('.',$ver);
     if ( file_exists ( 'include/contents/'.$ver) OR file_exists ( 'include/contents/'.$n[0].'.php') ) {
@@ -135,14 +135,14 @@ function menu_ck_pos_ci ($pos, $wo, $ebene = NULL, $was = NULL, $pos_vor = NULL,
   if (is_null($was)) {
     $was = db_result(db_query("SELECT was FROM prefix_menu WHERE wo = ".$wo." AND pos = ".$pos),0,0);
   }
-
+  
   if (is_null ($ebene)) {
     $ebene = db_result(db_query("SELECT ebene FROM prefix_menu WHERE wo = ".$wo." AND pos = ".$pos),0,0);
   }
-
+  
   # wenn kein menupunkt immer wahr, weil box und menu nur 0 haben koennen als ebene
   if ($was <= 4) { return (true); }
-
+  
   $anz       = db_result(db_query("SELECT COUNT(*) FROM prefix_menu WHERE wo = ".$wo ),0,0);
   $anz       = $anz - 1;
   $ebene_nac = 0;
@@ -157,15 +157,15 @@ function menu_ck_pos_ci ($pos, $wo, $ebene = NULL, $was = NULL, $pos_vor = NULL,
   if ($ebene_nac == 0 AND $pos <> $anz) {
     $ebene_nac = db_result(db_query("SELECT ebene FROM prefix_menu WHERE wo = ".$wo." AND pos = ".$pos_nac),0,0);
   }
-
+  
   if ($ebene_vor == 0 AND $pos <> 0) {
     $ebene_vor = db_result(db_query("SELECT ebene FROM prefix_menu WHERE wo = ".$wo." AND pos = ".$pos_vor),0,0);
   }
-  if ($was_vor == 1 AND $pos <> 0) {
+  if ($was_vor == 1 AND $pos <> 0) {  
     $was_vor   = db_result(db_query("SELECT was FROM prefix_menu WHERE wo = ".$wo." AND pos = ".$pos_vor),0,0);
   }
-
-  # erklaerung zur abfrage
+  
+  # erklaerung zur abfrage  
   # die ebene davor (ebene_vor) darf groeser oder gleich der ebene sein ORDER eins kleiner
   # die ebene danach (ebene_nac) darf kleiner oder gleich der ebene sein ODER eins groesser
   # UND der punkt davor muss ein menupunkt sein wenn die ebene > 0 ist
@@ -180,14 +180,14 @@ function menu_ck_pos_ci ($pos, $wo, $ebene = NULL, $was = NULL, $pos_vor = NULL,
     }
     return (true);
   }
-
+    
   return (false);
 }
 
 # diese funktion prueft vor dem eintragen oder aendern ob an der neuen position
 # das richtige was vorhanden ist und an der alten keine luecke zurueck gelassen wird
 # W I C H T I G : Diese funktion alleine ist fehlerhaft sie muss I M M E R am ende
-# nach der eigentlichen Aktion mit der Funktion "menu_ck_pos_ci" vervollstaendigt werden.
+# nach der eigentlichen Aktion mit der Funktion "menu_ck_pos_ci" vervollstaendigt werden. 
 function menu_pre_pos_ci ($npos, $nwo, $apos = NULL, $awo = NULL) {
   if (is_null($apos) AND is_null($awo)) {
     $q = "SELECT was FROM prefix_menu WHERE pos = ".$npos." AND wo = ".$wo;
@@ -195,12 +195,12 @@ function menu_pre_pos_ci ($npos, $nwo, $apos = NULL, $awo = NULL) {
       return (true);
     }
   }
-
+  
   $q = "SELECT was FROM prefix_menu WHERE pos = ".$npos." AND wo = ".$wo;
   if (db_result(db_query($q),0,0) >= 3 AND menu_ck_pos_ci($pos+1, $awo, NULL, NULL, $pos-1, NULL)) {
-    return (true);
+    return (true);  
   }
-
+  
   return (false);
 }
 */
@@ -238,14 +238,14 @@ if ( $aktion == 'an' ) {
       $was = 4;
     }
   }
-
+      
   if ( $apos == '' AND $awo == '' ) {
     # eintragen
     $npos = db_result(db_query("SELECT COUNT(*) FROM prefix_menu WHERE wo = ".$wo ),0,0);
     if ( $posi == '' OR intval($posi) != $posi OR $posi > $npos ) {
       $posi = $npos;
     } else {
-      if (!@db_query("UPDATE prefix_menu SET pos = pos + 1 WHERE wo = ".$wo." AND pos >= ".$posi)) {
+      if (!@db_query("UPDATE prefix_menu SET pos = pos + 1 WHERE wo = ".$wo." AND pos >= ".$posi." ORDER BY pos DESC")) {
 			  menu_update_menupos_p1 ($wo, $posi);
 			}
     }
@@ -253,7 +253,7 @@ if ( $aktion == 'an' ) {
     $q = "INSERT INTO prefix_menu (wo,pos,was,ebene,recht,name,path)
     VALUES (".$wo.",".$posi.",".$was.",".$ebene.",".$grecht.",'".$name."','".$link."')";
     db_query($q);
-
+  
   } else {
     # aendern
     $xpos = $apos;
@@ -262,7 +262,7 @@ if ( $aktion == 'an' ) {
       if ( $posi == '' OR !is_numeric($posi) OR $posi > $npos ) {
         $posi = $npos;
       } else {
-        if (!@db_query("UPDATE prefix_menu SET pos = pos + 1 WHERE wo = ".$wo." AND pos >= ".$posi)) {
+        if (!@db_query("UPDATE prefix_menu SET pos = pos + 1 WHERE wo = ".$wo." AND pos >= ".$posi." ORDER BY pos DESC")) {
 				  menu_update_menupos_p1 ($wo, $posi);
 				}
       }
@@ -274,19 +274,19 @@ if ( $aktion == 'an' ) {
     $q = "UPDATE prefix_menu SET wo = ".$wo.", name = '".$name."', path = '".$link."', pos = ".$posi.", recht = ".$grecht.", was = ".$was.", ebene = ".$ebene." WHERE pos = ".$apos." AND wo = ".$awo;
     db_query($q);
     if ( $awo <> $wo ) {
-      if (!@db_query("UPDATE prefix_menu SET pos = pos - 1 WHERE pos > ".$apos." AND wo = ".$awo)) {
+      if (!@db_query("UPDATE prefix_menu SET pos = pos - 1 WHERE pos > ".$apos." AND wo = ".$awo." ORDER BY pos ASC")) {
 			  menu_update_menupos_m1 ($awo, $apos);
 		  }
-    } elseif ( $xpos <> $apos AND $awo == $wo ) {
+    } elseif ( $xpos <> $apos AND $awo == $wo ) {    
       $npos = db_result(db_query("SELECT COUNT(*) FROM prefix_menu WHERE wo = ".$awo ),0,0);
       if ( $posi != '' AND is_numeric($xpos) AND $xpos < $npos ) {
         db_query("UPDATE prefix_menu SET pos = -1 WHERE pos = ".$apos." AND wo = ".$wo);
-
-				if (!@db_query("UPDATE prefix_menu SET pos = pos -1 WHERE pos > ".$apos." AND wo = ".$wo)) {
+        
+				if (!@db_query("UPDATE prefix_menu SET pos = pos -1 WHERE pos > ".$apos." AND wo = ".$wo." ORDER BY pos ASC")) {
   				menu_update_menupos_m1 ($wo, $apos);
 				}
-
-        if (!@db_query("UPDATE prefix_menu SET pos = pos +1 WHERE pos >= ".$xpos." AND wo = ".$wo)) {
+				
+        if (!@db_query("UPDATE prefix_menu SET pos = pos +1 WHERE pos >= ".$xpos." AND wo = ".$wo." ORDER BY pos DESC")) {
           menu_update_menupos_p1 ($wo, $xpos);
 				}
 				db_query("UPDATE prefix_menu SET pos = ".$xpos." WHERE pos = -1 AND wo = ".$wo);
@@ -330,7 +330,7 @@ if ( $aktion == 'o' OR $aktion == 'u' ) {
 if ( $aktion == 'delete' ) {
   $pos = $menu->get(3);
   db_query("DELETE FROM prefix_menu WHERE pos = ".$pos." AND wo = ".$wo);
-	if (!@db_query("UPDATE prefix_menu SET pos = pos - 1 WHERE pos > ".$pos." AND wo = ".$wo)) {
+	if (!@db_query("UPDATE prefix_menu SET pos = pos - 1 WHERE pos > ".$pos." AND wo = ".$wo." ORDER BY pos ASC")) {
 		menu_update_menupos ($wo);
   }
 }
@@ -399,8 +399,8 @@ $ar['allboxes']  = arliste($ar['allboxes'], $boxenArNav, $tpl, 'allboxes' );
 $ar['alllinkss'] = arliste($ar['alllinkss'],$menuArNav,  $tpl, 'alllinkss');
 $ar['getfuerB']  = dbliste($ar['getfuerB'], $tpl,  'getfuerB', "SELECT id,name FROM prefix_grundrechte ORDER BY id DESC" );
 $ar['cwmenu']    = arliste($ar['cwmenu'],   $ar_cwmenu , $tpl, 'cwmenu'   );
-$ar['cwebene']   = arliste($ar['cwebene'],  $ar_cwebene, $tpl, 'cwebene'  );
-$ar['cwwas']     = arliste($ar['was'],      $ar_cwwas,   $tpl, 'cwwas'    );
+$ar['cwebene']   = arliste($ar['cwebene'],  $ar_cwebene, $tpl, 'cwebene'  ); 
+$ar['cwwas']     = arliste($ar['was'],      $ar_cwwas,   $tpl, 'cwwas'    ); 
 $ar['menutyp']   = arliste($ar['menutyp'],  $ar_menutyp, $tpl, 'menutyp'  );
 
 # ausgabe
