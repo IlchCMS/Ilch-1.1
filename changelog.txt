@@ -2,6 +2,10 @@ Changelog:
 ==========
 + neue Funktionen       * Änderungen/Bugfixes
 
+Version 1.1 L
+-------------
+* Teams/Groups Adminbereich Freischaltung von Joinusanfragen auch mit Modulrecht bei gegebener Konfiguration
+
 Version 1.1 K
 -------------
 + Toggle WYSIWYG beim SelfpageEditor im Adminbereich hinzugefügt

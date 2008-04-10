@@ -289,7 +289,7 @@ if ($um == 'joinus') {
   $tpl->set('msg',(empty($msg)?'':'<table width="50%" cellpadding="2" cellspacing="1" border="0" class="border"><tr><td class="Cnorm"><b>Nachricht:</b>&nbsp;'.$msg.'</td></tr></table>'));
   $tpl->out(0);
 
-  if ($_SESSION['authright'] <= -8) {
+  if ($_SESSION['authright'] <= -8 OR $allgAr['groups_forall'] == 0) {
     $where = '';
   } else {
     $where = " AND prefix_usercheck.groupid IN (SELECT id FROM `prefix_groups` WHERE mod1 = {$_SESSION['authid']} OR mod2 = {$_SESSION['authid']} OR mod4 = {$_SESSION['authid']})";
