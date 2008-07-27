@@ -1,5 +1,5 @@
 <?php
-#   Copyright by: Manuel Staechele
+#   Copyright by: Manuel
 #   Support: www.ilch.de
 
 defined ('main') or die ( 'no direct access' );
