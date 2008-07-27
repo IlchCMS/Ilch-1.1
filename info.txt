@@ -2,7 +2,7 @@ ilchClan 1.1 K
 
 20. Februar 2008
 
-Copyright (c) 2005 by Manuel Staechele
+Copyright (c) 2005 by Manuel
 
 
 i n s t a l l a t i o n

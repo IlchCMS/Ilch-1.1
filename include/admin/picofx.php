@@ -1,12 +1,12 @@
 <?php
 /*      ìlchClan Pic of the X modul
 -------------------------------------------------------------|
-     Copyright       :   © by Manuel (ìlch) Staechele        |
+     Copyright       :   © by Manuel                         |
      E-Mail          :   manuel@ilch.de                      |
      Internet        :   www.ilch.de                         |
      Version         :   v.1.0.6                             |
-	 Lastupdate        :   20.12.2004                          |
-   Modul Copyright   :   © by David "scarfhogg" Stächele     |
+	 Lastupdate      :   20.12.2004                        |
+   Modul Copyright   :   © by David "scarfhogg"              |
 ------------------------------------------------------------*/
 defined ('main') or die ( 'no direct access' );
 defined ('admin') or die ( 'only admin access' );

@@ -2,7 +2,7 @@
 bbwy Editor 0.1
 wandelt eine textarea in einen wysiwyg editor um
 
-Copyright © 2006 Manuel Staechele
+Copyright © 2006 Manuel
 
 Lizenz:
 This library is free software; you can redistribute it and/or

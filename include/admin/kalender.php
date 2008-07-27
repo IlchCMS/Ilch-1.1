@@ -1,6 +1,6 @@
 <?php
 # Kalender Script © by Nickel
-# ueberarbeitet von manuel staechele
+# ueberarbeitet von manuel
 
 defined ('main') or die ( 'no direct access' );
 defined ('admin') or die ( 'only admin access' );
