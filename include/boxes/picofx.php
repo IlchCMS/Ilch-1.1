@@ -1,13 +1,13 @@
 <?php  
 
-/*      �lchClan Pic of the X modul
+/*      ilchClan Pic of the X modul
 -------------------------------------------------------------|
-     Copyright       :   � by Manuel (�lch) St�chele         |
+     Copyright       :   copy by Manuel                      |
      E-Mail          :   Webmaster@ilch.de                   |
      Internet        :   www.ilch.de                         |
      Version         :   v.1                                 |
-	 Lastupdate        :   20.12.2005                          |
-     Modul Copyright :   � by David "scarfhogg" St�chele     |
+	 Lastupdate        :   20.12.2005                        |
+     Modul Copyright :  copy by David "scarfhogg"            |
 ------------------------------------------------------------*/
 
 defined ('main') or die ( 'no direct access' );
