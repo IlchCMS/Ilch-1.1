@@ -1,5 +1,5 @@
 <?php
-#   Copyright by: Manuel
+#   Copyright by Manuel
 #   Support www.ilch.de
 
 defined ('main') or die ( 'no direct access' );
@@ -110,7 +110,7 @@ class menu {
     # usw. nicht mehr einloggen, bzw. es kann
     # sich sonst keiner registrieren. deshalb is das
     # user modul immer frei geschaltet
-    $alwaysallowed = array('regist','login','1','2','confirm','password_reminder','13','3','logout');
+    $alwaysallowed = array('regist','login','1','2','confirm','remind','13','3','logout');
     if ($exit === true AND $this->get(0) == 'user' AND in_array($this->get(1),$alwaysallowed)) {
       $exit = false;
       debug ('o');

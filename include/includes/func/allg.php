@@ -1,5 +1,5 @@
 <?php
-#   Copyright by: Manuel
+#   Copyright by Manuel
 #   Support www.ilch.de
 
 defined ('main') or die ( 'no direct access' );
@@ -326,7 +326,7 @@ function get_antispam ($m, $t) {
 	$i2 = mt_rand (1,9);
 	$i3 = mt_rand (1,9);
 
-    $id = uniqid('antispam');
+    $id = uniqid(mt_rand(), true);
 	$_SESSION['antispam'][$m] = array($i1, $i2, $i3);
 	$_SESSION['antispam'][$id][$m] = $i1.$i2.$i3;
 

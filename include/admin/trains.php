@@ -7,13 +7,13 @@ $design->header();
 $tpl = new tpl ( 'trains', 1);
 
 if(!empty($_POST['send'])){
-	$mon=str_replace('#','',$_POST['mon']);
-	$die=str_replace('#','',$_POST['die']);
-	$mit=str_replace('#','',$_POST['mit']);
-	$don=str_replace('#','',$_POST['don']);
-	$fre=str_replace('#','',$_POST['fre']);
-	$sam=str_replace('#','',$_POST['sam']);
-	$son=str_replace('#','',$_POST['son']);
+	$mon=str_replace('#','',escape($_POST['mon'], 'textarea'));
+	$die=str_replace('#','',escape($_POST['die'], 'textarea'));
+	$mit=str_replace('#','',escape($_POST['mit'], 'textarea'));
+	$don=str_replace('#','',escape($_POST['don'], 'textarea'));
+	$fre=str_replace('#','',escape($_POST['fre'], 'textarea'));
+	$sam=str_replace('#','',escape($_POST['sam'], 'textarea'));
+	$son=str_replace('#','',escape($_POST['son'], 'textarea'));
 	$new=$mon.'#'.$die.'#'.$mit.'#'.$don.'#'.$fre.'#'.$sam.'#'.$son;
 	db_query("UPDATE `prefix_allg` SET t1 = '".$new."' WHERE k = 'trainzeiten'");
 	wd('?trains','Daten erfolgreich geändert',2);

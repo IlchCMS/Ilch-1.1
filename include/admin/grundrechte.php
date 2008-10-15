@@ -1,4 +1,4 @@
-<?php 
+<?php
 #   Copyright by: Manuel
 #   Support: www.ilch.de
 
@@ -15,37 +15,37 @@ if (!is_admin()) {
 }
 
 if (isset($_GET['m']) AND $_GET['m'] == 'm') {
-  
-  
+
+
   if (isset($_POST['sub'])) {
     # immer alle loeschen und dann alle eintragen fals gewuenscht hort sich doch
     # logisch an und ist es auch.
     $mid = escape($_POST['md'], 'integer');
     $gr  = escape($_POST['gr'], 'integer');
     db_query("DELETE FROM prefix_modulerights USING prefix_modulerights, prefix_user WHERE prefix_user.id = prefix_modulerights.uid AND prefix_modulerights.mid = ".$mid." AND prefix_user.recht = ".$gr);
-    
+
     if ($_POST['ak'] == 1) {
       db_query("INSERT INTO prefix_modulerights (mid,uid) SELECT ".$mid." as mid, id as uid FROM prefix_user WHERE recht = ".$gr);
     }
-    
+
     wd (
       array (
         'Grundrechten' => 'admin.php?grundrechte',
         'Userverwalten' => 'admin.php?user',
-        'zur&uuml;ck zu Modulrechte' => 'admin.php?grundrechte=0&amp;m=m', 
+        'zur&uuml;ck zu Modulrechte' => 'admin.php?grundrechte=0&amp;m=m',
       ),
-      
+
       'Die ge&uuml;nschte Operation wurde ausgef&uuml;hrt... Bitte &uuml;berpr&uuml;fen!!',
-      
+
       66
     );
     $design->footer(1);
   }
-  
+
   $grl = dblistee ('', "SELECT id, name FROM prefix_grundrechte ORDER BY id ASC");
   $mdl = dblistee ('', "SELECT id, name FROM prefix_modules ORDER BY name");
   ?>
-  
+
   <form action="admin.php?grundrechte=0&amp;m=m" method="POST">
   <table cellpadding="2" cellspacing="0" border="0">
     <tr>
@@ -58,7 +58,7 @@ if (isset($_GET['m']) AND $_GET['m'] == 'm') {
     </tr>
   </table>
   </form>
-  
+
   <?php
   $design->footer(1);
 }
@@ -68,12 +68,12 @@ $arb = array (
   -8 => 'Dieser User darf alles mit einer paar Ausnahmen:
          er darf User &uuml;ber ihm nicht l&ouml;schen,
          diesen Bereich nicht &auml;ndern, kein Backup machen, die Konfiguration nicht ver&auml;ndern.',
-  -7 => 'Der User darf alles auf der Seite administrieren. Also z.B. alle Foren Moderieren in die er rein kommt, Kommentare l&ouml;schen, Userbilder verwalten, War zu oder Absagen l&ouml;schen... Im Adminbereich hat er allerdings nur &uuml;ber Modulrechte etwas zu sagen.', 
-  -6 => 'Der User hat keine speziellen Rechte ausser die Ihm zugeteilten.', 
+  -7 => 'Der User darf alles auf der Seite administrieren. Also z.B. alle Foren Moderieren in die er rein kommt, Kommentare l&ouml;schen, Userbilder verwalten, War zu oder Absagen l&ouml;schen... Im Adminbereich hat er allerdings nur &uuml;ber Modulrechte etwas zu sagen.',
+  -6 => 'Der User hat keine speziellen Rechte ausser die Ihm zugeteilten.',
   -5 => 'Der User hat keine speziellen Rechte ausser die Ihm zugeteilten.',
   -4 => 'Der User hat keine speziellen Rechte ausser die Ihm zugeteilten.',
   -3 => 'Der User hat keine speziellen Rechte ausser die Ihm zugeteilten.',
-  -2 => 'Der User hat keine speziellen Rechte ausser die Ihm zugeteilten.',         
+  -2 => 'Der User hat keine speziellen Rechte ausser die Ihm zugeteilten.',
   -1 => 'Der User hat keine speziellen Rechte ausser die Ihm zugeteilten.',
    0 => 'Dieses Recht bekommen alle G&auml;ste, also Besucher die nicht registriert sind',
 );
@@ -82,7 +82,7 @@ if (isset($_POST['o'])) {
   $erg = db_query("SELECT * FROM prefix_grundrechte ORDER BY id ASC");
   while ($r = db_fetch_assoc($erg)) {
     if ($r['name'] != $_POST['gr'][$r['id']]) {
-      db_query("UPDATE prefix_grundrechte SET name = '".$_POST['gr'][$r['id']]."' WHERE id = ".$r['id']);
+      db_query("UPDATE prefix_grundrechte SET name = '".escape($_POST['gr'][$r['id']], 'string')."' WHERE id = ".$r['id']);
     }
   }
   echo 'Die Aenderungen wurden gespeichert<br /><br />';

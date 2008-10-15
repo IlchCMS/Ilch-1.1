@@ -6,7 +6,7 @@ define ( 'main' , TRUE );
 
 //Konfiguration zur Anzeige von Fehlern
 //Auf http://www.php.net/manual/de/function.error-reporting.php sind die verfügbaren Modi aufgelistet
-error_reporting(E_ERROR | E_WARNING | E_PARSE);
+@error_reporting(E_ALL ^ E_NOTICE);
 @ini_set('display_errors','On');
 
 session_name  ('sid');

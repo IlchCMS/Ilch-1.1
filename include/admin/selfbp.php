@@ -91,11 +91,11 @@ function get_view($select="normal"){
 }
 
 function get_filename ($akl) {
-  $n = substr ($akl,1);
-  if ($n == 'neu.php') {
+  $n = basename(substr ($akl,1));
+  if ($n == 'neu.php' or !file_exists('include/contents/selfbp/self'.substr($akl,0,1).'/'.$n)) {
       return '';
   }
-  return ($n);
+  return (basename($n));
 }
 
 # löscht Sonderzeichen aus dem Dateinamen
@@ -110,8 +110,9 @@ function get_nametosave ($n) {
 #gibt den inhalt der ausgewählten Datei als String zurück
 function get_text ($akl) {
   $f = substr ( $akl, 0, 1);
-  if (($f == 'b' OR $f == 'p') AND file_exists ( 'include/contents/selfbp/self'.$f.'/'.substr($akl,1))) {
-    $t = implode("", file ('include/contents/selfbp/self'.$f.'/'.substr($akl,1)));
+  $n = basename(substr ($akl,1));
+  if (($f == 'b' OR $f == 'p') AND file_exists ( 'include/contents/selfbp/self'.$f.'/'.$n)) {
+    $t = implode("", file ('include/contents/selfbp/self'.$f.'/'.$n));
 		return ($t);
   }
 

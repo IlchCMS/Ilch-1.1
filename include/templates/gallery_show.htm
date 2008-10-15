@@ -41,7 +41,6 @@
         <td class="Cdark" title="Bilder alle 10 Sekunden wechseln" width="15" onClick="startDiashow(10)" style="cursor:pointer">&nbsp;10&nbsp;</td>
         <td class="Cmite" title="Bilder alle 20 Sekunden wechseln" width="15" onClick="startDiashow(20)" style="cursor:pointer">&nbsp;20&nbsp;</td>
         <td class="Cdark" title="Bilder alle 30 Sekunden wechseln" width="15" onClick="startDiashow(30)" style="cursor:pointer">&nbsp;30&nbsp;</td>
-        </td>
       </tr>
     </table>
     </div>
@@ -129,7 +128,7 @@ function adjust_popup() {
                 diffW = fixedW - window.innerWidth;
                 diffH = fixedH - window.innerHeight;
         }
-        
+
         w = fixedW + diffW;
         h = fixedH + diffH;
         if (h >= screen.availHeight) w += 16;
@@ -138,7 +137,7 @@ function adjust_popup() {
         h = Math.min(h,screen.availHeight);
         window.resizeTo(w,h);
         window.moveTo((screen.availWidth-w)/2, (screen.availHeight-h)/2);
-        
+
 }
 
 adjust_popup();

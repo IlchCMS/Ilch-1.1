@@ -222,7 +222,7 @@ switch($um) {
 		    $newPass = genkey ( 8 );
 				$newPassMD5 = md5($newPass);
 				icmail ( $row->email , 'neues Password' , "Hallo\n\nDein Password wurde soeben von einem Administrator gäendert es ist nun:\n\n$newPass\n\nGruß der Administrator");
-		    db_query('UPDATE `prefix_user` SET pass = "'.$newPassMD5.'" WHERE id = "'.$_POST['uID'].'"');
+		    db_query('UPDATE `prefix_user` SET pass = "'.$newPassMD5.'" WHERE id = "'.escape($_POST['uID'], 'integer').'"');
 			}
 
 			# avatar speichern START
@@ -253,7 +253,7 @@ switch($um) {
       }
      # avatar speichern ENDE
 
-			profilefields_change_save ( $_POST['uID'] );
+			profilefields_change_save ( escape($_POST['uID'], 'integer') );
 			$usaName1     = escape($_POST['usaName1'], 'string');
       $email        = escape($_POST['email'], 'string');
       $homepage     = escape($_POST['homepage'], 'string');
@@ -311,6 +311,9 @@ switch($um) {
   case 'createNewUser' :
     $msg = '';
     if (!empty($_POST['name']) AND !empty($_POST['pass']) AND !empty($_POST['email'])) {
+    	$_POST['name'] = escape($_POST['name'], 'string');
+    	$_POST['recht'] = escape($_POST['recht'], 'integer');
+    	$_POST['email'] = escape($_POST['email'], 'string');
 	    $erg = db_query("SELECT id FROM prefix_user WHERE name = BINARY '".$_POST['name']."'");
   		if ( db_num_rows($erg) > 0 ) {
        $msg = 'Der Name ist leider schon vorhanden!';

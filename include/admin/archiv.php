@@ -1,10 +1,14 @@
-<?php 
+<?php
 #   Copyright by: Manuel
 #   Support: www.ilch.de
 
 
 defined ('main') or die ( 'no direct access' );
 defined ('admin') or die ( 'only admin access' );
+
+if (!empty($_REQUEST['f']) and substr($_REQUEST['f'],0,24) != 'include/downs/downloads/') {
+	die('dont try to hack');
+}
 
 function get_upload_linked ( $v ) {
   $l = '';
@@ -48,7 +52,7 @@ function get_downloads_ar ($ar=NULL,$f=NULL) {
   if ( is_null ($f) ) {
     $f = 'include/downs/downloads';
   }
-  
+
   $o = opendir($f);
 	while ($v = readdir($o) ) {
 	  if ( $v != '.' AND $v != '..' ) {
@@ -84,7 +88,7 @@ function archiv_downs_admin_selectcats ( $id, $stufe, &$output, $sel = 0) {
   $q = "SELECT id,name,pos,cat FROM prefix_downcats WHERE cat = ".$id." ORDER BY pos";
 	$erg = db_query($q);
 	if ( db_num_rows($erg) > 0 ) {
- 	  while ($row = db_fetch_object($erg) ) { 	    
+ 	  while ($row = db_fetch_object($erg) ) {
 	    $output .= '<option value="'.$row->id.'"'.($sel == $row->id?' selected="selected"':'').'>'.$stufe.' '.$row->name.'</option>';
       archiv_downs_admin_selectcats($row->id, $stufe.'&raquo;', $output, $sel );
 	  }
@@ -126,9 +130,9 @@ switch ($um) {
     $msg = '';
     # file rechte pruefen
 	  if ( !is_writeable ( 'include/downs/downloads' ) ) {
-		  $msg = '<b>Bevor du hier eine Datei hochladen/verwalten kannst muss der Ordner include/downs/<b>downloads</b>/ erstellt werden und er muss Schreibrechte ( chmod 777 ) erhalten !!! Wenn das geschehen ist einfach nochmal hier auf aktualisieren klicken</b>'; 
+		  $msg = '<b>Bevor du hier eine Datei hochladen/verwalten kannst muss der Ordner include/downs/<b>downloads</b>/ erstellt werden und er muss Schreibrechte ( chmod 777 ) erhalten !!! Wenn das geschehen ist einfach nochmal hier auf aktualisieren klicken</b>';
 		}
-    
+
     # file hochladen
     if ( isset ($_FILES['file']['name']) ) {
 			if ( move_uploaded_file ( $_FILES['file']['tmp_name'], $_REQUEST['f'].'/'.$_FILES['file']['name']) ) {
@@ -138,12 +142,12 @@ switch ($um) {
 			  $msg = 'Datei ( '.$_FILES['file']['name'].' ) <font color="#FF0000">nicht erfolgreich hochgeladen</font><br />';
 			}
     }
-    
+
     # datei loeschen
     if ( isset ($_REQUEST['d']) ) {
       unlink ( $_REQUEST['f'].'/'.$_REQUEST['d'] );
     }
-    
+
     # datei verschieben
     if ( isset ($_REQUEST['r']) ) {
       if ( @rename ( $_REQUEST['f'].'/'.$_REQUEST['v'], $_REQUEST['f'].'/'.$_REQUEST['r'] ) ) {
@@ -155,7 +159,7 @@ switch ($um) {
         $msg = '<font color="#FF0000">Konnte Datei nicht umbennen</font></br />';
       }
     }
-    
+
     if ( isset ($_REQUEST['n']) ) {
       $neudir = 'include/downs/downloads/'.str_replace('.','',$_REQUEST['n']);
       if ( $_REQUEST['n'] == '/' ) {
@@ -176,7 +180,7 @@ switch ($um) {
       }
     }
 
-     
+
     # files anzeigen von ordner X... wenn x nicht definiert nimm downs/downloads...
     # sonst halt downs/downloads/x/x1/x2...
     $f = 'include/downs/downloads';
@@ -186,7 +190,7 @@ switch ($um) {
         $f = dirname ( $f );
       }
     }
-    
+
     # positions liste definieren... (wo bin ich ;-))
     $str_fl = '';
     if ( $f != 'include/downs/downloads' ) {
@@ -201,7 +205,7 @@ switch ($um) {
     # template oeffnen
     $tpl = new tpl ( 'archiv/upload', 1);
     $tpl->set_ar_out(array('posi'=>$str_fl,'msg'=>$msg),0);
-    
+
     if ( is_dir ( $f ) ) {
       # dir oeffnen und arrays fuellen einmal
       # arrays mit ordner einmal mit files
@@ -238,18 +242,18 @@ switch ($um) {
     } else {
       echo '<tr><td colspan="5" class="Cmite">Verzeichnis nicht gefunden... <a href="?archiv-downloads-upload">&Uuml;bersicht</a></td></tr>';
     }
-    
+
     $tpl->set('f',$f);
     $tpl->out(1);
-    
+
     # ordner liste
     echo upload_getdirlist ();
-    
-    
+
+
     $tpl->out(2);
     }
 
-    
+
   ###################
   # upload move file
     if ( $menu->get(2) == 'uploadMoveFile' ) {
@@ -261,13 +265,13 @@ switch ($um) {
     }
 
     if ( $menu->get(2) == 'upload' OR $menu->get(2) == 'uploadMoveFile' ) { exit (); }
-    
-    
+
+
     $design = new design ( 'Admins Area', 'Admins Area', 2 );
     $design->header();
 
     $tpl = new tpl ( 'archiv/downloads', 1);
-    
+
     # kategorie und download eintraege loeschen
     if ( $menu->getA(2) == 'D' ) {
       $azk = db_result(db_query("SELECT cat FROM prefix_downcats WHERE id = '".$menu->getE(2)."'"),0);
@@ -275,15 +279,15 @@ switch ($um) {
       db_query("DELETE FROM prefix_downcats WHERE id = '".$menu->getE(2)."'");
       db_query("UPDATE prefix_downcats SET pos = pos - 1 WHERE pos > ".$pos." AND cat = ".$azk);
     }
-    
+
     if ($menu->getA(2) == 'd' AND 1 == db_result(db_query("SELECT COUNT(*) FROM prefix_downloads WHERE id = ".intval($menu->getE(2))),0)) {
       $r   = db_fetch_assoc(db_query("SELECT cat, pos, url, surl, ssurl FROM prefix_downloads WHERE id = ".$menu->getE(2)));
       $azk = $r['cat'];
       $pos = $r['pos'];
-      
+
       unset ($r['cat']);
       unset ($r['pos']);
-      
+
       # wenn url nur noch in diesem download vorhanden dann loeschen
       foreach ($r as $k => $v) {
         $qc = "SELECT COUNT(*) FROM prefix_downloads WHERE ".$k." = '".$v."'";
@@ -291,15 +295,15 @@ switch ($um) {
           @unlink($v);
         }
       }
-      
+
       db_query("DELETE FROM prefix_downloads WHERE id = '".$menu->getE(2)."'");
       db_query("UPDATE prefix_downloads SET pos = pos - 1 WHERE pos > ".$pos." AND cat = ".$azk);
     }
-    
+
     # download eintraege speichern oder aendern.
     if ( !empty($_POST['sub']) ) {
 		  $_POST['url'] = $_POST['newurl'];
-      
+
       $_POST['cat'] = escape($_POST['cat'], 'integer');
       $_POST['creater'] = escape($_POST['creater'], 'string');
       $_POST['version'] = escape($_POST['version'], 'string');
@@ -309,7 +313,7 @@ switch ($um) {
       $_POST['name'] = escape($_POST['name'], 'string');
       $_POST['desc'] = escape($_POST['desc'], 'string');
       $_POST['descl'] = escape($_POST['descl'], 'string');
-      
+
       if ( empty ($_POST['pkey']) ) {
   	    $pos = db_result(db_query("SELECT COUNT(*) FROM prefix_downloads WHERE cat = ".$_POST['cat']),0);
         db_query("INSERT INTO prefix_downloads (`time`,`cat`,`creater`,`version`,`url`,surl,`ssurl`,`name`,`desc`,`descl`,pos) VALUES (NOW(),'".$_POST['cat']."','".$_POST['creater']."','".$_POST['version']."','".$_POST['url']."','".$_POST['surl']."','".$_POST['ssurl']."','".$_POST['name']."','".$_POST['desc']."','".$_POST['descl']."','".$pos."')");
@@ -321,17 +325,17 @@ switch ($um) {
           $pos = $alt_row['pos'];
         }
 	      if ($_POST['refdate'] == 'on') {
-          $datum = '`time` = NOW(), ';  
+          $datum = '`time` = NOW(), ';
         } else { $datum = ''; }
         db_query("UPDATE prefix_downloads SET ".$datum."pos = ".$pos.", `cat` = '".$_POST['cat']."',`creater` = '".$_POST['creater']."',version = '".$_POST['version']."',url = '".$_POST['url']."',surl = '".$_POST['surl']."',ssurl = '".$_POST['ssurl']."',`name` = '".$_POST['name']."',`desc` = '".$_POST['desc']."',descl = '".$_POST['descl']."' WHERE id = '".$_POST['pkey']."'");
 	      if ( $alt_row['cat'] <> $_POST['cat'] ) {
-          db_query("UPDATE prefix_downloads SET pos = pos - 1 WHERE pos > ".$alt_row['pos']." AND cat = ".$alt_row['cat']); 
+          db_query("UPDATE prefix_downloads SET pos = pos - 1 WHERE pos > ".$alt_row['pos']." AND cat = ".$alt_row['cat']);
         }
-        
+
       }
       $azk = $_POST['cat'];
     }
-    
+
     # kategorie eintrage speichern oder aendern.
     if ( isset ( $_POST['Csub']) ) {
       if ( empty($_POST['Ccat']) ) {
@@ -348,29 +352,29 @@ switch ($um) {
         if ($tc == $_POST['Cpkey']) { $bool = false; }
         $tc = @db_result(db_query("SELECT cat FROM prefix_downcats WHERE id = $tc"));
         }
-        if ($bool) {         
+        if ($bool) {
           if ( $alt_row['cat'] <> $_POST['Ccat'] ) {
             $pos = db_result(db_query("SELECT COUNT(*) FROM prefix_downcats WHERE cat = ".$_POST['Ccat']),0);
           } else {
             $pos = $alt_row['pos'];
           }
-  
+
           db_query("UPDATE prefix_downcats SET `cat` = '".$_POST['Ccat']."',`name` = '".$_POST['Cname']."',pos = '".$pos."',`desc` = '".$_POST['Cdesc']."', recht = '".$_POST['Crecht']."' WHERE `id` = '".$_POST['Cpkey']."'");
   	      if ( $alt_row['cat'] <> $_POST['Ccat'] ) {
-            db_query("UPDATE prefix_downcats SET pos = pos - 1 WHERE pos > ".$alt_row['pos']." AND cat = ".$alt_row['cat']); 
+            db_query("UPDATE prefix_downcats SET pos = pos - 1 WHERE pos > ".$alt_row['pos']." AND cat = ".$alt_row['cat']);
           }
         }
 	    }
       $azk = $_POST['Ccat'];
     }
-    
+
     # downloadeintrage verschieben.
     if ( $menu->getA(3) == 'u' OR $menu->getA(3) == 'o' ){
       $pos = $menu->get(4);
       $id = $menu->getE(3);
       $nps = ( $menu->getA(3) == 'u' ? $pos + 1 : $pos - 1 );
       $anz = db_result(db_query("SELECT COUNT(*) FROM prefix_downloads WHERE cat = ".$menu->getE(2)),0);
-      
+
       if ($nps < 0) {
         db_query("UPDATE prefix_downloads SET pos = ".$anz." WHERE id = ".$id);
         db_query("UPDATE prefix_downloads SET pos = pos -1 WHERE cat = ".$menu->getE(2));
@@ -379,13 +383,13 @@ switch ($um) {
         db_query("UPDATE prefix_downloads SET pos = -1 WHERE id = ".$id);
         db_query("UPDATE prefix_downloads SET pos = pos +1 WHERE cat = ".$menu->getE(2));
       }
-      
+
       if ( $nps < $anz AND $nps >= 0 ) {
         db_query("UPDATE prefix_downloads SET pos = ".$pos." WHERE pos = ".$nps." AND cat = ".$menu->getE(2));
         db_query("UPDATE prefix_downloads SET pos = ".$nps." WHERE id = ".$id);
       }
     }
-    
+
     # download kategorien verschieben
     if ( $menu->getA(3) == 'U' OR $menu->getA(3) == 'O' ){
       $pos = $menu->get(4);
@@ -393,7 +397,7 @@ switch ($um) {
       $cat = db_result(db_query("SELECT cat FROM prefix_downcats WHERE id = ".$id),0);
       $nps = ( $menu->getA(3) == 'U' ? $pos + 1 : $pos - 1 );
       $anz = db_result(db_query("SELECT COUNT(*) FROM prefix_downcats WHERE cat = ".$cat),0);
-      
+
       if ($nps < 0) {
         db_query("UPDATE prefix_downcats SET pos = ".$anz." WHERE id = ".$id);
         db_query("UPDATE prefix_downcats SET pos = pos -1 WHERE cat = ".$cat);
@@ -402,13 +406,13 @@ switch ($um) {
         db_query("UPDATE prefix_downcats SET pos = -1 WHERE id = ".$id);
         db_query("UPDATE prefix_downcats SET pos = pos +1 WHERE cat = ".$cat);
       }
-      
+
       if ( $nps < $anz AND $nps >= 0 ) {
         db_query("UPDATE prefix_downcats SET pos = ".$pos." WHERE pos = ".$nps." AND cat = ".$cat);
         db_query("UPDATE prefix_downcats SET pos = ".$nps." WHERE id = ".$id);
       }
     }
-    
+
     # downs
 		if ( $menu->getA(2) == 'e' ) {
 		  $erg = db_query("SELECT id,`cat`,creater,surl,ssurl,pos,version,url,`name`,`desc`,descl FROM prefix_downloads WHERE id = '".$menu->getE(2)."'");
@@ -418,7 +422,7 @@ switch ($um) {
       $_ilch['datum'] = '<input type="checkbox" name="refdate" /><font color="white">Datum aktualisieren</font>';
 		} else {
       if ( isset ( $azk ) ) { $c = $azk; } elseif ( $menu->getA(2) == 'S' OR $menu->getA(2) == 'E' ) { $c = $menu->getE(2); } else { $c = 0; }
-		  $_ilch = array ( 
+		  $_ilch = array (
 			  'cat' => $c,
 				'creater' => '',
 				'surl' => '',
@@ -434,7 +438,7 @@ switch ($um) {
 			);
       unset($c);
 		}
-    
+
     # wenn der link von archiv upload kommt ist dllink gesetzt
     $dllink = '';
     if ( isset($_REQUEST['dllink']) ) {
@@ -450,7 +454,7 @@ switch ($um) {
 
 	  archiv_downs_admin_selectcats('0','',$_ilch['cat'],$_ilch['cat']);
     $_ilch['cat'] = '<option value="0">Keine</option>'.$_ilch['cat'];
-    
+
     if ( !isset($azk) ) {
       $azk = 0;
       if ( $menu->getA(2) == 'S' OR $menu->getA(2) == 'E' ) {
@@ -458,16 +462,16 @@ switch ($um) {
         if ( $menu->get(2) == 'Sa' ) { $azk = -1; }
       }
     }
-    
+
     # wenn userupload on und writeable dann koennen user
     # dateien hochladen, also wird als kategorie link noch ein "freischalt" link hinzugefueght.
     $frei = '';
     if ( $allgAr['archiv_down_userupload'] == 1 AND is_writeable ( 'include/downs/downloads/user_upload' ) ) {
       $frei = '<tr class="Cmite"><td colspan="5"><a href="?archiv-downloads-Sa">User-Uploads freischalten</a></td></tr>';
     }
-    
+
     $tpl->out(0); $class = 0;
-    $abf = "SELECT id,`cat`,`version`,`name`,pos FROM prefix_downloads WHERE cat = ".$azk." ORDER BY pos";	
+    $abf = "SELECT id,`cat`,`version`,`name`,pos FROM prefix_downloads WHERE cat = ".$azk." ORDER BY pos";
     $erg = db_query($abf);
     while ($row = db_fetch_assoc($erg) ) {
 		  $class = ( $class == 'Cmite' ? 'Cnorm' : 'Cmite' );
@@ -478,7 +482,7 @@ switch ($um) {
     # downs
     $tpl->set_out('frei',$frei,2);
     # cat
-    if ( $menu->getA(2) == 'E' ) {		 
+    if ( $menu->getA(2) == 'E' ) {
       $erg = db_query("SELECT id,cat as Ccat, recht as Crecht, name as Cname,pos as Cpos,`desc` as Cdesc FROM prefix_downcats WHERE id = '".$menu->getE(2)."'");
 		  $_Cilch = db_fetch_assoc($erg);
 			$_Cilch['Cpkey'] = $menu->getE(2);
@@ -495,24 +499,24 @@ switch ($um) {
     $_Cilch['Crecht'] = dblistee($_Cilch['Crecht'],"SELECT id,name FROM prefix_grundrechte ORDER BY id DESC");
    	archiv_downs_admin_selectcats('0','',$_Cilch['Ccat'],$_Cilch['Ccat']);
     $_Cilch['Ccat']   = '<option value="0">Keine</option>'.$_Cilch['Ccat'];
-		
+
     archiv_downs_admin_showcats ( 0 , '' );
-    
+
     $tpl->set_ar($_ilch);
     $tpl->set_ar($_Cilch);
     $tpl->out(3);
-    
+
     $design->footer();
 	  break;
-    
+
   # # # # # # # # # # # # # # # # # # #
   # Links
 	case 'links' :
     $design = new design ( 'Admins Area', 'Admins Area', 2 );
     $design->header();
-    
+
     $tpl = new tpl ( 'archiv/links', 1);
-    
+
     # kategorie und link eintraege loeschen
     if ( $menu->getA(2) == 'D' ) {
       $azk = db_result(db_query("SELECT cat FROM prefix_linkcats WHERE id = '".$menu->getE(2)."'"),0);
@@ -520,23 +524,23 @@ switch ($um) {
       db_query("DELETE FROM prefix_linkcats WHERE id = '".$menu->getE(2)."'");
       db_query("UPDATE prefix_linkcats SET pos = pos - 1 WHERE pos > ".$pos." AND cat = ".$azk);
     }
-    
+
     if ( $menu->getA(2) == 'd' ) {
       $azk = db_result(db_query("SELECT cat FROM prefix_links WHERE id = '".$menu->getE(2)."'"),0);
       $pos = db_result(db_query("SELECT pos FROM prefix_links WHERE id = '".$menu->getE(2)."'"),0);
       db_query("DELETE FROM prefix_links WHERE id = ".$menu->getE(2));
       db_query("UPDATE prefix_links SET pos = pos - 1 WHERE pos > ".$pos." AND cat = ".$azk);
     }
-    
+
     # link eintraege speichern oder aendern.
     if ( !empty($_POST['sub']) ) {
-		  
+
       $_POST['cat'] = escape($_POST['cat'], 'integer');
       $_POST['name'] = escape($_POST['name'], 'string');
       $_POST['banner'] = escape($_POST['banner'], 'string');
       $_POST['desc'] = escape($_POST['desc'], 'string');
       $_POST['link'] = get_homepage(escape($_POST['link'], 'string'));
-      
+
       if ( empty ($_POST['pkey']) ) {
   	    $pos = db_result(db_query("SELECT COUNT(*) FROM prefix_links WHERE cat = ".$_POST['cat']),0);
         db_query("INSERT INTO prefix_links (cat,name,banner,`desc`,link,pos) VALUES ('".$_POST['cat']."','".$_POST['name']."','".$_POST['banner']."','".$_POST['desc']."','".$_POST['link']."','".$pos."')");
@@ -549,12 +553,12 @@ switch ($um) {
         }
         db_query("UPDATE prefix_links SET cat = '".$_POST['cat']."',name = '".$_POST['name']."',pos = ".$pos.", banner = '".$_POST['banner']."',`desc` = '".$_POST['desc']."',link = '".$_POST['link']."' WHERE id = '".$_POST['pkey']."'");
         if ( $alt_row['cat'] <> $_POST['cat'] ) {
-          db_query("UPDATE prefix_links SET pos = pos - 1 WHERE pos > ".$alt_row['pos']." AND cat = ".$alt_row['cat']); 
+          db_query("UPDATE prefix_links SET pos = pos - 1 WHERE pos > ".$alt_row['pos']." AND cat = ".$alt_row['cat']);
         }
 	    }
       $azk = $_POST['cat'];
     }
-    
+
     # kategorie eintrage speichern oder aendern.
     if ( isset ( $_POST['Csub']) ) {
       if ( empty($_POST['Ccat']) ) {
@@ -579,20 +583,20 @@ switch ($um) {
           }
   	      db_query("UPDATE prefix_linkcats SET `cat` = '".$_POST['Ccat']."',`name` = '".$_POST['Cname']."',pos = '".$pos."',`desc` = '".$_POST['Cdesc']."' WHERE `id` = '".$_POST['Cpkey']."'");
   	      if ( $alt_row['cat'] <> $_POST['Ccat'] ) {
-            db_query("UPDATE prefix_linkcats SET pos = pos - 1 WHERE pos > ".$alt_row['pos']." AND cat = ".$alt_row['cat']); 
+            db_query("UPDATE prefix_linkcats SET pos = pos - 1 WHERE pos > ".$alt_row['pos']." AND cat = ".$alt_row['cat']);
           }
         }
 	    }
       $azk = $_POST['Ccat'];
     }
-    
+
     # verschieben
     if ( $menu->getA(3) == 'u' OR $menu->getA(3) == 'o' ){
       $pos = $menu->get(4);
       $id = $menu->getE(3);
       $nps = ( $menu->getA(3) == 'u' ? $pos + 1 : $pos - 1 );
       $anz = db_result(db_query("SELECT COUNT(*) FROM prefix_links WHERE cat = ".$menu->getE(2)),0);
-      
+
       if ($nps < 0) {
         db_query("UPDATE prefix_links SET pos = ".$anz." WHERE id = ".$id);
         db_query("UPDATE prefix_links SET pos = pos -1 WHERE cat = ".$menu->getE(2));
@@ -601,7 +605,7 @@ switch ($um) {
         db_query("UPDATE prefix_links SET pos = -1 WHERE id = ".$id);
         db_query("UPDATE prefix_links SET pos = pos +1 WHERE cat = ".$menu->getE(2));
       }
-      
+
       if ( $nps < $anz AND $nps >= 0 ) {
         db_query("UPDATE prefix_links SET pos = ".$pos." WHERE pos = ".$nps." AND cat = ".$menu->getE(2));
         db_query("UPDATE prefix_links SET pos = ".$nps." WHERE id = ".$id);
@@ -614,7 +618,7 @@ switch ($um) {
       $cat = db_result(db_query("SELECT cat FROM prefix_linkcats WHERE id = ".$id),0);
       $nps = ( $menu->getA(3) == 'U' ? $pos + 1 : $pos - 1 );
       $anz = db_result(db_query("SELECT COUNT(*) FROM prefix_linkcats WHERE cat = ".$cat),0);
-      
+
       if ($nps < 0) {
         db_query("UPDATE prefix_linkcats SET pos = ".$anz." WHERE id = ".$id);
         db_query("UPDATE prefix_linkcats SET pos = pos -1 WHERE cat = ".$cat);
@@ -623,13 +627,13 @@ switch ($um) {
         db_query("UPDATE prefix_linkcats SET pos = -1 WHERE id = ".$id);
         db_query("UPDATE prefix_linkcats SET pos = pos +1 WHERE cat = ".$cat);
       }
-      
+
       if ( $nps < $anz AND $nps >= 0 ) {
         db_query("UPDATE prefix_linkcats SET pos = ".$pos." WHERE pos = ".$nps." AND cat = ".$cat);
         db_query("UPDATE prefix_linkcats SET pos = ".$nps." WHERE id = ".$id);
       }
     }
-    
+
     # links
 		if ( $menu->getA(2) == 'e' ) {
 		  $erg = db_query("SELECT id,cat,`desc`,name,banner,link FROM prefix_links WHERE id = '".$menu->getE(2)."'");
@@ -652,14 +656,14 @@ switch ($um) {
 
 	  archiv_links_admin_selectcats('0','',$_ilch['cat'],$_ilch['cat']);
     $_ilch['cat'] = '<option value="0">Keine</option>'.$_ilch['cat'];
-    
+
     if ( !isset($azk) ) {
       $azk = 0;
       if ( $menu->getA(2) == 'S' OR $menu->getA(2) == 'E' ) {
         $azk = $menu->getE(2);
       }
     }
-    
+
     $tpl->out(0); $class = 0;
     $abf = "SELECT id,name,link,cat,pos FROM prefix_links WHERE cat = ".$azk." ORDER BY pos";
     $erg = db_query($abf);
@@ -669,11 +673,11 @@ switch ($um) {
       $tpl->set_ar ( $row );
       $tpl->out(1);
     }
-    
+
     # links
     $tpl->out(2);
     # cat
-    if ( $menu->getA(2) == 'E' ) {		 
+    if ( $menu->getA(2) == 'E' ) {
       $erg = db_query("SELECT id,cat as Ccat, name as Cname,pos as Cpos,`desc` as Cdesc FROM prefix_linkcats WHERE id = '".$menu->getE(2)."'");
 		  $_Cilch = db_fetch_assoc($erg);
 			$_Cilch['Cpkey'] = $menu->getE(2);
@@ -688,22 +692,22 @@ switch ($um) {
 		}
     archiv_links_admin_selectcats('0','',$_Cilch['Ccat'],$_Cilch['Ccat']);
     $_Cilch['Ccat']   = '<option value="0">Keine</option>'.$_Cilch['Ccat'];
-		
+
     archiv_links_admin_showcats ( 0 , '' );
-    
+
     $tpl->set_ar($_ilch);
     $tpl->set_ar($_Cilch);
     $tpl->out(3);
-    
+
     $design->footer();
     break;
-    
+
   # # # # # # # # # # # # # # # # # # #
 	# Partners
 	case 'partners' :
     $design = new design ( 'Admins Area', 'Admins Area', 2 );
     $design->header();
-    
+
 		$tpl = new tpl ( 'archiv/partners', 1);
     # loeschen
     if ( $menu->getA(2) == 'd' ) {
@@ -711,7 +715,7 @@ switch ($um) {
       db_query("DELETE FROM prefix_partners WHERE id = ".$menu->getE(2));
       db_query("UPDATE prefix_partners SET pos = pos -1 WHERE pos > ".$pos);
 		}
-    
+
     # aendern / eintragen
 		if ( isset($_POST['sub']) ) {
       $_POST['name'] = escape($_POST['name'], 'string');
@@ -725,14 +729,14 @@ switch ($um) {
 	      db_query("UPDATE prefix_partners SET name = '".$_POST['name']."',banner = '".$_POST['banner']."',link = '".$_POST['link']."' WHERE id = '".$_POST['pkey']."'");
 	    }
 		}
-    
+
     # verschieben
     if ($menu->getA(2) == 'o' OR $menu->getA(2) == 'u') {
       $pos = $menu->get(3);
       $id = $menu->getE(2);
       $nps = ( $menu->getA(2) == 'u' ? $pos + 1 : $pos - 1 );
       $anz = db_result(db_query("SELECT COUNT(*) FROM prefix_partners"),0);
-      
+
       if ($nps < 0) {
         db_query("UPDATE prefix_partners SET pos = ".$anz." WHERE id = ".$id);
         db_query("UPDATE prefix_partners SET pos = pos -1");
@@ -741,13 +745,13 @@ switch ($um) {
         db_query("UPDATE prefix_partners SET pos = -1 WHERE id = ".$id);
         db_query("UPDATE prefix_partners SET pos = pos +1");
       }
-      
+
       if ( $nps < $anz AND $nps >= 0 ) {
         db_query("UPDATE prefix_partners SET pos = ".$pos." WHERE pos = ".$nps);
         db_query("UPDATE prefix_partners SET pos = ".$nps." WHERE id = ".$id);
       }
     }
-    
+
     # aendern vorbereiten.
 		if ( $menu->getA(2) == 'e' ) {
 		  $erg = db_query("SELECT id,name,banner,link FROM prefix_partners WHERE id = '".$menu->getE(2)."'");
@@ -762,7 +766,7 @@ switch ($um) {
 				'link' => ''
 			);
 		  }
-    
+
 	  $tpl->set_ar_out($_ilch,0);
     $page = ($menu->getA(2) == 'p' ? $menu->getE(2) : 1 );
     $limit = 20; $class = 'Cnorm';
@@ -778,7 +782,7 @@ switch ($um) {
     }
     $tpl->set ( 'MPL', $MPL );
     $tpl->out(2);
-    
+
     $design->footer();
 	  break;
 }

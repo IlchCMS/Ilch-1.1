@@ -198,6 +198,7 @@ if ( $menu->getA(1) == 'D' ) {
         echo 'Nur Kategorie gel&ouml;scht, Bilder noch auf dem FTP<br />';
         $tpl->out(2);
     } elseif (isset($_POST['move']) AND $_POST['cat'] != $menu->getE(1)) {
+    	$_POST['cat'] = escape($_POST['cat'], 'integer');
         $r = db_fetch_assoc(db_query("SELECT id, pos, cat FROM prefix_gallery_cats WHERE id = '".$menu->getE(1)."'"));
         db_query("DELETE FROM prefix_gallery_cats WHERE id = '".$menu->getE(1)."'");
         db_query("UPDATE prefix_gallery_cats SET pos = pos - 1 WHERE pos > ".$r['pos']." AND cat = ".$r['cat']);

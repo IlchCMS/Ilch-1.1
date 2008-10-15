@@ -604,7 +604,7 @@ db_connect();
 if (DBPREF.'allg' == @db_result(@db_query("SHOW TABLES LIKE 'prefix_allg'"),0)) {
   ?>
 	  <html>
-		<head><title>... ::: [ I n s t a l l a t i o n &nbsp; f ü r &nbsp; C l a n s c r i p t &nbsp; v o n &nbsp; i l c h ] ::: ...</title>
+		<head><title>... ::: [ I n s t a l l a t i o n &nbsp; f  r &nbsp; C l a n s c r i p t &nbsp; v o n &nbsp; i l c h ] ::: ...</title>
 		<link rel="stylesheet" href="include/designs/ilchClan/style.css" type="text/css"></head>
 		<body>
 		<table width="70%" class="border" border="0" cellspacing="0" cellpadding="25" align="center">
@@ -643,7 +643,7 @@ db_query ("UPDATE prefix_config SET wert = '".$_POST['admin_amail']."' WHERE sch
 ?>
 
 	  <html>
-		<head><title>... ::: [ I n s t a l l a t i o n &nbsp; f ü r &nbsp; C l a n s c r i p t &nbsp; v o n &nbsp; i l c h ] ::: ...</title>
+		<head><title>... ::: [ I n s t a l l a t i o n &nbsp; f  r &nbsp; C l a n s c r i p t &nbsp; v o n &nbsp; i l c h ] ::: ...</title>
 		<link rel="stylesheet" href="include/designs/ilchClan/style.css" type="text/css"></head>
 		<body>
 		<table width="70%" class="border" border="0" cellspacing="0" cellpadding="25" align="center">

@@ -1,4 +1,4 @@
-<?php 
+<?php
 #   Copyright by: Manuel
 #   Support: www.ilch.de
 
@@ -8,6 +8,13 @@ defined ('admin') or die ( 'only admin access' );
 
 $design = new design ( 'Admins Area', 'Admins Area', 2 );
 $design->header();
+
+if (isset($_POST['name'])) {
+	$_POST['name'] = escape($_POST['name'], 'string');
+}
+if (isset($_POST['mail'])) {
+	$_POST['mail'] = escape($_POST['mail'], 'string');
+}
 
 switch($menu->get(1)){
   case 1 :
@@ -33,7 +40,7 @@ switch($menu->get(1)){
 		db_query('UPDATE `prefix_allg` SET '.$feld.' = "'.$ak.'" WHERE k = "kontakt"');
 	break;
 }
-    
+
 $tpl = new tpl ( 'contact', 1);
 $tpl->out(0);
 

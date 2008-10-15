@@ -160,7 +160,7 @@ if ( empty ($_POST['submit']) ) {
           $cr64 = new AzDGCrypt(DBDATE.DBUSER.DBPREF);
           $_POST[$row['schl']] = $cr64->crypt($_POST[$row['schl']]);
       }
-	  db_query('UPDATE `prefix_config` SET wert = "'.$_POST[$row['schl']].'" WHERE schl = "'.$row['schl'].'"');
+	  db_query('UPDATE `prefix_config` SET wert = "'.escape($_POST[$row['schl']], 'textarea').'" WHERE schl = "'.$row['schl'].'"');
 	}
   wd ('admin.php?allg', 'Erfolgreich ge&auml;ndert' , 2);
 

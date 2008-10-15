@@ -8,6 +8,14 @@ defined ('admin') or die ( 'only admin access' );
 
 $um = $menu->get(1);
 
+
+$_REQUEST['mid'] = escape($_REQUEST['mid'], 'integer');
+$_REQUEST['wid'] = escape($_REQUEST['wid'], 'integer');
+$_POST['add_uid'] = escape($_POST['add_uid'], 'integer');
+$_GET['delete_uid'] = escape($_GET['delete_uid'], 'integer');
+$_GET['delete'] = escape($_GET['delete'], 'integer');
+$_GET['pkey'] = escape($_GET['pkey'], 'integer');
+
 # get Flag list
 # 1 akt flag
 function get_wlp_array () {
@@ -50,7 +58,7 @@ switch ( $um ) {
     <li><a href="admin.php?wars-last">Lastwars</a></li>
     <li><a href="admin.php?wars-next">Nextwars</a></li>
     </ul>
-    <?php  
+    <?php
     $design->footer();
     break;
 	# last wars
@@ -63,13 +71,13 @@ switch ( $um ) {
 			if ( isset ($_FILES['f']['name']) ) {
 				$tmp = explode('.',$_FILES['f']['name']);
 				if ( $tmp[1] == 'gif' OR $tmp[1] == 'png' OR $tmp[1] == 'jpg' OR $tmp[1] == 'jpeg')  {
-					$nname = $_POST['wid'].'_'.$_POST['mid'].'.'.$tmp[1];
+					$nname = $_REQUEST['wid'].'_'.$_REQUEST['mid'].'.'.$tmp[1];
 					if ( move_uploaded_file ( $_FILES['f']['tmp_name'], 'include/images/wars/'.$nname) ) {
 					  @chmod('include/images/wars/'.$nname, 0777);
 						$ar = array ( 'gif'=>'gif','png'=>'png','jpg'=>'jpg','jpeg'=>'jpeg' );
 						unset($ar[$tmp[1]]);
 						foreach($ar as $v) {
-							@unlink ( 'include/images/wars/'.$_POST['wid'].'_'.$_POST['mid'].'.'.$v );
+							@unlink ( 'include/images/wars/'.$_REQUEST['wid'].'_'.$_REQUEST['mid'].'.'.$v );
 						}
 						$msg = 'Datei ('.$_FILES['f']['name'].' ) <font color="#00FF00">erfolgreich hochgeladen</font><br />';
 					} else {
@@ -172,6 +180,7 @@ switch ( $um ) {
 				$_POST['tid'] = 0;
 			}
 
+			$_POST['pkey'] = escape($_POST['pkey'], 'integer');
 			$_POST['gegner'] = escape($_POST['gegner'], 'string');
 			$_POST['page'] = get_homepage(escape($_POST['page'], 'string'));
 			$_POST['tid'] = escape($_POST['tid'], 'integer');
@@ -190,10 +199,10 @@ switch ( $um ) {
 				$wid = db_last_id();
 				for($i=1;$i<=5;$i++) {
 					if ( $_POST['map'][$i] != '' AND $_POST['opp'][$i] != '' AND $_POST['owp'][$i] != '' ) {
-						db_query("INSERT INTO prefix_warmaps (wid,mnr,map,opp,owp) VALUES (".$wid.",".$i.",'".$_POST['map'][$i]."',".$_POST['opp'][$i].",".$_POST['owp'][$i].")");
+						db_query("INSERT INTO prefix_warmaps (wid,mnr,map,opp,owp) VALUES (".$wid.",".$i.",'".escape($_POST['map'][$i], 'string')."',".escape($_POST['opp'][$i], 'string').",".escape($_POST['owp'][$i], 'string').")");
 					}
 				}
-        
+
         # in den kalender eintragen wenn gewuenscht
         if (isset($_POST['kalender']) AND $_POST['kalender'] == 'yes') {
           $timestamp = strtotime(get_datime());
@@ -215,7 +224,7 @@ switch ( $um ) {
 						if ( file_exists('include/images/wars/'.$wid.'_'.$i.'.jpg') ) { unlink ('include/images/wars/'.$wid.'_'.$i.'.jpg'); }
 						if ( file_exists('include/images/wars/'.$wid.'_'.$i.'.jpeg') ) { unlink ('include/images/wars/'.$wid.'_'.$i.'.jpeg'); }
 					} elseif ( $a == 1 AND $_POST['map'][$i] != '' AND $_POST['opp'][$i] != '' AND $_POST['owp'][$i] != '' ) {
-						db_query("UPDATE prefix_warmaps SET map = '".$_POST['map'][$i]."', opp = ".$_POST['opp'][$i].", owp = ".$_POST['owp'][$i]." WHERE wid = ".$wid." AND mnr = ".$i);
+						db_query("UPDATE prefix_warmaps SET map = '".escape($_POST['map'][$i], 'string')."', opp = ".escape($_POST['opp'][$i], 'string').", owp = ".escape($_POST['owp'][$i], 'string')." WHERE wid = ".$wid." AND mnr = ".$i);
 					}
 				}
         # in den kalender eintragen wenn gewuenscht
@@ -287,7 +296,7 @@ switch ( $um ) {
 
 	# Next wars
 	case 'next' :
-    
+
 		$design = new design ( 'Admins Area', 'Admins Area', 2 );
 		$design->header();
 		$show = true;
@@ -312,6 +321,7 @@ switch ( $um ) {
 				$_POST['tid'] = 0;
 			}
 
+			$_POST['pkey'] = escape($_POST['pkey'], 'integer');
 			$_POST['gegner'] = escape($_POST['gegner'], 'string');
 			$_POST['page'] = get_homepage(escape($_POST['page'], 'string'));
 			$_POST['tid'] = escape($_POST['tid'], 'integer');
@@ -366,9 +376,9 @@ switch ( $um ) {
 		$_ilch['mtyp'] = dblistee ( $_ilch['mtyp'], "SELECT DISTINCT `mtyp`,`mtyp` FROM prefix_wars ORDER BY `mtyp`" );
 		$_ilch['land'] = arlistee ( $_ilch['land'] , get_nationality_array() );
 		$tpl->set_ar_out($_ilch,0);
-		
+
     $page = ( $menu->getA(2) == 'p' ? $menu->getE(2) : 1 );
-    
+
     $class = '';
     if ($page == 1) {
     $abf = "SELECT id,gegner,game FROM prefix_wars WHERE status = 1 ORDER BY id DESC";
@@ -381,8 +391,8 @@ switch ( $um ) {
       $tpl->out(1);
     }
     }
-    
-		$limit = 20; 
+
+		$limit = 20;
 		$MPL = db_make_sites ($page , 'WHERE status = 2' , $limit , '?wars-next' , 'wars' );
 		$anfang = ($page - 1) * $limit;
 		$abf = "SELECT id,gegner,game FROM prefix_wars WHERE status = 2 ORDER BY id DESC LIMIT ".$anfang.",".$limit;
@@ -401,7 +411,7 @@ switch ( $um ) {
   case 'info' :
 		$design = new design ( 'Admins Area', 'Admins Area', 2 );
 		$design->header();
-    $erg = db_query("SELECT DATE_FORMAT(datime,'%d.%m.%Y.%H.%i.%s') as datime, id,status,gegner,tag,page,mail,icq,wo,tid,`mod`,game,mtyp,land,txt FROM prefix_wars WHERE id = '".$menu->get(2)."'");
+    $erg = db_query("SELECT DATE_FORMAT(datime,'%d.%m.%Y.%H.%i.%s') as datime, id,status,gegner,tag,page,mail,icq,wo,tid,`mod`,game,mtyp,land,txt FROM prefix_wars WHERE id = '".intval($menu->get(2))."'");
 		$_ilch = db_fetch_assoc($erg);
 		list($_ilch['day'],$_ilch['mon'],$_ilch['jahr'],$_ilch['stu'],$_ilch['min'],$_ilch['sek']) = explode('.',$_ilch['datime']);
     $tpl = new tpl ('wars/info', 1);

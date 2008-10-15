@@ -1,4 +1,4 @@
-<?php 
+<?php
 #   Copyright by: Manuel
 #   Support: www.ilch.de
 
@@ -8,6 +8,10 @@ defined ('admin') or die ( 'only admin access' );
 
 $design = new design ( 'Admins Area', 'Admins Area', 2 );
 $design->header();
+
+$_POST['show'] = escape($_POST['show'], 'integer');
+$_POST['func'] = escape($_POST['func'], 'integer');
+$_POST['sid']  = escape($_POST['sid'], 'integer');
 
 $show = TRUE;
 if ( isset ($_POST['sub']) ) {
@@ -41,11 +45,11 @@ if ( $menu->get(1) == 'u' OR $menu->get(1) == 'o' ) {
 
 if ( $menu->get(1) == 'c' ) {
   $n = ( $menu->get(3) == 3 ? 4 : 3 );
-  db_query("UPDATE prefix_profilefields SET func = ".$n." WHERE id = ".$menu->get(2)); 
+  db_query("UPDATE prefix_profilefields SET func = ".$n." WHERE id = ".$menu->get(2));
 }
 
 if ( $show ) {
-  
+
 	$tpl = new tpl ( 'profilefields', 1);
 	if ( $menu->get(1) != 'edit' ) {
 	  $row = array(
@@ -62,10 +66,10 @@ if ( $show ) {
 		$row = db_fetch_assoc($erg);
 		$row['func'] = arliste($row['func'],profilefields_functions2(),$tpl,'func');
 		$row['sub'] = '&Auml;ndern';
-		
+
 	}
-	
-			
+
+
   $tpl->set_ar_out($row,0);
   $class = 'Cnorm';
 	$ar = profilefields_functions();

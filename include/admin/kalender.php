@@ -1,6 +1,6 @@
 <?php
 # Kalender Script © by Nickel
-# ueberarbeitet von manuel
+# ueberarbeitet von Manuel
 
 defined ('main') or die ( 'no direct access' );
 defined ('admin') or die ( 'only admin access' );
@@ -58,7 +58,7 @@ function zyklusinsert ($sar,$ear,$z,$_POST) {
       for($i2=$st;$i2<=$et;$i2++) {
         if (checkzyklusins ($x,$i0,$i1,$i2,$z,$sar)) {
           $time = mktime ($_POST['stunde'], $_POST['minute'],0,$i1,$i2,$i0);
-          db_query("INSERT INTO `prefix_kalender` (time,gid,title,text,recht) VALUES (".$time.",".$first_id.",'".$_POST['title']."','".escape($_POST['txt'],'string')."','".$_POST['recht']."')");
+          db_query("INSERT INTO `prefix_kalender` (time,gid,title,text,recht) VALUES (".$time.",".$first_id.",'".escape($_POST['title'], 'string')."','".escape($_POST['txt'],'string')."','".escape($_POST['recht'], 'integer')."')");
           if ($first_id == 0) {
             $first_id = db_last_id();
             db_query("UPDATE prefix_kalender SET gid = ".$first_id." WHERE id = ".$first_id);
@@ -110,17 +110,19 @@ if (!empty($_REQUEST['um'])) {
     if (!empty($z)) {
       zyklusinsert ($sar,$ear,$z,$_POST);
     } else {
-      db_query("INSERT INTO `prefix_kalender` (time,title,text,recht) VALUES (".$time.",'".$_POST['title']."','".$text."','".$_POST['recht']."')");
+      db_query("INSERT INTO `prefix_kalender` (time,title,text,recht) VALUES (".$time.",'".escape($_POST['title'], 'string')."','".$text."','".escape($_POST['recht'], 'integer')."')");
     }
 
   // Aendern
 	} elseif ($_REQUEST['um'] == 'change') {
 
     if (isset($_POST['gid']) AND $_POST['gid'] == 'yes') {
-      $gid1 = db_result(db_query("SELECT gid FROM prefix_kalender WHERE id = ".$_POST['EID']),0,0);
+      $gid1 = db_result(db_query("SELECT gid FROM prefix_kalender WHERE id = ".escape($_POST['EID'], 'integer')),0,0);
     }
 
     if (isset($_POST['gid']) AND $_POST['gid'] == 'yes' AND $gid1 > 0) {
+      $_POST['title'] = escape($_POST['title'], 'string');
+      $_POST['recht'] = escape($_POST['recht'], 'integer');
       db_query("UPDATE `prefix_kalender` SET
 				  title	= '".$_POST['title']."',
 				  text	= '".$text."',
@@ -139,10 +141,10 @@ if (!empty($_REQUEST['um'])) {
 
 //Loeschen
 if (!empty($_GET['del']) AND $_GET['del'] == intval($_GET['del'])) {
-	db_query("DELETE FROM `prefix_kalender` WHERE id = ".$_GET['del']." LIMIT 1");
+	db_query("DELETE FROM `prefix_kalender` WHERE id = ".escape($_GET['del'], 'integer')." LIMIT 1");
 }
 if (!empty($_GET['del_gid']) AND $_GET['del_gid'] == intval ($_GET['del_gid'])) {
-  db_query("DELETE FROM prefix_kalender WHERE gid = ".$_GET['del_gid']);
+  db_query("DELETE FROM prefix_kalender WHERE gid = ".escape($_GET['del_gid'], 'integer'));
 }
 
 //-----------------------------------------------------------|
@@ -150,7 +152,7 @@ if (!empty($_GET['del_gid']) AND $_GET['del_gid'] == intval ($_GET['del_gid'])) 
 
 
 if (isset($_GET['edit'])) {
-	$row = db_fetch_assoc(db_query("SELECT * FROM `prefix_kalender` WHERE id = ".$_GET['edit']));
+	$row = db_fetch_assoc(db_query("SELECT * FROM `prefix_kalender` WHERE id = ".escape($_GET['edit'], 'integer')));
 	$Faktion	= 'change';
 	$Fid		= $row['id'];
 	$Ftitle		= $row['title'];
