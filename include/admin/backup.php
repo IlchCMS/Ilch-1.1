@@ -13,6 +13,9 @@ if (!is_admin()) {
 }
 
 class AbstractBackupWriter {
+    function isValid() {
+        return true;
+    }
     function write($msg) {
     }
     function close() {
@@ -22,22 +25,33 @@ class AbstractBackupWriter {
 class FileBackupWriter extends AbstractBackupWriter {
     var $handle;
 	var $filename;
+	var $valid;
     function FileBackupWriter($filename) {
-        if (!is_writable(dirname('include/backup/'))) {
-            echo 'Backupverzeichnis ist schreibgeschutzt, es wird keine Datei geschrieben.';
-            unset($this);
+        if (!is_writable('include/backup/')) {
+            if (!headers_sent()) {
+                echo 'Backupverzeichnis ist schreibgesch&uuml;tzt, es wird keine Datei geschrieben.<br />';
+                echo '<a href="admin.php?backup">zur&uuml;ck</a><br />';
+            }
+            $this->valid = false;
         } else {
         	$this->filename = 'include/backup/'.$filename;
             $this->handle = fopen($this->filename, 'w');
+            $this->valid = true;
         }
     }
+    function isValid() {
+        return $this->valid;
+    }
     function write($msg) {
-        fwrite($this->handle, $msg, strlen($msg));
+            fwrite($this->handle, $msg, strlen($msg));
     }
     function close() {
         fclose($this->handle);
     	@chmod('include/backup/' . $this->filename, 0777);
-        unset($this);
+        if (!headers_sent()) {
+            echo 'Backupdatei '.$this->filename.' erfolgreich angelegt.<br />';
+            echo '<a href="admin.php?backup">zur&uuml;ck</a><br />';
+        }
     }
 }
 class BrowserBackupWriter extends AbstractBackupWriter {
@@ -60,7 +74,9 @@ class BackupWriter {
     	$this->useUtf8 = (bool) $utf8;
     }
     function addWriter($writer) {
-        $this->writers[] = $writer;
+        if ($writer->isValid()) {
+            $this->writers[] = $writer;
+        }
     }
     function close() {
         foreach ($this->writers as $writer) {
@@ -75,6 +91,9 @@ class BackupWriter {
         foreach ($this->writers as $writer) {
             $writer->write($msg);
         }
+    }
+    function countWriters() {
+        return count($this->writers);
     }
 }
 
@@ -123,10 +142,7 @@ function get_content($dbname, $table, $writer) {
     }
     $fields = substr($fields, 0, - 1) . ')';
     $result = mysql_db_query($dbname, "SELECT * FROM `$table`", CONN);
-    if ($rows = mysql_num_rows($result)) {
-    	$writer->write($insert = "INSERT INTO `$table` $fields VALUES\n");
-	}
-	$i = 1;
+   	$insert_begin = "INSERT INTO `$table` $fields VALUES ";
 	while ($row = mysql_fetch_row($result)) {
         $insert = '(';
         for($j = 0; $j < mysql_num_fields($result);$j++) {
@@ -135,9 +151,8 @@ function get_content($dbname, $table, $writer) {
             else $insert .= "'',";
         }
         $insert = ereg_replace(",$", "", $insert);
-        $insert .= ")".($i<$rows?',':';')."\n";
-        $writer->write($insert);
-		$i++;
+        $insert .= ");\n";
+        $writer->write($insert_begin.$insert);
     }
 	$writer->write("\n\n");
 }
@@ -145,9 +160,9 @@ function get_content($dbname, $table, $writer) {
 if (!empty($_POST['sendBackup']) AND $_POST['sendBackup'] == 'yes' AND isset($_POST['gelesen']) AND $_POST['gelesen'] == 'yes') {
 
 	$prefix = isset($_POST['prefix']) ? '_' . str_replace('_', '', DBPREF) : '';
-	$name = 'ilch_11_' . date('Y-m-d') . '_' . $cod . $prefix . '.sql';
-
 	$utf8 = $_POST['cod'] == 'ansi' ? false : true;
+	$cod = $utf8 ? 'utf-8' : 'ansi';
+	$name = 'ilch_11_' . date('Y-m-d_H:i') . '_' . $cod . $prefix . '.sql';
 	$writer = new BackupWriter($utf8);
 	if ($_POST['backuptype'] == 'download' OR $_POST['backuptype'] == 'both') {
 		$writer->addWriter(new BrowserBackupWriter($name));
@@ -169,22 +184,24 @@ if (!empty($_POST['sendBackup']) AND $_POST['sendBackup'] == 'yes' AND isset($_P
   and copyright information are left intact.
 
   */
-
-    $version = "0.4 beta";
-    $cur_time = date("Y-m-d H:i");
-    $writer->write("-- Dump created with 'phpMyBackup v.$version' on $cur_time\r\n");
-    $tables = db_list_tables(DBDATE);
-    $num_tables = @db_num_rows($tables);
-    $i = 0;
-    while ($i < $num_tables) {
-        $table = db_tablename($tables, $i);
-        if (isset($_POST['prefix']) AND strpos($table, DBPREF) === false) {
+    if ($writer->countWriters()) {
+        $version = "0.4 beta";
+        $cur_time = date("Y-m-d H:i");
+        $writer->write("-- Dump created with 'phpMyBackup v.$version' on $cur_time\r\n");
+        $tables = db_list_tables(DBDATE);
+        $num_tables = @db_num_rows($tables);
+        $i = 0;
+        while ($i < $num_tables) {
+            $table = db_tablename($tables, $i);
+            if (isset($_POST['prefix']) AND strpos($table, DBPREF) === false) {
+                $i++;
+                continue;
+            }
+    		get_def(DBDATE , $table, $writer);
+    		get_content(DBDATE , $table, $writer);
             $i++;
-            continue;
         }
-		get_def(DBDATE , $table, $writer);
-		get_content(DBDATE , $table, $writer);
-        $i++;
+        $writer->close();
     }
 
 } else {

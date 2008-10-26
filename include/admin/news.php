@@ -41,7 +41,7 @@ function getKats ($akt) {
 // #### A k t i o n e n
 if (!empty($_REQUEST['um'])) {
     $um = $_REQUEST['um'];
-    $_POST['titel'] = escape($_POST['title'], 'string');
+    $_POST['titel'] = escape($_POST['titel'], 'string');
 	$_POST['grecht'] = escape($_POST['grecht'], 'integer');
 	$_POST['kat'] = escape($_POST['kat'], 'string');
 	$_POST['katLis'] = escape($_POST['katLis'], 'string');

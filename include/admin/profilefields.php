@@ -9,7 +9,7 @@ defined ('admin') or die ( 'only admin access' );
 $design = new design ( 'Admins Area', 'Admins Area', 2 );
 $design->header();
 
-$_POST['show'] = escape($_POST['show'], 'integer');
+$_POST['show'] = escape($_POST['show'], 'string');
 $_POST['func'] = escape($_POST['func'], 'integer');
 $_POST['sid']  = escape($_POST['sid'], 'integer');
 
