@@ -47,7 +47,7 @@ CREATE TABLE `prefix_config` (
   `typ` varchar(10) NOT NULL default '',
   `kat` varchar(50) NOT NULL default '',
   `frage` varchar(255) NOT NULL default '',
-  `wert` text NOT NULL default '',
+  `wert` text NOT NULL,
   `pos` smallint(6) NOT NULL default '0',
   PRIMARY KEY  (`schl`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
@@ -176,7 +176,7 @@ CREATE TABLE `prefix_gallery_cats` (
   `pos` smallint(6) NOT NULL default '0',
   `recht` smallint(6) NOT NULL default '0',
   `name` varchar(50) NOT NULL default '',
-  `besch` text NOT NULL default '',
+  `besch` text NOT NULL,
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 
@@ -286,7 +286,7 @@ CREATE TABLE `prefix_koms` (
   `uid` mediumint(9) NOT NULL default '0',
   `cat` varchar(10) NOT NULL default '',
   `name` varchar(100) NOT NULL default '',
-  `text` varchar(250) NOT NULL default '',
+  `text` varchar(250) NOT NULL,
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 
@@ -599,7 +599,7 @@ CREATE TABLE `prefix_user` (
   `msn` varchar(50) NOT NULL default '',
   `yahoo` varchar(50) NOT NULL default '',
   `aim` varchar(50) NOT NULL default '',
-  `sig` text NOT NULL default '',
+  `sig` text NOT NULL,
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 
