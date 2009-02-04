@@ -107,11 +107,18 @@ function user_admin_online_liste () {
 }
 
 function getip() {
-  if ($_SERVER["HTTP_X_FORWARDED_FOR"]) {
-     return ($_SERVER["HTTP_X_FORWARDED_FOR"]);
-  } else {
-     return ($_SERVER["REMOTE_ADDR"]);
-  }
+	if (isset($_SERVER["HTTP_X_FORWARDED_FOR"]) && isip($_SERVER["HTTP_X_FORWARDED_FOR"])) {
+		return $_SERVER["HTTP_X_FORWARDED_FOR"];
+	} elseif(isip($_SERVER["REMOTE_ADDR"])) {
+		return $_SERVER["REMOTE_ADDR"];
+	} else {
+		return '128.0.0.1';
+	}
+}
+
+function isip($ip) {
+	// es hat so ein komischen regex fuer IPV6 :-) und evtl /24 etc...
+	return preg_match("/^[0-9a-zA-Z\/.:]{7,}$/", $ip);
 }
 
 function site_statistic () {
