@@ -2,6 +2,9 @@ Changelog:
 ==========
 + neue Funktionen       * Änderungen/Bugfixes
 
+Version 1.1 M
+* Security Issue in getip fuction in file include/includes/func/statistic.php
+
 Version 1.1 L
 -------------
 * Teams/Groups Adminbereich Freischaltung von Joinusanfragen auch mit Modulrecht bei gegebener Konfiguration

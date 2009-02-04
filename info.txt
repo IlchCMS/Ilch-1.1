@@ -1,4 +1,4 @@
-ilchClan 1.1 L
+ilchClan 1.1 M
 
 15. Oktober 2008
 
@@ -15,6 +15,7 @@ s u p p o r t
   - www.ilch.de
 
 d a n k e
+  - Mairu fuer die viele Weiterentwicklung
   - Meiner Freundin für die Zeit ;-)
   - Scarfhogg für die Design Anpassung und die Icons im Adminbereich und vieles mehr!
   - Scorp für die super Hilfe bei den Templates.
