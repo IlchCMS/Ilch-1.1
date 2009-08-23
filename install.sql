@@ -26,9 +26,9 @@ CREATE TABLE `prefix_awards` (
   `time` date NOT NULL default '0000-00-00',
   `platz` varchar(10) NOT NULL default '',
   `team` varchar(100) NOT NULL default '',
-  `wofur` text NOT NULL,
+  `wofur` text,
   `bild` varchar(100) NOT NULL default '',
-  `text` text NOT NULL,
+  `text` text,
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 
@@ -47,7 +47,7 @@ CREATE TABLE `prefix_config` (
   `typ` varchar(10) NOT NULL default '',
   `kat` varchar(50) NOT NULL default '',
   `frage` varchar(255) NOT NULL default '',
-  `wert` text NOT NULL,
+  `wert` text,
   `pos` smallint(6) NOT NULL default '0',
   PRIMARY KEY  (`schl`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
@@ -137,7 +137,7 @@ CREATE TABLE `prefix_downloads` (
   `ssurl` varchar(255) NOT NULL default '',
   `name` varchar(100) NOT NULL default '',
   `desc` varchar(255) default NULL,
-  `descl` text,
+  `descl` text default '',
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 
@@ -176,7 +176,7 @@ CREATE TABLE `prefix_gallery_cats` (
   `pos` smallint(6) NOT NULL default '0',
   `recht` smallint(6) NOT NULL default '0',
   `name` varchar(50) NOT NULL default '',
-  `besch` text NOT NULL,
+  `besch` text,
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 
@@ -199,7 +199,7 @@ CREATE TABLE `prefix_gbook` (
   `page` varchar(100) NOT NULL default '',
   `time` int(20) NOT NULL default '0',
   `ip` varchar(20) NOT NULL default '',
-  `txt` text NOT NULL,
+  `txt` text,
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 
@@ -258,7 +258,7 @@ CREATE TABLE `prefix_history` (
   `id` smallint(6) NOT NULL auto_increment,
   `date` date NOT NULL default '0000-00-00',
   `title` varchar(100) NOT NULL default '',
-  `txt` text NOT NULL,
+  `txt` text,
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 
@@ -267,7 +267,7 @@ CREATE TABLE `prefix_kalender` (
   `gid` int(11) NOT NULL default '0',
   `time` int(11) NOT NULL default '0',
   `title` varchar(100) NOT NULL default '',
-  `text` text NOT NULL,
+  `text` text,
   `recht` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
@@ -286,7 +286,7 @@ CREATE TABLE `prefix_koms` (
   `uid` mediumint(9) NOT NULL default '0',
   `cat` varchar(10) NOT NULL default '',
   `name` varchar(100) NOT NULL default '',
-  `text` varchar(250) NOT NULL,
+  `text` varchar(250) NOT NULL default '',
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 
@@ -397,7 +397,7 @@ CREATE TABLE `prefix_news` (
   `news_time` datetime NOT NULL default '0000-00-00 00:00:00',
   `news_recht` int(11) NOT NULL default '0',
   `news_kat` varchar(100) NOT NULL default '',
-  `news_text` text NOT NULL,
+  `news_text` text,
   PRIMARY KEY  (`news_id`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 
@@ -431,7 +431,7 @@ CREATE TABLE `prefix_pm` (
   `status` tinyint( 1 ) NOT NULL default '0',
   `time` int(20) NOT NULL default '0',
   `titel` varchar(100) NOT NULL default '',
-  `txt` text NOT NULL,
+  `txt` text,
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 
@@ -440,7 +440,7 @@ CREATE TABLE `prefix_poll` (
   `frage` varchar(200) NOT NULL default '',
   `recht` tinyint(1) NOT NULL default '0',
   `stat` tinyint(1) NOT NULL default '0',
-  `text` text NOT NULL,
+  `text` text,
   PRIMARY KEY  (`poll_id`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 
@@ -458,7 +458,7 @@ CREATE TABLE `prefix_posts` (
   `erst` varchar(100) NOT NULL default '',
   `erstid` int(10) NOT NULL default '0',
   `time` bigint(20) NOT NULL default '0',
-  `txt` text NOT NULL,
+  `txt` text,
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 
@@ -513,7 +513,7 @@ CREATE TABLE `prefix_rules` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
   `zahl` smallint(6) NOT NULL default '0',
   `titel` varchar(200) NOT NULL default '',
-  `text` text NOT NULL,
+  `text` text,
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 
@@ -581,9 +581,9 @@ CREATE TABLE `prefix_user` (
   `pass` varchar(32) NOT NULL default '',
   `recht` int(1) NOT NULL default '0',
   `posts` int(5) NOT NULL default '0',
-  `regist` int(20) default NULL,
+  `regist` int(20) default NULL default '0',
   `email` varchar(100) NOT NULL default '',
-  `llogin` int(20) default NULL,
+  `llogin` int(20) default NULL default '0',
   `spezrank` mediumint(9) NOT NULL default '0',
   `opt_pm` tinyint(1) NOT NULL default '0',
   `opt_pm_popup` tinyint(1) NOT NULL default '0',
@@ -599,7 +599,7 @@ CREATE TABLE `prefix_user` (
   `msn` varchar(50) NOT NULL default '',
   `yahoo` varchar(50) NOT NULL default '',
   `aim` varchar(50) NOT NULL default '',
-  `sig` text NOT NULL,
+  `sig` text,
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 
@@ -610,7 +610,6 @@ CREATE TABLE `prefix_usercheck` (
   `pass` varchar(100) NOT NULL default '',
   `datime` datetime NOT NULL default '0000-00-00 00:00:00',
   `ak` tinyint(4) NOT NULL default '0',
-  `groupid` tinyint(4) NOT NULL,
   PRIMARY KEY  (`check`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 
@@ -643,7 +642,7 @@ CREATE TABLE `prefix_warmember` (
   `wid` smallint(6) NOT NULL default '0',
   `uid` mediumint(9) NOT NULL default '0',
   `aktion` tinyint(1) NOT NULL default '0',
-  `kom` text NOT NULL
+  `kom` text
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 
 CREATE TABLE `prefix_wars` (
@@ -664,6 +663,6 @@ CREATE TABLE `prefix_wars` (
   `game` varchar(100) NOT NULL default '',
   `mtyp` varchar(100) NOT NULL default '',
   `land` varchar(100) NOT NULL default '',
-  `txt` text NOT NULL,
+  `txt` text,
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
