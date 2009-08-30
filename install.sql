@@ -137,7 +137,7 @@ CREATE TABLE `prefix_downloads` (
   `ssurl` varchar(255) NOT NULL default '',
   `name` varchar(100) NOT NULL default '',
   `desc` varchar(255) default NULL,
-  `descl` text default '',
+  `descl` text,
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 
