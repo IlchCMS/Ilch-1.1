@@ -6,8 +6,11 @@ define ( 'main' , TRUE );
 
 //Konfiguration zur Anzeige von Fehlern
 //Auf http://www.php.net/manual/de/function.error-reporting.php sind die verfügbaren Modi aufgelistet
-@error_reporting(E_ALL ^ E_NOTICE);
+@error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED);
 @ini_set('display_errors','On');
+
+//Seid php-5.3 ist eine Angabe der TimeZone Pflicht
+date_default_timezone_set('Europe/Berlin');
 
 session_name  ('sid');
 session_start ();
