@@ -467,32 +467,32 @@ POSSIBILITY OF SUCH DAMAGES.
         <td class="Cmite"><br>"include/backup" Schreibrechte (CHMOD 777)<br></td>
     		<td class="Cnorm"><?php if ( @is_writeable ( 'include/backup' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
   		</tr><tr>
-    		<td class="Cmite"><br>"include/images/avatars" Schreibrechte (CHMOD 777)<br></td>
-    		<td class="Cnorm"><?php if ( @is_writeable ( 'include/images/avatars' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
-  		</tr><tr>
-    		<td class="Cmite"><br>"include/images/gallery" Schreibrechte (CHMOD 777)<br></td>
-    		<td class="Cnorm"><?php if ( @is_writeable ( 'include/images/gallery' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
-  		</tr><tr>
-    		<td class="Cmite"><br>"include/images/usergallery" Schreibrechte (CHMOD 777)<br></td>
-    		<td class="Cnorm"><?php if ( @is_writeable ( 'include/images/usergallery' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
-  		</tr><tr>
-    		<td class="Cmite"><br>"include/downs/downloads" Schreibrechte (CHMOD 777)<br></td>
-    		<td class="Cnorm"><?php if ( @is_writeable ( 'include/downs/downloads' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
-  		</tr><tr>
-    		<td class="Cmite"><br>"include/downs/downloads/user_upload" Schreibrechte (CHMOD 777)<br></td>
-    		<td class="Cnorm"><?php if ( @is_writeable ( 'include/downs/downloads/user_upload' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
-  		</tr><tr>
-    		<td class="Cmite"><br>"include/images/wars" Schreibrechte (CHMOD 777)<br></td>
-    		<td class="Cnorm"><?php if ( @is_writeable ( 'include/images/wars' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
-  		</tr><tr>
     		<td class="Cmite"><br>"include/contents/selfbp/selfp" Schreibrechte (CHMOD 777)<br></td>
     		<td class="Cnorm"><?php if ( @is_writeable ( 'include/contents/selfbp/selfp' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
   		</tr><tr>
     		<td class="Cmite"><br>"include/contents/selfbp/selfb" Schreibrechte (CHMOD 777)<br></td>
     		<td class="Cnorm"><?php if ( @is_writeable ( 'include/contents/selfbp/selfb' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
   		</tr><tr>
+    		<td class="Cmite"><br>"include/images/avatars" Schreibrechte (CHMOD 777)<br></td>
+    		<td class="Cnorm"><?php if ( @is_writeable ( 'include/images/avatars' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
+  		</tr><tr>
+    		<td class="Cmite"><br>"include/images/gallery" Schreibrechte (CHMOD 777)<br></td>
+    		<td class="Cnorm"><?php if ( @is_writeable ( 'include/images/gallery' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
+  		</tr><tr>
     		<td class="Cmite"><br>"include/images/smiles" Schreibrechte (CHMOD 777)<br></td>
     		<td class="Cnorm"><?php if ( @is_writeable ( 'include/images/smiles' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
+  		</tr><tr>
+    		<td class="Cmite"><br>"include/images/usergallery" Schreibrechte (CHMOD 777)<br></td>
+    		<td class="Cnorm"><?php if ( @is_writeable ( 'include/images/usergallery' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
+  		</tr><tr>
+    		<td class="Cmite"><br>"include/images/wars" Schreibrechte (CHMOD 777)<br></td>
+    		<td class="Cnorm"><?php if ( @is_writeable ( 'include/images/wars' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
+  		</tr><tr>
+    		<td class="Cmite"><br>"include/downs/downloads" Schreibrechte (CHMOD 777)<br></td>
+    		<td class="Cnorm"><?php if ( @is_writeable ( 'include/downs/downloads' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
+  		</tr><tr>
+    		<td class="Cmite"><br>"include/downs/downloads/user_upload" Schreibrechte (CHMOD 777)<br></td>
+    		<td class="Cnorm"><?php if ( @is_writeable ( 'include/downs/downloads/user_upload' ) ) { echo '<font color="#40aa00"><b>RICHTIG</b></font>'; } else { echo '<font color="#FF0000"><b>FALSCH</b></font>'; } ?></td>
   		</tr><tr class="Cdark">
 		    <td></td>
 				<td><input type="submit" value="Weiter ->"></td>
@@ -649,8 +649,8 @@ db_query ("UPDATE prefix_config SET wert = '".$_POST['admin_amail']."' WHERE sch
 		<table width="70%" class="border" border="0" cellspacing="0" cellpadding="25" align="center">
       <tr>
         <td class="Cmite">
-    	    <h2><b>Installation abgeschlosen</b></h2>
-					Sofern keine Fehler aufgetreten sind ist die Installation abgescholssen.
+    	    <h2><b>Installation abgeschlossen</b></h2>
+					Sofern keine Fehler aufgetreten sind ist die Installation abgeschlossen.
 
           <?php if (!$open) { ?>
           <br /><br /><br />Weil die Datei include/includes/config.php nicht die n&ouml;tigen

@@ -1,4 +1,4 @@
-<?php 
+<?php
 #   Copyright by: Manuel
 #   Support: www.ilch.de
 
@@ -16,11 +16,11 @@ if (is_siteadmin()) {
   }
   # delete all
   if ($menu->get(1) == 'delall') {
-    if (is_numeric($menu->get(2))) {       
+    if (is_numeric($menu->get(2))) {
       $anz = db_result(db_query("SELECT COUNT(*) FROM `prefix_shoutbox`"),0) - $menu->get(2);
       if ($anz > 0) {
-        db_query("DELETE FROM `prefix_shoutbox` LIMIT $anz");
-        } 
+        db_query("DELETE FROM `prefix_shoutbox` ORDER BY id LIMIT $anz");
+        }
       }
     else { db_query("DELETE FROM `prefix_shoutbox`"); }
   }

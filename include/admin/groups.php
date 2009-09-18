@@ -103,9 +103,9 @@ if ( $um == 'ch' ) {
 	$zeigen		= escape($_POST['zeigen'], 'integer');
 	$fightus	= escape($_POST['fightus'], 'integer');
 	$joinus		= escape($_POST['joinus'], 'integer');
-	if ($oldopts->mod2 == $_SESSION['authid']) {
+	if (!is_admin() and $oldopts->mod1 != $_SESSION['authid'] and $oldopts->mod2 == $_SESSION['authid']) {
     $mod1 = $oldopts->mod1;
-  } elseif ($oldopts->mod4 == $_SESSION['authid']) {
+  } elseif (!is_admin() and $oldopts->mod1 != $_SESSION['authid'] and $oldopts->mod2 != $_SESSION['authid'] and $oldopts->mod4 == $_SESSION['authid']) {
     $name	   = $oldopts->name;
 	$img	   = $oldopts->img;
     $mod1    = $oldopts->mod1;

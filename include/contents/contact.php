@@ -1,4 +1,4 @@
-<?php 
+<?php
 #   Copyright by: Manuel
 #   Support: www.ilch.de
 
@@ -43,10 +43,13 @@ if (!empty($_POST['wer']) AND !empty($_POST['mail']) AND !empty($_POST['txt']) A
   AND strlen($name) <= 30 AND strlen($mail) <= 30
   AND strlen($text) <= 5000
   AND $mail != $name AND $name != $text AND $text != $mail) {
-    
+
     $subject = "Kontakt: " . $subject;
-    icmail ($wer,$subject,$text, $name." <".$mail.">");
-    echo $lang['emailsuccessfullsend'];
+    if (icmail ($wer,$subject,$text, $name." <".$mail.">")) {
+    	echo $lang['emailsuccessfullsend'];
+    } else {
+    	echo 'Der Server konnte die Mail nicht versenden, teilen sie dies ggf. einem Administrator mit.';
+    }
     $name = '';
     $mail = '';
     $subject = '';
@@ -78,6 +81,6 @@ $tpl->set('text', $text);
 $tpl->set('ANTISPAM', get_antispam('contact',100));
 $tpl->out(2);
 
-		
+
 $design->footer();
 ?>

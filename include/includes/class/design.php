@@ -20,6 +20,8 @@ class design extends tpl {
     {
         global $allgAr;
 
+    	header('Content-Type: text/html;charset=ISO-8859-1');
+
         if (!is_null($file)) {
             echo '<div style="display: block; background-color: #FFFFFF; border: 2px solid #ff0000;">!!Man konnte in einer PHP Datei eine spezielle Index angeben. Damit das Design fuer diese Datei anders aussieht. Diese Funktion wurde ersetzt. Weitere Informationen im Forum auf ilch.de ... Thema: <a href="http://www.ilch.de/forum-showposts-13758-p1.html#108812">http://www.ilch.de/forum-showposts-13758-p1.html#108812</a></div>';
         }

@@ -324,6 +324,11 @@ function user_remove($uid){
 }
 
 function sendpm ($sid,$eid,$ti,$te,$status = 0) {
-  db_query("INSERT INTO `prefix_pm` (sid,eid,time,titel,txt,status) VALUES (".$sid.",".$eid.",'".time()."','".$ti."','".$te."',".$status.")");
+  if (is_array($eid)) {
+  	db_query("INSERT INTO `prefix_pm` (`sid`,`eid`,`time`,`titel`,`txt`,`status`) ".
+  	"SELECT  ".$sid.",`prefix_user`.`id`,'".time()."','".$ti."','".$te."',".$status." FROM `prefix_user` WHERE `prefix_user`.`id` IN (" . implode(',', $eid) . ")");
+  } else {
+  	db_query("INSERT INTO `prefix_pm` (`sid`,`eid`,`time`,`titel`,`txt`,`status`) VALUES (".$sid.",".$eid.",'".time()."','".$ti."','".$te."',".$status.")");
+  }
 }
 ?>

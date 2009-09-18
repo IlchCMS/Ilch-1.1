@@ -77,16 +77,11 @@ $result = db_query("SELECT
 	  OR id = ".$ueid."
 	ORDER BY MONTH(gebdatum), DAYOFMONTH(gebdatum) LIMIT 200");
 while ($r = db_fetch_assoc($result)) {
-  list($y,$m,$d) = explode('-',$r['gebdatum']);
-	$date  = mktime(0,0,0,$m,$d,date('Y'));
-  $dateA = mktime(0,0,0,$m,$d,$y);
-  $jetzt = time();
-  $alter = $jetzt - $dateA;
-  if ($date > $jetzt) {
-	$alter = date("Y",$alter) - 1970 +1;
-	} else {
-	$alter = date("Y",$alter) - 1970;
-	}
+	list($y,$m,$d) = explode('-',$r['gebdatum']);
+	$date  = mktime(0,0,0,$m,$d);
+	$jetzt = time();
+	$alter = date('Y') - $y;
+	if ($date > $jetzt) { $alter = $alter - 1; }
 	$row = array(
     'title' => $alter.'. Geburtstag von '.$r['name'],
     'text'  => 'Der '.$alter.'. Geburtstag von [url=http://'.($_SERVER["HTTP_HOST"].$_SERVER["SCRIPT_NAME"]).'?user-details-'.$r['id'].'][b]'.$r['name'].'[/b][/url]',

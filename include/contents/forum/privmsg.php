@@ -180,6 +180,7 @@ case 'showsend' :
 	$row['class'] = $class;
     $row['date'] = date('d.m.Y',$row['time']);
     $row['time'] = date('H:i',$row['time']);
+    $row['BET'] = (trim($row['titel']) == '' ? ' -- kein Nachrichtentitel -- ' : $row['titel']);
 	$tpl->set_ar_out($row,1);
   }
   $tpl->out(2);

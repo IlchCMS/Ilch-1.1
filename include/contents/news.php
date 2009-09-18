@@ -74,7 +74,8 @@ if ( !is_numeric($menu->get(1)) )  {
     {
       if($feed_type == 'atom')
       {
-          $row['datum'] = str_replace(' ', 'T', $row['datum']) . 'Z';
+		$Z = (date('Z') > 0 ? '+' : '').date('H:i:s', date('Z') + 23 * 3600);
+		$row['datum'] = str_replace(' ', 'T', $row['datum']) . $Z;
       }
 
       $a = explode('[PREVIEWENDE]', $row['text']);
