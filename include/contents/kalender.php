@@ -79,9 +79,7 @@ $result = db_query("SELECT
 while ($r = db_fetch_assoc($result)) {
 	list($y,$m,$d) = explode('-',$r['gebdatum']);
 	$date  = mktime(0,0,0,$m,$d);
-	$jetzt = time();
 	$alter = date('Y') - $y;
-	if ($date > $jetzt) { $alter = $alter - 1; }
 	$row = array(
     'title' => $alter.'. Geburtstag von '.$r['name'],
     'text'  => 'Der '.$alter.'. Geburtstag von [url=http://'.($_SERVER["HTTP_HOST"].$_SERVER["SCRIPT_NAME"]).'?user-details-'.$r['id'].'][b]'.$r['name'].'[/b][/url]',

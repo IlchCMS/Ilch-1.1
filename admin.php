@@ -10,7 +10,11 @@ define ( 'admin', TRUE );
 
 //Seit php-5.3 ist eine Angabe der TimeZone Pflicht
 if (version_compare(phpversion(), '5.3') != -1) {
-	@error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED);
+	if (E_ALL > E_DEPRECATED) {
+		@error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED);
+	} else {
+		@error_reporting(E_ALL ^ E_NOTICE);
+	}
 	date_default_timezone_set('Europe/Berlin');
 } else {
 	@error_reporting(E_ALL ^ E_NOTICE);

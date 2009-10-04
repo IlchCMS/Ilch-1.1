@@ -29,7 +29,7 @@ if ( is_coadmin() ) {
       ['<img src="include/images/icons/admin/konfiguration.png" width="16" height="16">', 'Konfiguration', 'admin.php?allg', null, null],
       <?php }
       if ($allgAr['mail_smtp']) { ?>
-      ['<img src="include/images/icons/admin/smtpconf.png" width="16" height="16">', 'SMPT Konfiguration', 'admin.php?smtpconf', null, null],
+      ['<img src="include/images/icons/admin/smtpconf.png" width="16" height="16">', 'SMTP Konfiguration', 'admin.php?smtpconf', null, null],
       <?php } ?>
       ['<img src="include/images/icons/admin/navigation.png" width="16" height="16">', 'Navigation', 'admin.php?menu', null, null],
       <?php if (is_admin()) { ?>

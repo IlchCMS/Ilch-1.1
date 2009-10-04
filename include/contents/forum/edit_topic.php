@@ -20,10 +20,11 @@ $design = new design ( $title , $hmenu, 1);
 $design->header();
 
 $uum = $menu->get(3);
-$tid = $menu->get(2);
+$tid = escape($menu->get(2), 'integer');
 switch($uum) {
   case 1 : # change topic title
-    db_query("UPDATE `prefix_topics` SET name = '".$_REQUEST['newTopic']."' WHERE id = '".$tid."'");
+
+    db_query("UPDATE `prefix_topics` SET name = '".escape($_REQUEST['newTopic'], 'string')."' WHERE id = '".$tid."'");
 		wd ( array (
 			'zur&uuml;ck zum Thema' => 'index.php?forum-showposts-'.$tid,
 		  'zur Themen &Uuml;bersicht' => 'index.php?forum-showtopics-'.$fid
@@ -42,7 +43,7 @@ switch($uum) {
         $top = db_result(db_query("SELECT name FROM prefix_topics WHERE id = ".$tid),0);
         $page = $_SERVER["HTTP_HOST"].$_SERVER["SCRIPT_NAME"];
         $txt  = "Dein Thema \"".$top."\" wurde gelöscht Begründung:\n\n".escape($_POST['reason'], 'string');
-        sendpm($_SESSION['authid'], $uid, 'Theme gelöscht',$txt);
+        sendpm($_SESSION['authid'], $uid, 'Theme gelöscht', escape($txt, 'textarea'));
       }
     $postsMinus = $aktTopicRow['rep'] + 1;
 		db_query("DELETE FROM `prefix_topics` WHERE id = '".$tid."' LIMIT 1");
@@ -92,6 +93,8 @@ switch($uum) {
       forum_admin_selectcats(0,0,$fid);
       echo '</select><br /><input type="checkbox" name="alertautor" value="yes" /> Den Autor &uuml;ber das verschieben informieren?<br /><input type="submit" value="Verschieben" name="sub"></form>';
     } else {
+      $_POST['nfid'] = escape($_POST['nfid'], 'integer');
+      $_POST['afid'] = escape($_POST['afid'], 'integer');
       $postsMinus = $aktTopicRow['rep'] + 1;
 			db_query("UPDATE `prefix_topics` SET `fid` = ".$_POST['nfid']." WHERE id = ".$tid);
 			db_query("UPDATE prefix_posts SET `fid` = ".$_POST['nfid']." WHERE tid = ".$tid);
@@ -113,7 +116,7 @@ switch($uum) {
         $txt .= "\n\n- [url=http://".$page."?forum-showposts-".$tid."]Link zum Thema[/url]";
         $txt .= "\n- [url=http://".$page."?forum-showtopics-".$_POST['nfid']."]Link zum neuen Forum[/url]";
         $txt .= "\n- [url=http://".$page."?forum-showtopics-".$_POST['afid']."]Link zum alten Forum[/url]";
-        sendpm($_SESSION['authid'], $uid, 'Thema verschoben',$txt);
+        sendpm($_SESSION['authid'], $uid, 'Thema verschoben', escape($txt, 'textarea'));
       }
 
 

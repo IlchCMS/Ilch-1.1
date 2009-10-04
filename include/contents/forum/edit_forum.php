@@ -20,6 +20,7 @@ if ((isset($_POST['del']) OR isset($_POST['shift']) OR isset($_POST['status'])) 
   wd ('index.php?forum-editforum-'.$fid, 'Es wurden keine Themen gew&auml;hlt.' , 2 );
 } elseif (isset($_POST['status'])) {
   foreach ($_POST['in'] as $k => $v) {
+  	$k = escape($k, 'integer');
     $astat = db_result(db_query("SELECT stat FROM prefix_topics WHERE id = ".$k), 0, 0);
     $nstat = ($astat == 1 ? 0 : 1 );
     db_query("UPDATE `prefix_topics` SET stat = '".$nstat."' WHERE id = ".$k);
@@ -49,6 +50,7 @@ if ((isset($_POST['del']) OR isset($_POST['shift']) OR isset($_POST['status'])) 
   $pmin = 0;
   $tmin = 0;
   foreach ($_POST['in'] as $k => $v) {
+  	    $k = escape($k, 'integer');
 		$erg = db_query("SELECT erstid FROM prefix_posts WHERE tid = ".$k." AND erstid > 0");
 		while ($row = db_fetch_object($erg) ) {
 		  db_query("UPDATE prefix_user SET posts = posts - 1 WHERE id = ".$row->erstid);
@@ -63,7 +65,8 @@ if ((isset($_POST['del']) OR isset($_POST['shift']) OR isset($_POST['status'])) 
   db_query("UPDATE `prefix_forums` SET last_post_id = ".$pid.", `posts` = `posts` - ".$pmin.", `topics` = `topics` - ".$tmin." WHERE id = ".$fid);
 	wd ('index.php?forum-editforum-'.$fid, 'Die Themen wurden gel&ouml;scht' , 2 );
 } elseif (isset($_POST['shift']) AND isset($_POST['nfid'])) {
-
+  $_POST['nfid'] = escape($_POST['nfid'], 'interger');
+  $_POST['afid'] = escape($_POST['afid'], 'interger');
   $fal = db_result(db_query("SELECT name FROM prefix_forums WHERE id = ".$_POST['afid']),0);
   $fne = db_result(db_query("SELECT name FROM prefix_forums WHERE id = ".$_POST['nfid']),0);
 
