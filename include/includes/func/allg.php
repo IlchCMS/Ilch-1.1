@@ -250,7 +250,7 @@ function icmail ($mail, $bet, $txt, $from = '', $html = false) {
 			$mailer->AddAddress($mailer->From);
 		} else {
 			foreach ($mail as $m){
-				$mailer->AddAddress(escape_for_email($mail));
+				$mailer->AddAddress(escape_for_email($m));
 			}
 		}
 	} else {
@@ -397,11 +397,11 @@ function get_antispam ($m, $t, $nopictures = false) {
 		return $rs;
 	}
 
-	if (is_numeric($allgAr['antispam']) AND has_right($allgAr['antispam'])) {
+	if (is_numeric($allgAr['antispam']) and has_right($allgAr['antispam'])) {
 		return '';
 	}
 
-	if (!is_array($_SESSION['antispam'])) {
+	if (!isset($_SESSION['antispam']) or (isset($_SESSION['antispam']) and !is_array($_SESSION['antispam']))) {
 		$_SESSION['antispam'] = array();
 	}
 

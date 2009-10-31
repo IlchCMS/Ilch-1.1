@@ -50,7 +50,7 @@ if ($menu->get(2) == '' OR $menu->getA(2) == 'p') {
 
 	$out = array('GES' => 0, 'WIN' => 0, 'LOS' => 0, 'PAT' => 0, 'TITLE' => $allgAr['title']);
 
-	if (isset($_POST['tid'])) {
+	if (isset($_POST['tid']) and is_numeric($_POST['tid'])) {
 		$tid = escape($_POST['tid'], 'integer');
 		$where1 = 'AND tid = '.$tid;
 		$where2 = 'AND a.tid = '.$tid;
@@ -90,8 +90,8 @@ if ($menu->get(2) == '' OR $menu->getA(2) == 'p') {
 		$wpls = array(1 => $lang['win'], 2 => $lang['los'], 3 => $lang['pat']);
 		$wpl = arlistee(isset($_POST['wpl']) ? $_POST['wpl'] : '', $wpls);
         $teams = dblistee (isset($_POST['tid']) ? $_POST['tid'] : '', "SELECT `id`, `name` FROM `prefix_groups` ORDER BY `name`");
-        $game = dblistee (isset($_POST['spiel']) ? $_POST['tid'] : '', "SELECT DISTINCT `game`,`game` FROM `prefix_wars` ORDER BY `game`");
-        $mtype = dblistee (isset($_POST['typ']) ? $_POST['tid'] : '', "SELECT DISTINCT `mtyp`,`mtyp` FROM `prefix_wars` ORDER BY `mtyp`");
+        $game = dblistee (isset($_POST['spiel']) ? $_POST['spiel'] : '', "SELECT DISTINCT `game`,`game` FROM `prefix_wars` ORDER BY `game`");
+        $mtype = dblistee (isset($_POST['typ']) ? $_POST['typ'] : '', "SELECT DISTINCT `mtyp`,`mtyp` FROM `prefix_wars` ORDER BY `mtyp`");
         $tpl->set_ar_out (array('tid' => $teams, 'game' => $game, 'typ' => $mtype, 'wpl' => $wpl) , 3);
 	if ($menu->get(1) == 'last') {
         $tpl->out(4);
