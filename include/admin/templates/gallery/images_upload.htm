@@ -14,7 +14,7 @@ function openImgWindow(v,hoehe,breite) {
 function deleteMap(v) {
   var x = confirm ( "Bild wirklich loeschen?" );
   if ( x ) {
-    document.location.href="admin.php?wars-last-upload=0&d=include/images/wars/{wid}_{mid}."+v+"&wid={wid}&mid={mid}";
+    document.location.href="admin.php?wars-last-upload=0&d={wid}_{mid}."+v+"&wid={wid}&mid={mid}";
   }
 }
 //-->

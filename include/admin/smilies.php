@@ -6,6 +6,29 @@
 defined ('main') or die ( 'no direct access' );
 defined ('admin') or die ( 'only admin access' );
 
+// START: Neu seit Ilch 1.1 Patchlevel 15
+	function image_valid($type) {
+		$file_types  = array(
+			'image/pjpeg'	=> 'jpg',
+			'image/jpeg'	=> 'jpg',
+			'image/jpeg'	=> 'jpeg',
+			'image/gif'		=> 'gif',
+			'image/X-PNG'	=> 'png',
+			'image/PNG'		=> 'png',
+			'image/png'		=> 'png',
+			'image/x-png'	=> 'png',
+			'image/JPG'		=> 'jpg',
+			'image/GIF'		=> 'gif',
+		);
+		
+		if ( !array_key_exists ( $type, $file_types ) ) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+// END: Neu seit Ilch 1.1 Patchlevel 15
+
 function getsmiliear () {
   $ar = array();
   $o = opendir('include/images/smiles');
@@ -75,12 +98,20 @@ if (isset($_POST['u'])) {
     if (!empty($_FILES['ar']['name'][$k])) {
       $name = $_FILES['ar']['name'][$k];
       $bild_url = 'include/images/smiles/'.$name;
-      if (@move_uploaded_file ($_FILES['ar']['tmp_name'][$k], $bild_url)) {
-        @chmod($bild_url, 0777);
-        echo '"'.$name.'" wurde erfolgreich hochgeladen<br />';
-      } else {
-        echo 'konnte "'.$name.'" nicht hochladen<br />';
-      }
+	  
+	  // START: Geändert seit Ilch 1.1 Patchlevel 15
+		  if( image_valid ( $_FILES['ar']['type'][$k] ) ) {
+			  if (@move_uploaded_file ($_FILES['ar']['tmp_name'][$k], $bild_url)) {
+				@chmod($bild_url, 0777);
+				echo '"'.$name.'" wurde erfolgreich hochgeladen<br />';
+			  } else {
+				echo 'konnte "'.$name.'" nicht hochladen<br />';
+			  }
+		  } else {
+				echo 'falsches Dateiformat';
+		  }
+	  // END: Geändert seit Ilch 1.1 Patchlevel 15
+	  
       echo '<br />';
       echo '<br />';
     }

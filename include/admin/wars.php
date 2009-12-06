@@ -88,7 +88,7 @@ switch ( $um ) {
 				}
 			}
 			if ( isset($_GET['d']) ) {
-				if ( @unlink ( $_GET['d'] ) ) {
+				if ( @unlink ( 'include/images/wars/'.$_GET['d'] ) ) {
 					$msg = 'Datei <font color="#00FF00">erfolgreich gel&ouml;scht</font><br />';
 				} else {
 					$msg = 'Datei <font color="#FF0000">konnte nicht gel&ouml;scht werden</font><br />';
