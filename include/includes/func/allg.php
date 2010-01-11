@@ -234,6 +234,7 @@ function icmail ($mail, $bet, $txt, $from = '', $html = false) {
 			$mailer->Password = $cr64->decrypt($smtp['smtp_pass']);
 
 			if ($smtp['smtp_pop3beforesmtp'] == 1) {
+				include_once('include/includes/class/phpmailer/class.pop3.php');
 				$pop = new POP3();
 				$pop3port = !empty($smpt['smtp_pop3port']) ? $smpt['smtp_pop3port'] : 110;
 				$pop->Authorise($smpt['smtp_pop3host'], $pop3port, 5, $mailer->Username, $mailer->Password, 1);

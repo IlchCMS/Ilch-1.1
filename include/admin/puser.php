@@ -1,4 +1,4 @@
-<?php 
+<?php
 #   Copyright by: Manuel
 #   Support: www.ilch.de
 
@@ -21,7 +21,7 @@ if($menu->get(1) == "confirm" AND isset($_GET['check'])){
     case 1 :
       if ( 0 == db_count_query("SELECT COUNT(*) FROM prefix_user WHERE name = BINARY '".$row['name']."'") ) {
   			db_query("INSERT INTO prefix_user (name,pass,recht,regist,llogin,email,status,opt_mail,opt_pm)
-  			 VALUES('".$row['name']."','".$row['pass']."',-1,'".time()."','".time()."','".$row['email']."',1,1,1)");	
+  			 VALUES('".$row['name']."','".$row['pass']."',-1,'".time()."','".time()."','".$row['email']."',1,1,1)");
    		  db_query("DELETE FROM prefix_usercheck WHERE `check` = '".escape($_GET['check'], 'string')."'");
       }else {
   			 $tpl->set_out('error','Username existiert bereits',3);
@@ -32,18 +32,29 @@ if($menu->get(1) == "confirm" AND isset($_GET['check'])){
       db_query("UPDATE prefix_user SET pass = '".$row['pass']."' WHERE name = BINARY '".$row['name']."'");
       db_query("DELETE FROM prefix_usercheck WHERE `check` = '".escape($_GET['check'], 'string')."'");
       break;
-    
+
     # confirm new email
     case 3 :
       list ($id, $check) = explode('||', $row['check']);
-      db_query("UPDATE prefix_user SET email = '".$row['email']."' WHERE id = ". escape($id, 'integer')); 
+      db_query("UPDATE prefix_user SET email = '".$row['email']."' WHERE id = ". escape($id, 'integer'));
 		  db_query("DELETE FROM prefix_usercheck WHERE `check` = '".escape($_GET['check'], 'string')."'");
       break;
     # join us
     case 4 :
+    	echo '<br />Joinus kann über diese Liste nicht akzeptiert werden, mache diese über <a style="color:red;" href="http://ilch11.dev/admin.php?groups-joinus">Joinus Anfragen bearbeiten</a><br /><br />';
       break;
+	# ak 5 remove account
+	case 5:
+		list ($id, $muell) = explode('-remove-', $row['check']);
+		if ($id == $_SESSION['authid']) {
+			echo 'Der eigene Account ist auf diese Weise nicht l&ouml;schbar.';
+			break;
 		}
-  }else{
+		user_remove($id);
+		db_query("DELETE FROM prefix_usercheck WHERE `check` = '".escape($_GET['check'], 'string')."'");
+		break;
+	}
+  } else {
     $tpl->set_out('error','User nicht auffindbar',3);
   }
 }
@@ -55,9 +66,9 @@ if($menu->get(1) == "del" AND isset($_GET['check'])){
 
 
 $tpl->out(0);
-$ak=array('','neuer User','neues Passwort','neue Emailadresse','Join us');
+$ak=array('','neuer User','neues Passwort','neue Emailadresse','Join us','Account l&ouml;schen');
 $c = 0;
-$erg = db_query("SELECT `check`, `name`, `email`, `ak`, date_format(datime,'%k:%i Uhr %e.%c.%Y') as time FROM `prefix_usercheck` ORDER by datime DESC");
+$erg = db_query("SELECT `check`, `name`, `email`, `ak`, date_format(datime,'%H:%i Uhr %m.%d.%Y') as time FROM `prefix_usercheck` ORDER by datime DESC");
 while ($row = db_fetch_assoc($erg)) {
   if ($class == 'Cmite') { $class = 'Cnorm'; } else { $class = 'Cmite'; }
   $c++;

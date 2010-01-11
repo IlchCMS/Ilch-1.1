@@ -115,7 +115,7 @@ if (isset($_POST['SEND']) and chk_antispam('newsletter', true)) {
             	$uids[] = $row->uid;
         		$zahler++;
         	}
-			sendpm($_SESSION['authid'], $uids, escape($_POST['bet'], 'string'), escape($_POST['txt'], 'string'));
+			sendpm($_SESSION['authid'], $uids, escape($_POST['bet'], 'string'), escape($_POST['txt'], 'string'), -1);
 		}
 
         if ($mailopm == 'E') {

@@ -4,13 +4,16 @@ Changelog:
 
 Version 1.1 O
 -------------
-* Alterberechnung im Kalender
+* Altersberechnung im Kalender
 * Lastwarstatistiken für einzelne Teams verbessert
 * Fehler bei einigen mit PHP 5.3 und E_DEPRECATED
-* einige fehlende escapes bei der Forenadministration eingefügt aber
-* bigdump aktualisiert und beim Backup andere Zeilenenden eingefügt
+* einige fehlende escapes bei der Forenadministration eingefügt
+* bigdump aktualisiert (u.a. PHP 5.3 Anpassungen) und beim Backup andere Zeilenenden eingefügt
+* Fehler mit POP3 bei SMTP Versand behoben
+* offene Bestätigungen (Adminbereich admin.php?puser), Account Löschen hingefügt
 * Adminbereich Upload von Gallery und Smilies Sicherheitsfehler behoben
 * Wars Bild löschen Sicherheitsfehler behoben
+* User-Datails bessere Fehlerausgabe bei ungültigem Aufruf
 
 Version 1.1 N
 -------------

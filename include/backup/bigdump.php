@@ -4,14 +4,14 @@ session_name  ('sid');
 session_start ();
 if ($_SESSION['authright'] != -9) die('only admin access');
 
-// BigDump ver. 0.30b from 2009-09-02
+// BigDump ver. 0.31b from 2009-11-12
 // Staggered import of an large MySQL Dump (like phpMyAdmin 2.x Dump)
 // Even through the webservers with hard runtime limit and those in safe mode
 // Works fine with Internet Explorer 7.0 and Firefox 2.x
 
 // Author:       Alexey Ozerov (alexey at ozerov dot de)
 //               AJAX & CSV functionalities: Krzysiek Herod (kr81uni at wp dot pl)
-// Copyright:    GPL (C) 2003-2008
+// Copyright:    GPL (C) 2003-2009
 // More Infos:   http://www.ozerov.de/bigdump.php
 
 // This program is free software; you can redistribute it and/or modify it under the
@@ -35,9 +35,12 @@ if ($_SESSION['authright'] != -9) die('only admin access');
 
 // LAST CHANGES
 
-// *** Add CSV preempty table feature
-// *** Fix read whole line on Mac
-// *** Fix Paypal code
+// *** Remove deprecated ereg()
+// *** Add mysql module availability check
+// *** Workaround for mysql_close() bug #48754 in PHP 5.3
+// *** Fixing the timezone warning for date() in PHP 5.3
+
+
 
 // Database configuration
 require_once('../includes/config.php');
@@ -62,7 +65,7 @@ $comment[]='#';                       // Standard comment lines are dropped by d
 $comment[]='-- ';
 // $comment[]='---';                  // Uncomment this line if using proprietary dump created by outdated mysqldump
 // $comment[]='CREATE DATABASE';      // Uncomment this line if your dump contains create database queries in order to ignore them
-// $comment[]='/*!';                  // Or add your own string to leave out other proprietary things
+$comment[]='/*!';                  // Or add your own string to leave out other proprietary things
 
 
 
@@ -79,7 +82,7 @@ $db_connection_charset = '';
 if ($ajax)
 	ob_start();
 
-define ('VERSION','0.30');
+define ('VERSION','0.31b');
 define ('DATA_CHUNK_LENGTH',16384);  // How many chars are read per time
 define ('MAX_QUERY_LINES',300);      // How many lines may be considered to be one query (except text lines)
 define ('TESTMODE',false);           // Set to true to process the file without actually accessing the database
@@ -92,6 +95,9 @@ header("Pragma: no-cache");
 
 @ini_set('auto_detect_line_endings', true);
 @set_time_limit(0);
+
+if (function_exists("date_default_timezone_set") && function_exists("date_default_timezone_get"))
+  @date_default_timezone_set(@date_default_timezone_get());
 
 // Clean and strip anything we don't want from user's input [0.27b]
 
@@ -262,13 +268,20 @@ if (!$error && !function_exists('version_compare'))
 	$error=true;
 }
 
+// Check if mysql extension is available
+
+if (!$error && !function_exists('mysql_connect'))
+{ echo ("<p class=\"error\">There is no mySQL extension available in your PHP installation. Sorry!</p>\n");
+  $error=true;
+}
+
 // Calculate PHP max upload size (handle settings like 10M or 100K)
 
 if (!$error)
 { $upload_max_filesize=ini_get("upload_max_filesize");
-	if (eregi("([0-9]+)K",$upload_max_filesize,$tempregs)) $upload_max_filesize=$tempregs[1]*1024;
-	if (eregi("([0-9]+)M",$upload_max_filesize,$tempregs)) $upload_max_filesize=$tempregs[1]*1024*1024;
-	if (eregi("([0-9]+)G",$upload_max_filesize,$tempregs)) $upload_max_filesize=$tempregs[1]*1024*1024*1024;
+  if (preg_match("/([0-9]+)K/i",$upload_max_filesize,$tempregs)) $upload_max_filesize=$tempregs[1]*1024;
+  if (preg_match("/([0-9]+)M/i",$upload_max_filesize,$tempregs)) $upload_max_filesize=$tempregs[1]*1024*1024;
+  if (preg_match("/([0-9]+)G/i",$upload_max_filesize,$tempregs)) $upload_max_filesize=$tempregs[1]*1024*1024*1024;
 }
 
 // Get the current directory
@@ -296,7 +309,7 @@ if (!$error && isset($_REQUEST["uploadbutton"]))
 	if (file_exists($uploaded_filename))
 	{ echo ("<p class=\"error\">File $uploaded_filename already exist! Delete and upload again!</p>\n");
 	}
-	else if (!eregi("(\.(sql|gz|csv))$",$uploaded_filename))
+    else if (!preg_match("/(\.(sql|gz|csv))$/i",$uploaded_filename))
 	{ echo ("<p class=\"error\">You may only upload .sql .gz or .csv files.</p>\n");
 	}
 	else if (!@move_uploaded_file($_FILES["dumpfile"]["tmp_name"],$uploaded_filepath))
@@ -316,12 +329,11 @@ if (!$error && isset($_REQUEST["uploadbutton"]))
 // Handle file deletion (delete only in the current directory for security reasons)
 
 if (!$error && isset($_REQUEST["delete"]) && $_REQUEST["delete"]!=basename($_SERVER["SCRIPT_FILENAME"]))
-{ if (eregi("(\.(sql|gz|csv))$",$_REQUEST["delete"]) && @unlink(basename($_REQUEST["delete"])))
+{ if (preg_match("/(\.(sql|gz|csv))$/i",$_REQUEST["delete"]) && @unlink(basename($_REQUEST["delete"])))
 	echo ("<p class=\"success\">".$_REQUEST["delete"]." was removed successfully</p>\n");
 	else
 		echo ("<p class=\"error\">Can't remove ".$_REQUEST["delete"]."</p>\n");
 }
-
 
 // Connect to the database
 
@@ -331,7 +343,7 @@ if (!$error && !TESTMODE)
 		$db = mysql_select_db($db_name);
 	if (!$dbconnection || !$db)
 	{ echo ("<p class=\"error\">Database connection failed due to ".mysql_error()."</p>\n");
-		echo ("<p>Edit the database settings in ".$_SERVER["SCRIPT_FILENAME"]." or contact your database provider</p>\n");
+    echo ("<p>Edit the database settings in ".$_SERVER["SCRIPT_FILENAME"]." or contact your database provider.</p>\n");
 		$error=true;
 	}
 	if (!$error && $db_connection_charset!=='')
@@ -341,6 +353,7 @@ else
 { $dbconnection = false;
 }
 
+// echo("<h1>Checkpoint!</h1>");
 
 // List uploaded files in multifile mode
 
@@ -356,16 +369,16 @@ if (!$error && !isset($_REQUEST["fn"]) && $filename=="")
 	}
 		echo ("<tr><td>$dirfile</td><td class=\"right\">".filesize($dirfile)."</td><td>".date ("Y-m-d H:i:s", filemtime($dirfile))."</td>");
 
-		if (eregi("\.sql$",$dirfile))
+        if (preg_match("/\.sql$/i",$dirfile))
 			echo ("<td>SQL</td>");
-		elseif (eregi("\.gz$",$dirfile))
+        elseif (preg_match("/\.gz$/i",$dirfile))
 			echo ("<td>GZip</td>");
-		elseif (eregi("\.csv$",$dirfile))
+        elseif (preg_match("/\.csv$/i",$dirfile))
 			echo ("<td>CSV</td>");
 		else
 			echo ("<td>Misc</td>");
 
-		if ((eregi("\.gz$",$dirfile) && function_exists("gzopen")) || eregi("\.sql$",$dirfile) || eregi("\.csv$",$dirfile))
+        if ((preg_match("/\.gz$/i",$dirfile) && function_exists("gzopen")) || preg_match("/\.sql$/i",$dirfile) || preg_match("/\.csv$/i",$dirfile))
 			echo ("<td><a href=\"".$_SERVER["PHP_SELF"]."?start=1&amp;fn=".urlencode($dirfile)."&amp;foffset=0&amp;totalqueries=0\">Start Import</a> into $db_name at $db_server</td>\n <td><a href=\"".$_SERVER["PHP_SELF"]."?delete=".urlencode($dirfile)."\">Delete file</a></td></tr>\n");
 		else
 			echo ("<td>&nbsp;</td>\n <td>&nbsp;</td></tr>\n");
@@ -446,7 +459,7 @@ if (!$error && isset($_REQUEST["start"]))
 
 	// Recognize GZip filename
 
-	if (eregi("\.gz$",$curfilename))
+  if (preg_match("/\.gz$/i",$curfilename)) 
 		$gzipmode=true;
 	else
 		$gzipmode=false;
@@ -475,7 +488,7 @@ if (!$error && isset($_REQUEST["start"]))
 // START IMPORT SESSION HERE
 // *******************************************************************************************
 
-if (!$error && isset($_REQUEST["start"]) && isset($_REQUEST["foffset"]) && eregi("(\.(sql|gz|csv))$",$curfilename))
+if (!$error && isset($_REQUEST["start"]) && isset($_REQUEST["foffset"]) && preg_match("/(\.(sql|gz|csv))$/i",$curfilename))
 {
 
 // Check start and foffset are numeric values
@@ -554,7 +567,7 @@ if (!$error)
 
 
 		// Stop if csv file is used, but $csv_insert_table is not set
-		if (($csv_insert_table == "") && (eregi("(\.csv)$",$curfilename)))
+      if (($csv_insert_table == "") && (preg_match("/(\.csv)$/i",$curfilename)))
 		{
 			echo ("<p class=\"error\">Stopped at the line $linenumber. </p>");
 			echo ('<p>At this place the current query is from csv file, but $csv_insert_table was not set.');
@@ -565,7 +578,7 @@ if (!$error)
 
 		// Create an SQL query from CSV line
 
-		if (($csv_insert_table != "") && (eregi("(\.csv)$",$curfilename)))
+      if (($csv_insert_table != "") && (preg_match("/(\.csv)$/i",$curfilename)))
 			$dumpline = 'INSERT INTO '.$csv_insert_table.' VALUES ('.$dumpline.');';
 
 		// Handle DOS and Mac encoded linebreaks (I don't know if it will work on Win32 or Mac Servers)
@@ -627,7 +640,7 @@ if (!$error)
 
 		// Execute query if end of query detected (; as last character) AND NOT in parents
 
-		if (ereg(";$",trim($dumpline)) && !$inparents)
+      if (preg_match("/;$/",trim($dumpline)) && !$inparents)
 		{ if (!TESTMODE && !mysql_query(trim($query), $dbconnection))
 		{ echo ("<p class=\"error\">Error at the line $linenumber: ". trim($dumpline)."</p>\n");
 			echo ("<p>Query: ".trim(nl2br(htmlentities($query)))."</p>\n");
@@ -785,13 +798,13 @@ skin_close();
 if ($error)
 	echo ("<p class=\"centr\"><a href=\"".$_SERVER["PHP_SELF"]."\">Start from the beginning</a> (DROP the old tables before restarting)</p>\n");
 
-if ($dbconnection) mysql_close();
+if ($dbconnection) mysql_close($dbconnection);
 if ($file && !$gzipmode) fclose($file);
 else if ($file && $gzipmode) gzclose($file);
 
 ?>
 
-<p class="centr">© 2003-2008 <a href="mailto:alexey@ozerov.de">Alexey Ozerov</a></p>
+<p class="centr">© 2003-2009 <a href="mailto:alexey@ozerov.de">Alexey Ozerov</a></p>
 
 </td></tr></table>
 
