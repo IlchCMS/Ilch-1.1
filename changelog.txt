@@ -14,6 +14,7 @@ Version 1.1 O
 * Adminbereich Upload von Gallery und Smilies Sicherheitsfehler behoben
 * Wars Bild löschen Sicherheitsfehler behoben
 * User-Datails bessere Fehlerausgabe bei ungültigem Aufruf
+* Antispam und einfacher Namensschutz bei Gallerykommentaren eingefügt
 
 Version 1.1 N
 -------------
