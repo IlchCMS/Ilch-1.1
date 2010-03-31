@@ -245,8 +245,8 @@ switch ( $um ) {
 				db_query("DELETE FROM prefix_topics WHERE fid = ".$r[0]);
 			}
 			db_query("DELETE FROM prefix_forums WHERE cid = ".$cid);
-			$pos = db_result(db_query("SELECT pos FROM prefix_forumcats WHERE id = ".$cid),0);
-		  db_query("UPDATE prefix_forumcats SET pos = pos -1 WHERE pos > ".$pos);
+			list($pos, $uid) = db_fetch_row(db_query("SELECT pos, cid FROM prefix_forumcats WHERE id = ".$cid));
+			db_query("UPDATE prefix_forumcats SET pos = pos -1 WHERE pos > ".$pos." AND cid = ".$uid);
 			db_query("DELETE FROM prefix_forumcats WHERE id = ".$cid);
 	  break;
   case 'moveCategorie' :

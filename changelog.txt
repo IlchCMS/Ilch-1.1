@@ -15,6 +15,8 @@ Version 1.1 O
 * Wars Bild löschen Sicherheitsfehler behoben
 * User-Datails bessere Fehlerausgabe bei ungültigem Aufruf
 * Antispam und einfacher Namensschutz bei Gallerykommentaren eingefügt
+* Löschen von (Unter-)Forenkategorien korrigiert
+* Shoutbox nicht mehr zu breit wegen Antispam
 
 Version 1.1 N
 -------------

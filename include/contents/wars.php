@@ -88,9 +88,28 @@ if ($menu->get(2) == '' OR $menu->getA(2) == 'p') {
     $tpl->out(2);
     $class = '';
 		$wpls = array(1 => $lang['win'], 2 => $lang['los'], 3 => $lang['pat']);
-		$wpl = arlistee(isset($_POST['wpl']) ? $_POST['wpl'] : '', $wpls);
-        $teams = dblistee (isset($_POST['tid']) ? $_POST['tid'] : '', "SELECT `id`, `name` FROM `prefix_groups` ORDER BY `name`");
-        $game = dblistee (isset($_POST['spiel']) ? $_POST['spiel'] : '', "SELECT DISTINCT `game`,`game` FROM `prefix_wars` ORDER BY `game`");
+		$wheres = array();
+		if (isset($_POST['wpl']) and !empty($_POST['wpl'])) {
+			$wpl = arlistee($_POST['wpl'], $wpls);
+			$wheres[] = 'wlp = ' . escape($_POST['wpl'], 'integer');
+		} else {
+			$wpl = arlistee('', $wpls);
+		}
+		if (isset($_POST['tid']) and !empty($_POST['tid'])) {
+			$teams = dblistee ($_POST['tid'], "SELECT `id`, `name` FROM `prefix_groups` " .(count($wheres) ? 'WHERE ' . implode(' ', $wheres) : ''). " ORDER BY `name`");
+			$wheres[] = 'tid = ' . escape($_POST['tid'], 'integer');
+		} else {
+			$teams = dblistee ('', "SELECT `id`, `name` FROM `prefix_groups` " .(count($wheres) ? 'WHERE ' . implode(' ', $wheres) : ''). " ORDER BY `name`");
+		}
+		if (isset($_POST['spiel']) and !empty($_POST['spiel'])) {
+			$game = dblistee ($_POST['spiel'], "SELECT DISTINCT `game`,`game` FROM `prefix_wars` " .(count($wheres) ? 'WHERE ' . implode(' ', $wheres) : ''). " ORDER BY `game`");
+			$wheres
+		} else {
+			$game = dblistee ('', "SELECT DISTINCT `game`,`game` FROM `prefix_wars` " .(count($wheres) ? 'WHERE ' . implode(' ', $wheres) : ''). " ORDER BY `game`");
+		}
+
+
+
         $mtype = dblistee (isset($_POST['typ']) ? $_POST['typ'] : '', "SELECT DISTINCT `mtyp`,`mtyp` FROM `prefix_wars` ORDER BY `mtyp`");
         $tpl->set_ar_out (array('tid' => $teams, 'game' => $game, 'typ' => $mtype, 'wpl' => $wpl) , 3);
 	if ($menu->get(1) == 'last') {

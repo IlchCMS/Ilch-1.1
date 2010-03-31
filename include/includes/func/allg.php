@@ -440,6 +440,17 @@ if (version_compare(phpversion(), '5.0.0') == -1) {
         return $files;
     }
 }
+// Funktion array_fill_keys < PHP 5.2
+if (version_compare(phpversion(), '5.2.0') == -1) {
+	function array_fill_keys($target, $value = '') {
+		if(is_array($target)) {
+			foreach($target as $key => $val) {
+				$filledArray[$val] = is_array($value) ? $value[$key] : $value;
+			}
+		}
+		return $filledArray;
+	}
+}
 
 // Funktion, die die Größe aller Dateien im Ordner zusammenrechnet
 function dirsize($dir)

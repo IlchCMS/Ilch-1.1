@@ -1,4 +1,4 @@
-<?php 
+<?php
 #   Copyright by: Manuel
 #   Support: www.ilch.de
 
@@ -34,10 +34,10 @@ if ( empty($_GET['sid']) ) {
 	$row['sub'] = 'Eintragen';
 	$row['zahl'] = '';
 	$row['titel'] = '';
-	$row['text'] = 
+	$row['text'] =
 	$row['sid'] = '';
 } else {
-	$abf = 'SELECT text,zahl,titel,id as sid FROM `prefix_rules` WHERE id = "'.$_GET['sid'].'"';
+	$abf = 'SELECT text,zahl,titel,id as sid FROM `prefix_rules` WHERE id = "'.escape($_GET['sid'], 'integer').'"';
 	$erg = db_query($abf);
 	$row = db_fetch_assoc($erg);
 	$row['sub'] = '&Auml;ndern';
@@ -48,7 +48,7 @@ $tpl = new tpl ( 'rules', 1);
 $tpl->set_ar_out($row,0);
 $erg = db_query('SELECT * FROM `prefix_rules` ORDER BY zahl');
 while ($row = db_fetch_assoc($erg) ) {
-  $clas = ($clas == 'Cmite' ? 'Cnorm' : 'Cmite' ); 
+  $clas = ($clas == 'Cmite' ? 'Cnorm' : 'Cmite' );
 	$row['class'] = $clas;
 	$tpl->set_ar_out($row,1);
 }
