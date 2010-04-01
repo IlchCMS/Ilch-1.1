@@ -87,46 +87,49 @@ if ($menu->get(2) == '' OR $menu->getA(2) == 'p') {
     }
     $tpl->out(2);
     $class = '';
-		$wpls = array(1 => $lang['win'], 2 => $lang['los'], 3 => $lang['pat']);
-		$wheres = array();
-		if (isset($_POST['wpl']) and !empty($_POST['wpl'])) {
-			$wpl = arlistee($_POST['wpl'], $wpls);
-			$wheres[] = 'wlp = ' . escape($_POST['wpl'], 'integer');
-		} else {
-			$wpl = arlistee('', $wpls);
-		}
+		$wlps = array(1 => $lang['win'], 2 => $lang['los'], 3 => $lang['pat']);
+		$sqla = 'WHERE status = 3 AND ';
+        $wheres = array();
 		if (isset($_POST['tid']) and !empty($_POST['tid'])) {
-			$teams = dblistee ($_POST['tid'], "SELECT `id`, `name` FROM `prefix_groups` " .(count($wheres) ? 'WHERE ' . implode(' ', $wheres) : ''). " ORDER BY `name`");
+			$teams = dblistee ($_POST['tid'], "SELECT `id`, `name` FROM `prefix_groups` ORDER BY `name`");
 			$wheres[] = 'tid = ' . escape($_POST['tid'], 'integer');
+		    //wlps einschränken
+		    $qry = db_query('SELECT DISTINCT wlp FROM prefix_wars ' . (count($wheres) ? $sqla . implode(' AND ', $wheres) : ''));
+		    $dbwlps = array();
+		    while($r = db_fetch_assoc($qry)){
+		        $dbwlps[] = (int)$r['wlp'];
+		    }
+		    foreach ($wlps as $k => $v){
+                if (!in_array($k, $dbwlps)) {
+		            unset($wlps[$k]);
+		        }
+		    }
 		} else {
-			$teams = dblistee ('', "SELECT `id`, `name` FROM `prefix_groups` " .(count($wheres) ? 'WHERE ' . implode(' ', $wheres) : ''). " ORDER BY `name`");
+			$teams = dblistee ('', "SELECT `id`, `name` FROM `prefix_groups` ORDER BY `name`");
 		}
+        if (isset($_POST['wlp']) and !empty($_POST['wlp'])) {
+            $wlp = arlistee($_POST['wlp'], $wlps);
+            $wheres[] = 'wlp = ' . escape($_POST['wlp'], 'integer');
+        } else {
+            $wlp = arlistee('', $wlps);
+        }
 		if (isset($_POST['spiel']) and !empty($_POST['spiel'])) {
-			$game = dblistee ($_POST['spiel'], "SELECT DISTINCT `game`,`game` FROM `prefix_wars` " .(count($wheres) ? 'WHERE ' . implode(' ', $wheres) : ''). " ORDER BY `game`");
-			$wheres
+			$game = dblistee ($_POST['spiel'], "SELECT DISTINCT `game`,`game` FROM `prefix_wars` " .(count($wheres) ? $sqla . implode(' AND ', $wheres) : ''). " ORDER BY `game`");
+			$wheres[] = 'game = "'.escape($_POST['spiel'], 'string').'"';
 		} else {
-			$game = dblistee ('', "SELECT DISTINCT `game`,`game` FROM `prefix_wars` " .(count($wheres) ? 'WHERE ' . implode(' ', $wheres) : ''). " ORDER BY `game`");
+			$game = dblistee ('', "SELECT DISTINCT `game`,`game` FROM `prefix_wars` " .(count($wheres) ? $sqla . implode(' AND ', $wheres) : ''). " ORDER BY `game`");
 		}
+        if (isset($_POST['typ']) and !empty($_POST['typ'])) {
+            $mtyp = dblistee ($_POST['typ'], "SELECT DISTINCT `mtyp`,`mtyp` FROM `prefix_wars` " .(count($wheres) ? $sqla . implode(' AND ', $wheres) : ''). " ORDER BY `mtyp`");
+            $wheres[] = 'mtyp = "'.escape($_POST['typ'], 'string').'"';
+        } else {
+            $mtyp = dblistee ('', "SELECT DISTINCT `mtyp`,`mtyp` FROM `prefix_wars` " .(count($wheres) ? $sqla . implode(' AND ', $wheres) : ''). " ORDER BY `mtyp`");
+        }
 
-
-
-        $mtype = dblistee (isset($_POST['typ']) ? $_POST['typ'] : '', "SELECT DISTINCT `mtyp`,`mtyp` FROM `prefix_wars` ORDER BY `mtyp`");
-        $tpl->set_ar_out (array('tid' => $teams, 'game' => $game, 'typ' => $mtype, 'wpl' => $wpl) , 3);
+        $tpl->set_ar_out (array('tid' => $teams, 'game' => $game, 'typ' => $mtyp, 'wlp' => $wlp) , 3);
 	if ($menu->get(1) == 'last') {
         $tpl->out(4);
-        $sqla = 'WHERE status = 3 ';
-        if (!empty($_POST['tid'])) {
-            $sqla .= 'AND tid = "' . escape($_POST['tid'], 'integer') . '" ';
-        }
-        if (!empty($_POST['wpl'])) {
-            $sqla .= 'AND wlp = "' . escape($_POST['wpl'], 'integer') . '" ';
-        }
-        if (!empty($_POST['spiel'])) {
-            $sqla .= 'AND game = "' . escape($_POST['spiel'], 'string') . '" ';
-        }
-        if (!empty($_POST['typ'])) {
-            $sqla .= 'AND mtyp = "' . escape($_POST['typ'], 'string') . '" ';
-        }
+        $sqla = 'WHERE status = 3 ' . (!empty($wheres) ? ' AND ' . implode(' AND ', $wheres) : '');
         // seiten funktion
         $limit = $allgAr['wars_last_limit']; // Limit
 		if (isset($_POST['page']) and is_numeric($_POST['page']) and $_POST['page'] >= 1) {

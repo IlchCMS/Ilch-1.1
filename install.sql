@@ -607,6 +607,7 @@ CREATE TABLE `prefix_usercheck` (
   `pass` varchar(100) NOT NULL default '',
   `datime` datetime NOT NULL default '0000-00-00 00:00:00',
   `ak` tinyint(4) NOT NULL default '0',
+  `groupid` tinyint(4) NOT NULL,
   PRIMARY KEY  (`check`)
 ) TYPE=MyISAM COMMENT='powered by ilch.de';
 

@@ -17,6 +17,7 @@ Version 1.1 O
 * Antispam und einfacher Namensschutz bei Gallerykommentaren eingefügt
 * Löschen von (Unter-)Forenkategorien korrigiert
 * Shoutbox nicht mehr zu breit wegen Antispam
+* install.sql korrigiert (groupid fehlte in prefix_usercheck)
 
 Version 1.1 N
 -------------
