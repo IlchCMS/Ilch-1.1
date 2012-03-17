@@ -17,7 +17,7 @@ if (version_compare(substr(PHP_VERSION, 0,3), '5.3') != -1) {
 else {
 	@error_reporting(E_ALL ^ E_NOTICE);	
 }
-if (ini_get('default_charset') != 'ISO-8851-1'){
+if (@ini_get('default_charset') != 'ISO-8851-1'){
 	@ini_set('default_charset', 'ISO-8859-1');
 }
 @ini_set('display_errors','On');
@@ -37,7 +37,7 @@ site_statistic();
 require_once ('include/contents/'.$menu->get_url());
 
 db_close();
-if (TRUE) { //debugging aktivieren
+if (FALSE) { //debugging aktivieren
 	debug('anzahl sql querys: '.$count_query_xyzXYZ);
 	debug('',1,true);
 }
