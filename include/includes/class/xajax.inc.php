@@ -654,7 +654,7 @@ return $mResult;}
 return $bHandled;}
 function configure($sName,$mValue){$aKeys=array_keys($this->aConfigurable);sort($aKeys);foreach($aKeys as $sKey)
 $this->aConfigurable[$sKey]->configure($sName,$mValue);}
-function register($aArgs){$aKeys=array_keys($this->aRegistrars);sort($aKeys);foreach($aKeys as $sKey){$objPlugin=&$this->aRegistrars[$sKey];$mResult=&$objPlugin->register($aArgs);if(is_a($mResult,'xajaxRequest'))
+function register($aArgs){$aKeys=array_keys($this->aRegistrars);sort($aKeys);foreach($aKeys as $sKey){$objPlugin=&$this->aRegistrars[$sKey];$mResult=$objPlugin->register($aArgs);if(is_a($mResult,'xajaxRequest'))
 return $mResult;if(is_array($mResult))
 return $mResult;if(is_bool($mResult))
 if(true===$mResult)
