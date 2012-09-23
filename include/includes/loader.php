@@ -1,8 +1,8 @@
-<?php 
+<?php
 #   Copyright by Manuel
 #   Support www.ilch.de
 
-defined ('main') or die ( 'no direct access' );
+defined('main') or die('no direct access');
 
 # load all needed classes
 require_once('include/includes/class/tpl.php');
@@ -10,7 +10,11 @@ require_once('include/includes/class/design.php');
 require_once('include/includes/class/menu.php');
 
 # fremde classes laden
-require_once('include/includes/class/xajax.inc.php');
+if (version_compare(PHP_VERSION, '5.3') == -1) {
+    require_once('include/includes/class/xajax.php4.inc.php');
+} else {
+    require_once('include/includes/class/xajax.php5.inc.php');
+}
 
 # load all needed func
 require_once('include/includes/func/db/mysql.php');
@@ -25,9 +29,9 @@ require_once('include/includes/func/profilefields.php');
 require_once('include/includes/func/statistic.php');
 require_once('include/includes/func/listen.php');
 require_once('include/includes/func/forum.php');
-require_once('include/includes/func/warsys.php'); 
+require_once('include/includes/func/warsys.php');
 require_once('include/includes/func/ic_mime_type.php');
 
 # load something else
 require_once ('include/includes/lang/de.php');
-?>
+
