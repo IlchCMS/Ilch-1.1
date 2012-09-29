@@ -4,6 +4,9 @@
 
 defined('main') or die('no direct access');
 
+# load init script (constants, php settings, etc) 
+require_once('include/includes/init.php');
+
 # load all needed classes
 require_once('include/includes/class/tpl.php');
 require_once('include/includes/class/design.php');

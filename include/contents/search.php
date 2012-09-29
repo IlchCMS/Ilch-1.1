@@ -68,9 +68,9 @@ if ($such == 'augt' OR $such == 'aeit' OR $such == 'aubt') {
   $snac = 'nach: '.$such;
 }
 
-
-$title = $allgAr['title'].' :: Suchen :: '.htmlentities($snac);
-$hmenu  = '<a class="smalfont" href="index.php?search">Suchen</a><b> &raquo; </b>'.htmlentities($snac);
+$snacEnt = htmlentities($snac, ILCH_ENTITIES_FLAGS, ILCH_CHARSET);
+$title = $allgAr['title'].' :: Suchen :: ' . $snacEnt;
+$hmenu  = '<a class="smalfont" href="index.php?search">Suchen</a><b> &raquo; </b>' . $snacEnt;
 $design = new design ( $title , $hmenu );
 $design->header();
 

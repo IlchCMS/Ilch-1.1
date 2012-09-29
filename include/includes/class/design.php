@@ -20,7 +20,7 @@ class design extends tpl {
     {
         global $allgAr;
 
-    	header('Content-Type: text/html;charset=ISO-8859-1');
+        header('Content-Type: text/html;charset=' . ILCH_CHARSET);
 
         if (!is_null($file)) {
             echo '<div style="display: block; background-color: #FFFFFF; border: 2px solid #ff0000;">!!Man konnte in einer PHP Datei eine spezielle Index angeben. Damit das Design fuer diese Datei anders aussieht. Diese Funktion wurde ersetzt. Weitere Informationen im Forum auf ilch.de ... Thema: <a href="http://www.ilch.de/forum-showposts-13758-p1.html#108812">http://www.ilch.de/forum-showposts-13758-p1.html#108812</a></div>';
@@ -246,7 +246,7 @@ class design extends tpl {
             // wird in diese if abfrage gesprungen
             if (($whileMenP === false) AND !empty($menuzw)) {
                 $menuzw .= $this->get_boxes_get_menu_close ($ex_ebene, 0, $menuzw, $wmpE, $wmpTE, $wmpTEE);
-                $retur .= $tpl->list_get($datei, array (htmlentities($boxname), $menuzw . $menuzwE));
+                $retur .= $tpl->list_get($datei, array (htmlentities($boxname, ILCH_ENTITIES_FLAGS, ILCH_CHARSET), $menuzw . $menuzwE));
                 $menuzw = '';
             }
             if ($row['was'] == 1) {
@@ -289,7 +289,7 @@ class design extends tpl {
         }
         if (!empty($menuzw)) {
             $menuzw .= $this->get_boxes_get_menu_close ($ex_ebene, 0, $menuzw, $wmpE, $wmpTE, $wmpTEE);
-            $retur .= $tpl->list_get($datei, array (htmlentities($boxname), $menuzw . $menuzwE));
+            $retur .= $tpl->list_get($datei, array (htmlentities($boxname, ILCH_ENTITIES_FLAGS, ILCH_CHARSET), $menuzw . $menuzwE));
         }
         return ($retur);
     }

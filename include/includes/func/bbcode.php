@@ -20,7 +20,7 @@ function BBcode($s,$maxLength=40) {
   # autoumbruch nach x zeichen
   #$s = bbcode_autonewline($s, $coTime, $maxLength);
   
-  $s = htmlentities($s);
+  $s = htmlentities($s, ILCH_ENTITIES_FLAGS, ILCH_CHARSET);
   
   # speziell bilder
   $s = bbcode_images ($s);
