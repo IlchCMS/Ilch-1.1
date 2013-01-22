@@ -53,7 +53,7 @@ function escape_for_fields ($t) {
 #  $t = str_replace ('<', '&lt;', str_replace('>', '&gt;', $t));
 #  $t = str_replace ('<', '&lt;', str_replace('>', '&gt;', $t));
 #  $t = str_replace ('<', '&lt;', str_replace('>', '&gt;', $t));
-  $t = htmlentities($t);
+  $t = htmlentities($t, ILCH_ENTITIES_FLAGS, ILCH_CHARSET);
   
   return ($t);
 }

@@ -279,7 +279,7 @@ function icmail ($mail, $bet, $txt, $from = '', $html = false) {
 function html_enc_substr($text, $start, $length) {
    $trans_tbl = get_html_translation_table(HTML_ENTITIES);
    $trans_tbl = array_flip($trans_tbl);
-   return(htmlentities(substr(strtr($text, $trans_tbl), $start, $length)));
+   return(htmlentities(substr(strtr($text, $trans_tbl), $start, $length), ILCH_ENTITIES_FLAGS, ILCH_CHARSET));
 }
 
 function get_datum ($d) {

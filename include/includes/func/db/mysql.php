@@ -20,6 +20,12 @@ function db_connect () {
   if ( !$db ) {
     die ('Kann Datenbank "'.DBDATE.'" nicht benutzen : ' . mysql_error(CONN));
   }
+  if (function_exists('mysql_set_charset') and version_compare(mysql_get_server_info(CONN), '5.0.7') !== -1) {
+    mysql_set_charset(ILCH_DB_CHARSET, CONN);
+  }
+  if (function_exists('date_default_timezone_get')) {
+    mysql_query('SET time_zone = "' . date_default_timezone_get() . '"');
+  }
 }
 
 function db_close () {
