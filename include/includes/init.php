@@ -6,7 +6,7 @@ defined('main') or die('no direct access');
  * Hier werden globale Einstellungen (Konstanten, php Einstellungen etc.) gesetzt, die ggf. versionsabhängige sind
  */
 
-# define some script wide constants
+// define some script wide constants
 define('ILCH_TIMEZONE', 'Europe/Berlin'); // http://php.net/manual/en/timezones.php
 define('ILCH_CHARSET', 'ISO-8859-1');
 define('ILCH_DB_CHARSET', 'latin1');
@@ -25,7 +25,7 @@ if (@ini_get('default_charset') != ILCH_CHARSET) {
 }
 
 // Seit php-5.3 ist eine Angabe der TimeZone Pflicht
-//Setzen der Zeitzone, wenn möglich
+// Setzen der Zeitzone, wenn möglich
 if (function_exists('date_default_timezone_set')) {
     date_default_timezone_set(ILCH_TIMEZONE);
 }
