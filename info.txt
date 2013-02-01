@@ -1,9 +1,8 @@
-ilchClan 1.1 N
+ilchClan 1.1 P
 
-18. September 2009
+18. Januar 2013
 
 Copyright (c) 2005 by Manuel
-
 
 i n s t a l l a t i o n
   - alle Dateien hochladen.
@@ -24,11 +23,28 @@ d a n k e
   - Rock@Wulf für sein AwayCalender und Kassen Modul.
   - Nickel für sein Kalender Modul.
   - s_down für die Geburtstagsbox
+  - T0P0LIN0 für das Captcha 
   - ilch.de Team für die gute Hilfe.
 
+Benutzung von anderen Open Source Bibliotheken
+  - xajax 0.5 (http://www.xajax-project.org)
+        - copyright (c) 2005-2007 by Jared White & J. Max Wilson
+        - copyright (c) 2008-2009 by Joseph Woolley, Steffen Konerow, Jared White & J. Max Wilson
+        - Licence: http://www.xajax-project.org/bsd_license.txt
+
+  - PHPMailer - PHP email class - Version: 2.0.4
+        - Copyright und Lizenzinformationen in den Dateien im include/includes/class/phpmailer Verzeichnis
+
+  - BigDump ver. 0.34b from 2011-09-04
+        - Copyright und Lizenzinformationen in der backup/bigdump.php
+
+  - Small AzDGCrypt class under GPL Licence (Downloaded from www.phpclasses.net // authors website: http://www.azdg.com/)
+
 L i z e n z
-		    GNU GENERAL PUBLIC LICENSE
-		       Version 2, June 1991
+    für ilchClan 1.1 
+
+    GNU GENERAL PUBLIC LICENSE
+       Version 2, June 1991
 
  Copyright (C) 1989, 1991 Free Software Foundation, Inc.
                        51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA

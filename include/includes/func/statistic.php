@@ -179,26 +179,32 @@ function site_statistic_get_browser($useragent) {
 }
 
 function site_statistic_get_os($useragent) {
-	$osArray = array(
-		'Windows XP'   => '=Windows NT 5\.1|Windows XP=',
-		'Windows Vista' => '=Windows NT 6\.0|Windows Vista=',
-		'Windows 7' => '=Windows NT 6\.1|Windows 7=',
-		'Windows 2000' => '=Windows NT 5\.0|Windows 2000=',
-		'Windows Server 2003\\Windows XP x64' => '=Windows NT 5\.2|Windows Server 2003|Windows XP x64=',
-		'Windows NT' => '=Windows NT 4\.0|Windows NT|WinNT4\.0=',
-		'Windows 98' => '=Windows 98=',
-		'Windows 95' => '=Windows 95=',
-		'Macintosh' => '=Mac_PowerPC|Macintosh=',
-		'Linux' => '=Linux=',
-		'SunOs' => '=SunOS='
-	);
+    $osArray = array(
+            'Windows Phone' => '=Windows Phone=',
+            'Windows 7' => '=Windows NT 6\.1|Windows 7=',
+            'Windows 8' => '=Windows NT 6\.2|Windows 8=',
+            'Windows Vista' => '=Windows NT 6\.0|Windows Vista=',
+            'Windows XP' => '=Windows NT 5\.1|Windows XP=',
+            'Android' => '=Android=',
+            'Linux' => '=Linux=',
+            'SunOs' => '=SunOS=',
+            'iPad' => '=iPad=',
+            'iPhone' => '=iPhone=',
+            'Mac OS' => '=Mac OS X=',
+            'Windows Server 2003\\Windows XP x64' => '=Windows NT 5\.2|Windows Server 2003|Windows XP x64=',
+            'Windows 2000' => '=Windows NT 5\.0|Windows 2000=',
+            'Windows NT' => '=Windows NT 4\.0|Windows NT|WinNT4\.0=',
+            'Windows 98' => '=Windows 98=',
+            'Windows 95' => '=Windows 95=',
+            'Macintosh' => '=Mac_PowerPC|Macintosh='
+    );
 
-	foreach ($osArray as $os => $regex){
-		if (preg_match($regex, $useragent)) {
-			return $os;
-		}
-	}
-	return 0;
+    foreach ($osArray as $os => $regex) {
+        if (preg_match($regex, $useragent)) {
+            return $os;
+        }
+    }
+    return 0;
 }
 
 function site_statistic_get_referer ($referer) {
