@@ -294,12 +294,23 @@ function get_datum ($d) {
   return ($d);
 }
 
-function get_homepage ($h) {
-  $h = trim($h);
-  if (!empty($h) AND substr($h, 0, 7) != 'http://') {
-    $h = 'http://'.$h;
-  }
-  return ($h);
+/**
+ * Add "http" to url if no "http/https" given.
+ *
+ * @param string $homepage
+ * @return string
+ */
+function get_homepage($homepage) {
+    $homepage = trim($homepage);
+
+    if (!empty($homepage)
+        && substr($homepage, 0, 7) !== 'http://'
+        && substr($homepage, 0, 8) !== 'https://'
+    ) {
+        $homepage = 'http://'.$homepage;
+    }
+
+    return $homepage;
 }
 
 function get_wargameimg ($img) {
