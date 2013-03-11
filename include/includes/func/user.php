@@ -163,22 +163,26 @@ function user_logout () {
   #session_destroy();
 }
 
-function user_set_grps_and_modules () {
-  $_SESSION['authgrp'] = array();
-  $_SESSION['authmod'] = array();
-  if ( loggedin() ) {
-    $erg = db_query("SELECT gid FROM prefix_groupusers WHERE uid = ".$_SESSION['authid']);
-    while ( $row = db_fetch_assoc ( $erg ) ) {
-      $_SESSION['authgrp'][$row['gid']] = TRUE;
+function user_set_grps_and_modules() {
+    $_SESSION['authgrp'] = array();
+    $_SESSION['authmod'] = array();
+    $_SESSION['adminaccess'] = array();
+    if (loggedin()) {
+        $erg = db_query('SELECT gid FROM prefix_groupusers WHERE uid = ' . $_SESSION['authid']);
+        while ($row = db_fetch_assoc($erg)) {
+            $_SESSION['authgrp'][$row['gid']] = true;
+        }
+        $erg = db_query('SELECT DISTINCT m.url, m.gshow '
+            . 'FROM prefix_modulerights mr '
+            . 'INNER JOIN prefix_modules m ON m.id = mr.mid '
+            . 'WHERE mr.uid = ' . $_SESSION['authid']);
+        while ($row = db_fetch_assoc($erg)) {
+            $_SESSION['authmod'][$row['url']] = true;
+            if ($row['gshow']) {
+                $_SESSION['adminaccess'][$row['url']] = true;
+            }
+        }
     }
-    $erg = db_query("SELECT DISTINCT url
-    FROM prefix_modulerights
-    left join prefix_modules on prefix_modules.id = prefix_modulerights.mid
-    WHERE uid = ".$_SESSION['authid']);
-    while ( $row = db_fetch_assoc ( $erg ) ) {
-      $_SESSION['authmod'][$row['url']] = TRUE;
-    }
-  }
 }
 
 function loggedin () {
@@ -231,38 +235,42 @@ function has_right ($recht,$modul = '') {
 # dann wird ein login formular angezeigt, wenn der user kein admin ist.
 # wird der parameter auf false gesetzt wird das login formular nicht angezeigt.
 # erste parameter ist das menu objekt...
-function user_has_admin_right (&$menu,$sl=true) {
-  if ( $_SESSION['authright'] <= -8 ) {  # co leader...
-    return ( true );
-  } else {
-    $uri_to_check1 = $menu->get(0);
-    $uri_to_check2 = $menu->get(1);
-	  if ( count($_SESSION['authmod']) < 1 OR !loggedin() ) {
-		  if ( $sl === true ) {
-        if ( !loggedin() ) {
-          $tpl = new tpl ( 'user/login.htm' );
-    	    $tpl->set_out('WDLINK','admin.php',0);
-        } else {
-          echo '<strong>Keine Berechtigung!</strong> <a href="index.php">Startseite</a>';
+function user_has_admin_right($menu, $sl = true) {
+    if ($_SESSION['authright'] <= -8) {  # co leader...
+        return true;
+    } else {
+        $uri_to_check1 = $menu->get(0);
+        $uri_to_check2 = $menu->get(1);
+        if (count($_SESSION['adminaccess']) < 1 OR !loggedin()) {
+            if ($sl === true) {
+                if (!loggedin()) {
+                    $tpl = new tpl('user/login.htm');
+                    $tpl->set_out('WDLINK', 'admin.php', 0);
+                } else {
+                    echo '<strong>Keine Berechtigung!</strong> <a href="index.php">Startseite</a>';
+                }
+            }
+            return false;
+        } elseif ((isset($_SESSION['adminaccess'][$uri_to_check1]) AND $_SESSION['adminaccess'][$uri_to_check1] == true)
+            || (isset($_SESSION['adminaccess'][$uri_to_check1 . '-' . $uri_to_check2]) AND $_SESSION['adminaccess'][$uri_to_check1 . '-' . $uri_to_check2] == true)
+        ) {
+            return true;
+        } elseif (count($_SESSION['adminaccess']) > 0 AND loggedin()) {
+            if ($sl === true) {
+                foreach ($_SESSION['adminaccess'] as $k => $v) {
+                    $x = $k;
+                    break;
+                }
+                $x = explode('-', $x);
+                $menu->set_url(0, $x[0]);
+                if (isset($x[1])) {
+                    $menu->set_url(1, $x[1]);
+                }
+            }
+            return true;
         }
-      }
-		  return ( false );
-    } elseif ( (isset($_SESSION['authmod'][$uri_to_check1]) AND $_SESSION['authmod'][$uri_to_check1] == true)
-              OR (isset($_SESSION['authmod'][$uri_to_check1.'-'.$uri_to_check2]) AND $_SESSION['authmod'][$uri_to_check1.'-'.$uri_to_check2] == true) ) {
-      return ( true );
-   	} elseif ( count($_SESSION['authmod']) > 0 AND loggedin() ) {
-      if ( $sl === true ) {
-        foreach($_SESSION['authmod'] as $k => $v ) { $x = $k; break; }
-        $x = explode('-',$x);
-        $menu->set_url (0, $x[0]);
-        if ( isset($x[1]) ) {
-          $menu->set_url (1, $x[1]);
-        }
-      }
-      return ( true );
     }
-  }
-  return ( false );
+    return false;
 }
 
 function user_regist ($name, $mail, $pass) {

@@ -15,6 +15,7 @@ $allgAr = getAllgAr ();
 user_identification();
 $menu = new menu();
 
+
 if ( user_has_admin_right($menu) ) {
   require_once ('include/admin/'.$menu->get_url('admin'));
 }
