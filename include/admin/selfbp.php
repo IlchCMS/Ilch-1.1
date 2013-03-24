@@ -124,6 +124,8 @@ function edit_text ($t, $add) {
   $erg = preg_match ("/^\s*<\?php defined \('main'\) or die \('no direct access'\); \?>/s", $t);
   if (!$erg AND $add) {
     $t = trim($t);
+    //remove PHP (or shorttags)
+    $t = preg_replace('/<\?.*(\?>|$)/', '', $t);
     $t = '<?php defined (\'main\') or die (\'no direct access\'); ?>'. $t;
     #$t = preg_replace("/\/([^>]*)>/","/\\1>\n",$t);
   } elseif ($erg AND !$add) {

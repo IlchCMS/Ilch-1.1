@@ -5,24 +5,24 @@
 $readme = <<<README
 Changelog:
 ==========
-+ neue Funktionen       * ï¿½nderungen/Bugfixes
++ neue Funktionen       * Änderungen/Bugfixes
 
 Version 1.1 N
 -------------
-* Sicherheitslï¿½cke in der include/includes/func/statistic.php behoben (Danke an www.securityplanet.de fï¿½r den Hinweis)
-  und weiter einige Formulare im Adminbereich (Userverwaltung) gegen Cross-Site_Request_Forgery -> http://de.wikipedia.org/wiki/Cross-Site_Request_Forgery geschï¿½tzt
-* SMTP Funktion ï¿½berarbeitet, damit eine breitere Auswahl an Anbietern genutzt werden kann
-* Newsletter etwas ï¿½berarbeitet, so dass auch Usergruppen gewï¿½hlt werden kï¿½nnen, und HTML Mails mï¿½glich sind
-* Bei Downloads wird der eigentliche Pfad zur Datei nicht mehr ï¿½bertragen, und leichter Leecherschutz
-* Antispam geï¿½ndert, so dass Fehler im Gï¿½stebuch etc. nicht mehr auftreten sollten
-* Charset Encoding in der class/design.php hinzugefï¿½gt, um auftretende Fehler mit Umlauten beizukommen,
+* Sicherheitslücke in der include/includes/func/statistic.php behoben (Danke an www.securityplanet.de für den Hinweis)
+  und weiter einige Formulare im Adminbereich (Userverwaltung) gegen Cross-Site_Request_Forgery -> http://de.wikipedia.org/wiki/Cross-Site_Request_Forgery geschützt
+* SMTP Funktion überarbeitet, damit eine breitere Auswahl an Anbietern genutzt werden kann
+* Newsletter etwas überarbeitet, so dass auch Usergruppen gewählt werden können, und HTML Mails möglich sind
+* Bei Downloads wird der eigentliche Pfad zur Datei nicht mehr übertragen, und leichter Leecherschutz
+* Antispam geändert, so dass Fehler im Gästebuch etc. nicht mehr auftreten sollten
+* Charset Encoding in der class/design.php hinzugefügt, um auftretende Fehler mit Umlauten beizukommen,
   wer nach dem Update falsche Umlaute hat, sollte einfach die alte class/design.php (von Version M z.B.) nutzen
 * Kleinere Fehler behoben bei:
 	Alterberechnung im Kalender
-	Lï¿½schen in der Shoutbox
+	Löschen in der Shoutbox
 	Datum bei RSS der News
 	Gruppen im Adminbereich
-* debug(), sendpm() und icmail() etwas verbessert (nur fï¿½r Entwickler interessant)
+* debug(), sendpm() und icmail() etwas verbessert (nur für Entwickler interessant)
 README;
 
 $rows = substr_count($readme, "\n");
@@ -109,7 +109,7 @@ Dieses Script soll die n&ouml;tigen Datanbank&auml;ndernungen f&uuml;r das Updat
 	if (!in_array('pos', $old)) {
 		$sql_statements[] = '-- UPDATE 1.1I';
 		$sql_statements[] = "ALTER TABLE `prefix_config` ADD `pos` SMALLINT(6) NOT NULL default '0'";
-		$sql_statements[] = "INSERT INTO `prefix_config` (`schl`, `typ`, `kat`, `frage`, `wert`, `pos`) VALUES('mail_smtp', 'r2', 'Allgemeine Optionen', 'SMTP fï¿½r den Mailversand verwenden? <a href=\"admin.php?smtpconf\" class=\"smalfont\">weitere Einstellungen</a>', '0', 0)";
+		$sql_statements[] = "INSERT INTO `prefix_config` (`schl`, `typ`, `kat`, `frage`, `wert`, `pos`) VALUES('mail_smtp', 'r2', 'Allgemeine Optionen', 'SMTP für den Mailversand verwenden? <a href=\"admin.php?smtpconf\" class=\"smalfont\">weitere Einstellungen</a>', '0', 0)";
 	}
 
 	//Update 1.1n
@@ -130,7 +130,7 @@ Dieses Script soll die n&ouml;tigen Datanbank&auml;ndernungen f&uuml;r das Updat
     	$sql_statements[] = '-- UPDATE 1.1N';
 		$sql_statements[] = 'INSERT INTO `prefix_allg` ( `k` , `v1`, `v2`, `v3`, `v4`, `t1`) VALUES ( "smtpconf", "", "", "", "", "' . $smtpser . '" )';
     	$sql_statements[] = 'DELETE FROM `prefix_config` WHERE `schl` IN ("mail_smtp_login", "mail_smtp_password", "mail_smtp_host", "mail_smtp_email")';
-    	$sql_statements[] = 'UPDATE `prefix_config` SET `kat` = "Allgemeine Optionen", `frage` = "SMTP fï¿½r den Mailversand verwenden? <a href=\"admin.php?smtpconf\" class=\"smalfont\">weitere Einstellungen</a>" WHERE `schl` = "mail_smtp"';
+    	$sql_statements[] = 'UPDATE `prefix_config` SET `kat` = "Allgemeine Optionen", `frage` = "SMTP für den Mailversand verwenden? <a href=\"admin.php?smtpconf\" class=\"smalfont\">weitere Einstellungen</a>" WHERE `schl` = "mail_smtp"';
     }
 
     foreach ( $sql_statements as $sql_statement ) {
@@ -138,7 +138,7 @@ Dieses Script soll die n&ouml;tigen Datanbank&auml;ndernungen f&uuml;r das Updat
             echo '<pre>'.htmlentities($sql_statement).'</pre>';
             $e = db_query($sql_statement);
             if (!$e) {
-                echo '<font color="#FF0000"><b>Es ist ein Fehler aufgetreten</b></font>, bitte alles auf dieser Seite kopieren und auf ilch.de im Forum fragen...:<div style="border: 1px dashed grey; padding: 5px; background-color: #EEEEEE">'. mysql_error().'<hr>'.$sql_statement.'</div><br /><b>Es sei denn,</b> es ist ein Fehler mit <i>duplicate entry</i> aufgetreten, das liegt einfach nur daran, dass du die Updatedatei mehrmals ausgefï¿½hrt hast.<br />';
+                echo '<font color="#FF0000"><b>Es ist ein Fehler aufgetreten</b></font>, bitte alles auf dieser Seite kopieren und auf ilch.de im Forum fragen...:<div style="border: 1px dashed grey; padding: 5px; background-color: #EEEEEE">'. mysql_error().'<hr>'.$sql_statement.'</div><br /><b>Es sei denn,</b> es ist ein Fehler mit <i>duplicate entry</i> aufgetreten, das liegt einfach nur daran, dass du die Updatedatei mehrmals ausgeführt hast.<br />';
             }
             echo '<hr>';
         }
