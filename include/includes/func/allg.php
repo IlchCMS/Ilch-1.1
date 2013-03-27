@@ -368,80 +368,90 @@ function iurlencode ($s) {
   */
 }
 
-# antispam
-function chk_antispam ($m, $nopictures = false) {
-	global $allgAr;
+/**
+ * Prüft, ob der Antispamcode richtig eingegeben wurde
+ * Der NoPictureMode fügt ein Hidden Feld ein, um Cross Site Request Forgery Attacken zu unterbinden, der NoPictureMode
+ * wird automatisch genutzt, wenn kein Bildabfrage statt findet, kann aber auch erzwungen werden
+ *
+ * @global array $allgAr
+ * @param string $m Modulname, um unterschiedliche Antispamfelder auf einer Seite zu ermöglichen
+ * @param boolean $nopictures NoPictureMode erzwingen
+ * @return boolean
+ */
+function chk_antispam($m, $nopictures = false)
+{
+    global $allgAr;
 
-	if ($nopictures) {
-		return (bool) (isset($_POST['antispam_id']) and isset($_SESSION['antispam'][$_POST['antispam_id']]));
-	}
+    if (!$nopictures && is_numeric($allgAr['antispam']) && has_right($allgAr['antispam'])) {
+        $nopictures = true;
+    }
 
-	if (is_numeric($allgAr['antispam']) AND has_right($allgAr['antispam'])) {
-		return true;
-	}
+    $valid = false;
 
-	if (isset($_POST['antispam']) AND isset($_POST['antispam_id']) AND isset($_SESSION['antispam'][$_POST['antispam_id']]) AND $_POST['antispam'] == $_SESSION['antispam'][$_POST['antispam_id']][$m][3]) {
-		unset ($_SESSION['antispam'][$_POST['antispam_id']]);
-		return (true);
-	}
-
-	return (false);
+    if ($nopictures && isset($_POST['antispam_id'])) {
+        $antispamId = $_POST['antispam_id'];
+        if (isset($_SESSION['antispam'][$antispamId]) && $_SESSION['antispam'][$antispamId]) {
+            $valid = true;
+            unset($_SESSION['antispam'][$antispamId]);
+        }
+    } elseif (isset($_POST['captcha_code']) && isset($_POST['captcha_id'])) {
+        require_once 'include/includes/captcha/Captcha.php';
+        $controller = new Captcha();
+        $captchaCode = strtoupper($_POST['captcha_code']);
+        $valid = $controller->isValid($captchaCode, $_POST['captcha_id']);
+    }
+    return $valid;
 }
 
-function get_antispam ($m, $t, $nopictures = false) {
-	global $allgAr, $antispamId;
+/**
+ * Erzeugt HTML Code für ein Formularfeld, welches für einen Antibot-Schutz dienen oder vor CSFR Attacken schützen soll
+ * Beschreibung zum NoPictureMode bitte der chk_antispam Funktion entnehmen
+ *
+ * @global array $allgAr
+ * @param string $m Modulname
+ * @param integer $t Type, der angibt wie das Formularfeld formatiert wird (0, 1 oder > 10 als Breite für das label) siehe Code :P
+ * @param boolean $nopictures Erzwing NoPictureMode
+ * @return string
+ */
+function get_antispam($m, $t, $nopictures = false)
+{
+    global $allgAr;
 
-	mt_srand((double)microtime()*1000000);
-	$i1 = mt_rand (1,9);
-	$i2 = mt_rand (1,9);
-	$i3 = mt_rand (1,9);
+    if (!$nopictures && $t < 0 || (is_numeric($allgAr['antispam']) && has_right($allgAr['antispam']))) {
+        $nopictures = true;
+    }
 
-	if (isset($antispamId)) {
-		$id = $antispamId;
-	} else {
-		$id = $antispamId = uniqid($m, true);
-	}
+    $id = uniqid($m, true);
 
-	$rs = '<input type="hidden" name="antispam_id" value="'.$id.'" />';
+    if ($nopictures) {
+        $_SESSION['antispam'][$id] = true;
+        return '<input type="hidden" name="antispam_id" value="' . $id . '" />';
+    }
 
-	if ($nopictures) {
-		$_SESSION['antispam'][$id] = true;
-		return $rs;
-	}
+    include 'include/includes/captcha/settings.php';
 
-	if (is_numeric($allgAr['antispam']) and has_right($allgAr['antispam'])) {
-		return '';
-	}
+    $helpText = 'Geben Sie diese Zeichen in das direkt daneben stehende Feld ein.';
+    $seperator = ' ';
 
-	if (!isset($_SESSION['antispam']) or (isset($_SESSION['antispam']) and !is_array($_SESSION['antispam']))) {
-		$_SESSION['antispam'] = array();
-	}
+    if ($t == 0) {
+        $seperator = '<br />';
+        $helpText = 'Geben Sie diese Zeichen in das direkt darunter stehende Feld ein.';
+    }
+    $img = '<img width="' . $imagewidth . '" height="' . $imageheight . '" src="include/includes/captcha/captchaimg.php?id='
+        . $id . '&nocache=' . time() . '" alt="captchaimg" title="' . $helpText . '">'
+        . $seperator . '<input class="captcha_code" name="captcha_code" type="text" maxlength="5" size="8" title="Geben Sie die Zeichen aus dem Bild ein">'
+        . '<input type="hidden" name="captcha_id" value="' . $id .  '" />';
+        ;
 
-	$_SESSION['antispam'][$m] = array();
-	$i1 = mt_rand (1,9);
-	$i2 = mt_rand (1,9);
-	$i3 = mt_rand (1,9);
-
-	$_SESSION['antispam'][$id][$m] = array($i1, $i2, $i3, $i1.$i2.$i3);
-
-	$rs .= '<span style="display: inline; width: 100px; vertical-align: middle; text-align: center; background-color: #000000; border: 0px; padding: 2px; margin: 0px;">'.
-		'<img src="include/images/spam/z.php?m='.$m.'&amp;w=0&amp;'.session_name().'='.session_id().'&amp;id='.$id.'" alt="">'.
-		'<img src="include/images/spam/z.php?m='.$m.'&amp;w=1&amp;'.session_name().'='.session_id().'&amp;id='.$id.'" alt="">'.
-		'<img src="include/images/spam/z.php?m='.$m.'&amp;w=2&amp;'.session_name().'='.session_id().'&amp;id='.$id.'" alt="">'.
-		'<input name="antispam" size="3" maxlength="3" style="background-color: #FFFFFF; border: 0px; margin: 0px; padding: 0px;" /></span>';
-	if ($t == 0) {
-		return ($rs);
-	} elseif ($t == 1) {
-		return ('<tr><td class="Cmite">Antispam</td><td class="Cnorm">'.$rs.'</td></tr>');
-	} elseif ($t > 10) {
-		return ('<label style="float:left; width: '.$t.'px; ">Antispam</label>'.$rs.'<br />');
-	} else {
-		return ('');
-	}
+    if ($t == 1) {
+        $img = '<tr><td class="Cmite"><b>Antispam</b></td><td class="Cnorm">' . $img . '</td></tr>';
+    } elseif ($t > 10) {
+        $img = '<label style="float:left; width: ' . $t . 'px; ">Antispam</label>' . $img . '<br/>';
+    }
+    return $img;
 }
-# antispam
 
-// Funktion scandir fÃ¼r PHP 4
+// Funktion scandir für PHP 4
 if (version_compare(phpversion(), '5.0.0') == -1) {
     function scandir($dir)
     {

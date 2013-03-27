@@ -407,8 +407,10 @@ $lang = array
 'phpserverconf' => 'PHP Server Konfiguration',
 'filesystemrights' => 'Dateisystem Rechte',
 'correct' => 'Richtig',
-'incorrect' => 'Falsch'
+'incorrect' => 'Falsch',
 
+'wrongcaptchaentered' => 'Eingegebener Antispam war nicht korrekt',
+'entereddataincomplete' => 'Eingegebene Daten sind unvollständig'
 );
 
 #$x = array();
