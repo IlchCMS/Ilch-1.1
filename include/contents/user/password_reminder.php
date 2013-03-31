@@ -22,11 +22,11 @@ if ( isset ( $_POST['name'] ) ) {
 		$row = db_fetch_assoc($erg);
 		
 		$new_pass = genkey(8);
-		$md5_pass = md5($new_pass);
+		$passwordHash = user_pw_crypt($new_pass);
 	  $id = md5 (uniqid (rand()));
 		
 		db_query("INSERT INTO prefix_usercheck (`check`,name,email,pass,datime,ak)
-		VALUES ('".$id."','".$name."','".$row['email']."','".$md5_pass."',NOW(),2)");
+		VALUES ('".$id."','".$name."','".$row['email']."','".$passwordHash."',NOW(),2)");
 		
 	  $page = $_SERVER["HTTP_HOST"].$_SERVER["SCRIPT_NAME"];
 

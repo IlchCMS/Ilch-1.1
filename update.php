@@ -7,36 +7,25 @@ Changelog:
 ==========
 + neue Funktionen       * Änderungen/Bugfixes
 
-Version 1.1 N
+Version 1.1 P
 -------------
-* Sicherheitslücke in der include/includes/func/statistic.php behoben (Danke an www.securityplanet.de für den Hinweis)
-  und weiter einige Formulare im Adminbereich (Userverwaltung) gegen Cross-Site_Request_Forgery -> http://de.wikipedia.org/wiki/Cross-Site_Request_Forgery geschützt
-* SMTP Funktion überarbeitet, damit eine breitere Auswahl an Anbietern genutzt werden kann
-* Newsletter etwas überarbeitet, so dass auch Usergruppen gewählt werden können, und HTML Mails möglich sind
-* Bei Downloads wird der eigentliche Pfad zur Datei nicht mehr übertragen, und leichter Leecherschutz
-* Antispam geändert, so dass Fehler im Gästebuch etc. nicht mehr auftreten sollten
-* Charset Encoding in der class/design.php hinzugefügt, um auftretende Fehler mit Umlauten beizukommen,
-  wer nach dem Update falsche Umlaute hat, sollte einfach die alte class/design.php (von Version M z.B.) nutzen
-* Kleinere Fehler behoben bei:
-	Alterberechnung im Kalender
-	Löschen in der Shoutbox
-	Datum bei RSS der News
-	Gruppen im Adminbereich
-* debug(), sendpm() und icmail() etwas verbessert (nur für Entwickler interessant)
+* Kompatibilität zu PHP 5.3 und 5.4 verbessert
+* Passwordhashmethod verbessert (sicherere Passwörter in der Datenbank)
+* verbesserte Antispam-Methode eingebunden
 README;
 
 $rows = substr_count($readme, "\n");
 if ($rows > 45) $rows = 45;
 ?>
 <html>
-<head><title>... ::: [ U p d a t e f &uuml; r &nbsp; i l c h C l a n  &nbsp; 1 . 1 N] ::: ...</title>
+<head><title>... ::: [ U p d a t e f &uuml; r &nbsp; i l c h C l a n  &nbsp; 1 . 1 P] ::: ...</title>
 <link rel="stylesheet" href="include/designs/ilchClan/style.css" type="text/css">
 </head>
 <body>
 
 <form method="post">
 		<table width="70%" class="border" border="0" cellspacing="0" cellpadding="25" align="center">
-      <tr><th class="Chead" align="center">... ::: [ U p d a t e f &uuml; r &nbsp; i l c h C l a n  &nbsp; 1 . 1 N</u>] ::: ...</th></tr>
+      <tr><th class="Chead" align="center">... ::: [ U p d a t e f &uuml; r &nbsp; i l c h C l a n  &nbsp; 1 . 1 P</u>] ::: ...</th></tr>
       <tr>
         <td class="Cmite">
 <?php
@@ -131,6 +120,19 @@ Dieses Script soll die n&ouml;tigen Datanbank&auml;ndernungen f&uuml;r das Updat
 		$sql_statements[] = 'INSERT INTO `prefix_allg` ( `k` , `v1`, `v2`, `v3`, `v4`, `t1`) VALUES ( "smtpconf", "", "", "", "", "' . $smtpser . '" )';
     	$sql_statements[] = 'DELETE FROM `prefix_config` WHERE `schl` IN ("mail_smtp_login", "mail_smtp_password", "mail_smtp_host", "mail_smtp_email")';
     	$sql_statements[] = 'UPDATE `prefix_config` SET `kat` = "Allgemeine Optionen", `frage` = "SMTP für den Mailversand verwenden? <a href=\"admin.php?smtpconf\" class=\"smalfont\">weitere Einstellungen</a>" WHERE `schl` = "mail_smtp"';
+    }
+    
+    //Update 1.1p
+    $passType = '';
+    $qry = db_query('SHOW COLUMNS FROM ic1_user LIKE "pass"');
+    if ($row = db_fetch_assoc($qry)) {
+        $passType = trim(strtolower($row['Type']));
+    }
+    if ($passType === 'varchar(32)') {
+        $sql_statements[] = '-- UPDATE 1.1P';
+        $sql_statements[] = 'ALTER TABLE `prefix_user` MODIFY COLUMN `pass` varchar(123) NOT NULL DEFAULT ""';
+        $sql_statements[] = 'ALTER TABLE `prefix_usercheck` MODIFY COLUMN `pass` varchar(123) NOT NULL DEFAULT ""';
+        $sql_statements[] = "UPDATE `prefix_config` SET `frage`='Antispam <small>(ab diesem Recht keine Eingabe mehr erforderlich)</small><br><a href=\"http://www.ilch.de/texts-s132.html\" target=\"_blank\">Hilfe: Antispam anpassen</a>' WHERE `schl`='antispam'";
     }
 
     foreach ( $sql_statements as $sql_statement ) {

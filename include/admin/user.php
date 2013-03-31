@@ -277,9 +277,9 @@ switch ($um) {
 
                 if (isset($_POST['passw'])) {
                     $newPass = genkey (8);
-                    $newPassMD5 = md5($newPass);
+                    $newPassHash = user_pw_crypt($newPass);
                     icmail ($row->email , 'neues Password' , "Hallo\n\nDein Password wurde soeben von einem Administrator g‰endert es ist nun:\n\n$newPass\n\nGruﬂ der Administrator");
-                    db_query('UPDATE `prefix_user` SET pass = "' . $newPassMD5 . '" WHERE id = "' . escape($_POST['uID'], 'integer') . '"');
+                    db_query('UPDATE `prefix_user` SET pass = "' . $newPassHash . '" WHERE id = "' . escape($_POST['uID'], 'integer') . '"');
                 }
                 // avatar speichern START
                 $avatar_sql_update = '';
@@ -373,9 +373,9 @@ switch ($um) {
                 $msg = 'Der Name ist leider schon vorhanden!';
             } else {
                 $new_pass = $_POST['pass'];
-                $md5_pass = md5($new_pass);
+                $passwordHash = user_pw_crypt($new_pass);;
                 db_query("INSERT INTO prefix_user (name,pass,recht,regist,llogin,email)
-		    VALUES('" . $_POST['name'] . "','" . $md5_pass . "'," . $_POST['recht'] . ",'" . time() . "','" . time() . "','" . $_POST['email'] . "')");
+		    VALUES('" . $_POST['name'] . "','" . $passwordHash . "'," . $_POST['recht'] . ",'" . time() . "','" . time() . "','" . $_POST['email'] . "')");
                 $userid = db_last_id();
                 db_query("INSERT INTO prefix_userfields (uid,fid,val) VALUES (" . $userid . ",2,'1')");
                 db_query("INSERT INTO prefix_userfields (uid,fid,val) VALUES (" . $userid . ",3,'1')");

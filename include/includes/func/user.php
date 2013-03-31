@@ -74,6 +74,36 @@ function session_und_cookie_name () {
   return (md5(dirname($_SERVER["HTTP_HOST"].$_SERVER["SCRIPT_NAME"]).DBPREF));
 }
 
+function user_pw_crypt($plainPassword) {
+    if (version_compare(PHP_VERSION, '5.0') !== -1) {
+        $pwCrypt = new PwCrypt();
+        return $pwCrypt->cryptPasswd($plainPassword);
+    }
+    return md5($plainPassword);
+}
+
+function user_pw_check($plainPassword, &$passwordHash, $userId = false) {
+    if (version_compare(PHP_VERSION, '5.0') !== -1) {
+        $pwCrypt = new PwCrypt();
+        $correct = $pwCrypt->checkPasswd($plainPassword, $passwordHash);
+        if ($correct && $userId !== false && !PwCrypt::isCryptHash($passwordHash)) {
+            $passwordHash =  $pwCrypt->cryptPasswd($plainPassword);
+            db_query('UPDATE `prefix_user` SET `pass` = "' . $passwordHash . '" WHERE `id` = ' . $userId);
+        }
+        return $correct;
+    }
+    return md5($plainPassword) === $passwordHash;
+}
+
+function user_set_cookie($id, $cryptedPassword) {
+    $cookieString = $id . '=' . md5(DBUSER . $cryptedPassword);
+    setcookie($_SESSION['authsess'], $cookieString , strtotime('+1 year'), '/' );
+}
+
+function user_cookie_check($cookieHash, $cryptedPassword) {
+    return md5(DBUSER . $cryptedPassword) == $cookieHash;
+}
+
 function user_login_check () {
   if ( isset ($_POST['user_login_sub']) AND isset ($_POST['name']) AND isset ($_POST['pass']) ) {
     debug ('posts vorhanden');
@@ -85,7 +115,7 @@ function user_login_check () {
     if ( db_num_rows($erg) == 1 ) {
       debug ('user gefunden');
       $row = db_fetch_assoc($erg);
-      if ( $row['pass'] == md5($_POST['pass']) ) {
+      if (user_pw_check($_POST['pass'], $row['pass'], $row['id']) ) {
         debug ('passwort stimmt ... '.$row['name']);
         $_SESSION['authname']  = $row['name'];
         $_SESSION['authid']    = $row['id'];
@@ -93,7 +123,7 @@ function user_login_check () {
         $_SESSION['lastlogin'] = $row['llogin'];
         $_SESSION['authsess']  = session_und_cookie_name();
         db_query("UPDATE prefix_online SET uid = ".$_SESSION['authid']." WHERE sid = '".session_id()."'");
-        setcookie($_SESSION['authsess'], $row['id'].'='.$row['pass'] , time() + 31104000, "/" );
+        user_set_cookie($row['id'], $row['pass']);
         user_set_grps_and_modules();
         return (true);
       }
@@ -117,7 +147,7 @@ function user_auto_login_check () {
   if (db_num_rows($erg) == 1) {
     debug ('benutzer gefunden');
     $row = db_fetch_assoc($erg);
-    if ($row['pass'] == $pw) {
+    if (user_cookie_check($pw, $row['pass'])) {
       debug ('passwoerter stimmen');
       debug ($row['name']);
       $_SESSION['authname']  = $row['name'];
@@ -126,7 +156,7 @@ function user_auto_login_check () {
       $_SESSION['lastlogin'] = $row['llogin'];
       $_SESSION['authsess']  = $cn;
       db_query("UPDATE prefix_online SET uid = ".$_SESSION['authid']." WHERE sid = '".session_id()."'");
-      setcookie($cn, $row['id'].'='.$row['pass'], time() + 31104000, "/" );
+      user_set_cookie($row['id'], $row['pass']);
       return (true);
     }
   }
@@ -287,7 +317,7 @@ function user_regist ($name, $mail, $pass) {
 	  $new_pass = $pass;
 	}
 
-  $md5_pass = md5($new_pass);
+  $passwordHash = user_pw_crypt($new_pass);
 	$confirmlinktext = '';
 
 	# confirm insert in confirm tb not confirm insert in user tb
@@ -297,10 +327,10 @@ function user_regist ($name, $mail, $pass) {
 		$id = md5 (uniqid (rand()));
 		$confirmlinktext = "\n".$lang['registconfirm']."\n\n".sprintf($lang['registconfirmlink'], $page, $id );
 		db_query("INSERT INTO prefix_usercheck (`check`,name,email,pass,datime,ak)
-		VALUES ('".$id."','".$name."','".$mail."','".$md5_pass."',NOW(),1)");
+		VALUES ('".$id."','".$name."','".$mail."','".$passwordHash."',NOW(),1)");
   } else {
 	  db_query("INSERT INTO prefix_user (name,pass,recht,regist,llogin,email,status,opt_mail,opt_pm)
-		VALUES('".$name."','".$md5_pass."',-1,'".time()."','".time()."','".$mail."',1,1,1)");
+		VALUES('".$name."','".$passwordHash."',-1,'".time()."','".time()."','".$mail."',1,1,1)");
 		$userid = db_last_id();
 	}
   $regmail = sprintf($lang['registemail'],$name, $confirmlinktext, $name, $new_pass);

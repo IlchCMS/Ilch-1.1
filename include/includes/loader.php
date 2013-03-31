@@ -11,6 +11,7 @@ require_once('include/includes/init.php');
 require_once('include/includes/class/tpl.php');
 require_once('include/includes/class/design.php');
 require_once('include/includes/class/menu.php');
+require_once('include/includes/class/pwcrypt.php');
 
 # fremde classes laden
 if (version_compare(PHP_VERSION, '5.3') == -1) {
