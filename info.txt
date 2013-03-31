@@ -1,8 +1,9 @@
 ilchClan 1.1 P
 
-18. Januar 2013
+31. März 2013
 
 Copyright (c) 2005 by Manuel
+Copyright (c) 2005 - 2013 by ilch.de
 
 i n s t a l l a t i o n
   - alle Dateien hochladen.

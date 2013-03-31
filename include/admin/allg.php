@@ -88,7 +88,9 @@ function admin_allg_wars_last_komms ( $ak ) {
   return ($l);
 }
 
-if ( empty ($_POST['submit']) ) {
+$csrfCheck = chk_antispam('admin_allg', true);
+
+if ( empty ($_POST['submit']) || !$csrfCheck ) {
   $gfx             = admin_allg_gfx( $allgAr['gfx'] );
   $smodul          = admin_allg_smodul ( $allgAr['smodul'] );
   $wars_last_komms = admin_allg_wars_last_komms ( $allgAr['wars_last_komms'] );
@@ -145,11 +147,11 @@ if ( empty ($_POST['submit']) ) {
 	echo '<tr class="Cdark"><td></td><td><input type="submit" value="Absenden" name="submit"></td></tr>';
 
 	echo '</table>';
-
+    echo get_antispam('admin_allg', 0, true);
 	echo '</form>';
 
 
-} else {
+} elseif ($csrfCheck) {
 	$abf = 'SELECT * FROM `prefix_config` ORDER BY kat';
 	$erg = db_query($abf);
 	while($row = db_fetch_assoc($erg) ) {
@@ -162,7 +164,7 @@ if ( empty ($_POST['submit']) ) {
       }
 	  db_query('UPDATE `prefix_config` SET wert = "'.escape($_POST[$row['schl']], 'textarea').'" WHERE schl = "'.$row['schl'].'"');
 	}
-  wd ('admin.php?allg', 'Erfolgreich ge&auml;ndert' , 2);
+    wd ('admin.php?allg', 'Erfolgreich ge&auml;ndert' , 2);
 
 }
 

@@ -12,6 +12,7 @@ Version 1.1 P
 * Kompatibilität zu PHP 5.3 und 5.4 verbessert
 * Passwordhashmethod verbessert (sicherere Passwörter in der Datenbank)
 * verbesserte Antispam-Methode eingebunden
+* einige Absicherungen gegen CSRF Attacken
 README;
 
 $rows = substr_count($readme, "\n");

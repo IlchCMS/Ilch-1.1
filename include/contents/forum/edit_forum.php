@@ -16,9 +16,11 @@ $hmenu  = $extented_forum_menu.'<a class="smalfont" href="index.php?forum">Forum
 $design = new design ( $title , $hmenu, 1);
 $design->header();
 
+$csrfCheck = chk_antispam('forum_edit_forum', true);
+
 if ((isset($_POST['del']) OR isset($_POST['shift']) OR isset($_POST['status'])) AND (empty($_POST['in']) OR (isset($_POST['in']) AND (!is_array($_POST['in']) OR count($_POST['in']) < 1)))) {
   wd ('index.php?forum-editforum-'.$fid, 'Es wurden keine Themen gew&auml;hlt.' , 2 );
-} elseif (isset($_POST['status'])) {
+} elseif (isset($_POST['status']) && $csrfCheck) {
   foreach ($_POST['in'] as $k => $v) {
   	$k = escape($k, 'integer');
     $astat = db_result(db_query("SELECT stat FROM prefix_topics WHERE id = ".$k), 0, 0);
@@ -26,7 +28,7 @@ if ((isset($_POST['del']) OR isset($_POST['shift']) OR isset($_POST['status'])) 
     db_query("UPDATE `prefix_topics` SET stat = '".$nstat."' WHERE id = ".$k);
   }
   wd ( 'index.php?forum-showtopics-'.$fid , 'Status ge&auml;ndert' , 2 );
-} elseif (empty($_POST['del']) AND empty($_POST['shift'])) {
+} elseif (!$csrfCheck || (empty($_POST['del']) && empty($_POST['shift']))) {
   $limit = $allgAr['Ftanz'];  // Limit
   $page = ( $menu->getA(3) == 'p' ? $menu->getE(3) : 1 );
   $MPL = db_make_sites ($page , "WHERE fid = '$fid'" , $limit , '?forum-editforum-'.$fid , 'topics' );
@@ -39,6 +41,7 @@ if ((isset($_POST['del']) OR isset($_POST['shift']) OR isset($_POST['status'])) 
    	LIMIT ".$anfang.",".$limit;
   $tpl = new tpl ('forum/editforum.htm');
   $tpl->set('id', $fid);
+  $tpl->set('antispam', get_antispam('forum_edit_forum', 0, true));
   $tpl->set_out('MPL', $MPL, 0);
   $erg = db_query($q);
   while($row = db_fetch_assoc($erg) ) {
@@ -46,7 +49,7 @@ if ((isset($_POST['del']) OR isset($_POST['shift']) OR isset($_POST['status'])) 
     $tpl->set_ar_out($row, 1);
   }
   $tpl->out(2);
-} elseif (isset($_POST['del']) AND isset($_POST['dely']) AND $_POST['dely'] == 'yes') {
+} elseif (isset($_POST['del']) AND isset($_POST['dely']) AND $_POST['dely'] == 'yes' AND $csrfCheck) {
   $pmin = 0;
   $tmin = 0;
   foreach ($_POST['in'] as $k => $v) {
@@ -64,7 +67,7 @@ if ((isset($_POST['del']) OR isset($_POST['shift']) OR isset($_POST['status'])) 
   if ( empty($pid) ) { $pid = 0; }
   db_query("UPDATE `prefix_forums` SET last_post_id = ".$pid.", `posts` = `posts` - ".$pmin.", `topics` = `topics` - ".$tmin." WHERE id = ".$fid);
 	wd ('index.php?forum-editforum-'.$fid, 'Die Themen wurden gel&ouml;scht' , 2 );
-} elseif (isset($_POST['shift']) AND isset($_POST['nfid'])) {
+} elseif (isset($_POST['shift']) AND isset($_POST['nfid']) AND $csrfCheck) {
   $_POST['nfid'] = escape($_POST['nfid'], 'interger');
   $_POST['afid'] = escape($_POST['afid'], 'interger');
   $fal = db_result(db_query("SELECT name FROM prefix_forums WHERE id = ".$_POST['afid']),0);
@@ -102,7 +105,7 @@ if ((isset($_POST['del']) OR isset($_POST['shift']) OR isset($_POST['status'])) 
 	 'alte Themen Übersicht' => 'index.php?forum-showtopics-'.$_POST['afid'],
 	) , 'Thema erfolgreich verschoben' , 3 );
 
-} elseif (isset($_POST['del']) OR isset($_POST['shift'])) {
+} elseif ($csrfCheck AND (isset($_POST['del']) OR isset($_POST['shift']))) {
   echo '<form action="index.php?forum-editforum-'.$fid.'" method="POST">';
   foreach ($_POST['in'] as $k => $v) {
     echo '<input type="hidden" name="in['.$k.']" value="'.$v.'" />';

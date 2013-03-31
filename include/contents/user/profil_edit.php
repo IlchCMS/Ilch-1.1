@@ -14,7 +14,9 @@ $design = new design ( $title , $hmenu, 1);
 
 if ( $_SESSION['authright'] <= -1 ) {
 
-if ( empty ($_POST['submit']) ) {
+    $csrfCheck = chk_antispam('user_profile_edit', true);
+    
+if ( empty ($_POST['submit']) || !$csrfCheck ) {
   $design->header();
 	$abf = 'SELECT email,wohnort,homepage,aim,msn,icq,yahoo,avatar,status,staat,gebdatum,sig,opt_pm_popup,opt_pm,opt_mail,geschlecht,spezrank FROM `prefix_user` WHERE id = "'.$_SESSION['authid'].'"';
 	$erg = db_query($abf);
@@ -38,6 +40,7 @@ if ( empty ($_POST['submit']) ) {
     $row['forum_max_sig'] = $allgAr['forum_max_sig'];
     $row['uid'] = $_SESSION['authid'];
     $row['forum_usergallery'] = $allgAr['forum_usergallery'];
+    $row['antispam'] = get_antispam('user_profile_edit', 0, true);
     $tpl->set_ar_out($row,0);
     if ($allgAr['forum_avatar_upload']) $tpl->out(1);
     $tpl->set_ar_out($row,2);
@@ -49,7 +52,7 @@ if ( empty ($_POST['submit']) ) {
     $tpl->set_out('WDLINK','index.php',0);
 	}
 
-} else {  # submit
+} elseif ($csrfCheck) {  # submit
 
   # change poassword
 	if ( !empty($_POST['np1']) AND !empty($_POST['np2']) AND !empty($_POST['op'])) {

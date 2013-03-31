@@ -19,11 +19,16 @@ $design = new design ( $title , $hmenu, 1);
 $design->header();
 
   $postid = escape($menu->get(3), 'integer');
-  if ( empty($_POST['delete']) ) {
+  $csrfCheck = chk_antispam('forum_del_post', true);
+  if ( empty($_POST['delete']) || !$csrfCheck ) {
     $tpl = new tpl ( 'forum/del_post' );
-    $tpl->set_ar(array('tid'=>$tid,'get3'=>$postid));
+    $tpl->set_ar(array(
+        'tid' => $tid,
+        'get3' => $postid,
+        'antispam' => get_antispam('forum_del_post', 0, true)
+    ));
     $tpl->out(0);
-	} else {
+} elseif ($csrfCheck) {
     $erstid = @db_result(db_query("SELECT erstid FROM `prefix_posts` WHERE id = ".$postid." LIMIT 1"),0);
     if ($erstid > 0) db_query("UPDATE `prefix_user` SET posts = posts - 1 WHERE id = $erstid");
 
