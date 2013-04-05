@@ -14,7 +14,7 @@ function get_properties($t){
 
       $properties= array();
       foreach($out as $x){
-        $properties[$x[name]]=htmlspecialchars($x[value]);
+        $properties[$x[name]] = htmlspecialchars($x[value], ILCH_ENTITIES_FLAGS, ILCH_CHARSET);
       }
       unset($out);
       return $properties;

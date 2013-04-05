@@ -35,7 +35,7 @@ if ( is_coadmin() ) {
       <?php if (is_admin()) { ?>
       ['<img src="include/images/icons/admin/backup.png" width="16" height="16">', 'Backup', 'admin.php?backup', null, null],
       <?php } ?>
-      ['<img src="include/images/icons/admin/ranks.png" width="16" height="16">', 'Ranks', 'admin.php?range', null, null],
+      ['<img src="include/images/icons/admin/konfiguration.png" width="16" height="16">', 'Kompatibilität', 'admin.php?compatibility', null, null],
       ['<img src="include/images/icons/admin/smilies.png" width="16" height="16">', 'Smilies', 'admin.php?smilies', null, null],
       ['<img src="include/images/icons/admin/newsletter.png" width="16" height="16">', 'Newsletter', 'admin.php?newsletter', null, null],
       ['<img src="include/images/icons/admin/version_check.png" width="16" height="16">', 'Versions Kontrolle', 'admin.php?admin-versionsKontrolle', null, null],
@@ -43,8 +43,8 @@ if ( is_coadmin() ) {
       ['<img src="include/images/icons/admin/stats_site.png" width="16" height="16">', 'Statistik', null, null, null,
         ['<img src="include/images/icons/admin/stats_visitor.png" width="16" height="16">', 'Besucher', 'admin.php?admin-besucherStatistik', null, null],
         ['<img src="include/images/icons/admin/stats_site.png" width="16" height="16">', 'Seite', 'admin.php?admin-siteStatistik', null, null],
-        ['<img src="include/images/icons/admin/stats_online.png" width="16" height="16">', 'Online', 'admin.php?admin-userOnline', null, null],
-      ],
+        ['<img src="include/images/icons/admin/stats_online.png" width="16" height="16">', 'Online', 'admin.php?admin-userOnline', null, null]
+      ]
     ],
 
     [null, 'User', 'admin.php?user', null, null,
@@ -54,6 +54,7 @@ if ( is_coadmin() ) {
       <?php } ?>
       ['<img src="include/images/icons/admin/user_profile_fields.png" width="16" height="16">', 'Profilefelder', 'admin.php?profilefields', null, null],
       ['<img src="include/images/icons/admin/user_add.png" width="16" height="16">', 'neuen User', 'javascript: createNewUser();',null ,null],
+      ['<img src="include/images/icons/admin/ranks.png" width="16" height="16">', 'Ranks', 'admin.php?range', null, null]
     ],
 
     [null, 'Eigene Box/Page', 'admin.php?selfbp', null, null],

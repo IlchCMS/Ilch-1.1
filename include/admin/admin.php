@@ -86,9 +86,9 @@ db_query("OPTIMIZE TABLE prefix_stats");
                  <?php if ($allgAr['mail_smtp']) { ?>
                  <li><a href="admin.php?smtpconf"><img src="include/images/icons/admin/smtpconf.png" alt="">SMTP konfigurieren</a></li>
                  <?php } ?>
-				 <li><a href="admin.php?menu"><img src="include/images/icons/admin/navigation.png" alt="">Navigation</a></li>
+                 <li><a href="admin.php?menu"><img src="include/images/icons/admin/navigation.png" alt="">Navigation</a></li>
                  <li><a href="admin.php?backup"><img src="include/images/icons/admin/backup.png" alt="">Backup</a></li>
-                 <li><a href="admin.php?range"><img src="include/images/icons/admin/ranks.png" alt="">Ranks</a></li>
+                 <li><a href="admin.php?compatibility"><img src="include/images/icons/admin/konfiguration.png" alt="">Kompatibilität</a></li>
                  <li><a href="admin.php?smilies"><img src="include/images/icons/admin/smilies.png" alt="">Smiles</a></li>
                  <li><a href="admin.php?newsletter"><img src="include/images/icons/admin/newsletter.png" alt="">Newsletter</a></li>
                  <li><a href="admin.php?admin-versionsKontrolle"><img src="include/images/icons/admin/version_check.png" alt="">Versions Kontrolle</a></li>
@@ -123,6 +123,7 @@ db_query("OPTIMIZE TABLE prefix_stats");
                  <li><a href="admin.php?grundrechte"><img src="include/images/icons/admin/user_rights.png" alt="">Grundrechte</a></li>
                  <li><a href="admin.php?profilefields"><img src="include/images/icons/admin/user_profile_fields.png" alt="">Profilefelder</a></li>
                  <li><a href="javascript: createNewUser();"><img src="include/images/icons/admin/user_add.png" alt="">neuen User</a></li>
+                 <li><a href="admin.php?range"><img src="include/images/icons/admin/ranks.png" alt="">Ranks</a></li>
                  <br class="admix_last"/>
                </ul>
              </li>

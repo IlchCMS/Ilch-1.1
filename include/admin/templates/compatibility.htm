@@ -1,0 +1,60 @@
+<style type="text/css">
+    .hidden {display:none}
+    .fll {float:left}
+    .clear {clear:both}
+    .ml20 {margin-left: 20px}
+    code {white-space: pre; width: 1000px; overflow: auto; display: block}
+</style>
+<script type="text/javascript">
+    function showCode(id) {
+        var tr = document.getElementById('code' + id);
+        if (tr.style.display === 'table-row') {
+            tr.style.display = '';
+        } else {
+            tr.style.display = 'table-row';
+        }
+    }
+</script>
+
+<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/konfiguration.png" /></td><td width="30"></td><td valign="bottom"><h1>Kompatibilitätsprüfung</h1></td></tr></table>
+<div>
+    <div class="info_box fll">
+        <b>Kompatibilit prüfen</b>
+        <br />
+        <span class="smalfont">
+        Mit PHP 5.4 wurde die Verwendung von htmlentities und htmlspecialchars geändert.
+        Dem wurde mit dem Update P Rechnung getragen, so dass dies auch auf der neuen PHP Version funktioniert.
+        Allerdings müssen ggf. Änderungen an alten Dateien von nicht an ilchClan 1.1P angepasste Modulen vorgenommen werden.
+        Mit Hilfe dieses Tools können die zu ändernden Codestellen in hochgeladenen Dateien ausgemacht werden.
+        </span>
+    </div>
+
+    <div class="info_box fll ml20">
+        <b>Anpassungen vornehmen</b>
+        <br />
+        <span class="smalfont">
+        Die rot markierten Stellen müssen angepasst werden. Beispiel:<br>
+        <strong>htmlentites($variable);</strong><br>
+        muss zu <br>
+        <strong>htmlentites($variable, ILCH_ENTITIES_FLAGS, ILCH_CHARSET);</strong><br>
+        geändert werden.<br>
+        </span>
+    </div>
+    <div class="clear"></div>
+</div>
+
+<table border="0" cellpadding="2" cellspacing="1" class="border">
+    <tr class="Chead">
+    <td><b>Datei</b></td>
+    <td><b>notwendige Änderungen</b></td>
+    <td></td>
+    </tr>
+    {EXPLODE}
+    <tr class="{class}">
+        <td>{phpFile}</td>
+        <td>{changes}</td>
+        <td><a href="javascript:showCode({id})">zeigen<a></td>
+    </tr>
+    <tr class="{class} hidden" id="code{id}"><td colspan="3"><code>{code}</code></td></tr>
+    {EXPLODE}
+</table>
