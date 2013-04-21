@@ -9,12 +9,13 @@ defined('main') or die('no direct access');
  * PwCrypt
  * 
  * Achtung: beim Übertragen von mit 2a erzeugten Passwörtern auf einen anderen PC/Server,
- * dort kann es u.U. Passieren, dass eine Authentifikation nicht mehr möglich ist,
+ * dort kann es u.U. passieren, dass eine Authentifikation nicht mehr möglich ist,
  * da 2a auf einigen System fehlerhafte Ergebnisse liefert.
- * Versuche dann bitte 2x bzw. 2y.
+ * Verwende dann die $backup Parameter bei checkPasswd
  *
  * @author finke <Surf-finke@gmx.de>
- * @copyright Copyright (c) 2012
+ * @autor Mairu
+ * @copyright Copyright (c) 2012 - 2013
  */
 class PwCrypt
 {
@@ -32,7 +33,14 @@ class PwCrypt
     const SHA256 = '5';
     const SHA512 = '6';
 
-    private $hashAlgorithm = self::SHA256;
+    private $hashAlgorithm = self::BLOWFISH_OLD;
+
+    /**
+     * PwCrypt::checkHashStrength wird immer false zurückliefern, wenn dieser Wert true ist
+     *
+     * @var boolean
+     */
+    private $dontCheckHashStrength = false;
 
     /**
      * @param string $lvl Gibt den zu verwendenden Hashalgorithmus an (Klassenkonstante)
@@ -43,17 +51,15 @@ class PwCrypt
             $this->hashAlgorithm = $lvl;
         }
 
-        /* Wenn 2a gewählt aber 2y verfügbar: nutze trotzdem 2y, da dies sicherer ist; wenn 2x oder 2y gewählt
-         * aber nicht verfügbar, nutze 2a */
-        if (version_compare(PHP_VERSION, '5.3.5', '<')
-            && ($this->hashAlgorithm === self::BLOWFISH || $this->hashAlgorithm === self::BLOWFISH_FALSE)
+
+        // wenn 2x oder 2y gewählt, aber nicht verfügbar, nutze 2a
+        if (version_compare(PHP_VERSION, '5.3.7', '<')
+            && in_array($this->hashAlgorithm, array(self::BLOWFISH, self::BLOWFISH_FALSE))
         ) {
             $this->hashAlgorithm = self::BLOWFISH_OLD;
-        } elseif (version_compare(PHP_VERSION, '5.3.5', '>=') && $this->hashAlgorithm == self::BLOWFISH_OLD) {
-            $this->hashAlgorithm = self::BLOWFISH;
         }
 
-        // Prüfen welche Hash Funktionen Verfügbar sind. Ab 5.3 werden alle Mitgeliefert
+        // Prüfen welche Hash Funktionen Verfügbar sind. Ab 5.3.2 werden alle mitgeliefert
         if (version_compare(PHP_VERSION, '5.3.0', '<')) {
             if ($this->hashAlgorithm === self::SHA512 && (!defined('CRYPT_SHA512') || CRYPT_SHA512 !== 1)) {
                 $this->hashAlgoriathm = self::SHA256; // Wenn SHA512 nicht verfügbar, versuche SHA256
@@ -64,6 +70,13 @@ class PwCrypt
             if ($this->hashAlgorithm === self::BLOWFISH_OLD && (!defined('CRYPT_BLOWFISH') || CRYPT_BLOWFISH !== 1)) {
                 $this->hashAlgorithm = self::MD5; // Wenn BLOWFISH nicht verfügbar, nutze MD5
             }
+        }
+
+        /* Wenn 2a oder 2x gewählt, aber 2y verfügbar: nutze trotzdem 2y, da dies sicherer ist; */
+        if (version_compare(PHP_VERSION, '5.3.7', '>=')
+            && in_array($this->hashAlgorithm, array(self::BLOWFISH_OLD, self::BLOWFISH_FALSE))
+        ) {
+            $this->hashAlgorithm = self::BLOWFISH;
         }
     }
 
@@ -106,7 +119,7 @@ class PwCrypt
     }
 
     /**
-     * Prüft, ob der übergebene Hash, im crpyt Format ist
+     * Prüft, ob der übergebene Hash, im crypt Format ist
      *
      * @param mixed $hash
      * @return boolean
@@ -117,7 +130,34 @@ class PwCrypt
     }
 
     /**
-     * Gibt den Code der gewählten/genutzen Hashmethode zurück (Crpyt Konstante)
+     * Wenn der übergebene Hash einen schwächeren Algorithmus verwendet (kleinere Zahl) wird true zurück geliefert
+     * (schwächere Hashs werden an andere Stelle (user_pw_check()) mit neuem Algorithmus gespeichert)
+     * 
+     * @param string $hash
+     * @return boolean
+     */
+    public function checkHashStrength($hash)
+    {
+        $matches = array();
+        if ($this->dontCheckHashStrength) {
+            return false;
+        }
+        if (preg_match('/^\$([1256])([axy])?\$/', $hash, $matches) === 1) {
+            $hashAlgoNumber = $matches[1];
+            $hashAlgoLetter = isset($matches[2]) ? $matches[2] : '';
+            if (preg_match('/^([1256])([axy])?$/', $this->hashAlgorithm, $matches) === 1) {
+                if ($matches[1] > $hashAlgoNumber) {
+                    return true;
+                } elseif ($matches[1] === '2' && $hashAlgoNumber === '2' && $matches[2] > $hashAlgoLetter) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Gibt den Code der gewählten/genutzen Hashmethode zurück (Crypt Konstante)
      *
      * @return string
      */
@@ -148,13 +188,11 @@ class PwCrypt
                 break;
             case self::BLOWFISH:
             case self::BLOWFISH_OLD:
-            case self::BLOWFISH_FALSE:
                 $salt = (empty($salt) ? self::getRndString(22, self::LETTERS | self::NUMBERS) : $salt);
                 if ($rounds < 4 || $rounds > 31) {
                     $rounds = mt_rand(6, 10);
                 }
-                //Verwendet 2x, wenn verfügbar, auch wenn 2a angegeben wurde
-                $salt_string = '$' . $this->hashAlgorithm . '$' . $rounds . '$' . $salt . '$';
+                $salt_string = '$' . $this->hashAlgorithm . '$' . str_pad($rounds, 2, '0', STR_PAD_LEFT) . '$' . $salt . '$';
                 break;
             case self::MD5:
                 $salt = (empty($salt) ? self::getRndString(12, self::LETTERS | self::NUMBERS) : $salt);
@@ -197,7 +235,7 @@ class PwCrypt
             return true;
         } else {
             if ($backup == true
-                && version_compare(PHP_VERSION, '5.3.5', '>=')
+                && version_compare(PHP_VERSION, '5.3.7', '>=')
                 && substr($crypted_passwd, 0, 4) == '$2a$'
             ) {
                 $password_x = '$2x$' . substr($crypted_passwd, 4);

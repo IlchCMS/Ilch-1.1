@@ -17,6 +17,7 @@ if (has_right($allgAr['sb_recht'])) {
         $shoutbox_textarea = strip_tags($shoutbox_textarea);
         if (!empty($shoutbox_nickname) AND !empty($shoutbox_textarea)) {
             db_query('INSERT INTO `prefix_shoutbox` (`nickname`,`textarea`) VALUES ( "' . $shoutbox_nickname . '" , "' . $shoutbox_textarea . '" ) ');
+            header('Location: index.php?' . $menu->get_complete());
         }
     }
     echo '<form action="index.php?' . $menu->get_complete() . '" method="POST">';

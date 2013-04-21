@@ -1735,7 +1735,7 @@ class PHPMailer {
     $this->Body = $message;
     $textMsg = trim(strip_tags(preg_replace('/<(head|title|style|script)[^>]*>.*?<\/\\1>/s','',$message)));
     if ( !empty($textMsg) && empty($this->AltBody) ) {
-      $this->AltBody = html_entity_decode($textMsg);
+      $this->AltBody = html_entity_decode($textMsg, ILCH_ENTITIES_FLAGS, ILCH_CHARSET);
     }
     if ( empty($this->AltBody) ) {
       $this->AltBody = 'To view this email message, open the email in with HTML compatibility!' . "\n\n";

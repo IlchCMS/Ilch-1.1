@@ -277,7 +277,7 @@ function icmail ($mail, $bet, $txt, $from = '', $html = false) {
 
 
 function html_enc_substr($text, $start, $length) {
-   $trans_tbl = get_html_translation_table(HTML_ENTITIES);
+   $trans_tbl = get_html_translation_table(HTML_ENTITIES, ILCH_ENTITIES_FLAGS, ILCH_CHARSET);
    $trans_tbl = array_flip($trans_tbl);
    return(htmlentities(substr(strtr($text, $trans_tbl), $start, $length), ILCH_ENTITIES_FLAGS, ILCH_CHARSET));
 }
@@ -415,13 +415,19 @@ function chk_antispam($m, $nopictures = false)
  */
 function get_antispam($m, $t, $nopictures = false)
 {
-    global $allgAr;
+    global $allgAr, $ILCH_BODYEND_ADDITIONS;
+    static $addedJavascript = false;
+
+    if ($addedJavascript === false) {
+        $ILCH_BODYEND_ADDITIONS .= '<script type="text/javascript" src="include/includes/js/captcha.js"></script>' . "\n";
+        $addedJavascript = true;
+    }
 
     if (!$nopictures && $t < 0 || (is_numeric($allgAr['antispam']) && has_right($allgAr['antispam']))) {
         $nopictures = true;
     }
 
-    $id = uniqid($m, true);
+    $id = uniqid($m . '_', true);
 
     if ($nopictures) {
         $_SESSION['antispam'][$id] = true;
@@ -438,7 +444,7 @@ function get_antispam($m, $t, $nopictures = false)
         $helpText = 'Geben Sie diese Zeichen in das direkt darunter stehende Feld ein.';
     }
     $img = '<img width="' . $imagewidth . '" height="' . $imageheight . '" src="include/includes/captcha/captchaimg.php?id='
-        . $id . '&nocache=' . time() . '" alt="captchaimg" title="' . $helpText . '">'
+        . $id . '&nocache=' . time() . '" alt="captchaimg" title="' . $helpText . '" class="captchaImage">'
         . $seperator . '<input class="captcha_code" name="captcha_code" type="text" maxlength="5" size="8" title="Geben Sie die Zeichen aus dem Bild ein">'
         . '<input type="hidden" name="captcha_id" value="' . $id .  '" />';
         ;

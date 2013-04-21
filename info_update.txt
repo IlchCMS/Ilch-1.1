@@ -1,14 +1,14 @@
 ilchClan 1.1 Update P (von ilchClan 1.1 O)
 
-21. März 2013
+21. April 2013
 
 Copyright (c) 2005 by Manuel
 Copyright (c) 2005 - 2013 by ilch.de
 
 
 i n s t a l l a t i o n
-  - alle Dateien hochladen.
-  - update.php ausführen und danach wieder löschen
+  - update.php hochladen, aufrufen (http://www.deineseite.de/update.php) und danach wieder löschen
+  - alle restlichen Dateien hochladen.
   - changelog lesen ;)
 
 s u p p o r t

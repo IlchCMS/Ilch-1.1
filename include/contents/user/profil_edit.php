@@ -122,7 +122,7 @@ if ( empty ($_POST['submit']) || !$csrfCheck ) {
     VALUES ('".$id."','".escape($_POST['email'],'string')."',NOW(),5)");
     $page = $_SERVER["HTTP_HOST"].$_SERVER["SCRIPT_NAME"];
     $text = $lang['removeconfirm'] . sprintf ($lang['registconfirmlink'], $page, $id );
-    icmail ($_POST['email'], html_entity_decode($lang['removeaccount']), $text );
+    icmail ($_POST['email'], html_entity_decode($lang['removeaccount'], ILCH_ENTITIES_FLAGS, ILCH_CHARSET), $text );
     $fmsg = $lang['pleaseconfirmremove'];
   }
   #remove account

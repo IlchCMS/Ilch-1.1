@@ -86,9 +86,13 @@ function user_pw_check($plainPassword, &$passwordHash, $userId = false) {
     if (version_compare(PHP_VERSION, '5.0') !== -1) {
         $pwCrypt = new PwCrypt();
         $correct = $pwCrypt->checkPasswd($plainPassword, $passwordHash);
-        if ($correct && $userId !== false && !PwCrypt::isCryptHash($passwordHash)) {
-            $passwordHash =  $pwCrypt->cryptPasswd($plainPassword);
-            db_query('UPDATE `prefix_user` SET `pass` = "' . $passwordHash . '" WHERE `id` = ' . $userId);
+        if ($correct && $userId !== false
+            && (!PwCrypt::isCryptHash($passwordHash) || $pwCrypt->checkHashStrength($passwordHash))
+        ) {
+            $passwordHash = $pwCrypt->cryptPasswd($plainPassword);
+            if ($passwordHash) {
+                db_query('UPDATE `prefix_user` SET `pass` = "' . $passwordHash . '" WHERE `id` = ' . $userId);
+            }
         }
         return $correct;
     }

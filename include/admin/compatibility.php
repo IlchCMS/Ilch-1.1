@@ -26,7 +26,7 @@ function getPhpFiles($dir = '.')
 }
 
 /**
- * Gibt kompletten Pfad zurück und entfernt ggf. ./ am Anfang
+ * Gibt kompletten Pfad (mit / als Directory Separator) zurück und entfernt ggf. ./ am Anfang
  * 
  * @param string $dir
  * @param string $entry
@@ -37,6 +37,9 @@ function getCompletePath($dir, $entry)
     $completePath = $dir . DIRECTORY_SEPARATOR . $entry;
     if (strpos($completePath, './') === 0) {
         $completePath = substr($completePath, 2);
+    }
+    if (DIRECTORY_SEPARATOR !== '/') {
+        $completePath = str_replace(DIRECTORY_SEPARATOR, '/', $completePath);
     }
     return $completePath;
 }
@@ -49,11 +52,13 @@ $ignoredFiles = array(
 
 $phpFiles = array_diff(getPhpFiles(), $ignoredFiles);
 
+$tpl = new tpl('compatibility', 1);
+
 $design = new design ( 'Admins Area', 'Admins Area', 2 );
+$design->addheader($tpl->get(0));
 $design->header();
 
-$tpl = new tpl('compatibility', 1);
-$tpl->out(0);
+$tpl->out(1);
 $i = 1;
 
 foreach ($phpFiles as $phpFile) {
@@ -61,7 +66,7 @@ foreach ($phpFiles as $phpFile) {
     $fileContents = htmlentities($fileContents, ILCH_ENTITIES_FLAGS, ILCH_CHARSET);
     $matches = array();
     $changes = 0;
-    if (preg_match_all('~(htmlentities|htmlspecialchars)\s*\(.*\)~', $fileContents, $matches) > 0) {
+    if (preg_match_all('~(htmlentities|htmlspecialchars|html_entity_decode|get_html_translation_table)\s*\(.*\)~', $fileContents, $matches) > 0) {
         $toHighlightArray = array();
         foreach ($matches[0] as $match) {
             if (preg_match('~ILCH_ENTITIES_FLAGS\s*,\s*ILCH_CHARSET~', $match) === 0) {
@@ -83,11 +88,11 @@ foreach ($phpFiles as $phpFile) {
                 'code' => $fileContents,
                 'id' => $i++
             ));
-            $tpl->out(1);
+            $tpl->out(2);
         }
         
     }
 }
-$tpl->out(2);
+$tpl->out(3);
 
 $design->footer();

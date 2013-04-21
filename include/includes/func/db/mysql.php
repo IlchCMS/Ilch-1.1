@@ -27,8 +27,12 @@ function db_connect () {
       }
       mysql_set_charset(ILCH_DB_CHARSET, CONN);
   }
+  $timeZoneSetted = false;
   if (function_exists('date_default_timezone_get')) {
-    mysql_query('SET time_zone = "' . date_default_timezone_get() . '"');
+    $timeZoneSetted = mysql_query('SET time_zone = "' . date_default_timezone_get() . '"');
+  }
+  if (!$timeZoneSetted && version_compare(PHP_VERSION, '5.1.3')) {
+    $timeZoneSetted = mysql_query('SET time_zone = "' . date('P') . '"');
   }
 }
 

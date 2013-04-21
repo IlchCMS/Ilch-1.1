@@ -4,8 +4,9 @@
  * @author T0P0LIN0
  * thanks to uwe slick! http://www.deruwe.de/captcha.html - his thoughts
  */
-date_default_timezone_set('Europe/Berlin');
+define('main', true);
 
+include '../init.php';
 include 'Captcha.php';
 include 'settings.php';
 $captcha = new Captcha();
