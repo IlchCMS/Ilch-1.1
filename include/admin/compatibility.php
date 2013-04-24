@@ -35,7 +35,7 @@ function getPhpFiles($dir = '.')
 function getCompletePath($dir, $entry)
 {
     $completePath = $dir . DIRECTORY_SEPARATOR . $entry;
-    if (strpos($completePath, './') === 0) {
+    if (strpos($completePath, '.' . DIRECTORY_SEPARATOR) === 0) {
         $completePath = substr($completePath, 2);
     }
     if (DIRECTORY_SEPARATOR !== '/') {
@@ -47,7 +47,13 @@ function getCompletePath($dir, $entry)
 $ignoredFiles = array(
     'include/backup/bigdump.php',
     'include/includes/class/xajax.php4.inc.php',
-    'include/includes/class/xajax.php5.inc.php'
+    'include/includes/class/xajax.php5.inc.php',
+    'include/admin/compatibility.php',
+    'update.php'
+);
+
+$ignoredMatches = array(
+    'include/includes/func/allg.php' => array('get_html_translation_table(HTML_ENTITIES, ILCH_ENTITIES_FLAGS)')
 );
 
 $phpFiles = array_diff(getPhpFiles(), $ignoredFiles);
@@ -58,8 +64,11 @@ $design = new design ( 'Admins Area', 'Admins Area', 2 );
 $design->addheader($tpl->get(0));
 $design->header();
 
+$tpl->set('notneeded', version_compare(PHP_VERSION, '5.4', '<') ? 1 : 0);
 $tpl->out(1);
 $i = 1;
+
+$filesWithChanges = 0;
 
 foreach ($phpFiles as $phpFile) {
     $fileContents = file_get_contents($phpFile);
@@ -74,6 +83,14 @@ foreach ($phpFiles as $phpFile) {
             }
         }
         $toHighlightArray = array_unique($toHighlightArray);
+        if (isset($ignoredMatches[$phpFile])) {
+            foreach ($ignoredMatches[$phpFile] as $ignoreMatch) {
+                $found = array_search($ignoreMatch, $toHighlightArray);
+                if ($found !== false) {
+                    unset($toHighlightArray[$found]);
+                }
+            }
+        }
         if (count($toHighlightArray)) {
             foreach ($toHighlightArray as $toHighlight) {
                 $fileContents = str_replace($toHighlight, '<span style="background: red; font-weight:bold;">'
@@ -89,10 +106,13 @@ foreach ($phpFiles as $phpFile) {
                 'id' => $i++
             ));
             $tpl->out(2);
+            $filesWithChanges++;
         }
-        
     }
 }
-$tpl->out(3);
+if ($filesWithChanges === 0) {
+    $tpl->out(3);
+}
+$tpl->out(4);
 
 $design->footer();

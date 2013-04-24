@@ -275,11 +275,14 @@ function icmail ($mail, $bet, $txt, $from = '', $html = false) {
 	}
 }
 
-
 function html_enc_substr($text, $start, $length) {
-   $trans_tbl = get_html_translation_table(HTML_ENTITIES, ILCH_ENTITIES_FLAGS, ILCH_CHARSET);
-   $trans_tbl = array_flip($trans_tbl);
-   return(htmlentities(substr(strtr($text, $trans_tbl), $start, $length), ILCH_ENTITIES_FLAGS, ILCH_CHARSET));
+    if (version_compare(PHP_VERSION, '5.3.4') !== -1) {
+        $trans_tbl = get_html_translation_table(HTML_ENTITIES, ILCH_ENTITIES_FLAGS, ILCH_CHARSET);
+    } else {
+        $trans_tbl = get_html_translation_table(HTML_ENTITIES, ILCH_ENTITIES_FLAGS);
+    }
+    $trans_tbl = array_flip($trans_tbl);
+    return(htmlentities(substr(strtr($text, $trans_tbl), $start, $length), ILCH_ENTITIES_FLAGS, ILCH_CHARSET));
 }
 
 function get_datum ($d) {

@@ -3,6 +3,7 @@
     .fll {float:left}
     .clear {clear:both}
     .ml20 {margin-left: 20px}
+    .red {color:red}
     code {white-space: pre; width: 1000px; overflow: auto; display: block}
 </style>
 <script type="text/javascript">
@@ -33,6 +34,9 @@
         <b>Anpassungen vornehmen</b>
         <br />
         <span class="smalfont">
+        <span class="smalfont red">{_if_{notneeded}=='1'}Da deine PHP Version kleiner als 5.4 ist, musst du die Änderungen nicht unbedingt vornehmen.
+        {_else_}Da du eine PHP Version größer als 5.4 einsetzt, müssen die Änderungen für einen reibungslosen Betrieb vorgenommen werden.
+        {/_endif}</span><br>
         Die rot markierten Stellen müssen angepasst werden. Beispiel:<br>
         <strong>htmlentites($variable);</strong><br>
         muss zu <br>
@@ -56,5 +60,7 @@
         <td><a href="javascript:showCode({id})">zeigen<a></td>
     </tr>
     <tr class="{class} hidden" id="code{id}"><td colspan="3"><code>{code}</code></td></tr>
+    {EXPLODE}
+    <tr class="Cmite"><td colspan="3">Keine notwendigen &Auml;nderungen gefunden</td></tr>
     {EXPLODE}
 </table>

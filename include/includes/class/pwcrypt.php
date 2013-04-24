@@ -33,7 +33,7 @@ class PwCrypt
     const SHA256 = '5';
     const SHA512 = '6';
 
-    private $hashAlgorithm = self::BLOWFISH_OLD;
+    private $hashAlgorithm = self::SHA256;
 
     /**
      * PwCrypt::checkHashStrength wird immer false zurückliefern, wenn dieser Wert true ist
@@ -51,7 +51,6 @@ class PwCrypt
             $this->hashAlgorithm = $lvl;
         }
 
-
         // wenn 2x oder 2y gewählt, aber nicht verfügbar, nutze 2a
         if (version_compare(PHP_VERSION, '5.3.7', '<')
             && in_array($this->hashAlgorithm, array(self::BLOWFISH, self::BLOWFISH_FALSE))
@@ -60,7 +59,7 @@ class PwCrypt
         }
 
         // Prüfen welche Hash Funktionen Verfügbar sind. Ab 5.3.2 werden alle mitgeliefert
-        if (version_compare(PHP_VERSION, '5.3.0', '<')) {
+        if (version_compare(PHP_VERSION, '5.3.2', '<')) {
             if ($this->hashAlgorithm === self::SHA512 && (!defined('CRYPT_SHA512') || CRYPT_SHA512 !== 1)) {
                 $this->hashAlgoriathm = self::SHA256; // Wenn SHA512 nicht verfügbar, versuche SHA256
             }
@@ -141,6 +140,9 @@ class PwCrypt
         $matches = array();
         if ($this->dontCheckHashStrength) {
             return false;
+        }
+        if (!self::isCryptHash($hash)) {
+            return true;
         }
         if (preg_match('/^\$([1256])([axy])?\$/', $hash, $matches) === 1) {
             $hashAlgoNumber = $matches[1];
