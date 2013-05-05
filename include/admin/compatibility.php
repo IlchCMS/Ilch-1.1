@@ -93,8 +93,14 @@ foreach ($phpFiles as $phpFile) {
         }
         if (count($toHighlightArray)) {
             foreach ($toHighlightArray as $toHighlight) {
-                $fileContents = str_replace($toHighlight, '<span style="background: red; font-weight:bold;">'
-                    . $toHighlight . '</span>', $fileContents, $replaces);
+                if (version_compare(PHP_VERSION, '5.0') === -1) {
+                    $fileContents = str_replace($toHighlight, '<span style="background: red; font-weight:bold;">'
+                        . $toHighlight . '</span>', $fileContents);
+                    $replaces = 1;
+                } else {
+                    $fileContents = str_replace($toHighlight, '<span style="background: red; font-weight:bold;">'
+                        . $toHighlight . '</span>', $fileContents, $replaces);
+                }
                 $changes += $replaces;
             }
             $class = $class === 'Cmite' ? 'Cmite' : 'Cnorm';

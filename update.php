@@ -125,7 +125,7 @@ Dieses Script soll die n&ouml;tigen Datanbank&auml;ndernungen f&uuml;r das Updat
     
     //Update 1.1p
     $passType = '';
-    $qry = db_query('SHOW COLUMNS FROM ic1_user LIKE "pass"');
+    $qry = db_query('SHOW COLUMNS FROM `prefix_user` LIKE "pass"');
     if ($row = db_fetch_assoc($qry)) {
         $passType = trim(strtolower($row['Type']));
     }
