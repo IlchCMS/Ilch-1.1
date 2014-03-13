@@ -605,11 +605,11 @@ $objLanguageManager->getText('XJXRSP:EDERR:01')
 $this->aCommands=array();$objResponseManager=xajaxResponseManager::getInstance();$this->sCharacterEncoding=$objResponseManager->getCharacterEncoding();$this->bOutputEntities=$objResponseManager->getOutputEntities();$this->objPluginManager=xajaxPluginManager::getInstance();}
 function setCharacterEncoding($sCharacterEncoding){$this->sCharacterEncoding=$sCharacterEncoding;return $this;}
 function setOutputEntities($bOutputEntities){$this->bOutputEntities=(boolean)$bOutputEntities;return $this;}
-static function plugin(){$aArgs=func_get_args();$nArgs=func_num_args();if(false==(0 < $nArgs)){$objLanguageManager=xajaxLanguageManager::getInstance();trigger_error(
+function plugin(){$aArgs=func_get_args();$nArgs=func_num_args();if(false==(0 < $nArgs)){$objLanguageManager=xajaxLanguageManager::getInstance();trigger_error(
 $objLanguageManager->getText('XJXRSP:MPERR:01')
 ,E_USER_ERROR
 );}
-$sName=array_shift($aArgs);$objPlugin=&$this->objPluginManager->getPlugin($sName);if(false===$objPlugin){$bReturn=false;return $bReturn;}
+$sName=array_shift($aArgs);$objPlugin=$this->objPluginManager->getPlugin($sName);if(false===$objPlugin){$bReturn=false;return $bReturn;}
 $objPlugin->setResponse($this);if(0 < count($aArgs)){$sMethod=array_shift($aArgs);$aFunction=array(&$objPlugin,$sMethod);call_user_func_array($aFunction,$aArgs);}
 return $objPlugin;}
 function __get($sPluginName){$objPlugin=&$this->plugin($sPluginName);return $objPlugin;}

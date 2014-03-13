@@ -136,6 +136,16 @@ Dieses Script soll die n&ouml;tigen Datanbank&auml;ndernungen f&uuml;r das Updat
         $sql_statements[] = "UPDATE `prefix_config` SET `frage`='Antispam <small>(ab diesem Recht keine Eingabe mehr erforderlich)</small><br><a href=\"http://www.ilch.de/texts-s132.html\" target=\"_blank\">Hilfe: Antispam anpassen</a>' WHERE `schl`='antispam'";
     }
 
+    //Update 1.1p.2
+    $sidType = '';
+    $qry = db_query('SHOW COLUMNS FROM `prefix_online` LIKE "sid"');
+    if ($row = db_fetch_assoc($qry)) {
+        $sidType = trim(strtolower($row['Type']));
+    }
+    if ($sidType === 'varchar(32)') {
+        $sql_statements[] = 'ALTER TABLE `prefix_online` MODIFY COLUMN `sid` varchar(123) NOT NULL DEFAULT ""';
+    }
+
     foreach ( $sql_statements as $sql_statement ) {
         if ( trim($sql_statement) != '' ) {
             echo '<pre>'.htmlentities($sql_statement, ENT_COMPAT, 'ISO-8859-1').'</pre>';

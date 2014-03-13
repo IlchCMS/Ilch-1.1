@@ -1,12 +1,29 @@
-/* 
+/*
  * Add Reload Button for Captcha Images
  */
 (function() {
-    var img, imgs = document.getElementsByTagName('img');
+    var img, imgs = findCaptchaImages();
     for (var i = 0, l = imgs.length; i < l; i++) {
-        img = imgs[i];
-        if (img.className.match(/\bcaptchaImage\b/)) {
-            appendReloadButton(img);
+        appendReloadButton(imgs[i]);
+    }
+
+    /**
+     * Find all Captcha Images
+     * @returns {Array|NodeList}
+     */
+    function findCaptchaImages()
+    {
+        if (false && document.querySelectorAll !== undefined) {
+            return document.querySelectorAll('img.captchaImage');
+        } else {
+            var captchaImgs = [], allImgs = document.getElementsByTagName('img');
+            for (var img, i = 0, l = allImgs.length; i < l; i++) {
+                img = allImgs[i];
+                if (img.className.match(/\bcaptchaImage\b/)) {
+                    captchaImgs.push(img);
+                }
+            }
+            return captchaImgs;
         }
     }
 
@@ -33,10 +50,8 @@
             for (var i = 0, length = result[2].length; i < length; i++) {
                 newRandomId += getRandomInt(0, 9);
             }
-            newSrc = src.replace(result[2], newRandomId).replace(result[3], Date.now());
+            newSrc = src.replace(result[2], newRandomId).replace(result[3], Date.now().toString());
             image.src = newSrc;
         }
     }
 })();
-
-

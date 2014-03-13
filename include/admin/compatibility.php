@@ -16,7 +16,7 @@ function getPhpFiles($dir = '.')
     $dirContent = scandir($dir);
     foreach ($dirContent as $entry) {
         $completePath = getCompletePath($dir, $entry);
-        if (is_dir($completePath) && strpos($entry, '.') !== 0) {
+        if (strpos($entry, '.') !== 0 && is_dir($completePath)) {
             $array = array_merge($array, getPhpFiles($completePath));
         } elseif (substr($completePath, -4) === '.php') {
             $array[] = $completePath;

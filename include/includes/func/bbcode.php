@@ -196,45 +196,45 @@ function bbcode_quote ($s) {
   return ($s);
 }
 
-function bbcode_simple_prev ($s) {
-  $search = array (
-    "/(^|[^=\]\>\"])http:\/\/(www\.)?([^\s\"\<\[]*)/i",
-    "/\[url\]http:\/\/(www\.)?(.*?)\[\/url\]/si",
-  );
-  
-	$replace = array (
-    "\\1[url]http://\\2\\3[/url]",
-    "[url=http://\\1\\2]\\2[/url]",
-	);
-						
-	$s = preg_replace($search, $replace, $s);
-  return ($s);
+function bbcode_simple_prev($s) {
+    $search = array(
+        "/(^|[^=\]\>\"])((?:f|ht)tps?):\/\/(www\.)?([^\s\"\<\[]*)/i",
+        "/\[url\]((?:f|ht)tps?):\/\/(www\.)?(.*?)\[\/url\]/si",
+    );
+
+    $replace = array(
+        "\\1[url]\\1://\\3\\4[/url]",
+        "[url=\\1://\\2\\3]\\3[/url]",
+    );
+
+    $s = preg_replace($search, $replace, $s);
+    return ($s);
 }
 
-function bbcode_simple ($s) {
-  $page = preg_quote(dirname(str_replace('www.','',$_SERVER["HTTP_HOST"]).$_SERVER["SCRIPT_NAME"]), '/');
-  $search = array (
-    "/\[b\](.*?)\[\/b\]/si",
-    "/\[i\](.*?)\[\/i\]/si",
-    "/\[u\](.*?)\[\/u\]/si",
-    "/\[url=http:\/\/(www\.)?(".$page.")(.*?)](.*?)\[\/url\]/si",
-    "/\[url=http:\/\/(www\.)?(.*?)\](.*?)\[\/url\]/si",
-    "/\[list(=1)?\](.+)\[\/list\]/Usie",
-    "/(script|about|applet|activex|chrome):/is",
-  );
-  
-	$replace = array (
-    "<b>\\1</b>",
-    "<i>\\1</i>",
-    "<u>\\1</u>",
-    "<a href=\"http://\\1\\2\\3\">\\4</a>",
-    "<a href=\"http://\\1\\2\" target=\"_blank\">\\3</a>",    
-    "bbcode_simple_list ('\\1', '\\2')",
-    "\\1&#058;",
-	);
-						
-	$s = preg_replace($search, $replace, $s);
-  return ($s);
+function bbcode_simple($s) {
+    $page = preg_quote(dirname(str_replace('www.', '', $_SERVER["HTTP_HOST"]) . $_SERVER["SCRIPT_NAME"]), '/');
+    $search = array(
+        "/\[b\](.*?)\[\/b\]/si",
+        "/\[i\](.*?)\[\/i\]/si",
+        "/\[u\](.*?)\[\/u\]/si",
+        "/\[url=((?:f|ht)tps?):\/\/(www\.)?(" . $page . ")(.*?)](.*?)\[\/url\]/si",
+        "/\[url=((?:f|ht)tps?):\/\/(www\.)?(.*?)\](.*?)\[\/url\]/si",
+        "/\[list(=1)?\](.+)\[\/list\]/Usie",
+        "/(script|about|applet|activex|chrome):/is",
+    );
+
+    $replace = array(
+        "<b>\\1</b>",
+        "<i>\\1</i>",
+        "<u>\\1</u>",
+        "<a href=\"\\1://\\2\\3\\4\">\\5</a>",
+        "<a href=\"\\1://\\2\\3\" target=\"_blank\">\\4</a>",
+        "bbcode_simple_list ('\\1', '\\2')",
+        "\\1&#058;",
+    );
+
+    $s = preg_replace($search, $replace, $s);
+    return ($s);
 }
 
 function bbcode_simple_list ($w, $s) {

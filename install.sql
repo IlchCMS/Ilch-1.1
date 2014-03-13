@@ -404,7 +404,7 @@ CREATE TABLE `prefix_newsletter` (
 
 CREATE TABLE `prefix_online` (
   `uptime` datetime default NULL,
-  `sid` varchar(32) NOT NULL default '',
+  `sid` varchar(123) NOT NULL default '',
   `ipa` varchar(15) NOT NULL default '',
   `uid` mediumint(9) NOT NULL default '0'
 ) ENGINE=MyISAM COMMENT='powered by ilch.de';
