@@ -610,7 +610,7 @@ if (DBPREF.'allg' == @db_result(@db_query("SHOW TABLES LIKE 'prefix_allg'"),0)) 
 		<table width="70%" class="border" border="0" cellspacing="0" cellpadding="25" align="center">
       <tr>
         <td class="Cmite">
-    	    <h1 style="color: #FF0000;">FEHLER: Es ist ein <u>Fehler</u> aufgetreten!</h2>
+    	    <h1 style="color: #FF0000;">FEHLER: Es ist ein <u>Fehler</u> aufgetreten!</h1>
           Die Installation wurde vermutlich schon ausgef&uuml;hrt.
           <br />Auf jeden Fall ist die allgemeine Tabelle schon vorhanden...
           <br />Bitte ersteinmal den Status der <a href="index.php">Seite</a> checken.
@@ -630,11 +630,16 @@ if (DBPREF.'allg' == @db_result(@db_query("SHOW TABLES LIKE 'prefix_allg'"),0)) 
 $sql_file = implode('',file('install.sql'));
 $sql_file = preg_replace ("/(\015\012|\015|\012)/", "\n", $sql_file);
 $sql_statements = explode(";\n",$sql_file);
-foreach ( $sql_statements as $sql_statement ) {
-  if ( trim($sql_statement) != '' ) {
-    #echo '<pre>'.$sql_statement.'</pre><hr>';
-    db_query($sql_statement);
-	}
+foreach ($sql_statements as $sql_statement) {
+    if (trim($sql_statement) != '') {
+        //echo '<pre>'.$sql_statement.'</pre><hr>';
+        $result = db_query($sql_statement);
+        if (!$result) {
+            echo 'Während der Installation ist ein Fehler aufgetreten: <br>';
+            echo mysql_error();
+            die;
+        }
+    }
 }
 
 db_query ("INSERT INTO `prefix_user` ( name , pass , regist , email , recht , llogin, status, opt_mail, opt_pm ) VALUES ( '".$_POST['admin_name']."','".md5($_POST['admin_pwd'])."','".time()."','".$_POST['admin_amail']."','-9','".time()."',1,1,1)");

@@ -68,7 +68,7 @@ if (isset($_POST['sub'])) {
         foreach ($_POST['antw'] as $v) {
             if (! empty ($v)) {
             	$v = escape($v, 'string');
-                db_query('INSERT INTO `prefix_poll_res` (`sort`,`poll_id`,`antw`,`res`) VALUES ( "' . $i . '" , "' . $poll_id . '" , "' . $v . '" , "" ) ');
+                db_query('INSERT INTO `prefix_poll_res` (`sort`,`poll_id`,`antw`,`res`) VALUES ( "' . $i . '" , "' . $poll_id . '" , "' . $v . '" , 0) ');
                 $i++;
             }
         }

@@ -13,7 +13,7 @@
      */
     function findCaptchaImages()
     {
-        if (false && document.querySelectorAll !== undefined) {
+        if (document.querySelectorAll !== undefined) {
             return document.querySelectorAll('img.captchaImage');
         } else {
             var captchaImgs = [], allImgs = document.getElementsByTagName('img');
@@ -42,8 +42,26 @@
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
+    function findCaptchaHidden(image) {
+        var form = findParent(image, 'form');
+        if (form) {
+            return form['captcha_id'];
+        }
+        return false;
+    }
+
+    function findParent(element, type) {
+        if (element.parentNode === document) {
+            return false;
+        } else if (element.parentNode.tagName.toLowerCase() === type) {
+            return element.parentNode;
+        } else {
+            return findParent(element.parentNode, type);
+        }
+    }
+
     function reloadImage(image) {
-        var src = image.src, newSrc, newRandomId = '';
+        var src = image.src, newSrc, result, hidden, newRandomId = '';
 
         result = /captchaimg.php\?id=(\w+)_(.+)&nocache=(\d+)/.exec(src);
         if (result) {
@@ -52,6 +70,10 @@
             }
             newSrc = src.replace(result[2], newRandomId).replace(result[3], Date.now().toString());
             image.src = newSrc;
+            hidden = findCaptchaHidden(image);
+            if (hidden) {
+                hidden.value = result[1] + '_' + newRandomId;
+            }
         }
     }
 })();

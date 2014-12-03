@@ -140,7 +140,7 @@ if (($_SESSION['klicktime'] + 15) > $dppk_time OR empty($txt) OR !empty($_POST['
 	db_query("UPDATE `prefix_topics` SET last_post_id = ".$pid.", rep = rep + 1 WHERE id = ".$tid);
 	db_query("UPDATE `prefix_forums` SET posts = posts + 1, last_post_id = ".$pid." WHERE id = ".$fid );
 
-	$page = ceil ( ($aktTopicRow['rep']+1)  / $allgAr['Fpanz'] );
+	$page = ceil ( ($aktTopicRow['rep']+2)  / $allgAr['Fpanz'] );
 
   # toipc als gelesen markieren
   $_SESSION['forumSEE'][$fid][$tid] = time();

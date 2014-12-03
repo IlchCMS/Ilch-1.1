@@ -433,6 +433,10 @@ function get_antispam($m, $t, $nopictures = false)
     $id = uniqid($m . '_', true);
 
     if ($nopictures) {
+        if (!isset($_SESSION['antispam']) || !is_array($_SESSION['antispam'])) {
+            $_SESSION['antispam'] = array();
+        }
+
         $_SESSION['antispam'][$id] = true;
         return '<input type="hidden" name="antispam_id" value="' . $id . '" />';
     }
