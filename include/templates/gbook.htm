@@ -1,37 +1,18 @@
-  <table width="100%">
-	  <tr>
-		  <td width="50%" align="right">
+  <div class="ilch_box_in text-center">
 			  {EINTRAGE} {_lang_entries}
-			</td>
-		  <td width="50%" align="center">
-			  <a href="index.php?gbook-1">{_lang_insert}</a>
-			</td>
-		</tr>
-	 </table>
-	
-	<br>
+<span class="ilch_float_r"><a class="ilch_a_link_s" href="index.php?gbook-1">{_lang_insert}</a></span>
+	 </div>
+<br>
 {EXPLODE}
-
-<table width="100%" cellpadding="4" cellspacing="0" border="0" class="rand">
-	<tr class="Cmite">
-	    <td width="40%"><b>{NAME}</b></td>
-			<td width="20%">{MAIL}{PAGE}</td>
-      <td width="30%" align="right">{DATE}</td>
- 	</tr>
-	<tr class="Cnorm">
-		  <td colspan="3">{TEXT}</td>
-	</tr>
-</table>
-{koms}
-<br />
-<br />
+<div class="border gbook_image">
+<div class="ilch_case">
+<div class="ilch_gbook_in Chead"><strong>{NAME}</strong><span class="ilch_float_r ilch_small_font">{DATE}<br>{MAIL}{PAGE}</span></div>
+<div class="ilch_gbook_in Cnorm">{TEXT}<br/><span class="ilch_float_r">{koms}</span></div>
+</div></div>
 {EXPLODE}
-
-
-<br />
-<br />
-
-<div align="center">{SITELINK}</div>
+<br>
+<br>
+<div claSS="text-center">{SITELINK}</div>
 
 {EXPLODE}
 
@@ -89,24 +70,24 @@ function RestlicheZeichenErmitteln(d)
 <script type='text/javascript' src='include/includes/js/bbcode.js'></script>
 <form action="index.php?gbook-2" onsubmit="return checkg()" method="POST" name="form">
 
-<table width="100%" class="border" cellspacing="1" border="0" cellpadding="5">
+<table class="border">
   <tr>
-    <td class="Chead" colspan="2"><b>{_lang_insert}</b></td>
+    <td class="Chead" colspan="2"><strong>{_lang_insert}</strong></td>
 	</tr><tr>
-    <td class="Cmite" width="100"><b>{_lang_name}</b></td>
+    <td class="Cmite" width="100"><strong>{_lang_name}</strong></td>
 		<td class="Cnorm"><input type="text" value="{uname}" tabindex="1" name="name"></td>
 	</tr><tr>
-    <td class="Cmite"><b>{_lang_mail}</b> *</td>
+    <td class="Cmite"><strong>{_lang_mail}</strong> *</td>
 		<td class="Cnorm"><input type="text" name="mail" tabindex="2"></td>
 	</tr><tr>
-    <td class="Cmite"><b>{_lang_homepage}</b> *</td>
+    <td class="Cmite"><strong>{_lang_homepage}</strong> *</td>
 		<td class="Cnorm"><input type="text" name="page" tabindex="3"></td>
 	</tr><tr>
-  <td class="Cmite" valign="top"><b>{_lang_message}</b><br><br>{SMILIES}</td>
+  <td class="Cmite" class="ilch_vertikal_top"><strong>{_lang_message}</strong><br><br>{SMILIES}</td>
 	<td class="Cnorm">
-    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+    <table>
       <tr>
-        <td width="100%">
+        <td width="100%" class="bg_color_bbcode">
       <!-- BB Code START -->
 	   
     <a href="javascript:simple('b')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.bold.gif" alt="b" title="{_lang_bold}" border="0"></a>
@@ -129,34 +110,27 @@ function RestlicheZeichenErmitteln(d)
 	</tr></table></form>
 
 {EXPLODE}
-<table width="100%" cellpadding="4" cellspacing="0" border="0" class="rand">
-	<tr class="Cmite">
-	    <td width="40%"><b>{name}</b></td>
-			<td width="20%">{mail}{page}</td>
-      <td width="30%" align="right">{datum}</td>
- 	</tr>
-	<tr class="Cnorm">
-		  <td colspan="3">{text}</td>
-	</tr>
-</table>
-<br />
-<table width="100%" cellpadding="4" cellspacing="0" border="0" class="rand">
-	<tr class="Cnorm">
-    <td>
-	    <form action="index.php?gbook-show-{id}" method="POST">
-        <fieldset>
-          <legend>{_lang_writecomment}</legend>
-          <input type="text" name="name" value="{uname}" /> &nbsp; {ANTISPAM} &nbsp; <input type="submit" value="{_lang_enter}"><br />
-          <textarea style="width: 98%" cols="50" rows="2" name="text"></textarea><br />
+<div class="border gbook_image">
+<div class="ilch_case">
+<div class="ilch_gbook_in Cmite"><strong>{name}</strong><span class="ilch_float_r ilch_small_font">{datum}<br>{mail}{page}</span></div>
+<div class="ilch_gbook_in Cnorm">{text}</div>
+</div></div>
+
+<div class="border">
+<div class="ilch_case">
+<div class="ilch_gbook_in Cmite"><strong>{_lang_writecomment}</strong></div>
+ <form action="index.php?gbook-show-{id}" method="POST">
+<div class="ilch_case_in Cnorm text-left">
+          <input type="text" name="name" value="{uname}" /> &nbsp; {ANTISPAM} &nbsp; <input type="submit" value="{_lang_enter}"><br>
+          <textarea style="width: 98%" cols="50" rows="2" name="text"></textarea><br>
         </fieldset>
       </form>
-      <br />
+      <br>
       {EXPLODE}
      
-      <span class="Cmite"># <b>{zahl}</b> von {name}</span>
-      <br />{text}<br /><br />
+      <span class="Cmite"># <strong>{zahl}</strong> von {name}</span>
+      <br>{text}<br><br>
       
       {EXPLODE}
-    </td>
-  </tr>
-</table>
+</div>
+</div></div>

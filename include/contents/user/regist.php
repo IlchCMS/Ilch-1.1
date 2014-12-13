@@ -17,7 +17,7 @@ if ($allgAr['forum_regist'] == 0) {
     $design = new design($title, $hmenu, 1);
     $design->header();
     $tpl = new tpl('user/login');
-    echo '<b> Der Administrator hat festgelegt das man sich nicht registrieren kann </b>';
+    echo '<div class="text-center"><span class="ilch_hinweis_rot">Der Administrator hat festgelegt das man sich nicht registrieren kann </span></div>';
     $tpl->set_out('WDLINK', '?' . $allgAr['smodul'], 0);
     $design->footer();
     exit();
@@ -58,13 +58,13 @@ switch ($menu->get(2)) {
             $design->header();
             if (isset($_POST['register'])) {
                 if (empty($name) OR empty($email)) {
-                    $fehler = $lang['entereddataincomplete'];
+                    $fehler = '<div class="text-center"><span class="ilch_hinweis_rot">'.$lang['entereddataincomplete'].'</span></div>';
                 } elseif ($name != $xname) {
-                    $fehler = $lang['wrongnickname'];
+                    $fehler = '<div class="text-center"><span class="ilch_hinweis_rot">'.$lang['wrongnickname'].'</span></div>';
                 } elseif ($ch_name == false) {
-                    $fehler = $lang['namealreadyinuse'];
+                    $fehler = '<div class="text-center"><span class="ilch_hinweis_rot">'.$lang['namealreadyinuse'].'</span></div>';
                 } elseif (!$chkAntispam) {
-                    $fehler = $lang['wrongcaptchaentered']; //antispamtxt
+                    $fehler = '<div class="text-center"><span class="ilch_hinweis_rot">'.$lang['wrongcaptchaentered'].'</span></div>'; //antispamtxt
                 }
             } else {
                 $fehler = '';

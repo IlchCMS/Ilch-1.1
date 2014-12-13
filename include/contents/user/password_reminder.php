@@ -34,10 +34,10 @@ if ( isset ( $_POST['name'] ) ) {
     $regmail = sprintf($lang['newpasswordmail'], $name, $confirmlinktext, $new_pass);
 		
 		icmail($row['email'],'Password Reminder',$regmail); # email an user
-		echo $lang['youhavereceivedaemail'];
+		echo '<div class="text-center"><span class="ilch_hinweis_gruen">'.$lang['youhavereceivedaemail'].'</span></div>';
 		$show = false;
 	} else {
-    echo $lang['namenotfound'];
+    echo '<div class="text-center"><span class="ilch_hinweis_rot">'.$lang['namenotfound'].'</span></div>';
   }
 }
 

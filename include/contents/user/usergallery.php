@@ -83,10 +83,10 @@ if (!empty($_FILES['file']['name']) AND is_writeable('include/images/usergallery
       $bild_thumb = 'include/images/usergallery/img_thumb_'.$id.'.'.$endung;
       create_thumb ($bild_url, $bild_thumb, $allgAr['gallery_preview_width']);
       @chmod($bild_thumb, 0777);
-      echo '<b>Datei '.$name.'.'.$endung.' erfolgreich hochgeladen</b><br />';
+      echo '<div class="text-center"><span class="ilch_hinweis_gruen">Datei '.$name.'.'.$endung.' erfolgreich hochgeladen</span></div>';
       $page = $_SERVER["HTTP_HOST"]. dirname($_SERVER["SCRIPT_NAME"]);
-      echo 'Bildlink: <a target="_blank" href="http://'.$page.'/'.$bild_url.'">http://'.$page.'/'.$bild_url.'</a><br />';
-      echo 'Oder klein: <a target="_blank" href="http://'.$page.'/'.$bild_thumb.'">http://'.$page.'/'.$bild_thumb.'</a><br /><br />';
+      echo '<strong>Bildlink:</strong>  <a target="_blank" href="http://'.$page.'/'.$bild_url.'">http://'.$page.'/'.$bild_url.'</a><br>';
+      echo '<strong>oder klein:</strong>  <a target="_blank" href="http://'.$page.'/'.$bild_thumb.'">http://'.$page.'/'.$bild_thumb.'</a><br /><br>';
     }
   }
 }
@@ -108,7 +108,7 @@ if (!empty($_FILES['file']['name']) AND is_writeable('include/images/usergallery
 				$row['class'] = $class;
         $row['besch'] = unescape($row['besch']);
         if (loggedin() AND (is_siteadmin() OR $uid == $_SESSION['authid'])) {
-          $row['besch'] .= '<a href="index.php?user-usergallery-'.$uid.'-p'.$page.'-d'.$row['id'].'"><img src="include/images/icons/del.gif" border="0" alt="l&ouml;schen" title="l&ouml;schen" /></a>';
+          $row['besch'] .= '<a href="index.php?user-usergallery-'.$uid.'-p'.$page.'-d'.$row['id'].'"><img src="include/images/icons/del.gif" border="0" alt="l&ouml;schen" title="l&ouml;schen"></a>';
         }
         $row['width'] = round( 100 / $img_per_line );
         if ( $i <> 0 AND ($i % $img_per_line ) == 0 ) { echo '</tr><tr>'; }

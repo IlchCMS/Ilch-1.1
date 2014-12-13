@@ -189,7 +189,7 @@ switch ( $menu->get(1) ) {
 		  $tpl->out(4); $class = 'Cnorm';
 			while($row = db_fetch_assoc($erg) ) {
         # smal screenshot url
-				$row['ssurl'] = ( (file_exists($row['ssurl']) AND $row['ssurl'] != '') ? '<img src="'.$row['ssurl'].'" alt="'.$row['name'].' '.$row['version'].'" title="'.$row['name'].' '.$row['version'].'" style="float:left; border: none; padding-right:3px;" />' : '' );
+				$row['ssurl'] = ( (file_exists($row['ssurl']) AND $row['ssurl'] != '') ? '<img src="'.$row['ssurl'].'" alt="'.$row['name'].' '.$row['version'].'" title="'.$row['name'].' '.$row['version'].'" >' : '' );
         $class = ( $class == 'Cmite' ? 'Cnorm' : 'Cmite' );
 				$row['class'] = $class;
 			  $tpl->set_ar_out($row,5);
@@ -243,13 +243,13 @@ switch ( $menu->get(1) ) {
 				$namezw = '';
 			}
 		  $cattitle = ':: '.$titelzw.$row1['name'].' :: '.$row['name'].' '.$row['version'];
-			$catname = '<b> &raquo; </b>'.$namezw.'<a class="smalfont" href="?downloads-'.$row1['id'].'">'.$row1['name'].'</a><b> &raquo; </b>'.$row['name'].' '.$row['version'];
+			$catname = '<strong> &raquo; </strong>'.$namezw.'<a class="smalfont" href="?downloads-'.$row1['id'].'">'.$row1['name'].'</a><strong> &raquo; </strong>'.$row['name'].' '.$row['version'];
 		} else {
 		  $cattitle = '';
 			$catname = '';
 		}
 		$tpl = new tpl ('downloads_show' );
-		$row['ssurl'] = ( $row['ssurl'] != '' ? '<img src="'.$row['ssurl'].'" alt="'.$row['name'].' '.$row['version'].'" title="'.$row['name'].' '.$row['version'].'" style="float:left; border: none; padding-right:5px;" />' : '' );
+		$row['ssurl'] = ( $row['ssurl'] != '' ? '<img src="'.$row['ssurl'].'" alt="'.$row['name'].' '.$row['version'].'" title="'.$row['name'].' '.$row['version'].'">' : '' );
     $row['surl']  = ( empty($row['surl']) ? '' : '&nbsp;&nbsp;&nbsp; <a href="'.$row['surl'].'" target="_blank">Demo/Screenshot</a>' );
 		$row['size']  = get_download_size($row['url']);
 		$row['descl'] = bbcode($row['descl']);
@@ -289,7 +289,7 @@ switch ( $menu->get(1) ) {
   case 'upload' :
     if ( $allgAr['archiv_down_userupload'] == 1 AND loggedin() AND is_writeable ( 'include/downs/downloads/user_upload' ) ) {
       $title = $allgAr['title'].' :: Downloads :: User - Upload';
-      $hmenu = '<a class="smalfont" href="?downloads">Downloads</a><b> &raquo; </b>User - Upload';
+      $hmenu = '<a class="smalfont" href="?downloads">Downloads</a><strong> &raquo; </strong>User - Upload';
       $design = new design ( $title , $hmenu );
 	    $design->header();
 
@@ -297,7 +297,7 @@ switch ( $menu->get(1) ) {
 	    if ($re === true) {
         echo 'Erfolgreich eingetragen! ... ein Moderator oder Admin dieser Seite wird den Download in n&auml;chster Zeit freischalten.';
       } else {
-        echo '<b>Error:</b><br />'.$re;
+        echo '<strong>Error:</strong><br>'.$re;
       }
 
       $design->footer();

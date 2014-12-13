@@ -72,7 +72,7 @@ if (count($far) == $x AND chk_antispam('fightus')) {
 	$tpl = new tpl ( 'fightus.htm' );
 	foreach($far as $v) {
 		if ($x > 0 AND empty($_POST[$v])) {
-			echo 'missing: '.$lang[$v].'<br />';
+			echo '<div class="text-center"><span class="ilch_hinweis_rot"><strong>missing:</strong> '.$lang[$v].'</span></div>';
 		}
 		$tpl->set ($v, $$v);
 	}

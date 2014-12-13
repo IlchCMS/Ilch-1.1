@@ -28,7 +28,7 @@ function profilefields_functions () {
 function profilefields_change ($uid) {
   $q = db_query("SELECT id, `show`, val FROM prefix_profilefields LEFT JOIN prefix_userfields ON prefix_userfields.fid = prefix_profilefields.id AND prefix_userfields.uid = ".$uid." WHERE func = 1 ORDER BY pos");
   while ( $r = db_fetch_assoc($q)) {
-    echo '<label style="float:left; width:35%;">'.$r['show'].'</label><input type="text" name="profilefields['.$r['id'].']" value="'.$r['val'].'"><br />';
+    echo '<label class="ilch_float_l label_120">'.$r['show'].'</label><input type="text" name="profilefields['.$r['id'].']" value="'.$r['val'].'"><br>';
   }
 }
 

@@ -62,14 +62,14 @@ if (count($far) <> $x OR $ch_name == false OR !chk_antispam('joinus')) {
   if (loggedin()) { $name = $_SESSION['authname']; }
   foreach($far as $v) {
 		if ($x > 0 AND empty($_POST[$v])) {
-			echo 'missing: '.$lang[$v].'<br />';
+			echo '<div class="text-center"><span class="ilch_hinweis_rot"><strong>missing:</strong> '.$lang[$v].'</div>';
 		}
 		$tpl->set ($v, $$v);
 	}
   if ($x > 0 AND $name != $xname) {
-    echo $lang['wrongnickname'].'<br />';
+    echo '<div class="text-center"><span class="ilch_hinweis_rot">'.$lang['wrongnickname'].'</div';
   } elseif ($x > 0 AND $ch_name == false) {
-    echo $lang['namealreadyinuse'].'<br />';
+    echo '<div class="text-center"><span class="ilch_hinweis_rot">'.$lang['namealreadyinuse'].'</div>';
   }
   $name = $xname;
   $tpl->set('readonly', (loggedin()?' readonly': ''));
@@ -80,12 +80,12 @@ if (count($far) <> $x OR $ch_name == false OR !chk_antispam('joinus')) {
     $rules = '<h2>'.$lang['rules'].'</h2>';
     $rerg = db_query('SELECT zahl,titel,text FROM `prefix_rules` ORDER BY zahl');
     while ($rrow = db_fetch_row($rerg)) {
-            $rules .= '<table width="100%" border="0" cellpadding="5" cellspacing="1" class="border">';
-            $rules .= '<tr class="Cmite"><td><b>&sect;'.$rrow[0].'. &nbsp; '.$rrow[1].'</b></td></tr>';
-            $rules .= '<tr class="Cnorm"><td>'.bbcode($rrow[2]).'</td></tr>';
-            $rules .= '</table><br />';
+            $rules .= '<div class="border"><div class="ilch_case">';
+            $rules .= '<div class="Chead"><strong>&sect;'.$rrow[0].'. &nbsp; '.$rrow[1].'</strong></div>';
+            $rules .= '<div class="ilch_case_in Cnorm">'.bbcode($rrow[2]).'</div>';
+            $rules .= '</div></div>';
     }
-    $rules .= '<input type="checkbox" name="rules" value="'.$lang['yes'].'" />'.str_replace(array('<a target="_blank" href="index.php?rules">','</a>'),'',$lang['rulzreaded']).'<br />';     
+    $rules .= '<input type="checkbox" name="rules" value="'.$lang['yes'].'" />'.str_replace(array('<a target="_blank" href="index.php?rules">','</a>'),'',$lang['rulzreaded']).'<br>';     
     $tpl->set_out('RULES',$rules,2);
   }
   $tpl->set('ANTISPAM', get_antispam('joinus', 100));
@@ -134,7 +134,7 @@ if (count($far) <> $x OR $ch_name == false OR !chk_antispam('joinus')) {
 	}
   
 	if (!loggedin() AND $allgAr['forum_regist'] <> 0) {
-		echo $lang['amailhasbeensenttoyouwithmailandpass'].'<br /><br />';
+		echo $lang['amailhasbeensenttoyouwithmailandpass'].'<br><br>';
   }
   echo sprintf($lang['leaderofxalert'], $row['name']);
 }

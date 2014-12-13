@@ -6,18 +6,18 @@ function doVote(n1,did) {
 //-->
 </script>
 
-<table width="100%" class="border" border="0" cellspacing="1" cellpadding="3">
+<table class="border">
   <tr class="Chead">
-		<th colspan="4" align="center"><b>{name} {version}</b></th>
+		<th colspan="4" class="text-center"><b>{name} {version}</b></th>
 	</tr><tr>
 	  <td class="Cmite">{_lang_name} (Version)</td>
 		<td class="Cnorm">{name} {version_kl}</td>
-    <td class="Cmite" colspan="2" valign="top">{_lang_voting} {vote_wertung}
+    <td class="Cmite" colspan="2" class="ilch_vertikal_top">{_lang_voting} {vote_wertung}
   </tr><tr>
 	  <td class="Cmite">{_lang_author}</td>
 		<td class="Cnorm">{creater}</td>
-    <td class="Cnorm" rowspan="2" colspan="2" align="center">
-    <table class="border" border="0" cellspacing="1" cellpadding="0">
+    <td class="Cnorm" rowspan="2" colspan="2" class="text-center">
+    <table class="border" border="0">
       <tr>
         <td class="Cdark" onClick="doVote(1,{id})" style="cursor:pointer">&nbsp;1&nbsp;</td>
         <td class="Cmite" onClick="doVote(2,{id})" style="cursor:pointer">&nbsp;2&nbsp;</td>
@@ -36,24 +36,20 @@ function doVote(n1,did) {
 	  <td class="Cmite">{_lang_date}</td>
 		<td class="Cnorm">{datum}</td>
   </tr><tr>
-	  <td class="Cmite" width="110">{_lang_size}</td>
+	  <td class="Cmite">{_lang_size}</td>
 		<td class="Cnorm">{size}</td>
-    <td class="Cmite" width="110">{_lang_voter}</td>
-		<td class="Cnorm">{vote_klicks}</td>
+    <td class="Cmite">{_lang_voter}</td>
+		<td class="Cnorm text-center">{vote_klicks}</td>
 	</tr><tr>
 	  <td class="Cmite">{_lang_downloads}</td>
 		<td class="Cnorm">{downs}</td>
 	  <td class="Cmite">{_lang_seenfrom}</td>
-		<td class="Cnorm">{hits}</td>
+		<td class="Cnorm text-center">{hits}</td>
 	</tr>
 </table>
-<p></p>
-<b><center><a href="index.php?downloads-down-{id}">{_lang_download}</a>{surl}</center></b>
-<p></p>
-<table width="100%" class="border" border="0" cellspacing="1" cellpadding="3">
-  <tr>
-	  <th class="Cdark">{_lang_desc}</th>
-  </tr>
-		<td class="Cnorm">{ssurl}{descl}</td>
-	</tr>
-</table>
+<div class="ilch_box_in text-center"><strong><a href="index.php?downloads-down-{id}">{_lang_download}</a>{surl}</strong></div>
+<div class="border">
+<div class="ilch_case">
+<div class="Cdark"><strong>{_lang_desc}</strong></div>
+<div class="ilch_download_in Cnorm">{ssurl}{descl}</div>
+</div></div>

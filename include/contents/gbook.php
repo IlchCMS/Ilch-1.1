@@ -59,9 +59,9 @@ case 2 :
     $_SESSION['klicktime_gbook'] = $dppk_time;
     wd('index.php?gbook',$lang['insertsuccessful']);
 	} else {
-	  echo '- '.$lang['donotpostsofast'];
-	  echo '<br />- '.sprintf($lang['gbooktexttolong'], $allgAr['Gtxtl']);
-	  echo '<br />- '.$lang['plsfilloutallfields'];
+	  echo '<div class="text-center"><span class="ilch_hinweis_rot">'.$lang['donotpostsofast'].'</span></div>';
+	  echo '<div class="text-center"><span class="ilch_hinweis_rot">'.sprintf($lang['gbooktexttolong'], $allgAr['Gtxtl']).'</span></div>';
+	  echo '<div class="text-center"><span class="ilch_hinweis_rot">'.$lang['plsfilloutallfields'].'</span></div>';
 	}
   break;
 case 'show' :
@@ -136,7 +136,7 @@ default :
     $koms = '';
     if ($allgAr['gbook_koms_for_inserts'] == 1) {
       $koms = db_result(db_query("SELECT COUNT(*) FROM prefix_koms WHERE uid = ".$row->id." AND cat = 'GBOOK'"),0,0);
-      $koms = '<a href="index.php?gbook-show-'.$row->id.'">'.$koms.' '.$lang['comments'].'</a>';
+      $koms = '<a class="ilch_a_link_s" href="index.php?gbook-show-'.$row->id.'">'.$koms.' '.$lang['comments'].'</a>';
     }
 
 		$ar = array ( 'NAME' => $row->name,

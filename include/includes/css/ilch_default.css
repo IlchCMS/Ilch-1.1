@@ -1,0 +1,183 @@
+
+/* Ilch Allgemein */
+
+.border{
+width: 100%;
+border-spacing: 1px;
+margin-bottom:10px
+}
+.border td{
+padding: 6px 3px 6px 3px
+}
+.ilch_kalender td{
+padding: 2px
+}
+.ilch_kalender_box td{
+padding: 1px
+}
+.border th{
+padding: 10px 5px 10px 5px
+}
+strong{
+font-weight: bold
+}
+input,
+textarea,
+select{
+margin-top:3px;
+padding:3px
+}
+.both{
+clear:both
+}
+.text-left{
+text-align:left
+}
+.text-center{
+text-align:center
+}
+.text-right{
+text-align:right
+}
+.ilch_float_l{
+float:left
+}
+.ilch_float_r{
+float:right
+}
+.ilch_small_font{
+font-size:10px
+}
+.tablebordertop{
+margin-top:20px
+}
+.ilch_vertikal_top{
+vertical-align:top
+}
+.ilch_vertikal_middle{
+vertical-align:middle
+}
+.ilch_box_in{
+margin:10px
+}
+.label_40{
+width:40px;
+margin: 5px 5px 0px 0px 
+}
+.label_60{
+width:60px;
+margin: 5px 5px 0px 0px 
+}
+.label_80{
+width:80px;
+margin: 5px 5px 0px 0px 
+}
+.label_100{
+width:100px;
+margin: 5px 5px 0px 0px 
+}
+.label_120{
+width:120px;
+margin: 5px 5px 0px 0px 
+}
+.ilch_input_info_80{
+display:block;
+margin: 4px 4px 4px 85px
+}
+.ilch_case{
+border:1px solid transparent
+}
+.ilch_case_in{
+padding: 10px 10px 20px 10px
+}
+.Chead{
+padding: 10px 5px 10px 5px
+}
+.Cdark{
+padding: 7px 5px 7px 5px
+}
+.ilch_hinweis_rot{
+display:block;
+background:#BC0000;
+color:#FFFFFF;
+border:1px solid #000;
+padding:5px;
+margin:8px;
+font-size:10px
+}
+.ilch_hinweis_gruen{
+display:block;
+background:#2A8E00;
+color:#FFFFFF;
+border:1px solid #000;
+padding:5px;
+margin:8px;
+font-size:10px
+}
+.ilch_hinweis_gelb{
+display:block;
+background:#EAC300;
+color:#000;
+border:1px solid #000;
+padding:5px;
+margin:8px;
+font-size:10px
+}
+
+
+/* Ilch Award */
+
+.ilch_award_in{
+padding: 10px 10px 20px 10px;
+min-height:120px 
+}
+.ilch_award_in img{
+max-height:100px;
+float:left;
+margin: 5px 10px 5px 0px 
+}
+
+/* Ilch Download */
+
+.ilch_download_in{
+padding: 5px 5px 10px 5px;
+min-height:150px 
+}
+.ilch_download_in img{
+max-height:150px;
+float:left;
+margin: 3px 3px 3px 0px 
+}
+
+/* Ilch Gallery */
+
+.layer{
+position:absolute;
+top:50px;
+left:50px;
+display:none;
+width:200px;
+min-height:200px
+}
+.ilch_gallery_in{
+padding: 3px 3px 3px 3px
+}
+
+/* Ilch Gbook */
+
+.gbook_image img{
+max-width:100%;
+height: auto;
+}
+.ilch_gbook_in{
+padding: 5px 5px 25px 5px
+}
+
+/* vorgesetzte Klassen fuer Designer */
+
+.ilch_back_button{
+}
+.ilch_a_link_s{
+}
+.bg_color_bbcode{
+}
