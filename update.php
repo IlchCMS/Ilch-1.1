@@ -152,17 +152,18 @@ if ($rows > 45)
                             }
 
                             //Update 1.1q
-
-                            $sql_statements[] = " CREATE TABLE `prefix_bbcode_badword` (
+                            $qry = db_query('SHOW TABLES LIKE "bbcode"');
+                            if ($row = db_fetch_assoc($qry)) {
+                                $sql_statements[] = " CREATE TABLE `prefix_bbcode_badword` (
                                 `fnBadwordNr` int(10) unsigned NOT NULL auto_increment,
                                 `fcBadPatter` varchar(70) NOT NULL default '',
                                 `fcBadReplace` varchar(70) NOT NULL default '',
                                 PRIMARY KEY  (`fnBadwordNr`)) ENGINE=MyISAM COMMENT='powered by ilch.de'";
 
-                            $sql_statements[] = "INSERT INTO `prefix_bbcode_badword` (`fcBadPatter`, `fcBadReplace`) VALUES('Idiot', '*peep*')";
-                            $sql_statements[] = "INSERT INTO `prefix_bbcode_badword` (`fcBadPatter`, `fcBadReplace`) VALUES('Arschloch', '*peep*')";
+                                $sql_statements[] = "INSERT INTO `prefix_bbcode_badword` (`fcBadPatter`, `fcBadReplace`) VALUES('Idiot', '*peep*')";
+                                $sql_statements[] = "INSERT INTO `prefix_bbcode_badword` (`fcBadPatter`, `fcBadReplace`) VALUES('Arschloch', '*peep*')";
 
-                            $sql_statements[] = "CREATE TABLE `prefix_bbcode_buttons` (
+                                $sql_statements[] = "CREATE TABLE `prefix_bbcode_buttons` (
                                 `fnButtonNr` int(10) unsigned NOT NULL auto_increment,
                                 `fnFormatB` tinyint(1) unsigned NOT NULL default '1',
                                 `fnFormatI` tinyint(1) unsigned NOT NULL default '0',
@@ -195,9 +196,9 @@ if ($rows > 45)
                                 PRIMARY KEY (`fnButtonNr`)
                                 ) ENGINE = MyISAM COMMENT = 'powered by ilch.de'";
 
-                            $sql_statements[] = "INSERT INTO `prefix_bbcode_buttons` (`fnButtonNr`, `fnFormatB`, `fnFormatI`, `fnFormatU`, `fnFormatS`, `fnFormatEmph`, `fnFormatColor`, `fnFormatSize`, `fnFormatUrl`, `fnFormatUrlAuto`, `fnFormatEmail`, `fnFormatLeft`, `fnFormatCenter`, `fnFormatRight`, `fnFormatBlock`, `fnFormatSmilies`, `fnFormatList`, `fnFormatKtext`, `fnFormatImg`, `fnFormatImgUpl`, `fnFormatScreen`, `fnFormatVideo`, `fnFormatPhp`, `fnFormatCss`, `fnFormatHtml`, `fnFormatCode`, `fnFormatQuote`, `fnFormatCountdown`) VALUES(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)";
+                                $sql_statements[] = "INSERT INTO `prefix_bbcode_buttons` (`fnButtonNr`, `fnFormatB`, `fnFormatI`, `fnFormatU`, `fnFormatS`, `fnFormatEmph`, `fnFormatColor`, `fnFormatSize`, `fnFormatUrl`, `fnFormatUrlAuto`, `fnFormatEmail`, `fnFormatLeft`, `fnFormatCenter`, `fnFormatRight`, `fnFormatBlock`, `fnFormatSmilies`, `fnFormatList`, `fnFormatKtext`, `fnFormatImg`, `fnFormatImgUpl`, `fnFormatScreen`, `fnFormatVideo`, `fnFormatPhp`, `fnFormatCss`, `fnFormatHtml`, `fnFormatCode`, `fnFormatQuote`, `fnFormatCountdown`) VALUES(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)";
 
-                            $sql_statements[] = "CREATE TABLE `prefix_bbcode_config` (
+                                $sql_statements[] = "CREATE TABLE `prefix_bbcode_config` (
                                 `fnConfigNr` int(10) unsigned NOT NULL auto_increment,
                                 `fnYoutubeBreite` smallint(3) unsigned NOT NULL default '0',
                                 `fnYoutubeHoehe` smallint(3) unsigned NOT NULL default '0',
@@ -221,9 +222,9 @@ if ($rows > 45)
                                 PRIMARY KEY (`fnConfigNr`)
                                 ) ENGINE = MyISAM COMMENT = 'powered by ilch.de'";
 
-                            $sql_statements[] = "INSERT INTO `prefix_bbcode_config` (`fnConfigNr`, `fnYoutubeBreite`, `fnYoutubeHoehe`, `fcYoutubeHintergrundfarbe`, `fnGoogleBreite`, `fnGoogleHoehe`, `fcGoogleHintergrundfarbe`, `fnMyvideoBreite`, `fnMyvideoHoehe`, `fcMyvideoHintergrundfarbe`, `fnSizeMax`, `fnImgMaxBreite`, `fnImgMaxHoehe`, `fnScreenMaxBreite`, `fnScreenMaxHoehe`, `fnUrlMaxLaenge`, `fnWortMaxLaenge`, `fnFlashBreite`, `fnFlashHoehe`, `fcFlashHintergrundfarbe`) VALUES(1, 425, 350, '#000000', 400, 326, '#ffffff', 470, 406, '#ffffff', 20, 500, 500, 150, 150, 60, 70, 400, 300, '#ffffff')";
+                                $sql_statements[] = "INSERT INTO `prefix_bbcode_config` (`fnConfigNr`, `fnYoutubeBreite`, `fnYoutubeHoehe`, `fcYoutubeHintergrundfarbe`, `fnGoogleBreite`, `fnGoogleHoehe`, `fcGoogleHintergrundfarbe`, `fnMyvideoBreite`, `fnMyvideoHoehe`, `fcMyvideoHintergrundfarbe`, `fnSizeMax`, `fnImgMaxBreite`, `fnImgMaxHoehe`, `fnScreenMaxBreite`, `fnScreenMaxHoehe`, `fnUrlMaxLaenge`, `fnWortMaxLaenge`, `fnFlashBreite`, `fnFlashHoehe`, `fcFlashHintergrundfarbe`) VALUES(1, 425, 350, '#000000', 400, 326, '#ffffff', 470, 406, '#ffffff', 20, 500, 500, 150, 150, 60, 70, 400, 300, '#ffffff')";
 
-                            $sql_statements[] = "CREATE TABLE `prefix_bbcode_design` (
+                                $sql_statements[] = "CREATE TABLE `prefix_bbcode_design` (
                                 `fnDesignNr` int(10) unsigned NOT NULL auto_increment,
                                 `fcQuoteRandFarbe` varchar(7) NOT NULL default '',
                                 `fcQuoteTabelleBreite` varchar(7) NOT NULL default '',
@@ -251,8 +252,8 @@ if ($rows > 45)
                                 PRIMARY KEY (`fnDesignNr`)
                                 ) ENGINE = MyISAM COMMENT = 'powered by ilch.de'";
 
-                            $sql_statements[] = "INSERT INTO `prefix_bbcode_design` (`fnDesignNr`, `fcQuoteRandFarbe`, `fcQuoteTabelleBreite`, `fcQuoteSchriftfarbe`, `fcQuoteHintergrundfarbe`, `fcQuoteHintergrundfarbeIT`, `fcQuoteSchriftformatIT`, `fcQuoteSchriftfarbeIT`, `fcBlockRandFarbe`, `fcBlockTabelleBreite`, `fcBlockSchriftfarbe`, `fcBlockHintergrundfarbe`, `fcBlockHintergrundfarbeIT`, `fcBlockSchriftfarbeIT`, `fcKtextRandFarbe`, `fcKtextTabelleBreite`, `fcKtextRandFormat`, `fcEmphHintergrundfarbe`, `fcEmphSchriftfarbe`, `fcCountdownRandFarbe`, `fcCountdownTabelleBreite`, `fcCountdownSchriftfarbe`, `fcCountdownSchriftformat`, `fnCountdownSchriftsize`) VALUES(1, '#f6e79d', '320', '#666666', '#f6e79d', '#faf7e8', 'italic', '#666666', '#f6e79d', '350', '#666666', '#f6e79d', '#faf7e8', '#FF0000', '#000000', '90%', 'dotted', '#ffd500', '#000000', '#FF0000', '90%', '#FF0000', 'bold', 10)";
-
+                                $sql_statements[] = "INSERT INTO `prefix_bbcode_design` (`fnDesignNr`, `fcQuoteRandFarbe`, `fcQuoteTabelleBreite`, `fcQuoteSchriftfarbe`, `fcQuoteHintergrundfarbe`, `fcQuoteHintergrundfarbeIT`, `fcQuoteSchriftformatIT`, `fcQuoteSchriftfarbeIT`, `fcBlockRandFarbe`, `fcBlockTabelleBreite`, `fcBlockSchriftfarbe`, `fcBlockHintergrundfarbe`, `fcBlockHintergrundfarbeIT`, `fcBlockSchriftfarbeIT`, `fcKtextRandFarbe`, `fcKtextTabelleBreite`, `fcKtextRandFormat`, `fcEmphHintergrundfarbe`, `fcEmphSchriftfarbe`, `fcCountdownRandFarbe`, `fcCountdownTabelleBreite`, `fcCountdownSchriftfarbe`, `fcCountdownSchriftformat`, `fnCountdownSchriftsize`) VALUES(1, '#f6e79d', '320', '#666666', '#f6e79d', '#faf7e8', 'italic', '#666666', '#f6e79d', '350', '#666666', '#f6e79d', '#faf7e8', '#FF0000', '#000000', '90%', 'dotted', '#ffd500', '#000000', '#FF0000', '90%', '#FF0000', 'bold', 10)";
+                            }
 
 
                             foreach ($sql_statements as $sql_statement) {
