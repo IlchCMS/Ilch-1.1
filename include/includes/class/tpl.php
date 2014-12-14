@@ -1,5 +1,5 @@
 <?php
-#   Copyright by Manuel
+#   Copyright by Manuel Staechele
 #   Support www.ilch.de
 
 
@@ -11,7 +11,7 @@ class tpl
 	var $keys;
 	var $lists;
 	var $lang;
-  var $ort;
+    var $ort;
 
 	function tpl ($file, $ort = 0) {
 
@@ -19,7 +19,8 @@ class tpl
 		$this->keys  = array();
 		$this->lists = array();
 		$this->lang  = array();
-    $this->ort   = $ort;
+        $this->ort   = $ort;
+        $this->keys['__BBCodeButtons__'] = getBBCodeButtons();  //BBCode2.0 Buttons
 
 		# file bearbeiten, weil file auch ohne .htm angegeben werden kann.
     if ( ($ort != 3) AND (substr ( $file, -4 ) != '.htm') ) {
