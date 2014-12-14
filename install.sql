@@ -390,7 +390,7 @@ INSERT INTO `prefix_modules` (`id`,`url`,`name`,`gshow`,`ashow`,`fright`) VALUES
 INSERT INTO `prefix_modules` (`id` ,`url` ,`name` ,`gshow` ,`ashow` ,`fright`) VALUES (NULL , 'bbcode', 'BBCode 2.0', '1', '1', '0');
 
 CREATE TABLE `prefix_news` (
-`news_id` int(10) unsigned NOT NULL,
+`news_id` int(10) unsigned NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `news_title` varchar(100) NOT NULL DEFAULT '',
   `user_id` int(11) NOT NULL DEFAULT '0',
   `news_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
