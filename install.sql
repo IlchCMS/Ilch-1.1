@@ -644,6 +644,27 @@ CREATE TABLE `prefix_warmember` (
   `kom` text
 ) ENGINE=MyISAM COMMENT='powered by ilch.de';
 
+CREATE TABLE `prefix_wars` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `datime` datetime NOT NULL default '0000-00-00 00:00:00',
+  `status` tinyint(2) NOT NULL default '0',
+  `wlp` tinyint(1) NOT NULL default '0',
+  `owp` MEDIUMINT NOT NULL default '0',
+  `opp` MEDIUMINT NOT NULL default '0',
+  `gegner` varchar(100) NOT NULL default '',
+  `tag` varchar(100) NOT NULL default '',
+  `page` varchar(100) NOT NULL default '',
+  `mail` varchar(100) NOT NULL default '',
+  `icq` varchar(100) NOT NULL default '',
+  `wo` varchar(100) NOT NULL default '',
+  `tid` smallint(6) NOT NULL default '0',
+  `mod` varchar(100) NOT NULL default '',
+  `game` varchar(100) NOT NULL default '',
+  `mtyp` varchar(100) NOT NULL default '',
+  `land` varchar(100) NOT NULL default '',
+  `txt` text,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM COMMENT='powered by ilch.de';
 
 
 CREATE TABLE `prefix_bbcode_badword` (
@@ -746,25 +767,4 @@ CREATE TABLE `prefix_bbcode_design` (
 
 INSERT INTO `prefix_bbcode_design` (`fnDesignNr`, `fcQuoteRandFarbe`, `fcQuoteTabelleBreite`, `fcQuoteSchriftfarbe`, `fcQuoteHintergrundfarbe`, `fcQuoteHintergrundfarbeIT`, `fcQuoteSchriftformatIT`, `fcQuoteSchriftfarbeIT`, `fcBlockRandFarbe`, `fcBlockTabelleBreite`, `fcBlockSchriftfarbe`, `fcBlockHintergrundfarbe`, `fcBlockHintergrundfarbeIT`, `fcBlockSchriftfarbeIT`, `fcKtextRandFarbe`, `fcKtextTabelleBreite`, `fcKtextRandFormat`, `fcEmphHintergrundfarbe`, `fcEmphSchriftfarbe`, `fcCountdownRandFarbe`, `fcCountdownTabelleBreite`, `fcCountdownSchriftfarbe`, `fcCountdownSchriftformat`, `fnCountdownSchriftsize`) VALUES (1, '#f6e79d', '320', '#666666', '#f6e79d', '#faf7e8', 'italic', '#666666', '#f6e79d', '350', '#666666', '#f6e79d', '#faf7e8', '#FF0000', '#000000', '90%', 'dotted', '#ffd500', '#000000', '#FF0000', '90%', '#FF0000', 'bold', 10);
 
-CREATE TABLE `prefix_wars` (
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `datime` datetime NOT NULL default '0000-00-00 00:00:00',
-  `status` tinyint(2) NOT NULL default '0',
-  `wlp` tinyint(1) NOT NULL default '0',
-  `owp` MEDIUMINT NOT NULL default '0',
-  `opp` MEDIUMINT NOT NULL default '0',
-  `gegner` varchar(100) NOT NULL default '',
-  `tag` varchar(100) NOT NULL default '',
-  `page` varchar(100) NOT NULL default '',
-  `mail` varchar(100) NOT NULL default '',
-  `icq` varchar(100) NOT NULL default '',
-  `wo` varchar(100) NOT NULL default '',
-  `tid` smallint(6) NOT NULL default '0',
-  `mod` varchar(100) NOT NULL default '',
-  `game` varchar(100) NOT NULL default '',
-  `mtyp` varchar(100) NOT NULL default '',
-  `land` varchar(100) NOT NULL default '',
-  `txt` text,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM COMMENT='powered by ilch.de';
 
