@@ -1,0 +1,11 @@
+Kategorie: <select id="cats" name="cats"><option value="0">alle anzeigen</option>{_list_cats@<option value="%1">%1</option>}</select> &nbsp;
+ Jahr: <select id="year" name="year"><option value="0">alle anzeigen</option>{_list_years@<option value="%1">%1</option>}</select> &nbsp;
+ <input type="button" value="anzeigen" onclick="xajax_showcat(document.getElementById('cats').value,document.getElementById('year').value);" /><hr /><br />
+<div id="narchiv"></div>
+{EXPLODE}
+<table width="100%" border="0" cellspacing="1" cellpadding="3" class="border">
+<tr class="Chead"><th>Titel (Kommentare)</th><th>Autor</th><th>Datum</th><th>Kategorie</th><th>Print</th><th>Hits</th></tr>
+{EXPLODE}
+<tr class="{class}"><td><a href="index.php?news-{id}">{title}</a> ({koms})</td><td><a href="index.php?user-details-{uid}">{name}</a></td><td>{datum}{edit}</td><td>{kat}</td><td align="center">{print}</td><td align="center">{klicks}</td></tr>
+{EXPLODE}
+</table><br /><div align="center">{MPL}</div>

@@ -1,0 +1,107 @@
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="newsbg"><tr><td>
+<table width="100%" border="0" align="center" cellpadding="5" cellspacing="0">
+    <tr>
+      <td class="smalfont">{datum} - <strong><a href="index.php?news-{id}">{title}</a></strong></td>
+      </tr>
+
+
+    <tr>
+      <td><hr style="height: 0px; border: dotted #000000 0px; border-top-width: 1px; " /></td>
+      </tr>
+</table>
+
+
+
+  <table width="100%" border="0" align="center" cellpadding="1" cellspacing="0" class="cbg1">
+    <tr>
+      <td align="center">{kate}</td>
+    </tr>
+
+  </table>
+
+
+  <table width="100%"  border="0" cellspacing="0" cellpadding="2">
+    <tr>
+	  <td>{text}</td>
+	</tr>
+    <tr>
+	  <td><hr style="height: 0px; border: dotted #000000 0px; border-top-width: 1px; " /></td>
+	</tr>
+ </table>
+ <table width="100%"  border="0" cellspacing="0" cellpadding="1">
+    <tr>
+
+      <td align="left" width="60%" class="smalfont">Geschrieben von <strong>{username}</strong>{edit}</td>
+      <td align="right" width="40%">
+        <a href="index.php?user-details-{uid}" alt="Benutzerinfo: {username}" title="Benutzerinfo: {username}"><img src="include/images/icons/news/informant.gif" alt="Benutzerinfo: {username}" border="0"></a>
+        <a href="index.php?news-{id}" alt="Kommentare ({kom})" title="Kommentare ({kom})"><img src="include/images/icons/news/comments.gif" alt="Kommentare ({kom})" border="0"></a>
+        <a href="index.php?news-send-{id}" alt="Diese News einen Freund senden" title="Diese News einen Freund senden"><img src="include/images/icons/news/send.gif" alt="Diese News einen Freund senden" border="0"></a>
+        <a href="index.php?news-print-{id}" alt="Druckoptimierte Version" title="Druckoptimierte Version"><img src="include/images/icons/news/print.gif" alt="Druckoptimierte Version" border="0"></a>
+        {klicks}
+        {readwholenews}
+      </td>
+    </tr>
+  </table>
+</td></tr></table>
+
+<br />
+<br />
+{EXPLODE}
+<br />
+<br /><center>{SITELINK}</center>
+
+
+{EXPLODE}
+<script language="JavaScript" type="text/javascript">
+function delkom (NID, ID) {
+var Check = confirm("Kommentar wirklich löschen?")
+if (Check == true) window.open("index.php?news-"+NID+"-d"+ID,"_self");
+}</script>
+<!-- News Kommentare und Mehr lesen -->
+<table width="100%" cellpadding="5" cellspacing="1" border="0">
+  <tr class="Chead">
+    <th height="25"><b>{NAME}</b></th>
+  </tr>
+  <tr>
+    <td height="25">{_lang_message}</td>
+  </tr>
+
+    <tr>
+      <td align="center">{KATE}</td>
+    </tr>
+
+
+  <tr>
+    <td >
+      <div style="float:left; padding-left:10px; ">{TEXT}</div><br style="clear:both; " />
+      <p></p>
+      <a href="javascript:history.back(1)"><b>&laquo;</b>{_lang_back}</a> </td>
+  </tr>
+
+  <tr>
+    <td height="25">{_lang_commentsfor} {NAME}</td>
+  </tr>
+  <tr>
+    <td>
+
+	    {EXPLODE}
+	    <form action="index.php?news-{NID}" method="POST">
+        <fieldset>
+          <legend>{_lang_writecomment}</legend>
+          <input type="text" name="name" value="{uname}" /> &nbsp; {ANTISPAM} &nbsp; <input type="submit" value="{_lang_enter}"><br />
+          <textarea style="width: 98%" cols="50" rows="2" name="txt"></textarea><br />
+        </fieldset>
+      </form>
+      <br />
+      {EXPLODE}
+
+      <span class="Cmite"># <b>{ZAHL}</b> von {NAME}</span>
+      <br />{TEXT}<br /><br />
+
+      {EXPLODE}
+      <br />
+      <a href="javascript:history.back(1)"><b>&laquo;</b> {_lang_back}</a>
+
+    </td>
+  </tr>
+</table>

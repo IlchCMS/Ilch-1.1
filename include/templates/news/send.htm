@@ -1,0 +1,35 @@
+<center>Sie versenden die News: <br><b>{ntitle}</b><br><br><br></center>
+	<form action="?news-send" method="POST" enctype="multipart/form-data">
+	<input type="hidden" value="1" name="submit">
+  <input type="hidden" value="{nid}" name="nid">
+  <input type="hidden" value="{ntitle}" name="ntitle">
+  <table border="0" cellspacing="0" cellpadding="3" align="center">
+    <tr>
+      <td class="Cmite">Ihr Name:</td>
+	    <td class="Cnorm"><input type="text" name="name"{readonly} value="{name}" size="45"></td>
+    </tr>
+	  <tr>
+      <td class="Cmite">Ihre E-mail:</td>
+	    <td class="Cnorm"><input type="text" name="mail" value="{mail}" size="45"></td>
+    </tr>
+	  <tr>
+      <td class="Cmite">Name des Freundes:</td>
+	    <td class="Cnorm"><input type="text" name="fname" value="{fname}" size="45"></td>
+    </tr>
+	  <tr>
+      <td class="Cmite">E-mail Adresse des Freundes:</td>
+	    <td class="Cnorm"><input type="text" name="fmail" value="{fmail}" size="45"></td>
+    </tr>
+	  <tr>
+      <td class="Cmite" valign="top">Persönliche Ergänzungen dazu:</td>
+	    <td class="Cnorm"><textarea name="txt" cols="43" rows="8">{txt}</textarea></td>
+    </tr>
+	  <tr valign="top">
+      {ANTISPAM}
+    </tr>
+	  <tr>
+      <td class="Cmite"></td>
+      <td class="Cnorm"><input type="submit" value=" Absenden "></td>
+    </tr>
+	</table>
+</form>

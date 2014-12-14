@@ -21,6 +21,7 @@ INSERT INTO `prefix_allg` (`id`,`k`,`v1`,`v2`,`v3`,`v4`,`v5`,`v6`,`t1`) VALUES (
 INSERT INTO `prefix_allg` (`id`,`k`,`v1`,`v2`,`v3`,`v4`,`v5`,`v6`,`t1`) VALUES (8, 'picofx', 'picwidth', '100', '', '', '', '', '');
 INSERT INTO `prefix_allg` (`id`,`k`,`v1`,`v2`,`v3`,`v4`,`v5`,`v6`,`t1`) VALUES (9, 'trainzeiten', '', '', '', '', '', '', 'Kein Train#Kein Train#Kein Train#Kein Train#Kein Train#Kein Train#Kein Train');
 INSERT INTO `prefix_allg` (`id`,`k`,`v1`,`v2`,`v3`,`v4`,`v5`,`v6`,`t1`) VALUES (10, 'smtpconf', '', '', '', '', '', '', '');
+INSERT INTO `prefix_allg` ( `k` , `v1`, `v2`, `v3`, `v4`, `v5`, `v6`, `t1` ) VALUES ( 'news', '0', '1', '1', 'Allgemein', '', '', '');
 
 CREATE TABLE `prefix_awards` (
   `id` int(10) unsigned NOT NULL auto_increment,
@@ -389,15 +390,23 @@ INSERT INTO `prefix_modules` (`id`,`url`,`name`,`gshow`,`ashow`,`fright`) VALUES
 INSERT INTO `prefix_modules` (`id` ,`url` ,`name` ,`gshow` ,`ashow` ,`fright`) VALUES (NULL , 'bbcode', 'BBCode 2.0', '1', '1', '0');
 
 CREATE TABLE `prefix_news` (
-  `news_id` int(10) unsigned NOT NULL auto_increment,
-  `news_title` varchar(100) NOT NULL default '',
-  `user_id` int(11) NOT NULL default '0',
-  `news_time` datetime NOT NULL default '0000-00-00 00:00:00',
-  `news_recht` int(11) NOT NULL default '0',
-  `news_kat` varchar(100) NOT NULL default '',
+`news_id` int(10) unsigned NOT NULL,
+  `news_title` varchar(100) NOT NULL DEFAULT '',
+  `user_id` int(11) NOT NULL DEFAULT '0',
+  `news_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `editor_id` int(11) DEFAULT NULL,
+  `edit_time` datetime DEFAULT NULL,
+  `news_recht` int(11) NOT NULL DEFAULT '0',
+  `news_groups` int(11) NOT NULL DEFAULT '0',
+  `news_kat` varchar(100) NOT NULL DEFAULT '',
   `news_text` text,
-  PRIMARY KEY  (`news_id`)
+  `html` tinyint(1) NOT NULL,
+  `show` int(12) NOT NULL default '0',
+  `archiv` tinyint(1) NOT NULL DEFAULT '0',
+  `endtime` int(12) DEFAULT NULL,
+  `klicks` mediumint(9) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM COMMENT='powered by ilch.de';
+
 
 CREATE TABLE `prefix_newsletter` (
   `email` varchar(100) NOT NULL default ''

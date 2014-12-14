@@ -1,13 +1,14 @@
+<script type="text/javascript" src="include/includes/ckeditor/ckeditor.js"></script>
 <script language="JavaScript" type="text/javascript"><!--
 function delcheck ( DELID ) {
-	var frage = confirm ( "Willst du diesen Eintrag wirklich lï¿½schen?" );
+	var frage = confirm ( "Willst du diesen Eintrag wirklich löschen?" );
 	if ( frage == true ) {
 	  document.location.href="?news-del-"+DELID;
 	}
 }
 
 function delKcheck ( DELID , NID) {
-	var frage = confirm ( "Willst du dieses Kommentar wirklich lï¿½schen?" );
+	var frage = confirm ( "Willst du dieses Kommentar wirklich löschen?" );
 	if ( frage == true ) {
 	  document.location.href="?news-sKoms-"+NID+"-Kdel-"+DELID+"#"+NID;
 	}
@@ -20,53 +21,195 @@ function sichtbar(){
 	  document.form.kat.style.visibility="hidden";
   }
 }
-//--></script>
 
-<script type="text/javascript" src="include/includes/js/bbcode.js"></script> 
-<script type="text/javascript" src="include/includes/js/interface.js"></script>
+var datum, zeit;
+
+function switch_datum_zeit(){
+     if (document.forms["form"].gesperrt.checked == false) {
+        document.forms["form"].datum.disabled = false;
+        document.forms["form"].zeit.disabled = false;
+        document.forms["form"].datum.value = datum;
+        document.forms["form"].zeit.value = zeit;
+     } else {
+        datum = document.forms["form"].datum.value;
+        zeit = document.forms["form"].zeit.value;
+        document.forms["form"].datum.value = '';
+        document.forms["form"].zeit.value = '';
+        document.forms["form"].datum.disabled = true;
+        document.forms["form"].zeit.disabled = true;
+     }
+}
+
+
+function switch_html(){
+    var div = document.getElementById('txtdiv');
+    var txtarea = document.getElementById('txt');
+
+    if (document.forms["form"].html[1].checked || switch_html.arguments[0] == 'true') {
+        var oldtxt = txtarea.value;
+        document.getElementById('bbcode_buttons').style.display = 'none';
+        document.getElementById('smilies').style.display = 'none';
+        document.getElementById('btn_vorschau').style.display = 'none';
+
+	var objCKE = CKEDITOR.replace( 'txt', {
+		baseHref: 'include/includes/ckeditor/',
+		height : 400,
+		filebrowserBrowseUrl: 'include/includes/filemanager/index.html',
+		filebrowserUploadUrl: 'include/includes/filemanager/index.html'
+	}) ;
+
+        if (switch_html.arguments[0] == 'true') {
+            document.forms["form"].html[1].checked = true;
+			objCKE.setData( document.getElementById('vorschau_td').innerHTML );
+        } else {
+            objCKE.setData( oldtxt );
+        }
+
+		document.getElementById('vorschau').style.display = 'none';
+    } else {
+
+        var objCKE = CKEDITOR.instances['txt'];
+        var oldtxt = objCKE.getData();
+        CKEDITOR.remove(objCKE);
+
+		div.innerHTML = '<textarea id="txt" name="txt" rows="15" cols="93" tabindex="2">' + oldtxt + '</textarea>';
+        document.getElementById('bbcode_buttons').style.display = 'block';
+        document.getElementById('smilies').style.display = 'block';
+        document.getElementById('btn_vorschau').style.display = 'inline';
+    }
+}
+
+function close_vorschau(){
+    document.getElementById('vorschau').style.display = 'none';
+}
+
+function show_opts(){
+    document.getElementById('news_opts_tbl').style.display = 'block';
+}
+
+function save_opts(){
+    var kat = document.forms["news_opts"].nadd_kat.value;
+    var newsempf = '';
+    var sel = document.getElementById('pmempf');
+    var len = sel.options.length
+    for (var i = 0; i < len; i++) {
+        if (sel.options[i].selected) {
+            newsempf += sel.options[i].value + '#';
+        }
+    }
+    xajax_saveopts(newsempf,kat);
+    document.getElementById('news_opts_tbl').style.display = 'none';
+}
+
+function close_opts(){
+    document.getElementById('news_opts_tbl').style.display = 'none';
+}
+
+function new_kat(){
+    document.getElementById('nadd_kat_td').innerHTML = '<input type="text" value="" name="nadd_kat" />';
+    document.forms["news_opts"].nadd_kat.focus();
+}
+//--></script>
+{xajax}
+
+<script type="text/javascript" src="include/includes/js/bbcode.js"></script>
 
 <table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/news.png" /></td><td width="30"></td><td valign="bottom"><h1>News</h1></td></tr></table>
-<hr style="width: 400px; margin: 0px;" >
+<hr style="width: 400px; margin: 0px;">
 <br /><br />
 
 <table border="0" cellspacing="0" cellpadding="0"><tr><td valign="top">
 
-<form method="POST" name="form" action="?news">
+<table id="vorschau" cellpadding="2" cellspacing="1" border="0" class="border" style="display:none; margin-bottom:10px; width:600px;">
+  <tr class="Chead" align="center"><td width="600">Vorschau</td></tr>
+  <tr><td id="vorschau_td" class="Cmite"></td></tr>
+  <tr class="Cdark"><td><input type="button" value="Schlie&szlig;en" onclick="close_vorschau();" style="margin-left:200px;" /> &nbsp; <input type="button" value="BBCode -&gt; HTML" onclick="switch_html('true');" /></td></tr>
+</table>
+
+<form method="POST" name="form" id="form" action="?news">
   <input type="hidden" name="um"     value="{AKTION}">
   <input type="hidden" name="newsID" value="{NEWSID}">
 	<table cellpadding="2" cellspacing="1" border="0" class="border">
-    <tr> 
+    <tr>
       <td class="Cmite" align="right"><strong>Titel : </strong></td>
-      <td class="Cnorm"><input size="50" type="text" name="titel" value="{UEBER}"></td>
-    </tr><tr> 
-      <td class="Cmite" align="right"><strong>News : </strong></td>
-      <td rowspan="2" class="Cnorm">
-      
+      <td class="Cnorm"><input size="50" type="text" name="titel" value="{UEBER}" tabindex="1"></td>
+    </tr><tr>
+      <td class="Cmite" align="right" valign="top" height="20"><strong>News : </strong></td>
+      <td width="600" class="Cnorm" rowspan="2" id="txttd">
+        <div style="display:block;" id="bbcode_buttons">
       <!-- BB Code START -->
-	  {__BBCodeButtons__}
+      {EXPLODE}
+	  <a href="javascript:void(0);" onclick="simple('b')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.bold.gif" alt="b" title="{_lang_bold}" border="0"></a>
+      <a href="javascript:void(0);" onclick="simple('i')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.italic.gif" alt="i" title="{_lang_italic}" border="0"></a>
+      <a href="javascript:void(0);" onclick="simple('u')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.underline.gif" alt="u" title="{_lang_underlined}" border="0"></a>
+      <a href="javascript:void(0);" onclick="simple('code')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.code.gif" alt="Code" title="{_lang_code}" border="0"></a>
+	  <a href="javascript:void(0);" onclick="simple_liste()"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.insertunorderedlist.gif" alt="{_lang_list}" title="{_lang_list}" border="0"></a>
+      <a href="javascript:void(0);" onclick="simple('url')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.link.gif" alt="Url" title="{_lang_link}" border="0"></a>
+      <a href="javascript:void(0);" onclick="simple('img')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.image.gif" alt="{_lang_picture}" title="{_lang_picture}" border="0"></a>
       <!-- BB Code ENDE -->
-
+      {EXPLODE}<script type="text/javascript" src="include/includes/js/BBCodeGlobal.js"></script>{__BBCodeButtons__}{EXPLODE}<br /><br /></div>
+      <div id="txtdiv"><textarea tabindex="2" id="txt" name="txt" rows="15" cols="93" tabindex="2">{txt}</textarea></span>
       </td>
     </tr><tr>
-      <td rowspan="2" valign="top" class="Cmite">{SMILIS}</td>
+      <td valign="top" class="Cmite"><div id="smilies" style="display:block;">{SMILIS}</div></td>
     </tr><tr>
-      <td class="Cnorm"><textarea name="txt" rows="15" cols="65" tabindex="2">{txt}</textarea></td>
-    </tr><tr> 
-      <td class="Cmite" align="right"><strong>Sichtbar ab : </strong></td>
-      <td class="Cnorm"><select name="grecht">{_list_grecht@<option%1 value="%2">%3</option>}</select></td>
-    </tr><tr> 
+      <td class="Cmite" align="right"><strong>Sichtbar f&uuml;r: </strong><br /><small>(Grundrechte)</small></td>
+      <td class="Cnorm">{grecht}</td>
+    </tr><tr>
+      <td class="Cmite" align="right"><strong>Sichtbar f&uuml;r: </strong><br /><small>(Gruppen/Teams)</small></td>
+      <td class="Cnorm">{groups}</td>
+    </tr><tr>
       <td class="Cmite" align="right"><strong>Kategorie : </strong></td>
       <td class="Cnorm"><select onChange="sichtbar()" name="katLis">{KATS}<option value="neu">Neu:</option></select>&nbsp;&nbsp;<input type="text" name="kat" size="40"></td>
-    </tr><tr class="Cdark"> 
+    </tr><tr>
+      <td class="Cmite" align="right"><strong>HTML : </strong></td>
+      <td class="Cnorm"><input type="radio" name="html" value="0" onchange="switch_html();" {sel0} /><label for="html">BBCode</label><input type="radio" name="html" value="1" onchange="switch_html();" {sel1} /><label for="html">HTML (CKEditor)</label></td>
+    </tr><tr>
+      <td class="Cmite" align="right"><strong>gesperrt: </strong></td>
+      <td class="Cnorm"><input type="checkbox" name="gesperrt" {sel_gesperrt} onchange="switch_datum_zeit();" /> &nbsp; <label for="datum" title="Zeitpunkt ab dem die News sichtbar ist, falls die News nicht gesperrt wird">Datum (TT:MM.YYYY)</label> <input type="input" name="datum" value="{datum}" /> &nbsp; <label for="zeit">Uhrzeit (HH:MM)</label> <input type="input" name="zeit" value="{zeit}" /><br />
+      <input type="checkbox" name="set_time" id="set_time" /> &nbsp; <label for="set_time">Erstellungszeit der News auf Erscheinungszeit setzen</label> <small>(beim &Auml;ndern einer News mit dieser Option wird der Username vom Editierenden und die Editierzeit gel&ouml;scht)</small>
+      </td>
+    </tr><tr>
+      <td class="Cmite" align="right"><strong>l&auml;uft aus: </strong></td>
+      <td class="Cnorm"><input type="radio" name="close" value="0" {csel0} /><label for="close">nein</label> &nbsp; <input type="radio" name="close" value="1" {csel1} /><label for="close">sperren</label> &nbsp; <input type="radio" name="close" value="2" {csel2} /><label for="close">Archiv</label>
+      <br /><label for="cdatum">Datum</label> <input type="input" name="cdatum" value="{cdatum}" /> &nbsp; <label for="czeit">Uhrzeit</label> <input type="input" name="czeit" value="{czeit}" /></td>
+    </tr><tr class="Cdark">
       <td></td>
-      <td><input type="submit" value="{FSUB}" name="submit"></td>
+      <td><input type="submit" value="{FSUB}" name="submit">&nbsp;<input type="button" value="Vorschau" onclick="xajax_vorschau(xajax.getFormValues('form'));" id="btn_vorschau" style="display:inline;" /></td>
     </tr>
   </table>
 </form>
-<br /><br />
 
-<div class="info_box">
-			<b>Merke (Kategorie Bild)</b>
+
+</td><td width="20">&nbsp;</td><td valign="top">
+
+{MPL}
+<table cellpadding="3" cellspacing="1" border="0" class="border">
+<tr class="Cdark"><td colspan="6"><a href="admin.php?news">Neue News erstellen</a></td></tr>
+  {EXPLODE}<tr class="{class}">
+	  <td><a href="javascript:void(0);" onclick="xajax_vorschau_id({ID});" title="{title}">{TITEL}</a></td>
+      <td><a href="#" name="{ID}"></a><a href="javascript:void(0);" onclick="delcheck({ID})"><img src="include/images/icons/del.gif" alt="L&ouml;schen" title="L&ouml;schen" border="0"></a></td>
+      <td><a href="?news-edit-{ID}"><img src="include/images/icons/edit.gif" alt="Ver&auml;ndern" title="Ver&auml;ndern" border="0"></a></td>
+	  <td><a href="?news-s{ID}"><img src="include/images/icons/{sperre}.gif" alt="{sperren}" title="{sperren}" border="0"></a></td>
+	  <td align="center"><a href="?news-t{ID}"><img src="include/images/icons/{topnews}.gif" alt="Als Topnews setzen" title="Als Topnews setzen" border="0"></a></td>
+	  <td><a id="archiv_link_{ID}" href="javascript:void(0);" onclick="xajax_setArchiv({ID},document.getElementById('archiv_link_{ID}').innerHTML);">{archiv}</a></td>
+ </tr>{EXPLODE}
+ <tr class="Cdark"><td colspan="6"><a href="?news-t0">Topnews entfernen</a> | <a href="javascript:void(0);" onclick="show_opts();">Optionen</a></td></tr>
+</table>
+{MPL}
+
+</td></tr></table>
+<form id="news_opts">
+<table cellpadding="3" cellspacing="1" border="0" class="border" id="news_opts_tbl" style="position:absolute; top:150px; left:540px; width:450px; height:178px; display:none">
+<tr height="30" class="Chead"><th colspan="2">News Optionen</th></tr>
+<tr height="30"><td class="Cmite" width="250">Kommentare bei Topnews zulassen</td><td width="200" class="Cnorm"><a href="javascript:void(0);" onclick="xajax_tn_koms();" id="tn_koms">{tn_koms}</a></td></tr>
+<tr height="30"><td class="Cmite">Kategorie f&uuml;r News einsenden</td><td class="Cnorm" id="nadd_kat_td"><select id="nadd_kat" name="nadd_kat">{nadd_kat}<option onclick="new_kat();">Neu</option></select></td></tr>
+<tr height="30"><td class="Cmite">PM-Empf&auml;nger bei Newseinsendungen</td><td class="Cnorm"><select id="pmempf" multiple="multiple" name="pmempf[]" />{pmempf}</select></td></tr>
+<tr height="30"><td class="Cdark" colspan="2"><input type="button" value="Speichern" onclick="save_opts();" /> &nbsp; <input type="button" value="Schlie&szlig;en" onclick="close_opts();" /></td></tr>
+</table></form>
+<table cellpadding="0" cellspacing="0"><tr><td>
+<div class="info_box" style="height: 85px;">
+			<b>Kategorie Bild</b>
 			<br />
 			<span class="smalfont">
 			Das Kategorie Bild muss in den Ordner include/images/news/
@@ -77,33 +220,72 @@ function sichtbar(){
 			Die Endung muss entweder .jpg oder .gif sein bei uns also z.B. Allgemein.jpg
 			</span>
 </div>
-
-<div class="info_box">
-				<b>Merke (Vorschau Funktion)</b>
+</td><td>
+<div class="info_box" style="height: 85px;">
+				<b>Vorschau Funktion</b>
 				<br />
 				<span class="smalfont">
 				Soll nur ein kleinerer Vorschautext angezeigt werden, einfach erst die Vorschau
 				eingeben und nach der Vorschau dann <b>[PREVIEWENDE]</b> schreiben. Dann den langen
-				Text eintragen.
+				Text eintragen.<br />
+				Falls Bilder nicht verkleinert werden einfach nochmal auf den Vorschaubutton klicken.
 				</span>
 </div>
-
-</td><td width="75">&nbsp;</td><td valign="top">
-
-{MPL}
-<table cellpadding="3" cellspacing="1" border="0" class="border">
-  {EXPLODE}<tr class="{class}">
-	  <td><a href="#" name="{ID}"></a><a href="javascript:delcheck({ID})"><img src="include/images/icons/del.gif" alt="L&ouml;schen" title="L&ouml;schen" border="0"></a></td>
-    <td><a href="?news-edit-{ID}"><img src="include/images/icons/edit.gif" alt="Ver&auml;ndern" title="Ver&auml;ndern" border="0"></a></td>
-		<td>{TITEL}</td>
- </tr>{EXPLODE}
+</td></tr><tr><td>
+<div class="info_box" style="height: 95px;">
+				<b>BBCode / HTML</b>
+				<br />
+				<span class="smalfont">
+                Du kannst zwischen HTML (FCK Editor) und BBCode umschalten, beachte dass eine direkte Umwandlung
+                der beiden Formate untereinander nicht m&ouml;glich ist, also keine Formatierung &uuml;bernommen werden.<br />
+                BBCode-News k&ouml;nnen auch zu HTML News umgewandelt werden (Vorschau benutzen), aber nur diese Richtung ist m&ouml;glich.
+				</span>
+</div>
+</td><td>
+<div class="info_box" style="height: 95px;">
+				<b>Topnews</b>
+				<br />
+				<span class="smalfont">
+                Du kannst genau eine News als Topnews markieren, diese wird dann falls
+                die Newsseite aufgerufen wird immer oben angezeigt. Das Aussehen ist durch das Template include/templates/news_top.htm festgelegt.
+                Die News bei dem <img src="include/images/icons/ok.gif" /> steht ist die derzeitige Topnews, durch dr&uuml;cken
+                auf das leere Feld bei einer News kannst du diese zur Topnews machen.
+				</span>
+</div>
+</td></tr>
+<tr><td>
+<div class="info_box" style="height: 95px;">
+				<b>Sperren</b>
+				<br />
+				<span class="smalfont">
+                Du kannst eine News sperren (<img src="include/images/icons/nop.gif" />), dann wird sie nicht angezeigt, eingesendete News sind automatisch gesperrt.
+                Wenn eine News nicht gesperrt ist (<img src="include/images/icons/jep.gif" />), kannst du ein Datum angeben, ab dem die News angezeigt wird.<br />
+                <u>Beachte:</u> Falls eine News mit Datum gesperrt wird, geht dieses Datum verloren.
+				</span>
+</div>
+</td><td>
+<div class="info_box" style="height: 95px;">
+				<b>Archiv</b>
+				<br />
+				<span class="smalfont">
+                Wenn eine News schon etwas &auml;lter ist, kannst du sie ins Archiv schieben, damit wird sie nicht mehr bei News angezeigt, sondern im Newsarchiv.<br />
+                Das ist die Spalte ganz rechts, A steht f&uuml;r ist im Archiv und N f&uuml;r normal bei den News.
+				</span>
+</div>
+</td></tr>
+<tr><td>
+<div class="info_box" style="height: 60px;">
+				<b>Ablaufdatum</b>
+				<br />
+				<span class="smalfont">
+                Du kannst eine News zu einer bestimmten Zeit ablaufen lassen, sie wird dann entweder gesperrt oder ins Archiv verschoben.
+				</span>
+</div>
+</td></tr>
 </table>
-{MPL}
-
-</td></tr></table>
-
 <script language="JavaScript" type="text/javascript">
 <!--
   sichtbar();
+  {html}
 //-->
 </script>

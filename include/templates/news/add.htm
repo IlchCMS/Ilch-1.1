@@ -1,0 +1,50 @@
+<script type="text/javascript" src="include/includes/js/bbcode.js"></script>
+<script type="text/javascript"><!--
+function close_vorschau(){
+    document.getElementById('vorschau_table').style.display = 'none';
+}
+--></script>
+<table cellpadding="2" cellspacing="1" border="0" class="border" style="display:none; margin-bottom:15px; width:100%" id="vorschau_table">
+    <tr class="Chead">
+      <td align="center"><strong>Vorschau</strong></td>
+    </tr><tr>
+      <td class="Cnorm" id="vorschau_td" width="18%"></td>
+    </tr><tr>
+      <td class="Cdark"><input type="button" value="Schlie&szlig;en" onclick="close_vorschau();" /></td>
+    </tr>
+</table>
+<form method="POST" name="form" id="form" action="index.php?news-add">
+	<table cellpadding="2" cellspacing="1" border="0" class="border" width="100%">
+    <tr class="Chead">
+      <td align="center" colspan="2"><strong>News einsenden</strong></td>
+    </tr><tr>
+      <td class="Cmite" align="right"><strong>Titel: </strong></td>
+      <td class="Cnorm"><input size="50" type="text" name="titel"></td>
+    </tr>{EXPLODE}<tr>
+      <td class="Cmite" align="right"><strong>Kategorie:</strong></td>
+      <td class="Cnorm"><select name="kat">{KATS}</select></td>
+    </tr>{EXPLODE}<tr>
+      <td class="Cmite" align="right"><strong>News: </strong></td>
+      <td rowspan="2" class="Cnorm">
+      <!-- BB Code START -->
+      {EXPLODE}
+	    <a href="javascript:simple('b')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.bold.gif" alt="b" title="{_lang_bold}" border="0"></a>
+      <a href="javascript:simple('i')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.italic.gif" alt="i" title="{_lang_italic}" border="0"></a>
+      <a href="javascript:simple('u')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.underline.gif" alt="u" title="{_lang_underlined}" border="0"></a>
+      <a href="javascript:simple('code')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.code.gif" alt="Code" title="{_lang_code}" border="0"></a>
+	    <a href="javascript:simple_liste()"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.insertunorderedlist.gif" alt="{_lang_list}" title="{_lang_list}" border="0"></a>
+      <a href="javascript:simple('url')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.link.gif" alt="Url" title="{_lang_link}" border="0"></a>
+      <a href="javascript:simple('img')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.image.gif" alt="{_lang_picture}" title="{_lang_picture}" border="0"></a>
+      {EXPLODE}{__BBCodeButtons__}{EXPLODE}
+      <!-- BB Code ENDE -->
+      </td>
+    </tr><tr>
+      <td rowspan="2" valign="top" class="Cmite">{SMILIES}</td>
+    </tr><tr>
+      <td class="Cnorm"><textarea name="txt" style="width:99%; height: 250px;" tabindex="2"></textarea></td>
+    </tr><tr class="Cdark">
+      <td></td>
+      <td><input type="submit" value="Absenden" name="submit"> &nbsp; <input type="button" value="Vorschau" onclick="xajax_vorschau(xajax.getFormValues('form'));"></td>
+    </tr>
+  </table>
+</form>
