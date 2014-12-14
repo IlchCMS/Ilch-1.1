@@ -97,7 +97,7 @@ switch ( $menu->getA(1) ) {
 			while($row = db_fetch_assoc($erg) ) {
 				$class = ( $class == 'Cmite' ? 'Cnorm' : 'Cmite' );
 				$row['class'] = $class;
-				$row['desc'] = ( !empty($row['desc']) ? '<br /><span class="smalfont">&raquo;&nbsp;'.$row['desc'].'</span>' : '' );
+				$row['desc'] = ( !empty($row['desc']) ? '<br><span class="smalfont">&raquo;&nbsp;'.$row['desc'].'</span>' : '' );
 				if ( !empty($row['banner'] ) ) {
 				  $row['name'] = '<img src="'.$row['banner'].'" border="0" alt="'.$row['name'].'" title="'.$row['name'].'">';
 				}

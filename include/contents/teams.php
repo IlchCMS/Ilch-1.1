@@ -35,7 +35,7 @@ function show_members ($gid,$tpl) {
 			if(empty($row['avatar'])){
 				$row['avatar'] = 'n/a';
 			} else {
-				$row['avatar'] = '<img src="'.$row['avatar'].'" alt="Avatar von '.$row['name'].'" border="0" >';
+				$row['avatar'] = '<img src="'.$row['avatar'].'" alt="" border="0" >';
 			}
 			$tpl->set_ar_out($row,2);
 		} else {
@@ -67,7 +67,7 @@ if ($menu->get(1) == 'show') {
   	if (!empty($bild) ) {
       $show = '<img src="'.$bild.'" title="'.$name.'" alt="'.$name.'" border="0"></a>';
     } else {
-  	  $show = '<b>'.$name.'</b>';
+  	  $show = '<strong>'.$name.'</strong>';
     }
     $tpl->set_out('show', $show,0);
     show_members ($gid,$tpl);
@@ -88,7 +88,7 @@ if ($menu->get(1) == 'show') {
       if (!empty($row['img']) ) {
         $show = '<img src="'.$row['img'].'" title="'.$row['name'].'" alt="'.$row['name'].'" border="0"></a>';
       } else {
-    	  $show = '<b>'.$row['name'].'</b>';
+    	  $show = '<strong>'.$row['name'].'</strong>';
       }
       $tpl->set_out('show', $show,0);
       show_members ($gid,$tpl);

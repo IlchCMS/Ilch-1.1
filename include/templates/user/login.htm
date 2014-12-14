@@ -3,17 +3,17 @@
 <fieldset>
 <legend><strong>{_lang_LOGIN}</strong></legend>
 <div class="ilch_box_in">
-<label class="ilch_float_l label_80">{_lang_nickname} :</label><input type="text" style="margin-bottom:2px;" tabindex="1" name="name" maxlength="15" /><br>
-<label class="ilch_float_l label_80">{_lang_password} :</label><input type="password" style="margin-bottom:2px;" tabindex="2" maxlength="20" name="pass" /><br>
+<label class="ilch_float_l label_80">{_lang_nickname} :</label><input type="text" style="margin-bottom:2px;" tabindex="1" name="name" maxlength="15"><br>
+<label class="ilch_float_l label_80">{_lang_password} :</label><input type="password" style="margin-bottom:2px;" tabindex="2" name="pass" maxlength="20"><br>
 <input type="hidden" name="wdlink" value="{WDLINK}" >
 <label class="ilch_float_l label_80"></label><input type="submit"  tabindex="3" value="{_lang_login}" name="user_login_sub"><br><br>
-<a class="ilch_login_content" href="index.php?user-regist">{_lang_registernow}</a><br>
-<a class="ilch_login_content" href="index.php?user-remind">{_lang_forgottenpassword}?</a>
+<label class="ilch_float_l label_80"></label><a href="index.php?user-regist">{_lang_registernow}</a><br>
+<label class="ilch_float_l label_80"></label><a href="index.php?user-remind">{_lang_forgottenpassword}?</a>
 </div>
 </fieldset>
 </form>
 </div>
 {EXPLODE}
-{_lang_yourareloged}!
+<div class="ilch_hinweis_gruen">{_lang_yourareloged}!</div>
 {EXPLODE}
-{_lang_login3failure}
+<div class="ilch_hinweis_rot">{_lang_login3failure}</div>
