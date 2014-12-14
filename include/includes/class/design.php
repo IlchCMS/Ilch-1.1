@@ -41,7 +41,7 @@ class design extends tpl {
             $tpl->set ('boxright' , $this->get_boxes ('r', $tpl));
         }
         // ab 0.6 =  ... 5 menu listen moeglich
-        for($i = 1;$i <= 6;$i++) {
+        for($i = 1;$i <= 5;$i++) {
             if ($tpl->list_exists ('menunr' . $i)) {
                 $tpl->set ('menunr' . $i , $this->get_boxes ($i, $tpl));
             }

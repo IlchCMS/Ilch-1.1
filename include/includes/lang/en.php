@@ -7,6 +7,12 @@ defined ('main') or die ( 'no direct access' );
 
 $lang = array
 (
+'definitetime' => 'Definite Time',
+'bankdata' => 'Bank Data',
+'reservat' => 'Reservations',
+'clancashregister' => 'Clan Cash Register',
+'changepersonaldetails' => 'Change Personal Details',
+'selectedentries' => 'Selected Entries',
 'active' => 'active',
 'administrattopic' => 'Administer Topic',
 'adminarea' => 'Admin Area',

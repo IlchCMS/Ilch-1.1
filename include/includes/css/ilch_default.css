@@ -1,10 +1,16 @@
 
 /* Ilch Allgemein */
 
+table{
+width: 100%;
+}
 .border{
 width: 100%;
 border-spacing: 1px;
 margin-bottom:10px
+}
+.border400{
+max-width: 400px
 }
 .border td{
 padding: 6px 3px 6px 3px
@@ -17,6 +23,40 @@ padding: 1px
 }
 .border th{
 padding: 10px 5px 10px 5px
+}
+.tdweight5 {
+width: 5%
+}
+.tdweight10 {
+width: 10%
+}
+.tdweight15 {
+width: 15%
+}
+.tdweight20 {
+width: 20%
+}
+.tdweight25 {
+width: 25%
+}
+.tdweight50 {
+width: 50%
+}
+.tdweight80 {
+width: 80%
+}
+.tdweight98 {
+width: 98%
+}
+.tdweight100 {
+width: 100%
+}
+.forumord img{
+height:15px;
+border:none
+}
+.forum_cdark{
+height:10px
 }
 strong{
 font-weight: bold
@@ -49,7 +89,7 @@ float:right
 font-size:10px
 }
 .tablebordertop{
-margin-top:20px
+margin-top:10px
 }
 .ilch_vertikal_top{
 vertical-align:top
@@ -123,7 +163,10 @@ padding:5px;
 margin:8px;
 font-size:10px
 }
-
+.small_index_ilch{
+width: 400px;
+margin:0 auto
+}
 
 /* Ilch Award */
 
@@ -149,7 +192,7 @@ float:left;
 margin: 3px 3px 3px 0px 
 }
 
-/* Ilch Gallery */
+/* Ilch Gallery - Forum */
 
 .layer{
 position:absolute;
@@ -159,7 +202,8 @@ display:none;
 width:200px;
 min-height:200px
 }
-.ilch_gallery_in{
+.ilch_gallery_in,
+.ilch_forum_in{
 padding: 3px 3px 3px 3px
 }
 
@@ -167,10 +211,34 @@ padding: 3px 3px 3px 3px
 
 .gbook_image img{
 max-width:100%;
-height: auto;
+height: auto
 }
 .ilch_gbook_in{
 padding: 5px 5px 25px 5px
+}
+
+/* Ilch Links - Teams */
+
+.ilch_links_img img,
+.ilch_teams_img img{
+max-width:100%;
+height: auto;
+display: block;
+margin-left: auto;
+margin-right: auto
+}
+
+/* Ilch Teams */
+
+.ilch_teams_avatar img{
+max-height:30px;
+}
+
+/* Ilch Trains */
+
+.ilch_trains > .Cmite,
+.ilch_trains > .Cnorm{
+padding:5px;
 }
 
 /* vorgesetzte Klassen fuer Designer */

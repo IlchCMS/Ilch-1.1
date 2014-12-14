@@ -7,6 +7,12 @@ defined ('main') or die ( 'no direct access' );
 
 $lang = array
 (
+'definitetime' => 'Zeitlich eingrenzen',
+'bankdata' => 'Kontodaten',
+'reservat' => 'Buchungen',
+'clancashregister' => 'Clan Kasse',
+'changepersonaldetails' => 'Pers&ouml;nliche Daten &auml;ndern',
+'selectedentries' => 'markierte Eintr&auml;ge',
 'active' => 'aktiv',
 'administrattopic' => 'Thema Administrieren',
 'adminarea' => 'Admin Bereich',

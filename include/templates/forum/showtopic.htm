@@ -1,36 +1,29 @@
-<br>
-<div align="right">
-
-{NEWTOPIC}
-
-<br><br>
-
-</div>
-<table width="100%" border="0" cellspacing="1" cellpadding="5" class="border">
+<div class="ilch_float_r">{NEWTOPIC}</div><br>
+<table class="border tablebordertop">
 	  <tr class="Chead">
 		  <th></td>
-		  <th width="56%"><b>{_lang_topic}</b></td>
-			<th width="7%" align="center"><b>{_lang_answers}</b></td>
-			<th width="7%" align="center"><b>{_lang_hits}</b></td>
-      <th width="30%"><div align="center"><b>{_lang_update}</b></td>
+		  <th><strong>{_lang_topic}</strong></td>
+			<th class="text-center"><strong>{_lang_answers}</strong></td>
+			<th class="text-center"><strong>{_lang_hits}</strong></td>
+      <th class="text-center"><strong>{_lang_update}</strong></td>
     </tr>
 {EXPLODE}
   <tr>
-	  <td class="Cnorm"><img src="include/images/forum/{ORD}.gif" width="15" height="15" border="0"></td>
-    <td class="Cnorm">{VORT} <a href="index.php?forum-showposts-{id}">{name}</a><br />
+	  <td class="Cnorm forumord text-center"><img src="include/images/forum/{ORD}.gif"></td>
+    <td class="Cnorm">{VORT} <a href="index.php?forum-showposts-{id}">{name}</a><br>
     <span class="smalfont">{_lang_author}: {erst}</span></td>
-	  <td align="center" class="Cmite">{rep}</td>
-		<td align="center" class="Cmite">{hit}</td>
-		<td align="center" class="Cdark">
+	  <td class="Cmite text-center">{rep}</td>
+		<td class="Cmite text-center">{hit}</td>
+		<td class="Cdark text-center">
 		  <span class="smalfont">
 			{date}
-				<br />
+				<br>
 				<a class="smalfont" href="index.php?forum-showposts-{id}-p{page}#{pid}">{_lang_lastfrom}: {last}</a>
 	  </td>
   </tr>
 {EXPLODE}
 </table>
-<br />
+<br>
 
 {MPL}
 
