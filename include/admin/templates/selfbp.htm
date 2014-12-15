@@ -1,110 +1,106 @@
 <script type="text/javascript" src="include/includes/ckeditor/ckeditor.js"></script>
-    <script type="text/javascript">
-      window.onload = function()
-      {
-        var objCKE = CKEDITOR.replace( 'bbwy', {
-		baseHref: 'include/includes/ckeditor/',
-		height : 500,
-		filebrowserBrowseUrl: 'include/includes/filemanager/index.html',
-		filebrowserUploadUrl: 'include/includes/filemanager/index.html'
-	}) ;      
-      }
-    </script>
+<script type="text/javascript">
+    window.onload = function () {
+        var objCKE = CKEDITOR.replace('bbwy', {
+            baseHref: 'include/includes/ckeditor/',
+            height: 500,
+            filebrowserBrowseUrl: 'include/includes/filemanager/index.html',
+            filebrowserUploadUrl: 'include/includes/filemanager/index.html'
+        });
+    }
+</script>
 <script language="javascript" type="text/javascript">
 <!--
-function changeAktion () {
-  var akl = document.getElementById('akl').value;
-  document.location.href="?selfbp=0&akl=" + akl;
-}
-function confirmDel(){
-  var akl = document.getElementById('akl').value;
-	var frage = confirm ( "Willst du " + akl.substr(1) + " wirklich löschen?" );
-	if ( frage == true ) {
-    document.location.href="?selfbp=0&del=" + akl;
-  }
-}
+    function changeAktion() {
+        var akl = document.getElementById('akl').value;
+        document.location.href = "?selfbp=0&akl=" + akl;
+    }
+    function confirmDel() {
+        var akl = document.getElementById('akl').value;
+        var frage = confirm("Willst du " + akl.substr(1) + " wirklich löschen?");
+        if (frage === true) {
+            document.location.href = "?selfbp=0&del=" + akl;
+        }
+    }
 
 //-->
 </script>
 <form name="form" action="?selfbp" method="POST">
 
-<table cellpadding="2" cellspacing="1" border="0" class="border" width="700">
-  <tr>
-    <td class="Cmite">Aktion w&auml;hlen</td>
-    <td class="Cnorm"><select id="akl" name="akl" onChange="changeAktion()">{akl}</select></td>
-  </tr><tr>
-    <td class="Cmite">Dateiname</td>
-    <td class="Cnorm"><input name="filename" size="50" value="{filename}" /></td>
-  </tr><tr>
-    <td class="Cmite">Titel</td>
-    <td class="Cnorm"><input name="title" size="50" value="{title}" /></td>
-  </tr><tr>
-    <td class="Cmite">Hmenu</td>
-    <td class="Cnorm"><input name="hmenu" size="50" value="{hmenu}" /></td>
-  </tr><tr>
-    <td class="Cmite">Anzeige</td>
-    <td class="Cnorm">
-      <select name="view">{view}</select>
-      <input name="viewoptions" size="50" value="{viewoptions}" />
-    </td>
-  </tr><tr>
-    <td colspan="2" class="Cnorm">
-
-		<textarea rows="20" cols="90" class="bbwy" id="bbwy" name="bbwy">{text}</textarea>
-
-    </td>
-  </tr><tr class="Cdark">
-    <td></td>
-    <td><input type="submit" name="submit" value="Speichern">&nbsp;<input type="button" value="Löschen" onclick="confirmDel()"></td>
-  </tr>
-</table>
+    <table cellpadding="2" cellspacing="1" border="0" class="border" width="700">
+        <tr>
+            <td class="Cmite">Aktion w&auml;hlen</td>
+            <td class="Cnorm"><select id="akl" name="akl" onChange="changeAktion()">{akl}</select></td>
+        </tr><tr>
+            <td class="Cmite">Dateiname</td>
+            <td class="Cnorm"><input name="filename" size="50" value="{filename}" /></td>
+        </tr><tr>
+            <td class="Cmite">Titel</td>
+            <td class="Cnorm"><input name="title" size="50" value="{title}" /></td>
+        </tr><tr>
+            <td class="Cmite">Hmenu</td>
+            <td class="Cnorm"><input name="hmenu" size="50" value="{hmenu}" /></td>
+        </tr><tr>
+            <td class="Cmite">Anzeige</td>
+            <td class="Cnorm">
+                <select name="view">{view}</select>
+                <input name="viewoptions" size="50" value="{viewoptions}" />
+            </td>
+        </tr><tr>
+            <td colspan="2" class="Cnorm">
+                <textarea rows="20" cols="90" class="bbwy" id="bbwy" name="bbwy">{text}</textarea>
+            </td>
+        </tr><tr class="Cdark">
+            <td></td>
+            <td><input type="submit" name="submit" value="Speichern">&nbsp;<input type="button" value="Löschen" onclick="confirmDel()"></td>
+        </tr>
+    </table>
 </form>
 
 <br /><br />
 <table width="100%" border="0" cellpadding="10" cellspacing="1" class="border">
-  <tr>
-	  <td class="Cnorm">
-		  <b>Hilfe</b><br />
-			<ol>
-			  <li>
-          <ul>
-            <li><b>Dateiname:</b> Unter diesem Namen wird die Datei gespeichert und kann sie auch in der Navigation wiedergefunden werden. <br>Unbedingt auch <b>4.</b> Punkt beachten!</li>
-            <li><b>Titel</b> wird oben in der Programmleiste angezeigt</li>
-            <li><b>Hmenu</b> wird unter dem Banner angezeigt [Design abhängig]</li>
-            <li><b>Anzeige</b> Hier kann man auswählen, ob die Seite ganz <u>normal</u>, <u>Vollbild</u> (, also ohne Men&uuml;,)
-            oder in einem <u>neuen Fenster</u> angezeigt werden soll. <br>Für ein neues Fenster kann man die <u>Fenster Eigenschaften</u> noch in dem Eingabefeld dahinter festlegen. Bsp.:<br>
-            <div style="background-color:#FFFFFF">
-            menubar=yes, toolbar=yes, status=yes, scrollbars=yes, resizable=yes, top=50, left=300, height=500, width=350</li>
-            </div>
-          </ul>
-				</li>
-				<br /><br />
-        <li>Wie binde ich denn so eine eigene Page in das Men&uuml; ein?<br />
-				Einfach auf Navigation Klicken und den Namen aus&auml;hlen (er f&auml;ngt mit 'selfp_' an).
-				</li>
-				<br /><br />
-				<li>Und eigene Boxen?<br />
-				Auch sehr einfach. Auf Navigation klicken und den Namen aus&auml;hlen (er f&auml;ngt mit 'selfb_' an).
-		    </li>
-				<br /><br />
-				<li><b>Wichtig!</b><br />
-				Folgendes bitte beachten. Die Dateiamen m&uuml;ssen unterschiedlich sein!
-        Wenn Sie einen gleichen Namen verwenden, wird die schon bestehende Datei
-        einfach &uuml;berschrieben!
-        <br />
-        Ausserdem darf der Name einer neuen Seite nicht schon im include/contents
-        Ordner liegen, sonst kann die neue eigene Seite nicht angezeigt werden!
-        Bei eigenen Boxen ist dies egal, dort darf der Name im include/boxes
-        Ordner nicht schon vorhanden sein.
-        <br />
-        Bitte im Namen keine Sonderzeichen verwenden. Beschr&auml;nken Sie sich auf
-        die Buchstaben A-Z und a-z und auf die Zahlen 0-9 ...
-        <br />
-        Bitte unbedingt diese drei Punkte beachten, andernfalls kann es zu Datenverlust
-        oder sonstigem unerw&uuml;nstem Verhalten kommen.
-		    </li>
-				<br /><br />
-    </td>
+    <tr>
+        <td class="Cnorm">
+            <b>Hilfe</b><br />
+            <ol>
+                <li>
+                    <ul>
+                        <li><b>Dateiname:</b> Unter diesem Namen wird die Datei gespeichert und kann sie auch in der Navigation wiedergefunden werden. <br>Unbedingt auch <b>4.</b> Punkt beachten!</li>
+                        <li><b>Titel</b> wird oben in der Programmleiste angezeigt</li>
+                        <li><b>Hmenu</b> wird unter dem Banner angezeigt [Design abhängig]</li>
+                        <li><b>Anzeige</b> Hier kann man auswählen, ob die Seite ganz <u>normal</u>, <u>Vollbild</u> (, also ohne Men&uuml;,)
+                        oder in einem <u>neuen Fenster</u> angezeigt werden soll. <br>Für ein neues Fenster kann man die <u>Fenster Eigenschaften</u> noch in dem Eingabefeld dahinter festlegen. Bsp.:<br>
+                        <span style="background-color:#FFFFFF">
+                            menubar=yes, toolbar=yes, status=yes, scrollbars=yes, resizable=yes, top=50, left=300, height=500, width=350
+                        </span></li>
+                </ul>
+                <br /><br />
+                </li>
+                <li>Wie binde ich denn so eine eigene Page in das Men&uuml; ein?<br />
+                    Einfach auf Navigation Klicken und den Namen aus&auml;hlen (er f&auml;ngt mit 'selfp_' an).<br /><br />
+                </li>
+                <li>Und eigene Boxen?<br />
+                    Auch sehr einfach. Auf Navigation klicken und den Namen aus&auml;hlen (er f&auml;ngt mit 'selfb_' an).<br /><br />
+                </li>
 
-	</tr>
+                <li><b>Wichtig!</b><br />
+                    Folgendes bitte beachten. Die Dateiamen m&uuml;ssen unterschiedlich sein!
+                    Wenn Sie einen gleichen Namen verwenden, wird die schon bestehende Datei
+                    einfach &uuml;berschrieben!
+                    <br />
+                    Ausserdem darf der Name einer neuen Seite nicht schon im include/contents
+                    Ordner liegen, sonst kann die neue eigene Seite nicht angezeigt werden!
+                    Bei eigenen Boxen ist dies egal, dort darf der Name im include/boxes
+                    Ordner nicht schon vorhanden sein.
+                    <br />
+                    Bitte im Namen keine Sonderzeichen verwenden. Beschr&auml;nken Sie sich auf
+                    die Buchstaben A-Z und a-z und auf die Zahlen 0-9 ...
+                    <br />
+                    Bitte unbedingt diese drei Punkte beachten, andernfalls kann es zu Datenverlust
+                    oder sonstigem unerw&uuml;nstem Verhalten kommen.
+                    <br /><br />
+                </li>
+            </ol>
+        </td>
+    </tr>
 </table>
