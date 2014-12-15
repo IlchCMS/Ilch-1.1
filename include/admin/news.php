@@ -125,10 +125,6 @@ $xajax->register(XAJAX_FUNCTION, 'setArchiv');
 $xajax->processRequest();
 // #### F u n k t i o n
 // ###
-// ##
-// #
-// #
-// ##
 // ###
 // #### A k t i o n e n
 $design = new design('Admins Area', 'Admins Area', 2);
@@ -152,8 +148,8 @@ if (!empty($_REQUEST['um'])) {
     $html = escape($_POST['html'], 'string');
     $katLis = escape($_POST['katLis'], 'string');
     $kat = escape($_POST['kat'], 'string');
-
-
+    $titel = escape($_POST['titel'], 'string');
+    $newsID = escape($_POST['newsID'], 'integer');
 
     if ($gesperrt != 'on') {
         $show = dz_timestamp($datum, $zeit);
@@ -181,7 +177,7 @@ if (!empty($_REQUEST['um'])) {
     if ($um == 'insert' or $um == 'change') {
         $grecht = 0;
         for ($i = 0; $i < 10; $i++) {
-            if (isset($_POST['grecht_' . $i])) {
+            if (isset(escape($_POST['grecht_' . $i], 'string'))) {
                 $grecht = $grecht | pow(2, $i);
             }
         }
@@ -189,20 +185,18 @@ if (!empty($_REQUEST['um'])) {
         $groups = 0;
         $sql = db_query("SELECT id FROM prefix_groups");
         while ($r = db_fetch_assoc($sql)) {
-            if (isset($_POST['groups_' . $r['id']])) {
+            if (isset(escape($_POST['groups_' . $r['id']], 'string'))) {
                 $groups = $groups | pow(2, $r['id']);
             }
         }
     }
-
-
     if ($um == 'insert') {
         if ($katLis == 'neu') {
             $katLis = $kat;
         }
 
         db_query("INSERT INTO `prefix_news` (news_title,user_id,news_time,news_recht,news_groups,news_kat,news_text,html,`show`,archiv,endtime)
-		VALUES ('" . $_POST['titel'] . "'," . $_SESSION['authid'] . ",FROM_UNIXTIME(" . $newscreatetime . ")," . $grecht . "," . $groups . ",'" . $katLis . "','" . $text . "','" . $html . "',$show,$archiv,$endtime)");
+		VALUES ('" . $titel . "'," . $_SESSION['authid'] . ",FROM_UNIXTIME(" . $newscreatetime . ")," . $grecht . "," . $groups . ",'" . $katLis . "','" . $text . "','" . $html . "',$show,$archiv,$endtime)");
         // insert
     } elseif ($um == 'change') {
 
@@ -210,7 +204,7 @@ if (!empty($_REQUEST['um'])) {
             $katLis = $kat;
         }
         db_query('UPDATE `prefix_news` SET
-				news_title = "' . escape($_POST['titel'], 'string') . '",
+				news_title = "' . $titel . '",
 				editor_id  = "' . $_SESSION['authid'] . '",
 				edit_time  = NOW(),
 				news_recht = "' . $grecht . '",
@@ -220,8 +214,8 @@ if (!empty($_REQUEST['um'])) {
 				`show`     = ' . $show . ',
 				archiv     = ' . $archiv . ',
 				endtime     = ' . $endtime . ',
-                news_text  = "' . $text . '"' . $newschangesqladd . ' WHERE news_id = "' . $_POST['newsID'] . '" LIMIT 1');
-        $edit = $_POST['newsID'];
+                news_text  = "' . $text . '"' . $newschangesqladd . ' WHERE news_id = "' . $newsID . '" LIMIT 1');
+        $edit = $newsID;
     }
 }
 // edit
