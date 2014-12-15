@@ -73,8 +73,8 @@ function vorschau($form) {
 function vorschau_id($id) {
     global $info;
     $resp = new xajaxResponse();
-    $txt = @db_result($q = db_query("SELECT news_text, html FROM prefix_news WHERE news_id = '$id'"), 0, 0);
-    if (@db_result($q, 0, 1) == 0) {
+    $txt = db_result($q = db_query("SELECT news_text, html FROM prefix_news WHERE news_id = '$id'"), 0, 0);
+    if (db_result($q, 0, 1) == 0) {
         $txt = bbcode($txt);
     }
     $resp->assign('vorschau_td', 'innerHTML', $txt);
@@ -87,7 +87,7 @@ function vorschau_id($id) {
 
 function tn_koms() {
     $resp = new xajaxResponse();
-    $now = @db_result(db_query('SELECT v2 FROM prefix_allg WHERE k = "news"'), 0);
+    $now = db_result(db_query('SELECT v2 FROM prefix_allg WHERE k = "news"'), 0);
     db_query('UPDATE prefix_allg SET v2 = IF(v2=1,0,1) WHERE k = "news"');
     $linktxt = $now == '0' ? 'ja' : 'nein';
     $resp->assign('tn_koms', 'innerHTML', $linktxt);
@@ -140,11 +140,26 @@ if (!empty($_REQUEST['um'])) {
     $newschangesqladd = '';
     $archiv = 0;
     // Sperre
-    if ($_POST['gesperrt'] != 'on') {
-        $show = dz_timestamp($_POST['datum'], $_POST['zeit']);
+    // Escape
+    $gesperrt = escape($_POST['gesperrt'], 'string');
+    $datum = escape($_POST['datum'], 'string');
+    $zeit = escape($_POST['zeit'], 'string');
+    $set_time = escape($_POST['set_time'], 'string');
+    $close = escape($_POST['close'], 'integer');
+    $cdatum = escape($_POST['cdatum'], 'string');
+    $czeit = escape($_POST['czeit'], 'string');
+    $text = escape($_POST['txt'], 'string');
+    $html = escape($_POST['html'], 'string');
+    $katLis = escape($_POST['katLis'], 'string');
+    $kat = escape($_POST['kat'], 'string');
+
+
+
+    if ($gesperrt != 'on') {
+        $show = dz_timestamp($datum, $zeit);
         if (!$show) {
             $show = 1;
-        } elseif (isset($_POST['set_time'])) {
+        } elseif (isset($zeit)) {
             $newscreatetime = $show;
             $newschangesqladd .= ',news_time = FROM_UNIXTIME(' . $show . '), editor_id  = NULL, edit_time  = NULL';
             debug('TEST: ' . $newscreatetimech);
@@ -153,12 +168,12 @@ if (!empty($_REQUEST['um'])) {
         $show = 0;
     }
     // Enddatum
-    if ($_POST['close'] == '0') {
+    if ($close == '0') {
         $endtime = 'NULL';
-    } elseif ($_POST['close'] == '1') {
-        $endtime = dz_timestamp($_POST['cdatum'], $_POST['czeit']);
+    } elseif ($close == '1') {
+        $endtime = dz_timestamp($cdatum, $czeit);
     } else {
-        $endtime = dz_timestamp($_POST['cdatum'], $_POST['czeit']);
+        $endtime = dz_timestamp($cdatum, $czeit);
         $archiv = 2;
     }
 
@@ -182,21 +197,17 @@ if (!empty($_REQUEST['um'])) {
 
 
     if ($um == 'insert') {
-        // insert
-        $text = escape($_POST['txt'], 'textarea');
-        if ($_POST['katLis'] == 'neu') {
-            $_POST['katLis'] = $_POST['kat'];
+        if ($katLis == 'neu') {
+            $katLis = $kat;
         }
 
         db_query("INSERT INTO `prefix_news` (news_title,user_id,news_time,news_recht,news_groups,news_kat,news_text,html,`show`,archiv,endtime)
-		VALUES ('" . $_POST['titel'] . "'," . $_SESSION['authid'] . ",FROM_UNIXTIME(" . $newscreatetime . ")," . $grecht . "," . $groups . ",'" . $_POST['katLis'] . "','" . $text . "','" . $_POST['html'] . "',$show,$archiv,$endtime)");
+		VALUES ('" . $_POST['titel'] . "'," . $_SESSION['authid'] . ",FROM_UNIXTIME(" . $newscreatetime . ")," . $grecht . "," . $groups . ",'" . $katLis . "','" . $text . "','" . $html . "',$show,$archiv,$endtime)");
         // insert
     } elseif ($um == 'change') {
-        // edit
-        $text = escape($_POST['txt'], 'textarea');
 
-        if ($_POST['katLis'] == 'neu') {
-            $_POST['katLis'] = $_POST['kat'];
+        if ($katLis == 'neu') {
+            $katLis = $kat;
         }
         db_query('UPDATE `prefix_news` SET
 				news_title = "' . escape($_POST['titel'], 'string') . '",
@@ -204,8 +215,8 @@ if (!empty($_REQUEST['um'])) {
 				edit_time  = NOW(),
 				news_recht = "' . $grecht . '",
 				news_groups = "' . $groups . '",
-				news_kat   = "' . $_POST['katLis'] . '",
-				html       = "' . $_POST['html'] . '",
+				news_kat   = "' . $katLis . '",
+				html       = "' . $html . '",
 				`show`     = ' . $show . ',
 				archiv     = ' . $archiv . ',
 				endtime     = ' . $endtime . ',
