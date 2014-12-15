@@ -16,33 +16,32 @@ function CheckAll(){
 }
 //-->
 </SCRIPT>
-<br />
-<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td width="50%">
-<b>[</b> <a href="index.php?forum-privmsg">{_lang_inbox}</a> <b>]</b></td><td width="50%" align="right">
-<b>[</b> <a href="index.php?forum-privmsg-new">{_lang_writemessage}</a> <b>]</b></td></tr></table>
-
+<div class="tdweight100 ilch_float_l">
+<strong>[</strong> <a href="index.php?forum-privmsg">{_lang_inbox}</a> <strong>]</strong><span class="text-right ilch_float_r">
+<strong>[</strong> <a href="index.php?forum-privmsg-new">{_lang_writemessage}</a> <strong>]</strong></span>
+</div>
+<br>
 <form action="index.php?forum-privmsg-delete" method="POST" name="form">
 
-<table width="100%" class="border" border="0" cellspacing="1" cellpadding="3">
+<table class="border tablebordertop">
   <tr class="Chead">
-	  <th width="50%"><a href="index.php?forum-privmsg-showsend-{ad}1"><b>{_lang_messagetitle}</b></a></th>
-		<th width="25%"><a href="index.php?forum-privmsg-showsend-{ad}2"><b>{_lang_receiver}</b></a></th>
-		<th><a href="index.php?forum-privmsg-showsend-{ad}3"><b>{_lang_time}</b></a></th>
-		<th width="15" style="text-align: right;"><input name="ALL" type="checkbox" value="CHECK ALL" onClick="CheckAll();" /></th>
+	  <th><a href="index.php?forum-privmsg-showsend-{ad}1"><b>{_lang_messagetitle}</b></a></th>
+		<th class="text-center"><a href="index.php?forum-privmsg-showsend-{ad}2"><b>{_lang_receiver}</b></a></th>
+		<th class="text-center"><a href="index.php?forum-privmsg-showsend-{ad}3"><b>{_lang_time}</b></a></th>
+		<th class="tdweight5 text-center"><input name="ALL" type="checkbox" value="CHECK ALL" onClick="CheckAll();"></th>
 	</tr>
 
 	{EXPLODE}
   <tr class="{class}">
 	  <td><a href="index.php?forum-privmsg-showmsg-{id}-s">{titel}</a></td>
     <td>{empf}</td>
-    <td title="{time}">{date}</td>
-    <td style="text-align: right;"><input type="checkbox" name="delsids[]" value="{id}"></td>
+    <td class="text-center ilch_small_font">{date}<br>{time} {_lang_oclock}</td>
+    <td class="text-center"><input type="checkbox" name="delsids[]" value="{id}"></td>
   </tr>
 	{EXPLODE}
   <tr class="Cdark">
-	  <td colspan="4" style="text-align: right;">
-      <input type="submit" value="{_lang_delete}" />
-      <img src="include/images/icons/pfeil_nach_rechts_unten.jpg">
+	  <td colspan="4" class="text-right">
+      <input type="submit" value="{_lang_selectedentries} {_lang_delete}">
 		</td>
   </tr>
 </table>

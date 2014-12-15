@@ -7,6 +7,7 @@ defined ('main') or die ( 'no direct access' );
 
 $lang = array
 (
+'alle' => 'alle',
 'definitetime' => 'Zeitlich eingrenzen',
 'bankdata' => 'Kontodaten',
 'reservat' => 'Buchungen',

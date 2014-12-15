@@ -25,9 +25,9 @@ function get_erg_liste($wid) {
             }
         }
         $list .= '<tr bgcolor="#' . $farbe . '">';
-        $list .= '<td><font color="#000000">' . $row['map'] . '</font></td>';
-        $list .= '<td><font color="#000000">' . $row['opp'] . '</font></td>';
-        $list .= '<td><font color="#000000">' . $row['owp'] . '</font></td>';
+        $list .= '<td class="text-center ilch_wars_font">' . $row['map'] . '</td>';
+        $list .= '<td class="text-center ilch_wars_font">' . $row['opp'] . '</td>';
+        $list .= '<td class="text-center ilch_wars_font">' . $row['owp'] . '</td>';
         $list .= '</tr>';
     }
     return ($list);
@@ -243,7 +243,7 @@ if ($menu->get(2) == '' OR $menu->getA(2) == 'p') {
                 }
             }
             $class = '';
-            $aktionar = array ('<font style="color:#FF0000; background:#666666; font-weight:bold;">abgesagt</font>', '<font style="font-weight:bold; color:#00FF00; background:#666666;">zugesagt</font>');
+            $aktionar = array ('<font style="color:#FFF; background:#FF0000; font-weight:bold;padding:2px">abgesagt</font><br>', '<font style="font-weight:bold; color:#000; background:#00FF00;padding:2px">zugesagt</font><br>');
             $erg1 = db_query("SELECT b.id as uid, b.name, a.aktion, a.kom FROM prefix_warmember a left join prefix_user b ON b.id = a.uid WHERE a.wid = " . $_GET['mehr']);
             while ($row1 = db_fetch_assoc($erg1)) {
                 if ($class == 'Cmite') {
@@ -254,7 +254,7 @@ if ($menu->get(2) == '' OR $menu->getA(2) == 'p') {
                 $row1['class'] = $class;
                 $row1['aktion'] = $aktionar[$row1['aktion']];
                 if ($row1['uid'] == $_SESSION['authid'] OR is_siteadmin('wars')) {
-                    $row1['name'] = '<a href="index.php?wars-more-' . $_GET['mehr'] . '-delete-' . $row1['uid'] . '"><img src="include/images/icons/del.gif" border="0" title="l&ouml;schen" /></a> &nbsp; ' . $row1['name'];
+                    $row1['name'] = '<a href="index.php?wars-more-' . $_GET['mehr'] . '-delete-' . $row1['uid'] . '"><img src="include/images/icons/del.gif" border="0" title="l&ouml;schen" /></a>&nbsp;' . $row1['name'];
                 }
                 $tpl->set_ar_out($row1, 3);
             }

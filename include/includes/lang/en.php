@@ -7,6 +7,7 @@ defined ('main') or die ( 'no direct access' );
 
 $lang = array
 (
+'alle' => 'all',
 'definitetime' => 'Definite Time',
 'bankdata' => 'Bank Data',
 'reservat' => 'Reservations',
