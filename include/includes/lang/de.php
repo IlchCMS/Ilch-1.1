@@ -7,6 +7,12 @@ defined ('main') or die ( 'no direct access' );
 
 $lang = array
 (
+'personalyremarks' => 'Pers&ouml;nliche Erg&auml;nzungen dazu',
+'emailaddressofyourfriend' => 'E-mail Adresse des Freundes',
+'nameofyourfriend' => 'Name des Freundes',
+'youemail' => 'Ihre E-Mail',
+'youname' => 'Ihr Name',
+'yousendthenews' => 'Sie versenden die News',
 'alle' => 'alle',
 'definitetime' => 'Zeitlich eingrenzen',
 'bankdata' => 'Kontodaten',

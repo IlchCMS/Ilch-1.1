@@ -97,6 +97,9 @@ vertical-align:top
 .ilch_vertikal_middle{
 vertical-align:middle
 }
+.ilch_vertikal_bottom{
+vertical-align:bottom
+}
 .ilch_box_in{
 margin:10px
 }
@@ -118,6 +121,10 @@ margin: 5px 5px 0px 0px
 }
 .label_120{
 width:120px;
+margin: 5px 5px 0px 0px 
+}
+.label_140{
+width:140px;
 margin: 5px 5px 0px 0px 
 }
 .ilch_input_info_80{
@@ -203,7 +210,8 @@ width:200px;
 min-height:200px
 }
 .ilch_gallery_in,
-.ilch_forum_in{
+.ilch_forum_in,
+.ilch_news_in{
 padding: 3px 3px 3px 3px
 }
 
@@ -263,6 +271,25 @@ color:#000
 }
 .ilch_wars_in{
 line-height:20px
+}
+
+/* Ilch News */
+
+.ilch_news_kategorie img{
+max-width:100%;
+height: auto;
+border:none;
+float:left;
+margin: 5px 5px 5px 0px; 
+}
+.ilch_news_img img{
+max-width:100%;
+height: auto;
+border:none;
+margin: 6px 0px 3px 0px
+}
+.ilch_news_margin{
+margin: 15px 0px 50px 0px
 }
 
 

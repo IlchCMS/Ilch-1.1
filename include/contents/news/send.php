@@ -31,38 +31,36 @@ $design->header();
   $row = db_fetch_assoc($erg);
 
 
-    $newpoint   = '<img src="include/images/icons/stop.gif" width="16" height="16">&nbsp;';   // Fehlergrafik
-
     //--------------------------------------------------------------------------------------------------------------
 
     // Voreinstellung per Parameterübergabe
 
 if(isset($_POST['submit'])) {
         if(empty($_POST['name']))  {
-            $fehler .= $newpoint."Bitte geben Sie Ihren <b>Namen</b> ein.<br>\n";
+            $fehler .= "Bitte geben Sie Ihren <strong>Namen</strong> ein.<br>\n";
         } elseif(strlen($_POST['name']) < 2) {
-            $fehler .= $newpoint."Ihr <b>Name</b> hat bestimmt mehr als 1 Zeichen... :-)<br>\n";
+            $fehler .= "Ihr <strong>Name</strong> hat bestimmt mehr als 1 Zeichen... :-)<br>\n";
         }
         if(empty($_POST['mail']))  {
-            $fehler .= $newpoint."Bitte geben Sie ihre <b>Emailadresse</b> an.<br>";
+            $fehler .= "Bitte geben Sie ihre <strong>Emailadresse</strong> an.<br>";
         } elseif(!empty($_POST['mail']) && !empty($_POST['mail']) && !eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@([a-z0-9-]+\.){1,3}([a-z0-9-]{2,3})$",$_POST['mail'])) {
-            $fehler .= $newpoint."Die <b>eMail-Adresse</b> entspricht nicht der korrekten Syntax.<br>\n";
+            $fehler .= "Die <strong>eMail-Adresse</strong> entspricht nicht der korrekten Syntax.<br>\n";
         }
         if(empty($_POST['fname']))  {
-            $fehler .= $newpoint."Bitte geben Sie den <b>Namen</b> ihres Freundes ein.<br>\n";
+            $fehler .= "Bitte geben Sie den <strong>Namen</strong> ihres Freundes ein.<br>\n";
         } elseif(strlen($_POST['fname']) < 2) {
-            $fehler .= $newpoint."Der <b>Name</b> ihres Freundes hat bestimmt mehr als 1 Zeichen... :-)<br>\n";
+            $fehler .= "Der <strong>Name</strong> ihres Freundes hat bestimmt mehr als 1 Zeichen... :-)<br>\n";
         }
         if(empty($_POST['fmail']))  {
-            $fehler .= $newpoint."Bitte geben Sie die <b>Emailadresse</b> ihres Freundes an.<br>";
+            $fehler .= "Bitte geben Sie die <strong>Emailadresse</strong> ihres Freundes an.<br>";
         } elseif(!empty($_POST['fmail']) && !empty($_POST['fmail']) && !eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@([a-z0-9-]+\.){1,3}([a-z0-9-]{2,3})$",$_POST['fmail'])) {
-            $fehler .= $newpoint."Die <b>eMail-Adresse</b> entspricht nicht der korrekten Syntax.<br>\n";
+            $fehler .= "Die <strong>eMail-Adresse</strong> entspricht nicht der korrekten Syntax.<br>\n";
         }
         if(empty($_POST['txt']))  {
-            $fehler .= $newpoint."Sie haben noch keinen <b>Text</b> eingegeben.<br>\n";
+            $fehler .= "Sie haben noch keinen <strong>Text</strong> eingegeben.<br>\n";
         }
         if(chk_antispam ('send') != true){
-            $fehler .= $newpoint."Bitte geben Sie den gültigen <b>Antispam-Code</b> ein.<br>\n";
+            $fehler .= "Bitte geben Sie den gültigen <strong>Antispam-Code</strong> ein.<br>\n";
         }
 
 if(!$fehler) {
@@ -84,8 +82,8 @@ if(!$fehler) {
   $fmail = escape($_POST['fmail'],'string');
   icmail($fmail,$betreff,$text,$name);
 // informieren
-	        wd ('index.php?news', 'Die News <b>'.$_POST['ntitle'].'</b> wurde an <b>'.$_POST['fname'].'</b> gesendet', 3 );
-        } echo '<font color="red">'.$fehler.'</font><br /><a href="javascript:history.back(1)"><b>&laquo;</b> '.$lang['back'].'</a>';
+	        wd ('index.php?news', '<div class="text-center"><span class="ilch_hinweis_gruen">Die News <strong>'.$_POST['ntitle'].'</strong> wurde an <strong>'.$_POST['fname'].'</strong> gesendet</span></div>', 3 );
+        } echo wd ('index.php?news-send-'.$_POST['nid'].' ','<div class="text-center"><span class="ilch_hinweis_rot">'.$fehler.'</span></div>', 4 );
     } else {
 //----------------------------------------------------------------------------------------------------
 // Hier erfolgt die html-Ausgabe. Diese kann beliebig angepasst werden.

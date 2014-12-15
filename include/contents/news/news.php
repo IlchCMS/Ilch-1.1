@@ -25,9 +25,9 @@ function news_find_kat ($kat) {
     }
 
     if (!empty($pfadzumBild)) {
-        $kategorie = '<img style="" src="' . $pfadzumBild . '" alt="' . $kat . '">';
+        $kategorie = '<img src="' . $pfadzumBild . '" alt="">';
     } else {
-        $kategorie = '<b>' . $kat . '</b><br /><br />';
+        $kategorie = '<strong>' . $kat . '</strong><br><br>';
     }
 
     return ($kategorie);
@@ -359,7 +359,7 @@ if (!is_numeric($menu->get(1))) {
     $erg1 = db_query("SELECT text, name, id FROM `prefix_koms` WHERE uid = " . $nid . " AND cat = 'NEWS' ORDER BY id DESC");
     $ergAnz1 = db_num_rows($erg1);
     if ($ergAnz1 == 0) {
-        echo '<b>' . $lang['nocomments'] . '</b>';
+        echo '<div class="text-center ilch_forum_in Cmite"><strong>' . $lang['nocomments'] .'</strong></div>';
     } else {
         $zahl = $ergAnz1;
         while ($row1 = db_fetch_assoc($erg1)) {

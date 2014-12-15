@@ -1,35 +1,19 @@
-<center>Sie versenden die News: <br><b>{ntitle}</b><br><br><br></center>
+<div class="border">
+<div class="ilch_case">
+<div class="Chead text-center">{_lang_yousendthenews}:<br><strong>{ntitle}</strong></div>
+<div class="ilch_case_in Cnorm">
 	<form action="?news-send" method="POST" enctype="multipart/form-data">
 	<input type="hidden" value="1" name="submit">
   <input type="hidden" value="{nid}" name="nid">
   <input type="hidden" value="{ntitle}" name="ntitle">
-  <table border="0" cellspacing="0" cellpadding="3" align="center">
-    <tr>
-      <td class="Cmite">Ihr Name:</td>
-	    <td class="Cnorm"><input type="text" name="name"{readonly} value="{name}" size="45"></td>
-    </tr>
-	  <tr>
-      <td class="Cmite">Ihre E-mail:</td>
-	    <td class="Cnorm"><input type="text" name="mail" value="{mail}" size="45"></td>
-    </tr>
-	  <tr>
-      <td class="Cmite">Name des Freundes:</td>
-	    <td class="Cnorm"><input type="text" name="fname" value="{fname}" size="45"></td>
-    </tr>
-	  <tr>
-      <td class="Cmite">E-mail Adresse des Freundes:</td>
-	    <td class="Cnorm"><input type="text" name="fmail" value="{fmail}" size="45"></td>
-    </tr>
-	  <tr>
-      <td class="Cmite" valign="top">Persönliche Ergänzungen dazu:</td>
-	    <td class="Cnorm"><textarea name="txt" cols="43" rows="8">{txt}</textarea></td>
-    </tr>
-	  <tr valign="top">
-      {ANTISPAM}
-    </tr>
-	  <tr>
-      <td class="Cmite"></td>
-      <td class="Cnorm"><input type="submit" value=" Absenden "></td>
-    </tr>
-	</table>
+<label class="ilch_float_l label_140">{_lang_youname}</label><input type="text" name="name"{readonly} value="{name}" size="32"><br>
+<label class="ilch_float_l label_140">{_lang_youemail}</label><input type="text" name="mail" value="{mail}" size="32"><br>
+<label class="ilch_float_l label_140">{_lang_nameofyourfriend}</label><input type="text" name="fname" value="{fname}" size="32"><br>
+<label class="ilch_float_l label_140">{_lang_emailaddressofyourfriend}</label><input type="text" name="fmail" value="{fmail}" size="32"><br><br>
+<label class="ilch_float_l label_140">{_lang_personalyremarks}</label><textarea name="txt" cols="30" rows="8">{txt}</textarea><br>
+{ANTISPAM}<br>
+<label class="ilch_float_l label_140"></label><input type="submit" value=" Absenden ">
 </form>
+</div>
+</div></div>
+
