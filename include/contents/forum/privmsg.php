@@ -13,16 +13,16 @@ $design->header();
 
 
 if ( $allgAr['Fpmf'] != 1 ) {
-  echo 'Private Nachrichten wurden von dem Administrator komplet gesperrt';
-  echo '<br><a href="javascript:history.back(-1)">zurück</a>';
+  echo '<div class="text-center"><span class="ilch_hinweis_rot">Private Nachrichten wurden von dem Administrator komplet gesperrt';
+  echo '<br><br><a class="ilch_back_button" href="javascript:history.back(-1)">zurück</a></span></div>';
   $design->footer(1);
 } elseif ( !loggedin() ) {
-  echo '<br>Gäste dürfen keine Privaten Nachrichten Verschicken!';
+  echo '<div class="text-center"><span class="ilch_hinweis_rot">Gäste dürfen keine Privaten Nachrichten Verschicken!</span></div>';
   $tpl = new tpl ( 'user/login' );
   $tpl->set_out('WDLINK', 'index.php', 0);
   $design->footer(1);
 } elseif ( db_result(db_query("SELECT opt_pm FROM prefix_user WHERE id = ".$_SESSION['authid']),0) == 0 ) {
-  echo 'Im <a href="index.php?user-profil">Profil</a> einstellen das du die PrivMsg Funktion nutzen m&ouml;chtest';
+  echo '<div class="text-center"><span class="ilch_hinweis_gelb">Im <a href="index.php?user-profil">Profil</a> einstellen das du die PrivMsg Funktion nutzen m&ouml;chtest</span></div>';
   $design->footer(1);
 }
 
@@ -41,7 +41,7 @@ case 'new' :
         if (1 == db_result(db_query("SELECT count(*) FROM prefix_user WHERE name = BINARY '".$name."'"),0)) {
           $show_formular = false;
         } else {
-          echo 'Dieser Empf&auml;nger konnte nicht gefunden werden';
+          echo '<div class="text-center"><span class="ilch_hinweis_rot">Dieser Empf&auml;nger konnte nicht gefunden werden</span></div>';
         }
       }
 
@@ -93,7 +93,7 @@ case 'new' :
       } else {
         $eid  = db_result(db_query("SELECT id FROM prefix_user WHERE name = BINARY '".$name."'"),0);
 				sendpm($_SESSION['authid'], $eid, $bet, $txt);
-		    wd('index.php?forum-privmsg','Die Nachricht wurde erfolgreich gesendet');
+		    wd('index.php?forum-privmsg','<div class="text-center"><span class="ilch_hinweis_gruen">Die Nachricht wurde erfolgreich gesendet</span></div>');
       }
   break;
 case 'showmsg' :
@@ -123,23 +123,23 @@ case 'delete' :
       if ( $menu->get(3) != '' AND $menu->get(4) == '') { $_POST['delids'][] = $menu->get(3); }
    elseif ($menu->get(3) != '' AND $menu->get(4) == 's') { $_POST['delsids'][] = $menu->get(3); }
       if ( empty($_POST['delids']) AND empty($_POST['delsids'])) {
-	      echo 'Es wurde keine Nachricht zum l&ouml;schen gew&auml;hlt <br /><br />';
-		    echo '<a href="javascript:history.back(-1)"><b>&laquo;</b> zur&uuml;ck</a>';
+	      echo '<div class="text-center"><span class="ilch_hinweis_gelb">Es wurde keine Nachricht zum l&ouml;schen gew&auml;hlt <br><br>';
+		    echo '<a class="ilch_back_button" href="javascript:history.back(-1)"><b>&laquo;</b> zur&uuml;ck</a></span></div>';
       } else {
         if ( (empty($_POST['delids']) AND empty($_POST['delsids'])) OR empty($_POST['sub']) ) {
 
 					$delids = (empty($_POST['delids'])?$_POST['delsids']:$_POST['delids']);
 					$s = (empty($_POST['delids'])?'':'s');
-					echo '<form action="index.php?forum-privmsg-delete" method="POST">';
+					echo '<form action="index.php?forum-privmsg-delete" method="POST"><div class="text-center"><span class="ilch_hinweis_gelb">';
 			 	  $i = 0;
 				  if ( !is_array($delids) ) { $delids = array ($delids); }
 				  foreach ($delids as $a) {
 				    $i++;
 					  echo '<input type="hidden" name="del'.$s.'ids[]" value="'.$a.'">';
 				  }
-				  echo '<br>Wollen Sie ';
+				  echo 'Wollen Sie ';
 				  echo ($i > 1 ? 'die ('.$i.') Nachrichten ' : 'die Nachricht ' );
-					echo 'wirklich löschen ?<br><br><input type="submit" value=" Ja " name="sub"> &nbsp; &nbsp; <input type="button" value="Nein" onclick="document.location.href =\'?forum-privmsg\'"></form>';
+					echo 'wirklich löschen ?<br><br><input type="submit" value=" Ja " name="sub">&nbsp;&nbsp;&nbsp;<input type="button" value="Nein" onclick="document.location.href =\'?forum-privmsg\'"></span></div></form>';
 
 			  } else {
 					$delids = (empty($_POST['delids'])?$_POST['delsids']:$_POST['delids']);
@@ -158,9 +158,9 @@ case 'delete' :
               $i++;
             }
 				  }
-				  echo 'Es wurd';
+				  echo '<div class="text-center"><span class="ilch_hinweis_gruen">Es wurd';
 				  echo ($i > 1 ? 'en ('.$i.') Nachrichten ' : 'e eine Nachricht ' );
-					echo 'erfolgreich gelöscht <br /><br /><a href="index.php?forum-privmsg">zum Nachrichten Eingang</a>';
+					echo 'erfolgreich gelöscht <br><br><a href="index.php?forum-privmsg">zum Nachrichten Eingang</a></span></div>';
 			  }
 			}
   break;
@@ -199,7 +199,7 @@ default :
       $erg = db_query($abf);
       while ($row = db_fetch_assoc($erg)) {
         $class = ( $class == 'Cmite' ? 'Cnorm' : 'Cmite' );
-        $row['NEW'] = ($row['NEW'] == 0 ? '<b><i>neu</i></b>' : '' );
+        $row['NEW'] = ($row['NEW'] == 0 ? '<strong><i>neu</i></bstrong>' : '' );
         $row['CLASS'] = $class;
         $row['BET'] = (trim($row['BET']) == '' ? ' -- kein Nachrichtentitel -- ' : $row['BET']);
         $row['date'] = date('d.m.Y',$row['time']);

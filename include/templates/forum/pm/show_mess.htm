@@ -1,26 +1,20 @@
-<br />
-<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td width="50%">
-<b>[</b> <a href="index.php?forum-privmsg">{_lang_inbox}</a> <b>|</b> <a href="index.php?forum-privmsg-showsend">{_lang_outbox}</a> <b>]</b></td><td width="50%" align="right">
-<b>[</b> <a href="index.php?forum-privmsg-new">{_lang_writemessage}</a> <b>]</b></td></tr></table>
- 
+<div class="tdweight100 ilch_float_l">
+<strong>[</strong> <a href="index.php?forum-privmsg">{_lang_inbox}</a> <strong>|</strong> <a href="index.php?forum-privmsg-showsend">{_lang_outbox}</a> <strong>]</strong><span class="text-right ilch_float_r">
+<strong>[</strong> <a href="index.php?forum-privmsg-new">{_lang_writemessage}</a> <strong>]</strong></span>
+</div>
+<br>
 <form action="index.php?forum-privmsg-new" method="POST">
-
 	<input type="hidden" name="empfid" value="{sid}">
 	<input type="hidden" name="bet" value="{titel}">
 	<input type="hidden" name="anhang" value="{anhang}">
-
-  <table width="100%" cellpadding="3" cellspacing="1" border="0" class="border">
-    <tr class="Chead">
-		  <td><b>{titel}</b></td>
-		</tr><tr class="Cdark">
-      <td>{_lang_sentby} <b>{name}</b> {_lang_on} {time}</td>
-    </tr><tr class="Cnorm">
-		  <td>{txt}</td>
-	  </tr><tr class="Cmite">
-		  <td>
-			  <input name="re" type="submit" value="{_lang_answer}">
-				   &nbsp; &nbsp;
-				<input type="button" value="{_lang_delete}" onclick="document.location.href ='?forum-privmsg-delete-{id}'">
-			</td>
-  </table>   
+<div class="border tablebordertop">
+<div class="ilch_case">
+<div class="Chead"><strong>{titel}</strong></div>
+<div class="Cdark">{_lang_sentby} <strong>{name}</strong> {_lang_on} {time} {_lang_oclock}</div>
+<div class="ilch_case_in Cnorm pm_ilch_img">{txt}</div>
+<div class=" text-right ilch_case_in Cmite">
+<input name="re" type="submit" value="{_lang_answer}">&nbsp;&nbsp;<input type="button" value="{_lang_delete}" onclick="document.location.href ='?forum-privmsg-delete-{id}'">
+</div>
+</div>
+</div>  
 </form>	
