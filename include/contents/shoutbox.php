@@ -33,23 +33,22 @@ echo '<script type="text/javascript">
       else alert("Du musst eine Zahl größer gleich 0 eingeben");
     }
   }
-</script>
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">';
+</script>';
 
 $class = 'Cnorm';
-echo '<div class="border"><div class="ilch_case"><div class="Chead text-center"><td><strong>Shoutbox '.$lang['archiv'].'</strong></div>';
+echo '<table width="100%" align="center" class="border" cellpadding="2" cellspacing="1" border="0"><tr class="Chead"><td><b>Shoutbox '.$lang['archiv'].'</b></td></tr>';
 $erg = db_query('SELECT * FROM `prefix_shoutbox` ORDER BY id DESC');
 while ($row = db_fetch_assoc($erg) ) {
  $class = ( $class == 'Cmite' ? 'Cnorm' : 'Cmite' );
-  echo '<div class="'.$class.' ilch_shoutbox_in">';
+  echo '<tr class="'.$class.'"><td>';
   if ( is_siteadmin() ) {
-	  echo '<a class="ilch_closed_icon" href="index.php?shoutbox-d'.$row['id'].'" title="'.$lang['delete'].'"><i class="fa fa-times"></i></a>';
+	  echo '<a href="index.php?shoutbox-d'.$row['id'].'"><img src="include/images/icons/del.gif" alt="'.$lang['delete'].'" title="'.$lang['delete'].'"></a>&nbsp;';
 	}
-	echo '<strong>'.$row['nickname'].':</strong> '.preg_replace( '/([^\s]{'.$allgAr['sb_maxwordlength'].'})(?=[^\s])/', "$1\n", $row['textarea']).'</div>';
+	echo '<b>'.$row['nickname'].':</b> '.preg_replace( '/([^\s]{'.$allgAr['sb_maxwordlength'].'})(?=[^\s])/', "$1\n", $row['textarea']).'</td></tr>';
 }
-echo '</div></div>';
+echo '</table>';
 if (is_siteadmin()) {
-  echo '<a class="ilch_a_link_s" href="javascript:del();">'.$lang['clearshoutbox'].'</a>';
+  echo '<a href="javascript:del();">'.$lang['clearshoutbox'].'</a>';
 }
 $design->footer();
 ?>

@@ -82,7 +82,7 @@ function showcat($cat,$year,$page=1){
 	$abf = "SELECT
       a.news_title as title,
       a.news_id as id,
-      DATE_FORMAT(a.news_time,'%d.%m.%Y <br> %H:%i Uhr') as datum,
+      DATE_FORMAT(a.news_time,'%d.%m.%Y - %H:%i Uhr') as datum,
       a.news_kat as kat,
       a.user_id as uid,
       b.name as name,
@@ -105,14 +105,14 @@ function showcat($cat,$year,$page=1){
         $output .= $tpl->get(1);
         while($r = db_fetch_assoc($q)){
             $class = $class == 'Cmite' ? 'Cnorm' : 'Cmite';
-            $r['edit'] = is_null($r['edit_time']) ? '' : '&nbsp;&nbsp;<i class="fa fa-info-circle" title="zuletzt ge&auml;ndert am '.date('d.m.Y - H:i',strtotime($r['edit_time'])).'&nbsp;Uhr">';
+            $r['edit'] = is_null($r['edit_time']) ? '' : '&nbsp;<img src="include/images/icons/edit.gif" title="zuletzt ge&auml;ndert am '.date('d.m.Y - H:i',strtotime($r['edit_time'])).'&nbsp;Uhr';
             if (!empty($r['edit']) and $r['editorname'] != $r['name']) {
                 $r['edit'] .= ' von '.$r['editorname'];
             }
             if (!empty($r['edit'])) {
-                $r['edit'] .= '</i>';
+                $r['edit'] .= '" />';
             }
-            $r['print'] = '<a href="?news-print-'.$r['id'].'" alt="Druckoptimierte Version" title="Druckoptimierte Version"><i class="fa fa-print"></i></a>';
+            $r['print'] = '<a href="?news-print-'.$r['id'].'" alt="Druckoptimierte Version" title="Druckoptimierte Version"><img src="include/images/icons/print_k.gif" alt="Druckoptimierte Version" border="0"></a>';
             $r['class'] = $class;
             $tpl->set_ar($r);
             $output .= $tpl->get(2);
@@ -120,7 +120,7 @@ function showcat($cat,$year,$page=1){
         $tpl->set('MPL',mpl($cat,$year,$page));
         $output .= $tpl->get(3);
     } else {
-        $output = '<div class="text-center"><span class="ilch_hinweis_gelb">Keine News in dieser Kategorie</span></div>';
+        $output = 'Keine News in dieser Kategorie';
     }
     $resp->assign('narchiv','innerHTML' , utf8_encode($output) );
     return $resp;
