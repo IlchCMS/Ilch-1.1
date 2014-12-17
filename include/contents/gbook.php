@@ -82,10 +82,10 @@ case 'show' :
     $r['datum'] = date('d.m.Y', $r['time']);
     if ($r['page'] != '') {
       $r['page'] = get_homepage($r['page']);
-      $r['page'] = ' &nbsp; <a href="'.$r['page'].'" target="_blank"><img src="include/images/icons/page.gif" border="0" alt="Homepage '.$lang['from'].' '.$r['name'].'"></a>';
+      $r['page'] = '<a class="ilch_gbook_icons" href="'.$r['page'].'" target="_blank" title="Homepage '.$lang['from'].' '.$r['name'].'"><i class="fa fa-globe"></i></a>';
 		}
 		if ($r['mail'] != '') {
-	    $r['mail'] = ' &nbsp; <a href="mailto:'.escape_email_to_show($r['mail']).'"><img src="include/images/icons/mail.gif" border="0" alt="E-Mail '.$lang['from'].' '.$r['name'].'"></a>';
+	    $r['mail'] = '<a class="ilch_gbook_icons" href="mailto:'.escape_email_to_show($r['mail']).'" title="E-Mail '.$lang['from'].' '.$r['name'].'"><i class="fa fa-envelope"></i></a>';
 		}
 
     $tpl = new tpl ( 'gbook.htm' );
@@ -99,7 +99,7 @@ case 'show' :
     while ($r1 = db_fetch_assoc($erg)) {
       $r1['zahl'] = $anz - $i;
       $r1['text'] = bbcode($r1['text']);
-      if (has_right(-7, 'gbook')) { $r1['text'] .= '<a href="index.php?gbook-show-'.$id.'-d'.$r1['id'].'"><img src="include/images/icons/del.gif" alt="'.$lang['delete'].'" border="0" title="'.$lang['delete'].'" /></a>'; }
+      if (has_right(-7, 'gbook')) { $r1['text'] .= '<a class="ilch_closed_icon" href="index.php?gbook-show-'.$id.'-d'.$r1['id'].'" title="'.$lang['delete'].'"><i class="fa fa-times"></i></a>'; }
       $tpl->set_ar_out($r1, 5);
       $i++;
     }
@@ -128,10 +128,10 @@ default :
     $mail = '';
 		if ($row->page) {
       $row->page = get_homepage($row->page);
-      $page = ' &nbsp; <a href="'.$row->page.'" target="_blank"><img src="include/images/icons/page.gif" border="0" alt="Homepage '.$lang['from'].' '.$row->name.'"></a>';
+      $page = '<a class="ilch_gbook_icons" href="'.$row->page.'" target="_blank" title="Homepage '.$lang['from'].' '.$row->name.'"><i class="fa fa-globe"></i></a>';
 		}
 		if ($row->mail) {
-	    $mail = ' &nbsp; <a href="mailto:'.escape_email_to_show($row->mail).'"><img src="include/images/icons/mail.gif" border="0" alt="E-Mail '.$lang['from'].' '.$row->name.'"></a>';
+	    $mail = '<a class="ilch_gbook_icons" href="mailto:'.escape_email_to_show($row->mail).'" title="E-Mail '.$lang['from'].' '.$row->name.'"><i class="fa fa-envelope"></i></a>';
 		}
     $koms = '';
     if ($allgAr['gbook_koms_for_inserts'] == 1) {

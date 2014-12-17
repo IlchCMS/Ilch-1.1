@@ -1,50 +1,51 @@
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <script type="text/javascript" src="include/includes/js/bbcode.js"></script>
 <script type="text/javascript"><!--
 function close_vorschau(){
     document.getElementById('vorschau_table').style.display = 'none';
 }
 --></script>
-<table cellpadding="2" cellspacing="1" border="0" class="border" style="display:none; margin-bottom:15px; width:100%" id="vorschau_table">
-    <tr class="Chead">
-      <td align="center"><strong>Vorschau</strong></td>
-    </tr><tr>
-      <td class="Cnorm" id="vorschau_td" width="18%"></td>
-    </tr><tr>
-      <td class="Cdark"><input type="button" value="Schlie&szlig;en" onclick="close_vorschau();" /></td>
-    </tr>
-</table>
+<div class="border ilch_add_news" id="vorschau_table">
+<div class="ilch_case">
+<div class="Chead text-center"><strong>{_lang_preview}</strong></div>
+<div class="Cmite ilch_news_in ilch_news_img" id="vorschau_td"></div>
+<div class="Cnorm text-right ilch_news_in"><input type="button" value="{_lang_close}" onclick="close_vorschau();"></div>
+</div></div>
+
 <form method="POST" name="form" id="form" action="index.php?news-add">
-	<table cellpadding="2" cellspacing="1" border="0" class="border" width="100%">
-    <tr class="Chead">
-      <td align="center" colspan="2"><strong>News einsenden</strong></td>
+	<table class="border">
+    <tr class="Chead text-center">
+      <td colspan="2"><strong>{_lang_submitnews}</strong></td>
     </tr><tr>
-      <td class="Cmite" align="right"><strong>Titel: </strong></td>
+      <td class="Cmite"><strong>{_lang_titlen}: </strong></td>
       <td class="Cnorm"><input size="50" type="text" name="titel"></td>
     </tr>{EXPLODE}<tr>
-      <td class="Cmite" align="right"><strong>Kategorie:</strong></td>
+      <td class="Cmite"><strong>{_lang_category}:</strong></td>
       <td class="Cnorm"><select name="kat">{KATS}</select></td>
     </tr>{EXPLODE}<tr>
-      <td class="Cmite" align="right"><strong>News: </strong></td>
-      <td rowspan="2" class="Cnorm">
+      <td class="Cmite"><strong>News: </strong></td>
+      <td rowspan="2" class="Cnorm bg_color_bbcode">
       <!-- BB Code START -->
       {EXPLODE}
-	    <a href="javascript:simple('b')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.bold.gif" alt="b" title="{_lang_bold}" border="0"></a>
-      <a href="javascript:simple('i')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.italic.gif" alt="i" title="{_lang_italic}" border="0"></a>
-      <a href="javascript:simple('u')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.underline.gif" alt="u" title="{_lang_underlined}" border="0"></a>
-      <a href="javascript:simple('code')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.code.gif" alt="Code" title="{_lang_code}" border="0"></a>
-	    <a href="javascript:simple_liste()"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.insertunorderedlist.gif" alt="{_lang_list}" title="{_lang_list}" border="0"></a>
-      <a href="javascript:simple('url')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.link.gif" alt="Url" title="{_lang_link}" border="0"></a>
-      <a href="javascript:simple('img')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.image.gif" alt="{_lang_picture}" title="{_lang_picture}" border="0"></a>
+      <!-- BB Code START -->
+<a class="ilch_gbook_icons" href="javascript:simple('b')" title="{_lang_bold}"><i class="fa fa-bold"></i></a>
+<a class="ilch_gbook_icons" href="javascript:simple('i')" title="{_lang_italic}"><i class="fa fa-italic"></i></a>
+	<a class="ilch_gbook_icons" href="javascript:simple('u')" title="{_lang_underlined}"><i class="fa fa-underline"></i></a>
+    <a class="ilch_gbook_icons" href="javascript:simple('code')" title="{_lang_code}"><i class="fa fa-code"></i></a>
+	<a class="ilch_gbook_icons" href="javascript:simple_liste()" title="{_lang_list}"><i class="fa fa-list-ul"></i></a>
+    <a class="ilch_gbook_icons" href="javascript:simple('url')" title="{_lang_link}"><i class="fa fa-globe"></i></a>
+    <a class="ilch_gbook_icons" href="javascript:simple('img')" title="{_lang_picture}"><i class="fa fa-picture-o"></i></a>		 
+		 <!-- BB Code START -->
       {EXPLODE}{__BBCodeButtons__}{EXPLODE}
       <!-- BB Code ENDE -->
       </td>
     </tr><tr>
-      <td rowspan="2" valign="top" class="Cmite">{SMILIES}</td>
+      <td rowspan="2" class="Cmite text-center ilch_vertikal_top">{SMILIES}</td>
     </tr><tr>
       <td class="Cnorm"><textarea name="txt" style="width:99%; height: 250px;" tabindex="2"></textarea></td>
     </tr><tr class="Cdark">
       <td></td>
-      <td><input type="submit" value="Absenden" name="submit"> &nbsp; <input type="button" value="Vorschau" onclick="xajax_vorschau(xajax.getFormValues('form'));"></td>
+      <td><input type="submit" value="{_lang_formsub}" name="submit">&nbsp;<input type="button" value="{_lang_preview}" onclick="xajax_vorschau(xajax.getFormValues('form'));"></td>
     </tr>
   </table>
 </form>

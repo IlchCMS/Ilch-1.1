@@ -162,12 +162,12 @@ if (!is_numeric($menu->get(1))) {
                 if (strpos ($tn_r['news_text'], '[PREVIEWENDE]') !== false) {
                     $a = explode('[PREVIEWENDE]' , $tn_r['news_text']);
                     $tn_r['news_text']= $a[0];
-                    $tn_r['readwholenews'] = '<a href="index.php?news-' . $tn_id . '" alt="mehr lesen" title="mehr lesen"><img src="include/images/icons/news/more.gif" alt="mehr lesen" border="0"></a>';
+                    $tn_r['readwholenews'] = '<a class="ilch_cms_news_icons Cnorm" href="index.php?news-' . $tn_id . '" alt="mehr lesen" title="mehr lesen"><i class="fa fa-hand-o-right"></i></a>';
                 } else {
                      $tn_r['readwholenews'] = '';
                 }
                 $tn_r['id'] = $tn_id;
-        	    $tn_r['klicks'] = '<img src="include/images/icons/news/counter.gif" alt="' . $tn_r['klicks']. ' mal gelesen" title="' . $tn_r['klicks']. ' mal gelesen" border="0">';
+        	    $tn_r['klicks'] = '<a href="#" class="ilch_cms_news_icons Cnorm"><i class="fa fa-binoculars ilch_cms_icons Cnorm" title="' . $tn_r['klicks']. ' mal gelesen"></i></a>';
                 $tn_r['datum']  = $lang[$tn_r['dayofweek']] . ' ' . $tn_r['datum'];
         	    $tn_r['edit']   = is_null($tn_r['edit_time']) ? '' : '<br /><i>zuletzt ge&auml;ndert am ' . date('d.m.Y - H:i', strtotime($tn_r['edit_time'])) . '&nbsp;Uhr';
         	    if (!empty($tn_r['edit']) and $tn_r['editorname'] != $tn_r['username']) {
@@ -250,11 +250,11 @@ if (!is_numeric($menu->get(1))) {
             if (strpos ($row['text'] , '[PREVIEWENDE]') !== false) {
                 $a = explode('[PREVIEWENDE]' , $row['text']);
                 $row['text'] = $a[0];
-                $row['readwholenews'] = '<a href="index.php?news-' . $row['id'] . '" alt="mehr lesen" title="mehr lesen"><img src="include/images/icons/news/more.gif" alt="mehr lesen" border="0"></a>';
+                $row['readwholenews'] = '<a class="ilch_cms_news_icons Cnorm" href="index.php?news-' . $row['id'] . '" alt="mehr lesen" title="mehr lesen"><i class="fa fa-hand-o-right"></i></a>';
             } else {
                 $row['readwholenews'] = '';
             }
-            $row['klicks'] = '<img src="include/images/icons/news/counter.gif" alt="' . $row['klicks'] . ' mal gelesen" title="' . $row['klicks'] . ' mal gelesen" border="0">';
+            $row['klicks'] = '<a href="#" class="ilch_cms_news_icons Cnorm"><i  class="fa fa-binoculars" title="' . $row['klicks'] . ' mal gelesen"></i></a>';
             if (!$row['html']) {
                 $row['text'] = bbcode($row['text']);
             }
@@ -294,7 +294,7 @@ if (!is_numeric($menu->get(1))) {
 	}
 
 	if ($dontShow) {
-		echo 'News existiert nicht oder Sie haben keine Rechte sie zu sehen.  <a href="javascript:history.back();">zur&uuml;ck</a>';
+		echo '<div class="text-center"><span class="ilch_hinweis_rot">News existiert nicht oder Sie haben keine Rechte sie zu sehen.<br><br><a href="javascript:history.back();">zur&uuml;ck</a></span></div>';
 		$design->footer(1);
 	}
 
@@ -321,7 +321,7 @@ if (!is_numeric($menu->get(1))) {
             }
             db_query("INSERT INTO `prefix_koms` (`uid`,`cat`,`name`,`text`) VALUES (" . $nid . ",'NEWS','" . $_POST['name'] . "','" . $_POST['txt'] . "')");
         } else {
-            $kom_info = '<span style="color:red;">Dieser Name ist bereits an einen User vergeben, benutze bitte einen anderen.</span><br />';
+            $kom_info = '<div class="text-center"><span class="ilch_hinweis_rot">Dieser Name ist bereits an einen User vergeben, benutze bitte einen anderen.</span></div>';
         }
     }
     // kommentar add
@@ -365,7 +365,7 @@ if (!is_numeric($menu->get(1))) {
         while ($row1 = db_fetch_assoc($erg1)) {
             $row1['text'] = bbcode(trim($row1['text']));
             if (has_right(- 7, 'news')) {
-                $row1['text'] .= '<a href="javascript:delkom(' . $nid . ',' . $row1['id'] . ')"><img src="include/images/icons/del.gif" alt="l&ouml;schen" border="0" title="l&ouml;schen" /></a>';
+                $row1['text'] .= '<a class="ilch_closed_icon" href="javascript:delkom(' . $nid . ',' . $row1['id'] . ')" title="l&ouml;schen"><i class="fa fa-times"></i></a>';
             }
             $tpl->set_ar_out(array('NAME' => $row1['name'], 'TEXT' => $row1['text'], 'ZAHL' => $zahl) , 4);
             $zahl--;

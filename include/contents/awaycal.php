@@ -79,11 +79,11 @@ while($r = db_fetch_assoc($erg)) {
   $r['class']  = $class;
   $r['status'] = $statusar[$r['pruef']];
   if ($r['uid'] == $_SESSION['authid'] OR is_siteadmin('awaycal')) {
-    $r['betreff'] .= '<br /><span style="float: right;"><a href="index.php?awaycal-d'.$r['id'].'"><img src="include/images/icons/del.gif" alt="'.$lang['delete'].'" title="'.$lang['delete'].'" border="0" /></a> - <a href="index.php?awaycal-e'.$r['id'].'"><img src="include/images/icons/edit.gif" alt="'.$lang['change'].'" title="'.$lang['change'].'" border="0" /></a>';
+    $r['betreff'] .= '<br><span class="ilch_float_r"><a class="ilch_closed_icon" href="index.php?awaycal-d'.$r['id'].'"  title="'.$lang['delete'].'"><i class="fa fa-times"></i></a><a class="ilch_edit_icon" href="index.php?awaycal-e'.$r['id'].'" title="'.$lang['change'].'"><i class="fa fa-pencil-square-o"></i></a>';
     if (is_siteadmin('awaycal')) {
-      $r['betreff'] .= ' - <a href="index.php?awaycal-c'.$r['id'].'-1"><img src="include/images/icons/nop.gif" alt="'.$lang['reject'].'" title="'.$lang['reject'].'" border="0" /></a> - <a href="index.php?awaycal-c'.$r['id'].'-3"><img src="include/images/icons/jep.gif" alt="'.$lang['allow'].'" title="'.$lang['allow'].'" border="0" /></a>';
+      $r['betreff'] .= '<a class="ilch_nob_icon" href="index.php?awaycal-c'.$r['id'].'-1" title="'.$lang['reject'].'"><i class="fa fa-thumbs-o-down"></i></a><a class="ilch_yep_icon" href="index.php?awaycal-c'.$r['id'].'-3" title="'.$lang['allow'].'"><i class="fa fa-thumbs-o-up"></i></a>';
     }
-    $r['betreff'] .= '</span>';
+    $r['betreff'] .= '</span><br>';
   }
   $tpl->set_ar_out($r,2);
 }

@@ -1,4 +1,5 @@
-  <div class="ilch_box_in text-center">
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="ilch_box_in text-center">
 			  {EINTRAGE} {_lang_entries}
 <span class="ilch_float_r"><a class="ilch_a_link_s" href="index.php?gbook-1">{_lang_insert}</a></span>
 	 </div>
@@ -6,7 +7,7 @@
 {EXPLODE}
 <div class="border gbook_image">
 <div class="ilch_case">
-<div class="ilch_gbook_in Chead"><strong>{NAME}</strong><span class="ilch_float_r ilch_small_font">{DATE}<br>{MAIL}{PAGE}</span></div>
+<div class="ilch_gbook_in Chead"><strong>{NAME}</strong><span class="text-right ilch_float_r ilch_small_font">{DATE}<br>{MAIL}{PAGE}</span></div>
 <div class="ilch_gbook_in Cnorm">{TEXT}<br/><span class="ilch_float_r">{koms}</span></div>
 </div></div>
 {EXPLODE}
@@ -18,7 +19,7 @@
 
 <!-- G &auml; S T E B U C H   E N T E R   F O R M U L A R -->
 
-
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <script language="JavaScript" type="text/javascript">
 <!--
   
@@ -89,16 +90,13 @@ function RestlicheZeichenErmitteln(d)
       <tr>
         <td width="100%" class="bg_color_bbcode">
       <!-- BB Code START -->
-	   
-    <a href="javascript:simple('b')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.bold.gif" alt="b" title="{_lang_bold}" border="0"></a>
-    <a href="javascript:simple('i')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.italic.gif" alt="i" title="{_lang_italic}" border="0"></a>
-	<a href="javascript:simple('u')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.underline.gif" alt="u" title="{_lang_underlined}" border="0"></a>
-    <a href="javascript:simple('code')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.code.gif" alt="Code" title="{_lang_code}" border="0"></a>
-	<a href="javascript:simple_liste()"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.insertunorderedlist.gif" alt="{_lang_list}" title="{_lang_list}" border="0"></a>
-    <a href="javascript:simple('url')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.link.gif" alt="Url" title="{_lang_link}" border="0"></a>
-    <a href="javascript:simple('img')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.image.gif" alt="{_lang_picture}" title="{_lang_picture}" border="0"></a>
-
-		 
+<a class="ilch_gbook_icons" href="javascript:simple('b')" title="{_lang_bold}"><i class="fa fa-bold"></i></a>
+<a class="ilch_gbook_icons" href="javascript:simple('i')" title="{_lang_italic}"><i class="fa fa-italic"></i></a>
+	<a class="ilch_gbook_icons" href="javascript:simple('u')" title="{_lang_underlined}"><i class="fa fa-underline"></i></a>
+    <a class="ilch_gbook_icons" href="javascript:simple('code')" title="{_lang_code}"><i class="fa fa-code"></i></a>
+	<a class="ilch_gbook_icons" href="javascript:simple_liste()" title="{_lang_list}"><i class="fa fa-list-ul"></i></a>
+    <a class="ilch_gbook_icons" href="javascript:simple('url')" title="{_lang_link}"><i class="fa fa-globe"></i></a>
+    <a class="ilch_gbook_icons" href="javascript:simple('img')" title="{_lang_picture}"><i class="fa fa-picture-o"></i></a>		 
 		 <!-- BB Code START -->
 				</td>
       </tr><tr class="Cnorm">
@@ -110,9 +108,10 @@ function RestlicheZeichenErmitteln(d)
 	</tr></table></form>
 
 {EXPLODE}
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="border gbook_image">
 <div class="ilch_case">
-<div class="ilch_gbook_in Cmite"><strong>{name}</strong><span class="ilch_float_r ilch_small_font">{datum}<br>{mail}{page}</span></div>
+<div class="ilch_gbook_in Cmite"><strong>{name}</strong><span class="text-right ilch_float_r ilch_small_font">{datum}<br>{mail}{page}</span></div>
 <div class="ilch_gbook_in Cnorm">{text}</div>
 </div></div>
 
@@ -126,10 +125,9 @@ function RestlicheZeichenErmitteln(d)
         </fieldset>
       </form>
       <br>
-      {EXPLODE}
-     
+      {EXPLODE}  
       <span class="Cmite"># <strong>{zahl}</strong> von {name}</span>
-      <br>{text}<br><br>
+      <br>{text}<br>
       
       {EXPLODE}
 </div>

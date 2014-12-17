@@ -24,6 +24,9 @@ padding: 1px
 .border th{
 padding: 10px 5px 10px 5px
 }
+.tdweight05 {
+width: 0.5%
+}
 .tdweight5 {
 width: 5%
 }
@@ -290,6 +293,57 @@ margin: 6px 0px 3px 0px
 }
 .ilch_news_margin{
 margin: 15px 0px 50px 0px
+}
+.ilch_topnews{
+border:2px dashed #FF0000;
+margin:2px;
+padding: 5px;
+padding-bottom:30px;
+margin-bottom: 20px
+}
+.ilch_topnews h3{
+text-align:center;
+margin-bottom:10px;
+color:#FF0000
+}
+.ilch_add_news{
+display:none
+}
+
+/* Ilch Font icons */
+
+
+.ilch_cms_news_icons{
+font-size:1.5em;
+padding: 0px 4px 1px 4px;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+border:1px solid #8E8E8E
+}
+.ilch_gbook_icons{
+font-size:1.5em;
+padding: 0px 4px 1px 4px
+}
+.ilch_closed_icon,
+.ilch_closed_icon:hover{
+font-size:1.5em;
+margin: 0px 3px 2px 3px;
+color:#C40000
+}
+.ilch_edit_icon,
+.ilch_edit_icon:hover{
+font-size:1.5em;
+margin: 0px 3px 2px 3px;
+color:#007F0C
+}
+.ilch_yep_icon ,
+.ilch_yep_icon:hover,
+.ilch_nob_icon ,
+.ilch_nob_icon:hover{
+font-size:1.5em;
+margin: 0px 3px 2px 3px;
+color:#008BEF
 }
 
 

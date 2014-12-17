@@ -7,6 +7,12 @@ defined ('main') or die ( 'no direct access' );
 
 $lang = array
 (
+'submitnews' => 'Submit News',
+'titlen' => 'Title',
+'year' => 'Year',
+'showall' => 'Show all',
+'topicforum' => 'Topic',
+'writtenby' => 'written by',
 'personalyremarks' => 'Personaly Remarks',
 'emailaddressofyourfriend' => 'E -mail Address of your Friend',
 'nameofyourfriend' => 'Name of your Friend',

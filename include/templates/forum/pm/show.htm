@@ -17,7 +17,7 @@ function CheckAll(){
 //-->
 </SCRIPT>
 <div class="tdweight100 ilch_float_l">
-<strong>[</strong> <a href="index.php?forum-privmsg-showsend">{_lang_outbox}</a> <strong>|</strong><span class="text-right ilch_float_r">
+<strong>[</strong> <a href="index.php?forum-privmsg-showsend">{_lang_outbox}</a> <strong>]</strong><span class="text-right ilch_float_r">
 <strong>[</strong> <a href="index.php?forum-privmsg-new">{_lang_writemessage}</a> <strong>]</strong></span>
 </div>
 <br>
@@ -33,7 +33,7 @@ function CheckAll(){
 	{EXPLODE}
   <tr class="{CLASS}">
 	  <td><a href="index.php?forum-privmsg-showmsg-{ID}">{BET}</a></td>
-    <td>von {ABS} &nbsp; {NEW}</td>
+    <td>{_lang_from} {ABS} &nbsp; {NEW}</td>
     <td class="text-center ilch_small_font">{date}<br>{time} {_lang_oclock}</td>
     <td class="text-center"><input type="checkbox" name="delids[]" value="{ID}"></td>
   </tr>

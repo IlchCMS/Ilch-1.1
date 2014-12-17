@@ -195,10 +195,10 @@ if ($menu->get(2) == '' OR $menu->getA(2) == 'p') {
             $row['wo'] = $row['wo'];
             $row['txt'] = $row['txt'];
         } else {
-            $row['icq'] = 'locked';
-            $row['mail'] = 'locked';
-            $row['wo'] = 'locked';
-            $row['txt'] = 'locked';
+            $row['icq'] = '<i class="fa fa-lock"></i>';
+            $row['mail'] = '<i class="fa fa-lock"></i>';
+            $row['wo'] = '<i class="fa fa-lock"></i>';
+            $row['txt'] = '<i class="fa fa-lock"></i>';
         }
         $tpl->set_ar_out($row, 0);
 
@@ -254,7 +254,7 @@ if ($menu->get(2) == '' OR $menu->getA(2) == 'p') {
                 $row1['class'] = $class;
                 $row1['aktion'] = $aktionar[$row1['aktion']];
                 if ($row1['uid'] == $_SESSION['authid'] OR is_siteadmin('wars')) {
-                    $row1['name'] = '<a href="index.php?wars-more-' . $_GET['mehr'] . '-delete-' . $row1['uid'] . '"><img src="include/images/icons/del.gif" border="0" title="l&ouml;schen" /></a>&nbsp;' . $row1['name'];
+                    $row1['name'] = '<a class="ilch_closed_icon" href="index.php?wars-more-' . $_GET['mehr'] . '-delete-' . $row1['uid'] . '" title="l&ouml;schen"><i class="fa fa-times"></i></a>' . $row1['name'];
                 }
                 $tpl->set_ar_out($row1, 3);
             }
@@ -293,7 +293,7 @@ if ($menu->get(2) == '' OR $menu->getA(2) == 'p') {
                 $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite');
                 $r['text'] = bbcode($r['text']);
                 if (is_siteadmin('wars')) {
-                    $r['text'] .= '<a href="index.php?wars-more-' . $_GET['mehr'] . '=0&amp;kommentar_fuer_last_wars_loeschen=' . $r['id'] . '"><img src="include/images/icons/del.gif" title="l&ouml;schen" alt="l&ouml;schen" border="0"></a>';
+                    $r['text'] .= '<a class="ilch_closed_icon" href="index.php?wars-more-' . $_GET['mehr'] . '=0&amp;kommentar_fuer_last_wars_loeschen=' . $r['id'] . '" title="l&ouml;schen"><i class="fa fa-times"></i></a>';
                 }
                 $r['class'] = $class;
                 $tpl->set_ar_out($r, 2);
