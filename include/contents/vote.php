@@ -48,10 +48,7 @@ $design = new design ( $title , $hmenu );
 $design->header();
 
 ?>
-<table width="100%" cellpadding="2" cellspacing="1" border="0" class="border">
-  <tr class="Chead">
-    <td><b><?php $lang['vote']; ?></b></td>
-  </tr>
+<table class="border">
 	
 <?php
 
@@ -80,11 +77,11 @@ while ($fraRow = db_fetch_object($erg)) {
 		} elseif ($fraRow->recht == 1) {
 		  $inTextAr = $_SERVER['REMOTE_ADDR'];
 		}
-    echo '<tr><td class="Cdark"><b>'.$fraRow->frage.'</b></td></tr>';
+    echo '<tr><td class="Chead text-center"><strong>'.$fraRow->frage.'</strong></td></tr>';
 		if ( $class == 'Cnorm' ) { $class = 'Cmite'; } else { $class = 'Cnorm'; }
 		echo '<tr><td class="'.$class.'">';
 		if ( in_array ( $inTextAr , $textAr ) OR $fraRow->stat == 0) {
-			  echo '<table width="100%" cellpadding="0">';
+			  echo '<table>';
 		    $imPollArrayDrin = true;
 		} else {
 			  echo '<form action="index.php?vote-W'.$fraRow->poll_id.'" method="POST">';
@@ -103,35 +100,35 @@ while ($fraRow = db_fetch_object($erg)) {
 					    $prozent = 0;
 				    }
 						$tbweite = $weite + 20;
-						echo '<tr><td width="30%">'.$pollRow->antw.'</td>';
-				    echo '<td width="50%">';
+						echo '<tr><td class="tdweight30">'.$pollRow->antw.'</td>';
+				    echo '<td class="tdweight30">';
             /*
-            '<table width="'.$tbweite.'" border="0" cellpadding="0" cellspacing="0"></td>';
+            '<table width="'.$tbweite.'"></td>';
 						echo '<tr><td width="10" height="10"></td>';
 						echo '<td width="'.$weite.'" background="include/images/vote/voteMitte.jpg" alt=""></td>';
 						echo '<td width="10"><img src="include/images/vote/voteRight.jpg" alt=""></td>';
 						echo '</tr></table>';*/
-            echo '<div style="height: 10px; width: ' . $weite .'px; background: #3776a5 url(include/images/vote/voteMitte.png) repeat-y top left;">'.
+            echo '<div style="height: 10px; width:'.$weite.'px;; background: #3776a5;">'.
                  '</div>';
 				    
-            echo '<td width="10%">'.$prozent.'%</td>';
-				    echo '<td width="20%" align="right">'.$pollRow->res.'</td></tr>';
+            echo '<td class="tdweight10">'.$prozent.'%</td>';
+				    echo '<td class="tdweight20 text-right">'.$pollRow->res.'</td></tr>';
 				} else {
             $i++;
 			      echo '<input type="radio" id="vote'.$i.'" name="radio" value="'.$pollRow->sort.'"><label for="vote'.$i.'"> '.$pollRow->antw.'</label><br>';
 		    }
 		} 
 		if ( $imPollArrayDrin ) {
-			  echo '<tr><td colspan="2" align="right">'.$lang['whole'].': &nbsp; '.$ges.'</td></tr></table>';
+			  echo '<tr><td colspan="2" class="text-right">'.$lang['whole'].': &nbsp; '.$ges.'</td></tr></table>';
 		} else {
-		    echo '<p align="center"><input type="submit" value="'.$lang['formsub'].'"></p></form>';
+		    echo '<span class="text-center"><input type="submit" value="'.$lang['formsub'].'"></span></form>';
 		}
 		
     echo '</td></tr>';
 		
 } // end while
 
-echo '<tr><td class="Cdark" align="center">'. $MPL .'</td></tr></table>';
+echo '<tr><td class="Cdark text-center">'. $MPL .'</td></tr></table>';
 $design->footer();
 
 ?>

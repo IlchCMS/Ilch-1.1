@@ -3,10 +3,11 @@
  <input type="button" value="anzeigen" onclick="xajax_showcat(document.getElementById('cats').value,document.getElementById('year').value);" /><hr><br>
 <div id="narchiv"></div>
 {EXPLODE}
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <table class="border">
-<tr class="Chead"><th>{_lang_titlen} ({_lang_comment})</th><th>{_lang_author}</th><th>{_lang_date}</th><th>{_lang_category}</th><th>Print</th><th>Hits</th></tr>
+<tr class="Chead"><th class="text-left">{_lang_titlen} <span class="smalfont">({_lang_comment})</span></th><th class="text-center">{_lang_author}</th><th class="text-center">{_lang_date}</th><th class="text-center">{_lang_category}</th><th class="text-center">Print</th><th class="text-center">Hits</th></tr>
 {EXPLODE}
-<tr class="{class}"><td><a href="index.php?news-{id}">{title}</a> ({koms})</td><td><a href="index.php?user-details-{uid}">{name}</a></td><td>{datum}{edit}</td><td>{kat}</td><td align="center">{print}</td><td align="center">{klicks}</td></tr>
+<tr class="{class}"><td class="text-left"><a href="index.php?news-{id}">{title}</a> ({koms})</td><td class="text-center"><a href="index.php?user-details-{uid}">{name}</a></td><td class="text-center">{datum}{edit}</td><td class="text-center">{kat}</td><td class="text-center">{print}</td><td class="text-center">{klicks}</td></tr>
 {EXPLODE}
 </table>
 <div class="tdweight100 text-center tablebordertop">{MPL}</div>
