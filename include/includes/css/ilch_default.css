@@ -3,6 +3,7 @@
 
 table{
 width: 100%;
+border-spacing: 0;
 }
 .border{
 width: 100%;
@@ -41,6 +42,9 @@ width: 20%
 }
 .tdweight25 {
 width: 25%
+}
+.tdweight30 {
+width: 30%
 }
 .tdweight50 {
 width: 50%
