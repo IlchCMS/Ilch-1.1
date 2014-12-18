@@ -1,7 +1,7 @@
 <html>
 <head>
 <title>{TITLE}</title>
-
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <style>
 body { background:#FFFFFF; }
 .kat {
@@ -52,6 +52,24 @@ input
     text-decoration: none;  
     background-color: #EFEFEF;  
 }
+.fa-print,
+.fa-arrow-left{
+font-size:2em;
+color:#0077CC
+}
+.text-left{
+text-align:left
+}
+.print_but{
+float:right;
+text-align:right
+}
+.news_img_max img {
+max-width:630px;
+height: auto;
+border:none;
+margin: 6px 0px 3px 0px
+}
 </style>
 {HEADER_ADDITIONS}
 </head>
@@ -74,13 +92,13 @@ input
   <td colspan="2" class="title" colspan="2">{TITLE}<br /></td>
  </tr>
  <tr>
-  <td colspan="2" class="news" align="left" colspan="2">{TEXT}</td>
+  <td colspan="2" class="news news_img_max" align="left" colspan="2">{TEXT}</td>
  </tr>
   <tr>
   <td colspan="2"><hr style="height: 0px; border: solid #383B41 0px; border-top-width: 1px " /></td>
  </tr>
   <tr>
-  <td colspan="2" align="right"><a href="javascript:self.print()" alt="Drucken" title="Drucken"><img src="include/images/icons/print_g.gif" alt="Drucken" border="0"></a></td>
+  <td colspan="2" class="text-left"><a href="javascript:history.back(1)" title="zur&uuml;ck"><i class="fa fa-arrow-left"></i></a><a class="print_but" href="javascript:self.print()" alt="Drucken" title="Drucken"><i class="fa fa-print"></i></a></td>
  </tr>
 </table>
 </td>
