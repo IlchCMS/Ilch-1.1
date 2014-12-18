@@ -81,7 +81,7 @@ if (loggedin()) {
 		$tpl->set_out('SMILIES',getsmilies(),5);
     }
 } else {
-    echo 'Nur f&uuml;r angemeldete Benutzer';
+    echo '<div class="text-center"><span class="ilch_hinweis_rot">Nur f&uuml;r angemeldete Benutzer</span></div>';
 }
 $design->footer();
 ?>

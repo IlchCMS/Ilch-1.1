@@ -3,7 +3,11 @@
 
 table{
 width: 100%;
-border-spacing: 0;
+border-spacing: 0
+}
+td,
+th {
+padding: 0
 }
 .border{
 width: 100%;
@@ -218,7 +222,8 @@ min-height:200px
 }
 .ilch_gallery_in,
 .ilch_forum_in,
-.ilch_news_in{
+.ilch_news_in,
+.ilch_shoutbox_in{
 padding: 3px 3px 3px 3px
 }
 
@@ -318,6 +323,7 @@ display:none
 
 
 .ilch_cms_news_icons{
+display:inline-block;
 font-size:1.5em;
 padding: 0px 4px 1px 4px;
 -webkit-border-radius: 5px;
