@@ -114,6 +114,7 @@ if ((isset($_POST['del']) OR isset($_POST['shift']) OR isset($_POST['status'])) 
     echo '<input type="hidden" name="dely" value="yes" />';
     echo 'Sicher die ausgewahlten Themen loeschen? <input type="submit" value="'.$lang['yes'].'" name="del" />';
   } elseif (isset($_POST['shift']) AND $_POST['nfid'] != 'cat') {
+    echo get_antispam('forum_edit_forum', 0, true);
     echo '<input type="hidden" name="afid" value="'.$fid.'">neues Forum ausw&auml;hlen<br />';
     echo '<select name="nfid">';
       function stufe($anz, $t = 'f') {
