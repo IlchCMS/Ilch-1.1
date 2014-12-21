@@ -16,7 +16,7 @@ if ( empty($_POST['NEWSLETTER'])  ) {
 	  <br>
 		<input type="text" name="NEWSLETTER" size="15">
 		<br><br>
-		<input type="submit" style="width:120px; height:20px;" value="<?php echo $lang['newsletterinout']; ?>">
+		<input type="submit" value="<?php echo $lang['newsletterinout']; ?>">
 </div>
 	</form>
 
