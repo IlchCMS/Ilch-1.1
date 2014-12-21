@@ -14,7 +14,7 @@ if ( !empty($_POST['temp_ch']) ) {
 	wd ( '' , '' , 0 );
 } else {
 echo '<form action="index.php?'.$menu->get_complete().'" method="POST">';
-echo '<div align="center">';
+echo '<div class="tdweight100 text-center">';
 echo '<select name="temp_ch" onchange="this.form.submit();">';
 $o = opendir ('include/designs');
 while ( $f = readdir($o) ) {

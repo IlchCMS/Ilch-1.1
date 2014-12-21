@@ -40,6 +40,6 @@ if ($guests == 0) {
 		<tr><td><img src="include/images/icons/online.gif" border="0" alt="online"></td><td><font size=-1>'.$guests.' '.$guestn.'</font></td></tr>'."\n";
 }
 ?>
-<table align="center" border="0" cellpadding="0" cellspacing="0" >
+<table>
  <?php echo $content; ?>
 </table>

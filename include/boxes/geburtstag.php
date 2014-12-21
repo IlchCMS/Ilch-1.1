@@ -35,28 +35,28 @@ FROM prefix_user WHERE gebdatum > 0000-00-00 AND recht <= ".$recht." ORDER BY ge
 
 $erg = db_query($q);
 
-echo '<table width="100%" cellspacing="0" cellpadding="0">';
+echo '<div class="tdweight100 text-center">';
 
 $i = 1;
 
 while($row = db_fetch_object($erg)) {
  
   if($akttime == $row->gebtage)  {
-   echo '<tr><td align="center">'.$lang['today'].'&nbsp;'.$lang['had'].'&nbsp;<a class="box" href="index.php?user-details-'.$row->id.'">'.$row->name.'</a><br / >'.$lang['birthday'].'<br / ><img border="0" src="include/images/icons/birthday.gif"></td></tr>';
+   echo ''.$lang['today'].'&nbsp;'.$lang['had'].'&nbsp;<br><a class="box" href="index.php?user-details-'.$row->id.'">'.$row->name.'</a><br>'.$lang['birthday'].'<br><img border="0" src="include/images/icons/birthday.gif">';
   } else {
     $gebtage = get_gebtage ($row->gebtage);
-    echo '<tr><td align="center"><a class="box" href="index.php?user-details-'.$row->id.'">'.$row->name.'</a> '.$lang['had'].' '.$lang['on'].' '.$gebtage.' '.$lang['birthday'];
+    echo '<a class="box" href="index.php?user-details-'.$row->id.'">'.$row->name.'</a><br>'.$lang['had'].' '.$lang['on'].' '.$gebtage.' '.$lang['birthday'];
     if ($showavatars && $row->avatar) {
-      echo '<br /><img border="0" src="'.$row->avatar.'">';
+      echo '<br><img class="ilch_geb_avatar" border="0" src="'.$row->avatar.'">';
     }
-    echo "</td></tr>";
+    echo "";
   }
   
   if ($i<$limit) {
-    echo '<tr><td>&nbsp;</td></tr>';
+    echo '<br>';
   }
   $i++;
 }
 
-echo '</table>';
+echo '</div>';
 ?>

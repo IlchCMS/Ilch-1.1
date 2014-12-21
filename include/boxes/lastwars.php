@@ -8,7 +8,7 @@ defined ('main') or die ( 'no direct access' );
 $farbe = '';
 $farb2 = '';
 
-echo '<table width="100%" border="0" cellpadding="2" cellspacing="0">';
+echo '<div class="tdweight100 ilch_float_l">';
 $erg = db_query('SELECT * FROM prefix_wars WHERE status = "3" ORDER BY datime DESC LIMIT 3');
 while ($row = db_fetch_object($erg) ) {
 	$row->tag = ( empty($row->tag) ? $row->gegner : $row->tag );
@@ -25,9 +25,8 @@ while ($row = db_fetch_object($erg) ) {
   }
 
 	
-	echo '<tr><td>'.get_wargameimg($row->game).'</td><td align="left">';
-	echo '<a href="index.php?wars-more-'.$row->id.'">';
-	echo $row->owp.' '.$lang['at2'].' '.$row->opp.' - '.$row->tag.'</a></td><td><img src="'.$bild.'"></td></tr>';
+	echo '<div class="tdweight90 text-left ilch_float_l">'.get_wargameimg($row->game).'  <a href="index.php?wars-more-'.$row->id.'">'.$row->owp.' '.$lang['at2'].' '.$row->opp.' - '.$row->tag.'</a></div>';
+	echo '<div class="tdweight10 text-right ilch_float_r"><img src="'.$bild.'"></div>';
 }
-echo '</table>';
+echo '</div>';
 ?>

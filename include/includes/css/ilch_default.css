@@ -56,6 +56,12 @@ width: 50%
 .tdweight80 {
 width: 80%
 }
+.tdweight90 {
+width: 90%
+}
+.tdweight95 {
+width: 95%
+}
 .tdweight98 {
 width: 98%
 }
@@ -147,6 +153,9 @@ border:1px solid transparent
 }
 .ilch_case_in{
 padding: 10px 10px 20px 10px
+}
+.ilch_casesmall_in{
+padding:5px
 }
 .Chead{
 padding: 10px 5px 10px 5px
@@ -356,6 +365,14 @@ margin: 0px 3px 2px 3px;
 color:#008BEF
 }
 
+/* Ilch Geburtstags Box */
+
+.ilch_geb_avatar{
+max-width:100%;
+height: auto;
+border:none;
+margin: 4px 0px 4px 0px
+}
 
 /* vorgesetzte Klassen fuer Designer */
 

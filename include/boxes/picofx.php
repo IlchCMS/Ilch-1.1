@@ -79,9 +79,9 @@ defined ('main') or die ( 'no direct access' );
     
     <?php    
     
-    echo '<table width="100%" border="0" cellpadding="2" cellspacing="0"><tr><td align="center">';
+    echo '<div class="tdweight100 text-center ilch_float_l">';
     echo '<a target="_blank" href="index.php?gallery-show-'.$cid.'-p'.$anz.'" onClick="return picOfxOeffneFenster('.$anz.','.$cid.');"><img src="include/images/gallery/'.$picofxThumb.'" width="'.$picofxImg[0].'" height="'.$picofxImg[1].'" alt=""></a>';
-    echo '</td></tr></table>';
+    echo '</div>';
   } else {
 
     echo $lang['nothingavailable'];

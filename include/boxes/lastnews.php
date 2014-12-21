@@ -19,11 +19,11 @@ $abf = 'SELECT *
               ORDER BY news_time DESC
 		LIMIT 0,5";
 $erg = db_query($abf);
-echo '<table>';
+echo '<div class="tdweight100 ilch_float_l">';
 while ($row = db_fetch_object($erg)) {
-	echo '<tr><td valign="top"><b> &raquo; </b></td><td><a class="box" href="index.php?news-'.$row->news_id.'">'.$row->news_title.'</a></td></tr>';
+	echo '<div class="tdweight10 text-left ilch_float_l"><strong>&raquo;</strong></div><div class="tdweight90 text-left ilch_float_l"><a class="box" href="index.php?news-'.$row->news_id.'">'.$row->news_title.'</a></div>';
 }
-echo '</table>';
+echo '</div>';
 
 
 ?>

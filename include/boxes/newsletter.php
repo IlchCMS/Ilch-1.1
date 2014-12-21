@@ -11,14 +11,13 @@ if ( empty($_POST['NEWSLETTER'])  ) {
 ?>
 
   <form action="index.php" method="POST">
-
-		<b>Newsletter</b>
-	  <br />
+<div class="tdweight100 text-center ilch_float_l">
+		<strong>Newsletter</strong>
+	  <br>
 		<input type="text" name="NEWSLETTER" size="15">
-		<br />
-		<br />
+		<br><br>
 		<input type="submit" style="width:120px; height:20px;" value="<?php echo $lang['newsletterinout']; ?>">
-
+</div>
 	</form>
 
 
