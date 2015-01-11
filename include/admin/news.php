@@ -177,7 +177,7 @@ if (!empty($_REQUEST['um'])) {
     if ($um == 'insert' or $um == 'change') {
         $grecht = 0;
         for ($i = 0; $i < 10; $i++) {
-            if (isset(escape($_POST['grecht_' . $i], 'string'))) {
+            if (escape($_POST['grecht_' . $i], 'string') != Null) {
                 $grecht = $grecht | pow(2, $i);
             }
         }
@@ -185,7 +185,7 @@ if (!empty($_REQUEST['um'])) {
         $groups = 0;
         $sql = db_query("SELECT id FROM prefix_groups");
         while ($r = db_fetch_assoc($sql)) {
-            if (isset(escape($_POST['groups_' . $r['id']], 'string'))) {
+            if (escape($_POST['groups_' . $r['id']], 'string') != Null) {
                 $groups = $groups | pow(2, $r['id']);
             }
         }
