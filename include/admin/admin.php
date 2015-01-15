@@ -33,144 +33,182 @@ switch ($um) {
 
     default : {
             ?>
-            <table width="100%" border="0" cellspacing="0" cellpadding="5" class="rand">
-                <tr class="Chead">
-                    <td><b>Willkommen bei ilchClan - Administration!</b></td>
-                </tr>
+<div class="page-header">
+    <h3><img class="ilch_label_bsite" src="include/admin/templates/bootstrap/css/ilch_label_bsite.png">  Willkommen im Adminbereich von IlchClan</h3>
+</div>
+<div class="row">
+<div class="col-md-4">
+<div class="panel panel-default">
+  <div class="panel-body">
+<legend><i class="fa fa-life-ring"></i> Hilfe Adminbereich</legend>   
+<ul class="list-group">
+  <li class="list-group-item list-group-item-success">
+<h4>Willkommen im Adminbereich</h4>
+In den nun folgenden Zeilen wird die Oberfläche des Adminbereiches erläutert.<br>
+Oben rechts im DropDown Menü sind die jeweilgen Bereiche der Seite zu finden.<br>Rechts an der Seite befindet sich das Quickmen&uuml; für einen z&uuml;gigen Zugriff zu weiteren Ansichten. Dort sind, je nach dem gewählten Bereich, passende Links zu finden, &auml;hnlich dem DropDown Menü.<br>
+Hier auf der Startseite gibt es einen Einblick zu einigen Informationen der Seite.
+<div class="well well-sm">
+Sollten Probleme mit dem Ilch CMS auftreten nutze den <a class="text-success" href="http://www.ilch.de/texts.html" target="_blank"><strong>FAQ Bereich</strong></a> auf Ilch.de, sowie die Suche im <a class="text-success" href="http://www.ilch.de/forum.html" target="_blank"><strong>Forum</strong></a> f&uuml;r evtl. schon bestehende Threads zu diesem Thema.
+</div>
+  </li>
+</ul>
+</div></div>
+</div>
+<div class="col-md-4">
+<div class="panel panel-default">
+  <div class="panel-body">
+<legend><i class="fa fa-info-circle"></i> Info´s zur Seite</legend>   
+<ul class="list-group">
+  <li class="list-group-item list-group-item-info">
+<table width="100%"><tr>
+    <td>Aktuelles Design</td>
+<td class="text-right"><strong><?php echo $allgAr['gfx']; ?></strong></td>
+</tr></table>
+  </li>
+</ul>
+<ul class="list-group">
+  <li class="list-group-item list-group-item-info">
+<table width="100%"><tr>
+    <td>Script Version</td>
+<td class="text-right"><strong><?php echo 'Ilch '.$scriptVersion.' '.$scriptUpdate.''; ?></strong></td>
+</tr></table>
+  </li>
+</ul>
+<ul class="list-group">
+  <li class="list-group-item list-group-item-info">
+<table width="100%"><tr>
+    <td>Gr&ouml;&szlig;e Datenbank</td>
+<td class="text-right"><strong><?php
+$result = db_query("SHOW TABLE STATUS");
+    $dbsize = 0;
+    while($row = mysql_fetch_assoc($result)) {
+        $dbsize += $row['Data_length'];
+    }echo nicebytes($dbsize);
+?></strong></td>
+</tr></table>
+  </li>
+</ul>
+<ul class="list-group">
+  <li class="list-group-item list-group-item-info">
+<table width="100%"><tr>
+    <td>Download Ordner</td>
+<td class="text-right"><strong><?php echo nicebytes(dirsize('include/downs/')); ?> gro&szlig;</strong></td>
+</tr>
+<tr><td colspan="2" class="text-left"><a class="btn btn-default btn-xs" href="admin.php?archiv-downloads">Downloads Verwalten</a></td></tr>
+</table>
+  </li>
+</ul>
+<ul class="list-group">
+  <li class="list-group-item list-group-item-info">
+<table width="100%"><tr>
+    <td>Status Seite</td>
+<td class="text-right"><strong><?php
+  if ($allgAr['wartung'] == 0){
+     echo '<span class="label label-success">Seite Online</span>';
+  }else
+    echo '<span class="label label-warning">Wartungs Modus</span>';
+?></strong></td>
+</tr></table>
+  </li>
+</ul>
+  </div>
+</div>
+</div>
+<div class="col-md-4">
+<div class="panel panel-default">
+  <div class="panel-body">
+<legend><i class="fa fa-users"></i> User</legend>   
+<ul class="list-group">
+  <li class="list-group-item list-group-item-warning">
+<table width="100%"><tr>
+    <td>Benutzer Online</td>
+<td class="text-right"><strong><?php echo ' '.ges_online().' ';?></strong></td>
+</tr>
+<tr><td colspan="2" class="text-left"><a class="btn btn-default btn-xs" href="admin.php?admin-userOnline">Online Liste anzeigen</a></td></tr>
+</table>
+  </li>
+</ul>
+<ul class="list-group">
+  <li class="list-group-item list-group-item-warning">
+<table width="100%"><tr>
+    <td>G&auml;ste Online</td>
+<td class="text-right"><strong><?php echo ' '.ges_gast_online().' ';?></strong></td>
+</tr></table>
+  </li>
+</ul>
+<ul class="list-group">
+  <li class="list-group-item list-group-item-warning">
+<table width="100%"><tr>
+    <td>Offene Registry</td>
+<td class="text-right"><strong><?php
+  $gesuser  = @db_result(db_query("SELECT count(name) FROM prefix_usercheck WHERE ak = 1"),0);
+  echo ' '.$gesuser.' ';
+?></strong></td>
+</tr>
+<tr><td colspan="2" class="text-left"><a class="btn btn-default btn-xs" href="admin.php?puser">Liste anzeigen</a></td></tr>
+</table>
+  </li>
+</ul>
+<ul class="list-group">
+  <li class="list-group-item list-group-item-warning">
+<table width="100%"><tr>
+    <td>Offene JoinUs</td>
+<td class="text-right"><strong><?php
+ $joinus  = @db_result(db_query("SELECT count(name) FROM prefix_usercheck WHERE ak = 4"),0);
+  echo ' '.$joinus.' ';
+  ?></strong></td>
+</tr>
+<tr><td colspan="2" class="text-left"><a class="btn btn-default btn-xs" href="admin.php?groups-joinus">Joinus anzeigen</a></td></tr>
+</table>
+  </li>
+</ul>
+<legend><h5><strong>neuste Mitglieder</strong></h5></legend>
+<?php
+  $abf = 'SELECT * FROM prefix_user ORDER BY regist DESC LIMIT 3';
+	$erg = db_query($abf);
+echo '<div class="list-group">';
+  while ($row = db_fetch_object($erg)) {
+  $regsek = mktime ( 0,0,0, date('m'), date('d'), date('Y') )  - $row->regist;
+  $regday = round($regsek / 86400);
+  $user = $row->name;
+  echo'
+  <a href="?user-1-'.$row->id.'"  class="list-group-item"><strong>'.$user.'</strong><small rel="tooltip" title="angemeldet am '.date('d.m.Y',$row->regist).'" class="pull-right">( '.date('d.m.Y',$row->regist).' )</small></a>';
+}
+echo '</div>';
+?>
 
-                <tr>
-                    <td class="Cnorm">
 
-                        <table width="100%">
-                            <tr>
-                                <td valign="top" width="100%">
-                                    <!--
-                                    Hallo, hier k&ouml;nnen Sie alle m&ouml;glichen Einstellungen vornehmen.
-                                    <br /><br />
-                                    Wenn Sie Probleme haben sollten, oder irgendwie nicht weiter wissen, bitte
-                                    kommen Sie uns doch auf <a href="http://www.ilch.de" target="_blank">www.ilch.de</a>
-                                    besuchen, damit wir Ihnen helfen k&ouml;nnen.
-                                    <br /><br />
-                                    Auch wenn Sie Verbesserungsw&uuml;nsche oder eine geniale Idee haben,
-                                    freuen wir uns &uuml;ber jeden Vorschlag.
-                                    <br /><br />
-                                    und jetzt <b>viel Spass mit dem Script!</b>
-                                    -->
-                                   <!-- </td><td valign="top" width="60%"> -->
-                                    <br />
-                                    <h3 style="display:inline;">Ein &Uuml;berblick &uuml;ber alle Inhalte</h3>
-
-                                    <script type="text/javascript">
-                                        function toggle_mimg() {
-                                            class_name = document.getElementById('cpm').className;
-                                            if (class_name === "admix") {
-                                                class_name = "admix_n";
-                                                link_text = "Symbol-Ansicht";
-                                            } else {
-                                                class_name = "admix";
-                                                link_text = "Listen-Ansicht";
-                                            }
-                                            document.getElementById('cpm').className = class_name;
-                                            document.getElementById('list_toggle').innerHTML = link_text;
-                                        }
-                                    </script>
-
-                                    <ul id="cpm" class="admix">
-                                        <li class="admix_box">Admin<br />
-                                            <ul>
-                                                <li><a href="admin.php?allg"><img src="include/images/icons/admin/konfiguration.png" alt="">Konfiguration</a></li>
-                                                <?php if ($allgAr['mail_smtp']) { ?>
-                                                    <li><a href="admin.php?smtpconf"><img src="include/images/icons/admin/smtpconf.png" alt="">SMTP konfigurieren</a></li>
-                                                <?php } ?>
-                                                <li><a href="admin.php?menu"><img src="include/images/icons/admin/navigation.png" alt="">Navigation</a></li>
-                                                <li><a href="admin.php?backup"><img src="include/images/icons/admin/backup.png" alt="">Backup</a></li>
-                                                <li><a href="admin.php?compatibility"><img src="include/images/icons/admin/konfiguration.png" alt="">Kompatibilität</a></li>
-                                                <li><a href="admin.php?smilies"><img src="include/images/icons/admin/smilies.png" alt="">Smiles</a></li>
-                                                <li><a href="admin.php?newsletter"><img src="include/images/icons/admin/newsletter.png" alt="">Newsletter</a></li>
-                                                <li><a href="admin.php?admin-versionsKontrolle"><img src="include/images/icons/admin/version_check.png" alt="">Versions Kontrolle</a></li>
-                                                <li><a href="admin.php?checkconf"><img src="include/images/icons/admin/version_check.png" alt="">Server Konfiguration</a></li>
-                                                <br class="admix_last"/>
-                                            </ul>
-                                        </li>
-                                        <li class="admix_box">Statistik<br />
-                                            <ul>
-                                                <li><a href="admin.php?admin-besucherStatistik"><img src="include/images/icons/admin/stats_visitor.png" alt="">Besucher</a></li>
-                                                <li><a href="admin.php?admin-siteStatistik"><img src="include/images/icons/admin/stats_site.png" alt="">Seite</a></li>
-                                                <li><a href="admin.php?admin-userOnline"><img src="include/images/icons/admin/stats_online.png" alt="">Online</a></li>
-                                                <br class="admix_last"/>
-                                            </ul>
-                                        </li>
-                                        <li class="admix_box">Clanbox<br />
-                                            <ul>
-                                                <li><a href="admin.php?wars-last"><img src="include/images/icons/admin/wars_last.png" alt="" />Lastwars</a></li>
-                                                <li><a href="admin.php?wars-next"><img src="include/images/icons/admin/wars_next.png" alt="" />Nextwars</a></li>
-                                                <li><a href="admin.php?awards"><img src="include/images/icons/admin/awards.png" alt="" />Awards</a></li>
-                                                <li><a href="admin.php?kasse"><img src="include/images/icons/admin/kasse.png" alt="" />Kasse</a></li>
-                                                <li><a href="admin.php?rules"><img src="include/images/icons/admin/rules.png" alt="" />Rules</a></li>
-                                                <li><a href="admin.php?history"><img src="include/images/icons/admin/history.png" alt="" />History</a></li>
-                                                <li><a href="admin.php?groups"><img src="include/images/icons/admin/teams.png" alt="" />Teams</a></li>
-                                                <li><a href="admin.php?trains"><img src="include/images/icons/admin/training_times.png" alt="" />Trainzeiten</a></li>
-                                                <br class="admix_last"/>
-                                            </ul>
-                                        </li>
-                                        <li class="admix_box">User<br />
-                                            <ul>
-                                                <li><a href="admin.php?user"><img src="include/images/icons/admin/user.png" alt="">Verwalten</a></li>
-                                                <li><a href="admin.php?grundrechte"><img src="include/images/icons/admin/user_rights.png" alt="">Grundrechte</a></li>
-                                                <li><a href="admin.php?profilefields"><img src="include/images/icons/admin/user_profile_fields.png" alt="">Profilefelder</a></li>
-                                                <li><a href="javascript: createNewUser();"><img src="include/images/icons/admin/user_add.png" alt="">neuen User</a></li>
-                                                <li><a href="admin.php?range"><img src="include/images/icons/admin/ranks.png" alt="">Ranks</a></li>
-                                                <br class="admix_last"/>
-                                            </ul>
-                                        </li>
-                                        <li class="admix_box">Content<br />
-                                            <ul>
-                                                <li><a href="admin.php?news"><img src="include/images/icons/admin/news.png" alt="">News</a></li>
-                                                <li><a href="admin.php?forum"><img src="include/images/icons/admin/forum.png" alt="">Forum</a></li>
-                                                <li><a href="admin.php?archiv-downloads"><img src="include/images/icons/admin/downloads.png" alt="">Downloads</a></li>
-                                                <li><a href="admin.php?archiv-links"><img src="include/images/icons/admin/links.png" alt="">Links</a></li>
-                                                <li><a href="admin.php?gallery"><img src="include/images/icons/admin/gallery.png" alt="">Gallery</a></li>
-                                                <li><a href="admin.php?vote"><img src="include/images/icons/admin/vote.png" alt="">Umfrage</a></li>
-                                                <li><a href="admin.php?kalender"><img src="include/images/icons/admin/calendar.png" alt="">Kalender</a></li>
-                                                <li><a href="admin.php?contact"><img src="include/images/icons/admin/contact.png" alt="">Kontakt</a></li>
-                                                <li><a href="admin.php?impressum"><img src="include/images/icons/admin/imprint.png" alt="">Impressum</a></li>
-                                                <li><a href="admin.php?selfbp"><img src="include/images/icons/admin/self_page_box.png" alt="">Eigene Box/Page</a></li>
-                                                <li><a href="admin.php?gbook"><img src="include/images/icons/admin/guestbook.png" alt="">G&auml;stebuch</a></li>
-                                                <br class="admix_last"/>
-                                            </ul>
-                                        </li>
-                                        <li class="admix_box">Boxen<br />
-                                            <ul>
-                                                <li><a href="admin.php?picofx"><img src="include/images/icons/admin/picofx.png" alt="">PicOfX</a></li>
-                                                <li><a href="admin.php?archiv-partners"><img src="include/images/icons/admin/partners.png" alt="">Partner</a></li>
-                                                <br class="admix_last"/>
-                                            </ul>
-                                        </li>
-                                        <li class="admix_box">Module
-                                            <?php
-                                            $modabf = db_query("SELECT * FROM `prefix_modules` WHERE ashow = 1");
-                                            if (db_num_rows($modabf) > 0) {
-                                                echo '<br /><ul>';
-                                                while ($modrow = db_fetch_object($modabf)) {
-                                                    if (file_exists('include/images/icons/admin/' . $modrow->url . '.png')) {
-                                                        $bild = 'include/images/icons/admin/' . $modrow->url . '.png';
-                                                    } else {
-                                                        $bild = 'include/images/icons/admin/na.png';
-                                                    }
-                                                    echo '<li><a href="admin.php?' . $modrow->url . '"><img src="' . $bild . '" alt="">' . $modrow->name . '</a></li>' . "\n";
-                                                }
-                                                echo '<br class="admix_last"/></ul>';
-                                            }
-                                            ?>
-                                        </li>
-                                    </ul>
-
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
+</div></div>
+</div></div>
+<div class="row">
+  <div class="col-md-4">
+<div class="panel panel-default">
+  <div class="panel-body">
+<legend><i class="fa fa-signal"></i> Statistiken</legend>   
+<?php include ('include/boxes/adminstatistik.php');?>
+</div></div>
+</div>
+  <div class="col-md-4">
+<div class="panel panel-default bg-warning">
+  <div class="panel-body bg-warning">
+<legend><i class="fa fa-file-text-o"></i> Letzte Eintr&auml;ge</legend>   
+<legend class="text-info"><h5><strong>Letzte News</strong></h5></legend>
+<?php include ('include/boxes/adminnews.php');?>
+<legend class="text-info"><h5><strong>Letzte Forumeintr&auml;ge</strong></h5></legend>
+<?php include ('include/boxes/adminforum.php');?>
+</div></div>
+</div>
+  <div class="col-md-4">
+<div class="panel panel-default">
+  <div class="panel-body">
+<legend><i class="fa fa-calendar-o"></i> Termine</legend>  
+<legend ><h5><strong>Kalender Eintr&auml;ge</strong></h5></legend>
+<?php include ('include/boxes/admintermin.php');?>
+<legend ><h5><strong>Next Wars</strong></h5></legend>
+<?php include ('include/boxes/adminwars.php');?>
+</div></div>
+</div>
+</div>
             <?php
             break;
         }

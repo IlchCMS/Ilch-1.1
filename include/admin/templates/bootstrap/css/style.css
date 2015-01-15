@@ -1,6 +1,3 @@
-
-/* noch offene Klassen */
-
 .abg
 {
   background-color: #204A87;
@@ -52,8 +49,32 @@ margin: 5px auto 5px auto;
 }
 
 
-/* Anpassung bestehender Module */
+/* Neben den Ilch Anpassungen externer Module noch weitere Definitionen */
 
+@media only screen and (max-width: 800px) {
+.ilch_out_800 {
+display:none
+}
+}
+.ilch_label {
+width: 25px;
+border:none
+}
+.ilch_label_bsite {
+height: 35px;
+border:none
+}
+.ilch_cont {
+margin-top:-50px;
+margin-bottom:80px
+}
+.ilch_footer > a {
+color:#D3D3D3;
+text-decoration:none
+}
+.ilch_footer > a:hover {
+text-decoration:underline
+}
 .border table{
 width: 100%;
 border-spacing: 1px;
