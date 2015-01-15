@@ -10,7 +10,7 @@ $design = new design ( 'Admins Area', 'Admins Area', 2 );
 $design->header();
 
 if (!is_admin()) {
-  echo 'Dieser Bereich ist nicht fuer dich...';
+  echo '<div class="alert alert-danger" role="alert">Dieser Bereich ist nicht fuer dich...</div>';
   $design->footer();
   exit();
 }
@@ -95,11 +95,10 @@ if ( empty ($_POST['submit']) || !$csrfCheck ) {
   $smodul          = admin_allg_smodul ( $allgAr['smodul'] );
   $wars_last_komms = admin_allg_wars_last_komms ( $allgAr['wars_last_komms'] );
 
-  echo '<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/konfiguration.png" /></td><td width="30"></td><td valign="bottom"><h1>Konfiguration</h1></td></tr></table>';
+  echo '<legend><h2><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>  Konfiguration</h2></legend>';
 
-  echo '<form action="admin.php?allg" method="POST">';
-	echo '<table cellpadding="3" cellspacing="1" class="border" border="0">';
-#	echo '<tr class="Chead"><td colspan="2"><b>Konfiguration</b></td></tr>';
+  echo '<form action="admin.php?allg" method="POST" class="form-horizontal" role="form">';
+	echo '<div class="panel panel-default"><div class="panel-body bg-warning">';
 
 	$ch = '';
 
@@ -107,12 +106,12 @@ if ( empty ($_POST['submit']) || !$csrfCheck ) {
 	$erg = db_query($abf);
 	while($row = db_fetch_assoc($erg) ) {
 	  if ( $ch != $row['kat'] ) {
-		  echo '<tr><td colspan="2" class="Cdark"><b>'.$row['kat'].'</b></td></tr>';
+echo '<legend>'.$row['kat'].'</legend><br>';
 		}
-		echo '<tr><td class="Cmite">'.$row['frage'].'</td>';
-		echo '<td class="Cnorm">';
+		echo '<div class="form-group"><label class="col-sm-5 control-label text-warning">'.$row['frage'].'</label>';
+		echo '<div class="col-sm-6">';
 		if ( $row['typ'] == 'input' ) {
-		  echo '<input size="50" type="text" name="'.$row['schl'].'" value="'.$row['wert'].'">';
+		  echo '<input class="form-control" type="text" name="'.$row['schl'].'" value="'.$row['wert'].'">';
 		} elseif ($row['typ'] == 'r2') {
 		  $checkedj = '';
 			$checkedn = '';
@@ -123,31 +122,30 @@ if ( empty ($_POST['submit']) || !$csrfCheck ) {
 			  $checkedn = 'checked';
 				$checkedj = '';
 			}
-		  echo '<input type="radio" name="'.$row['schl'].'" value="1" '.$checkedj.' > ja';
-			echo '&nbsp;&nbsp;';
-			echo '<input type="radio" name="'.$row['schl'].'" value="0" '.$checkedn.' > nein';
+		  echo '<label class="radio-inline"><input type="radio" name="'.$row['schl'].'" value="1" '.$checkedj.' > ja</label>';
+			echo '<label class="radio-inline"><input type="radio" name="'.$row['schl'].'" value="0" '.$checkedn.' > nein</label>';
 		} elseif ( $row['typ'] == 's' ) {
 		  $vname = $row['schl'];
-		  echo '<select name="'.$row['schl'].'">'.$$vname.'</select>';
+		  echo '<div class="col-xs-6"><select class="form-control" name="'.$row['schl'].'">'.$$vname.'</select></div>';
 		} elseif ($row['typ'] == 'textarea') {
-          echo '<textarea cols="55" rows="3" name="'.$row['schl'].'">'.$row['wert'].'</textarea>';
+          echo '<textarea class="form-control" rows="3" name="'.$row['schl'].'">'.$row['wert'].'</textarea>';
         } elseif ($row['typ'] == 'grecht') {
           $grl = dblistee($allgAr[$row['schl']],"SELECT id,name FROM prefix_grundrechte ORDER BY id ASC");
-          echo '<select name="'.$row['schl'].'">'.$grl.'</select>';
+          echo '<div class="col-xs-6"><select class="form-control" name="'.$row['schl'].'">'.$grl.'</select></div>';
         } elseif ($row['typ'] == 'grecht2') {
           $grl = dblistee($allgAr[$row['schl']],"SELECT id,name FROM prefix_grundrechte WHERE id >= -2 ORDER BY id ASC");
-          echo '<select name="'.$row['schl'].'">'.$grl.'</select>';
+          echo '<div class="col-xs-6"><select class="form-control" name="'.$row['schl'].'">'.$grl.'</select></div>';
         } elseif ($row['typ'] == 'password' ) {
-		  echo '<input size="50" type="password" name="'.$row['schl'].'" value="***" />';
+		  echo '<input class="form-control" type="password" name="'.$row['schl'].'" value="***">';
 		}
-		echo '</td></tr>'."\n\n";
+		echo '</div></div>';
 		$ch = $row['kat'];
 	}
 
-	echo '<tr class="Cdark"><td></td><td><input type="submit" value="Absenden" name="submit"></td></tr>';
 
-	echo '</table>';
+	echo '</div></div>';
     echo get_antispam('admin_allg', 0, true);
+	echo '<div class="text-center"><input class="btn btn-primary" type="submit" value="&Auml;nderungen speichern" name="submit"></div>';
 	echo '</form>';
 
 
