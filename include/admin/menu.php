@@ -14,23 +14,23 @@ function show_menu ( $wo ) {
   $erg = db_query("SELECT * FROM prefix_menu WHERE wo = ".$wo." ORDER BY pos");
 	$x = 0;
 	$class = '';
-  echo '<table class="border" cellpadding="3" cellspacing="1" border="0">';
+  echo '<div class="panel panel-default" style="overflow-x:auto;overflow-y:hidden;"><div class="panel-heading"><table class="table table-striped">';
 	while ($row = db_fetch_assoc($erg) ) {
 
     $subhauptx = $row['was'];
 		$whileMenP = ($subhauptx >= 7 ? TRUE : FALSE );
 	  $class = ( $class == 'Cdark' ? 'Cmite' : 'Cdark' );
 
-    echo '<tr class="'.$class.'"><td>'.$row['pos'].'</td><td>'.($whileMenP?'':'<b>').($whileMenP?str_repeat('-&nbsp;',$row['ebene']+1):'').$row['name'].($whileMenP?'':'</b>').'</td>';
-    echo '<td><a href="?menu-'.$row['wo'].'-l-'.$row['pos'].'"><img src="include/images/icons/pfeill.gif" alt="" border="0" title="nach links"></a></td>';
-    echo '<td><a href="?menu-'.$row['wo'].'-r-'.$row['pos'].'"><img src="include/images/icons/pfeilr.gif" alt="" border="0" title="nach rechts"></a></td>';
-    echo '<td><a href="?menu-'.$row['wo'].'-o-'.$row['pos'].'"><img src="include/images/icons/pfeilo.gif" alt="" border="0" title="nach oben"></a></td>';
-    echo '<td><a href="?menu-'.$row['wo'].'-u-'.$row['pos'].'"><img src="include/images/icons/pfeilu.gif" alt="" border="0" title="nach unten"></a></td>';
-    echo '<td><a href="javascript:delcheck(\''.$row['pos'].'\',\''.$row['wo'].'\')"><img src="include/images/icons/del.gif" alt="" border="0" title="l&ouml;schen"></a></td>';
-	  echo '<td><a href="?menu-'.$row['wo'].'-edit-'.$row['pos'].'"><img src="include/images/icons/edit.gif" alt="" border="0" title="&auml;ndern"></a></td>';
+    echo '<tr><td><span class="badge">'.$row['pos'].'</span></td><td>'.($whileMenP?'':'<strong>').($whileMenP?str_repeat('-&nbsp;',$row['ebene']+1):'').$row['name'].($whileMenP?'':'</strong>').'</td>';
+    echo '<td class="text-right" nowrap><a href="?menu-'.$row['wo'].'-l-'.$row['pos'].'" rel="tooltip" title="nach links"><span style="color:#C64F00;" class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span></a>
+<a style="margin-right:4px;" href="?menu-'.$row['wo'].'-r-'.$row['pos'].'" rel="tooltip" title="nach rechts"><span style="color:#C64F00;" class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></a>
+<a style="margin-right:4px;" href="?menu-'.$row['wo'].'-o-'.$row['pos'].'" rel="tooltip" title="nach oben verschieben"><span style="color:#C64F00;" class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></a>
+<a style="margin-right:4px;" href="?menu-'.$row['wo'].'-u-'.$row['pos'].'" rel="tooltip" title="nach unten verschieben"><span style="color:#C64F00;" class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></a>
+<a style="margin-right:4px;"  href="javascript:delcheck(\''.$row['pos'].'\',\''.$row['wo'].'\')" rel="tooltip" title="l&ouml;schen"><span style="color:#AD0000;" class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+<a href="?menu-'.$row['wo'].'-edit-'.$row['pos'].'" rel="tooltip" title="&auml;ndern"><span style="color:#2D9600;" class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>';
     echo '</tr>';
   }
-	echo '</table>';
+	echo '</table></div></div>';
 }
 
 

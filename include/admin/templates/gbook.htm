@@ -9,41 +9,48 @@
 			}
 		//-->
 </script>
-<table width="100%" border="0" cellpadding="2" cellspacing="1" class="border">
-  <tr class="Chead">
-	  <td colspan="2"><b>Gbook</b></td>
-	</tr><tr>
-	  <td width="40%" valign="top" class="Cnorm">
-		  <form action="admin.php?gbook" method="POST">
-			<input type="hidden" name="gid" value="{id}" />
-      
-			<table width="100%" border="0" cellpadding="2" cellspacing="1" class="border">
-			  <tr>
-				  <td class="Cmite">Name</td>
-					<td class="Cnorm"><input size="40" name="name" value="{name}" /></td>
-				</tr><tr>
-				  <td class="Cmite">eMail</td>
-					<td class="Cnorm"><input size="40" name="mail" value="{mail}" /></td>
-				</tr><tr>
-				  <td class="Cmite">Page</td>
-					<td class="Cnorm"><input size="40" name="page" value="{page}" /></td>
-				</tr><tr>
-				  <td class="Cmite">Text</td>
-					<td class="Cnorm"><textarea cols="40" rows="6" name="text">{text}</textarea></td>
-				</tr><tr>
-				  <td class="Cmite"></td>
-					<td class="Cnorm"><input type="submit" value="Absenden" name="sub"></td>
-				</tr>
-			</table>
-			
-			</form>
-    </td>
-		<td width="60%" valign="top" class="Cmite">
-      <table width="100%" border="0" cellpadding="5" cellspacing="0">
-      
+<div class="row">
+		  <form action="admin.php?gbook" method="POST" class="form-horizontal" role="form">
+	  <legend><h2><span class="glyphicon glyphicon-book" aria-hidden="true"></span>  Gbook</h2></legend>
+  <div class="col-md-6">
+			<input type="hidden" name="gid" value="{id}" >
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Name</label>
+    <div class="col-xs-6">
+      <input type="text" class="form-control" name="name" value="{name}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">eMail</label>
+    <div class="col-xs-6">
+      <input type="email" class="form-control" name="mail" value="{mail}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Page</label>
+    <div class="col-xs-6">
+      <input type="text" class="form-control" name="page" value="{page}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Text</label>
+    <div class="col-sm-10">
+      <textarea class="form-control" rows="4" name="text">{text}</textarea>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label"></label>
+    <div class="col-sm-10">
+<input type="submit" class="btn btn-primary" value="Absenden" name="sub">
+    </div>
+  </div>
+</div>
+</form>
+<div class="col-md-6">
+<span class="visible-xs-800"><legend>G-Book Eintr&auml;ge</legend></span>
+<ul class="list-group">
 {EXPLODE}
+</ul>
+</div></div>
 
-      </table>
-		</td>
-	</tr>
-</table>
+

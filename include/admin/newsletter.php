@@ -32,7 +32,7 @@ function XAJAX_changeList($select) {
 
         $content =
         <<<END
-            <select id="nl_auswahl" name="auswahl">
+            <select class="form-control" id="nl_auswahl" name="auswahl">
                 <option value="Enews" selected="selected">eMail Newsletter</option>
                 <optgroup label="Benutzer">
                     {$listeB}
@@ -56,7 +56,7 @@ END;
 
         $content =
         <<<END
-            <select name="auswahl" id="nl_auswahl">
+            <select class="form-control" name="auswahl" id="nl_auswahl">
                 <option selected="selected" disabled="disabled">Bitte treffen Sie eine Auswahl</option>
                     {$listeG}
             </select>

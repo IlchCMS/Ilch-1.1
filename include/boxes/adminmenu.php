@@ -27,6 +27,7 @@ echo '</ul></li>';
 echo '</ul><ul class="nav navbar-nav navbar-right">';
 if ( is_coadmin() ) {
 echo '<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Admin <b class="caret"></b></a><ul class="dropdown-menu dropdown-menu-right">';
+echo '<li><a href="admin.php">Infoseite</a></li>';
 if (is_admin()) { 
 echo '<li><a href="admin.php?allg">Konfiguration</a></li>';
  }

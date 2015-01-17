@@ -17,12 +17,12 @@ if (isset($_POST['ksub']) AND !empty($_POST['kontodaten'])) {
     echo 'der Betrag is keine Nummer?.. !!';
   } elseif (is_numeric($menu->get(1))) {
     if (db_query("UPDATE `prefix_kasse` SET name = '$name', datum = '$datum', betrag = '$betrag', verwendung = '$verwendung' WHERE id = ".$menu->get(1)))
-      echo 'Buchung wurde ge&auml;ndert ... ';
-    else echo 'Es ist ein Fehler aufgetreten, Buchung nicht ge&auml;ndert';
+      echo '<div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Buchung wurde ge&auml;ndert</div>';
+    else echo '<div class="alert alert-danger" role="alert"><span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Es ist ein Fehler aufgetreten, Buchung nicht ge&auml;ndert</div>';
     $menu->set_url(1,'');   
   } else {
     db_query("INSERT INTO prefix_kasse (datum,name,verwendung,betrag) VALUES ('".$datum."','".$name."','".$verwendung."',".$betrag.")");
-    echo 'Buchung wurde gespeichert ... ';
+    echo '<div class="alert alert-success" role="alert"><span class="glyphicon glyphicon-check" aria-hidden="true"></span>  Buchung wurde gespeichert</div>';
   }
 }
 

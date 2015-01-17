@@ -10,45 +10,40 @@
         }
     }
 </script>
-<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/newsletter.png" /></td><td width="30"></td><td valign="bottom"><h1>Newsletter</h1></td></tr></table>
-<form action="admin.php?newsletter" method="post" name="newsletter">
-
-    <table width="100%" border="0" cellspacing="1" cellpadding="2" class="border">
-        <tr>
-            <td colspan="2" height="25" class="Cdark">Hier kannst du einen Newsletter verschicken!</td>
-        </tr>
-        <tr>
-            <td class="Cmite" style="font-weight:bold;">Empf&auml;nger</td>
-            <td class="Cnorm"><input type="radio" name="tempRecipients" onClick="xajax_XAJAX_changeList('Normal')" /> Normal&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="tempRecipients" onClick="xajax_XAJAX_changeList('Grundrechte')" /> nach Rechten</td>
-        <tr>
-            <td class="Cmite" style="font-weight:bold;">Ausw&auml;hlen</td>
-            <td class="Cnorm" id="list">
-                <select name="auswahl">
+<legend><h2><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>  Newsletter</h2></legend>
+<div class="panel panel-success">
+<div class="panel-heading">Hier kannst du einen Newsletter verschicken!</div>
+  <div class="panel-body">
+<form action="admin.php?newsletter" method="post" name="newsletter" class="form-horizontal" role="form">
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Empf&auml;nger</label>
+    <div class="col-sm-10">
+      <label class="radio-inline"><input type="radio" name="tempRecipients" onClick="xajax_XAJAX_changeList('Normal')"> Normal</label><label class="radio-inline"><input type="radio" name="tempRecipients" onClick="xajax_XAJAX_changeList('Grundrechte')"> nach Rechten</label>
+    </div>
+  </div>
+    <div class="form-group">
+    <label class="col-sm-2 control-label">Ausw&auml;hlen</label>
+    <div class="col-sm-6" id="list">
+                <select name="auswahl" class="form-control">
                     <option selected="selected" disabled="disabled">Bitte erst den Empf&auml;nger ausw&auml;hlen</option>
                 </select>
-            </td>
-        </tr>
-        <tr>
-            <td class="Cmite" style="font-weight:bold;">Betreff</td>
-            <td class="Cnorm">
-                <input type="text" name="bet" size="50">
-            </td>
-        </tr>
-        <tr>
-            <td class="Cmite" valign="top" style="font-weight:bold;">Text</td>
-            <td class="Cnorm">
-                <textarea cols="75" rows="25" id="txt" name="txt"></textarea>
+    </div>
+  </div>
+      <div class="form-group">
+    <label class="col-sm-2 control-label">Betreff</label>
+    <div class="col-sm-6" id="list">
+      <input type="text" name="bet" class="form-control">
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Text</label>
+                <textarea class="form-control" rows="25" id="txt" name="txt"></textarea>
                 <script type="text/javascript">
                     CKEDITOR.replace('txt');
                 </script>
-            </td>
-        </tr>
-        <tr class="Cdark">
-            <td>&nbsp;</td>
-            <td>
-
-                <input type="submit" value="Absenden" name="SEND" />
-            </td>
-        </tr>
-    </table>
+  </div>
+  <div class="text-center">
+<input type="submit" value="Newsletter senden" name="SEND" class="btn btn-primary">
+</div>
 </form>
+</div></div>

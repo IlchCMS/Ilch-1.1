@@ -51,9 +51,45 @@ margin: 5px auto 5px auto;
 
 /* Neben den Ilch Anpassungen externer Module noch weitere Definitionen */
 
-@media only screen and (max-width: 800px) {
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 67px;
+  background-color: #222222;
+}
+body > .container {
+  padding: 60px 15px 0;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+code {
+  font-size: 80%;
+}
+.visible-xsmin-in {display:none;}
+.visible-xs-800 {display:none;}
+
+@media (max-width: 801px) {
 .ilch_out_800 {
 display:none
+}
+.visible-xs-800 {
+display:inline
 }
 }
 .ilch_label {
@@ -148,14 +184,12 @@ color: #ffffff;
   background-color: #0044cc;
   *background-color: #003bb3;
 }
-
 .border input,
 .border button,
 .border select,
 .border textarea {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-
 .border label {
   display: block;
   margin-bottom: 5px;
@@ -168,7 +202,6 @@ color: #ffffff;
   font-size: 100%;
   vertical-align: middle;
 }
-
 .border button,
 .border input {
   *overflow: visible;
@@ -298,24 +331,19 @@ color:#fff;background-color:#3276b1;border:1px solid #285e8e
 .border input[type=file] {
   height: 30px;
   /* In IE7, the height of the select element cannot be changed by height, only font-size */
-
   *margin-top: 4px;
   /* For IE7, add top margin to align select with labels */
-
   line-height: 30px;
 }
-
 .border select {
   width: 220px;
   background-color: #ffffff;
   border: 1px solid #cccccc;
 }
-
 .border select[multiple],
 .border select[size] {
   height: auto;
 }
-
 .border select:focus,
 .border input[type=file]:focus,
 .border input[type=radio]:focus,
@@ -323,6 +351,36 @@ color:#fff;background-color:#3276b1;border:1px solid #285e8e
   outline: thin dotted #333;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
+}
+input,
+textarea,
+select{
+margin-top:3px;
+}
+table{
+width: 100%;
+border-spacing: 0
+}
+.border400{
+max-width: 400px
+}
+.ilch_box_in{
+margin:10px
+}
+.ilch_case{
+border:1px solid transparent
+}
+.ilch_case_in{
+padding: 10px 10px 20px 10px
+}
+.ilch_casesmall_in{
+padding:5px
+}
+.Chead{
+padding: 10px 5px 10px 5px
+}
+.Cdark{
+padding: 7px 5px 7px 5px
 }
 
 

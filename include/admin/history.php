@@ -31,7 +31,7 @@ if ( !empty($_POST['sub']) ){
             db_query("UPDATE prefix_history SET date = '".$date."',title = '".$title."',txt = '".$txt."' WHERE id = '".$IdToEdit."'");
         }
     } else {
-        echo 'Datum stimmt nicht, bitte im Format DD.MM.YYYY eingeben also z.B. 29.12.2005<br />';
+        echo '<div class="alert alert-danger" role="alert"><span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Datum stimmt nicht, bitte im Format DD.MM.YYYY eingeben also z.B. 29.12.2005</div>';
     }
 }
 if(!isset($IdToDelete)){
@@ -51,7 +51,7 @@ if(!isset($IdToDelete)){
     $abf = "SELECT `id`,`date`,`title` FROM prefix_history ORDER BY `date` DESC LIMIT ".$anfang.",".$limit;
     $erg = db_query($abf);
     while ($row = db_fetch_assoc($erg) ) {
-        $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite' );
+        $class = ($class == 'active' ? '' : 'active' );
         $row['class'] = $class;          
         list ( $y,$m,$d ) = explode('-',$row['date']);
         $row['date'] = $d.'.'.$m.'.'.$y;

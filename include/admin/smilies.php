@@ -99,21 +99,21 @@ if (isset($_POST['u'])) {
       $name = $_FILES['ar']['name'][$k];
       $bild_url = 'include/images/smiles/'.$name;
 	  
-	  // START: Ge‰ndert seit Ilch 1.1 Patchlevel 15
+	  // START: Ge√§ndert seit Ilch 1.1 Patchlevel 15
 		  if( image_valid ( $_FILES['ar']['type'][$k] ) ) {
 			  if (@move_uploaded_file ($_FILES['ar']['tmp_name'][$k], $bild_url)) {
 				@chmod($bild_url, 0777);
-				echo '"'.$name.'" wurde erfolgreich hochgeladen<br />';
+				echo ' <div class="alert alert-success" role="alert"><i class="fa fa-check fa-2x"></i> <strong>"'.$name.'"</strong> wurde erfolgreich hochgeladen.</div>';
 			  } else {
-				echo 'konnte "'.$name.'" nicht hochladen<br />';
+				echo '<div class="alert alert-danger" role="alert"><strong>Oh nein!</strong> Konnte "'.$name.'" nicht hochladen.</div>';
 			  }
 		  } else {
-				echo 'falsches Dateiformat';
+				echo '<div class="alert alert-warning" role="alert"><strong>Achtung!</strong> Falsches Dateiformat</div>';
 		  }
-	  // END: Ge‰ndert seit Ilch 1.1 Patchlevel 15
+	  // END: Ge√§ndert seit Ilch 1.1 Patchlevel 15
 	  
-      echo '<br />';
-      echo '<br />';
+      echo '';
+      echo '';
     }
   }
 }
@@ -121,7 +121,7 @@ if (isset($_POST['u'])) {
 # pak file eintragen
 if (isset($_POST['i']) AND !empty($_POST['pak']) AND file_exists('include/images/smiles/'.str_replace('../', '', $_POST['pak']))) {
   $ar = @file ('include/images/smiles/'.str_replace('../', '', $_POST['pak']));
-  echo '<table border="1"><tr><th>Status</th><th>Dateiname</th><th>Beschreibung</th><th>Smilie Code</th></tr>';
+  echo '<table class="table"><tr><th>Status</th><th>Dateiname</th><th>Beschreibung</th><th>Smilie Code</th></tr>';
   foreach($ar as $v) {
     list($url, $emo, $ent) = explode('=+:', $v);
     $emo = trim(escape($emo, 'string'));
@@ -134,7 +134,7 @@ if (isset($_POST['i']) AND !empty($_POST['pak']) AND file_exists('include/images
       echo '<tr><td>eingetragen</td><td><img src="include/images/smiles/'.$url.'"></td><td>'.$emo.'</td><td>'.$ent.'</td></tr>';
     }
   }
-  echo '</table><br /><br />';
+  echo '</table><br><br>';
 }
 
 $ar = array ('url' =>'', 'ent' => '', 'emo' => '', 'id' => '');
@@ -180,7 +180,7 @@ while ($f = readdir($o)) {
 }
 closedir($o);
 
-if ($i<=0) { echo '<tr class="Cmite"><td colspan="3">in dem Ordner sind keine neuen Smilies</td></tr>'; }
+if ($i<=0) { echo '<div class="alert alert-warning" role="alert"><i class="fa fa-quote-right"></i> In dem Ordner sind keine neuen Smilies</div>'; }
 
 $tpl->out(2);
 $clas = 'Cnorm';

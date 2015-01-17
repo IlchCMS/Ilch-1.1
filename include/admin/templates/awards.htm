@@ -9,67 +9,84 @@
 			}
 		//-->
 </script>
+<legend><h2><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Awards</h2></legend>
+<div class="row">
+<div class="col-md-6 border_right_ilch" >
+		  <form action="admin.php?awards{id}" method="post" name="form" class="form-horizontal" role="form">
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Datum</label>
+    <div class="col-xs-6">
+      <input type="text" class="form-control" name="datum" value="{datum}">
+    </div></div>		
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Platz</label>
+    <div class="col-xs-6">
+      <input type="text" class="form-control" name="platz" value="{platz}">
+    </div></div>		
+{EXPLODE}
+<div class="well well-sm">
+  <div class="form-group">
+<input type="radio" name="atype" value="team" checked="checked" > f&uuml;r ein Team
+ <div class="col-xs-6">
+<select class="form-control" name="team"><option>ges. Clan</option>{teams}</select>
+</div>
+</div>
 
-<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/awards.png" /></td><td width="30"></td><td valign="bottom"><h1>Awards</h1></td></tr></table>
+  <div class="form-group">
+<input type="radio" name="atype" value="user" > oder User
+ <div class="col-xs-6">
+<input type="text" class="form-control" name="name">
+</div>  <a href="index.php?search-finduser" target="_blank" onClick="return finduser();" rel="tooltip" title="User finden"><i style="color:#0094FF;" class="fa fa-question-circle"></i></a>
+</div>
+</div>
+{EXPLODE}
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Awardträger</label>
+    <div class="col-xs-6">
+      <input name="team" class="form-control" value="{team}">
+    </div></div>	
+{EXPLODE}
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Wof&uuml;r</label>
+    <div class="col-xs-6">
+      <input name="wofur" class="form-control" value="{wofur}">
+    </div></div>	
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Bild zum Award</label>
+    <div class="col-xs-6">
+      <input class="form-control" name="bild" value="{bild}">
+<span class="help-block">URL zum Bild eintragen</span>
+    </div></div>	
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Info</label>
+    <div class="col-xs-10">
+      <textarea class="form-control" rows="5" name="text">{text}</textarea>
+    </div></div>	
+  <div class="form-group">
+    <label class="col-sm-2 control-label"></label>
+    <div class="col-xs-10">
+<input type="submit" value="Eintragen" class="btn btn-primary" name="ins" >
+</div></div>
+</form>
+</div>
 
-<table width="100%" border="0" cellpadding="2" cellspacing="1" class="border">
-   <tr>
-	  <td width="60%" valign="top" class="Cnorm">
-		  <form action="admin.php?awards{id}" method="post" name="form">
-			
-			<table width="100%" border="0" cellpadding="2" cellspacing="1" class="border">
-			  <tr>
-				  <td class="Cmite" width="100">Datum</td>
-					<td class="Cnorm"><input type="text" name="datum" value="{datum}" /></td>
-				</tr><tr>
-				  <td class="Cmite">Platz</td>
-					<td class="Cnorm"><input type="text" name="platz" value="{platz}" /></td>
-				</tr><tr>
-				  {EXPLODE}
-				  <td class="Cmite"><input type="radio" name="atype" value="team" checked="checked" />Team</td>
-					<td class="Cnorm"><select name="team"><option>ges. Clan</option>{teams}</select></td>
-				</tr><tr>
-				  <td class="Cmite"><input type="radio" name="atype" value="user" />User</td>
-				  <td class="Cnorm"><input type="text" name="name" /> &nbsp; <a href="index.php?search-finduser" target="_blank" onClick="return finduser();">User finden</a></td>
-				  {EXPLODE}
-          <td class="Cmite">Awardträger</td>
-				  <td class="Cnorm"><input name="team" value="{team}" /></td>
-				  {EXPLODE}
-        </tr><tr>
-				  <td class="Cmite">Wof&uuml;r</td>
-					<td class="Cnorm"><input name="wofur" size="40" value="{wofur}" /></td>
-				</tr><tr>
-				  <td class="Cmite">Bild zum Award</td>
-					<td class="Cnorm"><input name="bild" size="40" value="{bild}" /></td>
-				</tr><tr>
-				  <td class="Cmite">Beschreibung</td>
-					<td class="Cnorm"><textarea cols="30" rows="3" name="text">{text}</textarea></td>
-				</tr><tr>
-				  <td class="Cmite"></td>
-					<td class="Cnorm"><input type="submit" value="Eintragen" name="ins" /></td>
-				</tr>
-			</table>
-			
-			</form>
-    </td>
-		<td width="40%" valign="top" class="Cmite">
-      <table width="100%" border="0" cellpadding="5" cellspacing="0">
-        <tr class="Chead">
-		      <td>Datum</td>
-		      <td>Platz</td>
-		      <td>Awardtr&auml;ger</td>
-		      <td>Aktion</td>
+<div class="col-md-6">
+<legend class="visible-xs">&Uuml;bersicht Awards</legend>
+      <table class="table table-bordered">
+        <tr class="bg-warning">
+		      <td class="visible-xsmin"><strong>Datum</strong></td>
+		      <td class="text-center"><strong>Platz</strong></td>
+		      <td><strong>Awardtr&auml;ger</strong></td>
+		      <td class="text-center"><strong>Aktion</strong></td>
 	      </tr>
 {EXPLODE}
-<tr class="Cnorm">
-<td>{datum}</td><td>{platz}</td><td>{team}</td>
-<td>
-  <a href="admin.php?awards-e{id}"><img src="include/images/icons/edit.gif" border="0" alt="{_lang_change}" title="{_lang_change}" /></a>
-  <a href="#" onclick="delcheck({id})"><img src="include/images/icons/del.gif" border="0" alt="{_lang_delete}" title="{_lang_delete}" /></a>
+<tr>
+<td class="visible-xsmin">{datum}</td><td class="text-center">{platz}</td><td>{team}</td>
+<td class="text-center">
+  <a href="admin.php?awards-e{id}" rel="tooltip" title="{_lang_change}" style="margin-right:3px;"><span style="color:#2D9600;" class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+  <a href="#" onclick="delcheck({id})" rel="tooltip" title="{_lang_delete}" ><span style="color:#AD0000;" class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
 </td>
 </tr>
 {EXPLODE}
       </table>
-		</td>
-	</tr>
-</table>
+</div></div>
