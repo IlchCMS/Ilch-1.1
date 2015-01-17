@@ -100,6 +100,21 @@ $result = db_query("SHOW TABLE STATUS");
 </tr></table>
   </li>
 </ul>
+<ul class="list-group">
+  <li class="list-group-item list-group-item-info">
+<table width="100%"><tr>
+    <td>Serverzeit</td>
+<td class="text-right"><strong>
+<?php $timestamp = time();
+$datum = date("d.m.Y",$timestamp);
+$uhrzeit = date("H:i",$timestamp);
+$woche = date("W",$timestamp);
+$zone = date("e",$timestamp);
+echo $datum,"<br>(",$zone,") <br>(KW ",$woche,") ",$uhrzeit," Uhr";
+?></strong></td>
+</tr></table>
+  </li>
+</ul>
   </div>
 </div>
 </div>
@@ -174,7 +189,149 @@ echo '</div>';
 <div class="panel panel-default">
   <div class="panel-body">
 <legend><i class="fa fa-signal"></i> Statistiken</legend>   
-<?php include ('include/boxes/adminstatistik.php');?>
+<?php
+if (empty($_GET['sum'])) {
+  error_reporting(0);
+	$heute = date ('y-m-d');
+  $time = time();
+  $daysec = 86400;
+  $weekdays = 7;
+  $mth = 30;
+  $day = $time - $daysec; 	
+  $ges_visits = db_result(db_query("SELECT SUM(count) FROM prefix_counter"),0);
+	$ges_heute  = @db_result(db_query("SELECT count FROM prefix_counter WHERE date = '".$heute."'"),0);
+	$ges_gestern = @db_result(db_query('SELECT count FROM prefix_counter WHERE date < "'.$heute.'" ORDER BY date DESC LIMIT 1'),0);  
+	$news  = @db_result(db_query("SELECT count(NEWS_ID) FROM prefix_news"),0);
+  $gbook  = @db_result(db_query("SELECT count(ID) FROM prefix_gbook"),0);
+	$posts  = @db_result(db_query("SELECT count(ID) FROM prefix_posts"),0);
+	$topic  = @db_result(db_query("SELECT count(ID) FROM prefix_topics"),0);
+  $pollge = db_result(db_query("SELECT COUNT(poll_id) FROM prefix_poll WHERE recht = '2' "),0);
+  $komge = db_result(db_query("SELECT COUNT(ID) FROM `prefix_koms`"),0);
+  $shbox = db_result(db_query("SELECT COUNT(ID) FROM `prefix_shoutbox`"),0);    
+  $downloads  = @db_result(db_query("SELECT count(ID) FROM prefix_downloads"),0);
+  $bges = @db_count_query("SELECT COUNT(*) FROM prefix_gallery_imgs");
+  $ubges = @db_count_query("SELECT COUNT(*) FROM prefix_usergallery");
+  $links = @db_count_query("SELECT COUNT(ID) FROM prefix_links");
+  $partner = @db_count_query("SELECT COUNT(ID) FROM prefix_partners");
+	$gesuser  = @db_result(db_query("SELECT count(ID) FROM prefix_user"),0);
+	$gesch1  = @db_result(db_query("SELECT count(ID) FROM prefix_user where geschlecht = 1"),0);
+	$gesch2  = @db_result(db_query("SELECT count(ID) FROM prefix_user where geschlecht = 2"),0);
+  $gesch3  = @db_result(db_query("SELECT count(ID) FROM prefix_user where geschlecht = 0"),0);
+	$maxErg = db_query('SELECT MAX(count) FROM `prefix_counter`');
+  $max_in = db_result($maxErg,0); 
+  $useroneregist = db_result(db_query('SELECT regist FROM prefix_user WHERE id = 1'),0);
+  $sincesec = $time - $useroneregist;
+  $sinceday = floor($sincesec / $daysec);
+  $dayvisits = floor($ges_visits / $sinceday)+1;
+  $mthvisits = floor($dayvisits * $mth);    
+echo'<ul class="list-group">
+  <li class="list-group-item list-group-item-info">
+<table width="100%"><tr>
+    <td>Seite Online seit</td>
+<td class="text-right"><strong>'.$sinceday.' Tagen</strong></td>
+</tr>
+<tr>
+    <td>Mitglieder Gesamt</td>
+<td class="text-right"><strong>'.$gesuser.'</strong></td>
+</tr>
+</table>
+  </li>
+</ul>
+<legend><h5><strong>Besucher</strong></h5></legend>
+<ul class="list-group">
+  <li class="list-group-item list-group-item-warning">
+<table width="100%">
+<tr>
+    <td>'.$lang['today'].'</td>
+<td class="text-right"><strong>'.$ges_heute.'</strong></td>
+</tr>
+<tr>
+    <td>'.$lang['yesterday'].'</td>
+<td class="text-right"><strong>'.$ges_gestern.'</strong></td>
+</tr>
+<tr>
+    <td>Rekord</td>
+<td class="text-right"><strong>'.$max_in.' am Tag</strong></td>
+</tr>
+<tr>
+    <td>&#216; Tag</td>
+<td class="text-right"><strong>'.$dayvisits.'</strong></td>
+</tr>
+<tr>
+    <td>&#216; Monat</td>
+<td class="text-right"><strong>'.$mthvisits.'</strong></td>
+</tr>
+<tr>
+    <td>Gesamt</td>
+<td class="text-right"><strong>'.$ges_visits.'</strong></td>
+</tr>
+</table>
+  </li>
+</ul>
+<legend><h5><strong>Eintr&auml;ge</strong></h5></legend>
+<ul class="list-group">
+  <li class="list-group-item list-group-item-success">
+<table width="100%">
+<tr>
+    <td>News Eintr&auml;ge</td>
+<td class="text-right"><strong>'.$news.'</strong></td>
+</tr>
+<tr>
+    <td>Forum Topic</td>
+<td class="text-right"><strong>'.$topic.'</strong></td>
+</tr>
+<tr>
+    <td>Forum Posts</td>
+<td class="text-right"><strong>'.$posts.'</strong></td>
+</tr>
+<tr>
+    <td>G-Book Eintr&auml;ge</td>
+<td class="text-right"><strong>'.$gbook.'</strong> <a href="admin.php?gbook" rel="tooltip" title="Eintr&auml;ge verwalten"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a></td>
+</tr>
+<tr>
+    <td>Kommentare Gesamt</td>
+<td class="text-right"><strong>'.$komge.'</strong></td>
+</tr>
+<tr>
+    <td>Umfragen</td>
+<td class="text-right"><strong>'.$pollge.'</strong></td>
+</tr>
+<tr>
+    <td>Shoutbox Eintr&auml;ge</td>
+<td class="text-right"><strong>'.$shbox.'</strong></td>
+</tr>
+</table>
+  </li>
+</ul>
+<legend><h5><strong>Medien</strong></h5></legend>
+<ul class="list-group">
+  <li class="list-group-item list-group-item-danger">
+<table width="100%">
+<tr>
+    <td>Gallerie</td>
+<td class="text-right"><strong>'.$bges.' Image</strong> <a href="admin.php?gallery" rel="tooltip" title="Eintr&auml;ge verwalten"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a></td>
+</tr>
+<tr>
+    <td>User Gallerie</td>
+<td class="text-right"><strong>'.$ubges.' Image</strong></td>
+</tr>
+<tr>
+    <td>Downloads</td>
+<td class="text-right"><strong>'.$downloads.' Eintr&auml;ge</strong> <a href="admin.php?archiv-downloads" rel="tooltip" title="Eintr&auml;ge verwalten"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a></td>
+</tr>
+<tr>
+    <td>Links</td>
+<td class="text-right"><strong>'.$links.' Eintr&auml;ge</strong> <a href="admin.php?archiv-links" rel="tooltip" title="Eintr&auml;ge verwalten"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a></td>
+</tr>
+<tr>
+    <td>Partner</td>
+<td class="text-right"><strong>'.$partner.' Eintr&auml;ge</strong> <a href="admin.php?archiv-partners" rel="tooltip" title="Eintr&auml;ge verwalten"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a></td>
+</tr>
+</table>
+  </li>
+</ul>';
+}
+?>
 </div></div>
 </div>
   <div class="col-md-4">
@@ -182,9 +339,64 @@ echo '</div>';
   <div class="panel-body bg-warning">
 <legend><i class="fa fa-file-text-o"></i> Letzte Eintr&auml;ge</legend>   
 <legend class="text-info"><h5><strong>Letzte News</strong></h5></legend>
-<?php include ('include/boxes/adminnews.php');?>
+<?php 
+$abf = 'SELECT
+          a.news_kat as kate,
+          DATE_FORMAT(a.news_time,"%d.%m.%Y") as datum,      
+          a.news_title as title,
+          a.news_kat as kate,
+          a.news_id as id,      
+          b.name as username,
+          b.id as userid         
+          FROM prefix_news as a
+          LEFT JOIN prefix_user as b ON a.user_id = b.id
+          WHERE news_recht >= '.$_SESSION['authright'].'
+          ORDER BY a.news_time DESC
+          LIMIT 0,3';
+echo '<ul class="list-group list-group-boxen text-left">';        
+$erg = db_query($abf);
+if ( @db_num_rows($erg) == 0 ) {
+	echo '<ul class="list-group list-group-boxen text-center"><div class="alert" role="alert">kein Newseintrag vorhanden<br><a class="text-info" href="admin.php?news"><strong>neue News schreiben</strong></a></div></ul>';
+} 
+while ($row = db_fetch_object($erg)) {
+echo '<a href="admin.php?news-edit-'.$row->id.'" class="list-group-item"><small>Kategorie: '.$row->kate.'</small><h5><strong><i class="fa fa-angle-double-right"></i> '.$row->title.'</strong></h5><small>Autor : '.$row->username.' | '.$row->datum.'</small></a>';
+}
+echo '</ul>';
+?>
 <legend class="text-info"><h5><strong>Letzte Forumeintr&auml;ge</strong></h5></legend>
-<?php include ('include/boxes/adminforum.php');?>
+<?php 
+$query = "SELECT a.id, a.name, a.rep,b.name as top, b.id as fid, c.erst as last, c.erstid, c.id as pid, c.time, a.rep, a.erst, a.hit, a.art, a.stat, d.name as kat
+FROM prefix_topics a
+  LEFT JOIN prefix_forums b ON b.id = a.fid
+  LEFT JOIN prefix_posts c ON c.id = a.last_post_id
+	LEFT JOIN prefix_forumcats d ON d.id = b.cid AND b.id = a.fid
+  LEFT JOIN prefix_groupusers vg ON vg.uid = ".$_SESSION['authid']." AND vg.gid = b.view
+  LEFT JOIN prefix_groupusers rg ON rg.uid = ".$_SESSION['authid']." AND rg.gid = b.reply
+  LEFT JOIN prefix_groupusers sg ON sg.uid = ".$_SESSION['authid']." AND sg.gid = b.start
+WHERE ((".$_SESSION['authright']." <= b.view AND b.view < 1) 
+   OR (".$_SESSION['authright']." <= b.reply AND b.reply < 1)
+   OR (".$_SESSION['authright']." <= b.start AND b.start < 1)
+	 OR vg.fid IS NOT NULL
+	 OR rg.fid IS NOT NULL
+	 OR sg.fid IS NOT NULL
+	 OR -9 >= ".$_SESSION['authright'].")
+ORDER BY c.time DESC
+LIMIT 0,3";
+echo '<ul class="list-group list-group-boxen text-left">';
+$resultID = db_query($query);
+if ( @db_num_rows($resultID) == 0 ) {
+	echo '<ul class="list-group list-group-boxen text-center"><div class="alert" role="alert">kein Forumeintrag vorhanden<br><a class="text-info" href="admin.php?forum"><strong>jetzt neues Forum erstellen</strong></a></div></ul>';
+} 
+while ($row = db_fetch_assoc($resultID)) {
+	$row['date'] = date('d.m.y - H:i',$row['time']);
+	$row['page'] = ceil ( ($row['rep']+1)  / $allgAr['Fpanz'] );
+	$row['ORD']  = forum_get_ordner($row['time'],$row['id'],$row['fid']);
+	
+	echo '<a href="index.php?forum-showposts-'.$row['id'].'-p'.$row['page'].'#'.$row['pid'].'" class="list-group-item"><small>Kategorie: '.$row['kat'].'</small><h5><strong><i class="fa fa-angle-double-right"></i> '.$row['name'].'</strong></h5><small>
+Last Post:&nbsp;'.$row['last'].' | '.$row['date'].' Uhr</small><br><small class="text-info">Autor: &nbsp;'.$row['erst'].' | Antworten: '.$row['rep'].'</small></a>';
+}
+echo '</ul>';
+?>
 </div></div>
 </div>
   <div class="col-md-4">
@@ -192,9 +404,33 @@ echo '</div>';
   <div class="panel-body">
 <legend><i class="fa fa-calendar-o"></i> Termine</legend>  
 <legend ><h5><strong>Kalender Eintr&auml;ge</strong></h5></legend>
-<?php include ('include/boxes/admintermin.php');?>
+<?php  
+$abf = "SELECT id, title, FROM_UNIXTIME(time,'%d.%m.%Y') as zeit FROM prefix_kalender WHERE time >= UNIX_TIMESTAMP() AND recht >= {$_SESSION['authright']} ORDER BY time LIMIT 3";  
+$erg = db_query($abf); 
+if ( @db_num_rows($erg) == 0 ) { 
+echo '<ul class="list-group list-group-boxen text-center"><div class="alert alert-warning" role="alert">Aktuell sind keine Termine vorhanden<br><a class="text-warning" href="admin.php?kalender"><strong>neuen Termin eintragen</strong></a></div></ul>'; 
+} 
+echo '<ul class="list-group list-group-boxen text-left">'; 
+  while ($row = db_fetch_object($erg)) { 
+    echo '<a href="admin.php?kalender&edit='.$row->id.'" class="list-group-item"><h5><strong><i class="fa fa-angle-double-right"></i> '.$row->title.'</strong></h5><small>Termin am: '.$row->zeit.'</small></a>'; 
+  } 
+  echo '</ul>'; 
+?>
 <legend ><h5><strong>Next Wars</strong></h5></legend>
-<?php include ('include/boxes/adminwars.php');?>
+<?php
+$akttime = date('Y-m-d');
+$erg = @db_query("SELECT DATE_FORMAT(datime,'%d.%m.%y - %H:%i') as time,tag,gegner, id, game FROM prefix_wars WHERE status = 2 AND datime > '".$akttime."' ORDER BY datime");
+if ( @db_num_rows($erg) == 0 ) {
+	echo '<ul class="list-group list-group-boxen text-center"><div class="alert alert-warning" role="alert">Aktuell kein War geplant<br><a class="text-warning" href="admin.php?wars-next"><strong>Next-War eintragen</strong></a></div></ul>';
+} else {
+echo '<ul class="list-group list-group-boxen text-left">';
+	while ($row = @db_fetch_object($erg) ) {
+		$row->tag = ( empty($row->tag) ? $row->gegner : $row->tag );
+echo '<a href="admin.php?wars-next&pkey='.$row->id.'" class="list-group-item"><strong><i class="fa fa-angle-double-right"></i> '.$row->tag.'</strong><span class="label label-success pull-right">'.$row->time.' Uhr</span></a>';
+	}
+echo '</ul>';
+}
+?>
 </div></div>
 </div>
 </div>
