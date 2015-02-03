@@ -77,16 +77,14 @@ if ( $show ) {
 	while ($r = db_fetch_assoc($erg) ) {
     $class = ( $class == 'Cnorm' ? 'Cmite' : 'Cnorm' );
 		$class = ( $r['func'] == 2 ? 'Cdark' : $class );
-    echo '<tr class="'.$class.'"><td>'.$r['show'].'</td>';
-    echo '<td align="center">'.$ar[$r['func']].'</td>';
+    echo '<tr><td>'.$r['show'].'</td>';
+    echo '<td class="text-center"><span class="label label-default">'.$ar[$r['func']].'</span></td>';
     if ( $r['func'] < 3 ) {
-		  echo '<td><a href="?profilefields-edit-'.$r['id'].'">&auml;ndern</a></td>';
-		  echo '<td><a href="javascript:delcheck('.$r['id'].')">l&ouml;schen</a></td>';
+		  echo '<td class="text-center" nowrap><a style="margin-right:5px;" href="?profilefields-edit-'.$r['id'].'" rel="tooltip" title="&auml;ndern"><span style="color:#2D9600;" class="glyphicon glyphicon-edit" aria-hidden="true"></span></a><a href="javascript:delcheck('.$r['id'].')" rel="tooltip" title="l&ouml;schen"><span style="color:#AD0000;" class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>';
 		} else {
-      echo '<td colspan="2"><a href="?profilefields-c-'.$r['id'].'-'.$r['func'].'">'.($r['func']==3?'verstecken':'anzeigen').'</a></td>';
+      echo '<td class="text-center"><a href="?profilefields-c-'.$r['id'].'-'.$r['func'].'">'.($r['func']==3?'<span class="label label-danger">verstecken</span>':'<span class="label label-success">anzeigen</span>').'</a></td>';
     }
-    echo '<td><a href="?profilefields-o-'.$r['id'].'-'.$r['pos'].'"><img src="include/images/icons/pfeilo.gif" border="0"></a></td>';
-		echo '<td><a href="?profilefields-u-'.$r['id'].'-'.$r['pos'].'"><img src="include/images/icons/pfeilu.gif" border="0"></a></td>';
+    echo '<td nowrap><a style="margin-right:5px;" href="?profilefields-o-'.$r['id'].'-'.$r['pos'].'" rel="tooltip" title="nach oben verschieben"><span style="color:#C64F00;" class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></a><a href="?profilefields-u-'.$r['id'].'-'.$r['pos'].'" rel="tooltip" title="nach unten verschieben"><span style="color:#C64F00;" class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></a></td>';
 	  echo '</tr>';
 	}
 	$tpl->out(2);

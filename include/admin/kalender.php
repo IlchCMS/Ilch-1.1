@@ -12,7 +12,7 @@ function XAJAX_showCalendar ($m,$j,$f) {
 
   $objResponse = new xajaxResponse();
 
-  $content = '<table border="0" cellpadding="1" cellspacing="1" class="border"><tr><td class="Cnorm"><a href="javascript:close'.$f.'();">schliessen</a></td></tr></table>';
+  $content = '<a class="btn btn-danger btn-xs" style="width:100%;" href="javascript:close'.$f.'();">schliessen</a>';
   $content .= getCalendar($m, $j, 'javascript:void(0);" onclick="set'.$f.'(\'{jahr}-{mon}-{tag}\')', 'javascript:void(0);" onclick="xajax_XAJAX_showCalendar({mon},{jahr},\''.$f.'\')', '');
 
   $objResponse->assign('skalender'.$f, 'style.display', 'block' );
@@ -85,15 +85,27 @@ echo $xajax->printJavascript();
 if (!empty($_REQUEST['um'])) {
   $sar   = explode('-',$_POST['begind']);
   if (!@checkdate ($sar[1], $sar[2], $sar[0])) {
-    echo 'Das eingegebene Datum ist nicht g&uuml;ltig ';
-    echo '<a href="javascript:history.back()">zur&uuml;ck</a>';
+    echo '
+ <div class="bs-example">
+    <div class="alert alert-danger fade in" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Schließen</span></button>
+       Das eingegebene Datum ist nicht g&uuml;ltig.
+        <br><a class="btn btn-default" href="javascript:history.back()">zur&uuml;ck</a>
+    </div>
+  </div>';
     $design->footer(1);
   }
   if (!empty($_POST['zende'])) {
     $ear   = explode('-',$_POST['zende']);
     if (!@checkdate ($ear[1], $ear[2], $ear[0])) {
-      echo 'Das eingegebene Datum f&uuml;r das Zyklusende ist nicht g&uuml;ltig ';
-      echo '<a href="javascript:history.back()">zur&uuml;ck</a>';
+    echo '
+ <div class="bs-example">
+    <div class="alert alert-danger fade in" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Schließen</span></button>
+       Das eingegebene Datum f&uuml;r das Zyklusende ist nicht g&uuml;ltig.
+        <br><a class="btn btn-default" href="javascript:history.back()">zur&uuml;ck</a>
+    </div>
+  </div>';
       $design->footer(1);
     }
   }
