@@ -1,55 +1,47 @@
-<style type="text/css">
-    .fll {float:left}
-    .clear {clear:both}
-    .ml20 {margin-left: 20px}
-    .red {color:red}
-    code {white-space: pre; width: 100%; overflow: auto; display: block;background-color:#333;color:#fff;}
-</style>
 <script language="JavaScript" type="text/javascript">
 <!--
-function toggleDiv(element){
- if(document.getElementById(element).style.display == 'none')
-  document.getElementById(element).style.display = 'block';
- else
-       document.getElementById(element).style.display = 'none';
-}
+    function toggleDiv(element) {
+        if (document.getElementById(element).style.display == 'none')
+            document.getElementById(element).style.display = 'block';
+        else
+            document.getElementById(element).style.display = 'none';
+    }
 //-->
 </script>
 {EXPLODE}
 <legend><h2>Kompatibilit&auml;t</h2></legend>
-    <div class="alert alert-info" role="alert">
-        <strong>Kompatibilit&auml;t pr&uuml;fen</strong>
-        <br>
-            Mit PHP 5.4 wurde die Verwendung von <em>htmlentities</em>, <em>htmlspecialchars</em>, <em>html_entity_decode</em> und <em>get_html_translation_table</em> ge&auml;ndert.
-        Es m&uuml;ssen ggf. &Auml;nderungen an alten Dateien von nicht an ilchClan 1.1Q angepasste Modulen vorgenommen werden.
-        Mit Hilfe dieses Tools k&ouml;nnen die zu &auml;ndernden Codestellen in hochgeladenen Dateien ausgemacht werden.
-    </div>
+<div class="alert alert-info" role="alert">
+    <strong>Kompatibilit&auml;t pr&uuml;fen</strong>
+    <br>
+    Mit PHP 5.4 wurde die Verwendung von <em>htmlentities</em>, <em>htmlspecialchars</em>, <em>html_entity_decode</em> und <em>get_html_translation_table</em> ge&auml;ndert.
+    Es m&uuml;ssen ggf. &Auml;nderungen an alten Dateien von nicht an ilchClan 1.1Q angepasste Modulen vorgenommen werden.
+    Mit Hilfe dieses Tools k&ouml;nnen die zu &auml;ndernden Codestellen in hochgeladenen Dateien ausgemacht werden.
+</div>
 <div class="panel panel-default">
-  <div class="panel-body">
+    <div class="panel-body">
         <legend>Anpassungen vornehmen</legend>
         <br>
         <div class="well well-sm red">{_if_{notneeded}=='1'}<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>  Da deine PHP Version kleiner als 5.4 ist, musst du die &Auml;nderungen nicht unbedingt vornehmen.
-        {_else_}<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>  Da du eine PHP Version gr&ouml;&szlig;er als 5.4 einsetzt, sollten die &Auml;nderungen f&uuml;r einen reibungslosen Betrieb vorgenommen werden.
-        {/_endif}</div><br>
+            {_else_}<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>  Da du eine PHP Version gr&ouml;&szlig;er als 5.4 einsetzt, sollten die &Auml;nderungen f&uuml;r einen reibungslosen Betrieb vorgenommen werden.
+            {/_endif}</div><br>
         Die rot markierten Stellen im Code, falls &Auml;nderungen vorhanden, m&uuml;ssen angepasst werden.<br><br><i class="fa fa-life-ring"></i> Als Beispiel :<br><br>
         <kbd>htmlentites($variable);</kbd><br>muss zu<br><kbd>htmlentites($variable, ILCH_ENTITIES_FLAGS, ILCH_CHARSET);</kbd><br>
         ge&auml;ndert werden.<br><br>
-    <div class="clear"></div>
-<table class="table">
-    <tr class="warning">
-    <td><b>betroffene Datei</b></td>
-    <td><b>notwendige &Auml;nderungen</b></td>
-    </tr>
-    {EXPLODE}
-    <tr>
-        <td>{phpFile}</td>
-        <td>{changes} <a class="btn btn-success  btn-xs" href="javascript:toggleDiv('toggle');">zeigen<a></td>
-    </tr></table>
-    <div id="toggle" style="display:none;"><code>{code}</code></div>
-    {EXPLODE}
-</table>
-    <div class="alert alert-success" role="alert"><span class="glyphicon glyphicon-check" aria-hidden="true"></span>  Keine notwendigen &Auml;nderungen gefunden</div>
-    {EXPLODE}
-</div></div>
-
-
+        <div class="clear"></div>
+        <table class="table">
+            <tr class="warning">
+                <td><b>betroffene Datei</b></td>
+                <td><b>notwendige &Auml;nderungen</b></td>
+            </tr>
+            {EXPLODE}
+            <tr>
+                <td>{phpFile}</td>
+                <td>{changes} <a class="btn btn-success  btn-xs" href="javascript:toggleDiv('toggle');">zeigen<a></td>
+                            </tr></table>
+                            <div id="toggle" style="display:none;"><code class="ilchkomcode">{code}</code></div>
+                            {EXPLODE}
+                            </table>
+                            <div class="alert alert-success" role="alert"><span class="glyphicon glyphicon-check" aria-hidden="true"></span>  Keine notwendigen &Auml;nderungen gefunden</div>
+                            {EXPLODE}
+                            </div>
+</div>

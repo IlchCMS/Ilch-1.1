@@ -1,92 +1,92 @@
 <script language="JavaScript" type="text/javascript">
     <!--
       
-			function delcheck ( DELID ) {
-			  var frage = confirm ( "Willst du diesen Eintrag wirklich löschen?" );
-				if ( frage == true ) {
-				  document.location.href="?awards-d"+DELID;
-				}
-			}
-		//-->
+    function delcheck(DELID) {
+        var frage = confirm("Willst du diesen Eintrag wirklich löschen?");
+        if (frage == true) {
+            document.location.href = "?awards-d" + DELID;
+        }
+    }
+    //-->
 </script>
 <legend><h2><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Awards</h2></legend>
 <div class="row">
-<div class="col-md-6 border_right_ilch" >
-		  <form action="admin.php?awards{id}" method="post" name="form" class="form-horizontal" role="form">
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Datum</label>
-    <div class="col-xs-6">
-      <input type="text" class="form-control" name="datum" value="{datum}">
-    </div></div>		
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Platz</label>
-    <div class="col-xs-6">
-      <input type="text" class="form-control" name="platz" value="{platz}">
-    </div></div>		
-{EXPLODE}
-<div class="well well-sm">
-  <div class="form-group">
-<input type="radio" name="atype" value="team" checked="checked" > f&uuml;r ein Team
- <div class="col-xs-6">
-<select class="form-control" name="team"><option>ges. Clan</option>{teams}</select>
-</div>
-</div>
+    <div class="col-md-6 border_right_ilch">
+        <form action="admin.php?awards{id}" method="post" name="form" class="form-horizontal" role="form">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Datum</label>
+                <div class="col-xs-6">
+                    <input type="text" class="form-control" name="datum" value="{datum}">
+                </div></div>		
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Platz</label>
+                <div class="col-xs-6">
+                    <input type="text" class="form-control" name="platz" value="{platz}">
+                </div></div>		
+            {EXPLODE}
+            <div class="well well-sm">
+                <div class="form-group">
+                    <input type="radio" name="atype" value="team" checked="checked" > f&uuml;r ein Team
+                    <div class="col-xs-6">
+                        <select class="form-control" name="team"><option>ges. Clan</option>{teams}</select>
+                    </div>
+                </div>
 
-  <div class="form-group">
-<input type="radio" name="atype" value="user" > oder User
- <div class="col-xs-6">
-<input type="text" class="form-control" name="name">
-</div>  <a href="index.php?search-finduser" target="_blank" onClick="return finduser();" rel="tooltip" title="User finden"><i style="color:#0094FF;" class="fa fa-question-circle"></i></a>
+                <div class="form-group">
+                    <input type="radio" name="atype" value="user" > oder User
+                    <div class="col-xs-6">
+                        <input type="text" class="form-control" name="name">
+                    </div>  <a href="index.php?search-finduser" target="_blank" onClick="return finduser();" title="User finden"><i style="color:#0094FF;" class="fa fa-question-circle"></i></a>
+                </div>
+            </div>
+            {EXPLODE}
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Awardträger</label>
+                <div class="col-xs-6">
+                    <input name="team" class="form-control" value="{team}">
+                </div></div>	
+            {EXPLODE}
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Wof&uuml;r</label>
+                <div class="col-xs-6">
+                    <input name="wofur" class="form-control" value="{wofur}">
+                </div></div>	
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Bild zum Award</label>
+                <div class="col-xs-6">
+                    <input class="form-control" name="bild" value="{bild}">
+                    <span class="help-block">URL zum Bild eintragen</span>
+                </div></div>	
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Info</label>
+                <div class="col-xs-10">
+                    <textarea class="form-control" rows="5" name="text">{text}</textarea>
+                </div></div>	
+            <div class="form-group">
+                <label class="col-sm-2 control-label"></label>
+                <div class="col-xs-10">
+                    <input type="submit" value="Eintragen" class="btn btn-primary" name="ins" >
+                </div></div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <legend class="visible-xs">&Uuml;bersicht Awards</legend>
+        <table class="table table-bordered">
+            <tr class="bg-warning">
+                <td class="visible-xsmin"><strong>Datum</strong></td>
+                <td class="text-center"><strong>Platz</strong></td>
+                <td><strong>Awardtr&auml;ger</strong></td>
+                <td class="text-center"><strong>Aktion</strong></td>
+            </tr>
+            {EXPLODE}
+            <tr>
+                <td class="visible-xsmin">{datum}</td><td class="text-center">{platz}</td><td>{team}</td>
+                <td class="text-center">
+                    <a href="admin.php?awards-e{id}" rel="tooltip" title="{_lang_change}" style="margin-right:3px;"><span style="color:#2D9600;" class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                    <a href="#" onclick="delcheck({id})" rel="tooltip" title="{_lang_delete}" ><span style="color:#AD0000;" class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                </td>
+            </tr>
+            {EXPLODE}
+        </table>
+    </div>
 </div>
-</div>
-{EXPLODE}
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Awardträger</label>
-    <div class="col-xs-6">
-      <input name="team" class="form-control" value="{team}">
-    </div></div>	
-{EXPLODE}
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Wof&uuml;r</label>
-    <div class="col-xs-6">
-      <input name="wofur" class="form-control" value="{wofur}">
-    </div></div>	
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Bild zum Award</label>
-    <div class="col-xs-6">
-      <input class="form-control" name="bild" value="{bild}">
-<span class="help-block">URL zum Bild eintragen</span>
-    </div></div>	
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Info</label>
-    <div class="col-xs-10">
-      <textarea class="form-control" rows="5" name="text">{text}</textarea>
-    </div></div>	
-  <div class="form-group">
-    <label class="col-sm-2 control-label"></label>
-    <div class="col-xs-10">
-<input type="submit" value="Eintragen" class="btn btn-primary" name="ins" >
-</div></div>
-</form>
-</div>
-
-<div class="col-md-6">
-<legend class="visible-xs">&Uuml;bersicht Awards</legend>
-      <table class="table table-bordered">
-        <tr class="bg-warning">
-		      <td class="visible-xsmin"><strong>Datum</strong></td>
-		      <td class="text-center"><strong>Platz</strong></td>
-		      <td><strong>Awardtr&auml;ger</strong></td>
-		      <td class="text-center"><strong>Aktion</strong></td>
-	      </tr>
-{EXPLODE}
-<tr>
-<td class="visible-xsmin">{datum}</td><td class="text-center">{platz}</td><td>{team}</td>
-<td class="text-center">
-  <a href="admin.php?awards-e{id}" rel="tooltip" title="{_lang_change}" style="margin-right:3px;"><span style="color:#2D9600;" class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-  <a href="#" onclick="delcheck({id})" rel="tooltip" title="{_lang_delete}" ><span style="color:#AD0000;" class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-</td>
-</tr>
-{EXPLODE}
-      </table>
-</div></div>

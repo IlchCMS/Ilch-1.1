@@ -1,52 +1,54 @@
 <script language="JavaScript" type="text/javascript">
 <!--
-  function delcheck ( DID ) {
-    var frage = confirm ( "Willst du dieses Feld und die Werte der User wirklich unwiederbringlich löschen?" );
-    if ( frage ) {
-      document.location.href="?profilefields-delete-"+DID;
+    function delcheck(DID) {
+        var frage = confirm("Willst du dieses Feld und die Werte der User wirklich unwiederbringlich löschen?");
+        if (frage) {
+            document.location.href = "?profilefields-delete-" + DID;
+        }
     }
-  }
 //-->
 </script>
 <legend><h2><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Profilfelder</h2></legend>
 <div class="row">
-  <div class="col-md-6">
-<legend>neues Profilefeld</legend>
-<form action="admin.php?profilefields" method="POST" class="form-horizontal" role="form">
-  <input type="hidden" name="sid" value="{sid}">
-<div class="form-group">
-    <label class="col-sm-2 control-label">Name</label>
-    <div class="col-sm-6">
-      <input type="text" class="form-control" name="show" value="{show}">
+    <div class="col-md-6">
+        <legend>neues Profilefeld</legend>
+        <form action="admin.php?profilefields" method="POST" class="form-horizontal" role="form">
+            <input type="hidden" name="sid" value="{sid}">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Name</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="show" value="{show}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Funktion</label>
+                <div class="col-sm-6">
+                    <select class="form-control" name="func">{_list_func@<option%1 value="%2">%3</option>}</select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label"></label>
+                <div class="col-sm-10">
+                    <input class="btn btn-primary" type="submit" value="{sub}" name="sub">
+                </div>
+            </div>
+        </form>
     </div>
-  </div>
-<div class="form-group">
-    <label class="col-sm-2 control-label">Funktion</label>
-    <div class="col-sm-6">
-      <select class="form-control" name="func">{_list_func@<option%1 value="%2">%3</option>}</select>
+    <div class="col-md-6">
+        <legend>Profilfelder verwalten</legend>
+        <div class="panel panel-default" style="overflow-x:auto;overflow-y:hidden;">
+            <div class="panel-body">
+                <table class="table table-striped">
+                    {EXPLODE}
+                    <tr>
+                        <td>{show}</td>
+                        <td class="text-center"><span class="label label-default">{func}</span></td>
+                        <td class="text-center" nowrap><a style="margin-right:5px;" href="?profilefields-edit-{id}" rel="tooltip" title="&auml;ndern"><span style="color:#2D9600;" class="glyphicon glyphicon-edit" aria-hidden="true"></span></a><a href="javascript:delcheck({id})" rel="tooltip" title="l&ouml;schen"><span style="color:#AD0000;" class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+                        <td nowrap><a style="margin-right:5px;" href="?profilefields-o-{id}-{pos}" rel="tooltip" title="nach oben verschieben"><span style="color:#C64F00;" class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></a><a href="?profilefields-u-{id}-{pos}" rel="tooltip" title="nach unten verschieben"><span style="color:#C64F00;" class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></a></td>
+                    </tr>
+                    {EXPLODE}
+                </table>
+            </div>
+        </div>
     </div>
-  </div>
-<div class="form-group">
-    <label class="col-sm-2 control-label"></label>
-    <div class="col-sm-10">
-      <input class="btn btn-primary" type="submit" value="{sub}" name="sub">
-    </div>
-  </div>
-</form>
 </div>
-<div class="col-md-6">
-<legend>Profilfelder verwalten</legend>
-<div class="panel panel-default" style="overflow-x:auto;overflow-y:hidden;">
-  <div class="panel-body">
-<table class="table table-striped">
-
-	{EXPLODE}
-	<tr>
-		<td>{show}</td>
-		<td class="text-center"><span class="label label-default">{func}</span></td>
-		<td class="text-center" nowrap><a style="margin-right:5px;" href="?profilefields-edit-{id}" rel="tooltip" title="&auml;ndern"><span style="color:#2D9600;" class="glyphicon glyphicon-edit" aria-hidden="true"></span></a><a href="javascript:delcheck({id})" rel="tooltip" title="l&ouml;schen"><span style="color:#AD0000;" class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
-		<td nowrap><a style="margin-right:5px;" href="?profilefields-o-{id}-{pos}" rel="tooltip" title="nach oben verschieben"><span style="color:#C64F00;" class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></a><a href="?profilefields-u-{id}-{pos}" rel="tooltip" title="nach unten verschieben"><span style="color:#C64F00;" class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></a></td>
-	</tr>
-{EXPLODE}
-</table></div></div>
-</div></div>

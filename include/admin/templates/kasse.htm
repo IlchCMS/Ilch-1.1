@@ -1,58 +1,58 @@
 <legend><h2><span class="glyphicon glyphicon-credit-card" aria-hidden="true"></span> Kasse</h2></legend>
 <form action="admin.php?kasse{id}" method="POST" class="form-horizontal" role="form">
-<div class="row">
-<div class="col-md-6">
-<div class="panel panel-success">
-  <div class="panel-heading">
-    <h3 class="panel-title">Buchen</h3>
-  </div>
-  <div class="panel-body">
-Hier k&ouml;nnen Sie f&uuml;r das Konto eine Buchung durchf&uuml;hren.<br>
-    Falsche Buchungen k&ouml;nnen Sie auf der <a href="index.php?kasse"><strong>Kassen Seite</strong></a> wieder l&ouml;schen.<br><br>
-<div class="form-group">
-    <label class="col-sm-2 control-label">Name</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" name="name" value="{name}">
-    </div>
-  </div>
-<div class="form-group">
-    <label class="col-sm-2 control-label">Datum</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" name="datum" value="{datum}">
-    </div>
-  </div>
-<div class="form-group">
-    <label class="col-sm-2 control-label">Betrag</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" name="betrag" value="{betrag}">
-<span class="help-block">Bitte mit + oder - Zeichen eingeben jenachdem ob es eben eine Ausgabe (-) oder eine Einnahme (+) ist..Wenn das nicht richtig gemacht wird kann ich da f&uuml;r nichts garantien ;)<br>
-z.B. -30 f&uuml;r eine Ausgabe die 30€ gekostet hat. Oder eben +30 f&uuml;r eine Einnhabe &uuml;ber 30€. Bitte <u>keine</u> 1000der Trennzeichen einbauen. Also nicht 10.000 sondern 10000.</span>
-    </div>
-  </div>
-<div class="form-group">
-    <label class="col-sm-2 control-label">Verwendung</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" name="verwendung" value="{verwendung}">
-    </div>
-  </div>
-<div class="form-group">
-    <label class="col-sm-2 control-label"></label>
-    <div class="col-sm-10">
-      <input class="btn btn-primary" type="submit" value="Absenden" name="sub" >
-    </div>
-  </div>
-  </div>
-</div>
-</div>
-<div class="col-md-6">
-<h4><u>Kontodaten</u></h4>
-Geben Sie in dieses Feld bitte ihre Kontodaten ein, damit die Member diese
-    einsehen k&ouml;nnen.<br>Wichtige Daten sind: Kontoinhaber,
-    BIC und IBAN  und vergessen Sie nicht einen
-    Verwendungszweck fest zu legen.<br>
-<br>
-<textarea class="form-control" rows="10" name="kontodaten">{kontodaten}</textarea>
-<br>
-<input class="btn btn-primary" type="submit" value="Kontodaten speichern" name="ksub">
-</div></div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Buchen</h3>
+                </div>
+                <div class="panel-body">
+                    Hier k&ouml;nnen Sie f&uuml;r das Konto eine Buchung durchf&uuml;hren.<br>
+                    Falsche Buchungen k&ouml;nnen Sie auf der <a href="index.php?kasse"><strong>Kassen Seite</strong></a> wieder l&ouml;schen.<br><br>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="name" value="{name}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Datum</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="datum" value="{datum}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Betrag</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="betrag" value="{betrag}">
+                            <span class="help-block">Bitte mit + oder - Zeichen eingeben jenachdem ob es eben eine Ausgabe (-) oder eine Einnahme (+) ist..Wenn das nicht richtig gemacht wird kann ich da f&uuml;r nichts garantien ;)<br>
+                                z.B. -30 f&uuml;r eine Ausgabe die 30€ gekostet hat. Oder eben +30 f&uuml;r eine Einnhabe &uuml;ber 30€. Bitte <u>keine</u> 1000der Trennzeichen einbauen. Also nicht 10.000 sondern 10000.</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Verwendung</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="verwendung" value="{verwendung}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"></label>
+                        <div class="col-sm-10">
+                            <input class="btn btn-primary" type="submit" value="Absenden" name="sub" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h4><u>Kontodaten</u></h4>
+            Geben Sie in dieses Feld bitte ihre Kontodaten ein, damit die Member diese
+            einsehen k&ouml;nnen.<br>Wichtige Daten sind: Kontoinhaber,
+            BIC und IBAN  und vergessen Sie nicht einen
+            Verwendungszweck fest zu legen.<br>
+            <br>
+            <textarea class="form-control" rows="10" name="kontodaten">{kontodaten}</textarea>
+            <br>
+            <input class="btn btn-primary" type="submit" value="Kontodaten speichern" name="ksub">
+        </div></div>
 </form>

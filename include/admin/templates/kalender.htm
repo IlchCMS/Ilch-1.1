@@ -1,156 +1,145 @@
 <!-- Kalender Script © by Nickel -->
 <script language="JavaScript" type="text/javascript">
 <!--
-function delcheck ( DELID, GID ) {
-  if (GID != 0) {
+    function delcheck (DELID, GID) {
+    if (GID != 0) {
     var frage1 = confirm ("ALLE Zugehoerigen Termine mitloeschen?");
-    if (frage1 == true) {
-      document.location.href="admin.php?kalender&del_gid="+GID;
-      return (true);
+            if (frage1 == true) {
+    document.location.href = "admin.php?kalender&del_gid=" + GID;
+            return (true);
     }
-  }
-	var frage = confirm ( "Willst du diesen Termin wirklich loeschen?" );
-	if ( frage == true ) {
-		document.location.href="admin.php?kalender&del="+DELID;
-    return (true);
-	}
-  
-  return (false);
-}
-function setzende ( s ) {
-  document.form.zende.value = s;
-  document.getElementById('skalenderzende').style.display = "none";
-}
-function setbegind ( s ) {
-  document.form.begind.value = s;
-  document.form.begind.focus();
-  document.getElementById('skalenderbegind').style.display = "none";
-}
-function closezende () {
-  document.getElementById('skalenderzende').style.display = "none";
-}
-function closebegind () {
-  document.getElementById('skalenderbegind').style.display = "none";
-}
+    }
+    var frage = confirm ("Willst du diesen Termin wirklich loeschen?");
+            if (frage == true) {
+    document.location.href = "admin.php?kalender&del=" + DELID;
+            return (true);
+    }
+
+    return (false);
+    }
+    function setzende (s) {
+    document.form.zende.value = s;
+            document.getElementById('skalenderzende').style.display = "none";
+    }
+    function setbegind (s) {
+    document.form.begind.value = s;
+            document.form.begind.focus();
+            document.getElementById('skalenderbegind').style.display = "none";
+    }
+    function closezende () {
+    document.getElementById('skalenderzende').style.display = "none";
+    }
+    function closebegind () {
+    document.getElementById('skalenderbegind').style.display = "none";
+    }
 //-->
 </script>
-
-<legend><h2><i class="fa fa-calendar"></i> Kalender</h2></legend>
+<legend><h2><span class="glyphicon glyphicon-th" aria-hidden="true"></span> Kalender</h2></legend>
 <div class="row">
-  <div class="col-md-6">
+    <div class="col-md-6">
 
-		<form action="admin.php?kalender" method="POST" name="form" class="form-horizontal" role="form">
-		<input type="hidden" name="um" value="{AKTION}">
-		<input type="hidden" name="EID" value="{EID}">			
-		<script type='text/javascript' src='include/includes/js/bbcode.js'></script>
-					
-
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Titel</label>
-    <div class="col-sm-10">
-      <input class="form-control" type="text" name="title" value="{TITLE}">
+        <form action="admin.php?kalender" method="POST" name="form" class="form-horizontal" role="form">
+            <input type="hidden" name="um" value="{AKTION}">
+            <input type="hidden" name="EID" value="{EID}">			
+            <script type='text/javascript' src='include/includes/js/bbcode.js'></script>				
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Titel</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" name="title" value="{TITLE}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Text</label>
+                <div class="col-sm-10">
+                    <!-- BB Code START -->
+                    <a href="javascript:simple('b')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.bold.gif" alt="b" title="{_lang_bold}" border="0"></a>
+                    <a href="javascript:simple('i')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.italic.gif" alt="i" title="{_lang_italic}" border="0"></a>
+                    <a href="javascript:simple('u')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.underline.gif" alt="u" title="{_lang_underlined}" border="0"></a>
+                    <a href="javascript:simple('code')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.code.gif" alt="Code" title="{_lang_code}" border="0"></a>
+                    <a href="javascript:simple_liste()"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.insertunorderedlist.gif" alt="{_lang_list}" title="{_lang_list}" border="0"></a>
+                    <a href="javascript:simple('url')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.link.gif" alt="Url" title="{_lang_link}" border="0"></a>
+                    <a href="javascript:simple('img')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.image.gif" alt="{_lang_picture}" title="{_lang_picture}" border="0"></a>
+                    <!-- BB Code ENDE--><br>
+                    <textarea class="form-control" rows="5" name="txt">{TEXT}</textarea>
+                </div>
+            </div>
+            <div class="form-group" >
+                <label class="col-sm-2 control-label">Datum</label>
+                <div class="col-sm-10 form-inline">
+                    <input class="form-control" value="{begind}" name="begind" onClick="xajax_XAJAX_showCalendar('', '', 'begind')" > 
+                    um <select class="form-control" id="stunde" name="stunde">{_list_stunden@<option%1 value="%2">%3</option>}</select><b>:</b><select class="form-control" id="minute" name="minute">{_list_minuten@<option%1 value="%2">%3</option>}</select> Uhr
+                </div>
+            </div>
+            {EXPLODE}
+            <div id="skalenderbegind" class="skalenderbegi"></div>
+            <div id="skalenderzende" class="skalenderbegi"></div> 
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Zyklus</label>
+                <div class="col-xs-6">
+                    <select class="form-control" name="zyklus">
+                        <option></option>
+                        <option value="wer">werktags</option>
+                        <option value="wek">wochenende</option>
+                        <option value="woc">wöchentlich</option>
+                        <option value="14t">14 täglich</option>
+                        <option value="mon">monatlich</option>
+                        <option value="jae">jährlich</option>
+                    </select>
+                </div>
+            </div>   
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Ende</label>
+                <div class="col-xs-6">
+                    <input class="form-control" value="{zende}" name="zende" onClick="xajax_XAJAX_showCalendar('', '', 'zende')">
+                </div>
+            </div>     
+            {EXPLODE}
+            <div class="form-group">
+                <label class="col-sm-2 control-label"></label>
+                <div class="col-sm-10">
+                    <div class="checkbox">
+                        <label for="gid">
+                            <input type="checkbox" id="gid" name="gid" value="yes"> Im Verbund
+                        </label>
+                        <span class="help-block">Diesen Termin im Verbund &auml;ndern, daher alle Zugehoerigen Termine mit&auml;ndern.</span>
+                    </div>
+                </div></div>    
+            {EXPLODE}
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Sichtbar ab</label>
+                <div class="col-xs-6">
+                    <select class="form-control" name="recht">
+                        {_list_recht@<option%1 value="%2">%3</option>}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label"></label>
+                <div class="col-sm-10">
+                    <input type="submit" class="btn btn-primary" value="{FSUB}" name="submit"></td>
+                </div>
+            </div>
+            {MPL}
     </div>
-  </div>
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Text</label>
-    <div class="col-sm-10">
-				<!-- BB Code START -->
-	    <a href="javascript:simple('b')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.bold.gif" alt="b" title="{_lang_bold}" border="0"></a>
-      <a href="javascript:simple('i')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.italic.gif" alt="i" title="{_lang_italic}" border="0"></a>
-      <a href="javascript:simple('u')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.underline.gif" alt="u" title="{_lang_underlined}" border="0"></a>
-      <a href="javascript:simple('code')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.code.gif" alt="Code" title="{_lang_code}" border="0"></a>
-	    <a href="javascript:simple_liste()"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.insertunorderedlist.gif" alt="{_lang_list}" title="{_lang_list}" border="0"></a>
-      <a href="javascript:simple('url')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.link.gif" alt="Url" title="{_lang_link}" border="0"></a>
-      <a href="javascript:simple('img')"><img style="padding-left: 4%; float: left;" src="include/images/icons/button.image.gif" alt="{_lang_picture}" title="{_lang_picture}" border="0"></a>
-				<!-- BB Code ENDE--><br>
-<textarea class="form-control" rows="5" name="txt">{TEXT}</textarea>
-    </div>
-  </div>
-  <div class="form-group" >
-    <label class="col-sm-2 control-label">Datum</label>
-    <div class="col-sm-10 form-inline">
-            <input class="form-control" value="{begind}" name="begind" onClick="xajax_XAJAX_showCalendar('','','begind')" > 
-      um <select class="form-control" id="stunde" name="stunde">{_list_stunden@<option%1 value="%2">%3</option>}</select><b>:</b><select class="form-control" id="minute" name="minute">{_list_minuten@<option%1 value="%2">%3</option>}</select> Uhr
-    </div>
-  </div>
-  
-    {EXPLODE}
- <div id="skalenderbegind" style="position:absolute; top:0px; left:50%; margin-left:-120px;display:none; width:240px;z-index:1001;background-color:#f7f7f7;-webkit-box-shadow: 4px 4px 6px 0px rgba(0, 0, 0, 0.53);-moz-box-shadow:4px 4px 6px 0px rgba(0, 0, 0, 0.53);box-shadow:4px 4px 6px 0px rgba(0, 0, 0, 0.53);"></div>
-<div id="skalenderzende" style="position:absolute; top:0px; left:50%; margin-left:-120px;display:none; width:240px;z-index:1001;background-color:#f7f7f7;-webkit-box-shadow: 4px 4px 6px 0px rgba(0, 0, 0, 0.53);-moz-box-shadow: 4px 4px 6px 0px rgba(0, 0, 0, 0.53);box-shadow:4px 4px 6px 0px rgba(0, 0, 0, 0.53);"></div> 
-   <div class="form-group">
-    <label class="col-sm-2 control-label">Zyklus</label>
-    <div class="col-xs-6">
-      <select class="form-control" name="zyklus">
-        <option></option>
-        <option value="wer">werktags</option>
-        <option value="wek">wochenende</option>
-        <option value="woc">wöchentlich</option>
-        <option value="14t">14 täglich</option>
-        <option value="mon">monatlich</option>
-        <option value="jae">jährlich</option>
-      </select>
-    </div>
-  </div>   
-   <div class="form-group">
-    <label class="col-sm-2 control-label">Ende</label>
-    <div class="col-xs-6">
-<input class="form-control" value="{zende}" name="zende" onClick="xajax_XAJAX_showCalendar('','','zende')">
-    </div>
-  </div>   
-
-    
-    {EXPLODE}
-  <div class="form-group">
-    <label class="col-sm-2 control-label"></label>
-    <div class="col-sm-10">
-<div class="checkbox">
-  <label for="gid">
-    <input type="checkbox" id="gid" name="gid" value="yes"> Im Verbund
-  </label>
-<span class="help-block">Diesen Termin im Verbund &auml;ndern, daher alle Zugehoerigen Termine mit&auml;ndern.</span>
-</div>
-</div></div>
-
-    
-    {EXPLODE}
- 
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Sichtbar ab</label>
-    <div class="col-xs-6">
-				<select class="form-control" name="recht">
-				{_list_recht@<option%1 value="%2">%3</option>}
-				</select>
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="col-sm-2 control-label"></label>
-    <div class="col-sm-10">
-<input type="submit" class="btn btn-primary" value="{FSUB}" name="submit"></td>
-    </div>
-  </div>
-
-		{MPL}
-</div>
-  <div class="col-md-6">
-<span class="visible-xs-800"><legend>Eintr&auml;ge verwalten</legend></span>
-<div class="panel panel-default">
-  <div class="panel-body">
-		<table class="table table-striped">
-		{EXPLODE}
-		<tr>
-			<td class="text-center" nowrap><a style="margin-right:4px;" href="#" onClick="return delcheck({ID},{GID})" rel="tooltip" title="L&ouml;schen"><i style="color:#AD0000;" class="fa fa-times-circle"></i></a>
-<a href="?kalender&edit={ID}" rel="tooltip"  title="Ver&auml;ndern"><i style="color:#00AD14;" class="fa fa-pencil-square-o"></i></a></td>
-			<td class="text-left"><strong>{TITLE}</strong><br><small>am {DATE} um {TIME} Uhr</small></td>
-		</tr>
-		{EXPLODE}
-		</table>
-</div></div>
-		{MPL}
-
-</div></div>
+    <div class="col-md-6">
+        <span class="visible-xs-800"><legend>Eintr&auml;ge verwalten</legend></span>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <table class="table table-striped">
+                    {EXPLODE}
+                    <tr>
+                        <td class="text-center" nowrap><a style="margin-right:4px;" href="#" onClick="return delcheck({ID}, {GID})" title="L&ouml;schen"><span style="color:#AD0000;" class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                            <a href="?kalender&edit={ID}" title="Ver&auml;ndern"><span style="color:#2D9600;" class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
+                        <td class="text-left"><strong>{TITLE}</strong><br><small>am {DATE} um {TIME} Uhr</small></td>
+                    </tr>
+                    {EXPLODE}
+                </table>
+            </div></div>
+        {MPL}
+    </div></div>
 <div class="row">
-  <div class="col-md-12 text-right">
-<small>Kalender Script &copy; by Nickel</small>
-</div></div>
+    <div class="col-md-12 text-right">
+        <small>Kalender Script &copy; by Nickel</small>
+    </div>
+</div>
 <!-- Kalender Script © by Nickel -->
-

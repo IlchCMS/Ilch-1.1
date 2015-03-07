@@ -1,73 +1,68 @@
 <legend><h2><span class="glyphicon glyphicon-download" aria-hidden="true"></span>  Backup</h2></legend>
 <a class="btn btn-default btn-sm" href="include/backup/bigdump.php"><i class="fa fa-file-archive-o"></i>  Backup mit BigDump importieren</a><br><br>
-
-
 <form action="admin.php?backup" method="POST" role="form">
-<input type="hidden" name="sendBackup" value="yes">
-
+    <input type="hidden" name="sendBackup" value="yes">
     <div class="alert alert-warning" role="alert">
+        <strong><span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>  Beachten:</strong><br>Es kann keine Garantie daf&uuml;r &uuml;bernommen werden,
+        dass dieses Script immer einwandfrei funktioniert und alle Daten aus der Datenbank
+        korrekt gespeichert werden!<br>
+        Vor dem Wiedereinspielen dieses Backups m&uuml;ssen alle bestehenden Tabellen gel&ouml;scht werden damit sie vom Backup angelegt werden. (Option beachten)<br>
+        Beim Einspielen mit phpmyadmin ist es wichtig, welche Kodierung gew&auml;hlt wird, damit Umlaute/Sonderzeichen erhalten bleiben.
+        Standard bei phpmyadmin ist UTF-8. F&uuml;r BigDump ANSI benutzen.<br>
+        Nur ein "Name" pro Tag, vorherige Backups vom gleichen Tag gehen also verloren.
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="prefix" checked="checked">
+                    Nur Tabellen mit aktiven Pr&auml;fix ins Backup aufnehmen
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="drop" checked="checked">
+                    Vorhandene Tabellen beim Import l&ouml;schen <span class="text-danger">( Ben&ouml;tigt um mit Ilch wieder einzuspielen )</span>
+                </label>
+            </div>
+            <div class="form-group">
+                <label>Ausgabecodierung : </label>
+                <label class="radio-inline">
+                    <input type="radio" name="cod" value="ansi" checked="checked"> ANSI
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="cod" value="utf8"> UTF-8
+                </label>
+            </div>
 
-    <strong><span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>  Beachten:</strong><br>Es kann keine Garantie daf&uuml;r &uuml;bernommen werden,
-      dass dieses Script immer einwandfrei funktioniert und alle Daten aus der Datenbank
-      korrekt gespeichert werden!<br>
-Vor dem Wiedereinspielen dieses Backups m&uuml;ssen alle bestehenden Tabellen gel&ouml;scht werden damit sie vom Backup angelegt werden. (Option beachten)<br>
-      Beim Einspielen mit phpmyadmin ist es wichtig, welche Kodierung gew&auml;hlt wird, damit Umlaute/Sonderzeichen erhalten bleiben.
-      Standard bei phpmyadmin ist UTF-8. F&uuml;r BigDump ANSI benutzen.<br>
-      Nur ein "Name" pro Tag, vorherige Backups vom gleichen Tag gehen also verloren.
-      </div>
-<div class="panel panel-default">
-  <div class="panel-body">
-<div class="checkbox">
-  <label>
-    <input type="checkbox" name="prefix" checked="checked">
-    Nur Tabellen mit aktiven Pr&auml;fix ins Backup aufnehmen
-  </label>
-</div>
-<div class="checkbox">
-  <label>
-    <input type="checkbox" name="drop" checked="checked">
-    Vorhandene Tabellen beim Import l&ouml;schen <span class="text-danger">( Ben&ouml;tigt um mit Ilch wieder einzuspielen )</span>
-  </label>
-
-</div>
-
-<div class="form-group">
-  <label>Ausgabecodierung : </label>
-<label class="radio-inline">
-  <input type="radio" name="cod" value="ansi" checked="checked"> ANSI
-</label>
-<label class="radio-inline">
-  <input type="radio" name="cod" value="utf8"> UTF-8
-</label>
-</div>
-
-<div class="panel panel-default" style="background-color:#EAEAEA;">
-  <div class="panel-body">
-<div class="radio">
-  <label>
-    <input type="radio" name="backuptype" value="download" checked="checked">
-    Backup herunterladen
-  </label>
-</div>
-<div class="radio">
-  <label>
-    <input type="radio" name="backuptype" value="backupdir">
-    Backup im Backupverzeichnis erstellen
-  </label>
-</div>
-<div class="radio">
-  <label>
-    <input type="radio" name="backuptype" value="both">
-    beides
-  </label>
-</div>
-</div></div>
-<div class="checkbox">
-  <label>
-    <input type="checkbox" name="gelesen" value="yes" id="gelesen">
-    <strong>Ich habe den Text gelesen und verstanden!</strong>
-  </label>
-</div><br>
-<input type="submit" class="btn btn-primary" value="Backup erstellen">
-</div></div>
+            <div class="panel panel-default" style="background-color:#EAEAEA;">
+                <div class="panel-body">
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="backuptype" value="download" checked="checked">
+                            Backup herunterladen
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="backuptype" value="backupdir">
+                            Backup im Backupverzeichnis erstellen
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="backuptype" value="both">
+                            beides
+                        </label>
+                    </div>
+                </div></div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="gelesen" value="yes" id="gelesen">
+                    <strong>Ich habe den Text gelesen und verstanden!</strong>
+                </label>
+            </div><br>
+            <input type="submit" class="btn btn-primary" value="Backup erstellen">
+        </div>
+    </div>
 </form>

@@ -12,38 +12,39 @@
 </script>
 <legend><h2><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>  Newsletter</h2></legend>
 <div class="panel panel-success">
-<div class="panel-heading">Hier kannst du einen Newsletter verschicken!</div>
-  <div class="panel-body">
-<form action="admin.php?newsletter" method="post" name="newsletter" class="form-horizontal" role="form">
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Empf&auml;nger</label>
-    <div class="col-sm-10">
-      <label class="radio-inline"><input type="radio" name="tempRecipients" onClick="xajax_XAJAX_changeList('Normal')"> Normal</label><label class="radio-inline"><input type="radio" name="tempRecipients" onClick="xajax_XAJAX_changeList('Grundrechte')"> nach Rechten</label>
-    </div>
-  </div>
-    <div class="form-group">
-    <label class="col-sm-2 control-label">Ausw&auml;hlen</label>
-    <div class="col-sm-6" id="list">
-                <select name="auswahl" class="form-control">
-                    <option selected="selected" disabled="disabled">Bitte erst den Empf&auml;nger ausw&auml;hlen</option>
-                </select>
-    </div>
-  </div>
-      <div class="form-group">
-    <label class="col-sm-2 control-label">Betreff</label>
-    <div class="col-sm-6" id="list">
-      <input type="text" name="bet" class="form-control">
-    </div>
-  </div>
-  <div class="form-group">
-    <label>Text</label>
+    <div class="panel-heading">Hier kannst du einen Newsletter verschicken!</div>
+    <div class="panel-body">
+        <form action="admin.php?newsletter" method="post" name="newsletter" class="form-horizontal" role="form">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Empf&auml;nger</label>
+                <div class="col-sm-10">
+                    <label class="radio-inline"><input type="radio" name="tempRecipients" onClick="xajax_XAJAX_changeList('Normal')"> Normal</label><label class="radio-inline"><input type="radio" name="tempRecipients" onClick="xajax_XAJAX_changeList('Grundrechte')"> nach Rechten</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Ausw&auml;hlen</label>
+                <div class="col-sm-6" id="list">
+                    <select name="auswahl" class="form-control">
+                        <option selected="selected" disabled="disabled">Bitte erst den Empf&auml;nger ausw&auml;hlen</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Betreff</label>
+                <div class="col-sm-6" id="list">
+                    <input type="text" name="bet" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Text</label>
                 <textarea class="form-control" rows="25" id="txt" name="txt"></textarea>
                 <script type="text/javascript">
                     CKEDITOR.replace('txt');
                 </script>
-  </div>
-  <div class="text-center">
-<input type="submit" value="Newsletter senden" name="SEND" class="btn btn-primary">
+            </div>
+            <div class="text-center">
+                <input type="submit" value="Newsletter senden" name="SEND" class="btn btn-primary">
+            </div>
+        </form>
+    </div>
 </div>
-</form>
-</div></div>

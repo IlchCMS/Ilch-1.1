@@ -1,46 +1,38 @@
 <legend><h2><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Kontakt</h2></legend>
-
-    <legend>Kontakte Verwalten</legend>
-    {EXPLODE}
+<legend>Kontakte Verwalten</legend>
+{EXPLODE}
 <div class="row">		
-<form action="?contact-1&wo={WO}" method="POST" class="form-inline" role="form">
- <div class="form-group">
-    <input type="text" class="form-control" name="mail" value="{MAIL}">
-  </div>
- <div class="form-group">
-    <input type="text" class="form-control" name="name" value="{NAME}">
-  </div>
-<div class="btn-group but-contact">
-<input type="submit" value="&Auml;ndern" class="btn btn-primary"> 
-			<input type="button" value="L&ouml;schen" class="btn btn-danger" onclick="document.location.href ='admin.php?contact-2&del={WO}'">
-</div>
-		</form>
-</div>
-
-			
-    {EXPLODE}
+    <form action="?contact-1&wo={WO}" method="POST" class="form-inline" role="form">
+        <div class="form-group">
+            <input type="text" class="form-control" name="mail" value="{MAIL}">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" name="name" value="{NAME}">
+        </div>
+        <div class="btn-group but-contact">
+            <input type="submit" value="&Auml;ndern" class="btn btn-primary"> 
+            <input type="button" value="L&ouml;schen" class="btn btn-danger" onclick="document.location.href = 'admin.php?contact-2&del={WO}'">
+        </div>
+    </form>
+</div>			
+{EXPLODE}
 <br><div class="row">	
-<div class="panel panel panel-warning">
-  <div class="panel-heading">Kontakt hinzuf&uuml;gen</div>
-  <div class="panel-body">
-
-<form action="?contact-3" method="POST" class="form-horizontal" role="form">
-
-	  <div class="form-group">
-<div class="col-xs-6">
-    <label>Email-Adresse</label>
-    <input type="text" class="form-control" name="mail" placeholder="Email-Adresse">
-  </div></div>
-	  <div class="form-group">
-<div class="col-xs-6">
-    <label>Name</label>
-    <input type="text" class="form-control" name="name" placeholder="Name">
-  </div></div>
-<input type="submit" value="Kontakt hinzuf&uuml;gen" class="btn btn-primary">
-
-	
-</form>
-</div></div>
+    <div class="panel panel panel-warning">
+        <div class="panel-heading">Kontakt hinzuf&uuml;gen</div>
+        <div class="panel-body">
+            <form action="?contact-3" method="POST" class="form-horizontal" role="form">
+                <div class="form-group">
+                    <div class="col-xs-6">
+                        <label>Email-Adresse</label>
+                        <input type="text" class="form-control" name="mail" placeholder="Email-Adresse">
+                    </div></div>
+                <div class="form-group">
+                    <div class="col-xs-6">
+                        <label>Name</label>
+                        <input type="text" class="form-control" name="name" placeholder="Name">
+                    </div></div>
+                <input type="submit" value="Kontakt hinzuf&uuml;gen" class="btn btn-primary">	
+            </form>
+        </div>
+    </div>
 </div>
-
-

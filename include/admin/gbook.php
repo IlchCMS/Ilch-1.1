@@ -50,12 +50,13 @@ while ($r = db_fetch_assoc($erg) ) {
 	$time = date('d.m.y',$r['time']);
   $class = ($class == 'list-group-item-success' ? 'list-group-item-warning' : 'list-group-item-success' );
   $text  = substr(preg_replace("/\015\012|\015|\012/", " ", htmlentities(strip_tags(stripslashes($r['txt'])), ILCH_ENTITIES_FLAGS, ILCH_CHARSET)),0,150);
+  $text = bbcode($text);
   echo '<li class="list-group-item '.$class.'">';
   echo '<a href="admin.php?gbook=0&edit='.$r['id'].'" style="margin-right:4px" title="bearbeiten"><span style="color:#2D9600;" class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>';
   echo '<a href="javascript:delcheck('.$r['id'].')" style="margin-right:4px" title="l&ouml;schen"><span style="color:#AD0000;" class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>';
   echo '<strong><a href="mailto:'.$r['mail'].'" title="mailto:'.$r['mail'].'">von '.$r['name'].'</a></strong>';
   echo '<span class="pull-right" style="margin-right:5px"><small>'.$time.'</small></span>';
-  echo '<div class="panel panel-default"><div class="panel-body" style="color:#2f2f2f">'.$text.'</div></div>';
+  echo '<div class="panel panel-default"><div class="panel-body" style="color:#2f2f2f;overflow:auto;">'.$text.'</div></div>';
   echo '</li>';
 }
 

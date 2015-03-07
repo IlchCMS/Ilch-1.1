@@ -32,12 +32,10 @@ $count = db_fetch_assoc($countABF);
 if ($count['zahl'] > 0) {
     #ausgabe der Mail-Adressen
     while ($row = db_fetch_assoc($erg)) {
-        $clas = ($clas == 'Cmite' ? 'Cnorm' : 'Cmite' );
-        $row['class'] = $clas;
         $tpl->set_ar_out($row, 1);
     }
 } else {
-    echo "<p> Keine Eintragungen vorhanden </p>";
+    echo "<div class=\"alert alert-warning\" role=\"alert\">Keine Eintragungen vorhanden</div>";
 }
 $tpl->out(2);
 echo mysql_error();

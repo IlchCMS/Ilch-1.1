@@ -1,56 +1,55 @@
 <script language="JavaScript" type="text/javascript">
     <!--
       
-			function delcheck ( DELID ) {
-			  var frage = confirm ( "Willst du diesen Eintrag wirklich löschen?" );
-				if ( frage == true ) {
-				  document.location.href="admin.php?gbook&del="+DELID;
-				}
-			}
-		//-->
+    function delcheck(DELID) {
+        var frage = confirm("Willst du diesen Eintrag wirklich löschen?");
+        if (frage == true) {
+            document.location.href = "admin.php?gbook&del=" + DELID;
+        }
+    }
+    //-->
 </script>
 <div class="row">
-		  <form action="admin.php?gbook" method="POST" class="form-horizontal" role="form">
-	  <legend><h2><span class="glyphicon glyphicon-book" aria-hidden="true"></span>  Gbook</h2></legend>
-  <div class="col-md-6">
-			<input type="hidden" name="gid" value="{id}" >
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Name</label>
-    <div class="col-xs-6">
-      <input type="text" class="form-control" name="name" value="{name}">
+    <form action="admin.php?gbook" method="POST" class="form-horizontal" role="form">
+        <legend><h2><span class="glyphicon glyphicon-book" aria-hidden="true"></span>  Gbook</h2></legend>
+        <div class="col-md-6">
+            <input type="hidden" name="gid" value="{id}" >
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Name</label>
+                <div class="col-xs-6">
+                    <input type="text" class="form-control" name="name" value="{name}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">eMail</label>
+                <div class="col-xs-6">
+                    <input type="email" class="form-control" name="mail" value="{mail}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Page</label>
+                <div class="col-xs-6">
+                    <input type="text" class="form-control" name="page" value="{page}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Text</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" rows="4" name="text">{text}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label"></label>
+                <div class="col-sm-10">
+                    <input type="submit" class="btn btn-primary" value="Absenden" name="sub">
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="col-md-6">
+        <span class="visible-xs-800"><legend>G-Book Eintr&auml;ge</legend></span>
+        <ul class="list-group">
+            {EXPLODE}
+        </ul>
     </div>
-  </div>
-  <div class="form-group">
-    <label class="col-sm-2 control-label">eMail</label>
-    <div class="col-xs-6">
-      <input type="email" class="form-control" name="mail" value="{mail}">
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Page</label>
-    <div class="col-xs-6">
-      <input type="text" class="form-control" name="page" value="{page}">
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Text</label>
-    <div class="col-sm-10">
-      <textarea class="form-control" rows="4" name="text">{text}</textarea>
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="col-sm-2 control-label"></label>
-    <div class="col-sm-10">
-<input type="submit" class="btn btn-primary" value="Absenden" name="sub">
-    </div>
-  </div>
 </div>
-</form>
-<div class="col-md-6">
-<span class="visible-xs-800"><legend>G-Book Eintr&auml;ge</legend></span>
-<ul class="list-group">
-{EXPLODE}
-</ul>
-</div></div>
-
-

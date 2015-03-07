@@ -7,7 +7,6 @@ Hilfe und Support &Uuml;ber www.felix-hohlwegler.de
 
 -->
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-
 <script language="JavaScript" type="text/javascript">
 <!--
 //Content-Löschen
@@ -19,29 +18,22 @@ Hilfe und Support &Uuml;ber www.felix-hohlwegler.de
     }
 //-->
 </script>
-
 <!-- Logo-->
-<h1>Newsletter-Verwaltung</h1>
+<legend><h2><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>  Newsletter Verwaltung</h2></legend>
 <!-- Eingabe Felder -->
-<div style="float:left; width: 40%; min-height: 450px;">
-    <!-- Listen -->
-    <h3>Eingetragene Email-Adressen</h3>
-    <table cellspacing="1" cellpadding="2" border="0" align="left" class="border">
-        <tr class="Chead" >
-            <td align="center">Email</td>
-            <td></td>
-        </tr>
-        {EXPLODE} 
-        <tr class="{class}">
-            <td align="center">{email}</td>
-            <td><a href="javascript:del('{email}')"><img src="include/images/icons/del.gif" alt="delete" title="delete" /></a></td>
-        </tr>
-        {EXPLODE}
-    </table>
-    <br />
-    <br />
-    <br />
+<!-- Listen -->
+<h4>Eingetragene Email-Adressen</h4>
+<div class="row">
+    <div class="col-md-6">
+        <ul class="list-group">
+            {EXPLODE} 
+            <li class="list-group-item">
+                <span class="pull-right"><a href="javascript:del('{email}')" title="Email l&ouml;schen"><span class="glyphicon glyphicon-remove colorred" aria-hidden="true"></span></a></span>
+                {email}
+            </li>
+            {EXPLODE}
+        </ul>
+    </div></div>
+<div class="row">
+    <div class="text-center">Newsletter-Verwaltung entwickelt von Felix Hohlwegler <a href="http://www.felix-hohlwegler.de" target="_blank">www.felix-hohlwegler.de</a></div>
 </div>
-<br style="clear: both" />
-<center><p>Newsletter-Verwaltung entwickelt von Felix Hohlwegler <a href="http://www.felix-hohlwegler.de" target="_blank">www.felix-hohlwegler.de</a></p></center>
-<br><br>

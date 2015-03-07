@@ -1,32 +1,60 @@
-<form action="admin.php?trains" method="POST">
-<input type="hidden" name="send" value="1">
-<table cellspacing="1" cellpadding="2" broder="0" class="border">
-<tr class="Chead">
-	<td colspan="2"><b>Trainingszeiten - Administration</b></td>
-</tr><tr>
-	<td class="Cmite">Montag:</td>
-	<td class="Cnorm"><textarea cols="40" rows="3" name="mon">{MON}</textarea></td>
-</tr><tr>
-	<td class="Cmite">Dienstag:</td>
-	<td class="Cnorm"><textarea cols="40" rows="3" name="die">{DIE}</textarea></td>
-</tr><tr>
-	<td class="Cmite">Mittwoch:</td>
-	<td class="Cnorm"><textarea cols="40" rows="3" name="mit">{MIT}</textarea></td>
-</tr><tr>
-	<td class="Cmite">Donnerstag:</td>
-	<td class="Cnorm"><textarea cols="40" rows="3" name="don">{DON}</textarea></td>
-</tr><tr>
-	<td class="Cmite">Freitag:</td>
-	<td class="Cnorm"><textarea cols="40" rows="3" name="fre">{FRE}</textarea></td>
-</tr><tr>
-	<td class="Cmite">Samstag:</td>
-	<td class="Cnorm"><textarea cols="40" rows="3" name="sam">{SAM}</textarea></td>
-</tr><tr>
-	<td class="Cmite">Sonntag:</td>
-	<td class="Cnorm"><textarea cols="40" rows="3" name="son">{SON}</textarea></td>
-</tr><tr>
-	<td class="Cdark"></td>
-	<td class="Cdark"><input type="submit" value="&Auml;ndern" name="sub"></td>
-</tr>
-</table>
+<div class="row">
+    <form action="admin.php?trains" method="POST" role="form">
+        <input type="hidden" name="send" value="1">
+        <span class="visible-xs-offcanvas"><br><br></span>
+        <div class="col-md-12">
+            <legend><h2><i class="fa fa-dot-circle-o"></i> Trainingszeiten</h2></legend>
+            <div class="form-group">
+                <div class="col-xs-6">
+                    <label>Montag</label>
+                    <textarea class="form-control" rows="3" name="mon">{MON}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-6">
+                    <label>Dienstag</label>
+                    <textarea class="form-control" rows="3" name="die">{DIE}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-6">
+                    <label>Mittwoch</label>
+                    <textarea class="form-control" rows="3" name="mit">{MIT}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-6">
+                    <label>Donnerstag</label>
+                    <textarea class="form-control" rows="3" name="don">{DON}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-6">
+                    <label>Freitag</label>
+                    <textarea class="form-control" rows="3" name="fre">{FRE}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-6">
+                    <label>Samstag</label>
+                    <textarea class="form-control" rows="3" name="sam">{SAM}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-6">
+                    <label>Sonntag</label>
+                    <textarea class="form-control" rows="3" name="son">{SON}</textarea>
+                </div>
+            </div>
+        </div></div>
+<div class="row">
+    <div class="col-md-12"><br>
+        <div class="form-group">
+            <div class="col-xs-6">
+                <label></label>
+                <input type="submit" class="btn btn-primary" value="&Auml;ndern" name="sub">
+            </div>
+        </div>
+    </div>
+</div>
 </form>

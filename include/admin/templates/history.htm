@@ -1,59 +1,60 @@
 <script language="JavaScript" type="text/javascript">
 <!--
-  function del ( id1 ) {
-     
-    var x = confirm ( "Willst du diesen Eintrag wirklich löschen?" );
-        if ( x ) {
-          document.location.href="admin.php?history-d"+id1;
+    function del(id1) {
+
+        var x = confirm("Willst du diesen Eintrag wirklich löschen?");
+        if (x) {
+            document.location.href = "admin.php?history-d" + id1;
         }
     }
 //-->
 </script>
 <legend><h2><span class="glyphicon glyphicon-time" aria-hidden="true"></span>  History</h2></legend>
 <div class="row">
-<div class="col-md-6">
-<form action="admin.php?history" method="POST" class="form-horizontal" role="form">
-<input type="hidden" name="pkey" value="{pkey}">
-<div class="form-group">
-    <label class="col-sm-2 control-label">Date</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" name="date" value="{date}">
+    <div class="col-md-6">
+        <form action="admin.php?history" method="POST" class="form-horizontal" role="form">
+            <input type="hidden" name="pkey" value="{pkey}">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Date</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="date" value="{date}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Title</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="title" value="{title}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Text</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" rows="5" name="txt">{txt}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label"></label>
+                <div class="col-sm-10">
+                    <input class="btn btn-primary" type="submit" value="Absenden" name="sub">
+                </div>
+            </div>
+        </form>
     </div>
-  </div>
-<div class="form-group">
-    <label class="col-sm-2 control-label">Title</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" name="title" value="{title}">
+    <div class="col-md-6">
+        <table class="table table-bordered">
+            <tr class="warning">
+                <td class="text-center"><strong>Datum</strong></td>
+                <td class="text-left"><strong>Titel</strong></td>
+                <td></td>
+            </tr>
+            {EXPLODE}
+            <tr class="{class}">
+                <td class="text-center">{date}</td>
+                <td class="text-left">{title}</td>
+                <td class="text-center" nowrap><a style="margin-right:5px;" href="?history-e{id}" rel="tooltip" title="&auml;ndern"><span style="color:#2D9600;" class="glyphicon glyphicon-edit" aria-hidden="true"></span></a><a href="javascript:del('{id}')" rel="tooltip" title="l&ouml;schen"><span style="color:#AD0000;" class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+            </tr>
+            {EXPLODE}
+        </table>
+        {MPL}
     </div>
-  </div>
-<div class="form-group">
-    <label class="col-sm-2 control-label">Text</label>
-    <div class="col-sm-10">
-<textarea class="form-control" rows="5" name="txt">{txt}</textarea>
-    </div>
-  </div>
-<div class="form-group">
-    <label class="col-sm-2 control-label"></label>
-    <div class="col-sm-10">
-<input class="btn btn-primary" type="submit" value="Absenden" name="sub">
-    </div>
-  </div>
-</form>
 </div>
-<div class="col-md-6">
-            <table class="table table-bordered">
-                <tr class="warning">
-                    <td class="text-center"><strong>Datum</strong></td>
-                    <td class="text-left"><strong>Titel</strong></td>
-                    <td></td>
-                </tr>
-{EXPLODE}
-                <tr class="{class}">
-                    <td class="text-center">{date}</td>
-                    <td class="text-left">{title}</td>
-                    <td class="text-center" nowrap><a style="margin-right:5px;" href="?history-e{id}" rel="tooltip" title="&auml;ndern"><span style="color:#2D9600;" class="glyphicon glyphicon-edit" aria-hidden="true"></span></a><a href="javascript:del('{id}')" rel="tooltip" title="l&ouml;schen"><span style="color:#AD0000;" class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
-                </tr>
-{EXPLODE}
-            </table>
-{MPL}
-</div></div>

@@ -382,6 +382,45 @@ padding: 10px 5px 10px 5px
 .Cdark{
 padding: 7px 5px 7px 5px
 }
+.colorred {
+color:#ff0000;
+}
+.fll {
+float:left;
+}
+clear {
+clear:both;
+}
+.ml20 {
+margin-left: 20px;
+}
+.red {
+color:red;
+}
+.ilchkomcode {
+white-space: pre;
+width: 100%;
+overflow: auto;
+display: block;
+background-color:#333;
+color:#fff;
+}
+.skalenderbegi {
+position:absolute;
+top:0px;
+left:50%;
+margin-left:-120px;
+display:none;
+width:240px;
+z-index:1001;
+background-color:#f7f7f7;
+-webkit-box-shadow: 4px 4px 6px 0px rgba(0, 0, 0, 0.53);
+-moz-box-shadow:4px 4px 6px 0px rgba(0, 0, 0, 0.53);
+box-shadow:4px 4px 6px 0px rgba(0, 0, 0, 0.53);
+}
+.ilchimgadmin {
+max-width: 100% !important;
+}
 
 
 
