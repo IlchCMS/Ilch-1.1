@@ -43,6 +43,7 @@ if (is_coadmin()) {
     echo '<li><a href="admin.php?compatibility">Kompatibilit&auml;t</a></li>
       <li><a href="admin.php?smilies">Smilies</a></li>
       <li><a href="admin.php?newsletter">Newsletter</a></li>
+      <li><a href="admin.php?newsletterverwaltung">Newsletter Verwaltung</a></li>
       <li><a href="admin.php?admin-versionsKontrolle">Versions Kontrolle</a></li>
       <li><a href="admin.php?checkconf">Server Konfiguration</a></li>
       <li class="divider"></li>
