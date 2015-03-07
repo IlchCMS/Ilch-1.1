@@ -14,7 +14,7 @@ $design = new design('Admins Area', 'Admins Area', 2);
 $design->header();
 
 #-----------------------------------------------------------------------------------------------------------------------------------------------
-#Eintrag Löschen Tag -> OK
+#Eintrag Loeschen Tag -> OK
 #-----------------------------------------------------------------------------------------------------------------------------------------------
 if (!empty($_GET['delete'])) {
     $delete = escape($_GET['delete'], 'string');
@@ -28,11 +28,10 @@ $countABF = db_query('SELECT COUNT(*) as zahl FROM prefix_newsletter');
 $erg = db_query('SELECT * FROM `prefix_newsletter` ORDER BY email');
 $count = db_fetch_assoc($countABF);
 
-
 if ($count['zahl'] > 0) {
     #ausgabe der Mail-Adressen
     while ($row = db_fetch_assoc($erg)) {
-        $tpl->set_ar_out($row, 1);
+	$tpl->set_ar_out($row, 1);
     }
 } else {
     echo "<div class=\"alert alert-warning\" role=\"alert\">Keine Eintragungen vorhanden</div>";

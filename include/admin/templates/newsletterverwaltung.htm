@@ -1,4 +1,4 @@
-<!-- Copyright 
+<!-- Copyright
 Newsletterverwaltung by Felix Hohlwegler
 
 Version 0.1 vom 12.07.2014
@@ -11,10 +11,10 @@ Hilfe und Support &Uuml;ber www.felix-hohlwegler.de
 <!--
 //Content-Löschen
     function del(email) {
-        var x = confirm("wirklich loeschen?");
-        if (x) {
-            document.location.href = "admin.php?newsletterverwaltung&delete=" + email;
-        }
+	var x = confirm("wirklich loeschen?");
+	if (x) {
+	    document.location.href = "admin.php?newsletterverwaltung&delete=" + email;
+	}
     }
 //-->
 </script>
@@ -26,7 +26,7 @@ Hilfe und Support &Uuml;ber www.felix-hohlwegler.de
 <div class="row">
     <div class="col-md-6">
         <ul class="list-group">
-            {EXPLODE} 
+            {EXPLODE}
             <li class="list-group-item">
                 <span class="pull-right"><a href="javascript:del('{email}')" title="Email l&ouml;schen"><span class="glyphicon glyphicon-remove colorred" aria-hidden="true"></span></a></span>
                 {email}

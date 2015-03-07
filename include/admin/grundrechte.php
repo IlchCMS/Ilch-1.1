@@ -92,12 +92,12 @@ if (isset($_POST['o'])) {
 	<tr>
 	    <td colspan="2" class="Cdark"><input type="submit" value="&Auml;nderungen speichern" name="o" /> <a href="admin.php?grundrechte=0&m=m">(Modulrechte f&uuml;r Grundrechte)</a></td>
 	</tr>
-<?php
-$class = '';
-$erg = db_query("SELECT * FROM prefix_grundrechte ORDER BY id ASC");
-while ($r = db_fetch_assoc($erg)) {
-    $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite' );
-    ?>
+	<?php
+	$class = '';
+	$erg = db_query("SELECT * FROM prefix_grundrechte ORDER BY id ASC");
+	while ($r = db_fetch_assoc($erg)) {
+	    $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite' );
+	    ?>
     	<tr class="<?php echo $class; ?>">
     	    <td><input name="gr[<?php echo $r['id']; ?>]" value="<?php echo $r['name']; ?>" />
     	    </td><td><?php echo $arb[$r['id']]; ?></td>
@@ -111,5 +111,5 @@ while ($r = db_fetch_assoc($erg)) {
     </table>
 
 </form><?php
-	$design->footer();
-	?>
+$design->footer();
+?>

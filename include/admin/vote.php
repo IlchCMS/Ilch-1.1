@@ -19,21 +19,21 @@ function showVote($id) {
     $ges = $gesRow->res;
     $erg = db_query('SELECT antw, res FROM `prefix_poll_res` WHERE poll_id = "' . $id . '" ORDER BY sort');
     while ($row = db_fetch_object($erg)) {
-        if (!empty($row->res)) {
-            $weite = ($row->res / $max) * 200;
-            $prozent = $row->res * 100 / $ges;
-            $prozent = round($prozent, 0);
-        } else {
-            $weite = 0;
-            $prozent = 0;
-        }
-        echo '<tr><td width="50%">' . $row->antw . '</td>';
-        echo '<td width="40%"><div class="progress">
+	if (!empty($row->res)) {
+	    $weite = ($row->res / $max) * 200;
+	    $prozent = $row->res * 100 / $ges;
+	    $prozent = round($prozent, 0);
+	} else {
+	    $weite = 0;
+	    $prozent = 0;
+	}
+	echo '<tr><td width="50%">' . $row->antw . '</td>';
+	echo '<td width="40%"><div class="progress">
   <div class="progress-bar" role="progressbar" aria-valuenow="' . $prozent . '" aria-valuemin="0" aria-valuemax="100" style="width: ' . $prozent . '%;min-width: 20px;">
     ' . $prozent . '%
   </div>
 </div></td>';
-        echo '<td width="10%" align="right">' . $row->res . '</td></tr>';
+	echo '<td width="10%" align="right">' . $row->res . '</td></tr>';
     }
     echo '<tr><td colspan="3" align="right">Gesamt: &nbsp; ' . $ges . '</td></tr>';
 }
@@ -42,12 +42,12 @@ function getPollRecht($akt) {
     $liste = '';
     $ar = array(1 => 'alle', 2 => 'registrierte');
     foreach ($ar as $k => $v) {
-        if ($akt == $k) {
-            $sel = ' selected';
-        } else {
-            $sel = '';
-        }
-        $liste .= '<option' . $sel . ' value="' . $k . '">' . $v . '</option>';
+	if ($akt == $k) {
+	    $sel = ' selected';
+	} else {
+	    $sel = '';
+	}
+	$liste .= '<option' . $sel . ' value="' . $k . '">' . $v . '</option>';
     }
     return ($liste);
 }
@@ -66,50 +66,50 @@ if (isset($_POST['sub'])) {
     $_POST['poll_recht'] = escape($_POST['poll_recht'], 'integer');
     $_POST['vid'] = escape($_POST['vid'], 'integer');
     if (empty($_POST['vid'])) {
-        db_query('INSERT INTO `prefix_poll` (`frage`,`recht`,`stat`,`text`) VALUES ( "' . $_POST['frage'] . '" , "' . $_POST['poll_recht'] . '" , "1" ,"") ');
-        $poll_id = db_last_id();
-        $i = 1;
-        foreach ($_POST['antw'] as $v) {
-            if (!empty($v)) {
-                $v = escape($v, 'string');
-                db_query('INSERT INTO `prefix_poll_res` (`sort`,`poll_id`,`antw`,`res`) VALUES ( "' . $i . '" , "' . $poll_id . '" , "' . $v . '" , "" ) ');
-                $i++;
-            }
-        }
+	db_query('INSERT INTO `prefix_poll` (`frage`,`recht`,`stat`,`text`) VALUES ( "' . $_POST['frage'] . '" , "' . $_POST['poll_recht'] . '" , "1" ,"") ');
+	$poll_id = db_last_id();
+	$i = 1;
+	foreach ($_POST['antw'] as $v) {
+	    if (!empty($v)) {
+		$v = escape($v, 'string');
+		db_query('INSERT INTO `prefix_poll_res` (`sort`,`poll_id`,`antw`,`res`) VALUES ( "' . $i . '" , "' . $poll_id . '" , "' . $v . '" , "" ) ');
+		$i++;
+	    }
+	}
     } else {
-        db_query('UPDATE `prefix_poll` SET frage = "' . $_POST['frage'] . '", recht = "' . $_POST['poll_recht'] . '" WHERE poll_id = "' . $_POST['vid'] . '"');
-        $i = 1;
-        foreach ($_POST['antw'] as $k => $v) {
-            $a = db_count_query("SELECT COUNT(*) FROM prefix_poll_res WHERE poll_id = " . $_POST['vid'] . " AND sort = " . $k);
-            $v = escape($v, 'string');
-            if ($a == 0 AND $v != '') {
-                db_query("INSERT INTO `prefix_poll_res` (`sort`,`poll_id`,`antw`,`res`) VALUES ( '" . $i . "' , '" . $_POST['vid'] . "' , '" . $v . "' , '' )");
-                $i++;
-            } elseif ($a == 1 AND $v == '') {
-                db_query("DELETE FROM `prefix_poll_res` WHERE poll_id = " . $_POST['vid'] . " AND sort = " . $k);
-            } elseif ($a == 1 AND $v != '') {
-                db_query("UPDATE `prefix_poll_res` SET antw = '" . $v . "', sort = " . $i . " WHERE poll_id = " . $_POST['vid'] . " AND sort = " . $k);
-                $i++;
-            }
-        }
+	db_query('UPDATE `prefix_poll` SET frage = "' . $_POST['frage'] . '", recht = "' . $_POST['poll_recht'] . '" WHERE poll_id = "' . $_POST['vid'] . '"');
+	$i = 1;
+	foreach ($_POST['antw'] as $k => $v) {
+	    $a = db_count_query("SELECT COUNT(*) FROM prefix_poll_res WHERE poll_id = " . $_POST['vid'] . " AND sort = " . $k);
+	    $v = escape($v, 'string');
+	    if ($a == 0 AND $v != '') {
+		db_query("INSERT INTO `prefix_poll_res` (`sort`,`poll_id`,`antw`,`res`) VALUES ( '" . $i . "' , '" . $_POST['vid'] . "' , '" . $v . "' , '' )");
+		$i++;
+	    } elseif ($a == 1 AND $v == '') {
+		db_query("DELETE FROM `prefix_poll_res` WHERE poll_id = " . $_POST['vid'] . " AND sort = " . $k);
+	    } elseif ($a == 1 AND $v != '') {
+		db_query("UPDATE `prefix_poll_res` SET antw = '" . $v . "', sort = " . $i . " WHERE poll_id = " . $_POST['vid'] . " AND sort = " . $k);
+		$i++;
+	    }
+	}
     }
 }
 if (empty($_POST['add'])) {
     if (isset($_GET['vid'])) {
-        $row1 = db_fetch_object(db_query('SELECT frage, recht FROM `prefix_poll` WHERE poll_id = "' . $_GET['vid'] . '"'));
-        $_POST['frage'] = $row1->frage;
-        $_POST['poll_recht'] = $row1->recht;
-        $_POST['antw'] = array();
-        $erg2 = db_query('SELECT sort,antw FROM `prefix_poll_res` WHERE poll_id = "' . $_GET['vid'] . '" ORDER BY sort');
-        while ($row2 = db_fetch_object($erg2)) {
-            $_POST['antw'][$row2->sort] = $row2->antw;
-        }
-        $_POST['vid'] = $_GET['vid'];
+	$row1 = db_fetch_object(db_query('SELECT frage, recht FROM `prefix_poll` WHERE poll_id = "' . $_GET['vid'] . '"'));
+	$_POST['frage'] = $row1->frage;
+	$_POST['poll_recht'] = $row1->recht;
+	$_POST['antw'] = array();
+	$erg2 = db_query('SELECT sort,antw FROM `prefix_poll_res` WHERE poll_id = "' . $_GET['vid'] . '" ORDER BY sort');
+	while ($row2 = db_fetch_object($erg2)) {
+	    $_POST['antw'][$row2->sort] = $row2->antw;
+	}
+	$_POST['vid'] = $_GET['vid'];
     } else {
-        $_POST['frage'] = '';
-        $_POST['antw'] = array(1 => '');
-        $_POST['poll_recht'] = '';
-        $_POST['vid'] = '';
+	$_POST['frage'] = '';
+	$_POST['antw'] = array(1 => '');
+	$_POST['poll_recht'] = '';
+	$_POST['vid'] = '';
     }
 }
 $anzFeld = count($_POST['antw']);
@@ -141,7 +141,7 @@ for ($i = 1; $i <= $anzFeld; $i++) {
     </div>
   </div>';
     if ($i == $anzFeld) {
-        echo '<div class="form-group">
+	echo '<div class="form-group">
     <label class="col-sm-2 control-label"></label>
     <div class="col-xs-6">
       <input class="btn btn-success btn-sm" type="submit" name="add" value="Antwort hinzuf&uuml;gen">
@@ -164,10 +164,10 @@ echo '<tr class="active"><td><strong>Vote verwalten</strong></td></tr>';
 <!--
 
     function delcheck(DELID) {
-        var frage = confirm("Willst du diesen Eintrag wirklich löschen?");
-        if (frage == true) {
-            document.location.href = "?vote-del&del=" + DELID;
-        }
+	var frage = confirm("Willst du diesen Eintrag wirklich lï¿½schen?");
+	if (frage == true) {
+	    document.location.href = "?vote-del&del=" + DELID;
+	}
     }
     //-->
 </script>
@@ -178,16 +178,16 @@ $erg = db_query($abf);
 $class = '';
 while ($row = db_fetch_object($erg)) {
     if ($row->stat == 1) {
-        $coo = 'schlie&szlig;en';
-        $up = 0;
+	$coo = 'schlie&szlig;en';
+	$up = 0;
     } else {
-        $coo = '&ouml;ffnen';
-        $up = 1;
+	$coo = '&ouml;ffnen';
+	$up = 1;
     }
     if ($class == '') {
-        $class = '';
+	$class = '';
     } else {
-        $class = '';
+	$class = '';
     }
     echo '<tr>';
     echo '<td><strong>' . $row->frage . '</strong><br><div class="btn-group btn-group-sm"><a  class="btn btn-danger" href="javascript:delcheck(' . $row->poll_id . ')">l&ouml;schen</a>
@@ -196,10 +196,10 @@ while ($row = db_fetch_object($erg)) {
 <a class="btn btn-info" href="?vote=0&showVote=' . $row->poll_id . '">zeigen</a></div></td>';
     echo '</tr>';
     if (isset($_GET['showVote']) AND $_GET['showVote'] == $row->poll_id) {
-        echo '<tr class="' . $class . '"><td>';
-        echo '<table class="table table-striped" width="100%"  align="right">';
-        showVote($row->poll_id);
-        echo '</table></td></tr>';
+	echo '<tr class="' . $class . '"><td>';
+	echo '<table class="table table-striped" width="100%"  align="right">';
+	showVote($row->poll_id);
+	echo '</table></td></tr>';
     }
 }
 echo '</table>';
