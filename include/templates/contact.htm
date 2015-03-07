@@ -1,14 +1,33 @@
 <form action="?contact" method="POST">
-  <fieldset>
-    <legend>{_lang_whereyouwrite}</legend>
-    {EXPLODE}
-      <input id="w{KEY}" {c} type="radio" name="wer" value="{KEY}" style="float:left; "><label for="w{KEY}"> &nbsp; {VAL}</label><br class="both">
-    {EXPLODE}
-	  <label class="ilch_float_l label_80">{_lang_name}</label><input type="text" name="name" value="{name}" maxlength="30"><br>
-	  <label class="ilch_float_l label_80">{_lang_mail}</label><input type="text" name="mail" value="{mail}" maxlength="50"><br>
-    <label class="ilch_float_l label_80">{_lang_subject}</label><input type="text" name="subject" value="{subject}" maxlength="50"><br>
-	  <label class="ilch_float_l label_80">{_lang_message}</label><textarea cols="40" rows="10" name="txt">{text}</textarea><br><br>
-	  {ANTISPAM}
-    <label class="ilch_float_l label_80"></label><input type="submit" value=" Absenden ">
-  </fieldset>
+    <table width="100%" border="0" cellspacing="0" cellpadding="3" align="center">
+	<tr>
+	    <td valign="top" width="50%">Empf&auml;nger ausw&auml;hlen:</td>
+	    <td width="50%">
+		{EXPLODE}
+		<input id="w{KEY}" {c} type="radio" name="wer" value="{KEY}" style="float: left; border:0px; background-color:#fff;"><label for="w{KEY}">&nbsp;&nbsp; {VAL}</label><br style="clear: both;" />
+		{EXPLODE}
+	    </td>
+	</tr><tr>
+	    <td colspan="2">&nbsp;</td>
+	</tr><tr>
+	    <td>Ihr Name:</td>
+	    <td><input type="text" name="name" value="{name}" style="width: 100%"></td>
+	</tr><tr>
+	    <td>Ihre E-mail:</td>
+	    <td><input type="text" name="mail" value="{mail}" style="width: 100%"></td>
+	</tr><tr>
+	    <td>Betreff:</td>
+	    <td><input type="text" name="subject" value="{subject}" style="width: 100%"></td>
+	</tr><tr>
+	    <td valign="top">Nachricht:</td>
+	    <td><textarea name="txt" style="width: 100%; overflow:auto;" rows="8">{text}</textarea></td>
+	</tr>
+	{ANTISPAM}
+	<tr>
+	    <td colspan="2">&nbsp;</td>
+	</tr><tr>
+	    <td>&nbsp;</td>
+	    <td><input name="submit" type="submit" value=" Absenden "></td>
+	</tr>
+    </table>
 </form>
