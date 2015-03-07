@@ -1,60 +1,99 @@
-<table cellpadding="0" cellspacing="0" border="0">
-<tr><td><img src="include/images/icons/admin/smtpconf.png" /></td><td width="30"></td><td valign="bottom"><h1>SMTP Konfiguration</h1></td></tr>
-</table>
-<div class="warning_box" style="margin: 5px 0px;">
-    {_if_{smtp}=='0'}<p>
-    	<b>Beachten:</b> Diese Einstellungen sind nur von Bedeutung, wenn unter <a href="admin.php?allg">Konfiguration</a> der Mailversand auf SMTP gestellt ist,
-    	was derzeit nicht der Fall ist.
-	</p>{/_endif}
-    <p>
-    	Welche Einstellungen hier vorgenommen werden m&uuml;ssen, h&auml;ngt stark von dem E-Mailanbieter ab,
-    	den du verwenden m&ouml;chstest um die Mails zu versenden. Weitere Informationen dazu kannst du in den <a target="_blank" href="http://www.ilch.de/texts-s107-einstellungen-zur-smtp-funktion.html">FAQ auf ilch.de</a> erfahren.
-    </p>
-    <p>
-    	Optimalerweise sollte diese E-Mail-Adresse auch als <strong>Administrator eMail</strong> in der Konfiguration eingetragen sein, ist jedoch kein Muss.
-	</p>
+<legend><h2>SMTP Konfiguration</h2></legend>
+<div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Schließen</span></button>
+    {_if_{smtp}=='0'}
+    <h4><span class="glyphicon glyphicon-alert" aria-hidden="true"></span>  Beachten</h4> Diese Einstellungen sind nur von Bedeutung, wenn unter <a class="alert-link" href="admin.php?allg">Konfiguration <i class="fa fa-external-link"></i></a> der Mailversand auf SMTP gestellt ist,
+    was derzeit nicht der Fall ist.
+    {/_endif}
+    <br>
+    Welche Einstellungen hier vorgenommen werden m&uuml;ssen, h&auml;ngt stark von dem E-Mailanbieter ab,
+    den du verwenden m&ouml;chstest um die Mails zu versenden.<br>Weitere Informationen dazu kannst du in den <a class="alert-link" target="_blank" href="http://www.ilch.de/texts-s107-einstellungen-zur-smtp-funktion.html">FAQ auf ilch.de <i class="fa fa-external-link"></i></a> erfahren.
+    </br>
+    Optimalerweise sollte diese E-Mail-Adresse auch als <strong>Administrator eMail</strong> in der Konfiguration eingetragen sein, ist jedoch kein Muss.
 </div>
-<form action="admin.php?smtpconf" method="post">
-{antispam}
-<table cellpadding="2" cellspacing="1" border="0" class="border">
-  <tr class="Chead"><td colspan="2"><b>SMTP Einstellungen</b></td></tr>
-<tr>
-    <td class="Cnorm">SMTP-Server-Adresse</td>
-    <td class="Cmite"><input type="input" name="smtp_host" value="{smtp_host}" size="30" /></td>
-</tr><tr>
-	<td class="Cnorm">SMTP-Port <small>(optional)</small></td>
-    <td class="Cmite"><input type="input" name="smtp_port" value="{smtp_port}" size="5" /></td>
-</tr><tr>
-	<td class="Cnorm">Authentifizierung / Verschl&uuml;sselung</td>
-    <td class="Cmite"><select name="smtp_auth">{smtp_selauth}</select><br />
-	</td>
-</tr><tr>
-	<td class="Cnorm">Wird anderer Absender unterst&uuml;tzt?</td>
-    <td class="Cmite">
-    <input type="radio" id="radio_cs_0" name="smtp_changesubject" value="0" {_if_{smtp_changesubject}=='0'}checked="checked"{/_endif} />
-    <label for="radio_cs_0">ja</label>
-	    <input type="radio" id="radio_cs_1" name="smtp_changesubject" value="1" {_if_{smtp_changesubject}=='1'}checked="checked"{/_endif} />
-    <label for="radio_cs_1">nein</label>
-	<br />
-	<small>Falls nicht, wird der Betreff wie folgt ge&auml;ndert: <strong>(For NAME - EMAIL) Eigentlicher Betreff</strong></small>
-	</td>
-</tr><tr>
-	<td class="Cnorm">POP3 vor SMTP</td>
-    <td class="Cmite"><input type="checkbox" id="smtp_pop3beforesmtp" name="smtp_pop3beforesmtp" value="1" {_if_{smtp_pop3beforesmtp}=='1'}checked="checked"{/_endif} />
-    <label for="smtp_pop3beforesmtp">Soll POP3 vor SMTP benutzt werden?</label><br /> Falls ja kann noch ein Host und Port (Standard 110) angegeben werden:<br />
-    <div style="float:left; width:80px;">POP3-Host:</div><input type="text" name="smtp_pop3host" value="{smtp_pop3host}" size="30" /><br />
-	<div style="float:left; width:80px;">POP3-Port:</div><input type="text" name="smtp_pop3port" value="{smtp_pop3port}" size="5" />
-	</td>
-</tr><tr>
-	<td class="Cnorm">E-Mail-Adresse</td>
-    <td class="Cmite"><input type="input" name="smtp_email" value="{smtp_email}" size="30" /></td>
-</tr><tr>
-	<td class="Cnorm">Login</td>
-    <td class="Cmite"><input type="input" name="smtp_login" value="{smtp_login}" size="30" /></td>
-</tr><tr>
-    <td class="Cnorm">Passwort <small>(es ist {_if_{smtp_pass}=='1'}ein{_else_}<span style="color:red; font-size:1.5em;">noch kein</span>{/_endif} Passwort angegeben)</small></td>
-    <td class="Cmite"><input type="password" name="smtp_pass" size="30" /> <small>(muss nicht angegeben werden, wenn es nicht ge&auml;ndert werden soll)</small></td>
-</tr><tr>
-    <td class="Cdark" colspan="2"><input type="submit" name="subform" value="Einstellungen speichern" /></td>
-</tr></table>
-</form>
+<div class="cont_loose">
+
+    <form action="admin.php?smtpconf" method="post" class="form-horizontal" role="form">
+        {antispam}
+        <legend>SMTP Einstellungen</legend>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">SMTP-Server-Adresse</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="input" name="smtp_host" value="{smtp_host}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">SMTP-Port <small>(optional)</small></label>
+            <div class="col-sm-6">
+                <input class="form-control" type="input" name="smtp_port" value="{smtp_port}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Authentifizierung / Verschl&uuml;sselung</label>
+            <div class="col-sm-4">
+                <select class="form-control" name="smtp_auth">{smtp_selauth}</select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Wird anderer Absender unterst&uuml;tzt?</label>
+            <div class="col-sm--4">
+                <label for="radio_cs_0" class="radio-inline">
+                    <input type="radio" id="radio_cs_0" name="smtp_changesubject" value="0" {_if_{smtp_changesubject}=='0'}checked="checked"{/_endif}> ja
+                </label>
+                <label for="radio_cs_1" class="radio-inline">
+                    <input type="radio" id="radio_cs_1" name="smtp_changesubject" value="1" {_if_{smtp_changesubject}=='1'}checked="checked"{/_endif}> nein
+                </label>
+                <br><small>Falls nicht, wird der Betreff wie folgt ge&auml;ndert: <strong>(For NAME - EMAIL) Eigentlicher Betreff</strong></small>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"></h3>
+            </div>
+            <div class="panel-body">
+
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" id="smtp_pop3beforesmtp" name="smtp_pop3beforesmtp" value="1" {_if_{smtp_pop3beforesmtp}=='1'}checked="checked"{/_endif}> <strong>Soll POP3 vor SMTP benutzt werden?</strong>
+                    </label>
+                </div>
+                <span class="help-block"><small>Falls ja kann noch ein Host und Port (Standard 110) angegeben werden:</small></span>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">POP3-Host</label>
+                    <div class="col-sm-6">
+                        <input class="form-control" type="text" name="smtp_pop3host" value="{smtp_pop3host}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">POP3-Port</label>
+                    <div class="col-sm-6">
+                        <input class="form-control" type="text" name="smtp_pop3port" value="{smtp_pop3port}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">E-Mail-Adresse</label>
+                    <div class="col-sm-6">
+                        <input class="form-control" type="input" name="smtp_email" value="{smtp_email}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Login</label>
+                    <div class="col-sm-6">
+                        <input class="form-control" type="input" name="smtp_login" value="{smtp_login}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Passwort<br><small>(es ist {_if_{smtp_pass}=='1'}ein{_else_}<span style="color:red;">noch kein</span>{/_endif} Passwort angegeben)</small></label>
+                    <div class="col-sm-6">
+                        <input class="form-control" type="password" name="smtp_pass">
+                        <span class="help-block"><small>(muss nicht angegeben werden, wenn es nicht ge&auml;ndert werden soll)</small></span>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer"></div>
+        </div>
+        <input type="submit" class="btn btn-primary" name="subform" value="Einstellungen speichern">
+    </form>
+</div> 
