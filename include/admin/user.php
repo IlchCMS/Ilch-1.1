@@ -32,16 +32,16 @@ function user_get_mod_change_list($uid) {
 	} else {
 	    $c = ' checked';
 	}
-	$l .= '<td align="center"><input onclick="changeModulRecht(' . $r['id'] . ',' . $uid . ')" type="checkbox" id="MN' . $r['id'] . '-' . $uid . '" name="MN' . $r['id'] . '-' . $uid . '" ' . $c . ' /></td>';
+	$l .= '<td class="text-center"><input onclick="changeModulRecht(' . $r['id'] . ',' . $uid . ')" type="checkbox" id="MN' . $r['id'] . '-' . $uid . '" name="MN' . $r['id'] . '-' . $uid . '" ' . $c . ' /></td>';
     }
     return ($l);
 }
 
 function user_get_mod_list($uid) {
-    $l = 'Modulrechte:<br />';
+    $l = 'Modulrechte:<br>';
     $erg = db_query("SELECT DISTINCT module FROM prefix_modulerights WHERE uid = " . $uid);
     while ($r = db_fetch_assoc($erg)) {
-	$l .= '- ' . $r['module'] . '<br />';
+	$l .= '- ' . $r['module'] . '<br>';
     }
     return ($l);
 }
@@ -374,7 +374,7 @@ switch ($um) {
 	    $_POST['email'] = escape($_POST['email'], 'string');
 	    $erg = db_query("SELECT id FROM prefix_user WHERE name = BINARY '" . $_POST['name'] . "'");
 	    if (db_num_rows($erg) > 0) {
-		$msg = 'Der Name ist leider schon vorhanden!';
+		$msg = '<div class="alert alert-warning" role="alert">Der Name ist leider schon vorhanden!</div>';
 	    } else {
 		$new_pass = $_POST['pass'];
 		$passwordHash = user_pw_crypt($new_pass);
@@ -396,7 +396,7 @@ switch ($um) {
 		    unset($tpl);
 		    icmail($_POST['email'], 'Admin hat dich angelegt', $txt);
 		}
-		$msg = 'Benutzer angelegt <a href="javascript:closeThisWindow()">Fenster schlie�en</a>';
+		$msg = '<div class="alert alert-success" role="alert">Benutzer angelegt <a href="javascript:closeThisWindow()">Fenster schlie&szlig;en</a></div>';
 	    }
 	}
 	$pass = '';

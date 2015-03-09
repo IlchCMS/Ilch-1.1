@@ -7,7 +7,7 @@
 		}
 	}
   function delete_group ( gid ) {
-		var x = confirm ( "Wollen Sie diese Gruppe löschen?", "" );
+		var x = confirm ( "Wollen Sie diese Gruppe lÃ¶schen?", "" );
 		if ( x ) {
 		  document.location.href="admin.php?groups&group_delete="+gid;
 		}
@@ -18,40 +18,30 @@
   }
 //-->
 </script>
-
-
+<legend><h2><i class="fa fa-plus-square-o"></i> Joinus Anfragen</h2></legend>
+<div class="cont_loose">
 {msg}
-
-<h2>Joinus Anfragen bearbeiten</h2>
-
-<a href="admin.php?groups">zur Gruppen&uuml;bersicht</a>
-
-<br /><br />
-<table cellpadding="2" cellspacing="1" border="0" class="border">
-  <tr class="Chead">
-			<td colspan="7"><b>Anfragen &Uuml;bersicht</b></td>
-  </tr>
-  <tr class="Cdark">
+<a class="btn btn-primary btn-sm" href="admin.php?groups">zur Gruppen&uuml;bersicht</a><br><br>
+			<legend>Anfragen &Uuml;bersicht</legend>
+<table class="table table-bordered">
+<tr class="active">
 			<td>Name</td>
-			<td>E-Mail</td>
+			<td class="visible-xsmin">E-Mail</td>
 			<td>Team</td>
-      <td>Status</td>
-			<td>als Trial aufnehmen</td>
-			<td>als Trial aber nicht ins Team aufnehmen</td>
-			<td>nicht aufnehmen</td>
+      <td class="visible-xsmin">Status</td>
+			<td>Optionen</td>
 		</tr>
 {EXPLODE}
-		<tr class="{class}">
+		<tr>
 			<td>{name}</td>
-			<td>{email}</td>
+			<td class="visible-xsmin">{email}</td>
 			<td>{groupname}</td>
-			<td>{status}</td>
-			<td><a href="admin.php?groups-joinus-a{id}-{check}-addtoteam">als Trial aufnehmen</a></td>
-			<td><a href="admin.php?groups-joinus-a{id}-{check}">als Trial aber nicht ins Team aufnehmen</a></td>
-			<td><a href="admin.php?groups-joinus-d{id}-{check}">nicht aufnehmen</a></td>
+			<td class="visible-xsmin">{status}</td>
+			<td><a href="admin.php?groups-joinus-a{id}-{check}-addtoteam">als Trial aufnehmen</a><br>
+			<a href="admin.php?groups-joinus-a{id}-{check}">als Trial aber nicht ins Team aufnehmen</a><br>
+			<a href="admin.php?groups-joinus-d{id}-{check}">nicht aufnehmen</a></td>
 		</tr>
 {EXPLODE}
-		</table>
-	</td>
-</tr>
-</table>
+<table>
+</div>
+

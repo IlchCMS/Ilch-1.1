@@ -1,49 +1,58 @@
 <html>
-<head>
-<link rel="stylesheet" type="text/css" href="include/admin/templates/style.css">
-<script language="JavaScript" type="text/javascript">
-<!--
-function closeThisWindow() {
-  opener.focus();
-  window.close();
-}
-//-->
-</script>
-</head>
-<body>
-<table border="0" cellpadding="5" cellspacing="1" class="border" width="100%">
-  <tr>
-    <td class="Callg">{msg}
-<form action="admin.php?user-createNewUser" method="POST" name="form">
-{antispam}
-  <table cellpadding="3" cellspacing="1" border="0" class="border">
-    <tr class="Chead">
-      <td colspan="2"><b>Benutzer anlegen</b></td>
-    </tr><tr>
-		  <td class="Cmite">Name</td>
-			<td class="Cnorm"><input  name="name" value="" /></td>
-		</tr><tr>
-		  <td class="Cmite">Pass</td>
-			<td class="Cnorm"><input  name="pass" value="{pass}" /></td>
-		</tr><tr>
-		  <td class="Cmite">Recht</td>
-			<td class="Cnorm"><select name="recht">{recht}</select></td>
-		</tr><tr>
-		  <td class="Cmite">eMail</td>
-			<td class="Cnorm"><input  name="email" value="{email}" /></td>
-		</tr><tr>
-		  <td class="Cmite">Senden?</td>
-			<td class="Cnorm"><input id="sja" type="checkbox" name="info" value="ja" /><label for="sja"> Dem User seine Daten zusenden?</label></td>
-		</tr><tr class="Cdark">
-		  <td></td>
-			<td><input type="submit" name="sub" value="Absenden" /> <input type="button" value="Schlie&szlig;en" onClick="closeThisWindow()" /></td>
-		</tr>
-  </table>
-</form>
+    <head>
+        <title>Neuen User anlegen</title>
+        <link href="include/admin/templates/bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="include/admin/templates/bootstrap/css/style.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                {msg}
+                <form action="admin.php?user-createNewUser" method="POST" name="form" class="form-horizontal" role="form">
+                    {antispam}
 
-
-    </td>
-  </tr>
-</table>
-</body>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"><strong><i class="fa fa-user"></i> Benutzer anlegen</strong></div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="name" value="" class="form-control" placeholder="Name eingeben">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Passwort</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="pass" value="{pass}" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Recht</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" name="recht">{recht}</select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Email</label>
+                                <div class="col-sm-10">
+                                    <input type="email" name="email" value="{email}" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <div class="checkbox">
+                                        <label class="col-sm-4 control-label" for="sja">
+                                            <input id="sja" type="checkbox" name="info" value="ja">
+                                            Dem User seine Daten zusenden?
+                                        </label>
+                                    </div><br>
+                                    <input type="submit" name="sub" value="Absenden" class="btn btn-warning"> <a href="admin.php?user" class="btn btn-default">zur&uuml;ck zur User Verwaltung</a>
+                                </div></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
 </html>

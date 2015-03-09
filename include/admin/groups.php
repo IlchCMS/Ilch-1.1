@@ -290,7 +290,7 @@ if ($um == 'joinus') {
     }
 
     $tpl = new tpl('groups/joinus', 1);
-    $tpl->set('msg', (empty($msg) ? '' : '<table width="50%" cellpadding="2" cellspacing="1" border="0" class="border"><tr><td class="Cnorm"><b>Nachricht:</b>&nbsp;' . $msg . '</td></tr></table>'));
+    $tpl->set('msg', (empty($msg) ? '' : '<div class="alert alert-warning" role="alert"><strong>Nachricht:</strong>&nbsp;' . $msg . '</div>'));
     $tpl->out(0);
 
     if ($_SESSION['authright'] <= -8 OR $allgAr['groups_forall'] == 0) {
@@ -349,7 +349,7 @@ if ($show) {
     $ar['mods4'] = '<option value="0">keiner</option>' . $ar['mods4'];
     $ar['pic'] = arlistee($ar['img'], get_teampic_ar());
     $ar['pic'] = '<option value="0">kein Bild<option>' . $ar['pic'];
-    $ar['msg'] = (empty($msg) ? '' : '<table width="50%" cellpadding="2" cellspacing="1" border="0" class="border"><tr><td class="Cnorm"><b>Nachricht:</b>&nbsp;' . $msg . '</td></tr></table>');
+    $ar['msg'] = (empty($msg) ? '' : '<div class="alert alert-warning" role="alert"><strong>Nachricht:</strong>&nbsp;' . $msg . '</div>');
     $ar['joinu'] = '';
     if (0 < db_result(db_query("SELECT COUNT(*) FROM prefix_usercheck WHERE ak = 4"), 0)) {
 	$ar['joinu'] = '<a href="admin.php?groups-joinus"><b>Joinus Anfragen bearbeiten</b></a><br /><br />';

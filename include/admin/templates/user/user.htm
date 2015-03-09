@@ -1,167 +1,166 @@
 <script language="JavaScript" type="text/javascript">
 <!--
-function createNamedElement(type, name) {
-   var element = null;
-   // Try the IE way; this fails on standards-compliant browsers
-   try {
-      element = document.createElement('<'+type+' name="'+name+'">');
-   } catch (e) {
-   }
-   if (!element || element.nodeName != type.toUpperCase()) {
-      // Non-IE browser; use canonical method to create named element
-      element = document.createElement(type);
-      element.name = name;
-   }
-   return element;
-}
-
-  function setufocus() {
-    document.f.q.focus();
-  }
-  // manage div ...
-  document.onmousemove = checkPosition;
-  function checkPosition(e) {
-    if(document.all) {
-      mausX = event.clientX + document.body.scrollLeft;
-      mausY = event.clientY + document.body.scrollTop;
-    } else {
-      mausX = e.pageX;
-      mausY = e.pageY;
+    function createNamedElement(type, name) {
+        var element = null;
+        // Try the IE way; this fails on standards-compliant browsers
+        try {
+            element = document.createElement('<' + type + ' name="' + name + '">');
+        } catch (e) {
+        }
+        if (!element || element.nodeName != type.toUpperCase()) {
+            // Non-IE browser; use canonical method to create named element
+            element = document.createElement(type);
+            element.name = name;
+        }
+        return element;
     }
 
-  }
-  function alertpos(dname) {
-  if (document.layers) {
-    document.layers[0].left = mausX;
-    document.layers[0].top = mausY;
-  } else if (document.getElementById) {
-    document.getElementById(dname).style.left = (mausX + 10) + "px";
-    document.getElementById(dname).style.top = (mausY + 50 ) + "px";
-  }
-  document.getElementById(dname).style.display = "inline";
-  }
-  function hiddpos(dname) {
-    document.getElementById(dname).style.display = "none";
-  }
-  function changeUserRight (id1) {
-    var x = confirm ( 'Das Recht dieses Users wirklich aendern?' );
-    if (x) {
-      var options = {
-        'action' : 'changeRight',
-      	'uid' : id1,
-      	'newright' : document.getElementById('recht'+id1).value
-      };
-	  var frm = setIframe(options);
-	  frm.submit();
+    function setufocus() {
+        document.f.q.focus();
     }
-  }
-  function changeGruppen (id1) {
-    var Fenster = window.open ('admin.php?user-gruppen-' + id1, 'changeGruppen', 'status=yes,scrollbars=yes,height=500,width=250,left=300,top=50');
-    Fenster.focus();
-  }
-  function changeModulrecht (id1) {
-    var Fenster = window.open ('admin.php?user-modulrecht-' + id1, 'changeModulrecht', 'status=yes,scrollbars=yes,height=500,width=250,left=300,top=50');
-    Fenster.focus();
-  }
-  function deleteUser (id1) {
-    var x = confirm ( 'Diesen User wirklich komplett entfernen?' );
-    if (x) {
-    	document.getElementById('af_action').value = 'deleteUser';
-		document.getElementById('af_uid').value = id1;
-		document.getElementById('actionForm').submit();
+    // manage div ...
+    document.onmousemove = checkPosition;
+    function checkPosition(e) {
+        if (document.all) {
+            mausX = event.clientX + document.body.scrollLeft;
+            mausY = event.clientY + document.body.scrollTop;
+        } else {
+            mausX = e.pageX;
+            mausY = e.pageY;
+        }
+
     }
-  }
-  function changeModulRecht ( modul, uid ) {
-      var action = ( document.getElementById("MN" + modul + "-" + uid).checked == true ) ? 'give' : 'remove';
-      var options = {
-        'action' : 'changeModulRight',
-      	'uid' : uid,
-      	'giveremove' : action,
-      	'modul' : modul
-      };
-	  var frm = setIframe(options);
-	  frm.submit();
-  }
-  function setIframe(fields){
-  	var ifrm = window.frames['ifrm']; //document.getElementById('ifrm');
-	var frm2 = document.getElementById('actionForm').cloneNode(true);
-	frm2.setAttribute('action', 'admin.php?user');
-	for (var f in fields){
-		if (frm2.elements[f] != undefined) {
-			frm2.elements[f].value = fields[f];
-		} else {
-		    var i = createNamedElement('input', f);
-		    i.setAttribute('type', 'hidden');
-		    i.setAttribute('value', fields[f]);
-		    frm2.appendChild(i);
-		}
-	}
-	if (document.all) {
-		ifrm.document.write(frm2.outerHTML);
-		frm2 = ifrm.document.all.actionForm;
-	} else {
-		ifrm.document.body.appendChild(frm2);
-	}
-	return frm2;
-  }
-  function setNewAntispam(element){
-  	document.getElementById('actionForm').elements['antispam_id'].value = element.value;
-  }
+    function alertpos(dname) {
+        if (document.layers) {
+            document.layers[0].left = mausX;
+            document.layers[0].top = mausY;
+        } else if (document.getElementById) {
+            document.getElementById(dname).style.left = mausX + "-30px";
+            document.getElementById(dname).style.top = mausY + "-0px";
+        }
+        document.getElementById(dname).style.display = "inline";
+    }
+    function hiddpos(dname) {
+        document.getElementById(dname).style.display = "none";
+    }
+    function changeUserRight(id1) {
+        var x = confirm('Das Recht dieses Users wirklich aendern?');
+        if (x) {
+            var options = {
+                'action': 'changeRight',
+                'uid': id1,
+                'newright': document.getElementById('recht' + id1).value
+            };
+            var frm = setIframe(options);
+            frm.submit();
+        }
+    }
+    function changeGruppen(id1) {
+        var Fenster = window.open('admin.php?user-gruppen-' + id1, 'changeGruppen', 'status=yes,scrollbars=yes,height=500,width=250,left=300,top=50');
+        Fenster.focus();
+    }
+    function changeModulrecht(id1) {
+        var Fenster = window.open('admin.php?user-modulrecht-' + id1, 'changeModulrecht', 'status=yes,scrollbars=yes,height=500,width=250,left=300,top=50');
+        Fenster.focus();
+    }
+    function deleteUser(id1) {
+        var x = confirm('Diesen User wirklich komplett entfernen?');
+        if (x) {
+            document.getElementById('af_action').value = 'deleteUser';
+            document.getElementById('af_uid').value = id1;
+            document.getElementById('actionForm').submit();
+        }
+    }
+    function changeModulRecht(modul, uid) {
+        var action = (document.getElementById("MN" + modul + "-" + uid).checked == true) ? 'give' : 'remove';
+        var options = {
+            'action': 'changeModulRight',
+            'uid': uid,
+            'giveremove': action,
+            'modul': modul
+        };
+        var frm = setIframe(options);
+        frm.submit();
+    }
+    function setIframe(fields) {
+        var ifrm = window.frames['ifrm']; //document.getElementById('ifrm');
+        var frm2 = document.getElementById('actionForm').cloneNode(true);
+        frm2.setAttribute('action', 'admin.php?user');
+        for (var f in fields) {
+            if (frm2.elements[f] != undefined) {
+                frm2.elements[f].value = fields[f];
+            } else {
+                var i = createNamedElement('input', f);
+                i.setAttribute('type', 'hidden');
+                i.setAttribute('value', fields[f]);
+                frm2.appendChild(i);
+            }
+        }
+        if (document.all) {
+            ifrm.document.write(frm2.outerHTML);
+            frm2 = ifrm.document.all.actionForm;
+        } else {
+            ifrm.document.body.appendChild(frm2);
+        }
+        return frm2;
+    }
+    function setNewAntispam(element) {
+        document.getElementById('actionForm').elements['antispam_id'].value = element.value;
+    }
 //-->
 </script>
-<div style="float:right"><a href="admin.php?puser">Noch nicht best&auml;tigte Registrierungen verwalten</a></div>
-<form id="actionForm" id="actionForm" method="post">
-{action_antispam}
-<input type="hidden" name="action" id="af_action" value="" />
-<input type="hidden" name="uid" id="af_uid" value="0" />
-</form>
-<iframe name="ifrm" id="ifrm" style="display:none;"></iframe>
-<body onload="setufocus()">
-<form action="admin.php" name="f" method="GET" style="padding: 0px; margin:0px 0px 0px 0px;" >
-  <input type="hidden" name="user" value="" />
-<table cellpadding="3" cellspacing="1" border="0" class="border" style="float:left">
-  <tr>
-    <td class="Cmite"><input name="q" value="{q}" /></td>
-    <td class="Cdark"><input type="submit" value="Suchen" /></td>
-  </tr>
-</table>
-</form>
-<br />
-<br />
-<br />
-<table cellpadding="3" cellspacing="1" border="0" class="border">
-  <tr>
-    <td colspan="6"></td>
-    <td class="Cmite" colspan="{anzmods}"><b>Modulrechte:</b></td>
-  </tr>
-  <tr class="Chead">
-    <th>Name</th>
-    <th>Recht</th>
-    <th>Gruppe</th>
-    <th></th>
-    <th></th>
-    <th class="border">&nbsp;&nbsp;</th>
-    {modlall}
-  </tr>
- {EXPLODE}
-
-
-
-  <tr class="{class}">
-    <td><div onmouseover="hiddpos('groupdiv{id}')" id="groupdiv{id}" style="position:absolute; top:50px; left:50px; display:none; width:200px;">
-<table width="100%" class="border" border="0" cellspacing="1" cellpadding="4">
-  <tr>
-    <td class="{class}" align="left">{grouplist}</td>
-  </tr>
-</table>
-</div><strong>{name}</strong></td>
-    <td><select id="recht{id}" onChange="changeUserRight({id})">{recht}</select></td>
-    <td style="text-align: center;"><a onmouseout="hiddpos('groupdiv{id}')" onmouseover="alertpos('groupdiv{id}')" href="javascript:changeGruppen({id})" title="hier die Gruppenzugeh&ouml;rigkeit &auml;ndern">Gruppen</a></td>
-    <td>&nbsp;<a href="admin.php?user-1-{id}"><img src="include/images/icons/edit.gif" border="0" title="&auml;ndern" alt="&auml;ndern" /></a>&nbsp;</td>
-    <td>&nbsp;<a href="javascript:deleteUser({id})"><img src="include/images/icons/del.gif" border="0" title="l&ouml;schen" alt="l&ouml;schen" /></a>&nbsp;</td>
-    <td class="border"></td>
-    {modslist}
-  </tr>
- {EXPLODE}
-</table>
-{MPL}
+<div style="width:100%;">
+    <legend><h2>User Verwaltung</h2></legend>
+    <form id="actionForm" id="actionForm" method="post" class="form-inline" role="form">
+        {action_antispam}
+        <input type="hidden" class="form-control" name="action" id="af_action" value="" />
+        <input type="hidden" class="form-control" name="uid" id="af_uid" value="0" />
+    </form>
+    <iframe name="ifrm" id="ifrm" style="display:none;"></iframe>
+    <body onload="setufocus()">
+        <span style="float:right";>
+            <a class="btn btn-danger" href="admin.php?puser"><span class="visible-xsmin">offene Registrierungen</span><span class="visible-xsmin-in"></span></a>
+        </span>
+        <form action="admin.php" name="f" method="GET" class="form-inline"  role="form">
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <input class="btn btn-primary" type="submit" value="Suchen">
+                </span>
+                <input type="hidden" name="user" value="">
+                <input style="width: 300px;max-width:50%;" name="q" value="{q}" class="form-control" placeholder="User suchen">
+            </div>
+        </form>
+        <br>
+        <div class="panel panel-default" style="overflow-x:auto;overflow-y:hidden;">
+            <div class="panel-body">
+                <table class="table table-striped table-condensed">
+                    <tr>
+                        <td class="warning" colspan="6"></td>
+                        <td class="warning" colspan="{anzmods}"><b>Modulrechte:</b></td>
+                    </tr>
+                    <tr class="warning">
+                        <th>Name</th>
+                        <th>Recht</th>
+                        <th>Gruppe</th>
+                        <th></th>
+                        <th>&nbsp;&nbsp;</th>
+                        {modlall}
+                    </tr>
+                    {EXPLODE}
+                    <tr class="{class}">
+                        <td><div onmouseover="hiddpos('groupdiv{id}')" id="groupdiv{id}"  style="position:absolute;display:none;margin-left:200px;margin-top:30px;z-index:1001;">
+                                <div class="alert alert-success" style="-webkit-box-shadow: 4px 6px 10px 0px rgba(0, 0, 0, 0.58);-moz-box-shadow:4px 6px 10px 0px rgba(0, 0, 0, 0.58);box-shadow:4px 6px 10px 0px rgba(0, 0, 0, 0.58);">{grouplist}</div>
+                            </div>
+                            <strong>{name}</strong></td>
+                        <td><select class="form-control" id="recht{id}" onChange="changeUserRight({id})">{recht}</select></td>
+                        <td style="text-align: center;"><a onmouseout="hiddpos('groupdiv{id}')" onmouseover="alertpos('groupdiv{id}')" href="javascript:changeGruppen({id})" title="hier die Gruppenzugeh&ouml;rigkeit &auml;ndern">Gruppen</a></td>
+                        <td nowrap ><a href="admin.php?user-1-{id}" title="Userdaten &auml;ndern" style="margin-right:3px;"><span style="color:#2D9600;" class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a href="javascript:deleteUser({id})" title="User L&ouml;schen"><span style="color:#AD0000;" class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+                        <td style="border-left:1px solid #ddd;"></td>
+                        {modslist}
+                    </tr>
+                    {EXPLODE}
+                </table>
+            </div>
+        </div>
+        {MPL}
+</div>

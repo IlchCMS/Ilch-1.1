@@ -1,19 +1,36 @@
-<form aciont="admin.php?groups-funcs" method="POST">
-<table cellspacing="1" cellpadding="5" broder="0" align="center" class="border">
-  <tr class="Cdark">
-		<td><input size="3" maxlength="2" name="apos" /></td>
-    <td><input name="aname" /></td>
-    <td><input type="submit" value="Add" name="s" /></td>
-	</tr>
-	{EXPLODE}
-	<tr class="{class}">
-		<td><input size="3" maxlength="2" name="pos[{id}]" value="{pos}" /></td>
-    <td><input name="name[{id}]" value="{name}" /></td>
-		<td><a href="admin.php?groups-funcs-d{id}"><img src="include/images/icons/del.gif" title="l&ouml;schen" alt="l&ouml;schen" /></a></td>
-	</tr>
-{EXPLODE}
-  <tr class="Cdark">
-	  <td colspan="3" align="center"><input type="submit" value="Send" name="s"></td>
-  </tr>
-</table>
-</form>
+<html>
+    <head>
+        <link href="include/admin/templates/bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="include/admin/templates/bootstrap/css/style.css" rel="stylesheet">
+    </head>
+    <body>
+    <legend>Kategorien verwalten</legend>
+    <form action="admin.php?groups-funcs" method="POST" class="form-horizontal" role="form">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Nr.</label>
+            <div class="col-sm-4">
+                <input class="form-control" name="apos" placeholder="Nr.">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Name</label>
+            <div class="col-sm-4">
+                <input name="aname" class="form-control" placeholder="Name">
+            </div>
+        </div>
+        <span class="pull-right"><input class="btn btn-primary" type="submit" value="Hinzuf&uuml;gen" name="s"></span>
+
+        <br><br>
+        {EXPLODE}
+        <table class="table table-bordered">
+            <tr>
+                <td><input class="form-control" name="pos[{id}]" value="{pos}"></td>
+                <td><input class="form-control" name="name[{id}]" value="{name}" /></td>
+                <td style="vertikal-align:middle;text-align:center;"><a href="admin.php?groups-funcs-d{id}"><span style="color:#AD0000;" class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+            </tr>
+            {EXPLODE}
+        </table>
+        <span class="pull-right"><input class="btn btn-primary" type="submit" value="Send" name="s"></span>
+    </form>
+</body>
+</html>
