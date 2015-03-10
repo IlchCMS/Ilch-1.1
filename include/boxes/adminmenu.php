@@ -7,12 +7,12 @@ defined('main') or die('no direct access');
 if (is_coadmin()) {
     ?>
     <script language="JavaScript" type="text/javascript">
-    <!--
+        <!--
         function createNewUser() {
-    	var Fenster = window.open('admin.php?user-createNewUser', 'createNewUser', 'status=yes,scrollbars=yes,height=200,width=350,left=300,top=50');
+    	var Fenster = window.open('admin.php?user-createNewUser', 'createNewUser', 'status=yes,scrollbars=yes,height=600,width=850,left=300,top=50');
     	Fenster.focus();
         }
-    //-->
+        //-->
     </script>
     <?php
 
