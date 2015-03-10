@@ -1,6 +1,6 @@
 <?php
-#   Copyright by: Manuel
-#   Support: www.ilch.de
+//  Copyright by: Manuel
+//  Support: www.ilch.de
 
 
 defined('main') or die('no direct access');
@@ -16,8 +16,8 @@ $_GET['delete_uid'] = escape($_GET['delete_uid'], 'integer');
 $_GET['delete'] = escape($_GET['delete'], 'integer');
 $_GET['pkey'] = escape($_GET['pkey'], 'integer');
 
-# get Flag list
-# 1 akt flag
+// get Flag list
+// 1 akt flag
 
 function get_wlp_array() {
     $ar = array(
@@ -54,17 +54,19 @@ switch ($um) {
 	$design = new design('Admins Area', 'Admins Area', 2);
 	$design->header();
 	?>
-	Folgende Auswahlm&ouml;glichkeiten:
-	<ul>
-	    <li><a href="admin.php?wars-last">Lastwars</a></li>
-	    <li><a href="admin.php?wars-next">Nextwars</a></li>
-	</ul>
+<div class="row text-center">
+    <strong>Folgende Auswahlm&ouml;glichkeiten:</strong><br><br>
+    <div class="btn-group btn-group-sm">
+    <a class="btn btn-primary" href="admin.php?wars-last">Lastwars</a>
+    <a class="btn btn-primary" href="admin.php?wars-next">Nextwars</a>
+    </div>
+    </div>
 	<?php
 	$design->footer();
 	break;
-    # last wars
+    // last wars
     case 'last' :
-	# image upload
+	// image upload
 	if ($menu->get(2) == 'upload') {
 	    $tpl = new tpl('wars/upload', 1);
 	    $msg = '';
@@ -80,24 +82,24 @@ switch ($um) {
 			foreach ($ar as $v) {
 			    @unlink('include/images/wars/' . $_REQUEST['wid'] . '_' . $_REQUEST['mid'] . '.' . $v);
 			}
-			$msg = 'Datei (' . $_FILES['f']['name'] . ' ) <font color="#00FF00">erfolgreich hochgeladen</font><br />';
+			$msg = 'Datei (' . $_FILES['f']['name'] . ' ) <div class="alert alert-success" role="alert">erfolgreich hochgeladen</div>';
 		    } else {
-			$msg = 'Datei ( ' . $_FILES['f']['name'] . ' ) <font color="#FF0000">nicht erfolgreich hochgeladen</font><br />';
+			$msg = 'Datei ( ' . $_FILES['f']['name'] . ' ) <div class="alert alert-danger" role="alert">nicht erfolgreich hochgeladen</div>';
 		    }
 		} else {
-		    $msg = 'Bitte nur Bilder mit der Endung: .gif, .png, .jpg oder .jpeg!';
+		    $msg = '<div class="alert alert-warning" role="alert">Bitte nur Bilder mit der Endung: .gif, .png, .jpg oder .jpeg!</div>';
 		}
 	    }
 	    if (isset($_GET['d'])) {
 		if (@unlink('include/images/wars/' . $_GET['d'])) {
-		    $msg = 'Datei <font color="#00FF00">erfolgreich gel&ouml;scht</font><br />';
+		    $msg = '<div class="alert alert-success" role="alert">Datei erfolgreich gel&ouml;scht</div>';
 		} else {
-		    $msg = 'Datei <font color="#FF0000">konnte nicht gel&ouml;scht werden</font><br />';
+		    $msg = '<div class="alert alert-danger" role="alert">Datei konnte nicht gel&ouml;scht werden</div>';
 		}
 	    }
-	    # anzeigen
+	    // anzeigen
 	    if (!is_writeable('include/images/wars')) {
-		$msg = 'Bitte erst dem Ordner "images/wars" Schreibrechte (chmod 777) geben.';
+		$msg = '<div class="alert alert-warning" role="alert">Bitte erst dem Ordner "images/wars" Schreibrechte (chmod 777) geben.</div>';
 	    }
 	    $mid = $_REQUEST['mid'];
 	    $wid = $_REQUEST['wid'];
@@ -109,7 +111,7 @@ switch ($um) {
 		    $breite = $size[0];
 		    $hoehe = $size[1];
 		    $file = '<a href="javascript:openImgWindow(\'' . $v . '\',' . $hoehe . ',' . $breite . ')">include/images/wars/' . $wid . '_' . $mid . '.' . $v . '</a>';
-		    $file .= '&nbsp; &nbsp; <a href="javascript:deleteMap(\'' . $v . '\')"><img src="include/images/icons/del.gif" border="0" title="l&ouml;schen" /></a>';
+		    $file .= '&nbsp; &nbsp; <a rel="tooltip" title="l&ouml;schen" href="javascript:deleteMap(\'' . $v . '\')"><span style="color:#AD0000;" class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>';
 		    break;
 		}
 	    }
@@ -120,18 +122,18 @@ switch ($um) {
 	    $tpl->out(0);
 	    exit();
 	}
-	# manag member for war...
+	// manag member for war...
 	if ($menu->get(2) == 'members') {
 	    $tpl = new tpl('wars/last_member', 1);
 	    $msg = '';
-	    # aktion
+	    // aktion
 	    if (isset($_POST['add_uid']) AND ! empty($_POST['add_uid'])) {
 		db_query("INSERT INTO prefix_warmember (wid,uid,aktion) VALUES (" . $_REQUEST['wid'] . "," . $_POST['add_uid'] . ",1)");
 	    }
 	    if (isset($_GET['delete_uid']) AND ! empty($_GET['delete_uid'])) {
 		db_query("DELETE FROM prefix_warmember WHERE wid = " . $_REQUEST['wid'] . " AND uid = " . $_GET['delete_uid']);
 	    }
-	    # anzeigen
+	    // anzeigen
 	    $tpl->set('msg', $msg);
 	    $tpl->set('wid', $_REQUEST['wid']);
 	    $tpl->set('liste', dblistee(0, "SELECT prefix_user.id,name FROM prefix_user LEFT JOIN prefix_warmember ON prefix_warmember.uid = prefix_user.id AND prefix_warmember.wid = " . $_REQUEST['wid'] . " WHERE prefix_warmember.aktion is NULL AND recht <= -2 ORDER BY `name`"));
@@ -146,13 +148,13 @@ switch ($um) {
 	    $tpl->out(2);
 	    exit();
 	}
-	# last wars
+	// last wars
 	$design = new design('Admins Area', 'Admins Area', 2);
 	$design->header();
 	$show = true;
 	$tpl = new tpl('wars/last', 1);
 	if (!empty($_GET['delete'])) {
-	    # aus kalender loeschen fals vorhanden
+	   // aus kalender loeschen falls vorhanden
 	    db_query("DELETE FROM prefix_kalender WHERE text like '%more-" . $_GET['delete'] . "]%'");
 	    db_query("DELETE FROM prefix_wars WHERE id = '" . $_GET['delete'] . "'");
 	    $wid = $_GET['delete'];
@@ -165,7 +167,7 @@ switch ($um) {
 		    }
 		}
 	    }
-	    $msg = '<tr class="Cmite"><td colspan="2">Erfolgreich gel&ouml;scht</td></tr>';
+	    $msg = '<div class="alert alert-success" role="alert">Erfolgreich gel&ouml;scht</div>';
 	}
 	if (!empty($_POST['sub'])) {
 	    if (!empty($_POST['newmod'])) {
@@ -204,13 +206,13 @@ switch ($um) {
 		    }
 		}
 
-		# in den kalender eintragen wenn gewuenscht
+		// in den kalender eintragen wenn gewuenscht
 		if (isset($_POST['kalender']) AND $_POST['kalender'] == 'yes') {
 		    $timestamp = strtotime(get_datime());
 		    $page = str_replace('admin.php', 'index.php', $_SERVER["HTTP_HOST"] . $_SERVER["SCRIPT_NAME"]);
 		    db_query("INSERT INTO prefix_kalender (time, title, text, recht) VALUES (" . $timestamp . ",'Lastwar gegen " . $_POST['gegner'] . "', '" . $_POST['mtyp'] . " " . $_POST['mod'] . " in " . $_POST['game'] . " gegen [url=" . $_POST['page'] . "]" . $_POST['gegner'] . "[/url]\n\n[url=http://" . $page . "?wars-more-" . $wid . "]details des Wars[/url]', 0)");
 		}
-		$msg = '<tr class="Cmite"><td colspan="2">Erfolgreich eingetragen</td></tr>';
+		$msg = '<div class="alert alert-success" role="alert">Erfolgreich eingetragen</div>';
 	    } else {
 		db_query("UPDATE prefix_wars SET datime = '" . get_datime() . "', status = 3,wlp = '" . $_POST['wlp'] . "',owp = '" . $_POST['sumowp'] . "',opp = '" . $_POST['sumopp'] . "',gegner = '" . $_POST['gegner'] . "',tag = '" . $_POST['tag'] . "',page = '" . $_POST['page'] . "',mail = '" . $_POST['email'] . "',icq = '" . $_POST['icq'] . "',wo = '" . $_POST['wo'] . "',tid = '" . $_POST['tid'] . "',`mod` = '" . $_POST['mod'] . "',game = '" . $_POST['game'] . "',mtyp = '" . $_POST['mtyp'] . "',land = '" . $_POST['land'] . "',txt = '" . $_POST['txt'] . "' WHERE id = '" . $_POST['pkey'] . "'");
 		$wid = $_POST['pkey'];
@@ -236,7 +238,7 @@ switch ($um) {
 			db_query("UPDATE prefix_warmaps SET map = '" . escape($_POST['map'][$i], 'string') . "', opp = " . escape($_POST['opp'][$i], 'string') . ", owp = " . escape($_POST['owp'][$i], 'string') . " WHERE wid = " . $wid . " AND mnr = " . $i);
 		    }
 		}
-		# in den kalender eintragen wenn gewuenscht
+		// in den kalender eintragen wenn gewuenscht
 		if (isset($_POST['kalender']) AND $_POST['kalender'] == 'yes') {
 		    $timestamp = strtotime(get_datime());
 		    $page = str_replace('admin.php', 'index.php', $_SERVER["HTTP_HOST"] . $_SERVER["SCRIPT_NAME"]);
@@ -246,7 +248,7 @@ switch ($um) {
 			db_query("INSERT INTO prefix_kalender (time, title, text, recht) VALUES (" . $timestamp . ",'Lastwar gegen " . $_POST['gegner'] . "', '" . $_POST['mtyp'] . " " . $_POST['mod'] . " in " . $_POST['game'] . " gegen [url=" . $_POST['page'] . "]" . $_POST['gegner'] . "[/url]\n\n[url=http://" . $page . "?wars-more-" . $wid . "]details des Wars[/url]', 0)");
 		    }
 		}
-		$msg = '<tr class="Cmite"><td colspan="2">Erfolgreich ver&auml;ndert</td></tr>';
+		$msg = '<div class="alert alert-success" role="alert">Erfolgreich ver&auml;ndert</div>';
 	    }
 	}
 	if (!empty($_GET['pkey'])) {
@@ -304,7 +306,7 @@ switch ($um) {
 	$design->footer();
 	break;
 
-    # Next wars
+    // Next wars
     case 'next' :
 
 	$design = new design('Admins Area', 'Admins Area', 2);
@@ -312,10 +314,10 @@ switch ($um) {
 	$show = true;
 	$tpl = new tpl('wars/next', 1);
 	if (!empty($_GET['delete'])) {
-	    # aus kalender loeschen fals vorhanden
+	    // aus kalender loeschen fals vorhanden
 	    db_query("DELETE FROM prefix_kalender WHERE text like '%more-" . $_GET['delete'] . "]%'");
 	    db_query("DELETE FROM prefix_wars WHERE id = '" . $_GET['delete'] . "'");
-	    $msg = '<tr class="Cmite"><td colspan="2">Erfolgreich gel&ouml;scht</td></tr>';
+	    $msg = '<div class="alert alert-success" role="alert">Erfolgreich gel&ouml;scht</div>';
 	}
 	if (!empty($_POST['sub'])) {
 	    if (!empty($_POST['newmod'])) {
@@ -347,17 +349,17 @@ switch ($um) {
 	    if (empty($_POST['pkey'])) {
 		db_query("INSERT INTO prefix_wars (datime,`status`,gegner,tag,page,mail,icq,wo,tid,`mod`,game,mtyp,land,txt) VALUES ('" . get_datime() . "',2,'" . $_POST['gegner'] . "','" . $_POST['tag'] . "','" . $_POST['page'] . "','" . $_POST['email'] . "','" . $_POST['icq'] . "','" . $_POST['wo'] . "','" . $_POST['tid'] . "','" . $_POST['mod'] . "','" . $_POST['game'] . "','" . $_POST['mtyp'] . "','" . $_POST['land'] . "','" . $_POST['txt'] . "')");
 		$wid = db_last_id();
-		# in den kalender eintragen wenn gewuenscht
+		// in den kalender eintragen wenn gewuenscht
 		if (isset($_POST['kalender']) AND $_POST['kalender'] == 'yes') {
 		    $timestamp = strtotime(get_datime());
 		    $page = str_replace('admin.php', 'index.php', $_SERVER["HTTP_HOST"] . $_SERVER["SCRIPT_NAME"]);
 		    db_query("INSERT INTO prefix_kalender (time, title, text, recht) VALUES (" . $timestamp . ",'Nextwar gegen " . $_POST['gegner'] . "', '" . $_POST['mtyp'] . " " . $_POST['mod'] . " in " . $_POST['game'] . " gegen [url=" . $_POST['page'] . "]" . $_POST['gegner'] . "[/url]\n\n[url=http://" . $page . "?wars-more-" . $wid . "]details des Wars[/url]', 0)");
 		}
-		$msg = '<tr class="Cmite"><td colspan="2">Erfolgreich eingetragen</td></tr>';
+		$msg = '<div class="alert alert-success" role="alert">Erfolgreich eingetragen</div>';
 	    } else {
 		db_query("UPDATE prefix_wars SET datime = '" . get_datime() . "', status = 2,gegner = '" . $_POST['gegner'] . "',tag = '" . $_POST['tag'] . "',page = '" . $_POST['page'] . "',mail = '" . $_POST['email'] . "',icq = '" . $_POST['icq'] . "',wo = '" . $_POST['wo'] . "',tid = '" . $_POST['tid'] . "',`mod` = '" . $_POST['mod'] . "',game = '" . $_POST['game'] . "',mtyp = '" . $_POST['mtyp'] . "',land = '" . $_POST['land'] . "',txt = '" . $_POST['txt'] . "' WHERE id = '" . $_POST['pkey'] . "'");
 		$wid = $_POST['pkey'];
-		# in den kalender eintragen wenn gewuenscht
+		// in den kalender eintragen wenn gewuenscht
 		if (isset($_POST['kalender']) AND $_POST['kalender'] == 'yes') {
 		    $timestamp = strtotime(get_datime());
 		    $page = str_replace('admin.php', 'index.php', $_SERVER["HTTP_HOST"] . $_SERVER["SCRIPT_NAME"]);
@@ -367,7 +369,7 @@ switch ($um) {
 			db_query("INSERT INTO prefix_kalender (time, title, text, recht) VALUES (" . $timestamp . ",'Nextwar gegen " . $_POST['gegner'] . "', '" . $_POST['mtyp'] . " " . $_POST['mod'] . " in " . $_POST['game'] . " gegen [url=" . $_POST['page'] . "]" . $_POST['gegner'] . "[/url]\n\n[url=http://" . $page . "?wars-more-" . $wid . "]details des Wars[/url]', 0)");
 		    }
 		}
-		$msg = '<tr class="Cmite"><td colspan="2">Erfolgreich ver&auml;ndert</td></tr>';
+		$msg = '<div class="alert alert-success" role="alert">Erfolgreich ver&auml;ndert</div>';
 	    }
 	}
 	if (!empty($_GET['pkey'])) {

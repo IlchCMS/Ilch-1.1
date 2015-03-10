@@ -110,7 +110,7 @@
 //-->
 </script>
 <div style="width:100%;">
-    <legend><h2>User Verwaltung</h2></legend>
+    <legend><h2><span class="glyphicon glyphicon-user" aria-hidden="true"></span> User Verwaltung</h2></legend>
     <form id="actionForm" id="actionForm" method="post" class="form-inline" role="form">
         {action_antispam}
         <input type="hidden" class="form-control" name="action" id="af_action" value="" />
@@ -153,8 +153,8 @@
                             </div>
                             <strong>{name}</strong></td>
                         <td><select class="form-control" id="recht{id}" onChange="changeUserRight({id})">{recht}</select></td>
-                        <td style="text-align: center;"><a onmouseout="hiddpos('groupdiv{id}')" onmouseover="alertpos('groupdiv{id}')" href="javascript:changeGruppen({id})" title="hier die Gruppenzugeh&ouml;rigkeit &auml;ndern">Gruppen</a></td>
-                        <td nowrap ><a href="admin.php?user-1-{id}" title="Userdaten &auml;ndern" style="margin-right:3px;"><span style="color:#2D9600;" class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a href="javascript:deleteUser({id})" title="User L&ouml;schen"><span style="color:#AD0000;" class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+                        <td style="text-align: center;"><a onmouseout="hiddpos('groupdiv{id}')" onmouseover="alertpos('groupdiv{id}')" href="javascript:changeGruppen({id})" rel="tooltip" title="hier die Gruppenzugeh&ouml;rigkeit &auml;ndern">Gruppen</a></td>
+                        <td nowrap ><a href="admin.php?user-1-{id}" rel="tooltip" title="Userdaten &auml;ndern" style="margin-right:3px;"><span style="color:#2D9600;" class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> <a href="javascript:deleteUser({id})" rel="tooltip" title="User L&ouml;schen"><span style="color:#AD0000;" class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
                         <td style="border-left:1px solid #ddd;"></td>
                         {modslist}
                     </tr>

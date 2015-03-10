@@ -1,199 +1,190 @@
-<span class="visible-xs-offcanvas"><br><br></span>
 <form action="admin.php?user-2" method="POST" enctype="multipart/form-data" class="form-horizontal" role="form">
-	<input type="hidden" name="uID" value="{id}">
-{antispam}
-<div class="panel panel-primary">
-  <div class="panel-heading"><i class="fa fa-cogs"></i> Details von <strong>{name}</strong> - ID: {id}</div>
-  <div class="panel-body">
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Recht</label>
-    <div class="col-sm-4">
-      <select class="form-control" name="urecht">{_list_recht@<option%1 value="%2">%3</option>}</select>
-    </div>
-  </div>
- <div class="form-group">
-    <label class="col-sm-2 control-label">Name</label>
-    <div class="col-sm-4">
-      <input class="form-control" name='usaName1' value='{name}' onfocus="document.getElementById('fnc').style.display='';">
-     <span id="fnc" style="display:none;"><input type="checkbox" name="forumname"> Name im Forum &auml;ndern</span>
-    </div>
-  </div>
- <div class="form-group">
-    <label class="col-sm-2 control-label">Email</label>
-    <div class="col-sm-4">
-      <input type="email" class="form-control" name='email' value='{email}'>
-    </div>
-  </div>
- <div class="form-group">
-    <label class="col-sm-2 control-label">Homepage</label>
-    <div class="col-sm-4">
-      <input class="form-control" name="homepage" value="{homepage}">
-    </div>
-  </div>
- <div class="form-group">
-    <label class="col-sm-2 control-label">Wohnort</label>
-    <div class="col-sm-4">
-      <input class="form-control" name="wohnort" value="{wohnort}">
-    </div>
-  </div>
+    <input type="hidden" name="uID" value="{id}">
+    {antispam}
+    <div class="panel panel-warning">
+        <div class="panel-heading"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>  Details von <strong>{name}</strong>  <span class="badge" rel="tooltip" title="User ID">{id}</span></div>
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Recht</label>
+                <div class="col-sm-4">
+                    <select class="form-control" name="urecht">{_list_recht@<option%1 value="%2">%3</option>}</select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Name</label>
+                <div class="col-sm-4">
+                    <input class="form-control" name='usaName1' value='{name}' onfocus="document.getElementById('fnc').style.display = '';">
+                    <span id="fnc" style="display:none;"><input type="checkbox" name="forumname"> Name im Forum &auml;ndern</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Email</label>
+                <div class="col-sm-4">
+                    <input type="email" class="form-control" name='email' value='{email}'>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Homepage</label>
+                <div class="col-sm-4">
+                    <input class="form-control" name="homepage" value="{homepage}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Wohnort</label>
+                <div class="col-sm-4">
+                    <input class="form-control" name="wohnort" value="{wohnort}">
+                </div>
+            </div>
+            <div class="well well-sm bg-warning">
 
-<div class="well well-sm">
-
- <div class="form-group">
-    <label class="col-sm-2 control-label">ICQ</label>
-    <div class="col-sm-4">
-      <input class="form-control" name="icq" value="{icq}">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">ICQ</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" name="icq" value="{icq}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">MSN</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" name="msn" value="{msn}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Yahoo</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" name="yahoo" value="{yahoo}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">AIM</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" name="aim" value="{aim}">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">B-Day</label>
+                <div class="col-sm-4">
+                    <input class="form-control" name="gebdatum" value="{gebdatum}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Staat</label>
+                <div class="col-sm-4">
+                    <select class="form-control" name="staat">{_list_staat@<option%1 value="%2">%3</option>}</select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Rank</label>
+                <div class="col-sm-4">
+                    <select class="form-control" name="spezrank">{_list_spezrank@<option%1 value="%2">%3</option>}</select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Geschlecht</label>
+                <div class="col-sm-10">
+                    <label class="radio-inline">
+                        <input type="radio" value="1" name="geschlecht" {geschlecht1}>
+                        m&auml;nnlich</label>
+                    <label class="radio-inline">
+                        <input type="radio" value="2" name="geschlecht" {geschlecht2}>
+                        weiblich</label>
+                    <label class="radio-inline">
+                        <input input type="radio" value="0" name="geschlecht" {geschlecht0}>
+                        keine Angabe</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Status</label>
+                <div class="col-sm-10">
+                    <label class="radio-inline">
+                        <input type="radio" value="1" name="status" {status1}>
+                        aktiv</label>
+                    <label class="radio-inline">
+                        <input type="radio" value="0" name="status" {status0}>
+                        inaktiv</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">eMails</label>
+                <div class="col-sm-10">
+                    <label class="radio-inline">
+                        <input type="radio" value="1" name="opt_mail" {opt_mail1}>
+                        Ja</label>
+                    <label class="radio-inline">
+                        <input type="radio" value="0" name="opt_mail" {opt_mail0}>
+                        Nein</label>
+                    <span class="help-block">eMails von anderen Usern zulassen?</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">PrivMsgs</label>
+                <div class="col-sm-10">
+                    <label class="radio-inline">
+                        <input type="radio" value="1" name="opt_pm" {opt_pm1}>
+                        Ja</label>
+                    <label class="radio-inline">
+                        <input type="radio" value="0" name="opt_pm" {opt_pm0}>
+                        Nein</label>
+                    <span class="help-block">PrivMsgs von anderen Usern zulassen?</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">PrivMsgs Popup</label>
+                <div class="col-sm-10">
+                    <label class="radio-inline">
+                        <input type="radio" value="1" name="opt_pm_popup" {opt_pm_popup1}>
+                        Ja</label>
+                    <label class="radio-inline">
+                        <input type="radio" value="0" name="opt_pm_popup" {opt_pm_popup0}>
+                        Nein</label>
+                    <span class="help-block">Popup Box bei einer neuen PrivMsgs zulassen?</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Avatar</label>
+                <div class="col-sm-4">{avatar}<br>
+                    <input type="checkbox" name="avatardel" value="1"> L&ouml;schen ?
+                    <br><input class="btn btn-primary" type="file" name="avatarfile" title="Datei suchen">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Passwort</label>
+                <div class="col-sm-10">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="passw" value="1">
+                        neues generieren ?</label>
+                </div>
+            </div>
+            <div class="alert alert-danger" role="alert">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">User</label>
+                    <div class="col-sm-10">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="userdel" value="1">
+                            L&ouml;schen ?</label>
+                        <span class="help-block" style="color:#000;"><strong>!! Achtung !! der User wird ohne R&uuml;ckfrage gel&ouml;scht</strong></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Signature</label>
+                <div class="col-sm-4">
+                    <textarea class="form-control" rows="3" name="sig">{sig}</textarea>
+                </div>
+            </div>
+            <legend>Profilefields</legend>
+            {EXPLODE}
+            <div class="form-group">
+                <label class="col-sm-2 control-label"></label>
+                <div class="col-sm-4">
+                    <input type="submit" class="btn btn-primary" value="&Auml;ndern" name="submit"> &nbsp; <input type="button" class="btn btn-default" value="zur&uuml;ck" onclick="javscript:history.back();" />
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
- <div class="form-group">
-    <label class="col-sm-2 control-label">MSN</label>
-    <div class="col-sm-4">
-      <input class="form-control" name="msn" value="{msn}">
-    </div>
-  </div>
- <div class="form-group">
-    <label class="col-sm-2 control-label">Yahoo</label>
-    <div class="col-sm-4">
-      <input class="form-control" name="yahoo" value="{yahoo}">
-    </div>
-  </div>
- <div class="form-group">
-    <label class="col-sm-2 control-label">AIM</label>
-    <div class="col-sm-4">
-      <input class="form-control" name="aim" value="{aim}">
-    </div>
-  </div>
-</div>
-
- <div class="form-group">
-    <label class="col-sm-2 control-label">B-Day</label>
-    <div class="col-sm-4">
-      <input class="form-control" name="gebdatum" value="{gebdatum}">
-    </div>
-  </div>
- <div class="form-group">
-    <label class="col-sm-2 control-label">Staat</label>
-    <div class="col-sm-4">
-      <select class="form-control" name="staat">{_list_staat@<option%1 value="%2">%3</option>}</select>
-    </div>
-  </div>
- <div class="form-group">
-    <label class="col-sm-2 control-label">Rank</label>
-    <div class="col-sm-4">
-      <select class="form-control" name="spezrank">{_list_spezrank@<option%1 value="%2">%3</option>}</select>
-    </div>
-  </div>
-<div class="form-group">
-    <label class="col-sm-2 control-label">Geschlecht</label>
-    <div class="col-sm-10">
-<label class="radio-inline">
-<input type="radio" value="1" name="geschlecht" {geschlecht1}>
-m&auml;nnlich</label>
-<label class="radio-inline">
-<input type="radio" value="2" name="geschlecht" {geschlecht2}>
-weiblich</label>
-<label class="radio-inline">
-<input input type="radio" value="0" name="geschlecht" {geschlecht0}>
-keine Angabe</label>
-</div>
-  </div>
-<div class="form-group">
-    <label class="col-sm-2 control-label">Status</label>
-    <div class="col-sm-10">
-<label class="radio-inline">
-<input type="radio" value="1" name="status" {status1}>
-aktiv</label>
-<label class="radio-inline">
-<input type="radio" value="0" name="status" {status0}>
-inaktiv</label>
-</div>
-  </div>
-<div class="form-group">
-    <label class="col-sm-2 control-label">eMails</label>
-    <div class="col-sm-10">
-<label class="radio-inline">
-<input type="radio" value="1" name="opt_mail" {opt_mail1}>
-Ja</label>
-<label class="radio-inline">
-<input type="radio" value="0" name="opt_mail" {opt_mail0}>
-Nein</label>
-<span class="help-block">eMails von anderen Usern zulassen?</span>
-</div>
-  </div>
-<div class="form-group">
-    <label class="col-sm-2 control-label">PrivMsgs</label>
-    <div class="col-sm-10">
-<label class="radio-inline">
-<input type="radio" value="1" name="opt_pm" {opt_pm1}>
-Ja</label>
-<label class="radio-inline">
-<input type="radio" value="0" name="opt_pm" {opt_pm0}>
-Nein</label>
-<span class="help-block">PrivMsgs von anderen Usern zulassen?</span>
-</div>
-  </div>
-<div class="form-group">
-    <label class="col-sm-2 control-label">PrivMsgs Popup</label>
-    <div class="col-sm-10">
-<label class="radio-inline">
-<input type="radio" value="1" name="opt_pm_popup" {opt_pm_popup1}>
-Ja</label>
-<label class="radio-inline">
-<input type="radio" value="0" name="opt_pm_popup" {opt_pm_popup0}>
-Nein</label>
-<span class="help-block">Popup Box bei einer neuen PrivMsgs zulassen?</span>
-</div>
-  </div>
- <div class="form-group">
-    <label class="col-sm-2 control-label">Avatar</label>
-    <div class="col-sm-4">{avatar}<br>
-      <input type="checkbox" name="avatardel" value="1"> L&ouml;schen ?
-      <br><input class="btn btn-primary" type="file" name="avatarfile" title="Datei suchen">
-    </div>
-  </div>
-<div class="form-group">
-    <label class="col-sm-2 control-label">Passwort</label>
-    <div class="col-sm-10">
-<label class="checkbox-inline">
-<input type="checkbox" name="passw" value="1">
-neues generieren ?</label>
-</div>
-  </div>
-<div class="alert alert-danger" role="alert">
-<div class="form-group">
-    <label class="col-sm-2 control-label">User</label>
-    <div class="col-sm-10">
-<label class="checkbox-inline">
-<input type="checkbox" name="userdel" value="1">
-L&ouml;schen ?</label>
-<span class="help-block" style="color:#000;"><strong>!! Achtung !! der User wird ohne R&uuml;ckfrage gel&ouml;scht</strong></span>
-</div>
-  </div>
-</div>
- <div class="form-group">
-    <label class="col-sm-2 control-label">Signature</label>
-    <div class="col-sm-4">
-     <textarea class="form-control" rows="3" name="sig">{sig}</textarea>
-    </div>
-  </div>
-
-
-<legend>Profilefields</legend>
-    {EXPLODE}
-
-
- <div class="form-group">
-    <label class="col-sm-2 control-label"></label>
-    <div class="col-sm-4">
-     <input type="submit" class="btn btn-primary" value="&Auml;ndern" name="submit"> &nbsp; <input type="button" class="btn btn-default" value="zur&uuml;ck" onclick="javscript:history.back();" />
-    </div>
-  </div>
-
-
-
-</div></div>
 </form>
 <script>
-$('input[type=file]').bootstrapFileInput();
-$('.file-inputs').bootstrapFileInput();
+    $('input[type=file]').bootstrapFileInput();
+    $('.file-inputs').bootstrapFileInput();
 </script>

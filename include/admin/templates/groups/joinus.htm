@@ -1,47 +1,44 @@
 <script language="JavaScript" type="text/javascript">
 <!--
-  function change_group ( gid ) {
-		var x = prompt ( "Bitte den neuen Namen der Gruppe eingeben", "" );
-		if ( x ) {
-		  document.location.href="?groups&group_change="+gid+"&group_name="+x;
-		}
-	}
-  function delete_group ( gid ) {
-		var x = confirm ( "Wollen Sie diese Gruppe löschen?", "" );
-		if ( x ) {
-		  document.location.href="admin.php?groups&group_delete="+gid;
-		}
-	}
-  function manageUser (GID) {
-    var Fenster = window.open ('admin.php?groups-addusers-'+ GID, 'adduser', 'status=no,scrollbars=yes,height=400,width=500');
-    Fenster.focus();
-  }
+    function change_group(gid) {
+        var x = prompt("Bitte den neuen Namen der Gruppe eingeben", "");
+        if (x) {
+            document.location.href = "?groups&group_change=" + gid + "&group_name=" + x;
+        }
+    }
+    function delete_group(gid) {
+        var x = confirm("Wollen Sie diese Gruppe loeschen?", "");
+        if (x) {
+            document.location.href = "admin.php?groups&group_delete=" + gid;
+        }
+    }
+    function manageUser(GID) {
+        var Fenster = window.open('admin.php?groups-addusers-' + GID, 'adduser', 'status=no,scrollbars=yes,height=600,width=500');
+        Fenster.focus();
+    }
 //-->
 </script>
-<legend><h2><i class="fa fa-plus-square-o"></i> Joinus Anfragen</h2></legend>
-<div class="cont_loose">
+<legend><h2>Joinus Anfragen</h2></legend>
 {msg}
 <a class="btn btn-primary btn-sm" href="admin.php?groups">zur Gruppen&uuml;bersicht</a><br><br>
-			<legend>Anfragen &Uuml;bersicht</legend>
+<legend>Anfragen &Uuml;bersicht</legend>
 <table class="table table-bordered">
-<tr class="active">
-			<td>Name</td>
-			<td class="visible-xsmin">E-Mail</td>
-			<td>Team</td>
-      <td class="visible-xsmin">Status</td>
-			<td>Optionen</td>
-		</tr>
-{EXPLODE}
-		<tr>
-			<td>{name}</td>
-			<td class="visible-xsmin">{email}</td>
-			<td>{groupname}</td>
-			<td class="visible-xsmin">{status}</td>
-			<td><a href="admin.php?groups-joinus-a{id}-{check}-addtoteam">als Trial aufnehmen</a><br>
-			<a href="admin.php?groups-joinus-a{id}-{check}">als Trial aber nicht ins Team aufnehmen</a><br>
-			<a href="admin.php?groups-joinus-d{id}-{check}">nicht aufnehmen</a></td>
-		</tr>
-{EXPLODE}
-<table>
-</div>
-
+    <tr class="warning">
+        <td>Name</td>
+        <td class="visible-xsmin">E-Mail</td>
+        <td>Team</td>
+        <td class="visible-xsmin">Status</td>
+        <td>Optionen</td>
+    </tr>
+    {EXPLODE}
+    <tr>
+        <td>{name}</td>
+        <td class="visible-xsmin">{email}</td>
+        <td>{groupname}</td>
+        <td class="visible-xsmin">{status}</td>
+        <td><a href="admin.php?groups-joinus-a{id}-{check}-addtoteam">als Trial aufnehmen</a><br>
+            <a href="admin.php?groups-joinus-a{id}-{check}">als Trial aber nicht ins Team aufnehmen</a><br>
+            <a href="admin.php?groups-joinus-d{id}-{check}">nicht aufnehmen</a></td>
+    </tr>
+    {EXPLODE}
+</table>

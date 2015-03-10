@@ -27,26 +27,22 @@
 <link href="include/admin/templates/bootstrap/css/bootstrap.css" rel="stylesheet">
 <link href="include/admin/templates/bootstrap/css/style.css" rel="stylesheet">
 
-<form action="admin.php?groups-adduser-{gid}" method="POST" name="form" class="form-inline" role="form">
+<form action="admin.php?groups-adduser-{gid}" method="POST" name="form" class="form-horizontal">
 
 
     <legend>User zur Gruppe "{gruppe}" hinzuf&uuml;gen</legend>
     {fehler}
-    <div class="input-group">
-        <span class="input-group-btn">
-            <a class="btn btn-primary btn-sm"  href="javascript:finduser();">User finden</a>
-        </span>
-        <input name="name" class="form-control" placeholder="Name">
-    </div>
-    <div class="input-group">
-        <span class="input-group-btn">
-            <a class="btn btn-primary btn-sm" href="javascript:userfuncs()">Funktion hinzuf&uuml;gen</a>
-        </span>
-        <select name="fid" class="form-control">{_list_funcs@<option%1 value="%2">%3</option>}</select>
-    </div>
-    <span class="pull-right"><input class="btn btn-primary" type="submit" value="Eintragen" name="ins_user" ></span>
+    <div class="form-group">
+    <input type="text" name="name" class="form-control" placeholder="Name">
+  </div>
+        <div class="form-group">
+    <select name="fid" class="form-control">{_list_funcs@<option%1 value="%2">%3</option>}</select>
+  </div>
+  <input class="btn btn-primary" type="submit" value="Eintragen" name="ins_user" >
 </form>
 <br>
+<a class="btn btn-primary btn-sm"  href="javascript:finduser();">User finden</a>   <a class="btn btn-primary btn-sm" href="javascript:userfuncs()">Funktion hinzuf&uuml;gen</a>
+<br><br>
 <legend>Gruppen Users &Uuml;bersicht</legend>
 <table class="table table-bordered">
     <tr class="active" style="color:#2f2f2f;">

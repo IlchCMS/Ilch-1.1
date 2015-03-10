@@ -1,7 +1,7 @@
 <?php
 
-#   Copyright by: Manuel
-#   Support: www.ilch.de
+// Copyright by: Manuel
+//  Support: www.ilch.de
 
 
 defined('main') or die('no direct access');
@@ -124,7 +124,7 @@ if ($um == 'ch') {
     }
 
     if (is_coadmin()) {
-	# mods wieder die richtigen modulrechte geben. dazu erst loeschen, dann eintragen.
+	// mods wieder die richtigen modulrechte geben. dazu erst loeschen, dann eintragen.
 	groups_update_modulerights_for(array($mod1, $mod2, $mod3, $mod4));
 	$msg .= ", die Modulrechte wurden erneuert. Wenn allerdings Leader, Co-Leader, Warorga oder Memberorga ge&auml;ndert wurden haben diese User immer noch die Modulrechte ... das sollte daher &uuml;berpr&uuml;ft werden.";
     }
@@ -261,7 +261,7 @@ if ($um == 'joinus') {
     $design = new design('Admins Area', 'Admins Area', 2);
     $design->header();
 
-    # als trial aufnehmen
+    // als trial aufnehmen
     if ($menu->getA(2) == 'a' AND is_numeric($menu->getE(2)) AND $menu->getE(2) <> 0) {
 	$check = escape($menu->get(3), 'string');
 	$id = escape($menu->getE(2), 'integer');
@@ -278,7 +278,7 @@ if ($um == 'joinus') {
 	$msg = 'erfolgreich als Trial markiert, der User wurde darueber informiert. ' . $msg;
     }
 
-    # aus check tabelle loeschen (nicht aufnehmen)
+    // aus check tabelle loeschen (nicht aufnehmen)
     if ($menu->getA(2) == 'd' AND is_numeric($menu->getE(2))) {
 	$check = escape($menu->get(3), 'string');
 	$id = escape($menu->getE(2), 'integer');
@@ -352,7 +352,7 @@ if ($show) {
     $ar['msg'] = (empty($msg) ? '' : '<div class="alert alert-warning" role="alert"><strong>Nachricht:</strong>&nbsp;' . $msg . '</div>');
     $ar['joinu'] = '';
     if (0 < db_result(db_query("SELECT COUNT(*) FROM prefix_usercheck WHERE ak = 4"), 0)) {
-	$ar['joinu'] = '<a href="admin.php?groups-joinus"><b>Joinus Anfragen bearbeiten</b></a><br /><br />';
+	$ar['joinu'] = '<a class="btn btn-warning btn-block" href="admin.php?groups-joinus">Joinus Anfragen bearbeiten</a><br>';
     }
 
     $tpl->set_ar_out($ar, 0);
