@@ -5,12 +5,12 @@
 $readme = <<<README
 Changelog:
 ==========
-+ neue Funktionen       * Änderungen/Bugfixes
++ neue Funktionen       * ï¿½nderungen/Bugfixes
 
 Version 1.1 P
 -------------
-* Kompatibilität zu PHP 5.3 und 5.4 verbessert
-* Passwordhashmethod verbessert (sicherere Passwörter in der Datenbank)
+* Kompatibilitï¿½t zu PHP 5.3 und 5.4 verbessert
+* Passwordhashmethod verbessert (sicherere Passwï¿½rter in der Datenbank)
 * verbesserte Antispam-Methode eingebunden
 * einige Absicherungen gegen CSRF Attacken
 README;
@@ -30,140 +30,140 @@ if ($rows > 45)
                 <tr><th class="Chead" align="center">... ::: [ U p d a t e f &uuml; r &nbsp; i l c h C l a n  &nbsp; 1 . 1 P</u>] ::: ...</th></tr>
                 <tr>
                     <td class="Cmite">
-                        <?php
-                        if (empty($_POST['step'])) {
-                            ?>
-                            <div align="center">
-                                <h2>Readme</h2>
-                                <textarea cols="120" rows="<?php echo $rows; ?>"><?php echo htmlentities($readme, ENT_COMPAT, 'ISO-8859-1'); ?></textarea><br /><br />
+			<?php
+			if (empty($_POST['step'])) {
+			    ?>
+    			<div align="center">
+    			    <h2>Readme</h2>
+    			    <textarea cols="120" rows="<?php echo $rows; ?>"><?php echo htmlentities($readme, ENT_COMPAT, 'ISO-8859-1'); ?></textarea><br /><br />
 
-                                <br /><br />
-                                Dieses Script soll die n&ouml;tigen Datanbank&auml;ndernungen f&uuml;r das Update machen<br />
-                                <br />
-                                <input type="hidden" name="step" value="2" />
-                                <input type="submit" value="Installieren" />
-                            </div>
-                            <?php
-                        } elseif ($_POST['step'] == 2) {
+    			    <br /><br />
+    			    Dieses Script soll die n&ouml;tigen Datanbank&auml;ndernungen f&uuml;r das Update machen<br />
+    			    <br />
+    			    <input type="hidden" name="step" value="2" />
+    			    <input type="submit" value="Installieren" />
+    			</div>
+			    <?php
+			} elseif ($_POST['step'] == 2) {
 
-                            define('main', TRUE);
-                            require_once('include/includes/config.php');
-                            require_once('include/includes/func/db/mysql.php');
-                            db_connect();
+			    define('main', TRUE);
+			    require_once('include/includes/config.php');
+			    require_once('include/includes/func/db/mysql.php');
+			    db_connect();
 
-                            $sql_statements = array();
+			    $sql_statements = array();
 
-                            //Update 1.1d
-                            if (db_count_query('SELECT COUNT(*) FROM `prefix_config` WHERE `schl` = "allg_default_subject"') == 0) {
-                                $sql_statements[] = '-- UPDATE 1.1D';
-                                $sql_statements[] = "ALTER TABLE `prefix_gallery_cats` CHANGE `besch` `besch` TEXT NOT NULL";
-                                $sql_statements[] = "ALTER TABLE `prefix_warmaps` CHANGE `opp` `opp` MEDIUMINT NOT NULL DEFAULT '0', CHANGE `owp` `owp` MEDIUMINT NOT NULL DEFAULT '0'";
-                                $sql_statements[] = "ALTER TABLE `prefix_wars` CHANGE `opp` `opp` MEDIUMINT NOT NULL DEFAULT '0', CHANGE `owp` `owp` MEDIUMINT NOT NULL DEFAULT '0'";
-                                $sql_statements[] = "INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('allg_default_subject', 'input', 'Allgemeine Optionen', 'Standard Betreff bei eMails', 'automatische eMail')";
-                            }
+			    //Update 1.1d
+			    if (db_count_query('SELECT COUNT(*) FROM `prefix_config` WHERE `schl` = "allg_default_subject"') == 0) {
+				$sql_statements[] = '-- UPDATE 1.1D';
+				$sql_statements[] = "ALTER TABLE `prefix_gallery_cats` CHANGE `besch` `besch` TEXT NOT NULL";
+				$sql_statements[] = "ALTER TABLE `prefix_warmaps` CHANGE `opp` `opp` MEDIUMINT NOT NULL DEFAULT '0', CHANGE `owp` `owp` MEDIUMINT NOT NULL DEFAULT '0'";
+				$sql_statements[] = "ALTER TABLE `prefix_wars` CHANGE `opp` `opp` MEDIUMINT NOT NULL DEFAULT '0', CHANGE `owp` `owp` MEDIUMINT NOT NULL DEFAULT '0'";
+				$sql_statements[] = "INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('allg_default_subject', 'input', 'Allgemeine Optionen', 'Standard Betreff bei eMails', 'automatische eMail')";
+			    }
 
-                            //Update 1.1f
-                            $old = array();
-                            $qry = db_query('SHOW FULL COLUMNS FROM `prefix_forumcats`');
-                            while ($r = db_fetch_assoc($qry)) {
-                                $old[] = $r['Field'];
-                            }
-                            if (!in_array('cid', $old)) {
-                                $sql_statements[] = '-- UPDATE 1.1F';
-                                $sql_statements[] = "ALTER TABLE `prefix_forumcats` ADD `cid` TINYINT UNSIGNED NOT NULL DEFAULT '0' AFTER `id`";
-                                $sql_statements[] = "INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('sb_maxwordlength', 'input', 'Shoutbox Optionen', 'Maximale Wortl&auml;nge in der Shoutbox', '10')";
-                                $sql_statements[] = "INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('sb_recht', 'grecht', 'Shoutbox Optionen', 'Schreiben in der Shoutbox ab?', '0')";
-                                $sql_statements[] = "INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('sb_limit', 'input', 'Shoutbox Optionen', 'Anzahl angezeigter Nachrichten', '5')";
-                                $sql_statements[] = "INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('antispam', 'grecht2', 'Allgemeine Optionen', 'Antispam <small>(ab diesem Recht keine Eingabe mehr erforderlich)</small>', '-2')";
-                            }
+			    //Update 1.1f
+			    $old = array();
+			    $qry = db_query('SHOW FULL COLUMNS FROM `prefix_forumcats`');
+			    while ($r = db_fetch_assoc($qry)) {
+				$old[] = $r['Field'];
+			    }
+			    if (!in_array('cid', $old)) {
+				$sql_statements[] = '-- UPDATE 1.1F';
+				$sql_statements[] = "ALTER TABLE `prefix_forumcats` ADD `cid` TINYINT UNSIGNED NOT NULL DEFAULT '0' AFTER `id`";
+				$sql_statements[] = "INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('sb_maxwordlength', 'input', 'Shoutbox Optionen', 'Maximale Wortl&auml;nge in der Shoutbox', '10')";
+				$sql_statements[] = "INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('sb_recht', 'grecht', 'Shoutbox Optionen', 'Schreiben in der Shoutbox ab?', '0')";
+				$sql_statements[] = "INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('sb_limit', 'input', 'Shoutbox Optionen', 'Anzahl angezeigter Nachrichten', '5')";
+				$sql_statements[] = "INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('antispam', 'grecht2', 'Allgemeine Optionen', 'Antispam <small>(ab diesem Recht keine Eingabe mehr erforderlich)</small>', '-2')";
+			    }
 
-                            //Update 1.1g
-                            $old = array();
-                            $qry = db_query('SHOW FULL COLUMNS FROM `prefix_usercheck`');
-                            while ($r = db_fetch_assoc($qry)) {
-                                $old[] = $r['Field'];
-                            }
-                            if (!in_array('groupid', $old)) {
-                                $sql_statements[] = '-- UPDATE 1.1G';
-                                $sql_statements[] = 'ALTER TABLE `prefix_usercheck` ADD `groupid` TINYINT NOT NULL';
-                                $sql_statements[] = "INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('joinus_rules', 'r2', 'Team Optionen', 'Regeln bei Joinus vollst&auml;ndig anzeigen?', '0')";
-                                $sql_statements[] = "UPDATE `prefix_config` SET `frage` = 'Standard Absender bei eMails' WHERE `schl` = 'allg_default_subject' LIMIT 1";
-                                $sql_statements[] = "INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('groups_forall', 'r2', 'Team Optionen', 'Modulrecht <i>Gruppen</i> auf eigene Gruppe beschr&auml;nken?', '1')";
-                            }
+			    //Update 1.1g
+			    $old = array();
+			    $qry = db_query('SHOW FULL COLUMNS FROM `prefix_usercheck`');
+			    while ($r = db_fetch_assoc($qry)) {
+				$old[] = $r['Field'];
+			    }
+			    if (!in_array('groupid', $old)) {
+				$sql_statements[] = '-- UPDATE 1.1G';
+				$sql_statements[] = 'ALTER TABLE `prefix_usercheck` ADD `groupid` TINYINT NOT NULL';
+				$sql_statements[] = "INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('joinus_rules', 'r2', 'Team Optionen', 'Regeln bei Joinus vollst&auml;ndig anzeigen?', '0')";
+				$sql_statements[] = "UPDATE `prefix_config` SET `frage` = 'Standard Absender bei eMails' WHERE `schl` = 'allg_default_subject' LIMIT 1";
+				$sql_statements[] = "INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('groups_forall', 'r2', 'Team Optionen', 'Modulrecht <i>Gruppen</i> auf eigene Gruppe beschr&auml;nken?', '1')";
+			    }
 
-                            //Update 1.1i
-                            $old = array();
-                            $qry = db_query('SHOW FULL COLUMNS FROM `prefix_config`');
-                            while ($r = db_fetch_assoc($qry)) {
-                                $old[] = $r['Field'];
-                            }
-                            if (!in_array('pos', $old)) {
-                                $sql_statements[] = '-- UPDATE 1.1I';
-                                $sql_statements[] = "ALTER TABLE `prefix_config` ADD `pos` SMALLINT(6) NOT NULL default '0'";
-                                $sql_statements[] = "INSERT INTO `prefix_config` (`schl`, `typ`, `kat`, `frage`, `wert`, `pos`) VALUES('mail_smtp', 'r2', 'Allgemeine Optionen', 'SMTP für den Mailversand verwenden? <a href=\"admin.php?smtpconf\" class=\"smalfont\">weitere Einstellungen</a>', '0', 0)";
-                            }
+			    //Update 1.1i
+			    $old = array();
+			    $qry = db_query('SHOW FULL COLUMNS FROM `prefix_config`');
+			    while ($r = db_fetch_assoc($qry)) {
+				$old[] = $r['Field'];
+			    }
+			    if (!in_array('pos', $old)) {
+				$sql_statements[] = '-- UPDATE 1.1I';
+				$sql_statements[] = "ALTER TABLE `prefix_config` ADD `pos` SMALLINT(6) NOT NULL default '0'";
+				$sql_statements[] = "INSERT INTO `prefix_config` (`schl`, `typ`, `kat`, `frage`, `wert`, `pos`) VALUES('mail_smtp', 'r2', 'Allgemeine Optionen', 'SMTP fï¿½r den Mailversand verwenden? <a href=\"admin.php?smtpconf\" class=\"smalfont\">weitere Einstellungen</a>', '0', 0)";
+			    }
 
-                            //Update 1.1n
-                            if (db_count_query("SELECT COUNT(*) FROM `prefix_allg` WHERE k = 'smtpconf'") == 0) {
-                                $smtp = array('smtp_host' => '', 'smtp_port' => '', 'smtp_auth' => 'auth', 'smtp_pop3beforesmtp' => '', 'smtp_pop3host' => '',
-                                    'smtp_pop3port' => '', 'smtp_login' => '', 'smtp_email' => '', 'smtp_login' => '', 'smtp_pass' => '', 'smtp_changesubject' => '1');
+			    //Update 1.1n
+			    if (db_count_query("SELECT COUNT(*) FROM `prefix_allg` WHERE k = 'smtpconf'") == 0) {
+				$smtp = array('smtp_host' => '', 'smtp_port' => '', 'smtp_auth' => 'auth', 'smtp_pop3beforesmtp' => '', 'smtp_pop3host' => '',
+				    'smtp_pop3port' => '', 'smtp_login' => '', 'smtp_email' => '', 'smtp_login' => '', 'smtp_pass' => '', 'smtp_changesubject' => '1');
 
-                                $qry = db_query('SELECT * FROM `prefix_config` WHERE `schl` LIKE "mail_%"');
-                                while ($r = db_fetch_assoc($qry)) {
-                                    switch ($r['schl']) {
-                                        case 'mail_smtp_login': $smtp['smtp_login'] = $r['wert'];
-                                            break;
-                                        case 'mail_smtp_password': $smtp['smtp_pass'] = $r['wert'];
-                                            break;
-                                        case 'mail_smtp_host': $smtp['smtp_host'] = $r['wert'];
-                                            break;
-                                        case 'mail_smtp_email': $smtp['smtp_email'] = $r['wert'];
-                                            break;
-                                    }
-                                }
-                                $smtpser = mysql_real_escape_string(serialize($smtp));
-                                $sql_statements[] = '-- UPDATE 1.1N';
-                                $sql_statements[] = 'INSERT INTO `prefix_allg` ( `k` , `v1`, `v2`, `v3`, `v4`, `t1`) VALUES ( "smtpconf", "", "", "", "", "' . $smtpser . '" )';
-                                $sql_statements[] = 'DELETE FROM `prefix_config` WHERE `schl` IN ("mail_smtp_login", "mail_smtp_password", "mail_smtp_host", "mail_smtp_email")';
-                                $sql_statements[] = 'UPDATE `prefix_config` SET `kat` = "Allgemeine Optionen", `frage` = "SMTP für den Mailversand verwenden? <a href=\"admin.php?smtpconf\" class=\"smalfont\">weitere Einstellungen</a>" WHERE `schl` = "mail_smtp"';
-                            }
+				$qry = db_query('SELECT * FROM `prefix_config` WHERE `schl` LIKE "mail_%"');
+				while ($r = db_fetch_assoc($qry)) {
+				    switch ($r['schl']) {
+					case 'mail_smtp_login': $smtp['smtp_login'] = $r['wert'];
+					    break;
+					case 'mail_smtp_password': $smtp['smtp_pass'] = $r['wert'];
+					    break;
+					case 'mail_smtp_host': $smtp['smtp_host'] = $r['wert'];
+					    break;
+					case 'mail_smtp_email': $smtp['smtp_email'] = $r['wert'];
+					    break;
+				    }
+				}
+				$smtpser = mysql_real_escape_string(serialize($smtp));
+				$sql_statements[] = '-- UPDATE 1.1N';
+				$sql_statements[] = 'INSERT INTO `prefix_allg` ( `k` , `v1`, `v2`, `v3`, `v4`, `t1`) VALUES ( "smtpconf", "", "", "", "", "' . $smtpser . '" )';
+				$sql_statements[] = 'DELETE FROM `prefix_config` WHERE `schl` IN ("mail_smtp_login", "mail_smtp_password", "mail_smtp_host", "mail_smtp_email")';
+				$sql_statements[] = 'UPDATE `prefix_config` SET `kat` = "Allgemeine Optionen", `frage` = "SMTP fï¿½r den Mailversand verwenden? <a href=\"admin.php?smtpconf\" class=\"smalfont\">weitere Einstellungen</a>" WHERE `schl` = "mail_smtp"';
+			    }
 
-                            //Update 1.1p
-                            $passType = '';
-                            $qry = db_query('SHOW COLUMNS FROM `prefix_user` LIKE "pass"');
-                            if ($row = db_fetch_assoc($qry)) {
-                                $passType = trim(strtolower($row['Type']));
-                            }
-                            if ($passType === 'varchar(32)') {
-                                $sql_statements[] = '-- UPDATE 1.1P';
-                                $sql_statements[] = 'ALTER TABLE `prefix_user` MODIFY COLUMN `pass` varchar(123) NOT NULL DEFAULT ""';
-                                $sql_statements[] = 'ALTER TABLE `prefix_usercheck` MODIFY COLUMN `pass` varchar(123) NOT NULL DEFAULT ""';
-                                $sql_statements[] = "UPDATE `prefix_config` SET `frage`='Antispam <small>(ab diesem Recht keine Eingabe mehr erforderlich)</small><br><a href=\"http://www.ilch.de/texts-s132.html\" target=\"_blank\">Hilfe: Antispam anpassen</a>' WHERE `schl`='antispam'";
-                            }
+			    //Update 1.1p
+			    $passType = '';
+			    $qry = db_query('SHOW COLUMNS FROM `prefix_user` LIKE "pass"');
+			    if ($row = db_fetch_assoc($qry)) {
+				$passType = trim(strtolower($row['Type']));
+			    }
+			    if ($passType === 'varchar(32)') {
+				$sql_statements[] = '-- UPDATE 1.1P';
+				$sql_statements[] = 'ALTER TABLE `prefix_user` MODIFY COLUMN `pass` varchar(123) NOT NULL DEFAULT ""';
+				$sql_statements[] = 'ALTER TABLE `prefix_usercheck` MODIFY COLUMN `pass` varchar(123) NOT NULL DEFAULT ""';
+				$sql_statements[] = "UPDATE `prefix_config` SET `frage`='Antispam <small>(ab diesem Recht keine Eingabe mehr erforderlich)</small><br><a href=\"http://www.ilch.de/texts-s132.html\" target=\"_blank\">Hilfe: Antispam anpassen</a>' WHERE `schl`='antispam'";
+			    }
 
-                            //Update 1.1p.2
-                            $sidType = '';
-                            $qry = db_query('SHOW COLUMNS FROM `prefix_online` LIKE "sid"');
-                            if ($row = db_fetch_assoc($qry)) {
-                                $sidType = trim(strtolower($row['Type']));
-                            }
-                            if ($sidType === 'varchar(32)') {
-                                $sql_statements[] = 'ALTER TABLE `prefix_online` MODIFY COLUMN `sid` varchar(123) NOT NULL DEFAULT ""';
-                            }
+			    //Update 1.1p.2
+			    $sidType = '';
+			    $qry = db_query('SHOW COLUMNS FROM `prefix_online` LIKE "sid"');
+			    if ($row = db_fetch_assoc($qry)) {
+				$sidType = trim(strtolower($row['Type']));
+			    }
+			    if ($sidType === 'varchar(32)') {
+				$sql_statements[] = 'ALTER TABLE `prefix_online` MODIFY COLUMN `sid` varchar(123) NOT NULL DEFAULT ""';
+			    }
 
-                            //Update 1.1q
-                            $qry = db_query('SHOW TABLES LIKE "bbcode"');
-                            if ($row = db_fetch_assoc($qry)) {
-                                $sql_statements[] = " CREATE TABLE `prefix_bbcode_badword` (
+			    //Update 1.1q
+			    $qry = db_query('SHOW TABLES LIKE "bbcode"');
+			    if ($row = db_fetch_assoc($qry)) {
+				$sql_statements[] = " CREATE TABLE `prefix_bbcode_badword` (
                                 `fnBadwordNr` int(10) unsigned NOT NULL auto_increment,
                                 `fcBadPatter` varchar(70) NOT NULL default '',
                                 `fcBadReplace` varchar(70) NOT NULL default '',
                                 PRIMARY KEY  (`fnBadwordNr`)) ENGINE=MyISAM COMMENT='powered by ilch.de'";
 
-                                $sql_statements[] = "INSERT INTO `prefix_bbcode_badword` (`fcBadPatter`, `fcBadReplace`) VALUES('Idiot', '*peep*')";
-                                $sql_statements[] = "INSERT INTO `prefix_bbcode_badword` (`fcBadPatter`, `fcBadReplace`) VALUES('Arschloch', '*peep*')";
+				$sql_statements[] = "INSERT INTO `prefix_bbcode_badword` (`fcBadPatter`, `fcBadReplace`) VALUES('Idiot', '*peep*')";
+				$sql_statements[] = "INSERT INTO `prefix_bbcode_badword` (`fcBadPatter`, `fcBadReplace`) VALUES('Arschloch', '*peep*')";
 
-                                $sql_statements[] = "CREATE TABLE `prefix_bbcode_buttons` (
+				$sql_statements[] = "CREATE TABLE `prefix_bbcode_buttons` (
                                 `fnButtonNr` int(10) unsigned NOT NULL auto_increment,
                                 `fnFormatB` tinyint(1) unsigned NOT NULL default '1',
                                 `fnFormatI` tinyint(1) unsigned NOT NULL default '0',
@@ -196,9 +196,9 @@ if ($rows > 45)
                                 PRIMARY KEY (`fnButtonNr`)
                                 ) ENGINE = MyISAM COMMENT = 'powered by ilch.de'";
 
-                                $sql_statements[] = "INSERT INTO `prefix_bbcode_buttons` (`fnButtonNr`, `fnFormatB`, `fnFormatI`, `fnFormatU`, `fnFormatS`, `fnFormatEmph`, `fnFormatColor`, `fnFormatSize`, `fnFormatUrl`, `fnFormatUrlAuto`, `fnFormatEmail`, `fnFormatLeft`, `fnFormatCenter`, `fnFormatRight`, `fnFormatBlock`, `fnFormatSmilies`, `fnFormatList`, `fnFormatKtext`, `fnFormatImg`, `fnFormatImgUpl`, `fnFormatScreen`, `fnFormatVideo`, `fnFormatPhp`, `fnFormatCss`, `fnFormatHtml`, `fnFormatCode`, `fnFormatQuote`, `fnFormatCountdown`) VALUES(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)";
+				$sql_statements[] = "INSERT INTO `prefix_bbcode_buttons` (`fnButtonNr`, `fnFormatB`, `fnFormatI`, `fnFormatU`, `fnFormatS`, `fnFormatEmph`, `fnFormatColor`, `fnFormatSize`, `fnFormatUrl`, `fnFormatUrlAuto`, `fnFormatEmail`, `fnFormatLeft`, `fnFormatCenter`, `fnFormatRight`, `fnFormatBlock`, `fnFormatSmilies`, `fnFormatList`, `fnFormatKtext`, `fnFormatImg`, `fnFormatImgUpl`, `fnFormatScreen`, `fnFormatVideo`, `fnFormatPhp`, `fnFormatCss`, `fnFormatHtml`, `fnFormatCode`, `fnFormatQuote`, `fnFormatCountdown`) VALUES(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)";
 
-                                $sql_statements[] = "CREATE TABLE `prefix_bbcode_config` (
+				$sql_statements[] = "CREATE TABLE `prefix_bbcode_config` (
                                 `fnConfigNr` int(10) unsigned NOT NULL auto_increment,
                                 `fnYoutubeBreite` smallint(3) unsigned NOT NULL default '0',
                                 `fnYoutubeHoehe` smallint(3) unsigned NOT NULL default '0',
@@ -222,9 +222,9 @@ if ($rows > 45)
                                 PRIMARY KEY (`fnConfigNr`)
                                 ) ENGINE = MyISAM COMMENT = 'powered by ilch.de'";
 
-                                $sql_statements[] = "INSERT INTO `prefix_bbcode_config` (`fnConfigNr`, `fnYoutubeBreite`, `fnYoutubeHoehe`, `fcYoutubeHintergrundfarbe`, `fnGoogleBreite`, `fnGoogleHoehe`, `fcGoogleHintergrundfarbe`, `fnMyvideoBreite`, `fnMyvideoHoehe`, `fcMyvideoHintergrundfarbe`, `fnSizeMax`, `fnImgMaxBreite`, `fnImgMaxHoehe`, `fnScreenMaxBreite`, `fnScreenMaxHoehe`, `fnUrlMaxLaenge`, `fnWortMaxLaenge`, `fnFlashBreite`, `fnFlashHoehe`, `fcFlashHintergrundfarbe`) VALUES(1, 425, 350, '#000000', 400, 326, '#ffffff', 470, 406, '#ffffff', 20, 500, 500, 150, 150, 60, 70, 400, 300, '#ffffff')";
+				$sql_statements[] = "INSERT INTO `prefix_bbcode_config` (`fnConfigNr`, `fnYoutubeBreite`, `fnYoutubeHoehe`, `fcYoutubeHintergrundfarbe`, `fnGoogleBreite`, `fnGoogleHoehe`, `fcGoogleHintergrundfarbe`, `fnMyvideoBreite`, `fnMyvideoHoehe`, `fcMyvideoHintergrundfarbe`, `fnSizeMax`, `fnImgMaxBreite`, `fnImgMaxHoehe`, `fnScreenMaxBreite`, `fnScreenMaxHoehe`, `fnUrlMaxLaenge`, `fnWortMaxLaenge`, `fnFlashBreite`, `fnFlashHoehe`, `fcFlashHintergrundfarbe`) VALUES(1, 425, 350, '#000000', 400, 326, '#ffffff', 470, 406, '#ffffff', 20, 500, 500, 150, 150, 60, 70, 400, 300, '#ffffff')";
 
-                                $sql_statements[] = "CREATE TABLE `prefix_bbcode_design` (
+				$sql_statements[] = "CREATE TABLE `prefix_bbcode_design` (
                                 `fnDesignNr` int(10) unsigned NOT NULL auto_increment,
                                 `fcQuoteRandFarbe` varchar(7) NOT NULL default '',
                                 `fcQuoteTabelleBreite` varchar(7) NOT NULL default '',
@@ -252,23 +252,36 @@ if ($rows > 45)
                                 PRIMARY KEY (`fnDesignNr`)
                                 ) ENGINE = MyISAM COMMENT = 'powered by ilch.de'";
 
-                                $sql_statements[] = "INSERT INTO `prefix_bbcode_design` (`fnDesignNr`, `fcQuoteRandFarbe`, `fcQuoteTabelleBreite`, `fcQuoteSchriftfarbe`, `fcQuoteHintergrundfarbe`, `fcQuoteHintergrundfarbeIT`, `fcQuoteSchriftformatIT`, `fcQuoteSchriftfarbeIT`, `fcBlockRandFarbe`, `fcBlockTabelleBreite`, `fcBlockSchriftfarbe`, `fcBlockHintergrundfarbe`, `fcBlockHintergrundfarbeIT`, `fcBlockSchriftfarbeIT`, `fcKtextRandFarbe`, `fcKtextTabelleBreite`, `fcKtextRandFormat`, `fcEmphHintergrundfarbe`, `fcEmphSchriftfarbe`, `fcCountdownRandFarbe`, `fcCountdownTabelleBreite`, `fcCountdownSchriftfarbe`, `fcCountdownSchriftformat`, `fnCountdownSchriftsize`) VALUES(1, '#f6e79d', '320', '#666666', '#f6e79d', '#faf7e8', 'italic', '#666666', '#f6e79d', '350', '#666666', '#f6e79d', '#faf7e8', '#FF0000', '#000000', '90%', 'dotted', '#ffd500', '#000000', '#FF0000', '90%', '#FF0000', 'bold', 10)";
-                            }
+				$sql_statements[] = "INSERT INTO `prefix_bbcode_design` (`fnDesignNr`, `fcQuoteRandFarbe`, `fcQuoteTabelleBreite`, `fcQuoteSchriftfarbe`, `fcQuoteHintergrundfarbe`, `fcQuoteHintergrundfarbeIT`, `fcQuoteSchriftformatIT`, `fcQuoteSchriftfarbeIT`, `fcBlockRandFarbe`, `fcBlockTabelleBreite`, `fcBlockSchriftfarbe`, `fcBlockHintergrundfarbe`, `fcBlockHintergrundfarbeIT`, `fcBlockSchriftfarbeIT`, `fcKtextRandFarbe`, `fcKtextTabelleBreite`, `fcKtextRandFormat`, `fcEmphHintergrundfarbe`, `fcEmphSchriftfarbe`, `fcCountdownRandFarbe`, `fcCountdownTabelleBreite`, `fcCountdownSchriftfarbe`, `fcCountdownSchriftformat`, `fnCountdownSchriftsize`) VALUES(1, '#f6e79d', '320', '#666666', '#f6e79d', '#faf7e8', 'italic', '#666666', '#f6e79d', '350', '#666666', '#f6e79d', '#faf7e8', '#FF0000', '#000000', '90%', 'dotted', '#ffd500', '#000000', '#FF0000', '90%', '#FF0000', 'bold', 10)";
+			    }
+
+			    // Update fÃ¼r 1.1Q - > News Extended Integration
+			    $qry = db_query('SHOW COLUMNS FROM `prefix_news LIKE "html"');
+			    if ($row = db_fetch_assoc($qry)) {
+				$sql_statements[] = 'ALTER TABLE `prefix_news` ADD `editor_id` int(11) DEFAULT NULL';
+				$sql_statements[] = 'ALTER TABLE `prefix_news` ADD `edit_time` datetime DEFAULT NULL';
+				$sql_statements[] = 'ALTER TABLE `prefix_news` ADD `news_groups` int(11) NOT NULL DEFAULT "0" ';
+				$sql_statements[] = 'ALTER TABLE `prefix_news` ADD `html` tinyint(1) NOT NULL ';
+				$sql_statements[] = 'ALTER TABLE `prefix_news` ADD `show` int(12) NOT NULL default "0" ';
+				$sql_statements[] = 'ALTER TABLE `prefix_news` ADD `archiv` tinyint(1) NOT NULL DEFAULT "0" ';
+				$sql_statements[] = 'ALTER TABLE `prefix_news` ADD `endtime` int(12) DEFAULT NULL ';
+				$sql_statements[] = 'ALTER TABLE `prefix_news` ADD `klicks` mediumint(9) NOT NULL DEFAULT 0" ';
+			    }
 
 
-                            foreach ($sql_statements as $sql_statement) {
-                                if (trim($sql_statement) != '') {
-                                    echo '<pre>' . htmlentities($sql_statement, ENT_COMPAT, 'ISO-8859-1') . '</pre>';
-                                    $e = db_query($sql_statement);
-                                    if (!$e) {
-                                        echo '<font color="#FF0000"><b>Es ist ein Fehler aufgetreten</b></font>, bitte alles auf dieser Seite kopieren und auf ilch.de im Forum fragen...:<div style="border: 1px dashed grey; padding: 5px; background-color: #EEEEEE">' . mysql_error() . '<hr>' . $sql_statement . '</div><br /><b>Es sei denn,</b> es ist ein Fehler mit <i>duplicate entry</i> aufgetreten, das liegt einfach nur daran, dass du die Updatedatei mehrmals ausgeführt hast.<br />';
-                                    }
-                                    echo '<hr>';
-                                }
-                            }
-                            echo '<br /><br />Wenn keine Fehler aufgetreten sind, sollte die Installation ohne Probleme verlaufen sein und du solltest die update.php nun vom Webspace l&ouml;schen.';
-                        }
-                        ?>
+			    foreach ($sql_statements as $sql_statement) {
+				if (trim($sql_statement) != '') {
+				    echo '<pre>' . htmlentities($sql_statement, ENT_COMPAT, 'ISO-8859-1') . '</pre>';
+				    $e = db_query($sql_statement);
+				    if (!$e) {
+					echo '<font color="#FF0000"><b>Es ist ein Fehler aufgetreten</b></font>, bitte alles auf dieser Seite kopieren und auf ilch.de im Forum fragen...:<div style="border: 1px dashed grey; padding: 5px; background-color: #EEEEEE">' . mysql_error() . '<hr>' . $sql_statement . '</div><br /><b>Es sei denn,</b> es ist ein Fehler mit <i>duplicate entry</i> aufgetreten, das liegt einfach nur daran, dass du die Updatedatei mehrmals ausgefï¿½hrt hast.<br />';
+				    }
+				    echo '<hr>';
+				}
+			    }
+			    echo '<br /><br />Wenn keine Fehler aufgetreten sind, sollte die Installation ohne Probleme verlaufen sein und du solltest die update.php nun vom Webspace l&ouml;schen.';
+			}
+			?>
                     </td></tr></table>
         </form>
     </body>
