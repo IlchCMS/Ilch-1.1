@@ -17,7 +17,7 @@
     }
     function confirmDel() {
         var akl = document.getElementById('akl').value;
-        var frage = confirm("Willst du " + akl.substr(1) + " wirklich löschen?");
+        var frage = confirm("Willst du " + akl.substr(1) + " wirklich loeschen?");
         if (frage === true) {
             document.location.href = "?selfbp=0&del=" + akl;
         }
@@ -25,82 +25,91 @@
 
 //-->
 </script>
-<form name="form" action="?selfbp" method="POST">
-
-    <table cellpadding="2" cellspacing="1" border="0" class="border" width="700">
-        <tr>
-            <td class="Cmite">Aktion w&auml;hlen</td>
-            <td class="Cnorm"><select id="akl" name="akl" onChange="changeAktion()">{akl}</select></td>
-        </tr><tr>
-            <td class="Cmite">Dateiname</td>
-            <td class="Cnorm"><input name="filename" size="50" value="{filename}" /></td>
-        </tr><tr>
-            <td class="Cmite">Titel</td>
-            <td class="Cnorm"><input name="title" size="50" value="{title}" /></td>
-        </tr><tr>
-            <td class="Cmite">Hmenu</td>
-            <td class="Cnorm"><input name="hmenu" size="50" value="{hmenu}" /></td>
-        </tr><tr>
-            <td class="Cmite">Anzeige</td>
-            <td class="Cnorm">
-                <select name="view">{view}</select>
-                <input name="viewoptions" size="50" value="{viewoptions}" />
-            </td>
-        </tr><tr>
-            <td colspan="2" class="Cnorm">
-                <textarea rows="20" cols="90" class="bbwy" id="bbwy" name="bbwy">{text}</textarea>
-            </td>
-        </tr><tr class="Cdark">
-            <td></td>
-            <td><input type="submit" name="submit" value="Speichern">&nbsp;<input type="button" value="Löschen" onclick="confirmDel()"></td>
-        </tr>
-    </table>
+<form name="form" action="?selfbp" method="POST" class="form-horizontal" role="form">
+    <div class="panel panel-warning">
+        <div class="panel-heading text-center"><h4>Eigene Box/Page <small>eigene Seiten und Boxen erstellen  <a href="#hilfe"><span rel="tooltip" title="zu den Hilfestellungen" class="glyphicon glyphicon-question-sign text-warning" aria-hidden="true"></span></a></small></h4></div>
+        <div class="panel-body" style="margin:10px">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Aktion w&auml;hlen</label>
+                <div class="col-sm-10">
+                    <select class="form-control" id="akl" name="akl" onChange="changeAktion()">{akl}</select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Dateiname</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="filename" name="filename" value="{filename}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Titel</label>
+                <div class="col-sm-10">
+                    <input name="title" class="form-control" value="{title}" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Hmenu</label>
+                <div class="col-sm-10">
+                    <input name="hmenu" class="form-control" value="{hmenu}" >
+                </div>
+            </div>
+            <div class="form-group form-inline">
+                <label class="col-sm-2 control-label">Anzeige</label>
+                <div class="col-sm-10">
+                    <select style="margin-right:5px;" class="form-control" name="view">{view}</select><input  class="form-control" name="viewoptions" size="50" value="{viewoptions}" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label></label>
+                <textarea rows="9" class="form-control" class="bbwy" id="bbwy" name="bbwy">{text}</textarea>
+            </div>
+            <div class="form-group">
+                <label></label>
+                <input class="btn btn-primary" type="submit" name="submit" value="Speichern">&nbsp;&nbsp;<input class="btn btn-danger" type="button" value="Löschen" onclick="confirmDel()">
+            </div>
+        </div>
+    </div>
 </form>
+<div class="panel panel-success">
+    <div class="panel-heading"><h4><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>  <a name="hilfe" class="text-success">Hilfe</a></h4></div>
+    <div class="panel-body bg-success">
+        <ol>
+            <li>
+                <ul>
+                    <li><b>Dateiname:</b> Unter diesem Namen wird die Datei gespeichert und kann sie auch in der Navigation wiedergefunden werden. <br>Unbedingt auch <b>4.</b> Punkt beachten!</li>
+                    <li><b>Titel</b> wird oben in der Programmleiste angezeigt</li>
+                    <li><b>Hmenu</b> wird unter dem Banner angezeigt [Design abhängig]</li>
+                    <li><b>Anzeige</b> Hier kann man auswählen, ob die Seite ganz <u>normal</u>, <u>Vollbild</u> (, also ohne Men&uuml;,)
+                    oder in einem <u>neuen Fenster</u> angezeigt werden soll. <br>Für ein neues Fenster kann man die <u>Fenster Eigenschaften</u> noch in dem Eingabefeld dahinter festlegen. Bsp.:<br>                       
+                    <kbd>menubar=yes, toolbar=yes, status=yes, scrollbars=yes, resizable=yes, top=50, left=300, height=500, width=350</kbd>
+            </li>
+            </ul>
+            <br><br>
+            </li>
+            <li>Wie binde ich denn so eine eigene Page in das Men&uuml; ein?<br>
+                Einfach auf Navigation Klicken und den Namen aus&auml;hlen (er f&auml;ngt mit 'selfp_' an).<br><br>
+            </li>
+            <li>Und eigene Boxen?<br>
+                Auch sehr einfach. Auf Navigation klicken und den Namen aus&auml;hlen (er f&auml;ngt mit 'selfb_' an).<br><br>
+            </li>
 
-<br /><br />
-<table width="100%" border="0" cellpadding="10" cellspacing="1" class="border">
-    <tr>
-        <td class="Cnorm">
-            <b>Hilfe</b><br />
-            <ol>
-                <li>
-                    <ul>
-                        <li><b>Dateiname:</b> Unter diesem Namen wird die Datei gespeichert und kann sie auch in der Navigation wiedergefunden werden. <br>Unbedingt auch <b>4.</b> Punkt beachten!</li>
-                        <li><b>Titel</b> wird oben in der Programmleiste angezeigt</li>
-                        <li><b>Hmenu</b> wird unter dem Banner angezeigt [Design abhängig]</li>
-                        <li><b>Anzeige</b> Hier kann man auswählen, ob die Seite ganz <u>normal</u>, <u>Vollbild</u> (, also ohne Men&uuml;,)
-                        oder in einem <u>neuen Fenster</u> angezeigt werden soll. <br>Für ein neues Fenster kann man die <u>Fenster Eigenschaften</u> noch in dem Eingabefeld dahinter festlegen. Bsp.:<br>
-                        <span style="background-color:#FFFFFF">
-                            menubar=yes, toolbar=yes, status=yes, scrollbars=yes, resizable=yes, top=50, left=300, height=500, width=350
-                        </span></li>
-                </ul>
-                <br /><br />
-                </li>
-                <li>Wie binde ich denn so eine eigene Page in das Men&uuml; ein?<br />
-                    Einfach auf Navigation Klicken und den Namen aus&auml;hlen (er f&auml;ngt mit 'selfp_' an).<br /><br />
-                </li>
-                <li>Und eigene Boxen?<br />
-                    Auch sehr einfach. Auf Navigation klicken und den Namen aus&auml;hlen (er f&auml;ngt mit 'selfb_' an).<br /><br />
-                </li>
-
-                <li><b>Wichtig!</b><br />
-                    Folgendes bitte beachten. Die Dateiamen m&uuml;ssen unterschiedlich sein!
-                    Wenn Sie einen gleichen Namen verwenden, wird die schon bestehende Datei
-                    einfach &uuml;berschrieben!
-                    <br />
-                    Ausserdem darf der Name einer neuen Seite nicht schon im include/contents
-                    Ordner liegen, sonst kann die neue eigene Seite nicht angezeigt werden!
-                    Bei eigenen Boxen ist dies egal, dort darf der Name im include/boxes
-                    Ordner nicht schon vorhanden sein.
-                    <br />
-                    Bitte im Namen keine Sonderzeichen verwenden. Beschr&auml;nken Sie sich auf
-                    die Buchstaben A-Z und a-z und auf die Zahlen 0-9 ...
-                    <br />
-                    Bitte unbedingt diese drei Punkte beachten, andernfalls kann es zu Datenverlust
-                    oder sonstigem unerw&uuml;nstem Verhalten kommen.
-                    <br /><br />
-                </li>
-            </ol>
-        </td>
-    </tr>
-</table>
+            <li><b>Wichtig!</b><br>
+                Folgendes bitte beachten. Die Dateiamen m&uuml;ssen unterschiedlich sein!
+                Wenn Sie einen gleichen Namen verwenden, wird die schon bestehende Datei
+                einfach &uuml;berschrieben!
+                <br>
+                Ausserdem darf der Name einer neuen Seite nicht schon im include/contents
+                Ordner liegen, sonst kann die neue eigene Seite nicht angezeigt werden!
+                Bei eigenen Boxen ist dies egal, dort darf der Name im include/boxes
+                Ordner nicht schon vorhanden sein.
+                <br>
+                Bitte im Namen keine Sonderzeichen verwenden. Beschr&auml;nken Sie sich auf
+                die Buchstaben A-Z und a-z und auf die Zahlen 0-9 ...
+                <br>
+                Bitte unbedingt diese drei Punkte beachten, andernfalls kann es zu Datenverlust
+                oder sonstigem unerw&uuml;nstem Verhalten kommen.
+                <br><br>
+            </li>
+        </ol>
+    </div>
+</div>
