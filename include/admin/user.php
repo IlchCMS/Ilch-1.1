@@ -101,12 +101,12 @@ if (isset($_POST['action'])) {
 	$antispam = get_antispam('adminuser_action', 0, true);
 	?><script type="text/javascript"><!--
 	    function updateParent() {
-				parent.setNewAntispam(document.getElementById('tmp').childNodes[0]);
-			    }
-			    window.onload = function () {
-				updateParent();
-			    };
-			    //--></script>
+		parent.setNewAntispam(document.getElementById('tmp').childNodes[0]);
+	    }
+	    window.onload = function () {
+		updateParent();
+	    };
+	    //--></script>
 	<div id="tmp"><?php echo $antispam; ?></div>
 	<?php
 	exit;
@@ -396,7 +396,7 @@ switch ($um) {
 		    unset($tpl);
 		    icmail($_POST['email'], 'Admin hat dich angelegt', $txt);
 		}
-		$msg = '<div class="alert alert-success" role="alert">Benutzer angelegt <a href="javascript:closeThisWindow()">Fenster schlie&szlig;en</a></div>';
+		$msg = '<div class="alert alert-success" role="alert">Benutzer angelegt <a href="javascript:window.close()">Fenster schlie&szlig;en</a></div>';
 	    }
 	}
 	$pass = '';
