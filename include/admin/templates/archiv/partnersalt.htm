@@ -40,23 +40,19 @@
 <div class="panel panel-default">
     <div class="panel-heading">eingetragene Partner</div>
     <div class="panel-body">
-        <div class="row">
+        <table class="table table-striped">
+            <tr>
+            </tr>
             {EXPLODE}
-            <div class="col-sm-6 col-md-4"> 
-                <div class="thumbnail text-center">
-                    <img src="{banner}" alt="Bild nicht gefunden">
-                    <div class="caption">
-                        <h4 class="text-center">{name}</h4>
-                        <p class="text-center"><a style="margin-right:15px;" href="{link}" rel="tooltip" title="{link}" target="_blank"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a><a style="margin-right:4px;" href="?archiv-partners-e{id}" rel="tooltip" title="Eintrag &auml;ndern"><span style="color:#2D9600;" class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-                            <a style="margin-right:4px;" href="javascript:del('{id}')" rel="tooltip" title="Eintrag l&ouml;schen"><span style="color:#AD0000;" class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-                            <a style="margin-right:4px;" href="?archiv-partners-o{id}-{pos}" rel="tooltip" title="nach oben verschieben"><span style="color:#A54200;" class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></a>
-                            <a style="margin-right:4px;" href="?archiv-partners-u{id}-{pos}" rel="tooltip" title="nach unten verschieben"><span style="color:#A54200;" class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></a><span class="badge" rel="tooltip" title="Position">{pos}</span></p>
-                    </div>
-                </div>
-            </div>  
+            <tr>
+                <td><strong>{name}</strong> <a href="{link}" rel="tooltip" title="{link}" target="_blank"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a></td>
+                <td class="text-right" nowrap><a style="margin-right:4px;" href="?archiv-partners-e{id}" rel="tooltip" title="Eintrag &auml;ndern"><span style="color:#2D9600;" class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                    <a style="margin-right:4px;" href="javascript:del('{id}')" rel="tooltip" title="Eintrag l&ouml;schen"><span style="color:#AD0000;" class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                    <a style="margin-right:4px;" href="?archiv-partners-o{id}-{pos}" rel="tooltip" title="nach oben verschieben"><span style="color:#A54200;" class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></a>
+                    <a href="?archiv-partners-u{id}-{pos}" rel="tooltip" title="nach unten verschieben"><span style="color:#A54200;" class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></td>
+            </tr>
             {EXPLODE}
-
-        </div>
+        </table>
         {MPL}
     </div>
 </div>

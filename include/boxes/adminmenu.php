@@ -106,6 +106,7 @@ if (is_coadmin()) {
 	echo '<li><a href="admin.php?' . $row['url'] . '">' . $row['name'] . '</a></li>';
     }
 }
-echo '<li><a href="admin.php?logout">Logout</a></li>';
+// mal ausgeklammert, da es bei geringer Aufloesung das Menue verzieht - ein Eintrag zu viel
+// echo '<li><a href="admin.php?logout">Logout</a></li>';
 echo '</ul>';
 ?>
