@@ -161,7 +161,7 @@ if ($rows > 45)
 
 			    //Update 1.1q
 			    $qry = db_query('SHOW TABLES LIKE `prefix_bbcode_badword`');
-			    if ($row = db_fetch_assoc($qry)) {
+			    if (!$qry) {
 				$sql_statements[] = '-- UPDATE 1.1Q';
 				$sql_statements[] = " CREATE TABLE `prefix_bbcode_badword` (
                                 `fnBadwordNr` int(10) unsigned NOT NULL auto_increment,
@@ -266,15 +266,15 @@ if ($rows > 45)
 
 			    // Update für 1.1Q.2 - > News Extended Integration
 			    $qry = db_query('SHOW COLUMNS FROM `prefix_news` LIKE "html"');
-			    if ($row = db_fetch_assoc($qry)) {
-				$sql_statements[] = 'ALTER TABLE `prefix_news` ADD `editor_id` int(11) DEFAULT NULL';
-				$sql_statements[] = 'ALTER TABLE `prefix_news` ADD `edit_time` datetime DEFAULT NULL';
-				$sql_statements[] = 'ALTER TABLE `prefix_news` ADD `news_groups` int(11) NOT NULL DEFAULT "0" ';
-				$sql_statements[] = 'ALTER TABLE `prefix_news` ADD `html` tinyint(1) NOT NULL ';
-				$sql_statements[] = 'ALTER TABLE `prefix_news` ADD `show` int(12) NOT NULL default "0" ';
-				$sql_statements[] = 'ALTER TABLE `prefix_news` ADD `archiv` tinyint(1) NOT NULL DEFAULT "0" ';
-				$sql_statements[] = 'ALTER TABLE `prefix_news` ADD `endtime` int(12) DEFAULT NULL ';
-				$sql_statements[] = 'ALTER TABLE `prefix_news` ADD `klicks` mediumint(9) NOT NULL DEFAULT 0" ';
+			    if ($qry) {
+				$sql_statements[] = 'ALTER TABLE `prefix_news` ADD (`editor_id` int(11) DEFAULT NULL,
+					`edit_time` datetime DEFAULT NULL,
+					`news_groups` int(11) NOT NULL DEFAULT "0",
+					`html` tinyint(1) NOT NULL,
+					`show` int(12) NOT NULL default "0",
+					`archiv` tinyint(1) NOT NULL DEFAULT "0",
+					`endtime` int(12) DEFAULT NULL,
+					`klicks` mediumint(9) NOT NULL DEFAULT "0" )';
 			    }
 
 
