@@ -5,14 +5,20 @@
 $readme = <<<README
 Changelog:
 ==========
-+ neue Funktionen       * �nderungen/Bugfixes
++ neue Funktionen       * Aenderungen/Bugfixes
 
-Version 1.1 P
+Version 1.1 Q
 -------------
-* Kompatibilit�t zu PHP 5.3 und 5.4 verbessert
-* Passwordhashmethod verbessert (sicherere Passw�rter in der Datenbank)
-* verbesserte Antispam-Methode eingebunden
-* einige Absicherungen gegen CSRF Attacken
+* Sicherheitsupdates im Bezug auf mögliche SQL-Injections
+* Integration SSL / TLS beim Mail-Versand (Transportverschlüsselung)
+* PHP Versionscheck während der Installation
+* Bugfix Forum verschieben
+* Korrektur ungültiger Links
+* Kontakt Formular improved --> Absenden des Formulars nur dann, wenn alle felder gefüllt sind.
++ Integration des BBCode
++ Integration von News Extended
++ Komplette überarbeitung des Backends -- Integration Bootstrap
++ Frontend Templates alle tabellen durch divs ersetzt
 README;
 
 $rows = substr_count($readme, "\n");
@@ -20,14 +26,14 @@ if ($rows > 45)
     $rows = 45;
 ?>
 <html>
-    <head><title>... ::: [ U p d a t e f &uuml; r &nbsp; i l c h C l a n  &nbsp; 1 . 1 P] ::: ...</title>
+    <head><title>... ::: [ U p d a t e f &uuml; r &nbsp; i l c h C l a n  &nbsp; 1 . 1 Q ] ::: ...</title>
         <link rel="stylesheet" href="include/designs/ilchClan/style.css" type="text/css">
     </head>
     <body>
 
         <form method="post">
             <table width="70%" class="border" border="0" cellspacing="0" cellpadding="25" align="center">
-                <tr><th class="Chead" align="center">... ::: [ U p d a t e f &uuml; r &nbsp; i l c h C l a n  &nbsp; 1 . 1 P</u>] ::: ...</th></tr>
+                <tr><th class="Chead" align="center">... ::: [ U p d a t e f &uuml; r &nbsp; i l c h C l a n  &nbsp; 1 . 1 Q </u>] ::: ...</th></tr>
                 <tr>
                     <td class="Cmite">
 			<?php
@@ -65,7 +71,9 @@ if ($rows > 45)
 			    //Update 1.1f
 			    $old = array();
 			    $qry = db_query('SHOW FULL COLUMNS FROM `prefix_forumcats`');
+			    echo mysql_error();
 			    while ($r = db_fetch_assoc($qry)) {
+				echo mysql_error();
 				$old[] = $r['Field'];
 			    }
 			    if (!in_array('cid', $old)) {
@@ -152,8 +160,9 @@ if ($rows > 45)
 			    }
 
 			    //Update 1.1q
-			    $qry = db_query('SHOW TABLES LIKE "bbcode"');
+			    $qry = db_query('SHOW TABLES LIKE `prefix_bbcode_badword`');
 			    if ($row = db_fetch_assoc($qry)) {
+				$sql_statements[] = '-- UPDATE 1.1Q';
 				$sql_statements[] = " CREATE TABLE `prefix_bbcode_badword` (
                                 `fnBadwordNr` int(10) unsigned NOT NULL auto_increment,
                                 `fcBadPatter` varchar(70) NOT NULL default '',
@@ -255,8 +264,8 @@ if ($rows > 45)
 				$sql_statements[] = "INSERT INTO `prefix_bbcode_design` (`fnDesignNr`, `fcQuoteRandFarbe`, `fcQuoteTabelleBreite`, `fcQuoteSchriftfarbe`, `fcQuoteHintergrundfarbe`, `fcQuoteHintergrundfarbeIT`, `fcQuoteSchriftformatIT`, `fcQuoteSchriftfarbeIT`, `fcBlockRandFarbe`, `fcBlockTabelleBreite`, `fcBlockSchriftfarbe`, `fcBlockHintergrundfarbe`, `fcBlockHintergrundfarbeIT`, `fcBlockSchriftfarbeIT`, `fcKtextRandFarbe`, `fcKtextTabelleBreite`, `fcKtextRandFormat`, `fcEmphHintergrundfarbe`, `fcEmphSchriftfarbe`, `fcCountdownRandFarbe`, `fcCountdownTabelleBreite`, `fcCountdownSchriftfarbe`, `fcCountdownSchriftformat`, `fnCountdownSchriftsize`) VALUES(1, '#f6e79d', '320', '#666666', '#f6e79d', '#faf7e8', 'italic', '#666666', '#f6e79d', '350', '#666666', '#f6e79d', '#faf7e8', '#FF0000', '#000000', '90%', 'dotted', '#ffd500', '#000000', '#FF0000', '90%', '#FF0000', 'bold', 10)";
 			    }
 
-			    // Update für 1.1Q - > News Extended Integration
-			    $qry = db_query('SHOW COLUMNS FROM `prefix_news LIKE "html"');
+			    // Update für 1.1Q.2 - > News Extended Integration
+			    $qry = db_query('SHOW COLUMNS FROM `prefix_news` LIKE "html"');
 			    if ($row = db_fetch_assoc($qry)) {
 				$sql_statements[] = 'ALTER TABLE `prefix_news` ADD `editor_id` int(11) DEFAULT NULL';
 				$sql_statements[] = 'ALTER TABLE `prefix_news` ADD `edit_time` datetime DEFAULT NULL';
@@ -273,6 +282,7 @@ if ($rows > 45)
 				if (trim($sql_statement) != '') {
 				    echo '<pre>' . htmlentities($sql_statement, ENT_COMPAT, 'ISO-8859-1') . '</pre>';
 				    $e = db_query($sql_statement);
+				    echo mysql_error();
 				    if (!$e) {
 					echo '<font color="#FF0000"><b>Es ist ein Fehler aufgetreten</b></font>, bitte alles auf dieser Seite kopieren und auf ilch.de im Forum fragen...:<div style="border: 1px dashed grey; padding: 5px; background-color: #EEEEEE">' . mysql_error() . '<hr>' . $sql_statement . '</div><br /><b>Es sei denn,</b> es ist ein Fehler mit <i>duplicate entry</i> aufgetreten, das liegt einfach nur daran, dass du die Updatedatei mehrmals ausgef�hrt hast.<br />';
 				    }
@@ -282,7 +292,9 @@ if ($rows > 45)
 			    echo '<br /><br />Wenn keine Fehler aufgetreten sind, sollte die Installation ohne Probleme verlaufen sein und du solltest die update.php nun vom Webspace l&ouml;schen.';
 			}
 			?>
-                    </td></tr></table>
+                    </td>
+		</tr>
+	    </table>
         </form>
     </body>
 </html>
