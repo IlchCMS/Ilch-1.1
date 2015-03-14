@@ -8,7 +8,7 @@ function user_get_group_list($uid) {
     $l = 'Mitglied in Gruppen:<br />';
     $erg = db_query("SELECT prefix_groups.name FROM prefix_groupusers LEFT JOIN prefix_groups ON prefix_groups.id = prefix_groupusers.gid WHERE prefix_groupusers.uid = " . $uid);
     while ($r = db_fetch_assoc($erg)) {
-	$l .= '- ' . $r['name'] . '<br />';
+	$l .= '- ' . $r['name'] . '<br>';
     }
     return ($l);
 }
@@ -18,7 +18,7 @@ function user_get_all_mod_list() {
     $erg = db_query("SELECT DISTINCT name FROM prefix_modules WHERE fright = 1 ORDER BY prefix_modules.name");
     while ($r = db_fetch_assoc($erg)) {
 	$x = $r['name'];
-	$l .= '<th style="font-size: 9px; font-weight: normal;" title="' . $r['name'] . '" valign="bottom">' . $x . '</th>';
+	$l .= '<th style="font-size: 9px; font-weight: normal;text-align:center;" title="' . $r['name'] . '">' . $x . '</th>';
     }
     return ($l);
 }
@@ -203,7 +203,7 @@ switch ($um) {
 	}
 	$erg = db_query("SELECT name,email,id,recht,wohnort,homepage,aim,msn,icq,yahoo,status,staat,gebdatum,sig,opt_pm,opt_pm_popup,opt_mail,geschlecht,spezrank,avatar FROM prefix_user WHERE id = '" . $uid . "'");
 	if (db_num_rows($erg) == 0) {
-	    die('Fehler: Username nicht gefunden <a href="?user">zur&uuml;ck</a>');
+	    die('<div class="alert alert-warning" role="alert">Fehler: Username nicht gefunden<br><br><a class="btn btn-default" href="?user">zur&uuml;ck</a></div>');
 	} else {
 	    $row = db_fetch_assoc($erg);
 
@@ -396,7 +396,7 @@ switch ($um) {
 		    unset($tpl);
 		    icmail($_POST['email'], 'Admin hat dich angelegt', $txt);
 		}
-		$msg = '<div class="alert alert-success" role="alert">Benutzer angelegt <a href="javascript:window.close()">Fenster schlie&szlig;en</a></div>';
+		$msg = '<div class="alert alert-success" role="alert">Benutzer angelegt<br><br><a class="btn btn-default" href="javascript:window.close()">Fenster schlie&szlig;en</a></div>';
 	    }
 	}
 	$pass = '';

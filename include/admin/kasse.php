@@ -15,7 +15,7 @@ if (isset($_POST['ksub']) AND ! empty($_POST['kontodaten'])) {
     $betrag = str_replace(',', '.', $_POST['betrag']);
     $datum = get_datum($_POST['datum']);
     if (!is_numeric($betrag)) {
-	echo 'der Betrag is keine Nummer?.. !!';
+	echo '<div class="alert alert-danger" role="alert">der Betrag is keine Nummer?.. !!</div>';
     } elseif (is_numeric($menu->get(1))) {
 	if (db_query("UPDATE `prefix_kasse` SET name = '$name', datum = '$datum', betrag = '$betrag', verwendung = '$verwendung' WHERE id = " . $menu->get(1)))
 	    echo '<div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Buchung wurde ge&auml;ndert</div>';

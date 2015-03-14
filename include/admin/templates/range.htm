@@ -13,25 +13,23 @@
                 <td>{BEZ}</td>
                 <td class="text-center">{MIN}</td>
                 <td class="text-center">{SPEZ}</td>
-                <td class="text-right" nowrap><div class="btn-group btn-group-sm">
+                <td class="text-right" nowrap>
+                    <div class="btn-group btn-group-sm">
                         <a class="btn btn-primary" href="?range-2-{ID}">Bearbeiten</a><a class="btn btn-danger" href="?range-1-{ID}">L&ouml;schen</a>
-                    </div></td>
+                    </div>
+                </td>
             </tr>
-
             {EXPLODE}
         </table>
         <input class="btn btn-success" type="button" value="Neuen Rang eintragen" onClick="document.location.href = '?range-2'">
-    </div></div>
-
-
+    </div>
+</div>
 {EXPLODE}
-
 <form action="admin.php?range-2" method="POST" class="form-horizontal" role="form">
     <input type="hidden" name="rid" value="{RID}">
     <input type="hidden" name="akt" value="{AKT}">
     <a class="btn btn-primary btn-sm" href="javascript: history.go(-1)">zur&uuml;ck</a><br><br>
     <legend><h2>Rank - Administration</h2></legend>
-
     <div class="form-group">
         <label class="col-sm-2 control-label">Rankname</label>
         <div class="col-sm-6">

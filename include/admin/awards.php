@@ -1,7 +1,7 @@
 <?php
 
-#   Copyright by: Manuel
-#   Support: www.ilch.de
+//   Copyright by: Manuel
+//   Support: www.ilch.de
 
 
 defined('main') or die('no direct access');
@@ -10,7 +10,7 @@ defined('admin') or die('only admin access');
 $design = new design('Admins Area', 'Admins Area', 2);
 $design->header();
 
-##### F u n k t i o n e n
+// F u n k t i o n e n
 
 function getTeams() {
 
@@ -22,13 +22,13 @@ function getTeams() {
     return ($squads);
 }
 
-##### A k t i o n e n
-#L�schen
+// A k t i o n e n
+// Loeschen
 if ($menu->getA(1) == 'd' AND is_numeric($menu->getE(1))) {
     db_query('DELETE FROM `prefix_awards` WHERE id = "' . $menu->getE(1) . '" LIMIT 1');
 }
 
-#Eintragen
+// Eintragen
 if (isset($_POST['ins'])) {
     $datum = get_datum($_POST['datum']);
     $wofur = escape($_POST['wofur'], 'string');
@@ -53,7 +53,7 @@ if (isset($_POST['ins'])) {
     }
 }
 
-#�ndern/Ausgabearray f�llen
+// Aendern/Ausgabearray fuellen
 if ($menu->getA(1) == 'e' AND is_numeric($menu->getE(1))) {
     $r = db_fetch_assoc(db_query("SELECT * FROM `prefix_awards` WHERE id = " . $menu->getE(1)));
     $r['id'] = '-e' . $r['id'];
@@ -64,7 +64,7 @@ if ($menu->getA(1) == 'e' AND is_numeric($menu->getE(1))) {
 	'bild' => '', 'text' => '', 'teams' => getTeams());
 }
 
-#Ausgabe
+// Ausgabe
 $tpl = new tpl('awards', 1);
 $tpl->set_ar_out($r, 0);
 if (empty($r['team']))

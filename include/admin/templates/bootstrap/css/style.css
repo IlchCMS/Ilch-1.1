@@ -145,7 +145,7 @@ background:#FCF8E3
 }
 .Cmite,
 .Cnorm{
-background:#FFFFFF
+background:#F9F9F9;
 }
 .border label,
 .border input,
@@ -360,6 +360,25 @@ margin-top:3px;
 table{
 width: 100%;
 border-spacing: 0
+}
+.border{
+width: 100%;
+border-spacing: 1px;
+margin-bottom:10px
+}
+.small_index_ilch{
+width: 400px;
+margin:0 auto
+}
+.ilchadmin{
+box-shadow: 0px 0px 0px 16px rgba(0,0,0,0.5);
+color: #2f2f2f;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+}
+.ilch_case_in{
+padding: 10px 10px 20px 10px
 }
 .border400{
 max-width: 400px
