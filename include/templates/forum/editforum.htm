@@ -1,24 +1,24 @@
 <form action="index.php?forum-editforum-{id}" method="POST">
-{antispam}
-<table class="border">
-	  <tr class="Chead">
-		  <th><strong>{_lang_topic}</strong></td>
-			<th class="text-center"><strong>{_lang_answers}</strong></td>
-      <th class="text-center"><strong>{_lang_update}</strong></td>
-      <th></th>
-    </tr>
-{EXPLODE}
-  <tr>
-    <td class="Cnorm"><a href="index.php?forum-showposts-{id}">{name}</a><br>
-    <span class="smalfont">{_lang_author}: {erst}</span></td>
-	  <td class="Cmite text-center">{rep}</td>
-		<td class="Cnorm text-center">{date}</td>
-    <td class="Cdark"><input type="checkbox" name="in[{id}]" value="yes"></td>
-  </tr>
-{EXPLODE}
-</table>
-<input type="submit" name="del" value="{_lang_delete}">
-<input type="submit" name="shift" value="{_lang_shift}">
-<input type="submit" name="status" value="{_lang_status} {_lang_change}">
+    {antispam}
+    <table class="border">
+        <tr class="Chead">
+            <th><strong>{_lang_topic}</strong></th>
+            <th class="text-center"><strong>{_lang_answers}</strong></th>
+            <th class="text-center"><strong>{_lang_update}</strong></th>
+            <th></th>
+        </tr>
+        {EXPLODE}
+        <tr>
+            <td class="Cnorm"><a href="index.php?forum-showposts-{id}">{name}</a><br>
+                <span class="smalfont">{_lang_author}: {erst}</span></td>
+            <td class="Cmite text-center">{rep}</td>
+            <td class="Cnorm text-center">{date}</td>
+            <td class="Cdark"><input type="checkbox" name="in[{id}]" value="yes"></td>
+        </tr>
+        {EXPLODE}
+    </table>
+    <input type="submit" name="del" value="{_lang_delete}">
+    <input type="submit" name="shift" value="{_lang_shift}">
+    <input type="submit" name="status" value="{_lang_status} {_lang_change}">
 </form>
 {MPL}

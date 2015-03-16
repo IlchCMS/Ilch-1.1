@@ -1,27 +1,29 @@
 <div class="ilch_float_r">{NEWTOPIC}</div><br>
 <table class="border tablebordertop">
-	  <tr class="Chead">
-		  <th></td>
-		  <th><strong>{_lang_topic}</strong></td>
-			<th class="text-center"><strong>{_lang_answers}</strong></td>
-			<th class="text-center"><strong>{_lang_hits}</strong></td>
-      <th class="text-center"><strong>{_lang_update}</strong></td>
+    <tr class="Chead">
+        <th></th>
+        <th><strong>{_lang_topic}</strong></th>
+        <th class="text-center"><strong>{_lang_answers}</strong></th>
+        <th class="text-center"><strong>{_lang_hits}</strong></th>
+        <th class="text-center"><strong>{_lang_update}</strong></th>
     </tr>
-{EXPLODE}
-  <tr>
-	  <td class="Cnorm forumord text-center"><img src="include/images/forum/{ORD}.gif"></td>
-    <td class="Cnorm">{VORT} <a href="index.php?forum-showposts-{id}">{name}</a><br>
-    <span class="smalfont">{_lang_author}: {erst}</span></td>
-	  <td class="Cmite text-center">{rep}</td>
-		<td class="Cmite text-center">{hit}</td>
-		<td class="Cdark text-center">
-		  <span class="smalfont">
-			{date}
-				<br>
-				<a class="smalfont" href="index.php?forum-showposts-{id}-p{page}#{pid}">{_lang_lastfrom}: {last}</a>
-	  </td>
-  </tr>
-{EXPLODE}
+    {EXPLODE}
+    <tr>
+        <td class="Cnorm forumord text-center"><img src="include/images/forum/{ORD}.gif"></td>
+        <td class="Cnorm">
+            {VORT} <a href="index.php?forum-showposts-{id}">{name}</a><br>
+            <span class="smalfont">{_lang_author}: {erst}</span>
+        </td>
+        <td class="Cmite text-center">{rep}</td>
+        <td class="Cmite text-center">{hit}</td>
+        <td class="Cdark text-center">
+            <span class="smalfont">
+                {date}
+                <br>
+                <a class="smalfont" href="index.php?forum-showposts-{id}-p{page}#{pid}">{_lang_lastfrom}: {last}</a>
+        </td>
+    </tr>
+    {EXPLODE}
 </table>
 <br>
 {MPL}
