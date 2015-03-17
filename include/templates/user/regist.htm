@@ -1,40 +1,42 @@
 <div class="ilch_box_in">
-<form action="index.php?user-regist-2" method="POST">
-<fieldset>
-<legend><strong>{_lang_attentionplease}</strong></legend>
-<br>
-{regeln}
-<br><input class="ilch_login_content" type="submit" value="{_lang_readandok}" name="Yes">
-</form>
-</div>
-{EXPLODE}
-<div class="ilch_box_in">
-<form action="index.php?user-regist-2" method="POST">
-    <input type="hidden" value="Gelesen und einverstanden" name="checked">
-<div class="ilch_box_in">
-<fieldset>
-<legend><strong>{_lang_REGISTER}</strong></legend>
-<div class="ilch_box_in">
-{FEHLER}
-<br>
-<label class="ilch_float_l label_80">{_lang_nickname} :</label><input type="text" name="nutz" value="{name}" maxlength="15"><br>
-<label class="ilch_float_l label_80">{_lang_mail} :</label><input type="text" maxlength="100" value="{email}" name="email"><br>
-{EXPLODE}
-<label class="ilch_float_l label_80">{_lang_password} :</label><input type="password" name="pass"><br><br>
-{EXPLODE}
-<label class="ilch_float_l label_80">Antispam :</label>{antispam}<br><br>
-<label class="ilch_float_l label_80"></label><input type="submit" name="register" value="{_lang_register}"></td>
-    </div>
-</fieldset>
-</div>
-</form>
-</div>
-{EXPLODE}
-<div class="border">
-<div class="ilch_case">
-<div class="text-center ilch_case_in Cnorm">
-<strong>{_lang_hello} {NAME}</strong><br><br>
-{_lang_yourregistrationwassuccessful}!<br>
-{_lang_amailhasbeensenttoyouwithmailandpass}!<br><br>
-{_lang_afteryoureceivedthemail} <a href="index.php?user-2">{_lang_login2}</a>
-</div></div></div>
+    <form action="index.php?user-regist-2" method="POST">
+        <fieldset>
+            <legend><strong>{_lang_attentionplease}</strong></legend>
+            <br>
+            {regeln}
+            <br><input class="ilch_login_content" type="submit" value="{_lang_readandok}" name="Yes">
+            </form>
+            </div>
+            {EXPLODE}
+            <div class="ilch_box_in">
+                <form action="index.php?user-regist-2" method="POST">
+                    <input type="hidden" value="Gelesen und einverstanden" name="checked">
+                    <div class="ilch_box_in">
+                        <fieldset>
+                            <legend><strong>{_lang_REGISTER}</strong></legend>
+                            <div class="ilch_box_in">
+                                {FEHLER}
+                                <br>
+                                <label class="ilch_float_l label_80">{_lang_nickname} :</label><input type="text" name="nutz" value="{name}" maxlength="15"><br>
+                                <label class="ilch_float_l label_80">{_lang_mail} :</label><input type="text" maxlength="100" value="{email}" name="email"><br>
+                                {EXPLODE}
+                                <label class="ilch_float_l label_80">{_lang_password} :</label><input type="password" name="pass"><br><br>
+                                {EXPLODE}
+                                <label class="ilch_float_l label_80">Antispam :</label>{antispam}<br><br>
+                                <label class="ilch_float_l label_80"></label><input type="submit" name="register" value="{_lang_register}"></td>
+                            </div>
+                        </fieldset>
+                    </div>
+                </form>
+            </div>
+            {EXPLODE}
+            <div class="border">
+                <div class="ilch_case">
+                    <div class="text-center ilch_case_in Cnorm">
+                        <strong>{_lang_hello} {NAME}</strong><br><br>
+                        {_lang_yourregistrationwassuccessful}!<br>
+                        {_lang_amailhasbeensenttoyouwithmailandpass}!<br><br>
+                        {_lang_afteryoureceivedthemail} <a href="index.php?user-2">{_lang_login2}</a>
+                    </div>
+                </div>
+            </div>
