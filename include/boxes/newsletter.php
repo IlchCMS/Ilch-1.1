@@ -28,10 +28,10 @@ if ( empty($_POST['NEWSLETTER'])  ) {
 	$anz = db_result($erg,0);
 	if ( $anz == 1 ) {
 	  db_query("DELETE FROM prefix_newsletter WHERE email = '".$email."'");
-		echo $lang['deletesuccessful'];
+		echo '<div class="text-center"><span class="ilch_hinweis_gelb">'.$lang['deletesuccessful'].'<span></div>';
 	} else {
 	  db_query("INSERT INTO prefix_newsletter (`email`) VALUES ('".$email."')");
-		echo $lang['insertsuccessful'];
+		echo '<div class="text-center"><span class="ilch_hinweis_gruen">'.$lang['insertsuccessful'].'<span></div>';
 	}
 }
 ?>
