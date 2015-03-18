@@ -15,9 +15,9 @@ if (empty($_GET['sum'])) {
 	$ges_gestern = @db_result(db_query('SELECT count FROM prefix_counter WHERE date < "'.$heute.'" ORDER BY date DESC LIMIT 1'),0);
 
 	
-  echo $lang['whole'].': '.$ges_visits.'<br />';
-	echo $lang['today'].': '.$ges_heute.'<br />';
-	echo $lang['yesterday'].': '.$ges_gestern.'<br />';
+  echo $lang['whole'].': '.$ges_visits.'<br>';
+	echo $lang['today'].': '.$ges_heute.'<br>';
+	echo $lang['yesterday'].': '.$ges_gestern.'<br>';
 	echo 'Online: '.ges_online().'<br />';
 	echo '<a class="box" href="index.php?statistik"><b>... '.$lang['more'].'</b></a>';
 	

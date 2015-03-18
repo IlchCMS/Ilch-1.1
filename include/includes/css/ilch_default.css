@@ -368,10 +368,30 @@ color:#008BEF
 /* Ilch Geburtstags Box */
 
 .ilch_geb_avatar{
-max-width:100%;
+max-width: 100px;
 height: auto;
 border:none;
 margin: 4px 0px 4px 0px
+}
+
+/* Allianz Box Banner */
+
+.allianzilchbanner img{
+max-width: 100px;
+height: auto;
+border:none;
+margin:2px;
+}
+
+/* Online Box */
+
+.onlineboxgeaste{
+color:#003366;
+}
+.onlineboxhr{
+height: 0px;
+border: dashed #9AB1C8 0px;
+border-top-width: 1px;
 }
 
 /* vorgesetzte Klassen fuer Designer */

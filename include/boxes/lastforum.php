@@ -25,7 +25,7 @@ $resultID = db_query($query);
 while ($row = db_fetch_assoc($resultID)) {
 	$row['date'] = date('d.m.y - H:i',$row['time']);
 	$row['page'] = ceil ( ($row['rep']+1)  / $allgAr['Fpanz'] );
-  echo '<div class="tdweight10 text-left ilch_float_l"><strong>&raquo;</strong></div><div class="tdweight90 text-left ilch_float_l"><a href="?forum-showposts-'.$row['id'].'-p'.$row['page'].'#'.$row['pid'].'" title="'.$row['date'].' Uhr">'.$row['name'].'</a><br><span class="smalfont"> von '.$row['last'].'</span></div>';
+  echo '<div class="tdweight10 text-left ilch_float_l"><strong>&raquo;</strong></div><div class="tdweight90 text-left ilch_float_l"><a href="?forum-showposts-'.$row['id'].'-p'.$row['page'].'#'.$row['pid'].'" title="'.$row['date'].' Uhr">'.((strlen($row['name'])<28) ? $row['name'] : substr($row['name'],0,28).'...').'</a><br><span class="smalfont"> von '.$row['last'].'</span></div>';
 }
 echo '</div>';
 ?>

@@ -1,7 +1,7 @@
 <?php
-#   Copyright by Manuel
-#   Support www.ilch.de
 
+//  Copyright by Manuel
+//  Support www.ilch.de
 
 defined ('main') or die ( 'no direct access' );
 
@@ -23,8 +23,6 @@ while ($row = db_fetch_object($erg) ) {
     $bild = 'include/images/icons/pad.gif';
 
   }
-
-	
 	echo '<div class="tdweight90 text-left ilch_float_l">'.get_wargameimg($row->game).'  <a href="index.php?wars-more-'.$row->id.'">'.$row->owp.' '.$lang['at2'].' '.$row->opp.' - '.$row->tag.'</a></div>';
 	echo '<div class="tdweight10 text-right ilch_float_r"><img src="'.$bild.'"></div>';
 }
