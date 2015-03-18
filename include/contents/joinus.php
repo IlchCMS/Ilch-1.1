@@ -62,14 +62,14 @@ if (count($far) <> $x OR $ch_name == false OR !chk_antispam('joinus')) {
   if (loggedin()) { $name = $_SESSION['authname']; }
   foreach($far as $v) {
 		if ($x > 0 AND empty($_POST[$v])) {
-			echo '<div class="text-center"><span class="ilch_hinweis_rot"><strong>missing:</strong> '.$lang[$v].'</div>';
+			echo '<div class="text-center"><span class="ilch_hinweis_rot"><strong>missing:</strong> '.$lang[$v].'</span></div>';
 		}
 		$tpl->set ($v, $$v);
 	}
   if ($x > 0 AND $name != $xname) {
-    echo '<div class="text-center"><span class="ilch_hinweis_rot">'.$lang['wrongnickname'].'</div';
+    echo '<div class="text-center"><span class="ilch_hinweis_rot">'.$lang['wrongnickname'].'</span></div';
   } elseif ($x > 0 AND $ch_name == false) {
-    echo '<div class="text-center"><span class="ilch_hinweis_rot">'.$lang['namealreadyinuse'].'</div>';
+    echo '<div class="text-center"><span class="ilch_hinweis_rot">'.$lang['namealreadyinuse'].'</span></div>';
   }
   $name = $xname;
   $tpl->set('readonly', (loggedin()?' readonly': ''));
