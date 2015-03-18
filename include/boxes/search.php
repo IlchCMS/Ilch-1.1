@@ -8,7 +8,7 @@ defined ('main') or die ( 'no direct access' );
 $suchtpl = <<<HTML
 <div class="text-center">
 <form action="index.php?search" method="GET">
-<input type="text" value="{search}" name="search" size="{size}" placeholder="Ich suche ....">
+<input type="text" value="{search}" name="search" size="15" placeholder="Ich suche ....">
 <input type="hidden" name="in" value="2">
 <input type="submit" value="{_lang_search}">
 </form>
