@@ -351,15 +351,6 @@ textarea,
 select{
     margin-top:3px;
 }
-table{
-    width: 100%;
-    border-spacing: 0
-}
-.border{
-    width: 100%;
-    border-spacing: 1px;
-    margin-bottom:10px
-}
 .small_index_ilch{
     width: 400px;
     margin:0 auto
