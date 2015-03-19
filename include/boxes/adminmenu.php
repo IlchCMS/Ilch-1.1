@@ -89,12 +89,12 @@ if (is_coadmin()) {
       <li><a href="admin.php?archiv-partners">Partner</a></li>
       <li><a href="admin.php?picofx">Pic of X</a></li>';
     echo '</ul></li>';
+    echo '<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Module <b class="caret"></b></a><ul class="dropdown-menu dropdown-menu-right">';
     $erg = db_query("SELECT url, name FROM prefix_modules WHERE ashow = 1");
     while ($row = db_fetch_assoc($erg)) {
-	echo '<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Module <b class="caret"></b></a><ul class="dropdown-menu dropdown-menu-right">';
-	echo '<li><a href="admin.php?' . $row['url'] . '">' . $row['name'] . '</a></li>';
-	echo '</ul></li>';
+	  echo '<li><a href="admin.php?' . $row['url'] . '">' . $row['name'] . '</a></li>';
     }
+    echo '</ul></li>';
 } elseif (count($_SESSION['authmod']) > 0) {
     echo "[null, 'Module', null, null, null,";
     $q = "SELECT DISTINCT url, name
