@@ -123,7 +123,7 @@ code {
 .border > thead > tr > td,
 .border > tbody > tr > td,
 .border > tfoot > tr > td {
-    border: 1px solid #ddd;
+    border: 1px solid #02528f;
 }
 .Chead, .Cmite, .Cnorm, .Cdark {
     padding: 5px;
@@ -137,13 +137,19 @@ code {
     text-align: left;
     vertical-align: top;
 }
-.Chead,
-.Cdark{
-    background:#FCF8E3
+.Chead{
+   background: #16639b;
+   color: #9dbdd4;
 }
-.Cmite,
+.Cdark{
+   background-color: #9AB1C8;
+   color:#000;
+}
 .Cnorm{
-    background:#F9F9F9;
+    background:#e5e5e5;
+}
+.Cmite{
+    background:#f7f7f7;
 }
 .border label,
 .border input,
@@ -306,7 +312,9 @@ code {
 .border input[type=button]{
     height:30px;
     line-height:25px;
-    color:#fff;background-color:#428bca;border:1px solid #357ebd;
+      color: #333;
+  background-color: #fff;
+  border:1px solid  #ccc;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
@@ -319,7 +327,9 @@ code {
 .border input[type=file]:focus{
     height:30px;
     line-height:25px;
-    color:#fff;background-color:#3276b1;border:1px solid #285e8e
+    color: #333;
+  background-color: #e6e6e6;
+  border: 1px solid #adadad;
 }
 .border select,
 .border input[type=file] {
@@ -356,11 +366,11 @@ select{
     margin:0 auto
 }
 .ilchadmin{
-    box-shadow: 0px 0px 0px 16px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 0px 7px rgba(0,0,0,0.5);
     color: #2f2f2f;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
 }
 .ilch_case_in{
     padding: 10px 10px 20px 10px
