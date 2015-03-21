@@ -44,7 +44,7 @@ if (!empty($_FILES['file']['name'])
 			<head>
 			    <meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
 			    <title>Upload in die Usergallery</title>
-				<link rel="stylesheet" type="text/css" href="include/admin/templates/style.css" />
+				<link rel="stylesheet" type="text/css" href="include/includes/css/ilch_default.css">
 			    <script language="javascript" type="text/javascript">
 			    <!--
 			    var bbcode = new Array(\'[img]' . $server.$bild_thumb . '[/img]\', 
@@ -54,18 +54,16 @@ if (!empty($_FILES['file']['name'])
 			    //-->
 			    </script>
 			</head>
-			<body class="Cmite">
-				<div style="width:95%; margin:10px auto;">
-					<fieldset style="padding:10px;">
-					<legend style="width:400px;text-align:center;"><strong>Das Bild wurde erfolgreich hochgeladen</strong></legend>
-						<div style="text-align:center">
-							<img src="' . $server . $bild_thumb . '" style="max-height:150px;" alt="thumb" /><br />
-							Einfügen des Bildes in Form von:<br />
-							<a href="javascript:insert_bbcode(0);"><b>verkleinertes Vorschaubild</b></a> | <a href="javascript:insert_bbcode(1);"><b>originale Bildgr&ouml;&szlig;e</b></a><br />
+			<body>
+					<fieldset>
+					<legend><strong>Das Bild wurde erfolgreich hochgeladen</strong></legend>
+						<div class="text-center">
+							<img src="' . $server . $bild_thumb . '" style="max-height:150px;" alt="thumb" /><br>
+							Einf&uuml;gen des Bildes in Form von:<br>
+							<a href="javascript:insert_bbcode(0);"><b>verkleinertes Vorschaubild</b></a> | <a href="javascript:insert_bbcode(1);"><b>originale Bildgr&ouml;&szlig;e</b></a><br>
 							<a href="javascript:insert_bbcode(2);"><b>Vorschaubild mit Link zum original Bild</b></a>
 						</div>
 					</fieldset>
-				</div>
 			</body>
 			</html>';
 		} else {
@@ -79,13 +77,13 @@ if (!empty($_FILES['file']['name'])
 # bild hochladen
 $writable = is_writeable('include/images/usergallery');
 if ($writable AND (empty($_FILES['file']['name']) OR !empty($errormsg))) {
-	$errormsg = !empty($errormsg) ? 'Es ist ein Fehler aufgetreten: ' . $errormsg . '<br /><br />' : '';
+	$errormsg = !empty($errormsg) ? '<div class="text-center"><span class="ilch_hinweis_rot"><b>Es ist ein Fehler aufgetreten:<b><br> ' . $errormsg . '</span></div>' : '';
 	echo '<!DOCTYPE html>
 	<html>
 	<head>
 		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
 		<title>Upload in die Usergallery</title>
-		<link rel="stylesheet" type="text/css" href="include/admin/templates/style.css" />
+		<link rel="stylesheet" type="text/css" href="include/includes/css/ilch_default.css">
 		<script language="JavaScript" type="text/javascript">
 		<!--
 		function upload_check() {
@@ -97,36 +95,25 @@ if ($writable AND (empty($_FILES['file']['name']) OR !empty($errormsg))) {
 		//-->
 		</script>
 	</head>
-	<body class="Cmite">
-		<form name="form" onSubmit="return upload_check()" class="form" style="width:95%; margin:10px auto;" action="index.php?user-usergallery_upload" method="POST" enctype="multipart/form-data" >
-		<input type="hidden" name="gesendet" value="yes" />
-			<fieldset style="padding:10px;">
-			<legend style="width:400px;text-align:center;"><strong>Ein Bild in die Usergallery hochladen und einf&uuml;gen</strong></legend>
+	<body>
+		<form name="form" onSubmit="return upload_check()" class="form" action="index.php?user-usergallery_upload" method="POST" enctype="multipart/form-data" >
+		<input type="hidden" name="gesendet" value="yes">
+			<fieldset>
+			<legend><strong>Ein Bild in die Usergallery hochladen und einf&uuml;gen</strong></legend>
 			<p>' . $errormsg . '</p>
-			<div style="width:400px;text-align:center;">
-			    <table width="100%" border="0" cellpadding="0" cellspacing="5">
-				    <tr>
-				        <td align="left">Bildauswahl</td>
-						<td align="left"><input style="width:90%" type="file" name="file" /></td>
-					</tr><tr>
-				        <td align="left">Beschreibung</td>
-						<td align="left"><input style="width:90%" name="text" maxlength="255" /></td>
-				    </tr><tr>
-					    <td align="left"></td>
-						<td align="left"><input type="submit" value="Absenden" name="submit"></td>
-					</tr>
-				</table>
-				<br /><br />
-				<a href="javascript:window.close(\'usergalleryupl\');">Fenster schlie&szlig;en</a>
-				<br /><br />
-				<span class="smalfont">Bitte nur einmal auf Absenden klicken, der Upload dauert kurz!<br/>
-				Information &uuml;ber den Status folgt automatisch!</span>
-			</div>
+			<label class="ilch_float_l label_100">Bildauswahl</label><input type="file" name="file"><br>
+			<label class="ilch_float_l label_100">Beschreibung</label><input class="tdweight50" name="text" maxlength="255"><br><br>
+			<label class="ilch_float_l label_100"></label><input type="submit" value="Absenden" name="submit">
+				<br><br>
+				<div class="text-center"><span class="ilch_hinweis_gelb">Bitte nur einmal auf Absenden klicken, der Upload dauert kurz!<br/>
+				Information &uuml;ber den Status folgt automatisch!</span></div>
+				<br>
+				<div class="text-center"><a href="javascript:window.close(\'usergalleryupl\');">Fenster schlie&szlig;en</a></div>
 			</fieldset>
 		</form>
     </body>
     </html>';
 } elseif (!$writable) {
-	echo 'Die Usergalerie ist nicht funktionst&uuml;chtig!';
+	echo '<div class="text-center"><span class="ilch_hinweis_gelb">Die Usergalerie ist nicht funktionst&uuml;chtig!</span></div>';
 }
 ?>
