@@ -39,7 +39,7 @@ if (empty($uid)) {
 
 # user gallery zeigen
 $uname = db_result(db_query("SELECT name FROM prefix_user WHERE id = ".$uid),0,0);
-
+$ILCH_HEADER_ADDITIONS .= "\n<link href=\"//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css\" rel=\"stylesheet\">";
 $title = $allgAr['title'].' :: Users :: Gallery';
 $hmenu  = $extented_forum_menu.'<a class="smalfont" href="index.php?user">Users</a><b> &raquo; </b><a class="smalfont" href="?user-usergallery">Gallery</a><b> &raquo; </b>von '.$uname.$extented_forum_menu_sufix;
 $design = new design ( $title , $hmenu, 1);
@@ -86,7 +86,7 @@ if (!empty($_FILES['file']['name']) AND is_writeable('include/images/usergallery
       echo '<div class="text-center"><span class="ilch_hinweis_gruen">Datei '.$name.'.'.$endung.' erfolgreich hochgeladen</span></div>';
       $page = $_SERVER["HTTP_HOST"]. dirname($_SERVER["SCRIPT_NAME"]);
       echo '<strong>Bildlink:</strong>  <a target="_blank" href="http://'.$page.'/'.$bild_url.'">http://'.$page.'/'.$bild_url.'</a><br>';
-      echo '<strong>oder klein:</strong>  <a target="_blank" href="http://'.$page.'/'.$bild_thumb.'">http://'.$page.'/'.$bild_thumb.'</a><br /><br>';
+      echo '<strong>oder klein:</strong>  <a target="_blank" href="http://'.$page.'/'.$bild_thumb.'">http://'.$page.'/'.$bild_thumb.'</a><br><br>';
     }
   }
 }
@@ -108,7 +108,7 @@ if (!empty($_FILES['file']['name']) AND is_writeable('include/images/usergallery
 				$row['class'] = $class;
         $row['besch'] = unescape($row['besch']);
         if (loggedin() AND (is_siteadmin() OR $uid == $_SESSION['authid'])) {
-          $row['besch'] .= '<a href="index.php?user-usergallery-'.$uid.'-p'.$page.'-d'.$row['id'].'"><img src="include/images/icons/del.gif" border="0" alt="l&ouml;schen" title="l&ouml;schen"></a>';
+          $row['besch'] .= '<br><a href="index.php?user-usergallery-'.$uid.'-p'.$page.'-d'.$row['id'].'" title="Bild l&ouml;schen"><i style="color:#ff0000;font-size:14px;" class="fa fa-times"></i></a>';
         }
         $row['width'] = round( 100 / $img_per_line );
         if ( $i <> 0 AND ($i % $img_per_line ) == 0 ) { echo '</tr><tr>'; }
