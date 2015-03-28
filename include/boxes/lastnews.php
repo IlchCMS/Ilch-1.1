@@ -20,9 +20,9 @@ $abf = 'SELECT *
               ORDER BY news_time DESC
 		LIMIT 0,5";
 $erg = db_query($abf);
-echo '<div class="tdweight100 ilch_float_l">';
+echo '<div class="tdweight100">';
 while ($row = db_fetch_object($erg)) {
-	echo '<div class="tdweight10 text-left ilch_float_l"><strong>&raquo;</strong></div><div class="tdweight90 text-left ilch_float_l"><a  class="box" href="index.php?news-'.$row->news_id.'" title="'.$row->news_title.'">'.((strlen($row->news_title)<28) ? $row->news_title : substr($row->news_title,0,28).'...').'</a></div>';
+	echo '<div class="tdweight10 text-left ilch_float_l"><strong>&raquo;</strong></div><div class="tdweight90 text-left"><a  class="box" href="index.php?news-'.$row->news_id.'" title="'.$row->news_title.'">'.((strlen($row->news_title)<25) ? $row->news_title : substr($row->news_title,0,25).'...').'</a></div>';
 }
 echo '</div>';
 

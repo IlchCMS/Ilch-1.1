@@ -9,16 +9,11 @@ defined ('main') or die ( 'no direct access' );
 if ( empty($_POST['NEWSLETTER'])  ) {
 
 ?>
-
   <form action="index.php" method="POST">
-<div class="tdweight100 text-center ilch_float_l">
 		<input type="text" name="NEWSLETTER" size="15" placeholder="E-Mail eintragen">
 		<br>
 		<input type="submit" value="<?php echo $lang['newsletterinout']; ?>">
-</div>
 	</form>
-
-
 <?php
 
 } else {

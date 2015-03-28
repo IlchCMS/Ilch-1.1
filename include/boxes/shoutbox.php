@@ -31,7 +31,7 @@ if (has_right($allgAr['sb_recht'])) {
     echo '<input type="submit" value="' . $lang['formsub'] . '" name="shoutbox_submit">';
     echo '</form>';
 }
-echo '<div class="border tdweight90 tablebordertop"><div class="ilch_case">';
+echo '<div class="border tablebordertop"><div class="ilch_case">';
 $erg = db_query('SELECT * FROM `prefix_shoutbox` ORDER BY id DESC LIMIT ' . (is_numeric($allgAr['sb_limit'])?$allgAr['sb_limit']:5));
 $class = 'Cnorm';
 while ($row = db_fetch_object($erg)) {
