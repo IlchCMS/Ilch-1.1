@@ -13,11 +13,11 @@ $design->header();
 
 
 if ( $allgAr['Fpmf'] != 1 ) {
-  echo '<div class="text-center"><span class="ilch_hinweis_rot">Private Nachrichten wurden von dem Administrator komplet gesperrt';
-  echo '<br><br><a class="ilch_back_button" href="javascript:history.back(-1)">zurück</a></span></div>';
+  echo '<div class="text-center"><span class="ilch_hinweis_rot">Private Nachrichten wurden von dem Administrator komplett gesperrt';
+  echo '<br><br><a class="ilch_back_button" href="javascript:history.back(-1)">zur&uuml;ck</a></span></div>';
   $design->footer(1);
 } elseif ( !loggedin() ) {
-  echo '<div class="text-center"><span class="ilch_hinweis_rot">Gäste dürfen keine Privaten Nachrichten Verschicken!</span></div>';
+  echo '<div class="text-center"><span class="ilch_hinweis_rot">G&auml;ste d&uuml;rfen keine Privaten Nachrichten Verschicken!</span></div>';
   $tpl = new tpl ( 'user/login' );
   $tpl->set_out('WDLINK', 'index.php', 0);
   $design->footer(1);
