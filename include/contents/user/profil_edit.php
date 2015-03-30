@@ -33,7 +33,7 @@ if ( empty ($_POST['submit']) || !$csrfCheck ) {
     if ( $row['opt_pm'] == 1 ) { $row['opt_pm1'] = 'checked'; $row['opt_pm0'] = ''; } else { $row['opt_pm1'] = ''; $row['opt_pm0'] = 'checked'; }
     if ( $row['opt_pm_popup'] == 1 ) { $row['opt_pm_popup1'] = 'checked'; $row['opt_pm_popup0'] = ''; } else { $row['opt_pm_popup1'] = ''; $row['opt_pm_popup0'] = 'checked'; }
 
-    $row['avatarbild'] = ( file_exists ( $row['avatar'] ) ? '<img src="'.$row['avatar'].'" alt=""><br />' : '' );
+    $row['avatarbild'] = ( file_exists ( $row['avatar'] ) ? '<img src="'.$row['avatar'].'" alt=""><br>' : '' );
     $row['Fabreite'] = $allgAr['Fabreite'];
     $row['Fahohe'] = $allgAr['Fahohe'];
     $row['Fasize'] = $allgAr['Fasize'];

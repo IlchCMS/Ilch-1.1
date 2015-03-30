@@ -19,7 +19,7 @@ function news_find_kat ($kat) {
     if (!empty($pfadzumBild)) {
         $katimages = '<img style="width: 300px; hight: 38px" src="' . $pfadzumBild . '" alt="' . $kat . '">';
     } else {
-        $katimages = '<b>' . $kat . '</b><br /><br />';
+        $katimages = '<b>' . $kat . '</b><br><br>';
     }
 
     return ($katimages);

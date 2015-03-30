@@ -13,12 +13,13 @@ $design->header();
 ?>
 
 <form action="?forum-6" method="POST">
+<div class="text-center">
 <input type="text" value="<?php echo $such; ?>" name="such" size="30">
-&nbsp;<input type="submit" value="Suchen" name="submit">
-
+<input type="submit" value="Suchen" name="submit">
+</div>
 </form>
 <hr>
-<br />
+<br>
 
 <?php
 $i = 0;
@@ -36,12 +37,12 @@ if ( ! empty ($such) ) {
 			
 				$i++;
 				$such_string .= '<a href="?forum-2&fid=&tid='.$row->tid.'&such=';
-				$such_string .= $such.'">'.$row->name.'</a><br />';
+				$such_string .= $such.'">'.$row->name.'</a><br>';
 				
 		}
 	} // ende forum durchsuchen
 	if ( !empty($jnews) AND !empty($jforum) ) {
-	  $such_string .= '</td><td class="Cnorm" valign="top">';
+	  $such_string .= '</td><td class="Cnorm ilch_vertikal_top">';
 	}
 	
 	if ( !empty ($jnews) ) {		
@@ -59,13 +60,13 @@ if ( ! empty ($such) ) {
         $i++;			
 				$such_string .= '<a href="?news-1&nid=';
 				$such_string .= $row->id.'&such=';
-				$such_string .= $such.'">'.$row->titel.'</a><br />';
+				$such_string .= $such.'">'.$row->titel.'</a><br>';
 
 		}
   }
   if ($i > 0) {
 	  echo $i.' Treffer für die suche nach: '.$such;
-		echo '<table width="100%" cellpadding="10" border="0" cellspacing="1" class="border"><tr><td class="Cnorm" valign="top">';
+		echo '<table ><tr><td>';
 		echo $such_string;
 	  echo '</td></tr></table>';
 	} else {

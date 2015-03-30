@@ -1,6 +1,6 @@
 <?php
-#   Copyright by: Manuel
-#   Support: www.ilch.de
+//   Copyright by: Manuel
+//  Support: www.ilch.de
 
 
 defined ('main') or die ( 'no direct access' );
@@ -15,7 +15,7 @@ if (db_num_rows($erg)) {
 
 	$avatar = '';
 	if ( file_exists($row['avatar'])) {
-		$avatar = '<img src="'.$row['avatar'].'" border="0">';
+		$avatar = '<img src="'.$row['avatar'].'" class="ilchbordernone" alt="">';
 	}
 
 	$regsek = mktime ( 0,0,0, date('m'), date('d'), date('Y') )  - $row['regist'];
@@ -52,7 +52,7 @@ if (db_num_rows($erg)) {
 	$design = new design ( $title , $hmenu, 1);
 	$design->header();
 
-	echo 'Der Benutzer wurde nicht gefunden bzw. die Seite wurde nicht richtig aufgerufen.<br />';
+	echo '<div class="text-center"><span class="ilch_hinweis_rot">Der Benutzer wurde nicht gefunden bzw. die Seite wurde nicht richtig aufgerufen.</span></div>';
 }
 
 $design->footer();

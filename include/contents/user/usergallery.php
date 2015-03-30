@@ -23,12 +23,12 @@ if (empty($uid)) {
   $class = 'Cmite';
   $x = '';
   if (loggedin()) {
-    $x .= '<a href="index.php?user-usergallery-'.$_SESSION['authid'].'">Meine Gallery</a><br /><br />';
+    $x .= '<a href="index.php?user-usergallery-'.$_SESSION['authid'].'">Meine Gallery</a><br><br>';
   }
   $erg = db_query("SELECT uid, prefix_user.name as uname, COUNT(*) as anz FROM prefix_usergallery LEFT JOIN prefix_user ON prefix_usergallery.uid = prefix_user.id GROUP BY uid, uname ORDER BY anz DESC");
   while ($r = db_fetch_assoc($erg)) {
     $class = ( $class == 'Cmite' ? 'Cnorm' : 'Cmite' );
-    $x .= '<div class="'.$class.'" style="float: left; padding: 5px;"><a href="index.php?user-usergallery-'.$r['uid'].'">'.$r['uname'].'</a><br /><span class="smalfont">Anzahl Bilder: '.$r['anz'].'</span></a></div>';
+    $x .= '<div class="'.$class.' ilch_float_l ilch_casesmall_in"><a href="index.php?user-usergallery-'.$r['uid'].'">'.$r['uname'].'</a><br><span class="smalfont">Anzahl Bilder: '.$r['anz'].'</span></a></div>';
     if ( $i <> 0 AND ($i % 5 ) == 0 ) { $x .= '<br />'; }
   }
   $tpl = new tpl ( 'user/gallery');
@@ -108,7 +108,7 @@ if (!empty($_FILES['file']['name']) AND is_writeable('include/images/usergallery
 				$row['class'] = $class;
         $row['besch'] = unescape($row['besch']);
         if (loggedin() AND (is_siteadmin() OR $uid == $_SESSION['authid'])) {
-          $row['besch'] .= '<br><a href="index.php?user-usergallery-'.$uid.'-p'.$page.'-d'.$row['id'].'" title="Bild l&ouml;schen"><i style="color:#ff0000;font-size:14px;" class="fa fa-times"></i></a>';
+          $row['besch'] .= '<br><a href="index.php?user-usergallery-'.$uid.'-p'.$page.'-d'.$row['id'].'" title="Bild l&ouml;schen"><i class="colorbilderabfrageloeschen" class="fa fa-times"></i></a>';
         }
         $row['width'] = round( 100 / $img_per_line );
         if ( $i <> 0 AND ($i % $img_per_line ) == 0 ) { echo '</tr><tr>'; }

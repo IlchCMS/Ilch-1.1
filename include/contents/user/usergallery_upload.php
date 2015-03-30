@@ -57,8 +57,8 @@ if (!empty($_FILES['file']['name'])
 			<body>
 					<fieldset>
 					<legend><strong>Das Bild wurde erfolgreich hochgeladen</strong></legend>
-						<div class="text-center">
-							<img src="' . $server . $bild_thumb . '" style="max-height:150px;" alt="thumb" /><br>
+						<div class="text-center ilchusergalleryupload">
+							<img src="' . $server . $bild_thumb . '" alt="thumb"><br>
 							Einf&uuml;gen des Bildes in Form von:<br>
 							<a href="javascript:insert_bbcode(0);"><b>verkleinertes Vorschaubild</b></a> | <a href="javascript:insert_bbcode(1);"><b>originale Bildgr&ouml;&szlig;e</b></a><br>
 							<a href="javascript:insert_bbcode(2);"><b>Vorschaubild mit Link zum original Bild</b></a>
@@ -96,7 +96,7 @@ if ($writable AND (empty($_FILES['file']['name']) OR !empty($errormsg))) {
 		</script>
 	</head>
 	<body>
-		<form name="form" onSubmit="return upload_check()" class="form" action="index.php?user-usergallery_upload" method="POST" enctype="multipart/form-data" >
+		<form name="form" onSubmit="return upload_check()" class="form" action="index.php?user-usergallery_upload" method="POST" enctype="multipart/form-data">
 		<input type="hidden" name="gesendet" value="yes">
 			<fieldset>
 			<legend><strong>Ein Bild in die Usergallery hochladen und einf&uuml;gen</strong></legend>
@@ -105,7 +105,7 @@ if ($writable AND (empty($_FILES['file']['name']) OR !empty($errormsg))) {
 			<label class="ilch_float_l label_100">Beschreibung</label><input class="tdweight50" name="text" maxlength="255"><br><br>
 			<label class="ilch_float_l label_100"></label><input type="submit" value="Absenden" name="submit">
 				<br><br>
-				<div class="text-center"><span class="ilch_hinweis_gelb">Bitte nur einmal auf Absenden klicken, der Upload dauert kurz!<br/>
+				<div class="text-center"><span class="ilch_hinweis_gelb">Bitte nur einmal auf Absenden klicken, der Upload dauert kurz!<br>
 				Information &uuml;ber den Status folgt automatisch!</span></div>
 				<br>
 				<div class="text-center"><a href="javascript:window.close(\'usergalleryupl\');">Fenster schlie&szlig;en</a></div>

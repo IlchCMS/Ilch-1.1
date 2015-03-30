@@ -267,6 +267,13 @@ min-height:200px
 .ilch_shoutbox_in{
 padding: 3px 3px 3px 3px
 }
+.colorbilderabfrageloeschen {
+color:#ff0000;
+font-size:14px;
+}
+.ilchusergalleryupload img {
+max-height:150px;
+}
 
 /* Ilch Gbook */
 
