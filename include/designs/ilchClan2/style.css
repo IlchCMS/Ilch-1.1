@@ -551,3 +551,12 @@ fieldset {
     border-radius:3px;
     text-shadow: 1px 1px #fff;
 }
+li.c3 {
+    margin-top:5px;
+}
+sup.c2 {
+    color:#ff0000;
+    }
+li.c1 {
+    list-style: none;
+    }  

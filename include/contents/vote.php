@@ -128,7 +128,7 @@ while ($fraRow = db_fetch_object($erg)) {
 		
 } // end while
 
-echo '<tr><td class="Cdark" align="center">'. $MPL .'</td></tr></table>';
+echo '<tr><td class="Cdark text-center">'. $MPL .'</td></tr></table>';
 $design->footer();
 
 ?>

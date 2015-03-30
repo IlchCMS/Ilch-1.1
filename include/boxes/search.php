@@ -6,14 +6,15 @@
 defined ('main') or die ( 'no direct access' );
 
 $suchtpl = <<<HTML
-<div class="text-center">
 <form action="index.php?search" method="GET">
-<input type="text" value="{search}" name="search" size="15" placeholder="Ich suche ....">
+<div class="text-center">
+<input type="text" value="{search}" name="search" size="15">
 <input type="hidden" name="in" value="2">
 <input type="submit" value="{_lang_search}">
-</form>
+<p></p>
 <a href="index.php?search">{_lang_exsearch}</a>
 </div>
+</form>
 HTML;
 
 $tpl = new tpl ($suchtpl,3);

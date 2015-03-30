@@ -23,7 +23,7 @@ function wd($wdLINK, $wdTEXT, $wdZEIT = 3) {
 	    if ($i == 0) {
 		$wdURL = $v;
 	    }
-	    $urls .= '<a href="' . $v . '">' . $k . '</a><br />';
+	    $urls .= '<a href="' . $v . '">' . $k . '</a><br>';
 	    $i++;
 	}
     }
@@ -142,7 +142,7 @@ function userrang($post, $uid) {
 ##### makiert suchwoerter
 
 function markword($text, $such) {
-    $erg = '<span style="background-color: #EBF09B;">';
+    $erg = '<span class="ilchcolorsuchwoerter">';
     $erg .= $such . "</span>";
     $text = str_replace($such, $erg, $text);
     return $text;
@@ -157,27 +157,27 @@ function getsmilies() {
     global $lang;
     $zeilen = 3;
     $i = 0;
-    $b = '<script language="JavaScript" type="text/javascript">function moreSmilies () { var x = window.open("about:blank", "moreSmilies", "width=250,height=200,status=no,scrollbars=yes,resizable=yes"); ';
+    $b = '<script type="text/javascript">function moreSmilies () { var x = window.open("about:blank", "moreSmilies", "width=250,height=200,status=no,scrollbars=yes,resizable=yes"); ';
     $a = '';
     $erg = db_query('SELECT emo, ent, url FROM `prefix_smilies`');
     while ($row = db_fetch_object($erg)) {
 
 	$b .= 'x.document.write ("<a href=\"javascript:opener.put(\'' . addslashes(addslashes($row->ent)) . '\')\">");';
-	$b .= 'x.document.write ("<img style=\"border: 0px; padding: 5px;\" src=\"include/images/smiles/' . $row->url . '\" title=\"' . $row->emo . '\"></a>");';
+	$b .= 'x.document.write ("<img class=\"ilchpadding5 ilchbordernone\" src=\"include/images/smiles/' . $row->url . '\" title=\"' . $row->emo . '\"></a>");';
 
 	if ($i < 12) {
 	    # float einbauen
 	    if ($i % $zeilen == 0 AND $i <> 0) {
-		$a .= '<br /><br />';
+		$a .= '<br><br>';
 	    }
 	    $a .= '<a href="javascript:put(\'' . addslashes($row->ent) . '\')">';
-	    $a .= '<img style="margin: 2px;" src="include/images/smiles/' . $row->url . '" border="0" title="' . $row->emo . '"></a>';
+	    $a .= '<img class="ilchmargin2 ilchbordernone" src="include/images/smiles/' . $row->url . '" title="' . $row->emo . '"></a>';
 	}
 	$i++;
     }
-    $b .= ' x.document.write("<br /><br /><center><a href=\"javascript:window.close();\">' . $lang['close'] . '</a></center>"); x.document.close(); }</script>';
+    $b .= ' x.document.write("<br><br><div class="text-center"><a href=\"javascript:window.close();\">' . $lang['close'] . '</a></div>"); x.document.close(); }</script>';
     if ($i > 12) {
-	$a .= '<br /><br /><center><a href="javascript:moreSmilies();">' . $lang['more'] . '</a></center>';
+	$a .= '<br><br><div class="text-center"><a href="javascript:moreSmilies();">' . $lang['more'] . '</a></div>';
     }
     $a = $b . $a;
     return ($a);
@@ -216,7 +216,7 @@ function icmail($mail, $bet, $txt, $from = '', $html = false) {
     if ($allgAr['mail_smtp']) { //SMTP Versand
 	$smtpser = @db_result(db_query('SELECT `t1` FROM `prefix_allg` WHERE `k` = "smtpconf"'));
 	if (empty($smtpser)) {
-	    echo '<span style="font-size: 2em; color: red;">Mailversand muss konfiguriert werden!</span><br />';
+	    echo '<span class="ilchfontsize2em ilchcolorred">Mailversand muss konfiguriert werden!</span><br>';
 	} else {
 	    $smtp = unserialize($smtpser);
 
@@ -277,7 +277,7 @@ function icmail($mail, $bet, $txt, $from = '', $html = false) {
 	return true;
     } else {
 	if (is_coadmin()) {
-	    echo "<h2 style=\"color:red;\">Mailer Error: " . $mailer->ErrorInfo . '</h2>';
+	    echo "<h2 class=\"ilchcolorred\">Mailer Error: " . $mailer->ErrorInfo . '</h2>';
 	}
 	return false;
     }
@@ -328,13 +328,13 @@ function get_homepage($homepage) {
 
 function get_wargameimg($img) {
     if (file_exists('include/images/wargames/' . $img . '.gif')) {
-	return ('<img src="include/images/wargames/' . $img . '.gif" alt="' . $img . '" border="0">');
+	return ('<img class="ilchbordernone" src="include/images/wargames/' . $img . '.gif" alt="' . $img . '">');
     } elseif (file_exists('include/images/wargames/' . $img . '.jpg')) {
-	return ('<img src="include/images/wargames/' . $img . '.jpg" alt="' . $img . '" border="0">');
+	return ('<img class="ilchbordernone" src="include/images/wargames/' . $img . '.jpg" alt="' . $img . '">');
     } elseif (file_exists('include/images/wargames/' . $img . '.jpeg')) {
-	return ('<img src="include/images/wargames/' . $img . '.jpeg" alt="' . $img . '" border="0">');
+	return ('<img class="ilchbordernone" src="include/images/wargames/' . $img . '.jpeg" alt="' . $img . '">');
     } elseif (file_exists('include/images/wargames/' . $img . '.png')) {
-	return ('<img src="include/images/wargames/' . $img . '.png" alt="' . $img . '" border="0">');
+	return ('<img class="ilchbordernone" src="include/images/wargames/' . $img . '.png" alt="' . $img . '">');
     }
     return ('');
 }
@@ -446,7 +446,7 @@ function get_antispam($m, $t, $nopictures = false) {
 	}
 
 	$_SESSION['antispam'][$id] = true;
-	return '<input type="hidden" name="antispam_id" value="' . $id . '" />';
+	return '<input type="hidden" name="antispam_id" value="' . $id . '">';
     }
 
     include 'include/includes/captcha/settings.php';
@@ -455,19 +455,19 @@ function get_antispam($m, $t, $nopictures = false) {
     $seperator = ' ';
 
     if ($t == 0) {
-	$seperator = '<br />';
+	$seperator = '<br>';
 	$helpText = 'Geben Sie diese Zeichen in das direkt darunter stehende Feld ein.';
     }
     $img = '<img width="' . $imagewidth . '" height="' . $imageheight . '" src="include/includes/captcha/captchaimg.php?id='
 	    . $id . '&nocache=' . time() . '" alt="captchaimg" title="' . $helpText . '" class="captchaImage">'
 	    . $seperator . '<input class="captcha_code" name="captcha_code" type="text" maxlength="5" size="8" title="Geben Sie die Zeichen aus dem Bild ein">'
-	    . '<input type="hidden" name="captcha_id" value="' . $id . '" />';
+	    . '<input type="hidden" name="captcha_id" value="' . $id . '">';
     ;
 
     if ($t == 1) {
 	$img = '<tr><td class="Cmite"><b>Antispam</b></td><td class="Cnorm">' . $img . '</td></tr>';
     } elseif ($t > 10) {
-	$img = '<label style="float:left; width: ' . $t . 'px; ">Antispam</label>' . $img . '<br/>';
+	$img = '<label style="float:left; width: ' . $t . 'px; ">Antispam</label>' . $img . '<br>';
     }
     return $img;
 }

@@ -8,13 +8,13 @@
     {ADMIN}
 </div>
 {EXPLODE}
-<div class="ilch_box_in">
-    <form method="POST">
+<form action="index.php?" method="POST">
+    <div class="ilch_box_in">
         <input type="text" name="name" size="13" value="{NAME}" onFocus="if (value == '{NAME}') {
-                            value = ''
-                        }" onBlur="if (value == '') {
-                                    value = '{NAME}'
-                                }" maxlength="15"><br>
+                    value = ''
+                }" onBlur="if (value == '') {
+                            value = '{NAME}'
+                        }" maxlength="15"><br>
         <input type="password" name="pass" size="13" value="{PASS}" onFocus="if (value == '{PASS}') {
                     value = ''
                 }" onBlur="if (value == '') {
@@ -22,5 +22,5 @@
                         }" maxlength="20"><br>
         <input type="hidden" name="wdlink" value="{wdlink}">
         <input type="submit" name="user_login_sub" value="Login">{regist}
-    </form>
-        </div>
+    </div>
+</form>

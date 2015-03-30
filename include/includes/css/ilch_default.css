@@ -68,6 +68,15 @@ width: 98%
 .tdweight100 {
 width: 100%
 }
+.ilchpadding5 {
+padding:5px;
+}
+.ilchmargin2 {
+margin:2px;
+}
+.ilchfontsize2em {
+font-size: 2em;
+}
 .forumord img{
 height:15px;
 border:none
@@ -85,6 +94,9 @@ select{
 margin-top:3px;
 padding:3px
 }
+textarea.c4 {
+width: 80%;
+} 
 .both{
 clear:both
 }
@@ -203,6 +215,18 @@ margin-left:-200px;
 display:inline;
 position:fixed;
 }
+.ilchstatistikheight {
+height:2px;
+}
+.ilchbordernone {
+border:none;
+}
+.ilchcolorred {
+color:#FF0000;
+}
+.ilchcolorsuchwoerter {
+background-color:#EBF09B;
+}
 /* Ilch Award */
 
 .ilch_award_in{
@@ -300,6 +324,24 @@ color:#000
 }
 .ilch_wars_in{
 line-height:20px
+}
+.ilchwarsabsage {
+color:#FFF;
+background:#FF0000;
+font-weight:bold;
+padding:2px;
+-webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+border-radius: 3px;
+}
+.ilchwarszusage {
+font-weight:bold;
+color:#000;
+background:#00FF00;
+padding:2px;
+-webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+border-radius: 3px;
 }
 
 /* Ilch News */

@@ -85,7 +85,7 @@ if (count($far) <> $x OR $ch_name == false OR !chk_antispam('joinus')) {
             $rules .= '<div class="ilch_case_in Cnorm">'.bbcode($rrow[2]).'</div>';
             $rules .= '</div></div>';
     }
-    $rules .= '<input type="checkbox" name="rules" value="'.$lang['yes'].'" />'.str_replace(array('<a target="_blank" href="index.php?rules">','</a>'),'',$lang['rulzreaded']).'<br>';     
+    $rules .= '<input type="checkbox" name="rules" value="'.$lang['yes'].'">'.str_replace(array('<a target="_blank" href="index.php?rules">','</a>'),'',$lang['rulzreaded']).'<br>';     
     $tpl->set_out('RULES',$rules,2);
   }
   $tpl->set('ANTISPAM', get_antispam('joinus', 100));

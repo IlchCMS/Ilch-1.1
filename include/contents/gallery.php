@@ -150,7 +150,7 @@ if ($menu->get(1) == 'showOrig') {
 
     # zeigen
   	if (!empty($insertmsg)) {
-  		$insertmsg = '<span style="color:red;">'.$insertmsg.'</span><br />';
+  		$insertmsg = '<span class="ilchcolorred">'.$insertmsg.'</span><br>';
   	}
   	$tpl->set('insertmsg', $insertmsg );
     $tpl->set('uname', $_SESSION['authname']);
@@ -163,7 +163,7 @@ if ($menu->get(1) == 'showOrig') {
       $r['class'] = $class;
       $r['text'] = bbcode ($r['text']);
       if (is_admin()) {
-        $r['text'] .= '<a href="index.php?gallery-show-'.$cid.'-p'.$page.'=0&amp;delete='.$r['id'].'"><img src="include/images/icons/del.gif" border="0" title="l&ouml;schen" alt="l&ouml;schen" /></a>';
+        $r['text'] .= '<a href="index.php?gallery-show-'.$cid.'-p'.$page.'=0&amp;delete='.$r['id'].'"><img class="ilchbordernone" src="include/images/icons/del.gif" title="l&ouml;schen" alt="l&ouml;schen"></a>';
       }
       $tpl->set_ar_out($r,2);
     }

@@ -23,7 +23,7 @@ while ($row = db_fetch_object($erg) ) {
     $bild = 'include/images/icons/pad.gif';
 
   }
-	echo '<div class="text-left">'.get_wargameimg($row->game).'  <a href="index.php?wars-more-'.$row->id.'">'.$row->owp.' '.$lang['at2'].' '.$row->opp.' - '.$row->tag.'</a><span class="ilch_float_r"><img src="'.$bild.'"></span></div>';
+	echo '<div class="text-left">'.get_wargameimg($row->game).'  <a href="index.php?wars-more-'.$row->id.'">'.$row->owp.' '.$lang['at2'].' '.$row->opp.' - '.$row->tag.'</a><span class="ilch_float_r"><img src="'.$bild.'" alt=""></span></div>';
 }
 echo '</div>';
 ?>

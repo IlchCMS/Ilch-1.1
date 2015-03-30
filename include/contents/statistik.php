@@ -39,7 +39,7 @@ defined ('main') or die ( 'no direct access' );
 		echo '<tr class="Cnorm">';
 	  echo '<td>'.$row[1].'</td>';
 		echo '<td><table width="'.$bwidth.'">';
-		echo '<tr><td height="2" class="border"></td></tr></table>';		
+		echo '<tr><td class="border ilchstatistikheight"></td></tr></table>';		
 		echo '</td><td class="text-right">'.$value.'</td></tr>';
 	  
 		$ges += $value;

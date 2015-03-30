@@ -44,7 +44,7 @@ function getCalendar($mon, $jahr, $url, $urlod, $data, $cellpadding=2) {
     if ($i == $ak_tag AND $mon == $ak_mon AND $jahr == $ak_jahr) { $class = 'Cmite'; } else { $class = 'Cnorm'; }
     $surl = str_replace('{mon}', $mon, str_replace('{tag}',$i, str_replace('{jahr}',$jahr, $url)));
     if (isset($data[mktime (0,0,0,$mon,$i,$jahr)])) { $out_i = '<b>'.$i.'</b>'; } else { $out_i = $i; }
-    $return_str .= '<td class="'.$class.'" align="center"><a href="'.$surl.'">'.$out_i.'</a></td>';
+    $return_str .= '<td class="'.$class.' text-center"><a href="'.$surl.'">'.$out_i.'</a></td>';
   }
 
   $return_str .= str_repeat ('<td class="Cnorm">&nbsp;</td>', (7-(($i+$fw-1) % 7)) % 7 );

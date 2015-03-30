@@ -189,7 +189,7 @@ switch ( $menu->get(1) ) {
 		  $tpl->out(4); $class = 'Cnorm';
 			while($row = db_fetch_assoc($erg) ) {
         # smal screenshot url
-				$row['ssurl'] = ( (file_exists($row['ssurl']) AND $row['ssurl'] != '') ? '<img src="'.$row['ssurl'].'" alt="'.$row['name'].' '.$row['version'].'" title="'.$row['name'].' '.$row['version'].'" >' : '' );
+				$row['ssurl'] = ( (file_exists($row['ssurl']) AND $row['ssurl'] != '') ? '<img src="'.$row['ssurl'].'" alt="'.$row['name'].' '.$row['version'].'" title="'.$row['name'].' '.$row['version'].'">' : '' );
         $class = ( $class == 'Cmite' ? 'Cnorm' : 'Cmite' );
 				$row['class'] = $class;
 			  $tpl->set_ar_out($row,5);

@@ -6,7 +6,7 @@ $tpl_alianz = <<< tpl
 {EXPLODE}
 </div>
 {EXPLODE}
-<a href="{link}" target="_blank" title="{name}">{title}</a><br>
+<a target="_blank" href="{link}" title="{name}">{title}</a><br>
 {EXPLODE}
 <img src="{banner}" alt="{name}">
 tpl;

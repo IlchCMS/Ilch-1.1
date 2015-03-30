@@ -110,7 +110,7 @@ if (isset($_POST['submit'])) {
 	    $subject = escape($_POST['subject'], 'string');
 	    $wer = escape($_POST['wer'], 'string');
 	    $text = escape($_POST['txt'], 'string');
-	    echo '<div class="text-center"><span class="ilch_hinweis_rot"><strong>' . $lang['emailcouldnotsend'] . '</strong></span></div>';
+	    echo '<div class="text-center"><span class="ilch_hinweis_rot"><strong>'.$lang['emailcouldnotsend'].'</strong></span></div>';
 	}
     } else {
 	$name = escape($_POST['name'], 'string');
@@ -118,7 +118,7 @@ if (isset($_POST['submit'])) {
 	$subject = escape($_POST['subject'], 'string');
 	$wer = escape($_POST['wer'], 'string');
 	$text = escape($_POST['txt'], 'string');
-	echo '<div class="text-center"><span class="ilch_hinweis_rot"><strong>Aufgrund folgender Fehler, wurde die Email nicht versendet:</strong><br><br>' . $fehler . '</span></div>';
+	echo '<div class="text-center"><span class="ilch_hinweis_rot"><strong>Aufgrund folgender Fehler, wurde die Email nicht versendet:</strong><br><br>'.$fehler.'</span></div>';
     }
 }
 

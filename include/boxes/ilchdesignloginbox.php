@@ -8,7 +8,7 @@ $tpl = new tpl ( 'user/boxen_ilchdesignloginbox.htm' );
 if ( loggedin() ) {
   
   if ( user_has_admin_right($menu,false) ) {
-    $tpl->set ( 'ADMIN', '<br><li><a href="admin.php?admin"><strong>'.$lang['adminarea'].'</strong></a></li>' );
+    $tpl->set ( 'ADMIN', '<li class="c1"><br></li><li><a href="admin.php?admin"><strong>'.$lang['adminarea'].'</strong></a></li>' );
   } else {
     $tpl->set ( 'ADMIN', '' );
   }
@@ -26,9 +26,9 @@ $abf = 'SELECT id, name, avatar FROM prefix_user WHERE name = "'.$_SESSION['auth
 $erg = db_query($abf);
 $row = db_fetch_object($erg);
 if ( file_exists($row->avatar)) {
-  $avatar = '<span class="ilchdesignloginusername">'.$row->name.'</span><img class="ilchdesignloginavatar" src="'.$row->avatar.'">';
+  $avatar = '<span class="ilchdesignloginusername">'.$row->name.'</span><img class="ilchdesignloginavatar" src="'.$row->avatar.'" alt="">';
 }else{
-$avatar = '<span class="ilchdesignloginusername">'.$row->name.'</span><img class="ilchdesignloginavatar" src="include/images/avatars/wurstegal.jpg" title="Kein Avatar eingetragen">';
+$avatar = '<span class="ilchdesignloginusername">'.$row->name.'</span><img class="ilchdesignloginavatar" src="include/images/avatars/wurstegal.jpg" title="Kein Avatar eingetragen" alt="">';
 }
 $q = "SELECT COUNT(DISTINCT a.id) FROM prefix_topics a
     LEFT JOIN prefix_forums b ON b.id = a.fid
@@ -51,16 +51,16 @@ $q = "SELECT COUNT(DISTINCT a.id) FROM prefix_topics a
 	  if ( $allgAr['Fpmf'] == 1 ) {
 		  $erg = db_query("SELECT COUNT(id) FROM `prefix_pm` WHERE gelesen = 0 AND status < 1 AND eid = ".$_SESSION['authid']);
 			$check_pm = db_result($erg,0);
-			$nachrichten_link = '<li><a href="index.php?forum-privmsg" title="'.$check_pm.' neue Nachrichten">Nachrichten <sup style="color:#ff0000;"> '.$check_pm.'</sup></a></li><br>';
+			$nachrichten_link = '<li><a href="index.php?forum-privmsg" title="'.$check_pm.' neue Nachrichten">Nachrichten <sup class="c2"> '.$check_pm.'</sup></a></li><li class="c1"><br></li>';
 		} else {
 		  $nachrichten_link = '';
 		}
 	  if ( $allgAr['forum_usergallery'] == 1 ) {		
-$tpl->set ( 'UGALLERY', '<li><a href="index.php?user-usergallery-'.$_SESSION['authid'].'">Meine Gallery</a></li><br>');
+$tpl->set ( 'UGALLERY', '<li><a href="index.php?user-usergallery-'.$_SESSION['authid'].'">Meine Gallery</a></li><li class="c1"><br></li>');
 		} else {
 		  $tpl->set ( 'UGALLERY', '');
 		}
-$tpl->set ( 'PROFILANSICHT', '<li><a href="index.php?user-details-'.$_SESSION['authid'].'">Profil ansehen</a></li><br> ');			
+$tpl->set ( 'PROFILANSICHT', '<li><a href="index.php?user-details-'.$_SESSION['authid'].'">Profil ansehen</a></li><li class="c1"><br></li>');			
 		$tpl->set ( 'SID' , session_id() );
 		$tpl->set ( 'NACHRICHTEN' , $nachrichten_link );
 		$tpl->set ( 'NAME', $_SESSION['authname'] );

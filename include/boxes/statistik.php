@@ -18,8 +18,8 @@ if (empty($_GET['sum'])) {
   echo $lang['whole'].': '.$ges_visits.'<br>';
 	echo $lang['today'].': '.$ges_heute.'<br>';
 	echo $lang['yesterday'].': '.$ges_gestern.'<br>';
-	echo 'Online: '.ges_online().'<br />';
-	echo '<a class="box" href="index.php?statistik"><b>... '.$lang['more'].'</b></a>';
+	echo 'Online: '.ges_online().'<br>';
+	echo '<a class="box" href="index.php?statistik"><strong>... '.$lang['more'].'</strong></a>';
 	
 } else {
 
@@ -57,7 +57,7 @@ $design->header();
 		echo '<tr class="Cnorm">';
 	  echo '<td>'.$row[1].'</td>';
 		echo '<td><table width="'.$bwidth.'">';
-		echo '<tr><td height="2" class="border"></td></tr></table>';		
+		echo '<tr><td class="border ilchstatistikheight"></td></tr></table>';		
 		echo '</td><td class="text-right">'.$value.'</td></tr>';
 	  
 		$ges += $value;

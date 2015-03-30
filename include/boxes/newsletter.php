@@ -10,9 +10,11 @@ if ( empty($_POST['NEWSLETTER'])  ) {
 
 ?>
   <form action="index.php" method="POST">
-		<input type="text" name="NEWSLETTER" size="15" placeholder="E-Mail eintragen">
-		<br>
+  <div>
+		<input type="text" name="NEWSLETTER" size="15">
+		<p></p>
 		<input type="submit" value="<?php echo $lang['newsletterinout']; ?>">
+		</div>
 	</form>
 <?php
 

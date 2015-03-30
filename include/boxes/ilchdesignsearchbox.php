@@ -7,11 +7,11 @@
 defined ('main') or die ( 'no direct access' );
 
 $suchtpl = <<<HTML
-<form action="index.php?search" method="GET">
-<input type="text" class="ilchclandearchbox" value="{search}" name="search" size="15" placeholder="Suchbegriff eingeben" title="Hier den Suchbegriff eingeben">
+<form action="index.php?search" method="GET"><div>
+<input type="text" class="ilchclandearchbox" value="{search}" name="search" size="15"  title="Hier den Suchbegriff eingeben">
 <input type="hidden" name="in" value="2">
 <button type="submit" class="ilchclandearchboxsubmit">search</button>
-</form>
+</div></form>
 HTML;
 
 $tpl = new tpl ($suchtpl,3);

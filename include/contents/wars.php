@@ -24,7 +24,7 @@ function get_erg_liste($wid) {
                 break;
             }
         }
-        $list .= '<tr bgcolor="#' . $farbe . '">';
+        $list .= '<tr style="background-color:#'.$farbe .'">';
         $list .= '<td class="text-center ilch_wars_font">' . $row['map'] . '</td>';
         $list .= '<td class="text-center ilch_wars_font">' . $row['opp'] . '</td>';
         $list .= '<td class="text-center ilch_wars_font">' . $row['owp'] . '</td>';
@@ -243,7 +243,7 @@ if ($menu->get(2) == '' OR $menu->getA(2) == 'p') {
                 }
             }
             $class = '';
-            $aktionar = array ('<font style="color:#FFF; background:#FF0000; font-weight:bold;padding:2px">abgesagt</font><br>', '<font style="font-weight:bold; color:#000; background:#00FF00;padding:2px">zugesagt</font><br>');
+            $aktionar = array ('<span class="ilchwarsabsage">abgesagt</span><br>', '<span class="ilchwarszusage">zugesagt</span><br>');
             $erg1 = db_query("SELECT b.id as uid, b.name, a.aktion, a.kom FROM prefix_warmember a left join prefix_user b ON b.id = a.uid WHERE a.wid = " . $_GET['mehr']);
             while ($row1 = db_fetch_assoc($erg1)) {
                 if ($class == 'Cmite') {
