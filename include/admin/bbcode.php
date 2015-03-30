@@ -16,11 +16,11 @@ $bbmodules = array('buttons'=>'Buttons','design'=>'Design','config'=>'Konfigurat
 if ($menu->get(1) == '') {
     $menu->set_url(1,'buttons');
 }
-echo '<table class="border" cellpadding="3" cellspacing="2" width="400"><tr>';
+echo '<div class="btn-group">';
 foreach ($bbmodules as $k => $v) {
-    echo '<td width="25%" class="'.($menu->get(1) == $k ? 'Cmite' : 'Cnorm').'"><a href="admin.php?bbcode-'.$k.'">'.$v.'</a></td>';
+    echo '<a class="btn btn-primary" href="admin.php?bbcode-'.$k.'">'.$v.'</a>';
 }
-echo '</tr></table>';
+echo '</div>';
 
 switch($menu->get(1)) {
 	#> Buttons
@@ -103,7 +103,7 @@ switch($menu->get(1)) {
 							fnFormatQuote = '".$_POST['BBCode_QUOTE']."',
                             fnFormatFlash = '".$_POST['BBCode_FLASH']."'");
 
-			$tpl->set('Message','Zustände wurden erfolgreich gespeichert!');
+			$tpl->set('Message','<div class="alert alert-success" role="alert">Zustaende wurden erfolgreich gespeichert!</div>');
 
 			$Formate = array("BBCode_B" => "Selected_B_",
 							 "BBCode_I" => "Selected_I_",
@@ -263,7 +263,7 @@ switch($menu->get(1)) {
 							fnCountdownSchriftsize = '".$_POST['BBCode_CountdownSchriftsize']."',
 							fcCountdownSchriftformat = '".$_POST['BBCode_CountdownSchriftformat']."'");
 
-			$tpl->set('Message','Design wurde erfolgreich gespeichert!');
+			$tpl->set('Message','<div class="alert alert-success" role="alert">Design wurde erfolgreich gespeichert!</div>');
 			$tpl->set('NBSP','&nbsp;');
 
 			//> Zuweisung Quotes/Zitate
@@ -409,7 +409,7 @@ switch($menu->get(1)) {
 							fnScreenMaxBreite = '".$_POST['BBCode_ScreenMaxBreite']."',
 							fnScreenMaxHoehe = '".$_POST['BBCode_ScreenMaxHoehe']."'");
 
-			$tpl->set('Message','Konfiguration wurde erfolgreich gespeichert!');
+			$tpl->set('Message','<div class="alert alert-success" role="alert">Konfiguration wurde erfolgreich gespeichert!</div>');
 			//> Video "YouTube"
 			$tpl->set('BBCode_YoutubeBreite' ,$_POST['BBCode_YoutubeBreite']);
 			$tpl->set('BBCode_YoutubeHoehe' ,$_POST['BBCode_YoutubeHoehe']);
@@ -447,7 +447,7 @@ switch($menu->get(1)) {
 	#> Badwordlist
 	case 'badword':
 		$tpl = new tpl ( 'bbcode/badword', 1);
-		$tpl->set('msgColor','#0033FF');
+		$tpl->set('msgColor','');
 		$tpl->set('Message','');
 
 		if(isset($_POST['BB_SubmitBadword']) && $_POST['BBCode_BadPatter'] != "" && $_POST['BBCode_BadReplace'] != "") {
@@ -460,8 +460,8 @@ switch($menu->get(1)) {
 								fcBadPatter='".$_POST['BBCode_BadPatter']."'");
 			$if = db_fetch_assoc($sql);
 			if(isset($if['fcBadPatter'])) {
-				$tpl->set('msgColor','#FF0000');
-				$tpl->set('Message','Badword existiert schon in der Datenbank!');
+				$tpl->set('msgColor','');
+				$tpl->set('Message','<div class="alert alert-warning" role="alert">Badword existiert schon in der Datenbank!</div>');
 			} else {
 				db_query("INSERT INTO
 							prefix_bbcode_badword
@@ -469,8 +469,8 @@ switch($menu->get(1)) {
 							VALUES
 								('".$_POST['BBCode_BadPatter']."','".$_POST['BBCode_BadReplace']."');");
 
-				$tpl->set('msgColor','#0033FF');
-				$tpl->set('Message','Badword wurde erfolgreich gespeichert!');
+				$tpl->set('msgColor','');
+				$tpl->set('Message','<div class="alert alert-success" role="alert">Badword wurde erfolgreich gespeichert!</div>');
 			}
 		}
 		//> Badword Löschen!

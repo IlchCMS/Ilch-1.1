@@ -42,12 +42,12 @@ $i = 1;
 while($row = db_fetch_object($erg)) {
  
   if($akttime == $row->gebtage)  {
-   echo ''.$lang['today'].'&nbsp;'.$lang['had'].'&nbsp;<br><a class="box" href="index.php?user-details-'.$row->id.'">'.$row->name.'</a><br>'.$lang['birthday'].'<br><img border="0" src="include/images/icons/birthday.gif">';
+   echo ''.$lang['today'].'&nbsp;'.$lang['had'].'&nbsp;<br><a class="box" href="index.php?user-details-'.$row->id.'">'.$row->name.'</a><br>'.$lang['birthday'].'<br><img src="include/images/icons/birthday.gif">';
   } else {
     $gebtage = get_gebtage ($row->gebtage);
     echo '<a class="box" href="index.php?user-details-'.$row->id.'">'.$row->name.'</a><br>'.$lang['had'].' '.$lang['on'].' '.$gebtage.' '.$lang['birthday'];
     if ($showavatars && $row->avatar) {
-      echo '<br><img class="ilch_geb_avatar" border="0" src="'.$row->avatar.'">';
+      echo '<br><img class="ilch_geb_avatar" src="'.$row->avatar.'">';
     }
     echo "";
   }

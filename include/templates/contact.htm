@@ -1,33 +1,12 @@
 <form action="?contact" method="POST">
-    <table width="100%" border="0" cellspacing="0" cellpadding="3" align="center">
-	<tr>
-	    <td valign="top" width="50%">Empf&auml;nger ausw&auml;hlen:</td>
-	    <td width="50%">
-		{EXPLODE}
-		<input id="w{KEY}" {c} type="radio" name="wer" value="{KEY}" style="float: left; border:0px; background-color:#fff;"><label for="w{KEY}">&nbsp;&nbsp; {VAL}</label><br style="clear: both;" />
-		{EXPLODE}
-	    </td>
-	</tr><tr>
-	    <td colspan="2">&nbsp;</td>
-	</tr><tr>
-	    <td>Ihr Name:</td>
-	    <td><input type="text" name="name" value="{name}" style="width: 100%"></td>
-	</tr><tr>
-	    <td>Ihre E-mail:</td>
-	    <td><input type="text" name="mail" value="{mail}" style="width: 100%"></td>
-	</tr><tr>
-	    <td>Betreff:</td>
-	    <td><input type="text" name="subject" value="{subject}" style="width: 100%"></td>
-	</tr><tr>
-	    <td valign="top">Nachricht:</td>
-	    <td><textarea name="txt" style="width: 100%; overflow:auto;" rows="8">{text}</textarea></td>
-	</tr>
-	{ANTISPAM}
-	<tr>
-	    <td colspan="2">&nbsp;</td>
-	</tr><tr>
-	    <td>&nbsp;</td>
-	    <td><input name="submit" type="submit" value=" Absenden "></td>
-	</tr>
-    </table>
+    <label><strong>Empf&auml;nger ausw&auml;hlen:</strong></label><br><br>
+    {EXPLODE}
+    <input id="w{KEY}" {c} type="radio" name="wer" value="{KEY}" style="float: left;"><label for="w{KEY}">&nbsp;&nbsp; {VAL}</label><br style="clear: both;">
+    {EXPLODE}<br>
+    <label class="ilch_float_l label_100">Ihr Name:</label><input type="text" name="name" value="{name}"><br> 
+    <label class="ilch_float_l label_100">Ihr E-Mail:</label><input type="text" name="mail" value="{mail}"><br> 
+    <label class="ilch_float_l label_100">Betreff:</label><input type="text" name="subject" value="{subject}"><br> 
+    <label class="ilch_float_l label_100">Nachricht:</label><textarea name="txt" style="width: 98%; overflow:auto;" rows="8"></textarea><br><br>
+    <div class="text-center">{ANTISPAM}<br></div>
+    <div class="text-center"><input name="submit" type="submit" value=" Absenden "></div>	
 </form>

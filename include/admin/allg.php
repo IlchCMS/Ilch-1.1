@@ -139,15 +139,15 @@ if (empty($_POST['submit']) || !$csrfCheck) {
 	    echo '<label class="radio-inline"><input type="radio" name="' . $row['schl'] . '" value="0" ' . $checkedn . ' > nein</label>';
 	} elseif ($row['typ'] == 's') {
 	    $vname = $row['schl'];
-	    echo '<div class="col-xs-6"><select class="form-control" name="' . $row['schl'] . '">' . $$vname . '</select></div>';
+	    echo '<div class="col-sm-6"><select class="form-control" name="' . $row['schl'] . '">' . $$vname . '</select></div>';
 	} elseif ($row['typ'] == 'textarea') {
-	    echo '<textarea class="form-control" rows="3" name="' . $row['schl'] . '">' . $row['wert'] . '</textarea>';
+	    echo '<textarea class="form-control" rows="7" name="' . $row['schl'] . '">' . $row['wert'] . '</textarea>';
 	} elseif ($row['typ'] == 'grecht') {
 	    $grl = dblistee($allgAr[$row['schl']], "SELECT id,name FROM prefix_grundrechte ORDER BY id ASC");
-	    echo '<div class="col-xs-6"><select class="form-control" name="' . $row['schl'] . '">' . $grl . '</select></div>';
+	    echo '<div class="col-sm-6"><select class="form-control" name="' . $row['schl'] . '">' . $grl . '</select></div>';
 	} elseif ($row['typ'] == 'grecht2') {
 	    $grl = dblistee($allgAr[$row['schl']], "SELECT id,name FROM prefix_grundrechte WHERE id >= -2 ORDER BY id ASC");
-	    echo '<div class="col-xs-6"><select class="form-control" name="' . $row['schl'] . '">' . $grl . '</select></div>';
+	    echo '<div class="col-sm-6"><select class="form-control" name="' . $row['schl'] . '">' . $grl . '</select></div>';
 	} elseif ($row['typ'] == 'password') {
 	    echo '<input class="form-control" type="password" name="' . $row['schl'] . '" value="***">';
 	}

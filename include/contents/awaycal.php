@@ -1,14 +1,14 @@
 <?php 
-#   Copyright by: Manuel
-#   Support: www.ilch.de
+//   Copyright by: Manuel
+//   Support: www.ilch.de
 
 defined ('main') or die ( 'no direct access' );
 
-//Text der gesendet wird, wenn ein Neuer Eintrag ertellt wird
+//Text der gesendet wird, wenn ein neuer Eintrag ertellt wird
 $message1 = $lang['awaycalnewenquiry'];
 //Text der gesendet wird, wenn ein Eintrag bearbeitet wird
 $message2 = $lang['awaycalchangedenquiry'];
-//Text fuer den User wenn der Stutus geandert wurde
+//Text fuer den User wenn der Status geandert wurde
 $message3 = $lang['awaycalstatuschanged'];
 
 # function
@@ -28,7 +28,7 @@ function away_sendpmtoleaders ($m,$uid,$a) {
     sendpm($_SESSION['authid'], $r['uid'], 'Away-Anfrage', $m, -1);
   }
 }
-
+$ILCH_HEADER_ADDITIONS .= "\n<link href=\"//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css\" rel=\"stylesheet\">";
 $title = $allgAr['title'].' :: Awaycalender';
 $hmenu = 'Awaycalender';
 $design = new design ( $title , $hmenu );

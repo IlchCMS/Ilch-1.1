@@ -10,7 +10,7 @@ $design = new design('Admins Area', 'Admins Area', 2);
 $design->header();
 
 if (!is_admin()) {
-    echo 'Dieser Bereich ist nicht fuer dich...';
+    echo '<div class="alert alert-danger" role="alert">Dieser Bereich ist nicht fuer dich...</div>';
     $design->footer();
     exit();
 }

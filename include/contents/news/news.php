@@ -7,8 +7,8 @@ defined ('main') or die ('no direct access');
 $title = $allgAr['title'] . ' :: News';
 $hmenu = 'News';
 $design = new design ($title , $hmenu);
-$design->addheader('<link rel="alternate" type="application/atom+xml" title="News (Atom)" href="index.php?news-atom" />
-<link rel="alternate" type="application/rss+xml" title="News (RSS)" href="index.php?news-rss" />');
+$design->addheader('<link rel="alternate" type="application/atom+xml" title="News (Atom)" href="index.php?news-atom">
+<link rel="alternate" type="application/rss+xml" title="News (RSS)" href="index.php?news-rss">');
 
 function news_find_kat ($kat) {
     $katpfad = 'include/images/news/';
@@ -25,7 +25,7 @@ function news_find_kat ($kat) {
     }
 
     if (!empty($pfadzumBild)) {
-        $kategorie = '<img src="' . $pfadzumBild . '" alt="">';
+        $kategorie = '<img src="' . $pfadzumBild . '" alt="" class="ilchbordernone">';
     } else {
         $kategorie = '<strong>' . $kat . '</strong><br><br>';
     }
@@ -258,7 +258,7 @@ if (!is_numeric($menu->get(1))) {
             if (!$row['html']) {
                 $row['text'] = bbcode($row['text']);
             }
-            $row['edit'] = is_null($row['edit_time']) ? '' : '<br /><i>zuletzt ge&auml;ndert am ' . date('d.m.Y - H:i', strtotime($row['edit_time'])) . '&nbsp;Uhr';
+            $row['edit'] = is_null($row['edit_time']) ? '' : '<br><i>zuletzt ge&auml;ndert am ' . date('d.m.Y - H:i', strtotime($row['edit_time'])) . '&nbsp;Uhr';
             if (!empty($row['edit']) and $row['editorname'] != $row['username']) {
                 $row['edit'] .= ' von ' . $row['editorname'] . '</i>';
             } elseif (!empty($row['edit'])) {

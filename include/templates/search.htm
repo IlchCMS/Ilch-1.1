@@ -1,26 +1,28 @@
 <form action="index.php?search" method="GET">
-<fieldset>
-<legend><strong>{_lang_search}</strong></legend>
-<div class="ilch_case_in">
-<label class="ilch_float_l label_60">Beitrag</label><input type="text" value="{search}" name="search" size="{size}"><br>
-<label class="ilch_float_l label_60">Autor</label><input type="text" value="{autor}" name="autor" size="{size}"><br><br>
-	<input type="radio" name="in" value="1" {checked1} > Forum<br>
-	<input type="radio" name="in" value="2" {checked2} > News<br>
-	<input type="radio" name="in" value="3" {checked3} > Downloads<br><br>
-<label class="ilch_float_l label_120">{_lang_definitetime}</label><select name="days">{days}</select><br><br>
-<label class="ilch_float_l label_120"></label><input type="submit" value="{_lang_search}">
-</div>
-</form>
-</fieldset>
+    <fieldset>
+        <legend><strong>{_lang_search}</strong></legend>
+        <div class="ilch_case_in">
+            <label class="ilch_float_l label_60">Beitrag</label><input type="text" value="{search}" name="search" size="{size}"><br>
+            <label class="ilch_float_l label_60">Autor</label><input type="text" value="{autor}" name="autor" size="{size}"><br><br>
+            <input type="radio" name="in" value="1" {checked1} > Forum<br>
+            <input type="radio" name="in" value="2" {checked2} > News<br>
+            <input type="radio" name="in" value="3" {checked3} > Downloads<br><br>
+            <label class="ilch_float_l label_120">{_lang_definitetime}</label><select name="days">{days}</select><br><br>
+            <label class="ilch_float_l label_120"></label><input type="submit" value="{_lang_search}">
+        </div>
+    </fieldset>
+</form>   
 {EXPLODE}
 <div class="ilch_case_in">
-<span class="ilch_float_l">{MPL}</span>
-<span class="ilch_float_r">{_lang_whole}: {gAnz}</span>
+    <span class="ilch_float_l">{MPL}</span>
+    <span class="ilch_float_r">{_lang_whole}: {gAnz}</span>
 </div>
 <table class="border">
-  {EXPLODE}<tr class="{class}">
-    <td class="erstezeile forumord tdweight5 text-center ilch_vertikal_middle"><img src="include/images/forum/{ord}.gif"></td>
-    <td class="erstezeile"><a href="?{link}">{titel} {_lang_from} {autor}</a></td>
-  </tr>{EXPLODE}
+    {EXPLODE}
+    <tr class="{class}">
+        <td class="erstezeile forumord tdweight5 text-center ilch_vertikal_middle"><img src="include/images/forum/{ord}.gif"></td>
+        <td class="erstezeile"><a href="?{link}">{titel} {_lang_from} {autor}</a></td>
+    </tr>
+    {EXPLODE}
 </table>
 {MPL}

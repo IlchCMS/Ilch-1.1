@@ -78,6 +78,6 @@ function Klapptext(str) {
 }
 
 function usergalleryupl() {
-	var Fenster = window.open ('index.php?user-usergallery_upload', 'usergalleryupl', 'status=yes,scrollbars=no,height=250,width=450');
+	var Fenster = window.open ('index.php?user-usergallery_upload', 'usergalleryupl', 'status=yes,scrollbars=yes,height=350,width=500');
 	Fenster.focus();
 }

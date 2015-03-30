@@ -1,123 +1,121 @@
 .abg
 {
-  background-color: #204A87;
+    background-color: #204A87;
 }
 .Callg
 {
-  background-color: #EFEFEF;
-	color: #000000;
+    background-color: #EFEFEF;
+    color: #000000;
 }
 
 .Callg td
 {
-  color: #000000;
+    color: #000000;
 }
 #Ballg
 {
-	color: #000000;
+    color: #000000;
 }
 #Ballg td
 {
-	color: #000000;
+    color: #000000;
 }
 .Bhead
-
 {
-  background-color: #4E7AA5;
-	color: #FFFFFF;
+    background-color: #4E7AA5;
+    color: #FFFFFF;
 }
 .Bbody
 {
-  background-color: #B4C6D8;
-	color: #000000;
+    background-color: #B4C6D8;
+    color: #000000;
 }
 .rand
 {
-  border: solid #003366 1px;
+    border: solid #003366 1px;
 }
 div.info_box {
-width: 400px; border: 1px solid #204a87; padding: 8px 16px 8px 68px; 
-background: #eeeeec url(../../images/icons/admin/info.png) no-repeat 8px 8px;
-margin: 5px 5px 5px 5px;
-/* margin: 5px auto 5px auto; */
+    width: 400px;
+    border: 1px solid #204a87;
+    padding:5px; 
+    background: #eeeeec;
+    margin: 5px;
 }
-
 div.warning_box {
-width: 400px; border: 1px solid #a40000; padding: 8px 16px 8px 68px; 
-background: #eeeeec url(../../images/icons/admin/warning.png) no-repeat 8px 8px;
-margin: 5px auto 5px auto;
+    width: 400px;
+    border: 1px solid #a40000;
+    padding:5px; 
+    background: #eeeeec;
+    margin: 5px;
 }
-
 
 /* Neben den Ilch Anpassungen externer Module noch weitere Definitionen */
 
-
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    margin-bottom: 60px;
 }
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 67px;
-  background-color: #222222;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 67px;
+    background-color: #222222;
 }
 body > .container {
-  padding: 60px 15px 0;
+    padding: 60px 15px 0;
 }
 .container .text-muted {
-  margin: 20px 0;
+    margin: 20px 0;
 }
 .footer > .container {
-  padding-right: 15px;
-  padding-left: 15px;
+    padding-right: 15px;
+    padding-left: 15px;
 }
 code {
-  font-size: 80%;
+    font-size: 80%;
 }
 .visible-xsmin-in {display:none;}
 .visible-xs-800 {display:none;}
 
 @media (max-width: 801px) {
-.ilch_out_800 {
-display:none
-}
-.visible-xs-800 {
-display:inline
-}
+    .ilch_out_800 {
+        display:none
+    }
+    .visible-xs-800 {
+        display:inline
+    }
 }
 .ilch_label {
-width: 25px;
-border:none
+    width: 25px;
+    border:none
 }
 .ilch_label_bsite {
-height: 35px;
-border:none
+    height: 35px;
+    border:none
 }
 .ilch_cont {
-margin-top:-50px;
-margin-bottom:80px
+    margin-top:-50px;
+    margin-bottom:80px
 }
 .ilch_footer > a {
-color:#D3D3D3;
-text-decoration:none
+    color:#D3D3D3;
+    text-decoration:none
 }
 .ilch_footer > a:hover {
-text-decoration:underline
+    text-decoration:underline
 }
 .border table{
-width: 100%;
-border-spacing: 1px;
-margin-bottom: 20px;
--webkit-border-radius: 6px;
--moz-border-radius: 6px;
-border-radius: 6px;
+    width: 100%;
+    border-spacing: 1px;
+    margin-bottom: 20px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
 }
 .border > thead > tr > th,
 .border > tbody > tr > th,
@@ -125,95 +123,100 @@ border-radius: 6px;
 .border > thead > tr > td,
 .border > tbody > tr > td,
 .border > tfoot > tr > td {
-  border: 1px solid #ddd;
+    border: 1px solid #02528f;
 }
 .Chead, .Cmite, .Cnorm, .Cdark {
-  padding: 5px;
+    padding: 5px;
 }
 .border tr,
 .border td,
 .border th 
 {
-  padding: 8px;
-  line-height: 20px;
-  text-align: left;
-  vertical-align: top;
+    padding: 8px;
+    line-height: 20px;
+    text-align: left;
+    vertical-align: top;
 }
-.Chead,
+.Chead{
+   background: #16639b;
+   color: #9dbdd4;
+}
 .Cdark{
-background:#FCF8E3
+   background-color: #9AB1C8;
+   color:#000;
 }
-.Cmite,
 .Cnorm{
-background:#FFFFFF
+    background:#e5e5e5;
+}
+.Cmite{
+    background:#f7f7f7;
 }
 .border label,
 .border input,
 .border button,
 .border select{
-  font-size: 14px;
-  font-weight: normal;
-  line-height: 24px;
-  height:24px;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 24px;
+    height:24px;
 }
-
 .border button{
--webkit-border-radius: 3px;
--moz-border-radius: 3px;
-border-radius: 3px;
-color: #ffffff;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-  background-color: #006dcc;
-  *background-color: #0044cc;
-  background-image: -moz-linear-gradient(top, #0088cc, #0044cc);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));
-  background-image: -webkit-linear-gradient(top, #0088cc, #0044cc);
-  background-image: -o-linear-gradient(top, #0088cc, #0044cc);
-  background-image: linear-gradient(to bottom, #0088cc, #0044cc);
-  background-repeat: repeat-x;
-  border-color: #0044cc #0044cc #002a80;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0044cc', GradientType=0);
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    color: #ffffff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    background-color: #006dcc;
+    *background-color: #0044cc;
+    background-image: -moz-linear-gradient(top, #0088cc, #0044cc);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));
+    background-image: -webkit-linear-gradient(top, #0088cc, #0044cc);
+    background-image: -o-linear-gradient(top, #0088cc, #0044cc);
+    background-image: linear-gradient(to bottom, #0088cc, #0044cc);
+    background-repeat: repeat-x;
+    border-color: #0044cc #0044cc #002a80;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0044cc', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
 }
 .border button:hover,
 .border button:focus,
 .border button:active
 {
-  color: #ffffff;
-  background-color: #0044cc;
-  *background-color: #003bb3;
+    color: #ffffff;
+    background-color: #0044cc;
+    *background-color: #003bb3;
 }
 .border input,
 .border button,
 .border select,
 .border textarea {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .border label {
-  display: block;
-  margin-bottom: 5px;
+    display: block;
+    margin-bottom: 5px;
 }
 .border button,
 .border input,
 .border select,
 .border textarea {
-  margin: 0;
-  font-size: 100%;
-  vertical-align: middle;
+    margin: 0;
+    font-size: 100%;
+    vertical-align: middle;
 }
 .border button,
 .border input {
-  *overflow: visible;
-  line-height: normal;
+    *overflow: visible;
+    line-height: normal;
 }
 .border textarea{
-  padding: 4px 6px;
-  margin-bottom: 10px;
-  font-size: 14px;
-  -webkit-border-radius: 4px;
-     -moz-border-radius: 4px;
-          border-radius: 4px;
+    padding: 4px 6px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
 }
 .border select,
 .border input[type=text],
@@ -230,18 +233,18 @@ color: #ffffff;
 .border input[type=search],
 .border input[type=tel],
 .border input[type=color]
- {
-  display: inline-block;
-  height: 30px;
-  padding: 4px 6px;
-  margin-bottom: 10px;
-  font-size: 14px;
-  line-height: 30px;
-  color: #555555;
-  vertical-align: middle;
-  -webkit-border-radius: 4px;
-     -moz-border-radius: 4px;
-          border-radius: 4px;
+{
+    display: inline-block;
+    height: 30px;
+    padding: 4px 6px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 30px;
+    color: #555555;
+    vertical-align: middle;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
 }
 .border textarea,
 .border input[type=text],
@@ -259,17 +262,16 @@ color: #ffffff;
 .border input[type=tel],
 .border input[type=color]
 {
-  background-color: #ffffff;
-  border: 1px solid #cccccc;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
-     -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
-       -o-transition: border linear 0.2s, box-shadow linear 0.2s;
-          transition: border linear 0.2s, box-shadow linear 0.2s;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+    -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+    -o-transition: border linear 0.2s, box-shadow linear 0.2s;
+    transition: border linear 0.2s, box-shadow linear 0.2s;
 }
-
 .border textarea:focus,
 .border input[type=text]:focus,
 .border input[type=password]:focus,
@@ -280,23 +282,22 @@ color: #ffffff;
 .border input[type=search]:focus,
 .border input[type=color]:focus
 {
-  border-color: rgba(82, 168, 236, 0.8);
-  outline: 0;
-  outline: thin dotted \9;
-  /* IE6-9 */
+    border-color: rgba(82, 168, 236, 0.8);
+    outline: 0;
+    outline: thin dotted \9;
+    /* IE6-9 */
 
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
-     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
-          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
 }
 .border input[type=radio],
 .border input[type=checkbox] {
-  margin: 4px 0 0;
-  margin-top: 1px \9;
-  *margin-top: 0;
-  line-height: normal;
+    margin: 4px 0 0;
+    margin-top: 1px \9;
+    *margin-top: 0;
+    line-height: normal;
 }
-
 .border input[type=file],
 .border input[type=image],
 .border input[type=submit],
@@ -304,17 +305,19 @@ color: #ffffff;
 .border input[type=button],
 .border input[type=radio],
 .border input[type=checkbox] {
-  width: auto;
+    width: auto;
 }
 .border input[type=submit],
 .border input[type=file],
 .border input[type=button]{
-height:30px;
-line-height:25px;
-color:#fff;background-color:#428bca;border:1px solid #357ebd;
--webkit-border-radius: 4px;
--moz-border-radius: 4px;
-border-radius: 4px;
+    height:30px;
+    line-height:25px;
+      color: #333;
+  background-color: #fff;
+  border:1px solid  #ccc;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
 }
 .border input[type=submit]:hover,
 .border input[type=button]:hover,
@@ -322,108 +325,127 @@ border-radius: 4px;
 .border input[type=button]:focus,
 .border input[type=file]:hover,
 .border input[type=file]:focus{
-height:30px;
-line-height:25px;
-color:#fff;background-color:#3276b1;border:1px solid #285e8e
+    height:30px;
+    line-height:25px;
+    color: #333;
+  background-color: #e6e6e6;
+  border: 1px solid #adadad;
 }
-
 .border select,
 .border input[type=file] {
-  height: 30px;
-  /* In IE7, the height of the select element cannot be changed by height, only font-size */
-  *margin-top: 4px;
-  /* For IE7, add top margin to align select with labels */
-  line-height: 30px;
+    height: 30px;
+    /* In IE7, the height of the select element cannot be changed by height, only font-size */
+    *margin-top: 4px;
+    /* For IE7, add top margin to align select with labels */
+    line-height: 30px;
 }
 .border select {
-  width: 220px;
-  background-color: #ffffff;
-  border: 1px solid #cccccc;
+    width: 220px;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
 }
 .border select[multiple],
 .border select[size] {
-  height: auto;
+    height: auto;
 }
 .border select:focus,
 .border input[type=file]:focus,
 .border input[type=radio]:focus,
 .border input[type=checkbox]:focus {
-  outline: thin dotted #333;
-  outline: 5px auto -webkit-focus-ring-color;
-  outline-offset: -2px;
+    outline: thin dotted #333;
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
 }
 input,
 textarea,
 select{
-margin-top:3px;
+    margin-top:3px;
 }
-table{
-width: 100%;
-border-spacing: 0
+.small_index_ilch{
+    width: 400px;
+    margin:0 auto
 }
-.border400{
-max-width: 400px
-}
-.ilch_box_in{
-margin:10px
-}
-.ilch_case{
-border:1px solid transparent
+.ilchadmin{
+    box-shadow: 0px 0px 0px 7px rgba(0,0,0,0.5);
+    color: #2f2f2f;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
 }
 .ilch_case_in{
-padding: 10px 10px 20px 10px
+    padding: 10px 10px 20px 10px
+}
+.border400{
+    max-width: 400px
+}
+.ilch_box_in{
+    margin:10px
+}
+.ilch_case{
+    border:1px solid transparent
+}
+.ilch_case_in{
+    padding: 10px 10px 20px 10px
 }
 .ilch_casesmall_in{
-padding:5px
+    padding:5px
 }
 .Chead{
-padding: 10px 5px 10px 5px
+    padding: 10px 5px 10px 5px
 }
 .Cdark{
-padding: 7px 5px 7px 5px
+    padding: 7px 5px 7px 5px
 }
 .colorred {
-color:#ff0000;
+    color:#ff0000;
 }
 .fll {
-float:left;
+    float:left;
 }
 clear {
-clear:both;
+    clear:both;
 }
 .ml20 {
-margin-left: 20px;
+    margin-left: 20px;
 }
 .red {
-color:red;
+    color:red;
 }
 .ilchkomcode {
-white-space: pre;
-width: 100%;
-overflow: auto;
-display: block;
-background-color:#333;
-color:#fff;
+    white-space: pre;
+    width: 100%;
+    overflow: auto;
+    display: block;
+    background-color:#333;
+    color:#fff;
 }
 .skalenderbegi {
-position:absolute;
-top:0px;
-left:50%;
-margin-left:-120px;
-display:none;
-width:240px;
-z-index:1001;
-background-color:#f7f7f7;
--webkit-box-shadow: 4px 4px 6px 0px rgba(0, 0, 0, 0.53);
--moz-box-shadow:4px 4px 6px 0px rgba(0, 0, 0, 0.53);
-box-shadow:4px 4px 6px 0px rgba(0, 0, 0, 0.53);
+    position:absolute;
+    top:0px;
+    left:50%;
+    margin-left:-120px;
+    display:none;
+    width:240px;
+    z-index:1001;
+    background-color:#f7f7f7;
+    -webkit-box-shadow: 4px 4px 6px 0px rgba(0, 0, 0, 0.53);
+    -moz-box-shadow:4px 4px 6px 0px rgba(0, 0, 0, 0.53);
+    box-shadow:4px 4px 6px 0px rgba(0, 0, 0, 0.53);
 }
 .ilchimgadmin {
-max-width: 100% !important;
+    max-width: 100% !important;
 }
 #smilies img {
-max-width: 30px;
+    max-width: 30px;
 }
-
-
-
+#toTop-right {
+    display:none;
+    text-decoration:none;
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    outline:none;
+}
+hr{
+border: 1px solid #bcbcbc;
+}

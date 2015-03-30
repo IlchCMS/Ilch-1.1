@@ -1,125 +1,124 @@
 <SCRIPT LANGUAGE="JavaScript">
 <!--
-function CheckAll(){
-	if(document.form.ALL){
-		var c = document.form.ALL.checked;
-	}
-	for (var i=0;i<document.form.elements.length;i++){
-		var e = document.form.elements[i];
-		if(e.name != 'ALL') {
-			if((e.checked!=c)&&(e.type=="checkbox")){
-			 e.click();
-			 e.checked = c;
-			}
-		}
-	}
-}
+    function CheckAll() {
+        if (document.form.ALL) {
+            var c = document.form.ALL.checked;
+        }
+        for (var i = 0; i < document.form.elements.length; i++) {
+            var e = document.form.elements[i];
+            if (e.name != 'ALL') {
+                if ((e.checked != c) && (e.type == "checkbox")) {
+                    e.click();
+                    e.checked = c;
+                }
+            }
+        }
+    }
 
-function update_smiley(newimage) {
-	document.smiley_image.src = 'include/images/smiles/' +newimage;
-}
+    function update_smiley(newimage) {
+        document.smiley_image.src = 'include/images/smiles/' + newimage;
+    }
 
-function more_upload() {
-  document.getElementById("moreUpload").innerHTML += '<br><input class="btn btn-primary" type="file" title="Datei suchen" name="ar[]" >';
-}
+    function more_upload() {
+        document.getElementById("moreUpload").innerHTML += '<br><input class="btn btn-primary" type="file" title="Datei suchen" name="ar[]" >';
+    }
 
 //-->
 </SCRIPT>
-
 <legend><h2><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Smilies</h2></legend>
 <div class="row">
-  <div class="col-md-6">
-<div class="panel panel-default">
-<div class="panel-heading"><strong>Smilies hinzuf&uuml;gen, &auml;ndern</strong></div>
-  <div class="panel-body">
-<form action="admin.php?smilies" method="POST" class="form-horizontal" role="form">
-<input type="hidden" name="sid" value="{id}">
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Smilie Url</label>
-    <div class="col-xs-6">
-      <select class="form-control" name="url" onkeyup="update_smiley(this.options[selectedIndex].value);" onchange="update_smiley(this.options[selectedIndex].value);">{url}</select>
-    </div><img name="smiley_image" src="include/images/smiles/{surl}" border="0" alt="" style="max-height:30px;">
-  </div>
-  <div class="form-group">
-    <label for="eingabefeldEmail3" class="col-sm-2 control-label">Smilie Code</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" name="ent" value="{ent}">
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading"><strong>Smilies hinzuf&uuml;gen, &auml;ndern</strong></div>
+            <div class="panel-body">
+                <form action="admin.php?smilies" method="POST" class="form-horizontal" role="form">
+                    <input type="hidden" name="sid" value="{id}">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Smilie Url</label>
+                        <div class="col-xs-6">
+                            <select class="form-control" name="url" onkeyup="update_smiley(this.options[selectedIndex].value);" onchange="update_smiley(this.options[selectedIndex].value);">{url}</select>
+                        </div><img name="smiley_image" src="include/images/smiles/{surl}" border="0" alt="" style="max-height:30px;">
+                    </div>
+                    <div class="form-group">
+                        <label for="eingabefeldEmail3" class="col-sm-2 control-label">Smilie Code</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="ent" value="{ent}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="eingabefeldEmail3" class="col-sm-2 control-label">Beschreibung</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="emo" value="{emo}">
+                        </div>
+                    </div>
+                    <span style="float:right;"><input type="submit" class="btn btn-primary" value="{_lang_formsub}" name="sub"></span>
+                </form>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading"><strong>Neue Smilies hochladen</strong></div>
+            <div class="panel-body">
+                <form action="admin.php?smilies" method="POST" enctype="multipart/form-data" class="form-horizontal" role="form" >
+                    <div id="moreUpload"><input class="btn btn-primary" type="file"   title="Datei suchen"  name="ar[]" /></div><br>
+                    <div class="btn-group">
+                        <input type="button" class="btn btn-success" title="weitere Dateien einf&uuml;gen" onClick="more_upload();" value="+" /><input type="submit" class="btn btn-primary" value="{_lang_formsub}" name="u" />
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading"><strong>Smilie Pakete verwalten</strong><span style="float:right;"><a class="btn btn btn-warning btn-xs" href="admin.php?smilies-createpak">Paket erstellen</a></span></div>
+            <div class="panel-body">
+                <form action="admin.php?smilies" method="POST" class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Paket importieren</label>
+                        <div class="col-xs-6">
+                            <select class="form-control" name="pak"><option value="0">Bitte pak Datei w&auml;hlen</option>{pakfile}</select>
+                        </div>
+                    </div>
+                    <span style="float:right;"><input class="btn btn-primary" type="submit" name="i" value="{_lang_formsub}"></span>
+                </form>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading"><strong>Neue Smilies einf&uuml;gen</strong></div>
+            <div class="panel-body">
+                <form action="admin.php?smilies" method="POST" name="form" role="form" class="form-inline">
+                    <div class="alert alert-info" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Schlie&szlig;en</span></button>
+                        Alle Smilies im Ordner <strong>"include/images/smiles/"</strong> die noch nicht in der Datenbank stehen, k&ouml;nnen hier gel&ouml;scht oder in die Datenbank eingetragen werden.</div>
+                    {EXPLODE}
+                    <input type="checkbox" name="chk[{url}]]" value="yes">
+                    <img src="include/images/smiles/{url}" style="max-height:30px;">
+                    <input name="ent[{url}]" value="{ent}" class="form-control">
+                    <input name="emo[{url}]" value="{emo}" class="form-control"><br><br>
+                    {EXPLODE}<br>
+                    <input name="ALL" type="checkbox" value="CHECK ALL" onClick="CheckAll();" />
+                    <select class="form-control" name="ak"><option value="1">eintragen</option><option value="2">l&ouml;schen</option></select>&nbsp;<input class="btn btn-primary" type="submit" value="{_lang_formsub}" name="s" />
+                </form>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="form-group">
-    <label for="eingabefeldEmail3" class="col-sm-2 control-label">Beschreibung</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" name="emo" value="{emo}">
+    <div class="col-md-6">
+        <span class="visible-xs-800"><legend>Auflistung Smilies</legend></span>
+        <table class="table table-bordered table-striped">
+            <tr class="success">
+                <td class="text-center">Smilie</td>
+                <td class="text-center">Smilie Code</td>
+                <td class="text-center">Beschreibung</td>
+                <td></td>
+            </tr>
+            {EXPLODE}
+            <tr>
+                <td align="center"><img src="include/images/smiles/{url}" alt="" style="max-height:30px;"></td>
+                <td align="center">{ent}</td>
+                <td align="center">{emo}</td>
+                <td class="text-center"><a href="admin.php?smilies-e{id}" rel="tooltip" title="Bearbeiten" style="margin-right:3px;"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></a> <a href="admin.php?smilies-d{id}" rel="tooltip" title="Smilie l&ouml;schen"><span style="color:#AD0000;" class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+            </tr>
+            {EXPLODE}
+        </table>
     </div>
-  </div>
-<span style="float:right;"><input type="submit" class="btn btn-primary" value="{_lang_formsub}" name="sub"></span>
-</form>
-</div></div>
-<div class="panel panel-default">
-<div class="panel-heading"><strong>Neue Smilies hochladen</strong></div>
-  <div class="panel-body">
-<form action="admin.php?smilies" method="POST" enctype="multipart/form-data" class="form-horizontal" role="form" >
-<div id="moreUpload"><input class="btn btn-primary" type="file"   title="Datei suchen"  name="ar[]" /></div><br>
-<div class="btn-group">
-<input type="button" class="btn btn-success" title="weitere Dateien einf&uuml;gen" onClick="more_upload();" value="+" /><input type="submit" class="btn btn-primary" value="{_lang_formsub}" name="u" />
 </div>
-</form>
-</div></div>
-
-<div class="panel panel-default">
-<div class="panel-heading"><strong>Smilie Pakete verwalten</strong><span style="float:right;"><a class="btn btn btn-warning btn-xs" href="admin.php?smilies-createpak">Paket erstellen</a></span></div>
-  <div class="panel-body">
-<form action="admin.php?smilies" method="POST" class="form-horizontal" role="form">
-<div class="form-group">
-    <label class="col-sm-3 control-label">Paket importieren</label>
-    <div class="col-xs-6">
-      <select class="form-control" name="pak"><option value="0">Bitte pak Datei w&auml;hlen</option>{pakfile}</select>
-    </div>
-  </div>
-<span style="float:right;"><input class="btn btn-primary" type="submit" name="i" value="{_lang_formsub}"></span>
-</form>
-</div></div>
-
-<div class="panel panel-default">
-<div class="panel-heading"><strong>Neue Smilies einf&uuml;gen</strong></div>
-  <div class="panel-body">
-<form action="admin.php?smilies" method="POST" name="form" role="form" class="form-inline">
-<div class="alert alert-info" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Schließen</span></button>
-Alle Smilies im Ordner <strong>"include/images/smiles/"</strong> die noch nicht in der Datenbank stehen, k&ouml;nnen hier gel&ouml;scht oder in die Datenbank eingetragen werden.</div>
-
-{EXPLODE}
-<input type="checkbox" name="chk[{url}]]" value="yes">
-<img src="include/images/smiles/{url}" style="max-height:30px;">
-<input name="ent[{url}]" value="{ent}" class="form-control">
-<input name="emo[{url}]" value="{emo}" class="form-control"><br><br>
-{EXPLODE}<br>
-      <input name="ALL" type="checkbox" value="CHECK ALL" onClick="CheckAll();" />
-      <select class="form-control" name="ak"><option value="1">eintragen</option><option value="2">l&ouml;schen</option></select>&nbsp;<input class="btn btn-primary" type="submit" value="{_lang_formsub}" name="s" />
-
-</form>
-</div></div>
-</div>
-
-  <div class="col-md-6">
-<span class="visible-xs-800"><legend>Auflistung Smilies</legend></span>
-<table class="table table-bordered table-striped">
-  <tr class="success">
-		<td class="text-center">Smilie</td>
-		<td class="text-center">Smilie Code</td>
-    <td class="text-center">Beschreibung</td>
-		<td></td>
-	</tr>
-	{EXPLODE}
-	<tr>
-		<td align="center"><img src="include/images/smiles/{url}" alt="" style="max-height:30px;"></td>
-		<td align="center">{ent}</td>
-		<td align="center">{emo}</td>
-    <td class="text-center"><a href="admin.php?smilies-e{id}" rel="tooltip" title="Bearbeiten" style="margin-right:3px;"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></a> <a href="admin.php?smilies-d{id}" rel="tooltip" title="Smilie l&ouml;schen"><i class="fa fa-trash-o" style="color:#ff0000;"></i></a></td>
-	</tr>
-{EXPLODE}
-</table>
-</div></div>
 <script>
-$('input[type=file]').bootstrapFileInput();
-$('.file-inputs').bootstrapFileInput();
+    $('input[type=file]').bootstrapFileInput();
+    $('.file-inputs').bootstrapFileInput();
 </script>

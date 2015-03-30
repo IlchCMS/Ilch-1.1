@@ -1,28 +1,28 @@
 <table class="border">
-	<tr class="Chead">
-    <th colspan="2" class="text-center"><strong>{_lang_board}</strong></th>
-    <th class="text-center">{_lang_post}</th>
-    <th class="text-center">{_lang_topic}</th>
-    <th class="text-center">{_lang_lastpost}</th>
-  </tr>{EXPLODE}<tr class="Cdark">
-	  <td colspan="5"><strong><a href="index.php?forum-showcat-{cid}">{cname}</a></strong></td>
-	</tr>{EXPLODE}<tr class="Cmite">
-	  <td colspan="5"><strong>&nbsp;&nbsp;&raquo;<a href="index.php?forum-showcat-{cid}">{cname}</a></strong></td>
-	</tr>{EXPLODE}<tr class="Cnorm">
-	  <td class="forumord tdweight5 text-center ilch_vertikal_middle"><img alt="" src="include/images/forum/{ORD}.gif"></td>
-    <td>
-		  <a href="index.php?forum-showtopics-{id}">{name}</a>
-		  <br>
-			<span class="smalfont">{besch}
-			{mods}
-      </span>
-		</td>
-    <td class="text-center smalfont">{posts}</td>
-    <td class="text-center smalfont">{topics}</td>
-    <td class="smalfont">
-				<a class="smalfont" title="{topicl}" href="index.php?forum-showposts-{tid}-p{page}#{pid}">{topic}</a>
-		    <br>
-			  {_lang_from}: {erst}
-		</td>
-  </tr>{EXPLODE} 
+    <tr class="Chead">
+        <th colspan="2" class="text-center"><strong>{_lang_board}</strong></th>
+        <th class="text-center">{_lang_post}</th>
+        <th class="text-center">{_lang_topic}</th>
+        <th class="text-center">{_lang_lastpost}</th>
+    </tr>{EXPLODE}<tr class="Cdark">
+        <td colspan="5"><strong><a href="index.php?forum-showcat-{cid}">{cname}</a></strong></td>
+    </tr>{EXPLODE}<tr class="Cmite">
+        <td colspan="5"><strong>&nbsp;&nbsp;&raquo;<a href="index.php?forum-showcat-{cid}">{cname}</a></strong></td>
+    </tr>
+    {EXPLODE}
+    <tr class="Cnorm">
+        <td class="forumord tdweight5 text-center ilch_vertikal_middle"><img alt="" src="include/images/forum/{ORD}.gif"></td>
+        <td>
+            <a href="index.php?forum-showtopics-{id}">{name}</a><br>
+            <span class="smalfont">{besch}{mods}</span>
+        </td>
+        <td class="text-center smalfont">{posts}</td>
+        <td class="text-center smalfont">{topics}</td>
+        <td class="smalfont">
+            <a class="smalfont" title="{topicl}" href="index.php?forum-showposts-{tid}-p{page}#{pid}">{topic}</a>
+            <br>
+            {_lang_from}: {erst}
+        </td>
+    </tr>
+    {EXPLODE} 
 </table>

@@ -44,9 +44,9 @@ $stunden = 24;
 		  $inTextAr = $_SERVER['REMOTE_ADDR'];
 		}
 		
-		echo '<strong>'.$fraRow->frage.'</strong>';
+		echo '<strong>'.$fraRow->frage.'</strong><br><br>';
 		if ( in_array ( $inTextAr , $textAr ) OR $fraRow->stat == 0) {
-			  echo '<div class="tdweight100 ilch_float_l">';
+			  echo '<div class="tdweight100">';
 		    $imPollArrayDrin = true;
 		} else {
 			  echo '<form action="index.php?vote-W'.$fraRow->poll_id.'" method="POST">';
@@ -56,16 +56,16 @@ $stunden = 24;
     $pollErg = db_query('SELECT antw, res, sort FROM `prefix_poll_res` WHERE poll_id = "'.$fraRow->poll_id.'" ORDER BY sort');
 		while ( $pollRow = db_fetch_object($pollErg) ) {
 		    if ( $imPollArrayDrin ) {
-						echo '<div class="tdweight80 text-left ilch_float_l">'.$pollRow->antw.'</div><div class="tdweight20 text-right ilch_float_r">'.$pollRow->res.'</div>';
+						echo '<div class="tdweight100 text-left">'.$pollRow->antw.'<span class="ilch_float_r"><strong>'.$pollRow->res.'</strong></span></div>';
 		    } else {
 			      $i++;
-            echo '<div class="tdweight100 text-left ilch_float_l"><input type="radio" id="vote'.$i.'" name="radio" value="'.$pollRow->sort.'"><label for="vote'.$i.'"> '.$pollRow->antw.'</label></div>';
+            echo '<div class="tdweight100 text-left"><input type="radio" id="vote'.$i.'" name="radio" value="'.$pollRow->sort.'"><label for="vote'.$i.'"> '.$pollRow->antw.'</label></div>';
 		    }
 		} 
 		if ( $imPollArrayDrin ) {
-			  echo '<div class="tdweight100 text-right ilch_float_r tablebordertop">'.$lang['whole'].': &nbsp; '.$ges.'</div></div>';
+			  echo '<div class="tdweight100 text-right tablebordertop">'.$lang['whole'].': &nbsp;<strong>'.$ges.'</strong></div></div>';
 		} else {
-		    echo '<div class="tdweight100 text-center ilch_float_l tablebordertop"><input type="submit" value="'.$lang['formsub'].'"></div></form>';
+		    echo '<div class="tdweight100 text-center tablebordertop"><input type="submit" value="'.$lang['formsub'].'"></div></form>';
 		}   
 		} else {
 		  echo $lang['nowvoteavailable'];

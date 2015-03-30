@@ -11,7 +11,7 @@ define('BACKUP_MAX_INSERTS', 100);
 if (!is_admin()) {
     $design = new design('Admins Area', 'Admins Area', 2);
     $design->header();
-    echo 'Dieser Bereich ist nicht fuer dich...';
+    echo '<div class="alert alert-danger" role="alert">Dieser Bereich ist nicht fuer dich...</div>';
     $design->footer();
     exit();
 }
@@ -41,8 +41,8 @@ class FileBackupWriter extends AbstractBackupWriter {
     function FileBackupWriter($filename) {
 	if (!is_writable('include/backup/')) {
 	    if (!headers_sent()) {
-		echo 'Backupverzeichnis ist schreibgesch&uuml;tzt, es wird keine Datei geschrieben.<br />';
-		echo '<a href="admin.php?backup">zur&uuml;ck</a><br />';
+		echo '<div class="alert alert-danger" role="alert">Backupverzeichnis ist schreibgesch&uuml;tzt, es wird keine Datei geschrieben.<br>';
+		echo '<a class="btn btn-default" href="admin.php?backup">zur&uuml;ck</a></div>';
 	    }
 	    $this->valid = false;
 	} else {
@@ -64,8 +64,8 @@ class FileBackupWriter extends AbstractBackupWriter {
 	fclose($this->handle);
 	@chmod('include/backup/' . $this->filename, 0777);
 	if (!headers_sent()) {
-	    echo 'Backupdatei ' . $this->filename . ' erfolgreich angelegt.<br />';
-	    echo '<a href="admin.php?backup">zur&uuml;ck</a><br />';
+	    echo '<div class="alert alert-success" role="alert">Backupdatei ' . $this->filename . ' erfolgreich angelegt.<br>';
+	    echo '<a class="btn btn-default" href="admin.php?backup">zur&uuml;ck</a></div>';
 	}
     }
 

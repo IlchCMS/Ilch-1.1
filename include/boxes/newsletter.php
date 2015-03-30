@@ -1,6 +1,6 @@
 <?php
-#   Copyright by Manuel
-#   Support www.ilch.de
+//  Copyright by Manuel
+//  Support www.ilch.de
 
 
 defined ('main') or die ( 'no direct access' );
@@ -9,18 +9,13 @@ defined ('main') or die ( 'no direct access' );
 if ( empty($_POST['NEWSLETTER'])  ) {
 
 ?>
-
   <form action="index.php" method="POST">
-<div class="tdweight100 text-center ilch_float_l">
-		<strong>Newsletter</strong>
-	  <br>
+  <div>
 		<input type="text" name="NEWSLETTER" size="15">
-		<br><br>
+		<p></p>
 		<input type="submit" value="<?php echo $lang['newsletterinout']; ?>">
-</div>
+		</div>
 	</form>
-
-
 <?php
 
 } else {
@@ -30,10 +25,10 @@ if ( empty($_POST['NEWSLETTER'])  ) {
 	$anz = db_result($erg,0);
 	if ( $anz == 1 ) {
 	  db_query("DELETE FROM prefix_newsletter WHERE email = '".$email."'");
-		echo $lang['deletesuccessful'];
+		echo '<div class="text-center"><span class="ilch_hinweis_gelb">'.$lang['deletesuccessful'].'<span></div>';
 	} else {
 	  db_query("INSERT INTO prefix_newsletter (`email`) VALUES ('".$email."')");
-		echo $lang['insertsuccessful'];
+		echo '<div class="text-center"><span class="ilch_hinweis_gruen">'.$lang['insertsuccessful'].'<span></div>';
 	}
 }
 ?>

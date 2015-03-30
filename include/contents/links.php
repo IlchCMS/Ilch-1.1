@@ -99,7 +99,7 @@ switch ( $menu->getA(1) ) {
 				$row['class'] = $class;
 				$row['desc'] = ( !empty($row['desc']) ? '<br><span class="smalfont">&raquo;&nbsp;'.$row['desc'].'</span>' : '' );
 				if ( !empty($row['banner'] ) ) {
-				  $row['name'] = '<img src="'.$row['banner'].'" border="0" alt="'.$row['name'].'" title="'.$row['name'].'">';
+				  $row['name'] = '<img class="ilchbordernone" src="'.$row['banner'].'" alt="'.$row['name'].'" title="'.$row['name'].'">';
 				}
 			  $tpl->set_ar_out($row,5);
 			}

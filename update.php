@@ -9,15 +9,15 @@ Changelog:
 
 Version 1.1 Q
 -------------
-* Sicherheitsupdates im Bezug auf mÃ¶gliche SQL-Injections
-* Integration SSL / TLS beim Mail-Versand (TransportverschlÃ¼sselung)
-* PHP Versionscheck wÃ¤hrend der Installation
+* Sicherheitsupdates im Bezug auf mögliche SQL-Injections
+* Integration SSL / TLS beim Mail-Versand (Transportverschlüsselung)
+* PHP Versionscheck während der Installation
 * Bugfix Forum verschieben
-* Korrektur ungÃ¼ltiger Links
-* Kontakt Formular improved --> Absenden des Formulars nur dann, wenn alle felder gefÃ¼llt sind.
+* Korrektur ungültiger Links
+* Kontakt Formular improved --> Absenden des Formulars nur dann, wenn alle felder gefüllt sind.
 + Integration des BBCode
 + Integration von News Extended
-+ Komplette Ã¼berarbeitung des Backends -- Integration Bootstrap
++ Komplette überarbeitung des Backends -- Integration Bootstrap
 + Frontend Templates alle tabellen durch divs ersetzt
 README;
 
@@ -33,7 +33,7 @@ if ($rows > 45)
 
         <form method="post">
             <table width="70%" class="border" border="0" cellspacing="0" cellpadding="25" align="center">
-                <tr><th class="Chead" align="center">... ::: [ U p d a t e f &uuml; r &nbsp; i l c h C l a n  &nbsp; 1 . 1 Q </u>] ::: ...</th></tr>
+                <tr><th class="Chead" align="center">... ::: [ U p d a t e f &uuml; r &nbsp; i l c h C l a n  &nbsp; 1 . 1 Q] ::: ...</th></tr>
                 <tr>
                     <td class="Cmite">
 			<?php
@@ -108,13 +108,13 @@ if ($rows > 45)
 			    if (!in_array('pos', $old)) {
 				$sql_statements[] = '-- UPDATE 1.1I';
 				$sql_statements[] = "ALTER TABLE `prefix_config` ADD `pos` SMALLINT(6) NOT NULL default '0'";
-				$sql_statements[] = "INSERT INTO `prefix_config` (`schl`, `typ`, `kat`, `frage`, `wert`, `pos`) VALUES('mail_smtp', 'r2', 'Allgemeine Optionen', 'SMTP fï¿½r den Mailversand verwenden? <a href=\"admin.php?smtpconf\" class=\"smalfont\">weitere Einstellungen</a>', '0', 0)";
+				$sql_statements[] = "INSERT INTO `prefix_config` (`schl`, `typ`, `kat`, `frage`, `wert`, `pos`) VALUES('mail_smtp', 'r2', 'Allgemeine Optionen', 'SMTP f?r den Mailversand verwenden? <a href=\"admin.php?smtpconf\" class=\"smalfont\">weitere Einstellungen</a>', '0', 0)";
 			    }
 
 			    //Update 1.1n
 			    if (db_count_query("SELECT COUNT(*) FROM `prefix_allg` WHERE k = 'smtpconf'") == 0) {
 				$smtp = array('smtp_host' => '', 'smtp_port' => '', 'smtp_auth' => 'auth', 'smtp_pop3beforesmtp' => '', 'smtp_pop3host' => '',
-				    'smtp_pop3port' => '', 'smtp_login' => '', 'smtp_email' => '', 'smtp_login' => '', 'smtp_pass' => '', 'smtp_changesubject' => '1');
+				    'smtp_pop3port' => '', 'smtp_login' => '', 'smtp_email' => '', 'smtp_pass' => '', 'smtp_changesubject' => '1');
 
 				$qry = db_query('SELECT * FROM `prefix_config` WHERE `schl` LIKE "mail_%"');
 				while ($r = db_fetch_assoc($qry)) {
@@ -133,7 +133,7 @@ if ($rows > 45)
 				$sql_statements[] = '-- UPDATE 1.1N';
 				$sql_statements[] = 'INSERT INTO `prefix_allg` ( `k` , `v1`, `v2`, `v3`, `v4`, `t1`) VALUES ( "smtpconf", "", "", "", "", "' . $smtpser . '" )';
 				$sql_statements[] = 'DELETE FROM `prefix_config` WHERE `schl` IN ("mail_smtp_login", "mail_smtp_password", "mail_smtp_host", "mail_smtp_email")';
-				$sql_statements[] = 'UPDATE `prefix_config` SET `kat` = "Allgemeine Optionen", `frage` = "SMTP fï¿½r den Mailversand verwenden? <a href=\"admin.php?smtpconf\" class=\"smalfont\">weitere Einstellungen</a>" WHERE `schl` = "mail_smtp"';
+				$sql_statements[] = 'UPDATE `prefix_config` SET `kat` = "Allgemeine Optionen", `frage` = "SMTP f?r den Mailversand verwenden? <a href=\"admin.php?smtpconf\" class=\"smalfont\">weitere Einstellungen</a>" WHERE `schl` = "mail_smtp"';
 			    }
 
 			    //Update 1.1p
@@ -264,19 +264,66 @@ if ($rows > 45)
 				$sql_statements[] = "INSERT INTO `prefix_bbcode_design` (`fnDesignNr`, `fcQuoteRandFarbe`, `fcQuoteTabelleBreite`, `fcQuoteSchriftfarbe`, `fcQuoteHintergrundfarbe`, `fcQuoteHintergrundfarbeIT`, `fcQuoteSchriftformatIT`, `fcQuoteSchriftfarbeIT`, `fcBlockRandFarbe`, `fcBlockTabelleBreite`, `fcBlockSchriftfarbe`, `fcBlockHintergrundfarbe`, `fcBlockHintergrundfarbeIT`, `fcBlockSchriftfarbeIT`, `fcKtextRandFarbe`, `fcKtextTabelleBreite`, `fcKtextRandFormat`, `fcEmphHintergrundfarbe`, `fcEmphSchriftfarbe`, `fcCountdownRandFarbe`, `fcCountdownTabelleBreite`, `fcCountdownSchriftfarbe`, `fcCountdownSchriftformat`, `fnCountdownSchriftsize`) VALUES(1, '#f6e79d', '320', '#666666', '#f6e79d', '#faf7e8', 'italic', '#666666', '#f6e79d', '350', '#666666', '#f6e79d', '#faf7e8', '#FF0000', '#000000', '90%', 'dotted', '#ffd500', '#000000', '#FF0000', '90%', '#FF0000', 'bold', 10)";
 			    }
 
-			    // Update fÃ¼r 1.1Q.2 - > News Extended Integration
-			    $qry = db_query('SHOW COLUMNS FROM `prefix_news` LIKE "html"');
-			    if ($qry) {
-				$sql_statements[] = 'ALTER TABLE `prefix_news` ADD (`editor_id` int(11) DEFAULT NULL,
-					`edit_time` datetime DEFAULT NULL,
-					`news_groups` int(11) NOT NULL DEFAULT "0",
-					`html` tinyint(1) NOT NULL,
-					`show` int(12) NOT NULL default "0",
-					`archiv` tinyint(1) NOT NULL DEFAULT "0",
-					`endtime` int(12) DEFAULT NULL,
-					`klicks` mediumint(9) NOT NULL DEFAULT "0" )';
-			    }
+			    // Update für 1.1Q.2 - > News Extended Integration
+                $old = array();
+                $sql_statements = array();
 
+                $q = db_query("SHOW FULL COLUMNS FROM `prefix_news`");
+                while($r = db_fetch_object($q)){
+                    $old[] = $r->Field;
+                }
+
+                $update_news = array();
+                if (!in_array('editor_id', $old)) {
+                    $update_news[] = 'ADD `editor_id` INT NULL AFTER `news_time`';
+                }
+                if (!in_array('edit_time', $old)) {
+                    $update_news[] = 'ADD `edit_time` DATETIME NULL AFTER `editor_id`';
+                }
+                if (!in_array('html', $old)) {
+                    $update_news[] = 'ADD `html` TINYINT ( 1 )NOT NULL';
+                }
+                if (!in_array('show', $old)) {
+                    $update_news[] = 'ADD `show` INT ( 12 ) NOT NULL';
+                }
+                if (!in_array('archiv', $old)) {
+                    $update_news[] = 'ADD `archiv` TINYINT ( 1 ) NOT NULL DEFAULT \'0\'';
+                }
+                if (!in_array('endtime', $old)) {
+                    $update_news[] = 'ADD `endtime` INT ( 12 ) NULL';
+                }
+                if (!in_array('klicks', $old)) {
+                    $update_news[] = 'ADD `klicks`  MEDIUMINT ( 9 )  NOT NULL DEFAULT \'0\'';
+                }
+
+                if (!in_array('news_groups', $old)) {
+                    $update_news []   = "ADD `news_groups` INT NOT NULL DEFAULT '0' AFTER `news_recht`";
+                    $sql_statements[] = 'UPDATE `prefix_news` SET `news_recht` = 1023 WHERE `news_recht` = 0';
+                    $sql_statements[] = 'UPDATE `prefix_news` SET `news_recht` = 1022 WHERE `news_recht` = -1';
+                    $sql_statements[] = 'UPDATE `prefix_news` SET `news_recht` = 1020 WHERE `news_recht` = -2';
+                    $sql_statements[] = 'UPDATE `prefix_news` SET `news_recht` = 1016 WHERE `news_recht` = -3';
+                    $sql_statements[] = 'UPDATE `prefix_news` SET `news_recht` = 1008 WHERE `news_recht` = -4';
+                    $sql_statements[] = 'UPDATE `prefix_news` SET `news_recht` = 992 WHERE `news_recht` = -5';
+                    $sql_statements[] = 'UPDATE `prefix_news` SET `news_recht` = 960 WHERE `news_recht` = -6';
+                    $sql_statements[] = 'UPDATE `prefix_news` SET `news_recht` = 896 WHERE `news_recht` = -7';
+                    $sql_statements[] = 'UPDATE `prefix_news` SET `news_recht` = 768 WHERE `news_recht` = -8';
+                    $sql_statements[] = 'UPDATE `prefix_news` SET `news_recht` = 512 WHERE `news_recht` = -9';
+                }
+
+                if (!empty($update_news)) {
+                    $sql_statements[] = 'ALTER TABLE `prefix_news` '.implode(', ', $update_news).';';
+                    $sql_statements[] = 'UPDATE `prefix_news` SET `show` = 1;';
+                }
+
+                if (db_count_query("SELECT COUNT(*) FROM `prefix_allg` WHERE k = 'news'") == 0) {
+                    $sql_statements[] = 'INSERT INTO `prefix_allg` ( `k` , `v1`, `v2`, `v3`, `v4`, `v5`, `v6`, `t1` ) VALUES ( "news", "0", "1", "1", "Allgemein", "", "", "" )';
+                }
+
+                if (in_array('news_html', $old)) {
+                    $sql_statements[] = 'UPDATE `prefix_news` SET `html` = IF(news_html=\'true\',1,0);';
+                    $sql_statements[] = 'ALTER TABLE `prefix_news` DROP `news_html`';
+                }
+                // Update für 1.1Q.2 - > News Extended Integration - Ende
 
 			    foreach ($sql_statements as $sql_statement) {
 				if (trim($sql_statement) != '') {
@@ -284,7 +331,7 @@ if ($rows > 45)
 				    $e = db_query($sql_statement);
 				    echo mysql_error();
 				    if (!$e) {
-					echo '<font color="#FF0000"><b>Es ist ein Fehler aufgetreten</b></font>, bitte alles auf dieser Seite kopieren und auf ilch.de im Forum fragen...:<div style="border: 1px dashed grey; padding: 5px; background-color: #EEEEEE">' . mysql_error() . '<hr>' . $sql_statement . '</div><br /><b>Es sei denn,</b> es ist ein Fehler mit <i>duplicate entry</i> aufgetreten, das liegt einfach nur daran, dass du die Updatedatei mehrmals ausgefï¿½hrt hast.<br />';
+					echo '<span style="color:#ff0000; font-weight: bold" color="#FF0000">Es ist ein Fehler aufgetreten</span>, bitte alles auf dieser Seite kopieren und auf ilch.de im Forum fragen...:<div style="border: 1px dashed grey; padding: 5px; background-color: #EEEEEE">' . mysql_error() . '<hr>' . $sql_statement . '</div><br /><b>Es sei denn,</b> es ist ein Fehler mit <i>duplicate entry</i> aufgetreten, das liegt einfach nur daran, dass du die Updatedatei mehrmals ausgef?hrt hast.<br />';
 				    }
 				    echo '<hr>';
 				}

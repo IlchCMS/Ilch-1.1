@@ -115,7 +115,7 @@ function get_filename($akl) {
     return (basename($n));
 }
 
-# l�scht Sonderzeichen aus dem Dateinamen
+# loescht Sonderzeichen aus dem Dateinamen
 
 function get_nametosave($n) {
     $n = preg_replace("/[^a-zA-Z0-9\.]/", "", $n);
@@ -138,7 +138,7 @@ function get_text($akl) {
     return ('');
 }
 
-# f�gt defined('main') hinzu, oder entfernt es
+# fuegt defined('main') hinzu, oder entfernt es
 
 function edit_text($t, $add) {
     $erg = preg_match("/^\s*<\?php defined \('main'\) or die \('no direct access'\); \?>/s", $t);
@@ -218,12 +218,12 @@ if ($menu->get(1) == 'imagebrowser') {
 $f = false;
 if (!is_writable('./include/contents/selfbp/selfp')) {
     $f = true;
-    echo 'Das include/contents/selfbp/selfp Verzeichnis braucht chmod 777 Rechte damit du eine eigene Datei erstellen kannst!<br /><br />';
+    echo '<div class="alert alert-warning" role="alert">Das include/contents/selfbp/selfp Verzeichnis braucht <strong>chmod 777</strong> Rechte damit du eine eigene Datei erstellen kannst!</div>';
 }
 if (!is_writable('./include/contents/selfbp/selfb')) {
-    echo 'Das include/contents/selfbp/selfb Verzeichnis braucht chmod 777 Rechte damit du eine eigene Box erstellen kannst!<br /><br />';
+    echo '<div class="alert alert-warning" role="alert">Das include/contents/selfbp/selfb Verzeichnis braucht <strong>chmod 777</strong> Rechte damit du eine eigene Box erstellen kannst!</div>';
     if ($f == true) {
-	exit('Entweder das include/contents/selfbp/selfb oder das include/contents/selfbp/selfp Verzeichnis brauchen Schreibrechte sonst kann hier nicht gearbeitet werden');
+	exit('<div class="alert alert-warning" role="alert">Entweder das include/contents/selfbp/selfb oder das include/contents/selfbp/selfp Verzeichnis brauchen Schreibrechte sonst kann hier nicht gearbeitet werden</div>');
     }
 }
 

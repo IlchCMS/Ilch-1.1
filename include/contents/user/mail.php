@@ -38,18 +38,18 @@ $_POST['txt'] = ( isset($_POST['txt']) ? trim($_POST['txt']) : '' );
 if ( empty($_POST['bet']) OR empty($_POST['email']) OR empty($_POST['txt']) OR $_SESSION['klicktime'] > (time() - 60) ) {
   
 	if ( !empty($_POST['send']) ) {
-	  $fehler = '<font color="#FF0000">Fehler:</font><br>';
+	  $fehler = '';
 		if ( $_SESSION['klicktime'] > (time() - 60) ) {
-		  $fehler .= '&nbsp; - Bitte nicht so schnell eMails Schreiben<br>';
+		  $fehler .= '<div class="text-center"><span class="ilch_hinweis_rot">Bitte nicht so schnell eMails Schreiben</span></div>';
 		}
 		if ( trim($_POST['bet']) == '' ) {
-		  $fehler .= '&nbsp; - Bitte einen Betreff angeben<br>';
+		  $fehler .= '<div class="text-center"><span class="ilch_hinweis_rot">Bitte einen Betreff angeben</span></div>';
 		}
     if ( trim($_POST['email']) == '' ) {
-		  $fehler .= '&nbsp; - Bitte eine eMail angeben<br>';
+		  $fehler .= '<div class="text-center"><span class="ilch_hinweis_rot">Bitte eine eMail angeben</span></div>';
 		}
 		if ( trim($_POST['txt']) == '' ) {
-		  $fehler .= '&nbsp; - Bitte eine Nachricht angeben<br>';
+		  $fehler .= '<div class="text-center"><span class="ilch_hinweis_rot">Bitte eine Nachricht angeben</span></div>';
 		}
 	} else {
 	  $fehler = '';
@@ -58,23 +58,14 @@ if ( empty($_POST['bet']) OR empty($_POST['email']) OR empty($_POST['txt']) OR $
   
   ?>
 	<form action="index.php?user-mail-<?php echo $menu->get(2) ?>" method="POST">
-	<table width="100%" border="0" cellspacing="1" cellpadding="5" class="border">
-    <tr class="Chead">
-      <th colspan="2">eMail an Benutzer <?php echo $row['name']; ?></th>
-    <tr>
-      <td class="Cmite">Betreff</td>
-			<td class="Cnorm"><input type="text" name="bet" value="<?php echo $_POST['bet']; ?>"></td>
-		</tr><tr class="Cnorm">
-		  <td class="Cmite">Deine eMail</td>
-			<td class="Cnorm"><input type="text" name="email" value="<?php echo $_POST['email']; ?>"></td>
-		</tr><tr class="Cnorm">
-		  <td class="Cmite" valign="top">Nachricht</td>
-		  <td class="Cnorm"><textarea cols="40" rows="10" name="txt"><?php echo $_POST['txt']; ?></textarea></td>
-		</tr><tr class="Cdark">
-		  <td></td>
-			<td><input type="submit" name="send" value="<?php echo $lang['formsub']; ?>"></td>
-    </tr>
-  </table></form>
+      <fieldset>
+        <legend>eMail an Benutzer <strong><?php echo $row['name']; ?></strong></legend>
+        <label class="ilch_float_l label_80">Betreff</label><input type="text" name="bet" value="<?php echo $_POST['bet']; ?>"><br>
+        <label class="ilch_float_l label_80">deine eMail</label><input type="text" name="email" value="<?php echo $_POST['email']; ?>"><br>
+        <label class="ilch_float_l label_80">Nachricht</label><textarea cols="40" rows="10" name="txt"><?php echo $_POST['txt']; ?></textarea><br>
+        <label class="ilch_float_l label_80"></label><input type="submit" name="send" value="<?php echo $lang['formsub']; ?>">
+    </fieldset>
+  </form>
   <?php
 } else {
   $_SESSION['klicktime'] = time();

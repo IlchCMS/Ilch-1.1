@@ -67,7 +67,7 @@ defined ('main') or die ( 'no direct access' );
         $weite = $allgAr['gallery_normal_width']+30;
     
     ?>
-<script language="JavaScript" type="text/javascript">
+<script type="text/javascript">
 <!--
   function picOfxOeffneFenster (bildr, cat) {
     var fenster = window.open ('index.php?gallery-show-'+cat+'-p'+bildr,'showBild','scrollbars=yes,height=600,width=<?php echo $weite; ?>,left=200,status=yes');
@@ -79,8 +79,8 @@ defined ('main') or die ( 'no direct access' );
     
     <?php    
     
-    echo '<div class="tdweight100 text-center ilch_float_l">';
-    echo '<a target="_blank" href="index.php?gallery-show-'.$cid.'-p'.$anz.'" onClick="return picOfxOeffneFenster('.$anz.','.$cid.');"><img src="include/images/gallery/'.$picofxThumb.'" width="'.$picofxImg[0].'" height="'.$picofxImg[1].'" alt=""></a>';
+    echo '<div class="tdweight100 text-center">';
+    echo '<a href="index.php?gallery-show-'.$cid.'-p'.$anz.'" onClick="return picOfxOeffneFenster('.$anz.','.$cid.');"><img src="include/images/gallery/'.$picofxThumb.'" width="'.$picofxImg[0].'" height="'.$picofxImg[1].'" alt=""></a>';
     echo '</div>';
   } else {
 

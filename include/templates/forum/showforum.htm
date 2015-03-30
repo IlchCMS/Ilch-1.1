@@ -1,52 +1,59 @@
 <table class="border">
-	<tr class="Chead">
-    <th colspan="2" class="text-center"><strong>{_lang_board}</strong></th>
-    <th class="text-center">{_lang_post}</th>
-    <th class="text-center">{_lang_topic}</th>
-    <th class="text-center">{_lang_lastpost}</th>
-  </tr>{EXPLODE}<tr class="Cdark">
-	  <td colspan="5"><strong><a href="index.php?forum-showcat-{cid}">{cname}</a></strong></td>
-	</tr>{EXPLODE}<tr class="Cmite">
-	  <td colspan="5"><strong>&nbsp;&nbsp;&raquo;<a href="index.php?forum-showcat-{cid}">{cname}</a></strong></td>
-	</tr>{EXPLODE}<tr class="Cnorm">
-	  <td class="forumord tdweight5 text-center ilch_vertikal_middle"><img alt="" src="include/images/forum/{ORD}.gif"></td>
-    <td>
-		  <a href="index.php?forum-showtopics-{id}">{name}</a>
-		  <br>
-			<span class="smalfont">{besch}
-			{mods}
-      </span>
-		</td>
-    <td class="text-center smalfont">{posts}</td>
-    <td class="text-center smalfont">{topics}</td>
-    <td class="smalfont">
-				<a class="smalfont" title="{topicl}" href="index.php?forum-showposts-{tid}-p{page}#{pid}">{topic}</a>
-		    <br>
-			  {_lang_from}: {erst}
-		</td>
-  </tr>{EXPLODE}
+    <tr class="Chead">
+        <th colspan="2" class="text-center"><strong>{_lang_board}</strong></th>
+        <th class="text-center">{_lang_post}</th>
+        <th class="text-center">{_lang_topic}</th>
+        <th class="text-center">{_lang_lastpost}</th>
+    </tr>
+    {EXPLODE}
+    <tr class="Cdark">
+        <td colspan="5"><strong><a href="index.php?forum-showcat-{cid}">{cname}</a></strong></td>
+    </tr>
+    {EXPLODE}
+    <tr class="Cmite">
+        <td colspan="5"><strong>&nbsp;&nbsp;&raquo;<a href="index.php?forum-showcat-{cid}">{cname}</a></strong></td>
+    </tr>
+    {EXPLODE}
+    <tr class="Cnorm">
+        <td class="forumord tdweight5 text-center ilch_vertikal_middle"><img alt="" src="include/images/forum/{ORD}.gif"></td>
+        <td>
+            <a href="index.php?forum-showtopics-{id}">{name}</a>
+            <br>
+            <span class="smalfont">{besch}
+                {mods}
+            </span>
+        </td>
+        <td class="text-center smalfont">{posts}</td>
+        <td class="text-center smalfont">{topics}</td>
+        <td class="smalfont">
+            <a class="smalfont" title="{topicl}" href="index.php?forum-showposts-{tid}-p{page}#{pid}">{topic}</a>
+            <br>
+            {_lang_from}: {erst}
+        </td>
+    </tr>{EXPLODE}
 </table>
 <table>
-<tr><td class="text-left ilch_vertikal_top">
-<a href="index.php?forum-markallasread">{_lang_markallasread}</a>
-</td>
-<td class="text-right ilch_vertikal_top">
-<a href="index.php?forum-augt">{_lang_newtopicssincelastvisit}</a>
-<br><a href="index.php?forum-aubt">{_lang_topicwithnoreply}</a>
-<br><a href="index.php?forum-aeit">{_lang_ownposts}</a>
-</td>
+    <tr>
+        <td class="text-left ilch_vertikal_top">
+            <a href="index.php?forum-markallasread">{_lang_markallasread}</a>
+        </td>
+        <td class="text-right ilch_vertikal_top">
+            <a href="index.php?forum-augt">{_lang_newtopicssincelastvisit}</a>
+            <br><a href="index.php?forum-aubt">{_lang_topicwithnoreply}</a>
+            <br><a href="index.php?forum-aeit">{_lang_ownposts}</a>
+        </td>
 </table>
 <br>
 <div class="border">
-<div class="ilch_case">
-<div class="ilch_forum_in Cnorm">{_lang_it} {istsind} {gesonline} {_lang_guestsonline,ofthem} {useronline} {_if_{useronline}=='1'}{_lang_registredand}{/_endif}{_if_{useronline}!='1'}{_lang_registrededand}{/_endif} {gastonline} {_lang_guests}<br />
-			{userliste}
-<br><hr>
-<strong>{users}</strong> {_lang_membershaveritten} <strong>{posts}</strong> {_lang_postsin} <strong>{topics}</strong> {_lang_topics}</div>
-		</div>
-  </div>
-  <img src="include/images/forum/nord.gif" alt="neue Beitr&auml;ge" border="0">&nbsp;{_lang_newposts}
-  &nbsp;<img src="include/images/forum/ord.gif" alt="keine neuen Beitr&auml;ge" border="0">&nbsp;{_lang_nonewposts}
-  &nbsp;<img src="include/images/forum/cord.gif" alt="Thema geschlossen" border="0">&nbsp;{_lang_topicclosed}
-
+    <div class="ilch_case">
+        <div class="ilch_forum_in Cnorm">{_lang_it} {istsind} {gesonline} {_lang_guestsonline,ofthem} {useronline} {_if_{useronline}=='1'}{_lang_registredand}{/_endif}{_if_{useronline}!='1'}{_lang_registrededand}{/_endif} {gastonline} {_lang_guests}<br />
+            {userliste}
+            <br><hr>
+            <strong>{users}</strong> {_lang_membershaveritten} <strong>{posts}</strong> {_lang_postsin} <strong>{topics}</strong> {_lang_topics}
+        </div>
+    </div>
+</div>
+<img src="include/images/forum/nord.gif" alt="neue Beitr&auml;ge" border="0">&nbsp;{_lang_newposts}
+&nbsp;<img src="include/images/forum/ord.gif" alt="keine neuen Beitr&auml;ge" border="0">&nbsp;{_lang_nonewposts}
+&nbsp;<img src="include/images/forum/cord.gif" alt="Thema geschlossen" border="0">&nbsp;{_lang_topicclosed}
 {privmsgpopup}

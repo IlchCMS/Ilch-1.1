@@ -1,133 +1,133 @@
-<table cellpadding="0" cellspacing="0" border="0"><tr><td><img src="include/images/icons/admin/links.png" /></td><td width="30"></td><td valign="bottom"><h1>Links</h1></td></tr></table>
-
-<table width="100%">
-  <tr>
-	  <td valign="top" width="60%">
-
-<table cellpadding="3" border="0" cellspacing="1" class="border">
-  <tr class="Chead">
-		<td><b>Name</b></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-	</tr>
-{EXPLODE}
-  <tr class="{class}">
-	  <td>{name}</td>
-		<td><a href="?archiv-links-e{id}"><img src="include/images/icons/edit.gif" border="0" title="&auml;ndern" alt="&auml;ndern"></a></td>
-		<td><a href="javascript:del('{id}')"><img src="include/images/icons/del.gif" border="0" title="l&ouml;schen" alt="l&ouml;schen"></a></td>
-    <td><a href="?archiv-links-S{cat}-o{id}-{pos}"><img src="include/images/icons/pfeilo.gif" border="0" title="oben" alt="oben"></a></td>
-    <td><a href="?archiv-links-S{cat}-u{id}-{pos}"><img src="include/images/icons/pfeilu.gif" border="0" title="unten" alt="unten"></a></td>
-	</tr>
-{EXPLODE}
-</table>
-<br />
-
-</td><td valign="top" width="40%">
-
-<table cellpadding="3" border="0" cellspacing="1" class="border">
-  <tr class="Chead">
-		<td colspan="5"><b>Kategorien</b></td>
-  </tr><tr class="Cmite">
-    <td><a href="?archiv-links-S0">Keine</a></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>{EXPLODE}
-</table>
-<br />
-</td></tr><tr><td>
-
-<form action="admin.php?archiv-links" method="POST" name="form">
-	<input type="hidden" name="pkey" value="{pkey}">
-
-	<table class="border" cellpadding="3" cellspacing="1" border="0">
-    <tr class="Chead">
-		  <td colspan="2"><b>Links</b></td>
-		</tr>
-    		<tr>
-      <td class="Cmite">Name</td>
-			<td class="Cnorm"><input type="text" name="name" value="{name}" /></td>
-    </tr><tr>
-      <td class="Cmite">Kategorie</td>
-			<td class="Cnorm"><select name="cat">{cat}</select></td>
-    </tr>
-		<tr>
-      <td class="Cmite">Banner</td>
-			<td class="Cnorm"><input type="text" size="50" name="banner" value="{banner}" /></td>
-    </tr>
-		<tr>
-      <td class="Cmite">Link</td>
-			<td class="Cnorm"><input type="text" size="50" name="link" value="{link}" /></td>
-    </tr>
-		<tr>
-      <td class="Cmite">Text</td>
-			<td class="Cnorm"><textarea cols="50" rows="2" name="desc">{desc}</textarea></td>
-    </tr>
-		<tr class="Cdark">
-		  <td></td>
-			<td><input type="submit" value="Absenden" name="sub" /></td>
-		</tr>
-  </table>
-</form>
-
-</td><td valign="top">
-
-<form action="admin.php?archiv-links" method="POST">
-	<input type="hidden" name="Cpkey" value="{Cpkey}">
-
-	<table class="border" cellpadding="3" cellspacing="1" border="0">
-    <tr class="Chead">
-		  <td colspan="2"><b>Link Kategorien</b></td>
-		</tr>
-      <td class="Cmite">Kategorie</td>
-			<td class="Cnorm"><select name="Ccat">{Ccat}</select></td>
-    </tr><tr>
-      <td class="Cmite">Name</td>
-			<td class="Cnorm"><input type="text" name="Cname" value="{Cname}" /></td>
-    </tr><tr>
-      <td class="Cmite">Text</td>
-			<td class="Cnorm"><textarea cols="35" rows="3" name="Cdesc">{Cdesc}</textarea></td>
-    </tr>
-		<tr class="Cdark">
-		  <td></td>
-			<td><input type="submit" value="Absenden" name="Csub" /></td>
-		</tr>
-  </table>
-</form>
-
-</td></td></table>
+<legend><h2>Links <small>Link Eintr&auml;ge verwalten</small></h2></legend>
+<div class="row">
+    <div class="col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">Eingetragene Links</div>
+            <div class="panel-body">
+                <table class="table">
+                    <tr class="warning">
+                        <td>Name</td>
+                        <td class="text-right">Optionen</td>
+                    </tr>
+                    {EXPLODE}
+                    <tr class="{class}">
+                        <td><strong>{name}</strong> <a href="{link}" rel="tooltip" title="{link}" target="_blank"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a><br><img src="{banner}" style="max-height:60px;max-width:468;border:none;" alt="Bild nicht gefunden / Link falsch"></td>
+                        <td class="text-right" nowrap><a style="margin-right:4px;" href="?archiv-links-e{id}" rel="tooltip" title="Link &auml;ndern"><span style="color:#2D9600;" class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                            <a style="margin-right:4px;" href="javascript:del('{id}')" rel="tooltip" title="Link l&ouml;schen"><span style="color:#AD0000;" class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                            <a style="margin-right:4px;" href="?archiv-links-S{cat}-o{id}-{pos}" rel="tooltip" title="Link nach oben verschieben"><span style="color:#A54200;" class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></a>
+                            <a href="?archiv-links-S{cat}-u{id}-{pos}" rel="tooltip" title="Link nach unten verschieben"><span style="color:#A54200;" class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></a></td>
+                    </tr>
+                    {EXPLODE}
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <legend>Kategorien</legend>
+        <table class="table">
+            <tr>
+                <td><a href="?archiv-links-S0">Keine</a></td>
+                <td class="text-right" nowrap></td>
+            </tr>{EXPLODE}
+        </table>
+        <form action="admin.php?archiv-links" method="POST" name="form" class="form-horizontal" role="form">
+            <input type="hidden" name="pkey" value="{pkey}">
+            <legend>Links  <small style="font-size:10px;">erstellen / &auml;ndern</small></legend>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Name</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="name" value="{name}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Kategorie</label>
+                <div class="col-sm-6">
+                    <select class="form-control" name="cat">{cat}</select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Banner</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="banner" value="{banner}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Link</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="link" value="{link}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Text</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" rows="2" name="desc">{desc}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label"></label>
+                <div class="col-sm-10">
+                    <input class="btn btn-primary" type="submit" value="Absenden" name="sub">
+                </div>
+            </div>
+        </form>
+        <form action="admin.php?archiv-links" method="POST" class="form-horizontal" role="form">
+            <input type="hidden" name="Cpkey" value="{Cpkey}">
+            <legend>Link Kategorien  <small style="font-size:10px;">erstellen / &auml;ndern</small></legend>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Kategorie</label>
+                <div class="col-sm-6">
+                    <select class="form-control" name="Ccat">{Ccat}</select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Name</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="Cname" value="{Cname}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Text</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" rows="3" name="Cdesc">{Cdesc}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label"></label>
+                <div class="col-sm-10">
+                    <input class="btn btn-primary" type="submit" value="Absenden" name="Csub">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 <script language="JavaScript" type="text/javascript">
 <!--
-  
-  function Kdel ( id1 ) {
-	
-    var x = confirm ( "do you really want to delete?" );
-		if ( x ) {
-		  document.location.href="?archiv-links-D"+id1;
-		}
-	}
-  function del ( id1 ) {
-    var x = confirm ( "do you really want to delete?" );
-		if ( x ) {
-		  document.location.href="?archiv-links-d"+id1;
-		}
-	}
-  function sichtbarA() {
-	  if(document.form.url.value=="neu"){
-		  document.form.newurl.style.visibility="visible";
-		} else {
-		  document.form.newurl.style.visibility="hidden";
-		}
-  }
-	sichtbarA();
-  
+
+    function Kdel(id1) {
+
+        var x = confirm("Willst du den Eintrag wirklich loeschen?");
+        if (x) {
+            document.location.href = "?archiv-links-D" + id1;
+        }
+    }
+    function del(id1) {
+        var x = confirm("Willst du den Eintrag wirklich loeschen?");
+        if (x) {
+            document.location.href = "?archiv-links-d" + id1;
+        }
+    }
+    function sichtbarA() {
+        if (document.form.url.value == "neu") {
+            document.form.newurl.style.visibility = "visible";
+        } else {
+            document.form.newurl.style.visibility = "hidden";
+        }
+    }
+    sichtbarA();
+
 //-->
 </script>
-<p></p>
-<div class="info_box">
-<p>Hier k&ouml;nnen Sie Links eintragen und Verwalten. Ausserdem k&ouml;nnen Sie hier die Kategorien der Links verwalten.</p>
-<p>Es werden alle Links einer Kategorie angezeigt, um Links einer Kategorie an zu zeigen bitte einfach Links auf den Namen der Kategorie klicken.</p>
+<div class="alert alert-info" role="alert">
+    Hier k&ouml;nnen Sie Links eintragen und Verwalten. Ausserdem k&ouml;nnen Sie hier die Kategorien der Links verwalten.
+    Es werden alle Links einer Kategorie angezeigt, um Links einer Kategorie an zu zeigen bitte einfach Links auf den Namen der Kategorie klicken.
 </div>

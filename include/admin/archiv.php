@@ -75,11 +75,12 @@ function archiv_downs_admin_showcats($id, $stufe) {
     $erg = db_query($q);
     if (db_num_rows($erg) > 0) {
 	while ($row = db_fetch_object($erg)) {
-	    echo '<tr class="Cmite"><td>' . $stufe . '- <a href="admin.php?archiv-downloads-S' . $row->id . '">' . $row->name . '</a></td>';
-	    echo '<td align="center"><a href="admin.php?archiv-downloads-E' . $row->id . '#edit"><img src="include/images/icons/edit.gif" border="0"></a></td>';
-	    echo '<td align="center"><a href="javascript:Kdel(' . $row->id . ')"><img src="include/images/icons/del.gif" border="0"></a></td>';
-	    echo '<td align="center"><a href="admin.php?archiv-downloads-S' . $row->id . '-O' . $row->id . '-' . $row->pos . '-' . $row->cat . '"><img src="include/images/icons/pfeilo.gif" border="0"></a></td>';
-	    echo '<td align="center"><a href="admin.php?archiv-downloads-S' . $row->id . '-U' . $row->id . '-' . $row->pos . '-' . $row->cat . '"><img src="include/images/icons/pfeilu.gif" border="0"></a></td></tr>';
+	    echo '<tr class="Cmite"><td>' . $stufe . '<span class="glyphicon glyphicon-send" aria-hidden="true"></span> <a href="admin.php?archiv-downloads-S' . $row->id . '">' . $row->name . '</a></td>';
+	    echo '<td class="text-right"><a style="margin-right:4px;" href="admin.php?archiv-downloads-E' . $row->id . '#edit" rel="tooltip" title="Kategorie &auml;ndern"><span style="color:#2D9600;" class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+	    <a style="margin-right:4px;" href="javascript:Kdel(' . $row->id . ')" rel="tooltip" title="Kategorie l&ouml;schen"><span style="color:#AD0000;" class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+	    <a style="margin-right:4px;" href="admin.php?archiv-downloads-S' . $row->id . '-O' . $row->id . '-' . $row->pos . '-' . $row->cat . '" rel="tooltip" title="Kategorie verschieben"><span style="color:#A54200;" class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></a>
+	    <a href="admin.php?archiv-downloads-S' . $row->id . '-U' . $row->id . '-' . $row->pos . '-' . $row->cat . '" rel="tooltip" title="Kategorie verschieben"><span style="color:#A54200;" class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></a></td>';
+	    echo '</tr>';
 	    archiv_downs_admin_showcats($row->id, $stufe . ' &nbsp; &nbsp;');
 	}
     }
@@ -101,11 +102,12 @@ function archiv_links_admin_showcats($id, $stufe) {
     $erg = db_query($q);
     if (db_num_rows($erg) > 0) {
 	while ($row = db_fetch_object($erg)) {
-	    echo '<tr class="Cmite"><td>' . $stufe . '- <a href="admin.php?archiv-links-S' . $row->id . '">' . $row->name . '</a></td>';
-	    echo '<td align="center"><a href="?archiv-links-E' . $row->id . '#edit"><img src="include/images/icons/edit.gif" border="0"></a></td>';
-	    echo '<td align="center"><a href="javascript:Kdel(' . $row->id . ')"><img src="include/images/icons/del.gif" border="0"></a></td>';
-	    echo '<td align="center"><a href="admin.php?archiv-links-S' . $row->id . '-O' . $row->id . '-' . $row->pos . '-' . $row->cat . '"><img src="include/images/icons/pfeilo.gif" border="0"></a></td>';
-	    echo '<td align="center"><a href="admin.php?archiv-links-S' . $row->id . '-U' . $row->id . '-' . $row->pos . '-' . $row->cat . '"><img src="include/images/icons/pfeilu.gif" border="0"></a></td></tr>';
+	    echo '<tr><td>' . $stufe . '<span class="glyphicon glyphicon-send" aria-hidden="true"></span> <a href="admin.php?archiv-links-S' . $row->id . '">' . $row->name . '</a></td>';
+	    echo '<td class="text-right"><a style="margin-right:4px;" href="?archiv-links-E' . $row->id . '#edit" rel="tooltip" title="Kategorie &auml;ndern"><span style="color:#2D9600;" class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+	    <a style="margin-right:4px;" href="javascript:Kdel(' . $row->id . ')" rel="tooltip" title="Kategorie l&ouml;schen"><span style="color:#AD0000;" class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+	    <a style="margin-right:4px;" href="admin.php?archiv-links-S' . $row->id . '-O' . $row->id . '-' . $row->pos . '-' . $row->cat . '" rel="tooltip" title="Kategorie verschieben"><span style="color:#A54200;" class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></a>
+	    <a href="admin.php?archiv-links-S' . $row->id . '-U' . $row->id . '-' . $row->pos . '-' . $row->cat . '" rel="tooltip" title="Kategorie verschieben"><span style="color:#A54200;" class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></a></td>';
+	    echo '</tr>';
 	    archiv_links_admin_showcats($row->id, $stufe . ' &nbsp; &nbsp;');
 	}
     }
@@ -130,18 +132,18 @@ switch ($um) {
 	    $msg = '';
 	    // file rechte pruefen
 	    if (!is_writeable('include/downs/downloads')) {
-		$msg = '<b>Bevor du hier eine Datei hochladen/verwalten kannst muss der Ordner include/downs/<b>downloads</b>/ erstellt werden und er muss Schreibrechte ( chmod 777 ) erhalten !!! Wenn das geschehen ist einfach nochmal hier auf aktualisieren klicken</b>';
+		$msg = '<div class="alert alert-warning" role="alert">Bevor du hier eine Datei hochladen/verwalten kannst muss der Ordner include/downs/<b>downloads</b>/ erstellt werden und er muss Schreibrechte ( chmod 777 ) erhalten !!! Wenn das geschehen ist einfach nochmal hier auf aktualisieren klicken</div>';
 	    }
 	    // file hochladen
 	    if (isset($_FILES['file']['name'])) {
 		$pathinfo = pathinfo($_FILES['file']['name']);
 		if (substr($pathinfo['extension'], 0, 3) == 'php') {
-		    $msg = '<font color="#FF0000">Es k�nnen keine PHP Dateien hochgeladen werden.</font><br />';
+		    $msg = '<div class="alert alert-danger" role="alert">Es koennen keine PHP Dateien hochgeladen werden.</div>';
 		} elseif (move_uploaded_file($_FILES['file']['tmp_name'], $_REQUEST['f'] . '/' . $_FILES['file']['name'])) {
 		    @chmod($_REQUEST['f'] . '/' . $_FILES['file']['name'], 0777);
-		    $msg = 'Datei (' . $_FILES['file']['name'] . ' ) <font color="#00FF00">erfolgreich hochgeladen</font><br />';
+		    $msg = '<div class="alert alert-success" role="alert">Datei (' . $_FILES['file']['name'] . ' ) erfolgreich hochgeladen</div>';
 		} else {
-		    $msg = 'Datei ( ' . $_FILES['file']['name'] . ' ) <font color="#FF0000">nicht erfolgreich hochgeladen</font><br />';
+		    $msg = '<div class="alert alert-danger" role="alert">Datei ( ' . $_FILES['file']['name'] . ' ) nicht erfolgreich hochgeladen</div>';
 		}
 	    }
 	    // datei loeschen
@@ -152,14 +154,14 @@ switch ($um) {
 	    if (isset($_REQUEST['r'])) {
 		$pathinfo = pathinfo($_REQUEST['r']);
 		if (substr($pathinfo['extension'], 0, 3) == 'php') {
-		    $msg = '<font color="#FF0000">Es k�nnen keine PHP Dateien erzeugt werden.</font><br />';
+		    $msg = '<div class="alert alert-danger" role="alert">Es koennen keine PHP Dateien erzeugt werden.</div>';
 		} elseif (@rename($_REQUEST['f'] . '/' . $_REQUEST['v'], $_REQUEST['f'] . '/' . $_REQUEST['r'])) {
 		    db_query("UPDATE prefix_downloads SET url = '" . $_REQUEST['f'] . '/' . $_REQUEST['r'] . "' WHERE url = '" . $_REQUEST['f'] . '/' . $_REQUEST['v'] . "'");
 		    db_query("UPDATE prefix_downloads SET surl = '" . $_REQUEST['f'] . '/' . $_REQUEST['r'] . "' WHERE surl = '" . $_REQUEST['f'] . '/' . $_REQUEST['v'] . "'");
 		    db_query("UPDATE prefix_downloads SET ssurl = '" . $_REQUEST['f'] . '/' . $_REQUEST['r'] . "' WHERE ssurl = '" . $_REQUEST['f'] . '/' . $_REQUEST['v'] . "'");
-		    $msg = '<font color="#00FF00">Erfolgreich umbenannt...</font><br />';
+		    $msg = '<div class="alert alert-success" role="alert">Erfolgreich umbenannt...</div>';
 		} else {
-		    $msg = '<font color="#FF0000">Konnte Datei nicht umbennen</font></br />';
+		    $msg = '<div class="alert alert-danger" role="alert">Konnte Datei nicht umbennen</div>';
 		}
 	    }
 
@@ -176,10 +178,10 @@ switch ($um) {
 			$msg = '<font color="#00FF00">Erfolgreich verschoben...</font><br />';
 			$_REQUEST['f'] = $neudir;
 		    } else {
-			$msg = '<font color="#FF0000">Konnte Datei nicht verschieben</font></br />';
+			$msg = '<div class="alert alert-danger" role="alert">Konnte Datei nicht verschieben</div>';
 		    }
 		} else {
-		    $msg = '<font color="#FF0000">Der angegebene Ordner ist nicht vorhanden...</font><br />';
+		    $msg = '<div class="alert alert-warning" role="alert">Der angegebene Ordner ist nicht vorhanden...</div>';
 		}
 	    }
 	    // files anzeigen von ordner X... wenn x nicht definiert nimm downs/downloads...
@@ -234,9 +236,9 @@ switch ($um) {
 		    $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite');
 		    echo '<tr class="' . $class . '">';
 		    echo '<td>' . $v . '</td>';
-		    echo '<td><a href="javascript:deleteFile(\'' . $f . '\',\'' . $v . '\')"><img src="include/images/icons/del.gif" title="l&ouml;schen" border="0" /></a></td>';
-		    echo '<td><a href="javascript:moveFile(\'' . $f . '\',\'' . $v . '\')"><img src="include/images/icons/pfeila.gif" title="verschieben" border="0" /></a></td>';
-		    echo '<td><a href="javascript:renFile(\'' . $f . '\',\'' . $v . '\')"><img src="include/images/icons/edit.gif" title="umbennen" border="0" /></a></td>';
+		    echo '<td><a href="javascript:deleteFile(\'' . $f . '\',\'' . $v . '\')" rel="tooltip" title="l&ouml;schen"><span style="color:#AD0000;" class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>';
+		    echo '<td><a href="javascript:moveFile(\'' . $f . '\',\'' . $v . '\')" rel="tooltip" title="verschieben"><span style="color:#A54200;" class="glyphicon glyphicon-move" aria-hidden="true"></span></td>';
+		    echo '<td><a href="javascript:renFile(\'' . $f . '\',\'' . $v . '\')" rel="tooltip" title="&auml;ndern"><span style="color:#2D9600;" class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>';
 		    echo '<td>' . get_upload_linked($f . '/' . $v) . '<a href="javascript:waehleThisFile(\'' . $f . '/' . $v . '\')">w&auml;hlen</a></td>';
 		    echo '</tr>';
 		}
@@ -413,7 +415,7 @@ switch ($um) {
 	    $_ilch = db_fetch_assoc($erg);
 	    $_ilch['pkey'] = $menu->getE(2);
 	    $azk = $_ilch['cat'];
-	    $_ilch['datum'] = '<input type="checkbox" name="refdate" /><font color="white">Datum aktualisieren</font>';
+	    $_ilch['datum'] = '<div class="checkbox"><label><input type="checkbox" name="refdate"> Datum aktualisieren</label></div>';
 	} else {
 	    if (isset($azk)) {
 		$c = $azk;
@@ -668,7 +670,7 @@ switch ($um) {
 
 	$tpl->out(0);
 	$class = 0;
-	$abf = "SELECT id,name,link,cat,pos FROM prefix_links WHERE cat = " . $azk . " ORDER BY pos";
+	$abf = "SELECT id,name,link,banner,cat,pos FROM prefix_links WHERE cat = " . $azk . " ORDER BY pos";
 	$erg = db_query($abf);
 	while ($row = db_fetch_assoc($erg)) {
 	    $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite');
@@ -771,7 +773,7 @@ switch ($um) {
 	$class = 'Cnorm';
 	$MPL = db_make_sites($page, '', $limit, '?archiv-partners', 'partners');
 	$anfang = ($page - 1) * $limit;
-	$abf = "SELECT id,name,link, pos FROM prefix_partners ORDER BY pos ASC LIMIT " . $anfang . "," . $limit;
+	$abf = "SELECT id,name,link,banner, pos FROM prefix_partners ORDER BY pos ASC LIMIT " . $anfang . "," . $limit;
 	$erg = db_query($abf);
 	while ($row = db_fetch_assoc($erg)) {
 	    $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite');

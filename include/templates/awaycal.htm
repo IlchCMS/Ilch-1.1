@@ -1,26 +1,28 @@
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <form action="index.php?awaycal" method="POST">
-<input type="hidden" name="ch" value="{id}">
-<div class="border">
-<div class="ilch_case">
-<div class="Chead"><strong>{_lang_dateform}</strong></div>
-<div class="ilch_case_in Cmite">
-<label class="ilch_float_l label_40">{_lang_from}</label><input name="von" value="{von}"><br>
-<label class="ilch_float_l label_40">{_lang_to}</label><input name="bis" value="{bis}"><br>
-<label class="ilch_float_l label_40 ilch_vertikal_top">{_lang_ground}</label><textarea name="betreff" rows="10" cols="40">{betreff}</textarea><br><br>
-<label class="ilch_float_l label_40"></label><input type="submit" value="Absenden">
-</div>
-</div></div>
+    <input type="hidden" name="ch" value="{id}">
+    <div class="border">
+        <div class="ilch_case">
+            <div class="Chead"><strong>{_lang_dateform}</strong></div>
+            <div class="ilch_case_in Cmite">
+                <label class="ilch_float_l label_40">{_lang_from}</label><input name="von" value="{von}"><br>
+                <label class="ilch_float_l label_40">{_lang_to}</label><input name="bis" value="{bis}"><br>
+                <label class="ilch_float_l label_40 ilch_vertikal_top">{_lang_ground}</label><textarea name="betreff" rows="10" cols="40">{betreff}</textarea><br><br>
+                <label class="ilch_float_l label_40"></label><input type="submit" value="Absenden">
+            </div>
+        </div>
+    </div>
 </form>
 {EXPLODE}
 <div class="border">
-<div class="ilch_case">
-<div class="Chead"><strong>{_lang_datemanage}</strong></div>
-{EXPLODE}
-<div class="ilch_case_in {class}">
-<span class="ilch_float_r smalfont">{_lang_from}: {von} - {bis},&nbsp; <u>{status}</u></span>
-<strong>{name}</strong><hr>
-{betreff}
+    <div class="ilch_case">
+        <div class="Chead"><strong>{_lang_datemanage}</strong></div>
+        {EXPLODE}
+        <div class="ilch_case_in {class}">
+            <span class="ilch_float_r smalfont">{_lang_from}: {von} - {bis},&nbsp; <u>{status}</u></span>
+            <strong>{name}</strong><hr>
+            {betreff}
+        </div>
+        {EXPLODE}
+    </div>
 </div>
-{EXPLODE}
-</div></div>

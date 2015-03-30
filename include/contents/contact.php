@@ -49,26 +49,26 @@ function check_valide_mail($email) {
 ## absenden
 if (isset($_POST['submit'])) {
     if (empty($_POST['wer'])) {
-	$fehler .= 'Es wurde kein Empfänger ausgewählt!<br />';
+	$fehler .= 'Es wurde kein Empf&auml;nger ausgew&auml;hlt!<br>';
     }
     if (empty($_POST['name'])) {
-	$fehler .= 'Es wurde kein Name angegeben!<br />';
+	$fehler .= 'Es wurde kein Name angegeben!<br>';
     }
     if ($_POST['mail'] != '') {
 	if ($mailadr) {
-	    $fehler .= (check_valide_mail($_POST['mail']) == true ? '' : 'Es wurde keine gültige E-Mail Adresse angeben!<br />');
+	    $fehler .= (check_valide_mail($_POST['mail']) == true ? '' : 'Es wurde keine g&uuml;ltige E-Mail Adresse angeben!<br>');
 	}
     } else {
-	$fehler .= 'Es wurde keine E-Mail-Adresse angegeben!<br />';
+	$fehler .= 'Es wurde keine E-Mail-Adresse angegeben!<br>';
     }
     if (empty($_POST['subject'])) {
-	$fehler .= 'Es wurde kein Betreff eingegeben!<br />';
+	$fehler .= 'Es wurde kein Betreff eingegeben!<br>';
     }
     if (empty($_POST['txt'])) {
-	$fehler .= 'Es wurde kein Nachrichtentext eingegeben!<br />';
+	$fehler .= 'Es wurde kein Nachrichtentext eingegeben!<br>';
     }
     if (chk_antispam('contact') != true) {
-	$fehler .= 'Der AntiSpam Code wurde war nicht korrekt!<br />';
+	$fehler .= 'Der AntiSpam Code wurde war nicht korrekt!<br>';
     }
     if ($fehler == '' AND ! empty($_POST['wer'])) {
 	$name = escape($_POST['name'], 'string');
@@ -98,7 +98,7 @@ if (isset($_POST['submit'])) {
 	    $text .= $name . " (" . $mail . ") ";
 	    $text = $inhalt . $text;
 	    icmail($wer, $subject, $text, $name . " <" . $mail . ">");
-	    echo '<div style="border:1px green dotted;text-align:center;"><strong>Ihre Anfrage per Email wurde erfolgreich versendet!</strong></div>';
+	    echo '<div class="text-center"><span class="ilch_hinweis_gruen"><strong>Ihre Anfrage per Email wurde erfolgreich versendet!</strong></span></div>';
 	    $name = '';
 	    $mail = '';
 	    $subject = '';
@@ -110,7 +110,7 @@ if (isset($_POST['submit'])) {
 	    $subject = escape($_POST['subject'], 'string');
 	    $wer = escape($_POST['wer'], 'string');
 	    $text = escape($_POST['txt'], 'string');
-	    echo '<div style="border:1px red dotted;text-align:center;"><strong>' . $lang['emailcouldnotsend'] . '</strong></div>';
+	    echo '<div class="text-center"><span class="ilch_hinweis_rot"><strong>'.$lang['emailcouldnotsend'].'</strong></span></div>';
 	}
     } else {
 	$name = escape($_POST['name'], 'string');
@@ -118,7 +118,7 @@ if (isset($_POST['submit'])) {
 	$subject = escape($_POST['subject'], 'string');
 	$wer = escape($_POST['wer'], 'string');
 	$text = escape($_POST['txt'], 'string');
-	echo '<div style="border:1px red dotted;text-align:center;"><strong>Aufgrund folgender Fehler, wurde die Email nicht versendet:</strong><br />' . $fehler . '</div>';
+	echo '<div class="text-center"><span class="ilch_hinweis_rot"><strong>Aufgrund folgender Fehler, wurde die Email nicht versendet:</strong><br><br>'.$fehler.'</span></div>';
     }
 }
 

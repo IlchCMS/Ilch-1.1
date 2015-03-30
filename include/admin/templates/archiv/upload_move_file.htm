@@ -1,37 +1,25 @@
 <html>
-<head>
-<link rel="stylesheet" type="text/css" href="include/admin/templates/style.css">
-<script language="JavaScript" type="text/javascript"><!--
-  function MoveDirTo () {
-    var val = document.getElementById('dirs').value;
-    opener.document.location.href="admin.php?archiv-downloads-upload=0&f={f}&v={v}&n=" + val;
-    closeThisWindow ();
-  }
-  function closeThisWindow() {
-    opener.focus();
-    window.close();
-  }
---></script>
-</head>
-<body>
-<table border="0" cellpadding="5" cellspacing="1" class="border">
-  <tr>
-    <td class="Callg">
-      <table border="0" cellpadding="2" cellspacing="1" class="border">
-        <tr>
-          <td class="Chead">Bitte einen Ordner w&auml;hlen</td>
-        </tr><tr>
-          <td class="Cmite"><select id="dirs">{dirlist}</select></td>
-        </tr><tr>
-          <td class="Cdark">
-            <input type="button" value="Move" onClick="javascript:MoveDirTo()">
-            &nbsp;
-            <input type="button" value="Close" onClick="javascript:closeThisWindow()">
-          </td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-</table>
+    <head>
+        <link href="include/admin/templates/bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="include/admin/templates/bootstrap/css/style.css" rel="stylesheet">
+        <script language="JavaScript" type="text/javascript"><!--
+          function MoveDirTo() {
+                var val = document.getElementById('dirs').value;
+                opener.document.location.href = "admin.php?archiv-downloads-upload=0&f={f}&v={v}&n=" + val;
+                closeThisWindow();
+            }
+            function closeThisWindow() {
+                opener.focus();
+                window.close();
+            }
+        --></script>
+    </head>
+    <body>
+    <legend>Bitte einen Ordner w&auml;hlen</legend>
+    <select class="form-control" id="dirs">{dirlist}</select><br>
+    <div class="btn-group">
+        <input class="btn btn-primary" type="button" value="Move" onClick="javascript:MoveDirTo()">
+        <input class="btn btn-default" type="button" value="Close" onClick="javascript:closeThisWindow()">
+    </div>
 </body>
 </html>

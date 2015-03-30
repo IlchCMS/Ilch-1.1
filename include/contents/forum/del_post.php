@@ -7,7 +7,7 @@ defined ('main') or die ( 'no direct access' );
 
 
 if ( $forum_rights['mods'] == FALSE ) {
-  $forum_failure[] = 'Keine Berechtigung dieses Forum zu moderiren';
+  $forum_failure[] = 'Keine Berechtigung dieses Forum zu moderieren';
 	check_forum_failure($forum_failure);
 }
 
