@@ -358,6 +358,18 @@ INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUE
 INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (3, 6, 1, 0, 0, 'Geburtstag', 'geburtstag.php');
 INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (2, 6, 1, 0, 0, 'Online', 'online.php');
 INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (1, 18, 7, 0, -3, 'Away', 'awaycal');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (4, 0, 2, 0, 0, 'TopMenu', 'allianz.php');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (4, 1, 7, 0, 0, 'News', 'news');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (4, 2, 7, 0, 0, 'Forum', 'Forum');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (4, 3, 7, 0, 0, 'Mitglieder', 'user');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (4, 4, 7, 0, 0, 'Downloads', 'downloads');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (5, 0, 2, 0, 0, 'FooterMenu', 'allianz.php');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (5, 1, 7, 0, 0, 'Impressum', 'impressum');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (5, 2, 7, 0, 0, 'Kontakt', 'contact');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (5, 3, 7, 0, 0, 'Sitemap', 'sitemap');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (5, 4, 7, 0, 0, 'Statistik', 'statistik');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (5, 5, 9, 0, 0, 'News Archiv', 'news-archiv');
+
 
 CREATE TABLE `prefix_modulerights` (
   `uid` mediumint(9) NOT NULL default '0',
