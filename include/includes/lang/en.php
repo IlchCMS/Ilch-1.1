@@ -7,6 +7,8 @@ defined ('main') or die ( 'no direct access' );
 
 $lang = array
 (
+'startseite' => 'Home',
+'nachoben' => 'up',
 'sigins' => 'Sign In',
 'noneavatar' => 'No registered Avatar',
 'orregist' => 'or',
