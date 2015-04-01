@@ -1,115 +1,57 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-loose.dtd">
-  
-<html>
-<head>
-	<title>{TITLE}</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<link rel="stylesheet" type="text/css" href="include/designs/ilchClan/style.css">
-
-</head>
-
-<body> 
-<div id="wrap">
-  <div id="top"></div>
-  <div id="header"><h1>{SITENAME}</h1></div>
-  <div id="top2"><font><b> &raquo; </b>{HMENU}</font></div>
-  <div id="content">
-  
-  <div id="left_col">
-
-    {_list_menunr1@
-    <b class="menu_heading">%1</b>
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-	  <tr style="height: 12px;background: url(include/designs/ilchClan/img/box_left_middle.gif) top left repeat-y;">
-	  	<td style="height: 12px; background: url(include/designs/ilchClan/img/box_left_top.gif) top left no-repeat;"></td>
-	</tr>    
-      <tr>
-        <td style="background: url(include/designs/ilchClan/img/box_left_middle.gif) top left repeat-y;" align="top">%2</td>
-      </tr>
-	  <tr style="height: 9px;background: url(include/designs/ilchClan/img/box_left_middle.gif) top left repeat-y;">
-	  	<td style="height: 9px; background: url(include/designs/ilchClan/img/box_left_bottom.gif) bottom left no-repeat;"></td>
-	</tr>
-    </table>
-    <br />
-    }
-  
-  </div>
-  
-  <div id="main_col">{EXPLODE}</div>
-  
-  <div id="right_col1">
-        {_list_menunr2@
-        <table width="141" cellpadding="0" cellspacing="0" border="0">
-          <tr>
-            <td style="width: 141px; height: 21px; background: url(include/designs/ilchClan/img/box_middle-right_top.gif) no-repeat bottom left;" align="center"><b class="menu_heading">%1</b></td>
-          </tr><tr>
-            <td style="min-height:100px; background: url(include/designs/ilchClan/img/box_mittle-right_middle.gif) repeat-y; padding: 4px;">%2</td>
-          </tr><tr>
-            <td><img src="include/designs/ilchClan/img/box_middle_bottom.gif" alt="" /></td>
-          </tr>
-        </table>
-        <br />
-        }
-  </div>
-  
-  <div id="right_col2">
-  
-        {_list_menunr3@
-        <table width="141" cellpadding="0" cellspacing="0" border="0">
-          <tr>
-            <td  style="width:141px; height:21px; background: url(include/designs/ilchClan/img/box_middle-right_top.gif) no-repeat;" align="center"><b class="menu_heading">%1</b></td>
-          </tr><tr>
-            <td style="min-height:100px; background: url(include/designs/ilchClan/img/box_mittle-right_middle.gif) repeat-y; padding:4px;">%2</td>
-          </tr><tr>
-            <td><img src="include/designs/ilchClan/img/box_right_bottom.gif" alt="" /></td>
-          </tr>
-        </table>
-        <br />
-        }
-        
-  </div>
-  
-  <br style="clear: both;" />
-  </div>
-  
-   <!--
-   Der Link darf generell entfernt werden (Lizenz GNU/GPL)
-   Ich bitte aber darum, aufgrund der extrem vielen Arbeit die in diesem
-   Script steckt, ilch.de irgendwie mit einem Banner einem Link oder
-   sonst irgendwie zu unterstuetzen. Danke !!
-	 //-->
-  
-  <div id="footer">Script Copyright by <a href="http://www.ilch.de/" target="_blank">ilch.de</a></div>
-</div>
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="de">
+    <head>
+        <title>{TITLE}</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+        <link rel="shortcut icon" href="include/designs/ilchClan/img/favicon.png" type="image/png">
+        <link rel="stylesheet" type="text/css" href="include/designs/ilchClan/style.css">
+    </head>
+    <body> 
+        <div><a name="topilchdesign" id="topilchdesign"></a></div>
+    <div class="ilchclantop">
+        <div class="ilchclantopin">
+            <div class="ilchclansearch">{_boxes_ilchdesignsearchbox}</div>
+            <div class="ilchclanlogin">{_boxes_ilchdesignloginbox}</div>
+        </div>
+    </div>
+    <div class="ilchclandesign">
+        <div class="ilchclandesignheader"><a href="index.php"><img src="include/designs/ilchClan2/img/logoheader.png" alt="{SITENAME}"></a></div> 
+        <div class="ilchclandesigncontent">
+            <div class="ilchclandesignmenuhead">{_list_menunr4@ %2}</div>
+            <div class="ilchclandesignilch">
+                <div class="ilchclandesignilchmenu1">
+                    {_list_menunr1@  
+                    <div class="ilchmenu1top">%1</div>
+                    <div class="ilchmenu1middle">%2</div>
+                    }
+                </div>
+                <div class="ilchclandesignilchcontent"><div class="ilchclandesignilchcontentin"><span class="ilchdesignhmenu"><a href="index.php">Start</a>&nbsp;<strong>&raquo;</strong>&nbsp;{HMENU}</span>{EXPLODE}</div></div>
+                <div class="ilchclandesignilchmenu2">
+                                        {_list_menunr2@  
+                    <div class="ilchmenu2_3_top">%1</div>
+                    <div class="ilchmenu2_3_middle">%2</div>
+                    <div class="ilchmenu2_3_bottom"></div>
+                    }
+                </div>
+                <div class="ilchclandesignilchmenu3">
+                                        {_list_menunr3@  
+                    <div class="ilchmenu2_3_top">%1</div>
+                    <div class="ilchmenu2_3_middle">%2</div>
+                    <div class="ilchmenu2_3_bottom"></div>
+                    }
+                </div>
+            </div> 
+            <div class="ilchclandesignmenubottom">{_list_menunr5@ %2}</div> 
+        </div>
+        <div class="ilchcms"><a href="http://www.ilch.de" title="&copy; Ilch.de - Content Management System">&copy;&nbsp;Ilch.de - Content Management System</a><span><a href="#topilchdesign" title="nach oben">nach oben</a></span></div>
+    </div>
 </body>
 </html>
-
-
-
-         <!--
-					{_list_DDDmenupoint@
-					  <strong><big>&middot;</big></strong>
-            <a %1 class="box" href="%2">%3</a>
-            <br />
-					}
-          //-->
-          
-          <!-- beispiel:
-            [null, '%3', '%2', '%1', null|],|,
-          -->
-          <!--           anfang        +     link                |ende |teilende|teilee  -->
-          <!-- horizontaler menupunkt -->
-          {_list_hmenupoint@<li><a target="%1" class="box" href="%2">%3</a>|</li>|<br />|</ul></li>}
-          <!-- horizontaler menupunkt anfang -->
-          {_list_hmenubegi@<ul>}
-          <!-- horizontaler menupunkt ende -->
-          {_list_hmenuende@</ul>}
-          
-          <!-- vertikaler menupunkt -->
-          {_list_vmenupoint@<li><a target="%1" class="box" href="%2">%3</a>|</li>|<br /><ul>|</ul></li>}
-          <!-- vertikaler menupunkt anfang -->
-          {_list_vmenubegi@<ul>}
-          <!-- vertikaler menupunkt ende -->
-          {_list_vmenuende@</ul>}
+<!--
+{_list_hmenupoint@<a target="%1" title="%3" href="%2">%3</a>}
+{_list_hmenubegi@}
+{_list_hmenuende@}
+{_list_vmenupoint@<li><a target="%1" class="box" href="%2" title="%3">%3</a>|</li>|<br><ul>|</ul></li>}
+{_list_vmenubegi@<ul class="text-left">}
+{_list_vmenuende@</ul>}
+//-->

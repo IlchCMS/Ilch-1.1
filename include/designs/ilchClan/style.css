@@ -1,278 +1,562 @@
-/*
-  css Datei copyright by ilch.de
-  erstellt von scaRFhogg
-  seite: www.daiwai.de
-
-  --
-
-  Design copyright by ilch.de
-  erstellt von fanguro
-  seite: www.zurro.de
-
-  --
-
-  Support auf www.ilch.de
-*/
-
 body {
-  margin: 0;
-  padding: 0;
-  text-align: center;
-  background-color: #4A4849;
-  font-size: 12px;
-  font-family: Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background-color: #004870;
+    background-image: url('img/bg.png') ;
+    background-position: 50% 0%;
+    background-repeat:repeat-x;
+    font-size: 12px;
+    font-family: Verdana, sans-serif;
 }
-#wrap {
-  position: relative;
-  width: 967px;
-  text-align: left;
-  margin: 0 auto 0 auto;
+a {
+    -o-transition: color 0.2s linear;
+    -moz-transition: color 0.2s linear;
+    -khtml-transition: color 0.2s linear;
+    -webkit-transition: color 0.2s linear;
+    -ms-transition: color 0.2s linear;
+    transition: color 0.2s linear;
+}  
+div.ilchclantop {
+    height:35px;
+    line-height:35px;
+    background-color: #000;
+    background-color: transparent;
+    background-image: url(img/bg_topbar.png);
+    background-repeat: repeat;
+    -webkit-box-shadow: -1px 9px 16px 0px rgba(255,255,255,0.2);
+    -moz-box-shadow: -1px 9px 16px 0px rgba(255,255,255,0.2);
+    box-shadow: -1px 9px 16px 0px rgba(255,255,255,0.2);
 }
-#top {
-  background: url(img/top.gif);
-  height: 67px;
+div.ilchclantopin {
+    width: 1100px;
+    margin:0 auto;
+    color:#ccc;
+    font-size:11px;
 }
-#header {
-  background: url(img/logo.gif);
-  height: 153px;
-  text-align: center;
-  vertical-align:middle;
+.ilchclantopinlog {
+    font-size:12px;
+    color:#fff;
+    font-weight: bold;
 }
-#header h1 {
-  display: inline;
-  position: absolute;
-  top: 110px; left: 100px;
-  color: #fff;
-  font-family: 'Trebuchet MS';
-  font-weight: normal;
-  font-size: 24px;
+div.ilchclandesign {
+    width: 1100px;
+    margin: 25px auto 0px;
 }
-#top2 {
-  background: url(img/top2.gif);
-  height: 31px;
+div.ilchclansearch {
+    float:left;  
 }
-#top2 font {
-  display: inline;
-  position: absolute;
-  left: 172px;
-  margin-top: 2px;
-  font-size: 10px;
-	text-decoration: none;
+.ilchclandearchbox{
+    width: 150px;
+    height:18px;
+    cursor:pointer;
 }
-#content {
-  background: url(img/contentbg.gif);
-  background-repeat: repeat;
-  width: 964px;
+.ilchclandearchbox input:hover,
+.ilchclandearchbox input:focus {
+    box-shadow:0 0 0px rgba(0,149,229,0.6);
+    border:0px solid rgba(0,149,229,0.6);
 }
-#footer {
-  background: url(img/footer.gif);
-  height: 33px;
-  text-align: center;
-  vertical-align: middle;
+.ilchclandearchboxsubmit {
+    cursor:pointer;
 }
-#left_col {
-  width: 158px;
-  float: left;
-  padding-top: 0px;
-  padding-left: 9px;
-  padding-right: 18px;
-  padding-bottom: 0px;
-  color: #fff;
-  overflow: hidden;
+div.ilchclanlogin {
+    float:right;
 }
-
-#left_col .Cmite, #left_col .Cnorm, #left_col .Cdark {
-  color: #000000;
+.ilchclandesignheader {
+    min-height:100px;
+    line-height:60px;
+    width: 1100px;
+    overflow:hidden;
+    text-align:left;
+    text-indent:20px;
 }
-
-#left_col a {
-  color: #CCCCCC;
+.ilchclandesignheader img{
+    max-width: 100%;
+    height:auto;
+    border:none;
 }
-
-#left_col .menu_heading
-{
-  color: #000;
-  display:block;
-  letter-spacing: 1px;
-  font-size: 11px;
-  padding: 0  0 3px 5px;
+.ilchclandesignheader a{
+    text-align:left;
+    color:#fff;
+    font-size:24px;
+    text-decoration:none;
 }
-
-#main_col {
-  width: 440px;
-  float: left;
-  padding-top: 0px;
-  padding-left: 5px;
-  padding-right: 20px;
-  padding-bottom: 0px;
-  clear: none;
-  min-height: 100px;
-  overflow: auto;
+.ilchclandesigncontent {
+    width: 1100px;
+    float:left;
+    background-color:#F8F8F8;
+    box-shadow: 0px 0px 0px 2px rgba(0,0,0,0.6);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
 }
-#right_col1 {
-  width: 141px;
-  float: left;
-  padding-top: 0px;
-  padding-left: 7px;
-  padding-right: 10px;
-  padding-bottom: 0px;
-  overflow: hidden;
+.ilchclandesignmenuhead,
+.ilchclandesignmenubottom{
+    float:left;
+    width: 1090px;
+    padding: 10px 5px;
+    text-align:left;
 }
-#right_col2 {
-  width: 141px;
-  float: right;
-  padding-top: 0px;
-  padding-left: 0px;
-  padding-right: 14px;
-  padding-bottom: 0px;
-  overflow: hidden;
+.ilchclandesignmenuhead {
+    background-image: -ms-linear-gradient(top, #CECECE 0%, #F8F8F8 100%);
+    background-image: -moz-linear-gradient(top, #CECECE 0%, #F8F8F8 100%);
+    background-image: -o-linear-gradient(top, #CECECE 0%, #F8F8F8 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #CECECE), color-stop(1, #F8F8F8));
+    background-image: -webkit-linear-gradient(top, #CECECE 0%, #F8F8F8 100%);
+    background-image: linear-gradient(to bottom, #CECECE 0%, #F8F8F8 100%);
+    -webkit-box-shadow: 0px 3px 13px -1px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0px 3px 13px -1px rgba(0,0,0,0.3);
+    box-shadow: 0px 3px 13px -1px rgba(0,0,0,0.3);
+    border-bottom:2px solid #fff;
 }
-
-#right_col1 .menu_heading,
-#right_col2 .menu_heading
-{
-  color:#fff;
-  font-size:11px;
-  letter-spacing: 1px;
+.ilchclandesignmenubottom {
+    background-image: -ms-linear-gradient(top, #F8F8F8 0%, #CECECE 100%);
+    background-image: -moz-linear-gradient(top, #F8F8F8 0%, #CECECE 100%);
+    background-image: -o-linear-gradient(top, #F8F8F8 0%, #CECECE 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #F8F8F8), color-stop(1, #CECECE));
+    background-image: -webkit-linear-gradient(top, #F8F8F8 0%, #CECECE 100%);
+    background-image: linear-gradient(to bottom, #F8F8F8 0%, #CECECE 100%);
+    -webkit-box-shadow: 0px -3px 13px -1px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0px -3px 13px -1px rgba(0,0,0,0.3);
+    box-shadow: 0px -3px 13px -1px rgba(0,0,0,0.3);
+    border-top:2px solid #fff;
 }
-
-#left_col ul
-{
-  padding: 0;
-  margin: 0;
-  list-style: inside url(img/box_menu_pfeil.gif);
-  width: 149px;
+.ilchclandesignmenuhead a,
+.ilchclandesignmenubottom a{
+    margin:1px; 
+    text-decoration:underline;
+    font-weight: bold;
+    padding:2px;
+    -o-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    -khtml-transition: all 0.2s linear;
+    -webkit-transition: all 0.2s linear;
+    -ms-transition: all 0.2s linear;
+    transition: all 0.2s linear;
 }
-
-#left_col li
-{
-  margin:0;
-  padding: 5px 0 0 2px;
-  background: url(img/box_menu_trennlinie.gif) no-repeat bottom;
+.ilchclandesignmenuhead a:hover,
+.ilchclandesignmenubottom a:hover{
+    background-color:#00669E;
+    color:#fff;
+    text-decoration:none;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0px 3px 13px -1px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 3px 13px -1px rgba(0,0,0,0.5);
+    box-shadow: 0px 3px 13px -1px rgba(0,0,0,0.5);
 }
-
-#left_col li ul
-{
-  width: 146px;
-  background: url(img/box_menu_trennlinie.gif) no-repeat top;
+.ilchclandesignilch {
+    float:left;
+    width: 1100px;
+    margin: 20px 0px;
 }
-
-#left_col li li
-{
-    padding-left: 16px;
+.ilchclandesignilchmenu1,
+.ilchclandesignilchmenu2,
+.ilchclandesignilchmenu3 {
+    float:left;
+    margin:3px;
+    width: 194px;
+    overflow:hidden;
+    text-align:center;
 }
-#left_col li a
-{
-  color: #fff;
-  padding-left: 8px;
-  font-size: 11px;
-  font-weight: normal;
-  text-decoration: none;
+.ilchclandesignilchcontent {
+    float:left;
+    margin:3px;
+    width: 492px;
+    min-height:100px;
+    overflow:hidden;
+    text-align:left;
+    background-color:#F2F2F2;
+    border:1px solid #ccc;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0px 0px 28px 2px rgba(0,0,0,0.2);
+    -moz-box-shadow: inset 0px 0px 28px 2px rgba(0,0,0,0.2);
+    box-shadow: inset 0px 0px 28px 2px rgba(0,0,0,0.2);
 }
-
-td
-{
-  font-family: Verdana;
-  font-size: 12px;
+.ilchclandesignilchcontentforum {
+    float:left;
+    margin:3px;
+    width: 692px;
+    min-height:100px;
+    overflow:hidden;
+    text-align:left;
+    background-color:#F2F2F2;
+    border:1px solid #ccc;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0px 0px 28px 2px rgba(0,0,0,0.2);
+    -moz-box-shadow: inset 0px 0px 28px 2px rgba(0,0,0,0.2);
+    box-shadow: inset 0px 0px 28px 2px rgba(0,0,0,0.2);
 }
-
-a, #left_col .Cmite a, #left_col .Cnorm a, #left_col .Cdark a
-{
-  color: #003366;
-	font-family: Verdana;
-	font-size: 11px;
-	text-decoration: underline;
+.ilchclandesignilchcontentin {
+    margin:7px;
 }
-
-a:hover
-{
-  text-decoration: none;
+.ilchdesignhmenu {
+    display:block;
+    margin-bottom:15px;
+    font-size:11px;
+    background-color:#fff;
+    padding:2px;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border-radius:3px;
+    -webkit-box-shadow: 0px 10px 8px -4px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0px 10px 8px -4px rgba(0,0,0,0.2);
+    box-shadow: 0px 10px 8px -4px rgba(0,0,0,0.2);
 }
-
-a.box
-{
-  color: #003366;
-	font-family: Verdana;
-	font-size: 11px;
-	text-decoration: underline;
+.ilchdesignhmenu a{
+    text-decoration:none;
+    font-size:11px;
 }
-
-a.box:hover
-{
-  text-decoration: none;
+.ilchcms {
+    width: 1100px;
+    float:left;
+    margin: 6px auto 20px;
+    text-align:center;
 }
-
-.Chead
-{
-  background: #16639b;
-  color: #9dbdd4;
+.ilchcms span{
+    float:right;
 }
-
-.Chead a
-{
-  color: #9dbdd4;
+.ilchcms a{
+    color:#00A5FF;
+    font-weight: bold;
+    text-decoration:none;
 }
-
-.Chead td, .Chead td strong, .Chead h4, .Chead td b
-{
-  background: #16639b;
-  color: #9dbdd4;
+.ilchcms a:hover{
+    color:#3DBBFF;
 }
-
-.Callg
-{
-  background-color: #EFEFEF;
-	color: #000000;
+.ilchmenu1top {
+    padding: 5px;
+    text-align:center;
+    color:#383838;
+    text-shadow: 1px 1px #fff;
+    font-weight: bold;
 }
-
-.Callg td
-{
-  color: #000000;
+.ilchmenu1middle {
+    padding:5px;
+    text-align:center;
+    margin-bottom:10px;
+    background-color:#00669E;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    border-radius:5px;
+    color:#fff;
+    -webkit-box-shadow: 0px 8px 8px -4px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0px 8px 8px -4px rgba(0,0,0,0.3);
+    box-shadow: 0px 8px 8px -4px rgba(0,0,0,0.3);
 }
-
-.Cnorm
-{
-  background-color: #e5e5e5;
+.ilchmenu1middle a,
+.ilchmenu1middle a.box {
+    color:#dbdbdb;
 }
-.Cmite
-{
-  background-color: #B4C6D8;
+.ilchmenu1middle a:hover,
+.ilchmenu1middle a.box:hover {
+    color:#fff;
 }
-.Cdark
-{
-  background-color: #9AB1C8;
+.ilchmenu1middle .Cmite {
+    background-color:#E5E5E5;
+    color:#2f2f2f;
 }
-
-.rand
-{
-  border: solid #185685 1px;
+.ilchmenu1middle .Cnorm {
+    background-color:#D3D3D3;
+    color:#2f2f2f;
 }
-
-.smalfont
-{
+.ilchmenu2_3_top {
+    background-color:#00669E;
+    color:#fff;
+    text-align:center;
+    font-weight: bold;
+    padding:5px;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.ilchmenu2_3_middle {
+    padding:4px;
+    background-color:#f2f2f2;
+    -webkit-box-shadow: inset 0px 0px 28px 2px rgba(0,0,0,0.2);
+    -moz-box-shadow: inset 0px 0px 28px 2px rgba(0,0,0,0.2);
+    box-shadow: inset 0px 0px 28px 2px rgba(0,0,0,0.2);
+    border-right:1px solid #ccc;
+    border-left:1px solid #ccc;
+}
+.ilchmenu2_3_bottom {
+    height:24px;
+    background-color:#00669E;
+    -webkit-border-bottom-right-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    -webkit-box-shadow: 0px 8px 8px -4px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0px 8px 8px -4px rgba(0,0,0,0.3);
+    box-shadow: 0px 8px 8px -4px rgba(0,0,0,0.3);
+    margin-bottom:15px;
+}
+#loginilchdesigndd {
+    margin-right:20px;
+}
+#loginilchdesigndd ul {
+    margin:0;
+    padding:0;
+}
+#loginilchdesigndd ul li {
+    position:relative;
+    float:left;
+    list-style:none inside none;
+}
+#loginilchdesigndd .dropdown {
+    position:absolute;
+    width:200px;
+    margin-left:-125px;
+    margin-top:2px;
+    display:none;
+    line-height:22px;
+    background-color:#F2F2F2;
+    border:1px solid #ccc;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0px 0px 28px 2px rgba(0,0,0,0.2);
+    -moz-box-shadow: inset 0px 0px 28px 2px rgba(0,0,0,0.2);
+    box-shadow: inset 0px 0px 28px 2px rgba(0,0,0,0.2);
+    z-index:1001;
+    padding:4px;
+    -webkit-transition:all .3s ease-in-out;
+    -moz-transition:all .3s ease-in-out;
+    -ms-transition:all .3s ease-in-out;
+    -o-transition:all .3s ease-in-out;
+    -webkit-box-shadow:5px 10px 21px #000;
+    -moz-box-shadow:5px 10px 21px #000;
+    box-shadow:5px 10px 21px #000;
+}
+#loginilchdesigndd .dropdown:after {
+    content:'';
+    position:absolute;
+    bottom:100%;
+    left:50%;
+    margin-left:27px;
+    width:0;
+    height:0;
+    border-bottom:10px solid #F2F2F2;
+    border-right:10px solid transparent;
+    border-left:10px solid transparent;
+}
+#loginilchdesigndd ul li:hover .dropdown {
+    display:block;
+}
+.dropdown li a{
+    display:block;
+    line-height:22px;
+    width:200px;
+    text-align:center;
+    margin-bottom:2px;
+    -webkit-transition:all .3s ease-in-out;
+    -moz-transition:all .3s ease-in-out;
+    -ms-transition:all .3s ease-in-out;
+    -o-transition:all .3s ease-in-out;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+.dropdown li a:hover{
+    background:#00669E;
+    color:#fff;
+}
+#loginilchdesigndd ul li a:hover {
+}
+.ilchdesignloginusername {
+    font-size:12px;
+    color:#fff;
+    margin-right:5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+.ilchdesignloginavatar {
+    max-height:25px;
+    display:inline;
+    vertical-align: middle;
+    border:1px solid #ccc;
+}
+.black_overlaylogin {
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-color:#000;
+    z-index:1001;
+    -moz-opacity:.5;
+    opacity:.5;
+    filter:alpha(opacity=50)
+}
+.white_contentlogin {
+    display:none;
+    position:fixed;
+    top:40%;
+    left:50%;
+    margin-left:-150px;
+    margin-top:-100px;
+    text-align:left;
+    padding:5px;
+    padding-left:20px;
+    width:300px;
+    height:200px;
+    background-color:#f9f9f9;
+    box-shadow: 0px 0px 0px 7px rgba(0,0,0,0.5); 
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    border-radius:5px;
+    color:#141414;
+    z-index:1002;
+    overflow:hidden;
+}
+.ilchdesignloginlabel {
+    display:inline-block;
+    width:80px;
+    line-height:20px;
+    font-size:11px;
+}
+.ilchdesignloginclose,
+.ilchdesignloginclose:hover {
+    font-size:8px;
+    float:right;
+    padding:4px;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    border-radius:5px;
+    text-decoration:none;
+    background-color:#00669E;
+    color:#fff;
+    font-weight: bold;
+}
+.ilch_shoutbox_in {
+    text-align:left;
+}
+td {
+    font-family: Verdana;
+    font-size: 12px;
+}
+a {
+    color: #00669E;
+    font-family: Verdana;
+    font-size: 11px;
+    text-decoration: underline;
+}
+a:hover {
+    text-decoration: none;
+    color:#0095E5;
+}
+a.box {
+    color: #00669E;
+    font-family: Verdana;
+    font-size: 11px;
+    text-decoration: underline;
+}
+a.box:hover {
+    text-decoration: none;
+    color:#0095E5;
+}
+.Chead {
+    background: #16639b;
+    color: #9dbdd4;
+}
+.Chead a {
+    color: #9dbdd4;
+}
+.Chead td,
+.Chead td strong,
+.Chead h4,
+.Chead td b {
+    background: #16639b;
+    color: #9dbdd4;
+}
+.Cnorm {
+    background-color: #e5e5e5;
+}
+.Cmite {
+    background-color: #B4C6D8;
+}
+.Cdark {
+    background-color: #9AB1C8;
+}
+.smalfont {
     font-size: 10px;
-		text-decoration: none;
+    text-decoration: none;
 }
-
-.border
-{
-   background-color: #185685;
+.border {
+    background-color: #185685;
 }
-hr
-{
+hr {
     height: 0px;
-		border: solid #003366 0px;
-		border-top-width: 1px;
+    border: solid #003366 0px;
+    border-top-width: 1px;
 }
-
-input, textarea, select
-{
-    color: #000000;
+input,
+button,
+textarea,
+select {
+    color: #444;
     font: 12px Verdana;
-    border-color: #185685;
-  	border-width: 1px;
+    border-color: #ccc;
+    border-width: 1px;
     border-style: solid;
     font-weight: none;
     text-decoration: none;
-    background-color: #EFEFEF;
+    background-color: #fff;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-transition:all .3s ease-in-out;
+    -moz-transition:all .3s ease-in-out;
+    -ms-transition:all .3s ease-in-out;
+    -o-transition:all .3s ease-in-out;
 }
+button:hover,
+button:focus,
+input:hover,
+input:focus,
+input[type=submit]:hover,
+input[type=submit]:focus,
+input[type=text]:focus,
+input[type=password]:focus,
+button[type=submit]:focus,
+textarea:focus,
+button[type=submit]:hover,
+input[type=password]:hover,
+input[type=text]:hover,
+textarea:hover {
+    box-shadow:0 0 5px rgba(0,149,229,0.6);
+    border:1px solid rgba(0,149,229,0.6);
+    color:#333;
+}
+legend {
+    color:#919191;
+    text-shadow: 1px 1px #fff;
+}
+fieldset {
+    overflow:auto;
+    border:1px solid #919191;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border-radius:3px;
+    text-shadow: 1px 1px #fff;
+}
+li.c3 {
+    margin-top:5px;
+}
+sup.c2 {
+    color:#ff0000;
+    }
+li.c1 {
+    list-style: none;
+    }  

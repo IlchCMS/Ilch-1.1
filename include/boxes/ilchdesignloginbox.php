@@ -28,7 +28,7 @@ $row = db_fetch_object($erg);
 if ( file_exists($row->avatar)) {
   $avatar = '<span class="ilchdesignloginusername">'.$row->name.'</span><img class="ilchdesignloginavatar" src="'.$row->avatar.'" alt="">';
 }else{
-$avatar = '<span class="ilchdesignloginusername">'.$row->name.'</span><img class="ilchdesignloginavatar" src="include/images/avatars/wurstegal.jpg" title="Kein Avatar eingetragen" alt="">';
+$avatar = '<span class="ilchdesignloginusername">'.$row->name.'</span><img class="ilchdesignloginavatar" src="include/images/avatars/wurstegal.jpg" title="'.$lang['noneavatar'].'" alt="">';
 }
 $q = "SELECT COUNT(DISTINCT a.id) FROM prefix_topics a
     LEFT JOIN prefix_forums b ON b.id = a.fid
@@ -51,16 +51,16 @@ $q = "SELECT COUNT(DISTINCT a.id) FROM prefix_topics a
 	  if ( $allgAr['Fpmf'] == 1 ) {
 		  $erg = db_query("SELECT COUNT(id) FROM `prefix_pm` WHERE gelesen = 0 AND status < 1 AND eid = ".$_SESSION['authid']);
 			$check_pm = db_result($erg,0);
-			$nachrichten_link = '<li><a href="index.php?forum-privmsg" title="'.$check_pm.' neue Nachrichten">Nachrichten <sup class="c2"> '.$check_pm.'</sup></a></li><li class="c1"><br></li>';
+			$nachrichten_link = '<li><a href="index.php?forum-privmsg" title="'.$check_pm.' '.$lang['newmessage'].'">'.$lang['messages'].' <sup class="c2"> '.$check_pm.'</sup></a></li><li class="c1"><br></li>';
 		} else {
 		  $nachrichten_link = '';
 		}
 	  if ( $allgAr['forum_usergallery'] == 1 ) {		
-$tpl->set ( 'UGALLERY', '<li><a href="index.php?user-usergallery-'.$_SESSION['authid'].'">Meine Gallery</a></li><li class="c1"><br></li>');
+$tpl->set ( 'UGALLERY', '<li><a href="index.php?user-usergallery-'.$_SESSION['authid'].'">'.$lang['usergallery'].'</a></li><li class="c1"><br></li>');
 		} else {
 		  $tpl->set ( 'UGALLERY', '');
 		}
-$tpl->set ( 'PROFILANSICHT', '<li><a href="index.php?user-details-'.$_SESSION['authid'].'">Profil ansehen</a></li><li class="c1"><br></li>');			
+$tpl->set ( 'PROFILANSICHT', '<li><a href="index.php?user-details-'.$_SESSION['authid'].'">'.$lang['userprofil'].'</a></li><li class="c1"><br></li>');			
 		$tpl->set ( 'SID' , session_id() );
 		$tpl->set ( 'NACHRICHTEN' , $nachrichten_link );
 		$tpl->set ( 'NAME', $_SESSION['authname'] );
@@ -75,7 +75,7 @@ else {
 	if (empty($_POST['login_pw'])) { $_POST['login_pw'] = 'ההההההההה'; }
 	$regist = '';
 	if ( $allgAr['forum_regist'] == 1 ) {
-	  $regist = '&nbsp;oder&nbsp;<a class="ilchclantopinlog" href="index.php?user-regist" title="Account erstellen">Registrieren</a>';
+	  $regist = '&nbsp;'.$lang['orregist'].'&nbsp;<a class="ilchclantopinlog" href="index.php?user-regist" title="'.$lang['register'].'">'.$lang['register'].'</a>';
 	}
 	$tpl->set_ar_out ( array ( 'regist' => $regist, 'wdlink' => '?'.$allgAr['smodul'], 'PASS' => $_POST['login_pw'], 'NAME' => $_POST['login_name'] ) , 1 );
 }

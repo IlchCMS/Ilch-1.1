@@ -7,6 +7,17 @@ defined ('main') or die ( 'no direct access' );
 
 $lang = array
 (
+'sigins' => 'Sign In',
+'noneavatar' => 'No registered Avatar',
+'orregist' => 'or',
+'newmessage' => 'new messages',
+'usergallery' => 'my Gallery',
+'userprofil' => 'view Profile',
+'winclose' => 'close the window',
+'logoutnew' => 'Logout',
+'mypost' => 'my posts',
+'profilbear' => 'edit Profile',
+'lostpw' => 'Forgot your password?',
 'submitnews' => 'Submit News',
 'titlen' => 'Title',
 'year' => 'Year',
