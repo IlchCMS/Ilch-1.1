@@ -1,28 +1,25 @@
-<script language="javascript" type="text/javascript">
+<script type="text/javascript">
 <!--
-
     function set_user_name()
     {
-
         var user_name = document.user_form.user_name.value;
-
         opener.document.form.name.value = user_name;
         opener.focus();
         window.close();
     }
-
-
 //-->
 </script>
 <form action="index.php?search-finduser" method="POST">
     <table class="border border400">
         <tr class="Chead">
             <td colspan="3"><strong>{_lang_finduser}</strong></td>
-        </tr><tr class="Cmite">
+        </tr>
+        <tr class="Cmite">
             <td class="smalfont">
                 {_lang_inserthereaname}
             </td>
-        </tr><tr class="Cnorm">
+        </tr>
+        <tr class="Cnorm">
             <td>
                 <input type="text" name="name" value=""> <input type="submit" value="{_lang_search}" name="sub">
             </td>

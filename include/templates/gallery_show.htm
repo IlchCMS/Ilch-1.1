@@ -4,7 +4,7 @@
         <link rel="stylesheet" type="text/css" href="include/admin/templates/bootstrap/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="include/admin/templates/bootstrap/css/style.css">
         {diashow_html}
-        <script language="JavaScript" type="text/javascript">
+        <script type="text/javascript">
             <!--
           function openWindow() {
                 var fenster = window.open('index.php?gallery-showOrig-{id}-{endung}', 'origBild', 'scrollbars=yes,toolbar=yes,status=yes,resizable=yes,top=0,left=0,width={breite},height={hoehe}');
@@ -67,7 +67,7 @@
         </table>
         <table class="text-center">
             <tr>
-                <td><a href="index.php?gallery-showOrig-{id}-{endung}" onClick="return openWindow();" target="_blank"><img id="bild1" style="progid:DXImageTransform.Microsoft.{bild_style}" src="include/images/gallery/img_norm_{id}.{endung}" border="0" /></a></td>
+                <td><a href="index.php?gallery-showOrig-{id}-{endung}" onClick="return openWindow();" target="_blank"><img id="bild1" style="progid:DXImageTransform.Microsoft.{bild_style}" src="include/images/gallery/img_norm_{id}.{endung}" alt=""></a></td>
             </tr>
         </table>
         <br>
@@ -107,7 +107,7 @@
     <head>
         <title>{_lang_pleaseclickonpic}</title>
         <link rel="stylesheet" type="text/css" href="include/admin/templates/bootstrap/css/style.css">
-        <script language="JavaScript" type="text/javascript">
+        <script type="text/javascript">
             <!--
         function adjust_popup() {
                 var w, h, fixedW, fixedH, diffW, diffH;
@@ -145,6 +145,6 @@
         </script>
     </head>
     <body scroll="auto" marginwidth="0" marginheight="0">
-        <div class="text-center"><a href="javascript:window.close()"><img src="include/images/gallery/img_{id}.{endung}" title="{_lang_pleaseclickonpic}" border="0"></a></div>
+        <div class="text-center"><a href="javascript:window.close()"><img src="include/images/gallery/img_{id}.{endung}" title="{_lang_pleaseclickonpic}"></a></div>
     </body>
 </html>

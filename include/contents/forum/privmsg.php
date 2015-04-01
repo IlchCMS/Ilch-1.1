@@ -199,7 +199,7 @@ default :
       $erg = db_query($abf);
       while ($row = db_fetch_assoc($erg)) {
         $class = ( $class == 'Cmite' ? 'Cnorm' : 'Cmite' );
-        $row['NEW'] = ($row['NEW'] == 0 ? '<strong><i>neu</i></bstrong>' : '' );
+        $row['NEW'] = ($row['NEW'] == 0 ? '<strong><i>neu</i></strong>' : '' );
         $row['CLASS'] = $class;
         $row['BET'] = (trim($row['BET']) == '' ? ' -- kein Nachrichtentitel -- ' : $row['BET']);
         $row['date'] = date('d.m.Y',$row['time']);

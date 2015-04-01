@@ -1,14 +1,14 @@
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="tdweight100 ilch_news_margin">
     <div class="tdweight100 text-left ilch_news_kategorie">{kate}
-        <span class="smalfont">{datum}</span><br><strong><a href="index.php?news-{id}"><h3>{title}</h3></a></strong>
+        <span class="smalfont">{datum}</span><br><a href="index.php?news-{id}"><h3><strong>{title}</strong></h3></a>
     </div>
     <div class="tdweight100 tablebordertop ilch_news_img">{text}</div>
     <br><hr>
     <div class="tdweight100 ilch_float_l smalfont">
         <div class="smalfont text-left ilch_float_l">{_lang_writtenby} <strong>{username}</strong>{edit}</div>
         <div class="smalfont text-right ilch_float_r">
-            <a class="ilch_cms_news_icons Cnorm" href="index.php?user-details-{uid}" alt="Benutzerinfo: {username}" title="Benutzerinfo: {username}" border="1"><i class="fa fa-user"></i></a>
+            <a class="ilch_cms_news_icons Cnorm" href="index.php?user-details-{uid}" alt="Benutzerinfo: {username}" title="Benutzerinfo: {username}"><i class="fa fa-user"></i></a>
             <a class="ilch_cms_news_icons Cnorm" href="index.php?news-{id}" alt="Kommentare ({kom})" title="Kommentare ({kom})"><i class="fa fa-comment"></i></a>
             <a class="ilch_cms_news_icons Cnorm" href="index.php?news-send-{id}" alt="Diese News einen Freund senden" title="Diese News einen Freund senden"><i class="fa fa-envelope"></i></a>
             <a class="ilch_cms_news_icons Cnorm" href="index.php?news-print-{id}" alt="Druckoptimierte Version" title="Druckoptimierte Version"><i class="fa fa-print"></i></a>
@@ -21,7 +21,7 @@
 <div class="tdweight100 text-center tablebordertop">{SITELINK}</div>
 {EXPLODE}
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-<script language="JavaScript" type="text/javascript">
+<script type="text/javascript">
     function delkom(NID, ID) {
         var Check = confirm("Kommentar wirklich löschen?")
         if (Check == true)

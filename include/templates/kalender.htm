@@ -1,4 +1,3 @@
-<!-- Kalender Script © by Nickel -->
 <table>
     <tr>
         <td class="tdweight100 ilch_vertikal_top">
@@ -8,9 +7,9 @@
                 </tr>
                 {EXPLODE}
                 <tr class="{LIST_CLASS}">
-                    <td class="text-center ilch_vertikal_top" width="25" nowrap="nowrap">{LIST_I}</td>
-                    <td class="text-center ilch_vertikal_top" width="25" nowrap="nowrap">{LIST_D}</td>
-                    <td width="100%">{LIST_T}</td>
+                    <td class="text-center ilch_vertikal_top" nowrap>{LIST_I}</td>
+                    <td class="text-center ilch_vertikal_top" nowrap>{LIST_D}</td>
+                    <td class="tdweight100">{LIST_T}</td>
                 </tr>
                 {EXPLODE}
                 <tr class="Cmite">
@@ -25,11 +24,10 @@
                 {EXPLODE}
             </table>
         </td>
-        <td nowrap="nowrap">&nbsp;</td>
-        <td class="ilch_kalender ilch_vertikal_top" nowrap="nowrap">
+        <td nowrap>&nbsp;</td>
+        <td class="ilch_kalender ilch_vertikal_top" nowrap>
             {calender}
             <div class="text-center"><a href="index.php?kalender-v1">{_lang_listview}</a> | <a href="index.php?kalender-v0">{_lang_monthsview}</a></div>
         </td>
     </tr>
 </table>
-<!-- Kalender Script © by Nickel -->

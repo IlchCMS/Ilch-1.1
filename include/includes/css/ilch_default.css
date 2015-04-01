@@ -68,6 +68,18 @@ width: 98%
 .tdweight100 {
 width: 100%
 }
+.tdweight10px {
+width: 10px
+}
+.tdweight20px {
+width: 20px
+}
+.tdweight10px {
+width: 10px
+}
+.tdweight100px {
+width: 100px
+}
 .ilchpadding5 {
 padding:5px;
 }
@@ -76,6 +88,9 @@ margin:2px;
 }
 .ilchfontsize2em {
 font-size: 2em;
+}
+.ilchoverauto {
+overflow:auto;
 }
 .forumord img{
 height:15px;
@@ -97,7 +112,17 @@ padding:3px
 textarea.c4 {
 width: 80%;
 } 
-.both{
+.ilchzitateplacet {
+border:1px solid #888782;
+margin:0px;
+padding:2px;
+width:95%;
+background-color:#CCCCCC;
+}
+.ilchcursorpoint {
+cursor:pointer;
+}
+.both {
 clear:both
 }
 .text-left{

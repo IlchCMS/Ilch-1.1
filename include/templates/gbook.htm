@@ -16,9 +16,8 @@
 <br>
 <div claSS="text-center">{SITELINK}</div>
 {EXPLODE}
-<!-- G &auml; S T E B U C H   E N T E R   F O R M U L A R -->
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-<script language="JavaScript" type="text/javascript">
+<script type="text/javascript">
 <!--
 
     var ErlaubteAnzahl = {TXTL};
@@ -65,16 +64,14 @@
 
 //-->
 </script>
-
-<script type='text/javascript' src='include/includes/js/bbcode.js'></script>
+<script type="text/javascript" src="include/includes/js/bbcode.js"></script>
 <form action="index.php?gbook-2" onsubmit="return checkg()" method="POST" name="form">
-
     <table class="border">
         <tr>
             <td class="Chead" colspan="2"><strong>{_lang_insert}</strong></td>
         </tr>
         <tr>
-            <td class="Cmite" width="100"><strong>{_lang_name}</strong></td>
+            <td class="Cmite tdweight100px"><strong>{_lang_name}</strong></td>
             <td class="Cnorm"><input type="text" value="{uname}" tabindex="1" name="name"></td>
         </tr>
         <tr>
@@ -101,7 +98,7 @@
                         </td>
                     </tr>
                     <tr class="Cnorm">
-                        <td width="100%"><textarea style="width: 98%" onblur="RestlicheZeichenErmitteln(this);" onchange="RestlicheZeichenErmitteln(this);" onfocus="RestlicheZeichenErmitteln(this);" onkeydown="RestlicheZeichenErmitteln(this);" onkeyup="RestlicheZeichenErmitteln(this);" cols="50" rows="10" tabindex="4" name="txt"></textarea><br />Noch <input size="3" name="Laenge" value="{TXTL}"> {_lang_signs}</td>
+                        <td><textarea class="tdweight98" onblur="RestlicheZeichenErmitteln(this);" onchange="RestlicheZeichenErmitteln(this);" onfocus="RestlicheZeichenErmitteln(this);" onkeydown="RestlicheZeichenErmitteln(this);" onkeyup="RestlicheZeichenErmitteln(this);" cols="50" rows="10" tabindex="4" name="txt"></textarea><br>Noch <input size="3" name="Laenge" value="{TXTL}"> {_lang_signs}</td>
                     </tr>
                 </table>
             </td>
@@ -121,20 +118,25 @@
         <div class="ilch_gbook_in Cnorm">{text}</div>
     </div>   
 </div>
-<div class="border">
-    <div class="ilch_case">
-        <div class="ilch_gbook_in Cmite"><strong>{_lang_writecomment}</strong></div>
-        <form action="index.php?gbook-show-{id}" method="POST">
-            <div class="ilch_case_in Cnorm text-left">
-                <input type="text" name="name" value="{uname}" /> &nbsp; {ANTISPAM} &nbsp; <input type="submit" value="{_lang_enter}"><br>
-                <textarea style="width: 98%" cols="50" rows="2" name="text"></textarea><br>
-                </fieldset>
-                </form>
-                <br>
-                {EXPLODE}  
-                <span class="Cmite"># <strong>{zahl}</strong> von {name}</span>
-                <br>{text}<br>    
-                {EXPLODE}
-            </div>
+<br>
+<form action="index.php?gbook-show-{id}" method="POST">
+    <fieldset>
+        <legend>{_lang_writecomment}</legend>   
+        <input type="text" name="name" value="{uname}"><br>
+        <textarea class="tdweight98" cols="50" rows="2" name="text"></textarea><br>
+        <br>{ANTISPAM}<br>
+        <input type="submit" value="{_lang_enter}"><br>
+    </fieldset>
+</form>
+<br>
+<fieldset>
+    <legend>{_lang_comments}</legend>  
+    {EXPLODE} 
+    <div class="ilchmargin2">
+        <span class="Cmite"># <strong>{zahl}</strong> von {name}</span>
+        <br>
+        {text}
+        <br>   
     </div>
-</div>
+    {EXPLODE}
+</fieldset>

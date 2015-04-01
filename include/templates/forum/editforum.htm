@@ -1,5 +1,7 @@
-<form action="index.php?forum-editforum-{id}" method="POST">
-    {antispam}
+ <form action="index.php?forum-editforum-{id}" method="POST">
+<div>
+        {antispam}
+    </div>
     <table class="border">
         <tr class="Chead">
             <th><strong>{_lang_topic}</strong></th>
@@ -16,9 +18,11 @@
             <td class="Cdark"><input type="checkbox" name="in[{id}]" value="yes"></td>
         </tr>
         {EXPLODE}
-    </table>
-    <input type="submit" name="del" value="{_lang_delete}">
-    <input type="submit" name="shift" value="{_lang_shift}">
-    <input type="submit" name="status" value="{_lang_status} {_lang_change}">
+    </table> 
+    <div>
+        <input type="submit" name="del" value="{_lang_delete}">
+        <input type="submit" name="shift" value="{_lang_shift}">
+        <input type="submit" name="status" value="{_lang_status} {_lang_change}">
+    </div>
 </form>
 {MPL}

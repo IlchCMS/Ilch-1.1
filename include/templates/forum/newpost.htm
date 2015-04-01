@@ -3,12 +3,13 @@
         <th colspan="2" class="Chead">
             <strong>{_lang_preview}</strong>
         </th>
-    </tr><tr>
+    </tr>
+    <tr>
         <td class="Cmite">{txt}</td>
     </tr>
 </table>
 {EXPLODE}
-<script language="JavaScript" type="text/javascript">
+<script type="text/javascript">
 <!--
     function form_check() {
         document.form.submit.disabled = true;
@@ -18,15 +19,15 @@
     }
 //-->
 </script>
+<script type="text/javascript" src="include/includes/js/bbcode.js"></script>
 <form action="index.php?forum-newpost-{tid}" method="POST" name="form" onSubmit="return form_check()">
-    <script type="text/javascript" src="include/includes/js/bbcode.js"></script>
     <table class="border">
         <tr>
-            <td colspan="2" class="Chead"><b>{_lang_writeananswer}</b></td>
+            <td colspan="2" class="Chead"><strong>{_lang_writeananswer}</strong></td>
         </tr>
         {name}
         <tr>
-            <td colspan="2" class="Cmite"><b>{_lang_writeyourpost}</td>
+            <td colspan="2" class="Cmite"><strong>{_lang_writeyourpost}</strong></td>
         </tr>
         <tr>
             <td class="Cmite text-center ilch_vertikal_top" rowspan="2">{SMILIES}</td>

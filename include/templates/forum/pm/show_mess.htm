@@ -3,12 +3,13 @@
     <span class="text-right ilch_float_r">
         <strong>[</strong> <a href="index.php?forum-privmsg-new">{_lang_writemessage}</a> <strong>]</strong>
     </span>
-</div><br>
+</div>
+<br>
 <form action="index.php?forum-privmsg-new" method="POST">
-    <input type="hidden" name="empfid" value="{sid}">
-    <input type="hidden" name="bet" value="{titel}">
-    <input type="hidden" name="anhang" value="{anhang}">
     <div class="border tablebordertop">
+        <input type="hidden" name="empfid" value="{sid}">
+        <input type="hidden" name="bet" value="{titel}">
+        <input type="hidden" name="anhang" value="{anhang}">
         <div class="ilch_case">
             <div class="Chead"><strong>{titel}</strong></div>
             <div class="Cdark">{_lang_sentby} <strong>{name}</strong> {_lang_on} {time} {_lang_oclock}</div>

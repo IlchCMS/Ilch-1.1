@@ -8,7 +8,7 @@
     </tr>
     <tr>
         <td class="Cmite">{_lang_clancountry}:</td>
-        <td class="Cnorm"><img src="include/images/flags/{land}" alt="" border="0"></td>
+        <td class="Cnorm"><img src="include/images/flags/{land}" alt=""></td>
     </tr>
     <tr>
         <td class="Cmite">{_lang_name}:</td>
@@ -63,18 +63,18 @@
         {EXPLODE}
         <div class="Chead text-center">{_lang_present} / {_lang_away} &nbsp; - &nbsp; ( {_lang_promise}: {available} {_lang_from} {_lang_needed}: {needed} )</div>
         {EXPLODE}
-        <div class="ilch_case_in Cnorm">
-            <form action="index.php?wars-more-{id}" method="POST">
+        <form action="index.php?wars-more-{id}" method="POST">
+            <div class="ilch_case_in Cnorm">
                 <label class="ilch_float_l label_80">{_lang_comment}</label><input name="kom" size="40"><br>
-                <label class="ilch_float_l label_80"></label><input type="radio" id="zusage" value="zusagen" name="sub" checked /><label for="zusage"  style="cursor: pointer;"> {_lang_promise}</label>
-                <input type="radio" id="absage" value="absagen" name="sub"  /><label for="absage"  style="cursor: pointer;"> {_lang_cancellation}</label><br>
+                <label class="ilch_float_l label_80"></label><input type="radio" id="zusage" value="zusagen" name="sub" checked><label for="zusage" class="ilchcursorpoint"> {_lang_promise}</label>
+                <input type="radio" id="absage" value="absagen" name="sub"><label for="absage" class="ilchcursorpoint"> {_lang_cancellation}</label><br>
                 <label class="ilch_float_l label_80"></label><input type="submit" value="{_lang_formsub}">
-            </form>
-                </div>
-                {EXPLODE}
-                <div class="ilch_case_in ilch_wars_in {class}">
-                    <strong>{name}</strong> {_lang_had} {aktion}<u>{_lang_comment}:</u> {kom}
-                </div>
-                {EXPLODE}
+            </div>
+        </form>
+        {EXPLODE}
+        <div class="ilch_case_in ilch_wars_in {class}">
+            <strong>{name}</strong> {_lang_had} {aktion}<u>{_lang_comment}:</u> {kom}
         </div>
+        {EXPLODE}
     </div>
+</div>

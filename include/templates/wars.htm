@@ -47,9 +47,9 @@
     }
 </script>
 <form action="?wars-last" method="post" name="lwf">
-    <input type="hidden" name="page" value="0">
-    <input type="hidden" name="che" value="1">
     <table class="border">
+            <input type="hidden" name="page" value="0">
+    <input type="hidden" name="che" value="1">
         <tr class="Chead">
             <td colspan="3"><strong>{_lang_lastwars}</strong></td>
         </tr>
@@ -95,7 +95,7 @@
         <td class="text-center"><img src="include/images/flags/{land}" alt=""><br><a href="{page}" target="_blank">{gegner}</a></td>
         <td class="text-center">{team}</td>
         <td class="text-center">{mtyp}</td>
-        <td style="border:1px solid #{farbe2}; margin: 0px; background-color: #{farbe}; color:#000;text-align:center;ilch_vertikal_middle">{erg}</td>
+        <td style="border:1px solid #{farbe2}; margin:0px; background-color: #{farbe}; color:#000;text-align:center;vertical-align:middle;">{erg}</td>
         <td class="text-center"><a href="index.php?wars-more-{id}">{_lang_more}</a></td>
     </tr>
     {EXPLODE}
