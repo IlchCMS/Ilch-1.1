@@ -475,6 +475,18 @@ height: 0px;
 border: dashed #9AB1C8 0px;
 border-top-width: 1px;
 }
+/* Forum */
+
+.ilchforumiconsnoc {
+padding:10px 0px;
+}
+.ilchforumiconsnoc span{
+margin:0px 5px;
+}
+.ilchforumiconsnoc img {
+display: inline;
+vertical-align: middle;
+}
 
 /* vorgesetzte Klassen fuer Designer */
 
