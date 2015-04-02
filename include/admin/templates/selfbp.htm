@@ -1,26 +1,26 @@
 <script type="text/javascript" src="include/includes/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
     window.onload = function () {
-        var objCKE = CKEDITOR.replace('bbwy', {
-            baseHref: 'include/includes/ckeditor/',
-            height: 500,
-            filebrowserBrowseUrl: 'include/includes/filemanager/index.html',
-            filebrowserUploadUrl: 'include/includes/filemanager/index.html'
-        });
+	var objCKE = CKEDITOR.replace('bbwy', {
+	    baseHref: 'include/includes/ckeditor/',
+	    height: 500,
+	    filebrowserBrowseUrl: 'include/includes/filemanager/index.html',
+	    filebrowserUploadUrl: 'include/includes/filemanager/index.html'
+	});
     }
 </script>
 <script language="javascript" type="text/javascript">
 <!--
     function changeAktion() {
-        var akl = document.getElementById('akl').value;
-        document.location.href = "?selfbp=0&akl=" + akl;
+	var akl = document.getElementById('akl').value;
+	document.location.href = "?selfbp=0&akl=" + akl;
     }
     function confirmDel() {
-        var akl = document.getElementById('akl').value;
-        var frage = confirm("Willst du " + akl.substr(1) + " wirklich loeschen?");
-        if (frage === true) {
-            document.location.href = "?selfbp=0&del=" + akl;
-        }
+	var akl = document.getElementById('akl').value;
+	var frage = confirm("Willst du " + akl.substr(1) + " wirklich loeschen?");
+	if (frage === true) {
+	    document.location.href = "?selfbp=0&del=" + akl;
+	}
     }
 
 //-->
@@ -65,7 +65,7 @@
             </div>
             <div class="form-group">
                 <label></label>
-                <input class="btn btn-primary" type="submit" name="submit" value="Speichern">&nbsp;&nbsp;<input class="btn btn-danger" type="button" value="Löschen" onclick="confirmDel()">
+                <input class="btn btn-primary" type="submit" name="submit" value="Speichern">&nbsp;&nbsp;<input class="btn btn-danger" type="button" value="Lï¿½schen" onclick="confirmDel()">
             </div>
         </div>
     </div>
@@ -78,9 +78,9 @@
                 <ul>
                     <li><b>Dateiname:</b> Unter diesem Namen wird die Datei gespeichert und kann sie auch in der Navigation wiedergefunden werden. <br>Unbedingt auch <b>4.</b> Punkt beachten!</li>
                     <li><b>Titel</b> wird oben in der Programmleiste angezeigt</li>
-                    <li><b>Hmenu</b> wird unter dem Banner angezeigt [Design abhängig]</li>
-                    <li><b>Anzeige</b> Hier kann man auswählen, ob die Seite ganz <u>normal</u>, <u>Vollbild</u> (, also ohne Men&uuml;,)
-                    oder in einem <u>neuen Fenster</u> angezeigt werden soll. <br>Für ein neues Fenster kann man die <u>Fenster Eigenschaften</u> noch in dem Eingabefeld dahinter festlegen. Bsp.:<br>                       
+                    <li><b>Hmenu</b> wird unter dem Banner angezeigt [Design abhï¿½ngig]</li>
+                    <li><b>Anzeige</b> Hier kann man auswï¿½hlen, ob die Seite ganz <u>normal</u>, <u>Vollbild</u> (, also ohne Men&uuml;,)
+                    oder in einem <u>neuen Fenster</u> angezeigt werden soll. <br>Fï¿½r ein neues Fenster kann man die <u>Fenster Eigenschaften</u> noch in dem Eingabefeld dahinter festlegen. Bsp.:<br>
                     <kbd>menubar=yes, toolbar=yes, status=yes, scrollbars=yes, resizable=yes, top=50, left=300, height=500, width=350</kbd>
             </li>
             </ul>
