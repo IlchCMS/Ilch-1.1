@@ -1,12 +1,15 @@
 <?php
-#   Copyright by Manuel
-#   Support www.ilch.de
-#   English lang file for ilchClan
+//   Copyright by Manuel
+//   Support www.ilch.de
+//   English lang file for ilchClan
 
 defined ('main') or die ( 'no direct access' );
 
 $lang = array
 (
+'selectrecipient' => 'Select Recipients',
+'contribution' => 'Contribution',
+'hdse' => 'Here enter the search term',
 'startseite' => 'Home',
 'nachoben' => 'up',
 'sigins' => 'Sign In',

@@ -1,12 +1,15 @@
 <?php
-#   Copyright by Manuel
-#   Support www.ilch.de
+//   Copyright by Manuel
+//   Support www.ilch.de
 
 
 defined ('main') or die ( 'no direct access' );
 
 $lang = array
 (
+'selectrecipient' => 'Empf&auml;nger ausw&auml;hlen',
+'contribution' => 'Beitrag',
+'hdse' => 'Hier den Suchbegriff eingeben',
 'startseite' => 'Start',
 'nachoben' => 'nach oben',
 'sigins' => 'Anmelden',

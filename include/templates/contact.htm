@@ -1,15 +1,15 @@
 <div class="ilchpadding5">
 <form action="?contact" method="POST">
-        <legend>Empf&auml;nger ausw&auml;hlen:</legend>
+        <legend>{_lang_selectrecipient} :</legend>
         <br>
         {EXPLODE}
-        <input id="w{KEY}" {c} type="radio" name="wer" value="{KEY}" class="ilch_float_l"><label for="w{KEY}">&nbsp;&nbsp;{VAL}</label><br class="both">
+        <input id="w{KEY}" {c} type="radio" name="wer" value="{KEY}" class="ilch_float_l"><label for="w{KEY}">&nbsp;&nbsp;{VAL}</label><br class="ilchclearboth">
         {EXPLODE}<br>
-        <label class="ilch_float_l label_100">Ihr Name:</label><input type="text" name="name" value="{name}"><br> 
-        <label class="ilch_float_l label_100">Ihr E-Mail:</label><input type="text" name="mail" value="{mail}"><br> 
-        <label class="ilch_float_l label_100">Betreff:</label><input type="text" name="subject" value="{subject}"><br> 
-        <label class="ilch_float_l label_100">Nachricht:</label><textarea name="txt" class="tdweight98 ilchoverauto" rows="8"></textarea><br><br>
+        <label class="ilch_float_l label_100">{_lang_youname} :</label><input type="text" name="name" value="{name}"><br> 
+        <label class="ilch_float_l label_100">{_lang_youemail} :</label><input type="text" name="mail" value="{mail}"><br> 
+        <label class="ilch_float_l label_100">{_lang_reference} :</label><input type="text" name="subject" value="{subject}"><br> 
+        <label class="ilch_float_l label_100">{_lang_message} :</label><textarea name="txt" class="tdweight98 ilchoverauto" rows="8"></textarea><br><br>
         <div class="text-center">{ANTISPAM}<br></div>
-        <div class="text-center"><input name="submit" type="submit" value="Absenden"></div>	
+        <div class="text-center"><input name="submit" type="submit" value="{_lang_formsub}"></div>	
 </form>
 </div>
