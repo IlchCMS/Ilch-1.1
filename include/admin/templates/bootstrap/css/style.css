@@ -449,3 +449,10 @@ clear {
 hr{
 border: 1px solid #bcbcbc;
 }
+.ilch_float_l{
+float:left
+}
+.label_120{
+width:120px;
+margin: 5px 5px 0px 0px 
+}
