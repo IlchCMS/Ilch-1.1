@@ -21,6 +21,8 @@ echo $row['v3']; # strasse nr
 echo '<br><br>';
 echo $row['v4']; # plz, ort
 echo '<br><br>';
+echo 'Mail: <a href="mailto:'.$row['v5'].'">'.$row['v5'].'</a>'; # email
+echo '<br><br>';
 echo 'Kontakt: <a href="index.php?contact">Formular</a><br><br>';
 echo unescape($row['t1']);
 

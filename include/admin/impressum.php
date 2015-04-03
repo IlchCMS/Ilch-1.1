@@ -15,7 +15,8 @@ if (isset($_POST['sub'])) {
     $v2 = escape($_POST['v2'], 'string');
     $v3 = escape($_POST['v3'], 'string');
     $v4 = escape($_POST['v4'], 'string');
-    db_query("UPDATE prefix_allg SET v1 = '" . $v1 . "', v2 = '" . $v2 . "', v3 = '" . $v3 . "', v4 = '" . $v4 . "', t1 = '" . $t1 . "' WHERE k = 'impressum'");
+    $v5 = escape($_POST['v5'], 'string');
+    db_query("UPDATE prefix_allg SET v1 = '" . $v1 . "', v2 = '" . $v2 . "', v3 = '" . $v3 . "', v4 = '" . $v4 . "', v5 = '" . $v5 . "', t1 = '" . $t1 . "' WHERE k = 'impressum'");
    wd('admin.php?impressum', 'Impressum wurde ge&auml;ndert', 1); 
 }
 $erg = db_query("SELECT * FROM prefix_allg WHERE k = 'impressum' LIMIT 1");
@@ -54,6 +55,11 @@ if ($row['t1'] == '') {
             <label></label>
             <div class="col-xs-6">
                 <input class="form-control" type="text" name="v4" value="<?php echo $row['v4']; ?>" >
+            </div></div>
+                    <div class="form-group">
+            <label></label>
+            <div class="col-xs-6">
+                <input class="form-control" type="text" name="v5" value="<?php echo $row['v5']; ?>" >
             </div></div>
         <div class="form-group">
             <label></label>

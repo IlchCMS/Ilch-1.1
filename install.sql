@@ -12,7 +12,7 @@ CREATE TABLE `prefix_allg` (
 ) ENGINE=MyISAM COMMENT='powered by ilch.de';
 
 INSERT INTO `prefix_allg` (`id`,`k`,`v1`,`v2`,`v3`,`v4`,`v5`,`v6`,`t1`) VALUES (1, 'kontakt', '', '1', '1', '', '', '', '#webmaster@test.de|Allgemein');
-INSERT INTO `prefix_allg` (`id`,`k`,`v1`,`v2`,`v3`,`v4`,`v5`,`v6`,`t1`) VALUES (2, 'impressum', 'Verantwortlich für diese Seite:', 'Max Mustermann', 'Muster Str. 43', '12345 Musterhausen', '', '', '');
+INSERT INTO `prefix_allg` (`id`,`k`,`v1`,`v2`,`v3`,`v4`,`v5`,`v6`,`t1`) VALUES (2, 'impressum', 'Verantwortlich für diese Seite:', 'Max Mustermann', 'Muster Str. 43', '12345 Musterhausen', 'meine@email.de', '', '');
 INSERT INTO `prefix_allg` (`id`,`k`,`v1`,`v2`,`v3`,`v4`,`v5`,`v6`,`t1`) VALUES (3, 'kasse_kontodaten', '', '', '', '', '', '', 'Kontoinhaber: Max Mustermann\r\nBankname: Muster Sparkasse\r\nKontonummer: 123\r\nBankleitzahl: 123\r\nBIC: 123\r\nIBAN: 123\r\nVerwendungszweck: Spende für ilch.de ;-)');
 INSERT INTO `prefix_allg` (`id`,`k`,`v1`,`v2`,`v3`,`v4`,`v5`,`v6`,`t1`) VALUES (4, 'picofx', 'pic', '0', '', '', '', '', '');
 INSERT INTO `prefix_allg` (`id`,`k`,`v1`,`v2`,`v3`,`v4`,`v5`,`v6`,`t1`) VALUES (5, 'picofx', 'directory', '0', '', '', '', '', '');
