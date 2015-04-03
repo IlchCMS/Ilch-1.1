@@ -9,15 +9,15 @@ Changelog:
 
 Version 1.1 Q
 -------------
-* Sicherheitsupdates im Bezug auf m�gliche SQL-Injections
-* Integration SSL / TLS beim Mail-Versand (Transportverschl�sselung)
+* Sicherheitsupdates im Bezug auf mögliche SQL-Injections
+* Integration SSL / TLS beim Mail-Versand (Transportverschlüsselung)
 * PHP Versionscheck während der Installation
 * Bugfix Forum verschieben
-* Korrektur ung�ltiger Links
-* Kontakt Formular improved --> Absenden des Formulars nur dann, wenn alle felder gef�llt sind.
+* Korrektur ungültiger Links
+* Kontakt Formular improved --> Absenden des Formulars nur dann, wenn alle felder gefüllt sind.
 + Integration des BBCode
 + Integration von News Extended
-+ Komplette �berarbeitung des Backends -- Integration Bootstrap
++ Komplette Überarbeitung des Backends -- Integration Bootstrap
 + Frontend Templates alle tabellen durch divs ersetzt
 README;
 

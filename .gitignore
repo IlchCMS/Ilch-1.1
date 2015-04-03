@@ -3,3 +3,4 @@
 run.bat
 .sonar
 /.sonar
+/images/filemanager/*
