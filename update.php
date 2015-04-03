@@ -9,15 +9,15 @@ Changelog:
 
 Version 1.1 Q
 -------------
-* Sicherheitsupdates im Bezug auf mögliche SQL-Injections
-* Integration SSL / TLS beim Mail-Versand (Transportverschlüsselung)
-* PHP Versionscheck während der Installation
+* Sicherheitsupdates im Bezug auf mï¿½gliche SQL-Injections
+* Integration SSL / TLS beim Mail-Versand (Transportverschlï¿½sselung)
+* PHP Versionscheck wÃ¤hrend der Installation
 * Bugfix Forum verschieben
-* Korrektur ungültiger Links
-* Kontakt Formular improved --> Absenden des Formulars nur dann, wenn alle felder gefüllt sind.
+* Korrektur ungï¿½ltiger Links
+* Kontakt Formular improved --> Absenden des Formulars nur dann, wenn alle felder gefï¿½llt sind.
 + Integration des BBCode
 + Integration von News Extended
-+ Komplette überarbeitung des Backends -- Integration Bootstrap
++ Komplette ï¿½berarbeitung des Backends -- Integration Bootstrap
 + Frontend Templates alle tabellen durch divs ersetzt
 README;
 
@@ -264,66 +264,70 @@ if ($rows > 45)
 				$sql_statements[] = "INSERT INTO `prefix_bbcode_design` (`fnDesignNr`, `fcQuoteRandFarbe`, `fcQuoteTabelleBreite`, `fcQuoteSchriftfarbe`, `fcQuoteHintergrundfarbe`, `fcQuoteHintergrundfarbeIT`, `fcQuoteSchriftformatIT`, `fcQuoteSchriftfarbeIT`, `fcBlockRandFarbe`, `fcBlockTabelleBreite`, `fcBlockSchriftfarbe`, `fcBlockHintergrundfarbe`, `fcBlockHintergrundfarbeIT`, `fcBlockSchriftfarbeIT`, `fcKtextRandFarbe`, `fcKtextTabelleBreite`, `fcKtextRandFormat`, `fcEmphHintergrundfarbe`, `fcEmphSchriftfarbe`, `fcCountdownRandFarbe`, `fcCountdownTabelleBreite`, `fcCountdownSchriftfarbe`, `fcCountdownSchriftformat`, `fnCountdownSchriftsize`) VALUES(1, '#f6e79d', '320', '#666666', '#f6e79d', '#faf7e8', 'italic', '#666666', '#f6e79d', '350', '#666666', '#f6e79d', '#faf7e8', '#FF0000', '#000000', '90%', 'dotted', '#ffd500', '#000000', '#FF0000', '90%', '#FF0000', 'bold', 10)";
 			    }
 
-			    // Update für 1.1Q.2 - > News Extended Integration
-                $old = array();
-                $sql_statements = array();
+			    // Update fÃ¼r 1.1Q.2 - > News Extended Integration
+			    $old = array();
 
-                $q = db_query("SHOW FULL COLUMNS FROM `prefix_news`");
-                while($r = db_fetch_object($q)){
-                    $old[] = $r->Field;
-                }
 
-                $update_news = array();
-                if (!in_array('editor_id', $old)) {
-                    $update_news[] = 'ADD `editor_id` INT NULL AFTER `news_time`';
-                }
-                if (!in_array('edit_time', $old)) {
-                    $update_news[] = 'ADD `edit_time` DATETIME NULL AFTER `editor_id`';
-                }
-                if (!in_array('html', $old)) {
-                    $update_news[] = 'ADD `html` TINYINT ( 1 )NOT NULL';
-                }
-                if (!in_array('show', $old)) {
-                    $update_news[] = 'ADD `show` INT ( 12 ) NOT NULL';
-                }
-                if (!in_array('archiv', $old)) {
-                    $update_news[] = 'ADD `archiv` TINYINT ( 1 ) NOT NULL DEFAULT \'0\'';
-                }
-                if (!in_array('endtime', $old)) {
-                    $update_news[] = 'ADD `endtime` INT ( 12 ) NULL';
-                }
-                if (!in_array('klicks', $old)) {
-                    $update_news[] = 'ADD `klicks`  MEDIUMINT ( 9 )  NOT NULL DEFAULT \'0\'';
-                }
+			    $q = db_query("SHOW FULL COLUMNS FROM `prefix_news`");
+			    while ($r = db_fetch_object($q)) {
+				$old[] = $r->Field;
+			    }
 
-                if (!in_array('news_groups', $old)) {
-                    $update_news []   = "ADD `news_groups` INT NOT NULL DEFAULT '0' AFTER `news_recht`";
-                    $sql_statements[] = 'UPDATE `prefix_news` SET `news_recht` = 1023 WHERE `news_recht` = 0';
-                    $sql_statements[] = 'UPDATE `prefix_news` SET `news_recht` = 1022 WHERE `news_recht` = -1';
-                    $sql_statements[] = 'UPDATE `prefix_news` SET `news_recht` = 1020 WHERE `news_recht` = -2';
-                    $sql_statements[] = 'UPDATE `prefix_news` SET `news_recht` = 1016 WHERE `news_recht` = -3';
-                    $sql_statements[] = 'UPDATE `prefix_news` SET `news_recht` = 1008 WHERE `news_recht` = -4';
-                    $sql_statements[] = 'UPDATE `prefix_news` SET `news_recht` = 992 WHERE `news_recht` = -5';
-                    $sql_statements[] = 'UPDATE `prefix_news` SET `news_recht` = 960 WHERE `news_recht` = -6';
-                    $sql_statements[] = 'UPDATE `prefix_news` SET `news_recht` = 896 WHERE `news_recht` = -7';
-                    $sql_statements[] = 'UPDATE `prefix_news` SET `news_recht` = 768 WHERE `news_recht` = -8';
-                    $sql_statements[] = 'UPDATE `prefix_news` SET `news_recht` = 512 WHERE `news_recht` = -9';
-                }
+			    $update_news = array();
+			    if (!in_array('editor_id', $old)) {
+				$update_news[] = 'ADD `editor_id` INT NULL AFTER `news_time`';
+			    }
+			    if (!in_array('edit_time', $old)) {
+				$update_news[] = 'ADD `edit_time` DATETIME NULL AFTER `editor_id`';
+			    }
+			    if (!in_array('html', $old)) {
+				$update_news[] = 'ADD `html` TINYINT ( 1 )NOT NULL';
+			    }
+			    if (!in_array('show', $old)) {
+				$update_news[] = 'ADD `show` INT ( 12 ) NOT NULL';
+			    }
+			    if (!in_array('archiv', $old)) {
+				$update_news[] = 'ADD `archiv` TINYINT ( 1 ) NOT NULL DEFAULT \'0\'';
+			    }
+			    if (!in_array('endtime', $old)) {
+				$update_news[] = 'ADD `endtime` INT ( 12 ) NULL';
+			    }
+			    if (!in_array('klicks', $old)) {
+				$update_news[] = 'ADD `klicks`  MEDIUMINT ( 9 )  NOT NULL DEFAULT \'0\'';
+			    }
 
-                if (!empty($update_news)) {
-                    $sql_statements[] = 'ALTER TABLE `prefix_news` '.implode(', ', $update_news).';';
-                    $sql_statements[] = 'UPDATE `prefix_news` SET `show` = 1;';
-                }
+			    if (!in_array('news_groups', $old)) {
+				$update_news [] = "ADD `news_groups` INT NOT NULL DEFAULT '0' AFTER `news_recht`";
+				$sql_statements[] = 'UPDATE `prefix_news` SET `news_recht` = 1023 WHERE `news_recht` = 0';
+				$sql_statements[] = 'UPDATE `prefix_news` SET `news_recht` = 1022 WHERE `news_recht` = -1';
+				$sql_statements[] = 'UPDATE `prefix_news` SET `news_recht` = 1020 WHERE `news_recht` = -2';
+				$sql_statements[] = 'UPDATE `prefix_news` SET `news_recht` = 1016 WHERE `news_recht` = -3';
+				$sql_statements[] = 'UPDATE `prefix_news` SET `news_recht` = 1008 WHERE `news_recht` = -4';
+				$sql_statements[] = 'UPDATE `prefix_news` SET `news_recht` = 992 WHERE `news_recht` = -5';
+				$sql_statements[] = 'UPDATE `prefix_news` SET `news_recht` = 960 WHERE `news_recht` = -6';
+				$sql_statements[] = 'UPDATE `prefix_news` SET `news_recht` = 896 WHERE `news_recht` = -7';
+				$sql_statements[] = 'UPDATE `prefix_news` SET `news_recht` = 768 WHERE `news_recht` = -8';
+				$sql_statements[] = 'UPDATE `prefix_news` SET `news_recht` = 512 WHERE `news_recht` = -9';
+			    }
 
-                if (db_count_query("SELECT COUNT(*) FROM `prefix_allg` WHERE k = 'news'") == 0) {
-                    $sql_statements[] = 'INSERT INTO `prefix_allg` ( `k` , `v1`, `v2`, `v3`, `v4`, `v5`, `v6`, `t1` ) VALUES ( "news", "0", "1", "1", "Allgemein", "", "", "" )';
-                }
+			    if (!empty($update_news)) {
+				$sql_statements[] = 'ALTER TABLE `prefix_news` ' . implode(', ', $update_news) . ';';
+				$sql_statements[] = 'UPDATE `prefix_news` SET `show` = 1;';
+			    }
 
-                if (in_array('news_html', $old)) {
-                    $sql_statements[] = 'UPDATE `prefix_news` SET `html` = IF(news_html=\'true\',1,0);';
-                    $sql_statements[] = 'ALTER TABLE `prefix_news` DROP `news_html`';
-                }
-                // Update für 1.1Q.2 - > News Extended Integration - Ende
+			    if (db_count_query("SELECT COUNT(*) FROM `prefix_allg` WHERE k = 'news'") == 0) {
+				$sql_statements[] = 'INSERT INTO `prefix_allg` ( `k` , `v1`, `v2`, `v3`, `v4`, `v5`, `v6`, `t1` ) VALUES ( "news", "0", "1", "1", "Allgemein", "", "", "" )';
+			    }
+
+			    if (in_array('news_html', $old)) {
+				$sql_statements[] = 'UPDATE `prefix_news` SET `html` = IF(news_html=\'true\',1,0);';
+				$sql_statements[] = 'ALTER TABLE `prefix_news` DROP `news_html`';
+			    }
+			    // Update fÃ¼r 1.1Q.2 - > News Extended Integration - Ende
+			    //
+			    // Update fÃ¼r 1.1Q.3 - > Impressum Update
+			    $sql_statements[] = 'UPDATE `prefix_allg` SET `v5` = "meine@mail.de" WHERE `id` = 2 ';
+			    // Update fÃ¼r 1.1Q.3 - > Impressum Update ENDE
 
 			    foreach ($sql_statements as $sql_statement) {
 				if (trim($sql_statement) != '') {
