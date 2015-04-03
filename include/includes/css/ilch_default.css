@@ -252,6 +252,9 @@ color:#FF0000;
 .ilchcolorsuchwoerter {
 background-color:#EBF09B;
 }
+.ilchnowrap {
+white-space: nowrap;
+}
 /* Ilch Award */
 
 .ilch_award_in{
