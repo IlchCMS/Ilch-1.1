@@ -10,13 +10,13 @@ function server_parse($socket, $response, $line = __LINE__)
     {
         if (!($server_response = fgets($socket, 256)))
         {
-            echo 'Couldn\'t get mail server response codes<br />';
+            echo 'Couldn\'t get mail server response codes<br>';
         }
     }
 
     if (!(substr($server_response, 0, 3) == $response))
     {
-        echo "Ran into problems sending Mail. Response: $server_response<br />";
+        echo "Ran into problems sending Mail. Response: $server_response<br>";
     }
 }
 
@@ -72,12 +72,12 @@ $absender = $allgAr['mail_smtp_email'];
 
     if (trim($subject) == '')
     {
-        echo 'No email Subject specified<br />';
+        echo 'No email Subject specified<br>';
     }
 
     if (trim($message) == '')
     {
-        echo 'Email message was blank<br />';
+        echo 'Email message was blank<br>';
     }
 
     if( !$socket = @fsockopen($smtp_host, 25, $errno, $errstr, 20) )

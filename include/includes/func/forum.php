@@ -9,7 +9,7 @@ function getmods ($fid) {
   
 	$erg = db_query("SELECT b.id,b.name FROM prefix_forummods a LEFT JOIN prefix_user b ON b.id = a.uid WHERE a.fid = ".$fid);
 	if ( db_num_rows($erg) > 0 ) {
-	  $mods = '<br /><u>Moderators:</u> ';
+	  $mods = '<br><span class="ilchforummoterator">Moderatoren:</span> ';
 	  while($row = db_fetch_assoc($erg) ) {
 		  $mods .= '<a class="smalfont" href="index.php?user-details-'.$row['id'].'">'.$row['name'].'</a>, ';
 	  }
@@ -51,7 +51,7 @@ function check_for_pm_popup () {
   # opt_pm_popup
   if (1 == db_result(db_query("SELECT COUNT(*) FROM prefix_user where id = ".$_SESSION['authid']." AND opt_pm_popup = 1"),0,0) AND 1 <= db_result(db_query("SELECT COUNT(*) FROM prefix_pm WHERE gelesen = 0 AND status < 1 AND eid = ".$_SESSION['authid'] ),0) ) {
     $x = <<< html
-    <script language="JavaScript" type="text/javascript"><!--
+    <script type="text/javascript"><!--
     function closeNewPMdivID () { document.getElementById("newPMdivID").style.display = "none"; }
     //--></script>
     <div id="newPMdivID">

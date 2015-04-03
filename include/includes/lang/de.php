@@ -7,6 +7,7 @@ defined ('main') or die ( 'no direct access' );
 
 $lang = array
 (
+'lookat' => 'ansehen',
 'selectrecipient' => 'Empf&auml;nger ausw&auml;hlen',
 'contribution' => 'Beitrag',
 'hdse' => 'Hier den Suchbegriff eingeben',

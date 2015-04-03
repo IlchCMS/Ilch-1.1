@@ -163,7 +163,7 @@ function getsmilies() {
     while ($row = db_fetch_object($erg)) {
 
 	$b .= 'x.document.write ("<a href=\"javascript:opener.put(\'' . addslashes(addslashes($row->ent)) . '\')\">");';
-	$b .= 'x.document.write ("<img class=\"ilchpadding5 ilchbordernone\" src=\"include/images/smiles/' . $row->url . '\" title=\"' . $row->emo . '\"></a>");';
+	$b .= 'x.document.write ("<img class=\"ilchpadding5 ilchbordernone\" src=\"include/images/smiles/' . $row->url . '\" title=\"' . $row->emo . '\" alt=\"\"></a>");';
 
 	if ($i < 12) {
 	    # float einbauen
@@ -171,7 +171,7 @@ function getsmilies() {
 		$a .= '<br><br>';
 	    }
 	    $a .= '<a href="javascript:put(\'' . addslashes($row->ent) . '\')">';
-	    $a .= '<img class="ilchmargin2 ilchbordernone" src="include/images/smiles/' . $row->url . '" title="' . $row->emo . '"></a>';
+	    $a .= '<img class="ilchmargin2 ilchbordernone" src="include/images/smiles/' . $row->url . '" title="' . $row->emo . '" alt=""></a>';
 	}
 	$i++;
     }
@@ -467,7 +467,7 @@ function get_antispam($m, $t, $nopictures = false) {
     if ($t == 1) {
 	$img = '<tr><td class="Cmite"><b>Antispam</b></td><td class="Cnorm">' . $img . '</td></tr>';
     } elseif ($t > 10) {
-	$img = '<label style="float:left; width: ' . $t . 'px; ">Antispam</label>' . $img . '<br>';
+	$img = '<label style="float:left;width:'.$t.'px; ">Antispam</label>&nbsp;' . $img . '<br>';
     }
     return $img;
 }

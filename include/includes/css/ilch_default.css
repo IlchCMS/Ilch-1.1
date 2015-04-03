@@ -475,6 +475,7 @@ height: 0px;
 border: dashed #9AB1C8 0px;
 border-top-width: 1px;
 }
+
 /* Forum */
 
 .ilchforumiconsnoc {
@@ -487,7 +488,43 @@ margin:0px 5px;
 display: inline;
 vertical-align: middle;
 }
+.ilchforummoterator {
+font-size:10px;
+text-decoration:underline;
+}
 
+/* BBCode */
+
+.bbcodephpblock {
+color: #0000BB;
+}
+.bbcodetransparentgif {
+border:none;
+height:10px;
+width:10px;
+}
+.ilchbbcodebuttons {
+border:none;
+width:23px;
+height:22px;
+}
+.ilchpositionabsolute {
+position:absolute;
+}
+.ilchbbcodefarbwahl {
+display:none;
+position:relative;
+top:-30px;
+left:100px;
+z-index:100;
+box-shadow: 0px 0px 0px 4px rgba(0,0,0,0.5); 
+}
+.ilchbbcodedropdown {
+font-family:Verdana;
+font-size:10px;
+margin-bottom:6px;
+z-index:0;
+}
 /* vorgesetzte Klassen fuer Designer */
 
 .ilch_back_button{

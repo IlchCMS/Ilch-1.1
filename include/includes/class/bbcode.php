@@ -131,7 +131,7 @@ class bbcode {
         $php = ob_get_contents();
         ob_end_clean();
         if ($remove) {
-            $php = str_replace(array('&lt;?php<br />', '<br /></span><span style="color: #0000BB">?&gt;</span>'), '', $php);
+            $php = str_replace(array('&lt;?php<br>', '<br></span><span class="bbcodephpblock">?&gt;</span>'), '', $php);
         }
         return $this->_addcodecontainer($php, 'Php', $file, $firstline);
     }
@@ -147,7 +147,7 @@ class bbcode {
         }
         $line = '';
         for($no=$firstline;$no < $linescount;$no++) {
-            $line .= $no.":<br />";
+            $line .= $no.":<br>";
         }
 
         //> Hier könnt ihr den Header und Footer für HTML editieren.
@@ -182,7 +182,7 @@ class bbcode {
                 $string = str_replace($smileymid, '', $string);
                 foreach ($this->smileys as $icon => $info) {
                     list($emo, $url) = explode('#@#-_-_-#@#', $info);
-                    $string = str_replace($smileystart.$icon.$smileyend, '<img src="include/images/smiles/'.$url.'" border="0" alt="'.$icon.'" title="'.$emo.'" />', $string);
+                    $string = str_replace($smileystart.$icon.$smileyend, '<img src="include/images/smiles/'.$url.'" alt="'.$icon.'" title="'.$emo.'">', $string);
                 }
                 $string = str_replace(array($smileyend, $smileystart), '', $string);
             }
@@ -246,7 +246,7 @@ class bbcode {
         } else {
           $float = '';
         }
-        $image = '<img src="'.$string.'" alt="" title="" border="0" class="bbcode_image" '.$float.'/>';
+        $image = '<img src="'.$string.'" alt="" title="" class="bbcode_image ilchbordernone" '.$float.'>';
         return $image;
     }
 
@@ -257,7 +257,7 @@ class bbcode {
     } else {
       $float = '';
     }
-    $image = '<a href="'.$string.'" target="_blank"><img src="'.$string.'" alt="" title="" border="0" width="'.$this->info['ScreenMaxBreite'].'" height="'.$this->info['ScreenMaxHoehe'].'" '.$float.'/></a>';
+    $image = '<a href="'.$string.'" target="_blank"><img src="'.$string.'" alt="" title="" class="ilchbordernone" width="'.$this->info['ScreenMaxBreite'].'" height="'.$this->info['ScreenMaxHoehe'].'" '.$float.'></a>';
     return $image;
     }
 
@@ -366,7 +366,7 @@ class bbcode {
         //> Html- Muster für geöffnete Tags mit Titel.
         $HeaderTitel = "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"".$this->info['KtextTabelleBreite']."\" align=\"center\">"
                       ."<tr><td><a href=\"javascript:Klapptext('__ID__')\">"
-                      ."<img src=\"include/images/icons/plus.gif\" id=\"image___ID__\" border=0 alt=\"Aus/Ein-klappen\" title=\"Aus/Ein-klappen\"> ";
+                      ."<img src=\"include/images/icons/plus.gif\" id=\"image___ID__\" class=\"ilchbordernone\" alt=\"Aus/Ein-klappen\" title=\"Aus/Ein-klappen\"> ";
 
         $FooterTitel = "</a></td></tr>"
                       ."<tr><td><div id=\"layer___ID__\" style=\"display:none;border:1px ".$this->info['KtextRandFormat']." ".$this->info['KtextRandFarbe'].";\">";

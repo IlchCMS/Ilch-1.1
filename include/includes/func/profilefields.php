@@ -95,7 +95,7 @@ function profilefields_show_spez_status ($value,$uid) {
 function profilefields_show_spez_usergallery ($value,$uid) {
   global $allgAr, $lang;
   if ($allgAr['forum_usergallery'] == 1) {
-    return ( profilefields_show_echo_standart ( 'Usergallery', '<a href="index.php?user-usergallery-'.$uid.'">ansehen</a>' ) );
+    return ( profilefields_show_echo_standart ( 'Usergallery', '<a href="index.php?user-usergallery-'.$uid.'">'.$lang['lookat'].'</a>' ) );
   }
 }
 function profilefields_show_spez_homepage ($value,$uid) {
@@ -116,7 +116,7 @@ function profilefields_show_spez_sig ($value,$uid) {
 }
 function profilefields_show_spez_staat ($value,$uid) {
   global $lang;
-  return ( profilefields_show_echo_standart ( $lang['state'], ((!empty($value) AND file_exists('include/images/flags/'.$value))?'<img src="include/images/flags/'.$value.'" alt="'.$value.'" title="'.$value.'" />':'') ) );
+  return ( profilefields_show_echo_standart ( $lang['state'], ((!empty($value) AND file_exists('include/images/flags/'.$value))?'<img src="include/images/flags/'.$value.'" alt="'.$value.'" title="'.$value.'">':'') ) );
 }
 ###
 ##
