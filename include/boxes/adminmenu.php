@@ -92,7 +92,7 @@ if (is_coadmin()) {
     echo '<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Module <b class="caret"></b></a><ul class="dropdown-menu dropdown-menu-right">';
     $erg = db_query("SELECT url, name FROM prefix_modules WHERE ashow = 1");
     while ($row = db_fetch_assoc($erg)) {
-	  echo '<li><a href="admin.php?' . $row['url'] . '">' . $row['name'] . '</a></li>';
+	echo '<li><a href="admin.php?' . $row['url'] . '">' . $row['name'] . '</a></li>';
     }
     echo '</ul></li>';
 } elseif (count($_SESSION['authmod']) > 0) {
@@ -106,6 +106,7 @@ if (is_coadmin()) {
 	echo '<li><a href="admin.php?' . $row['url'] . '">' . $row['name'] . '</a></li>';
     }
 }
+echo '<li><a href="admin.php?logout">Logout</a></li>';
 // mal ausgeklammert, da es bei geringer Aufloesung das Menue verzieht - ein Eintrag zu viel
 // echo '<li><a href="admin.php?logout">Logout</a></li>';
 echo '</ul>';
