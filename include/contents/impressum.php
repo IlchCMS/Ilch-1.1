@@ -12,6 +12,8 @@ $design->header();
 
 $erg = db_query("SELECT * FROM prefix_allg WHERE k = 'impressum' LIMIT 1");
 $row = db_fetch_assoc($erg);
+$row['v5'] = str_replace("@", "<span class=\"at-ilch\"></span>", $row['v5']);
+$row['v5'] = str_replace(".", "<span class=\"dot-ilch\"></span>", $row['v5']);
 
 echo $row['v1']; # eigentuemer oder sowas
 echo '<br><br>';
@@ -21,7 +23,7 @@ echo $row['v3']; # strasse nr
 echo '<br><br>';
 echo $row['v4']; # plz, ort
 echo '<br><br>';
-echo 'Mail: <a href="mailto:'.$row['v5'].'">'.$row['v5'].'</a>'; # email
+echo 'Mail: '.$row['v5'].''; # email
 echo '<br><br>';
 echo 'Kontakt: <a href="index.php?contact">Formular</a><br><br>';
 echo unescape($row['t1']);
