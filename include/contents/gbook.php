@@ -9,7 +9,6 @@ $title = $allgAr['title'].' :: G&auml;stebuch';
 $hmenu = 'G&auml;stebuch';
 $design = new design ( $title , $hmenu );
 $design->header();
-
 # time sperre in sekunden
 $timeSperre = $allgAr['Gsperre'];
 
@@ -32,7 +31,6 @@ case 1 :
     'TXTL' => $allgAr['Gtxtl']
   );
 	$tpl->set_ar_out($ar,3);
-
   if (!isset($_SESSION['klicktime_gbook'])) { $_SESSION['klicktime_gbook'] = 0; }
 
 break;
@@ -55,7 +53,6 @@ case 2 :
 
   	db_query("INSERT INTO prefix_gbook (`name`,`mail`,`page`,`time`,`ip`,`txt`) VALUES ('".$name."', '".$mail."', '".$page."', '".time()."', '".getip()."', '".$txt."')");
 
-
     $_SESSION['klicktime_gbook'] = $dppk_time;
     wd('index.php?gbook',$lang['insertsuccessful']);
 	} else {
@@ -77,17 +74,17 @@ case 'show' :
       db_query("DELETE FROM prefix_koms WHERE uid = ".$id." AND cat = 'GBOOK' AND id = ".$did);
     }
 
-
     $r  = db_fetch_assoc(db_query("SELECT time, name, mail, page, txt as text, id FROM prefix_gbook WHERE id = ".$id));
     $r['datum'] = date('d.m.Y', $r['time']);
     if ($r['page'] != '') {
       $r['page'] = get_homepage($r['page']);
-      $r['page'] = '<a class="ilch_gbook_icons" href="'.$r['page'].'" target="_blank" title="Homepage '.$lang['from'].' '.$r['name'].'"><i class="fa fa-globe"></i></a>';
+      $r['page'] = '<a class="ilch_gbook_icons" href="'.$r['page'].'" title="Homepage '.$lang['from'].' '.$r['name'].'"><i class="fa fa-globe"></i></a>';
 		}
-		if ($r['mail'] != '') {
+		if (loggedin($r['mail'] != '')) {
 	    $r['mail'] = '<a class="ilch_gbook_icons" href="mailto:'.escape_email_to_show($r['mail']).'" title="E-Mail '.$lang['from'].' '.$r['name'].'"><i class="fa fa-envelope"></i></a>';
+		} else {
+		$r['mail'] = '';
 		}
-
     $tpl = new tpl ( 'gbook.htm' );
 		$r['ANTISPAM'] = get_antispam('gbookkom', 0);
     $r['uname'] = $_SESSION['authname'];
@@ -117,10 +114,8 @@ default :
 
   $ei1 = @db_query("SELECT COUNT(ID) FROM prefix_gbook");
   $ein    = @db_result($ei1,0);
-
 	$ar = array ('EINTRAGE' => $ein );
 	$tpl->set_ar_out($ar,0);
-
 	$erg = db_query("SELECT * FROM prefix_gbook ORDER BY time DESC LIMIT ".$anfang.",".$limit) or die (db_error());
 	while ($row = db_fetch_object($erg)) {
 
@@ -130,7 +125,7 @@ default :
       $row->page = get_homepage($row->page);
       $page = '<a class="ilch_gbook_icons" href="'.$row->page.'" target="_blank" title="Homepage '.$lang['from'].' '.$row->name.'"><i class="fa fa-globe"></i></a>';
 		}
-		if ($row->mail) {
+		if (loggedin($row->mail)) {
 	    $mail = '<a class="ilch_gbook_icons" href="mailto:'.escape_email_to_show($row->mail).'" title="E-Mail '.$lang['from'].' '.$row->name.'"><i class="fa fa-envelope"></i></a>';
 		}
     $koms = '';
