@@ -9,43 +9,46 @@ Changelog:
 
 Version 1.1 Q
 -------------
-* Sicherheitsupdates im Bezug auf mögliche SQL-Injections
-* Integration SSL / TLS beim Mail-Versand (Transportverschlüsselung)
-* PHP Versionscheck während der Installation
+* Sicherheitsupdates im Bezug auf moegliche SQL-Injections
+* Integration SSL / TLS beim Mail-Versand (Transportverschluesselung)
+* PHP Versionscheck waehrend der Installation
 * Bugfix Forum verschieben
-* Korrektur ungültiger Links
-* Kontakt Formular improved --> Absenden des Formulars nur dann, wenn alle felder gefüllt sind.
+* Korrektur ungueltiger Links
+* Kontakt Formular improved --> Absenden des Formulars nur dann, wenn alle Felder gefuellt sind.
 + Integration des BBCode
 + Integration von News Extended
-+ Komplette Überarbeitung des Backends -- Integration Bootstrap
-+ Frontend Templates alle tabellen durch divs ersetzt
++ Komplette Ueberarbeitung des Backends -- Integration Bootstrap
++ Frontend Templates alle unnoetigen Tabellen durch divs ersetzt
 README;
 
 $rows = substr_count($readme, "\n");
 if ($rows > 45)
     $rows = 45;
 ?>
-<html>
-    <head><title>... ::: [ U p d a t e f &uuml; r &nbsp; i l c h C l a n  &nbsp; 1 . 1 Q ] ::: ...</title>
-        <link rel="stylesheet" href="include/designs/ilchClan/style.css" type="text/css">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="de">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+        <title>... ::: [ U p d a t e  f &uuml; r &nbsp; i l c h C l a n  &nbsp; 1 . 1 Q ] ::: ...</title>
+        <link rel="shortcut icon" href="include/designs/ilchClan/img/favicon.png" type="image/png">
+        <link rel="stylesheet" href="include/designs/ilchClan/style.css" type="text/css"> 
+        <link rel="stylesheet" href="install.css" type="text/css">
     </head>
     <body>
-
         <form method="post">
-            <table width="70%" class="border" border="0" cellspacing="0" cellpadding="25" align="center">
-                <tr><th class="Chead" align="center">... ::: [ U p d a t e f &uuml; r &nbsp; i l c h C l a n  &nbsp; 1 . 1 Q] ::: ...</th></tr>
-                <tr>
-                    <td class="Cmite">
+                        <div class="installcontent">
+                    <legend>... ::: [ U p d a t e  f &uuml; r &nbsp; i l c h C l a n  &nbsp; 1 . 1 Q] ::: ...</legend>
+                    <div class="install_lizenz">
 			<?php
 			if (empty($_POST['step'])) {
 			    ?>
-    			<div align="center">
+    			<div class="text-center">
     			    <h2>Readme</h2>
-    			    <textarea cols="120" rows="<?php echo $rows; ?>"><?php echo htmlentities($readme, ENT_COMPAT, 'ISO-8859-1'); ?></textarea><br /><br />
+    			    <textarea style="width:98%" rows="<?php echo $rows; ?>"><?php echo htmlentities($readme, ENT_COMPAT, 'ISO-8859-1'); ?></textarea><br><br>
 
-    			    <br /><br />
-    			    Dieses Script soll die n&ouml;tigen Datanbank&auml;ndernungen f&uuml;r das Update machen<br />
-    			    <br />
+    			    <br><br>
+    			    Dieses Script soll die n&ouml;tigen Datanbank&auml;ndernungen f&uuml;r das Update machen<br>
+    			    <br>
     			    <input type="hidden" name="step" value="2" />
     			    <input type="submit" value="Installieren" />
     			</div>
@@ -361,17 +364,21 @@ if ($rows > 45)
 				    $e = db_query($sql_statement);
 				    echo mysql_error();
 				    if (!$e) {
-					echo '<span style="color:#ff0000; font-weight: bold" color="#FF0000">Es ist ein Fehler aufgetreten</span>, bitte alles auf dieser Seite kopieren und auf ilch.de im Forum fragen...:<div style="border: 1px dashed grey; padding: 5px; background-color: #EEEEEE">' . mysql_error() . '<hr>' . $sql_statement . '</div><br /><b>Es sei denn,</b> es ist ein Fehler mit <i>duplicate entry</i> aufgetreten, das liegt einfach nur daran, dass du die Updatedatei mehrmals ausgef?hrt hast.<br />';
+					echo '<br><br><span style="color:#ff0000; font-weight: bold" color="#FF0000">Es ist ein Fehler aufgetreten</span>,<br> bitte alles auf dieser Seite kopieren und auf ilch.de im Forum fragen...:<br><br><div style="border: 1px dashed grey; padding: 5px; background-color: #EEEEEE">' . mysql_error() . '<hr>' . $sql_statement . '</div><br><b>Es sei denn,</b> es ist ein Fehler mit <i>duplicate entry</i> aufgetreten, das liegt einfach nur daran, dass du die Updatedatei mehrmals ausgef?hrt hast.<br>';
 				    }
 				    echo '<hr>';
 				}
 			    }
-			    echo '<br /><br />Wenn keine Fehler aufgetreten sind, sollte die Installation ohne Probleme verlaufen sein und du solltest die update.php nun vom Webspace l&ouml;schen.';
+			    echo '<br><br>Wenn keine Fehler aufgetreten sind, sollte die Installation ohne Probleme verlaufen sein und du solltest die update.php nun vom Webspace l&ouml;schen.<br>';
 			}
 			?>
-                    </td>
-		</tr>
-	    </table>
+                    </div>
+                    <div class="installbut">
+                    </div>
+                </div>
+                <div class="installfoot">
+                    <a href="http://www.ilch.de" title="&copy; Ilch.de - Content Management System">&copy;&nbsp;Ilch.de - Content Management System</a>
+                </div>
         </form>
     </body>
 </html>
