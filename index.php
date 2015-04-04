@@ -9,7 +9,7 @@ session_start ();
 require_once ('include/includes/config.php');
 require_once ('include/includes/loader.php');
 
-$ILCH_HEADER_ADDITIONS .= '<link rel="stylesheet" type="text/css" href="include/includes/css/ilch_default.css" />';
+$ILCH_HEADER_ADDITIONS .= '<link rel="stylesheet" type="text/css" href="include/includes/css/ilch_default.css">';
 
 db_connect();
 $allgAr = getAllgAr ();

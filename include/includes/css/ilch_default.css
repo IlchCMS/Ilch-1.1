@@ -252,6 +252,9 @@ color:#FF0000;
 .ilchcolorsuchwoerter {
 background-color:#EBF09B;
 }
+.ilchnowrap {
+white-space: nowrap;
+}
 /* Ilch Award */
 
 .ilch_award_in{
@@ -525,6 +528,16 @@ font-size:10px;
 margin-bottom:6px;
 z-index:0;
 }
+
+/* Mail */
+
+.at-ilch:after {
+content:"\0040";
+} 
+.dot-ilch:after {
+content:"\002E";
+} 
+
 /* vorgesetzte Klassen fuer Designer */
 
 .ilch_back_button{
