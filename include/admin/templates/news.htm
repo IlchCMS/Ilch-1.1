@@ -1,15 +1,15 @@
 <script type="text/javascript" src="include/includes/ckeditor/ckeditor.js"></script>
 <script language="JavaScript" type="text/javascript"><!--
 function delcheck (DELID) {
-            var frage = confirm ("Willst du diesen Eintrag wirklich loeschen?");
-                    if (frage == true) {
-            document.location.href = "?news-del-" + DELID;
-            }
-            }
+	    var frage = confirm ("Willst du diesen Eintrag wirklich loeschen?");
+		    if (frage == true) {
+	    document.location.href = "?news-del-" + DELID;
+	    }
+	    }
 
     function delKcheck (DELID, NID) {
     var frage = confirm ("Willst du dieses Kommentar wirklich loeschen?");
-            if (frage == true) {
+	    if (frage == true) {
     document.location.href = "?news-sKoms-" + NID + "-Kdel-" + DELID + "#" + NID;
     }
     }
@@ -23,40 +23,40 @@ function delcheck (DELID) {
     }
 
     var datum, zeit;
-            function switch_datum_zeit(){
-            if (document.forms["form"].gesperrt.checked == false) {
-            document.forms["form"].datum.disabled = false;
-                    document.forms["form"].zeit.disabled = false;
-                    document.forms["form"].datum.value = datum;
-                    document.forms["form"].zeit.value = zeit;
-            } else {
-            datum = document.forms["form"].datum.value;
-                    zeit = document.forms["form"].zeit.value;
-                    document.forms["form"].datum.value = '';
-                    document.forms["form"].zeit.value = '';
-                    document.forms["form"].datum.disabled = true;
-                    document.forms["form"].zeit.disabled = true;
-            }
-            }
+	    function switch_datum_zeit(){
+	    if (document.forms["form"].gesperrt.checked == false) {
+	    document.forms["form"].datum.disabled = false;
+		    document.forms["form"].zeit.disabled = false;
+		    document.forms["form"].datum.value = datum;
+		    document.forms["form"].zeit.value = zeit;
+	    } else {
+	    datum = document.forms["form"].datum.value;
+		    zeit = document.forms["form"].zeit.value;
+		    document.forms["form"].datum.value = '';
+		    document.forms["form"].zeit.value = '';
+		    document.forms["form"].datum.disabled = true;
+		    document.forms["form"].zeit.disabled = true;
+	    }
+	    }
 
 
     function switch_html(){
     var div = document.getElementById('txtdiv');
-            var txtarea = document.getElementById('txt');
-            if (document.forms["form"].html[1].checked || switch_html.arguments[0] == 'true') {
+	    var txtarea = document.getElementById('txt');
+	    if (document.forms["form"].html[1].checked || switch_html.arguments[0] == 'true') {
     var oldtxt = txtarea.value;
-            document.getElementById('bbcode_buttons').style.display = 'none';
-            document.getElementById('smilies').style.display = 'none';
-            document.getElementById('btn_vorschau').style.display = 'none';
-            var objCKE = CKEDITOR.replace('txt', {
-            baseHref: 'include/includes/ckeditor/',
-                    height : 400,
-                    filebrowserBrowseUrl: 'include/includes/filemanager/index.html',
-                    filebrowserUploadUrl: 'include/includes/filemanager/index.html'
-            });
-            if (switch_html.arguments[0] == 'true') {
+	    document.getElementById('bbcode_buttons').style.display = 'none';
+	    document.getElementById('smilies').style.display = 'none';
+	    document.getElementById('btn_vorschau').style.display = 'none';
+	    var objCKE = CKEDITOR.replace('txt', {
+	    baseHref: 'include/includes/ckeditor/',
+		    height : 400,
+		    filebrowserBrowseUrl: 'include/includes/filemanager/index.html',
+		    filebrowserUploadUrl: 'include/includes/filemanager/index.html'
+	    });
+	    if (switch_html.arguments[0] == 'true') {
     document.forms["form"].html[1].checked = true;
-            objCKE.setData(document.getElementById('vorschau_td').innerHTML);
+	    objCKE.setData(document.getElementById('vorschau_td').innerHTML);
     } else {
     objCKE.setData(oldtxt);
     }
@@ -65,45 +65,45 @@ function delcheck (DELID) {
     } else {
 
     var objCKE = CKEDITOR.instances['txt'];
-            var oldtxt = objCKE.getData();
-            CKEDITOR.remove(objCKE);
-            div.innerHTML = '<textarea id="txt" name="txt" class="form-control" rows="5" tabindex="2">' + oldtxt + '</textarea>';
-            document.getElementById('bbcode_buttons').style.display = 'block';
-            document.getElementById('smilies').style.display = 'block';
-            document.getElementById('btn_vorschau').style.display = 'inline';
+	    var oldtxt = objCKE.getData();
+	    CKEDITOR.remove(objCKE);
+	    div.innerHTML = '<textarea id="txt" name="txt" class="form-control" rows="5" tabindex="2">' + oldtxt + '</textarea>';
+	    document.getElementById('bbcode_buttons').style.display = 'block';
+	    document.getElementById('smilies').style.display = 'block';
+	    document.getElementById('btn_vorschau').style.display = 'inline';
     }
     }
 
     function close_vorschau(){
     document.getElementById('vorschau').style.display = 'none';
-            }
+    }
 
     function show_opts(){
     document.getElementById('news_opts_tbl').style.display = 'block';
-            }
+    }
 
     function save_opts(){
     var kat = document.forms["news_opts"].nadd_kat.value;
-            var newsempf = '';
-            var sel = document.getElementById('pmempf');
-            var len = sel.options.length
-            for (var i = 0; i < len; i++) {
+	    var newsempf = '';
+	    var sel = document.getElementById('pmempf');
+	    var len = sel.options.length
+	    for (var i = 0; i < len; i++) {
     if (sel.options[i].selected) {
     newsempf += sel.options[i].value + '#';
     }
     }
     xajax_saveopts(newsempf, kat);
-            document.getElementById('news_opts_tbl').style.display = 'none';
-            }
+	    document.getElementById('news_opts_tbl').style.display = 'none';
+    }
 
     function close_opts(){
     document.getElementById('news_opts_tbl').style.display = 'none';
-            }
+    }
 
     function new_kat(){
     document.getElementById('nadd_kat_td').innerHTML = '<input class="form-control" type="text" value="" name="nadd_kat">';
-            document.forms["news_opts"].nadd_kat.focus();
-            }
+	    document.forms["news_opts"].nadd_kat.focus();
+    }
 //--></script>
 {xajax}
 <script type="text/javascript" src="include/includes/js/bbcode.js"></script>
@@ -209,7 +209,7 @@ function delcheck (DELID) {
                     </tr>
                     {EXPLODE}<tr>
                         <td><a href="javascript:void(0);" onclick="xajax_vorschau_id({ID});"><span rel="tooltip" title="{title}" style="color:#3faa22;" class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> {TITEL}<br><small style="margin-left:16px;color:#2f2f2f;">Kategorie: {KAT}</small></a></td>
-                        <td class="text-right" nowrap><a style="margin-right:5px;" href="javascript:void(0);" onclick="delcheck({ID})" rel="tooltip" title="News l&ouml;schen"><span style="color:#AD0000;" class="glyphicon glyphicon-trash" aria-hidden="true"></span> 
+                        <td class="text-right" nowrap><a style="margin-right:5px;" href="javascript:void(0);" onclick="delcheck({ID})" rel="tooltip" title="News l&ouml;schen"><span style="color:#AD0000;" class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                 <a style="margin-right:5px;" href="?news-edit-{ID}" rel="tooltip" title="News &auml;ndern"><span style="color:#2D9600;" class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
                                 <a style="margin-right:5px;" href="?news-s{ID}" rel="tooltip" title="{sperren}">{sperre}</a>
                                 <a href="?news-t{ID}">{topnews}</a></td>
@@ -230,7 +230,7 @@ function delcheck (DELID) {
             </div>
         </div>
         <form id="news_opts" role="form">
-            <div class="panel panel-default" id="news_opts_tbl" style="position:absolute; top:50%;left:50%;margin-left:-150px;margin-top:-175px;width:300px;height:350px;display:none;z-index:1001;-webkit-box-shadow:2px 2px 14px 0px rgba(0, 0, 0, 0.92);-moz-box-shadow:2px 2px 14px 0px rgba(0, 0, 0, 0.92);box-shadow:2px 2px 14px 0px rgba(0, 0, 0, 0.92);"><div class="panel-body bg-info"> 
+            <div class="panel panel-default" id="news_opts_tbl" style="position:absolute; top:50%;left:50%;margin-left:-150px;margin-top:-175px;width:300px;height:350px;display:none;z-index:1001;-webkit-box-shadow:2px 2px 14px 0px rgba(0, 0, 0, 0.92);-moz-box-shadow:2px 2px 14px 0px rgba(0, 0, 0, 0.92);box-shadow:2px 2px 14px 0px rgba(0, 0, 0, 0.92);"><div class="panel-body bg-info">
                     <legend><h4>News Optionen</h4></legend>
                     Kommentare bei Topnews zulassen:  <a href="javascript:void(0);" onclick="xajax_tn_koms();" id="tn_koms">{tn_koms}</a><br><br>
                     <div class="form-group" id="nadd_kat_td">
@@ -312,7 +312,7 @@ function delcheck (DELID) {
 </div>
 <script language="JavaScript" type="text/javascript">
 <!--
-            sichtbar();
+	    sichtbar();
     {html}
 //-->
 </script>

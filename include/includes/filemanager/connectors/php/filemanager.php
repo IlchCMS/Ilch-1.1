@@ -13,19 +13,14 @@
  *  @author		Simon Georget <simon (at) linea21 (dot) com>
  *	@copyright	Authors
  */
-require_once('./inc/filemanager.inc.php');
-require_once('filemanager.config.php');
+
 require_once('filemanager.class.php');
 
-if (isset($config['plugin']) && !empty($config['plugin'])) {
-	$pluginPath = 'plugins' . DIRECTORY_SEPARATOR . $config['plugin'] . DIRECTORY_SEPARATOR;
-	require_once($pluginPath . 'filemanager.' . $config['plugin'] . '.config.php');
-	require_once($pluginPath . 'filemanager.' . $config['plugin'] . '.class.php');
-	$className = 'Filemanager'.strtoupper($config['plugin']);
-	$fm = new $className($config);
-} else {
-	$fm = new Filemanager($config);
-}
+// if user file is defined we include it, else we include the default file
+(file_exists('user.config.php')) ? include_once('user.config.php') : include_once('default.config.php');
+
+// auth() function is already defined
+// and Filemanager is instantiated as $fm
 
 $response = '';
 
@@ -67,6 +62,20 @@ if(!isset($_GET)) {
         }
         break;
 
+      case 'move':
+        // allow "../"
+        if($fm->getvar('old') && $fm->getvar('new') && $fm->getvar('root')) {
+          $response = $fm->move();
+        }
+        break;
+
+      case 'editfile':
+        	 
+        if($fm->getvar('path')) {
+        	$response = $fm->editfile();
+        }
+        break;
+        
       case 'delete':
 
         if($fm->getvar('path')) {
@@ -86,12 +95,21 @@ if(!isset($_GET)) {
           $fm->download();
         }
         break;
+        
       case 'preview':
         if($fm->getvar('path')) {
-          $fm->preview();
+        	if(isset($_GET['thumbnail'])) {
+        		$thumbnail = true;
+        	} else {
+        		$thumbnail = false;
+        	}
+          $fm->preview($thumbnail);
         }
         break;
-
+			
+      case 'maxuploadfilesize':
+        $fm->getMaxUploadFileSize();
+        break;
     }
 
   } else if(isset($_POST['mode']) && $_POST['mode']!='') {
@@ -110,6 +128,19 @@ if(!isset($_GET)) {
         }
         break;
 
+    	case 'replace':
+    
+	    	if($fm->postvar('newfilepath')) {
+	    		$fm->replace();
+	    	}
+	    	break;
+    
+	    case 'savefile':
+	    	
+	    	if($fm->postvar('content', false) && $fm->postvar('path')) {
+	    		$response = $fm->savefile();
+	    	}
+	    	break;
     }
 
   }
@@ -117,5 +148,4 @@ if(!isset($_GET)) {
 
 echo json_encode($response);
 die();
-
 ?>

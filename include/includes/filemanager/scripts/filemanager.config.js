@@ -1,55 +1,142 @@
-/*---------------------------------------------------------
-  Configuration
----------------------------------------------------------*/
-
-// Set culture to display localized messages
-var culture = 'de';
-
-// Set default view mode : 'grid' or 'list'
-var defaultViewMode = 'grid';
-
-// Autoload text in GUI - If set to false, set values manually into the HTML file
-var autoload = true;
-
-// Display full path - default : false
-var showFullPath = false;
-
-// Browse only - default : false
-var browseOnly = false;
-
-// Set this to the server side language you wish to use
-var lang = 'php'; // options: php, jsp, lasso, asp, cfm, ashx, asp, pl // we are looking for contributors for lasso, python connectors (partially developed)
-
-var am = document.location.pathname.substring(1, document.location.pathname.lastIndexOf('/') + 1);
-
-// Set this to the directory you wish to manage.
-//var fileRoot = '/' + am + 'userfiles/';
-var fileRoot = '/';
-
-//Path to the manage directory on the HTTP server
-var relPath = window.location.protocol + '//' + window.location.host + '/include/images/filemanager';
-
-// Show image previews in grid views?
-var showThumbs = true;
-
-// Allowed image extensions when type is 'image'
-var imagesExt = ['jpg', 'jpeg', 'gif', 'png'];
-
-//Add the name of scripts you want to load in addition to the standard ones
-//For example use this to load tiny_mce_popup.js
-var extra_js = [''];
-
-// Videos player support
-// -----------------------------------------
-var showVideoPlayer = true;
-var videosExt = ['ogv', 'mp4', 'webm']; // Recognized videos extensions
-var videosPlayerWidth = 400; // Videos Player Width
-var videosPlayerHeight = 222; // Videos Player Height
-
-// Audios player support
-//-----------------------------------------
-var showAudioPlayer = true;
-var audiosExt = ['ogg', 'mp3', 'wav']; // Recognized audios extensions
-
-// File size limit for HTML5 file size check. In MB.
-var fileSizeLimit = 30;
+{
+		"_comment": "IMPORTANT : go to the wiki page to know about options configuration https://github.com/simogeo/Filemanager/wiki/Filemanager-configuration-file",
+    "options": {
+        "culture": "en",
+        "lang": "php",
+        "theme": "flat-dark",
+        "defaultViewMode": "grid",
+        "autoload": true,
+        "showFullPath": false,
+        "showTitleAttr": false,
+        "browseOnly": false,
+        "showConfirmation": true,
+        "showThumbs": true,
+        "generateThumbnails": true,
+        "searchBox": true,
+        "listFiles": true,
+        "fileSorting": "default",
+        "chars_only_latin": true,
+        "dateFormat": "d M Y H:i",
+        "serverRoot": true,
+        "fileRoot": false,
+        "relPath": "/include/images/filemanager",
+        "logger": false,
+        "capabilities": ["select", "download", "rename", "delete", "replace"],
+        "plugins": []
+    },
+    "security": {
+        "allowFolderDownload": false,
+        "allowChangeExtensions": false,
+        "allowNoExtension": false,
+        "uploadPolicy": "DISALLOW_ALL",
+        "uploadRestrictions": [
+            "jpg",
+            "jpeg",
+            "gif",
+            "png",
+            "svg",
+            "txt",
+            "pdf",
+            "odp",
+            "ods",
+            "odt",
+            "rtf",
+            "doc",
+            "docx",
+            "xls",
+            "xlsx",
+            "ppt",
+            "pptx",
+            "csv",
+            "ogv",
+            "mp4",
+            "webm",
+            "m4v",
+            "ogg",
+            "mp3",
+            "wav",
+            "zip",
+            "rar"
+        ]
+    },
+    "upload": {
+        "multiple": true,
+        "number": 5,
+        "overwrite": false,
+        "imagesOnly": false,
+        "fileSizeLimit": 16
+    },
+    "exclude": {
+        "unallowed_files": [
+            ".htaccess",
+            "web.config"
+        ],
+        "unallowed_dirs": [
+            "_thumbs",
+            ".CDN_ACCESS_LOGS",
+            "cloudservers"
+        ],
+        "unallowed_files_REGEXP": "/^\\./",
+        "unallowed_dirs_REGEXP": "/^\\./"
+    },
+    "images": {
+        "imagesExt": [
+            "jpg",
+            "jpeg",
+            "gif",
+            "png",
+            "svg"
+        ],
+        "resize": {
+        	"enabled":true,
+        	"maxWidth": 1280,
+            "maxHeight": 1024
+        }
+    },
+    "videos": {
+        "showVideoPlayer": true,
+        "videosExt": [
+            "ogv",
+            "mp4",
+            "webm",
+            "m4v"
+        ],
+        "videosPlayerWidth": 400,
+        "videosPlayerHeight": 222
+    },
+    "audios": {
+        "showAudioPlayer": true,
+        "audiosExt": [
+            "ogg",
+            "mp3",
+            "wav"
+        ]
+    },
+    "edit": {
+        "enabled": true,
+        "lineNumbers": true,
+        "lineWrapping": true,
+        "codeHighlight": false,
+        "theme": "elegant",
+        "editExt": [
+            "txt",
+            "csv"
+        ]
+    },
+    "customScrollbar": {
+    	"enabled": true,
+    	"theme": "inset-2-dark",
+    	"button": true
+    },
+    "extras": {
+        "extra_js": [],
+        "extra_js_async": true
+    },
+    "icons": {
+        "path": "images/fileicons/",
+        "directory": "_Open.png",
+        "default": "default.png"
+    },
+    "url": "https://github.com/simogeo/Filemanager",
+    "version": "2.0.0-dev"
+}
