@@ -1,0 +1,98 @@
+<script type="text/javascript">
+    <!--
+      function del(id1) {
+
+        var x = confirm("Willst du wirklich den Anschnitt entfernen?");
+        if (x) {
+            document.location.href = "?datenschutz-datenschutz-d" + id1;
+        }
+    }
+    //-->
+    window.onload = function () {
+        document.getElementById('meldung').style.visibility = 'visible';
+        window.setTimeout("hideInfo()", 2000);
+    }
+    function hideInfo()
+    {
+        document.getElementById('meldung').style.visibility = 'hidden';
+    }
+</script>
+<legend><h2>Datenschutzerkl&auml;rung <span class="pull-right"><a class="btn btn-info btn-sm" href="admin.php?datenschutz">Neuen Abschnitt eintragen</a></span></h2></legend>
+<div class="row">
+    <div class="col-md-8">
+        <form action="admin.php?datenschutz-datenschutz" method="POST" class="form-horizontal">               
+            <input type="hidden" name="id" value="{id}">
+            <div class="panel panel-warning">
+                <div class="panel-heading">{titeltext}</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Abschnitt anzeigen</label>
+                        <div class="col-sm-8">
+                            <label class="radio-inline">
+                                <input type="radio" value="1" name="einaus" {ein}> Ja
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" value="0" name="einaus" {aus}> Nein
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Abschnitt Titel</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="titel" value="{titel}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Quelle</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="url" value="{url}">
+                            <span id="hilfeText" class="help-block">URL der Quelle</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Titel der Quelle</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="urltitle" value="{urltitle}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Abschnitt Text</label>
+                        <div class="col-sm-12">
+                            <textarea class="form-control" rows="10" name="txt">{txt}</textarea>
+                            <span id="hilfeText" class="help-block text-right">Html Code m&ouml;glich</span>
+                        </div>
+                    </div>   
+                    <div class="text-center">
+                        <input class="btn btn-primary" type="submit" value="{subbutton}" name="sub">
+                    </div>  
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4">         
+        <table class="table table-bordered">
+            <tr>
+                <td colspan="4" class="warning text-center"><strong>eingetragene Abschnitte</strong></td>
+            </tr>
+            <tr>
+                <td class="text-center"><sup>on</sup>/<sub>off</sub></td>
+                <td class="text-center">Abschnitt</td>
+                <td class="text-center">Optionen</td>
+            </tr>
+            {EXPLODE}
+            <tr class="{class}">
+                {status}
+                <td>{titel}</td>
+                <td align="center" nowrap><a href="javascript:del('{id}')" rel="tooltip" title="Abschnitt l&ouml;schen" style="margin-right:3px;"><span style="color:#AD0000;" class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                    <a href="?datenschutz-datenschutz-e{id}" rel="tooltip" title="Abschnitt bearbeiten" style="margin-right:3px;"><span style="color:#2D9600;" class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                    <a href="?datenschutz-datenschutz-o{id}-{pos}" rel="tooltip" title="nach oben verschieben" style="margin-right:3px;"><span style="color:#A54200;" class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></a>
+                    <a href="?datenschutz-datenschutz-u{id}-{pos}" rel="tooltip" title="nach unten verschieben"><span style="color:#A54200;" class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></a></td>
+            </tr>
+            {EXPLODE}
+        </table>
+        <br>{MPL}
+    </div>
+</div>
+<div class="row text-right">
+    <br>Voreinstellungen der Vorlagen von <a href="http://www.e-recht24.de" target="_blank"><strong>e-recht24.de</strong></a>
+</div>

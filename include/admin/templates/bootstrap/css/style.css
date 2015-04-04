@@ -456,3 +456,36 @@ float:left
 width:120px;
 margin: 5px 5px 0px 0px 
 }
+
+/* BBCode */
+
+.bbcodephpblock {
+color: #0000BB;
+}
+.bbcodetransparentgif {
+border:none;
+height:10px;
+width:10px;
+}
+.ilchbbcodebuttons {
+border:none;
+width:23px;
+height:22px;
+}
+.ilchpositionabsolute {
+position:absolute;
+}
+.ilchbbcodefarbwahl {
+display:none;
+position:relative;
+top:-30px;
+left:100px;
+z-index:100;
+box-shadow: 0px 0px 0px 4px rgba(0,0,0,0.5); 
+}
+.ilchbbcodedropdown {
+font-family:Verdana;
+font-size:10px;
+margin-bottom:6px;
+z-index:0;
+}
