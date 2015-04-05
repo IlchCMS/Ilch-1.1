@@ -1,27 +1,27 @@
 /* Ilch Install */
 
 a {
-font-size:12px;
+    font-size:12px;
 }
 table {
-width: 100%;
+    width: 100%;
 }
 td {
-padding: 10px;
+    padding: 10px;
 }
 input,
 button,
 textarea {
-padding:4px;
+    padding:4px;
 }
 button a {
-text-decoration:none;
+    text-decoration:none;
 }
 input[type=text] {
-width: 60%;
+    width: 60%;
 }
 select {
-width: 20%;
+    width: 20%;
 }
 .installcontent {
     width: 700px;
@@ -35,119 +35,130 @@ width: 20%;
     color:#2f2f2f;
 }
 .installcontent legend {
-font-size: 20px;
-color: #00669E;
-padding:15px;
+    width: 100%;
+    font-size: 20px;
+    color: #00669E;
+    padding:15px 0px;
+    text-align:center;
 }
 .installcontent legend small {
-font-size: 14px;
-color: #2f2f2f;
-font-weight: bold;
-text-decoration:underline;
+    font-size: 14px;
+    color: #2f2f2f;
+    font-weight: bold;
+    text-decoration:underline;
 }
 .installbut {
-padding:15px;
-text-align:center;
+    padding:15px;
+    text-align:center;
 }
 .install_lizenz {
-width: 690px;
-border:1px solid #ccc;
--webkit-border-radius: 3px;
--moz-border-radius: 3px;
-border-radius: 3px;
-padding:4px;
-color:#000;
--webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
--moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+    width: 690px;
+    border:1px solid #ccc;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    padding:4px;
+    color:#000;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
 }
 .install_lizenz_pre{
-overflow:auto;
-height: 450px;
+    overflow:auto;
+    height: 450px;
 }
 .install_lizenz .Cmite {
-width: 80%;
+    width: 80%;
 }
 .install_lizenz .Cnorm {
-width: 20%;
+    width: 20%;
 }
 .install_lizenz pre {
-font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-page-break-inside: avoid;
-  display: block;
-  padding: 9.5px;
-  margin: 0 0 10px;
-  font-size: 13px;
-  line-height: 1.42857143;
-  color: #fff;
-  word-break: break-all;
-  word-wrap: break-word;
-  overflow:auto;
-  background-color: #1a1a1a;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+    page-break-inside: avoid;
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: #fff;
+    word-break: break-all;
+    word-wrap: break-word;
+    overflow:auto;
+    background-color: #1a1a1a;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.install_lizenz ul {
+    list-style-type:none;
+}
+.install_lizenz ul li{
+    color:#ff0000;
 }
 .installfoot {
     width: 700px;
     text-align:center;
-        margin:0 auto;
+    margin:0 auto;
     margin-top:20px;
     color:#00A5FF;
-   } 
-   .installfoot a{
+} 
+.installfoot a{
     color:#0081C6;
-   } 
+} 
 .pruefungrichtig {
-background-color:#40aa00;
-font-weight: bold;
-font-size:11px;
-color:#fff;
-padding:4px;
--webkit-border-radius: 3px;
--moz-border-radius: 3px;
-border-radius: 3px;
-   }
- .pruefungfalsch {
-background-color:#E00000;
-font-weight: bold;
-font-size:11px;
-color:#fff;
-padding:4px;
--webkit-border-radius: 3px;
--moz-border-radius: 3px;
-border-radius: 3px; 
-   } 
+    background-color:#40aa00;
+    font-weight: bold;
+    font-size:11px;
+    color:#fff;
+    padding:4px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+.pruefungfalsch {
+    background-color:#E00000;
+    font-weight: bold;
+    font-size:11px;
+    color:#fff;
+    padding:4px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px; 
+} 
 .mysqlinf  {
-padding:5px;
-text-align:left;
-font-size:11px;
-color:#5B5B5B;
-margin-bottom:10px;
-	text-shadow: 1px 1px #fff;
+    padding:5px;
+    text-align:left;
+    font-size:11px;
+    color:#5B5B5B;
+    margin-bottom:10px;
+    text-shadow: 1px 1px #fff;
 }
 .text-left {
-text-align:left;
+    text-align:left;
+}
+.text-center {
+    text-align:center;
 }
 .label_100{
-width:100px;
-margin: 5px 5px 0px 0px;
-font-weight: bold;
-	text-shadow: 1px 1px #fff;
-	color:#565656;
-	font-style:italic;
+    width:100px;
+    margin: 5px 5px 0px 0px;
+    font-weight: bold;
+    text-shadow: 1px 1px #fff;
+    color:#565656;
+    font-style:italic;
 }
 .help{
-display:block;
-font-size:10px;
-margin-left:110px; 
-color:#5B5B5B;
-	text-shadow: 1px 1px #fff;
+    display:block;
+    font-size:10px;
+    margin-left:110px; 
+    color:#5B5B5B;
+    text-shadow: 1px 1px #fff;
 }
 .ilch_float_l{
-float:left
+    float:left;
 }
 .installreturn {
-padding:5px;
+    padding:5px;
     color: #444;
     font: 12px Verdana;
     border-color: #ccc;
@@ -169,11 +180,11 @@ padding:5px;
     box-shadow:0 0 5px rgba(0,149,229,0.6);
     border:1px solid rgba(0,149,229,0.6);
     color:#333;
-    }
+}
 .installred legend small{
-color:#ff0000;
+    color:#ff0000;
 }
 .errorunlink {
-color:#ff0000;
-	font-style:italic;
-	}
+    color:#ff0000;
+    font-style:italic;
+}
