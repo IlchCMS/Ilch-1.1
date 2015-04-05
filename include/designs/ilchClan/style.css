@@ -265,6 +265,13 @@ div.ilchclanlogin {
     background-color:#D3D3D3;
     color:#2f2f2f;
 }
+.ilchmenu1middle .Cmite a,
+.ilchmenu1middle .Cnorm a {
+    color:#000;
+}
+.ilchmenu1middle .border{
+    background-color:#004A72;
+}
 .ilchmenu2_3_top {
     background-color:#00669E;
     color:#fff;
