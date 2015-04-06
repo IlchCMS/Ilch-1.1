@@ -7,6 +7,11 @@ defined ('main') or die ( 'no direct access' );
 
 $lang = array
 (
+'nowcreatenews' => 'jetzt eine News erstellen',
+'createnewforum' => 'neues Forum erstellen',
+'datenschutz' => 'Datenschutzerkl&auml;rung',
+'nowar' => 'kein War geplant',
+'noentry' => 'kein Eintrag vorhanden',
 'lookat' => 'ansehen',
 'selectrecipient' => 'Empf&auml;nger ausw&auml;hlen',
 'contribution' => 'Beitrag',
@@ -243,7 +248,7 @@ $lang = array
 'regsince' => 'Dabei seit',
 'regtime' => 'Anmeldedatum',
 'reject' => 'ablehnen',
-'realydelete' => 'wirklich löschen?',
+'realydelete' => 'wirklich l&ouml;schen?',
 'rejected' => 'abgelehnt',
 'removeaccount' => 'Account l&ouml;schen',
 'remark' => 'Bemerkung',

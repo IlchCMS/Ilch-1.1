@@ -5,8 +5,8 @@
 // Datenschutzerklaerung by Maretz.eu
 
 defined('main') or die('no direct access');
-$title = $allgAr['title'] . ' :: Datenschutzerkl&auml;rung';
-$hmenu = 'Datenschutzerkl&auml;rung';
+$title = $allgAr['title'] . ' :: '.$lang['datenschutz'].'';
+$hmenu = $lang['datenschutz'];
 $design = new design($title, $hmenu);
 $design->header();
 $tpl = new tpl('datenschutz.htm');

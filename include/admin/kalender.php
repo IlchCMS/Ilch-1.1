@@ -102,7 +102,6 @@ if (!empty($_REQUEST['um'])) {
 	echo '
  <div class="bs-example">
     <div class="alert alert-danger fade in" role="alert">
-      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">�</span><span class="sr-only">Schlie�en</span></button>
        Das eingegebene Datum ist nicht g&uuml;ltig.
         <br><a class="btn btn-default" href="javascript:history.back()">zur&uuml;ck</a>
     </div>
@@ -115,7 +114,6 @@ if (!empty($_REQUEST['um'])) {
 	    echo '
  <div class="bs-example">
     <div class="alert alert-danger fade in" role="alert">
-      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">�</span><span class="sr-only">Schlie�en</span></button>
        Das eingegebene Datum f&uuml;r das Zyklusende ist nicht g&uuml;ltig.
         <br><a class="btn btn-default" href="javascript:history.back()">zur&uuml;ck</a>
     </div>

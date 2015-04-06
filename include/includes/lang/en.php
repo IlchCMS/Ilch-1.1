@@ -7,6 +7,11 @@ defined ('main') or die ( 'no direct access' );
 
 $lang = array
 (
+'nowcreatenews' => 'now create a News',
+'createnewforum' => 'create a new Forum',
+'datenschutz' => 'privacy policy',
+'nowar' => 'nothing planned',
+'noentry' => 'no entry',
 'lookat' => 'look at',
 'selectrecipient' => 'Select Recipients',
 'contribution' => 'Contribution',

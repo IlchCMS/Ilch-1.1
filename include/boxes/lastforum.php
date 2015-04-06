@@ -28,7 +28,7 @@ if (loggedin()) {
     }
 }
 if ( @db_num_rows($resultID) == 0 ) {
-	echo '<div class="text-center">kein Forumeintrag vorhanden'.$admin.'</div>';
+	echo '<div class="text-center smalfont">'.$lang['noentry'].' '.$admin.'</div>';
 } 
 echo '<div class="tdweight100">';
 while ($row = db_fetch_assoc($resultID)) {

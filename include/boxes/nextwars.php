@@ -8,7 +8,7 @@ echo '<div class="tdweight100">';
 $akttime = date('Y-m-d');
 $erg = @db_query("SELECT DATE_FORMAT(datime,'%d.%m.%y - %H:%i') as time,tag,gegner, id, game FROM prefix_wars WHERE status = 2 AND datime > '".$akttime."' ORDER BY datime");
 if ( @db_num_rows($erg) == 0 ) {
-	echo '<span class="text-center smalfont">kein War geplant</span>';
+	echo '<span class="text-center smalfont">'.$lang['nowar'].'</span>';
 } else {
 	while ($row = @db_fetch_object($erg) ) {
 		$row->tag = ( empty($row->tag) ? $row->gegner : $row->tag );

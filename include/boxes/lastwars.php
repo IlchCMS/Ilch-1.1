@@ -11,7 +11,7 @@ $farb2 = '';
 echo '<div class="tdweight100">';
 $erg = db_query('SELECT * FROM prefix_wars WHERE status = "3" ORDER BY datime DESC LIMIT 3');
 if ( @db_num_rows($erg) == 0 ) {
-	echo '<div class="text-center smalfont">kein Eintrag vorhanden</div>';
+	echo '<div class="text-center smalfont">'.$lang['noentry'].'</div>';
 } else {
 while ($row = db_fetch_object($erg) ) {
 	$row->tag = ( empty($row->tag) ? $row->gegner : $row->tag );

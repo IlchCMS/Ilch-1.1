@@ -68,10 +68,10 @@ $stunden = 24;
 		    echo '<div class="tdweight100 text-center tablebordertop"><input type="submit" value="'.$lang['formsub'].'"></div></form>';
 		}   
 		} else {
-		  echo $lang['nowvoteavailable'];
+		  echo '<span class="smalfont">'.$lang['nowvoteavailable'].'</span>';
 		}
 		} else {
-		  echo $lang['nowvoteavailable'];
+		  echo '<span class="smalfont">'.$lang['nowvoteavailable'].'</span>';
 		}
 
 ?>

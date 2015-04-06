@@ -23,11 +23,11 @@ $erg = db_query($abf);
 if (loggedin()) {
     $admin = '';
     if (user_has_admin_right($menu, false)) {
-        $admin = '<br><a class="box" href="admin.php?news">jetzt eine News erstellen</a>';
+        $admin = '<br><a class="box" href="admin.php?news">'.$lang['nowcreatenews'].'</a>';
     }
 }
 if ( @db_num_rows($erg) == 0 ) {
-	echo '<div class="text-center">kein Newseintrag vorhanden'.$admin.'</div>';
+	echo '<div class="text-center smalfont">'.$lang['noentry'].' '.$admin.'</div>';
 } 
 echo '<div class="tdweight100">';
 while ($row = db_fetch_object($erg)) {

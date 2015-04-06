@@ -84,6 +84,6 @@ defined ('main') or die ( 'no direct access' );
     echo '</div>';
   } else {
 
-    echo $lang['nothingavailable'];
+    echo '<span class="smalfont">'.$lang['nothingavailable'].'</span>';
   }
 ?>

@@ -39,7 +39,7 @@ echo '<div class="tdweight100 text-center">';
 
 $i = 1;
 if ( @db_num_rows($erg) == 0 ) {
-	echo '<div class="text-center smalfont">kein Eintrag vorhanden</div>';
+	echo '<div class="text-center smalfont">'.$lang['noentry'].'</div>';
 } else {
 while($row = db_fetch_object($erg)) {
  
