@@ -18,6 +18,8 @@ a {
     transition: color 0.2s linear;
 }  
 div.ilchclantop {
+    width: 100%;
+    min-width: 1100px;
     height:35px;
     line-height:35px;
     background-color: #000;
@@ -39,6 +41,12 @@ div.ilchclantopin {
     color:#fff;
     font-weight: bold;
 }
+.ilchclandesignloginm {
+    margin-right:10px;
+}
+.ilchclandesignmarginleft10 {
+    margin-left:10px;
+}    
 div.ilchclandesign {
     width: 1100px;
     margin: 25px auto 0px;
@@ -220,6 +228,7 @@ div.ilchclanlogin {
 }
 .ilchcms span{
     float:right;
+    margin-right:5px;
 }
 .ilchcms a{
     color:#00A5FF;
