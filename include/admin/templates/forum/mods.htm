@@ -1,33 +1,29 @@
-<html>
-    <head>
-        <link href="include/admin/templates/bootstrap/css/bootstrap.css" rel="stylesheet">
-        <link href="include/admin/templates/bootstrap/css/style.css" rel="stylesheet">
-        <script language="JavaScript" type="text/javascript">
-        <!--
-            function finduser() {
-                var Fenster = window.open('index.php?search-finduser', 'finduser', 'status=no,scrollbars=yes,height=200,width=420');
-                Fenster.focus();
-            }
-        //-->
-        </script>
-    </head>
-    <body>
-        <form name="form" action="admin.php?forum-choosemods" method="POST" class="form-inline" role="form">
-            <input type="hidden" name="fid" value="{fid}" />
-            <legend>Moderatoren festlegen</legend>
-            <input name="name" class="form-control" placeholder="Name"><br>
-            <div class="btn-group">
-                <input type="submit" value="Add" name="s" class="btn btn-primary"> 
-                <input type="button" value="Find" onClick="finduser()" class="btn btn-success">
-            </div>
-        </form>
-        <br>
-        <table class="table table-bordered">
-            <tr class="active"><td colspan="2" style="color:#2f2f2f;"><strong>Moderatoren verwalten</strong></td></tr>
-            {EXPLODE}<tr>
-                <td>{name}</td>
-                <td class="text-center"><a href="admin.php?forum-choosemods-d{uid}&fid={fid}" rel="tooltip" title="Moderator l&ouml;schen"><span style="color:#AD0000;" class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
-            </tr>{EXPLODE}
-        </table>
-    </body>
-</html>
+<script type="text/javascript">
+<!--
+    function finduser() {
+        var Fenster = window.open('index.php?search-finduser', 'finduser', 'status=no,scrollbars=yes,height=200,width=420');
+        Fenster.focus();
+    }
+//-->
+</script>
+<form name="form" action="admin.php?forum-choosemods" method="POST">
+            <input type="hidden" name="fid" value="{fid}">
+    <table class="border">
+        <tr class="Chead">
+            <td class="text-center"><b>Moderatoren festlegen</b></td>
+        </tr><tr>
+            <td>
+                <input name="name" /> <input type="submit" value="Add" name="s"> 
+                <input type="button" value="User finden" onClick="finduser()">
+            </td>
+        </tr>
+    </table>
+</form>
+<br>
+<table class="border">
+    <tr class="Chead"><td colspan="2"><b>Moderatoren verwalten</b></td></tr>
+    {EXPLODE}<tr class="{class}">
+        <td>{name}</td>
+        <td><a href="admin.php?forum-choosemods-d{uid}&fid={fid}"><img src="include/images/icons/del.gif" alt="l&ouml;schen" title="l&ouml;schen"></a></td>
+    </tr>{EXPLODE}
+</table>

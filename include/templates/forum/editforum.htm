@@ -14,7 +14,7 @@
             <td class="Cnorm"><a href="index.php?forum-showposts-{id}">{name}</a><br>
                 <span class="smalfont">{_lang_author}: {erst}</span></td>
             <td class="Cmite text-center">{rep}</td>
-            <td class="Cnorm text-center">{date}</td>
+            <td class="Cnorm text-center">{date} {_lang_oclock}</td>
             <td class="Cdark"><input type="checkbox" name="in[{id}]" value="yes"></td>
         </tr>
         {EXPLODE}
@@ -25,4 +25,6 @@
         <input type="submit" name="status" value="{_lang_status} {_lang_change}">
     </div>
 </form>
+<div class="text-center">
 {MPL}
+</div>
