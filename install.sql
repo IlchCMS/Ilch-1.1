@@ -369,6 +369,7 @@ INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUE
 INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (5, 3, 7, 0, 0, 'Sitemap', 'sitemap');
 INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (5, 4, 7, 0, 0, 'Statistik', 'statistik');
 INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (5, 5, 9, 0, 0, 'News Archiv', 'news-archiv');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (5, 6, 7, 0, 0, 'Datenschutzerklärung', 'datenschutz');
 
 
 CREATE TABLE `prefix_modulerights` (
