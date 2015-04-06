@@ -86,11 +86,17 @@ padding:5px;
 .ilchmargin2 {
 margin:2px;
 }
+.ilchmarginleft10 {
+margin-left:10%;
+}
 .ilchfontsize2em {
 font-size: 2em;
 }
 .ilchoverauto {
 overflow:auto;
+}
+.ilch_block {
+display:block;
 }
 .forumord img{
 height:15px;

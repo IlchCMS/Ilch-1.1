@@ -38,7 +38,9 @@ $erg = db_query($q);
 echo '<div class="tdweight100 text-center">';
 
 $i = 1;
-
+if ( @db_num_rows($erg) == 0 ) {
+	echo '<div class="text-center smalfont">kein Eintrag vorhanden</div>';
+} else {
 while($row = db_fetch_object($erg)) {
  
   if($akttime == $row->gebtage)  {
@@ -57,6 +59,6 @@ while($row = db_fetch_object($erg)) {
   }
   $i++;
 }
-
+}
 echo '</div>';
 ?>
