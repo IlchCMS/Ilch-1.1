@@ -1,20 +1,20 @@
 <?php
-#   Copyright by: Manuel
-#   Support: www.ilch.de
+//   Copyright by: Manuel
+//   Support: www.ilch.de
 
 
 defined ('main') or die ( 'no direct access' );
 
 
 if ( $forum_rights['mods'] == FALSE ) {
-  $forum_failure[] = 'Keine Berechtigung dieses Forum zu moderieren';
+  $forum_failure[] = $lang['nopermission'];
 	check_forum_failure($forum_failure);
 }
 
 
-$title = $allgAr['title'].' :: Forum :: '.$aktForumRow['kat'].' :: '.$aktForumRow['name'].' :: '.$aktTopicRow['name'].' :: Beitrag l&ouml;schen';
+$title = $allgAr['title'].' :: Forum :: '.$aktForumRow['kat'].' :: '.$aktForumRow['name'].' :: '.$aktTopicRow['name'].' :: '.$lang['delete'];
 $hmenu  = $extented_forum_menu.'<a class="smalfont" href="index.php?forum">Forum</a><b> &raquo; </b><a class="smalfont" href="index.php?forum-showcat-'.$aktForumRow['cid'].'">'.$aktForumRow['kat'].'</a><b> &raquo; </b><a class="smalfont" href="index.php?forum-showtopics-'.$fid.'">'.$aktForumRow['name'].'</a><b> &raquo; </b>';
-$hmenu .= '<a class="smalfont" href="index.php?forum-showposts-'.$tid.'">'.$aktTopicRow['name'].'</a> <b> &raquo; </b>Beitrag l&ouml;schen'.$extented_forum_menu_sufix;
+$hmenu .= '<a class="smalfont" href="index.php?forum-showposts-'.$tid.'">'.$aktTopicRow['name'].'</a> <b> &raquo; </b>'.$lang['delete'] .$extented_forum_menu_sufix;
 $design = new design ( $title , $hmenu, 1);
 $design->header();
 

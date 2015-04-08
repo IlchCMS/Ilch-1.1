@@ -20,8 +20,8 @@ if ( $DA_IS_WAS_FAUL === TRUE ) {
   exit();
 }
 
-$title = $allgAr['title'].' :: Users :: eMail an '.$row['name'];
-$hmenu  = $extented_forum_menu.'<a class="smalfont" href="?user">Users</a><b> &raquo; </b> eMail an '.$row['name'].$extented_forum_menu_sufix;
+$title = $allgAr['title'].' :: Users :: eMail '.$lang['touser'].' '.$row['name'];
+$hmenu  = $extented_forum_menu.'<a class="smalfont" href="?user">Users</a><b> &raquo; </b> eMail '.$lang['touser'].' '.$row['name'].$extented_forum_menu_sufix;
 $design = new design ( $title , $hmenu, 1);
 $design->header();
 
@@ -40,16 +40,16 @@ if ( empty($_POST['bet']) OR empty($_POST['email']) OR empty($_POST['txt']) OR $
 	if ( !empty($_POST['send']) ) {
 	  $fehler = '';
 		if ( $_SESSION['klicktime'] > (time() - 60) ) {
-		  $fehler .= '<div class="text-center"><span class="ilch_hinweis_rot">Bitte nicht so schnell eMails Schreiben</span></div>';
+		  $fehler .= '<div class="text-center"><span class="ilch_hinweis_rot">'.$lang['Pleasenotwemails'].'</span></div>';
 		}
 		if ( trim($_POST['bet']) == '' ) {
-		  $fehler .= '<div class="text-center"><span class="ilch_hinweis_rot">Bitte einen Betreff angeben</span></div>';
+		  $fehler .= '<div class="text-center"><span class="ilch_hinweis_rot">'.$lang['pleasespecify'].'</span></div>';
 		}
     if ( trim($_POST['email']) == '' ) {
-		  $fehler .= '<div class="text-center"><span class="ilch_hinweis_rot">Bitte eine eMail angeben</span></div>';
+		  $fehler .= '<div class="text-center"><span class="ilch_hinweis_rot">'.$lang['nomailadress'].'</span></div>';
 		}
 		if ( trim($_POST['txt']) == '' ) {
-		  $fehler .= '<div class="text-center"><span class="ilch_hinweis_rot">Bitte eine Nachricht angeben</span></div>';
+		  $fehler .= '<div class="text-center"><span class="ilch_hinweis_rot">'.$lang['nomailmessage'].'</span></div>';
 		}
 	} else {
 	  $fehler = '';
@@ -59,10 +59,10 @@ if ( empty($_POST['bet']) OR empty($_POST['email']) OR empty($_POST['txt']) OR $
   ?>
 	<form action="index.php?user-mail-<?php echo $menu->get(2) ?>" method="POST">
       <fieldset>
-        <legend>eMail an Benutzer <strong><?php echo $row['name']; ?></strong></legend>
-        <label class="ilch_float_l label_80">Betreff</label><input type="text" name="bet" value="<?php echo $_POST['bet']; ?>"><br>
-        <label class="ilch_float_l label_80">deine eMail</label><input type="text" name="email" value="<?php echo $_POST['email']; ?>"><br>
-        <label class="ilch_float_l label_80">Nachricht</label><textarea cols="40" rows="10" name="txt"><?php echo $_POST['txt']; ?></textarea><br>
+        <legend>eMail <?php echo $lang['touser']; ?> <strong><?php echo $row['name']; ?></strong></legend>
+        <label class="ilch_float_l label_80"><?php echo $lang['reference']; ?></label><input type="text" name="bet" value="<?php echo $_POST['bet']; ?>"><br>
+        <label class="ilch_float_l label_80"><?php echo $lang['youemail']; ?></label><input type="text" name="email" value="<?php echo $_POST['email']; ?>"><br>
+        <label class="ilch_float_l label_80"><?php echo $lang['message']; ?></label><textarea cols="40" rows="10" name="txt"><?php echo $_POST['txt']; ?></textarea><br>
         <label class="ilch_float_l label_80"></label><input type="submit" name="send" value="<?php echo $lang['formsub']; ?>">
     </fieldset>
   </form>
@@ -71,7 +71,7 @@ if ( empty($_POST['bet']) OR empty($_POST['email']) OR empty($_POST['txt']) OR $
   $_SESSION['klicktime'] = time();
 	if ( 1 == $row['opt_mail'] ) {
     icmail ($row['email'],strip_tags($_POST['bet']),strip_tags($_POST['txt']),'SeitenKontakt <'.escape_for_email($_POST['email']).'>');
-	  wd ('index.php?forum','Die eMail wurde erfolgreich versendet');
+	  wd ('index.php?forum',$lang['emailsuccessfullsend']);
 	} else {
     header ( 'location: index.php?'.$allAr['smodul'] );
     exit();

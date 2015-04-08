@@ -1,35 +1,35 @@
 <?php
-#   Copyright by: Manuel
-#   Support: www.ilch.de
+//  Copyright by: Manuel
+//  Support: www.ilch.de
 
 
 defined ('main') or die ( 'no direct access' );
 
 
-$title = $allgAr['title'].' :: Forum :: Private Nachrichten';
-$hmenu  = $extented_forum_menu.'<a class="smalfont" href="index.php?forum">Forum</a><b> &raquo; </b><a class="smalfont" href="index.php?forum-privmsg">Private Nachrichten</a>'.$extented_forum_menu_sufix;
+$title = $allgAr['title'].' :: Forum :: Private '.$lang['messages'];
+$hmenu  = $extented_forum_menu.'<a class="smalfont" href="index.php?forum">Forum</a><b> &raquo; </b><a class="smalfont" href="index.php?forum-privmsg">Private '.$lang['messages'].'</a>'.$extented_forum_menu_sufix;
 $design = new design ( $title , $hmenu, 1);
 $design->header();
 
 
 if ( $allgAr['Fpmf'] != 1 ) {
-  echo '<div class="text-center"><span class="ilch_hinweis_rot">Private Nachrichten wurden von dem Administrator komplett gesperrt';
-  echo '<br><br><a class="ilch_back_button" href="javascript:history.back(-1)">zur&uuml;ck</a></span></div>';
+  echo '<div class="text-center"><span class="ilch_hinweis_rot">'.$lang['closeprivatpm'];
+  echo '<br><br><a class="ilch_back_button" href="javascript:history.back(-1)">'.$lang['back'].'</a></span></div>';
   $design->footer(1);
 } elseif ( !loggedin() ) {
-  echo '<div class="text-center"><span class="ilch_hinweis_rot">G&auml;ste d&uuml;rfen keine Privaten Nachrichten Verschicken!</span></div>';
+  echo '<div class="text-center"><span class="ilch_hinweis_rot">'.$lang['guestsnotsend'].'</span></div>';
   $tpl = new tpl ( 'user/login' );
   $tpl->set_out('WDLINK', 'index.php', 0);
   $design->footer(1);
 } elseif ( db_result(db_query("SELECT opt_pm FROM prefix_user WHERE id = ".$_SESSION['authid']),0) == 0 ) {
-  echo '<div class="text-center"><span class="ilch_hinweis_gelb">Im <a href="index.php?user-profil">Profil</a> einstellen das du die PrivMsg Funktion nutzen m&ouml;chtest</span></div>';
+  echo '<div class="text-center"><span class="ilch_hinweis_gelb">'.$lang['pmsystemon'].'</span></div>';
   $design->footer(1);
 }
 
 $uum = $menu->get(2);
 switch ( $uum ) {
 case 'new' :
-		  # neue pm schreiben und eintragen
+       // neue pm schreiben und eintragen
       $show_formular = true;
       $txt = '';
       $bet = '';
@@ -41,7 +41,7 @@ case 'new' :
         if (1 == db_result(db_query("SELECT count(*) FROM prefix_user WHERE name = BINARY '".$name."'"),0)) {
           $show_formular = false;
         } else {
-          echo '<div class="text-center"><span class="ilch_hinweis_rot">Dieser Empf&auml;nger konnte nicht gefunden werden</span></div>';
+          echo '<div class="text-center"><span class="ilch_hinweis_rot">'.$lang['notreceiver'].'</span></div>';
         }
       }
 
@@ -93,11 +93,11 @@ case 'new' :
       } else {
         $eid  = db_result(db_query("SELECT id FROM prefix_user WHERE name = BINARY '".$name."'"),0);
 				sendpm($_SESSION['authid'], $eid, $bet, $txt);
-		    wd('index.php?forum-privmsg','<div class="text-center"><span class="ilch_hinweis_gruen">Die Nachricht wurde erfolgreich gesendet</span></div>');
+		    wd('index.php?forum-privmsg','<div class="text-center"><span class="ilch_hinweis_gruen">'.$lang['pmsendmessage'].'</span></div>');
       }
   break;
 case 'showmsg' :
-		  # message anzeigen lassen
+		  // message anzeigen lassen
 		  $pid = escape($menu->get(3), 'integer');
       $soeid = ($menu->get(4) == 's' ? 'eid' : 'sid' );
       $erg = db_query("SELECT a.gelesen, a.eid, a.sid, a.id, b.name, a.titel, a.time, a.txt FROM `prefix_pm` a LEFT JOIN prefix_user b ON a.".$soeid." = b.id WHERE a.id = ".$pid);
@@ -119,12 +119,12 @@ case 'showmsg' :
 			$tpl->set_ar_out($row,0);
   break;
 case 'delete' :
-		  # löschen von nachrichten
+		  // loeschen von nachrichten
       if ( $menu->get(3) != '' AND $menu->get(4) == '') { $_POST['delids'][] = $menu->get(3); }
    elseif ($menu->get(3) != '' AND $menu->get(4) == 's') { $_POST['delsids'][] = $menu->get(3); }
       if ( empty($_POST['delids']) AND empty($_POST['delsids'])) {
-	      echo '<div class="text-center"><span class="ilch_hinweis_gelb">Es wurde keine Nachricht zum l&ouml;schen gew&auml;hlt <br><br>';
-		    echo '<a class="ilch_back_button" href="javascript:history.back(-1)"><b>&laquo;</b> zur&uuml;ck</a></span></div>';
+	      echo '<div class="text-center"><span class="ilch_hinweis_gelb">'.$lang['pmnoclear'].'<br><br>';
+		    echo '<a class="ilch_back_button" href="javascript:history.back(-1)"><b>&laquo;</b> '.$lang['back'].'</a></span></div>';
       } else {
         if ( (empty($_POST['delids']) AND empty($_POST['delsids'])) OR empty($_POST['sub']) ) {
 
@@ -137,9 +137,9 @@ case 'delete' :
 				    $i++;
 					  echo '<input type="hidden" name="del'.$s.'ids[]" value="'.$a.'">';
 				  }
-				  echo 'Wollen Sie ';
-				  echo ($i > 1 ? 'die ('.$i.') Nachrichten ' : 'die Nachricht ' );
-					echo 'wirklich löschen ?<br><br><input type="submit" value=" Ja " name="sub">&nbsp;&nbsp;&nbsp;<input type="button" value="Nein" onclick="document.location.href =\'?forum-privmsg\'"></span></div></form>';
+				  echo $lang['doyouwant'].'&nbsp;';
+				  echo ($i > 1 ? '('.$i.') '.$lang['messages'].' ' : $lang['message'] );
+					echo '&nbsp;'.$lang['realydelete'].'<br><br><input type="submit" value="'.$lang['yes'].'" name="sub">&nbsp;&nbsp;&nbsp;<input type="button" value="'.$lang['no'].'" onclick="document.location.href =\'?forum-privmsg\'"></span></div></form>';
 
 			  } else {
 					$delids = (empty($_POST['delids'])?$_POST['delsids']:$_POST['delids']);
@@ -158,9 +158,9 @@ case 'delete' :
               $i++;
             }
 				  }
-				  echo '<div class="text-center"><span class="ilch_hinweis_gruen">Es wurd';
-				  echo ($i > 1 ? 'en ('.$i.') Nachrichten ' : 'e eine Nachricht ' );
-					echo 'erfolgreich gelöscht <br><br><a href="index.php?forum-privmsg">zum Nachrichten Eingang</a></span></div>';
+				  echo '<div class="text-center"><span class="ilch_hinweis_gruen">';
+				  echo ($i > 1 ? ''.$lang['thereare'].' ('.$i.') '.$lang['pmsystemdelmore'].'' : ''.$lang['pmsystemdelone'].'' );
+					echo '<br><br><a href="index.php?forum-privmsg">'.$lang['pmsystemhome'].'</a></span></div>';
 			  }
 			}
   break;
@@ -180,13 +180,13 @@ case 'showsend' :
 	$row['class'] = $class;
     $row['date'] = date('d.m.Y',$row['time']);
     $row['time'] = date('H:i',$row['time']);
-    $row['BET'] = (trim($row['titel']) == '' ? ' -- kein Nachrichtentitel -- ' : $row['titel']);
+    $row['BET'] = (trim($row['titel']) == '' ? ' -- '.$lang['nomessegetitle'].' -- ' : $row['titel']);
 	$tpl->set_ar_out($row,1);
   }
   $tpl->out(2);
   break;
 default :
-		  # message übersicht.
+		  // message übersicht.
       $tpl = new tpl ( 'forum/pm/show' );
       $ad = $menu->getA(2) == 'a' ? 'ASC' : 'DESC';
       $tpl->set_out('ad',$ad == 'ASC'?'d':'a',0); $class = 'Cmite';
@@ -199,9 +199,9 @@ default :
       $erg = db_query($abf);
       while ($row = db_fetch_assoc($erg)) {
         $class = ( $class == 'Cmite' ? 'Cnorm' : 'Cmite' );
-        $row['NEW'] = ($row['NEW'] == 0 ? '<strong><i>neu</i></strong>' : '' );
+        $row['NEW'] = ($row['NEW'] == 0 ? '<strong><i>'.$lang['newmess'].'</i></strong>' : '' );
         $row['CLASS'] = $class;
-        $row['BET'] = (trim($row['BET']) == '' ? ' -- kein Nachrichtentitel -- ' : $row['BET']);
+        $row['BET'] = (trim($row['BET']) == '' ? ' -- '.$lang['nomessegetitle'].' -- ' : $row['BET']);
         $row['date'] = date('d.m.Y',$row['time']);
         $row['time'] = date('H:i',$row['time']);
         $tpl->set_ar_out($row,1);
