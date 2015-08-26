@@ -15,6 +15,7 @@ Version 1.1 Q
 * Bugfix Forum verschieben
 * Korrektur ungueltiger Links
 * Kontakt Formular improved --> Absenden des Formulars nur dann, wenn alle Felder gefuellt sind.
+* Aenderungen der Kontaktmoeglichkeiten - Skype, Steam und Battle.net
 + Integration des BBCode
 + Integration von News Extended
 + Komplette Ueberarbeitung des Backends -- Integration Bootstrap
@@ -266,7 +267,7 @@ if ($rows > 45)
                             $sql_statements[] = "INSERT INTO `prefix_bbcode_design` (`fnDesignNr`, `fcQuoteRandFarbe`, `fcQuoteTabelleBreite`, `fcQuoteSchriftfarbe`, `fcQuoteHintergrundfarbe`, `fcQuoteHintergrundfarbeIT`, `fcQuoteSchriftformatIT`, `fcQuoteSchriftfarbeIT`, `fcBlockRandFarbe`, `fcBlockTabelleBreite`, `fcBlockSchriftfarbe`, `fcBlockHintergrundfarbe`, `fcBlockHintergrundfarbeIT`, `fcBlockSchriftfarbeIT`, `fcKtextRandFarbe`, `fcKtextTabelleBreite`, `fcKtextRandFormat`, `fcEmphHintergrundfarbe`, `fcEmphSchriftfarbe`, `fcCountdownRandFarbe`, `fcCountdownTabelleBreite`, `fcCountdownSchriftfarbe`, `fcCountdownSchriftformat`, `fnCountdownSchriftsize`) VALUES(1, '#f6e79d', '320', '#666666', '#f6e79d', '#faf7e8', 'italic', '#666666', '#f6e79d', '350', '#666666', '#f6e79d', '#faf7e8', '#FF0000', '#000000', '90%', 'dotted', '#ffd500', '#000000', '#FF0000', '90%', '#FF0000', 'bold', 10)";
                         }
 
-                        //Update fï¿½r 1.1Q.2 -> News Extended Integration
+                        //Update für 1.1Q.2 -> News Extended Integration
                         $old = array();
 
                         $q = db_query("SHOW FULL COLUMNS FROM `prefix_news`");
@@ -324,13 +325,13 @@ if ($rows > 45)
                             $sql_statements[] = 'UPDATE `prefix_news` SET `html` = IF(news_html=\'true\',1,0);';
                             $sql_statements[] = 'ALTER TABLE `prefix_news` DROP `news_html`';
                         }
-                        //Update fï¿½r 1.1Q.2 -> News Extended Integration ENDE
+                        //Update für 1.1Q.2 -> News Extended Integration ENDE
 
-                        //Update fï¿½r 1.1Q.3 -> Impressum Update
+                        //Update für 1.1Q.3 -> Impressum Update
                         $sql_statements[] = 'UPDATE `prefix_allg` SET `v5` = "meine@mail.de" WHERE `id` = 2';
-                        //Update fï¿½r 1.1Q.3 -> Impressum Update ENDE
+                        //Update für 1.1Q.3 -> Impressum Update ENDE
 
-                        //Update fï¿½r 1.1Q.4 -> Datenschutzerklï¿½rung Integration
+                        //Update für 1.1Q.4 -> Datenschutzerklärung Integration
                         $qry = db_query('SHOW TABLES LIKE `prefix_datenschutzerklaerung`');
                         if (!$qry) {
                             $sql_statements[] = '-- UPDATE 1.1Q DatenschutzerklÃ¤rung';
@@ -355,20 +356,21 @@ if ($rows > 45)
 
                             $sql_statements[] = "INSERT INTO `prefix_modules` (`url` ,`name` ,`gshow` ,`ashow` ,`fright`) VALUES ('datenschutz', 'DatenschutzerklÃ¤rung', '1', '1', '0')";
                         }
-                        //Update fï¿½r 1.1Q.4 -> Datenschutzerklï¿½rung Integration ENDE
+                        //Update für 1.1Q.4 -> Datenschutzerklärung Integration ENDE
 
-                        //Update fï¿½r 1.1Q.5 -> Kontakt (Profil, JoinUS, FightUS, Wars) Update
+                        //Update für 1.1Q.5 -> Kontakt (Profil, JoinUS, FightUS, Wars) Update
                         $sql_statements[] = 'ALTER TABLE `prefix_user` CHANGE `msn` `skype` VARCHAR(50) NOT NULL';
                         $sql_statements[] = 'UPDATE `prefix_user` SET `skype` = ""';
-                        $sql_statements[] = 'UPDATE `prefix_profilefields` SET `show` = "skype" WHERE `show` = "msn"';
+                        $sql_statements[] = 'UPDATE `prefix_profilefields` SET `show` = "skype" WHERE `show` = "msn"';                        
                         $sql_statements[] = 'ALTER TABLE `prefix_user` CHANGE `aim` `steam` VARCHAR(50) NOT NULL';
                         $sql_statements[] = 'UPDATE `prefix_user` SET `steam` = ""';
-                        $sql_statements[] = 'UPDATE `prefix_profilefields` SET `show` = "steam" WHERE `show` = "aim"';
+                        $sql_statements[] = 'UPDATE `prefix_profilefields` SET `show` = "steam" WHERE `show` = "aim"';                        
                         $sql_statements[] = 'ALTER TABLE `prefix_user` CHANGE `yahoo` `battlenet` VARCHAR(50) NOT NULL';
+                        $sql_statements[] = 'UPDATE `prefix_user` SET `battlenet` = ""';
                         $sql_statements[] = 'UPDATE `prefix_profilefields` SET `show` = "battlenet" WHERE `show` = "yahoo"';
 
                         $sql_statements[] = 'ALTER TABLE `prefix_wars` CHANGE `icq` `skype` VARCHAR(50) NOT NULL';
-                        //Update fï¿½r 1.1Q.5 -> Kontakt (Profil, JoinUS, FightUS, Wars) Update ENDE
+                        //Update für 1.1Q.5 -> Kontakt (Profil, JoinUS, FightUS, Wars) Update ENDE
 
                         foreach ($sql_statements as $sql_statement) {
                             if (trim($sql_statement) != '') {
