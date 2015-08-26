@@ -2,27 +2,25 @@
 #   Copyright by Manuel
 #   Support www.ilch.de
 
-
 defined ('main') or die ( 'no direct access' );
 
 function profilefields_functions2 () {
-  $ar = array (
-	  1 => 'Feld',
-		2 => 'Kategorie'
-	);
-	return ($ar);
+    $ar = array (
+        1 => 'Feld',
+        2 => 'Kategorie'
+    );
+    return ($ar);
 }
 
 function profilefields_functions () {
-  $ar = array (
-	  1 => 'Feld',
-		2 => 'Kategorie',
-		3 => 'Angezeigt',
-		4 => 'Versteckt'
-	);
-	return ($ar);
+    $ar = array (
+        1 => 'Feld',
+        2 => 'Kategorie',
+        3 => 'Angezeigt',
+        4 => 'Versteckt'
+    );
+    return ($ar);
 }
-
 
 # Felder zum aendern anzeigen.
 function profilefields_change ($uid) {
@@ -109,6 +107,14 @@ function profilefields_show_spez_opt_mail ($value,$uid) {
 function profilefields_show_spez_opt_pm ($value,$uid) {
   global $lang;
   return ( profilefields_show_echo_standart ( $lang['privatemessages'], ($value?'<a href="index.php?forum-privmsg-new=0&amp;empfid='.$uid.'">'.$lang['send'].'</a>':'') ) );
+}
+function profilefields_show_spez_skype ($value,$uid) {
+  global $lang;
+  return ( profilefields_show_echo_standart ( $lang['skype'], ($value?'<a href="skype:'.$value.'?userinfo" title="'.$value.'">'.$value.'</a>':'') ) );
+}
+function profilefields_show_spez_steam ($value,$uid) {
+  global $lang;
+  return ( profilefields_show_echo_standart ( $lang['steam'], ($value?'<a href="http://steamcommunity.com/id/'.$value.'/" title="'.$value.'" target="_blank">'.$value.'</a>':'') ) );
 }
 function profilefields_show_spez_sig ($value,$uid) {
   global $lang;

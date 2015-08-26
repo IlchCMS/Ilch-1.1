@@ -23,15 +23,14 @@ if (db_num_rows($erg)) {
 	$postpday = ( $regday == 0 ? 0 : round($row['posts'] / $regday, 2 ) );
 
 	$ar = array (
-	  'NAME' => $row['name'],
-		'JOINED'  => date('d M Y',$row['regist']),
-		'LASTAK'  => date('d M Y - H:i',$row['llogin']),
-		'POSTS'   => $row['posts'],
-		'postpday' => $postpday,
-		'RANG'    => userrang ($row['posts'],$uid),
-		'AVATA'   => $avatar,
+            'NAME' => $row['name'],
+            'JOINED'  => date('d M Y',$row['regist']),
+            'LASTAK'  => date('d M Y - H:i',$row['llogin']),
+            'POSTS'   => $row['posts'],
+            'postpday' => $postpday,
+            'RANG'    => userrang ($row['posts'],$uid),
+            'AVATA'   => $avatar,
 	);
-
 
 	$title = $allgAr['title'].' :: Users :: Details von '.$row['name'];
 	$hmenu  = $extented_forum_menu.'<a class="smalfont" href="?user">Users</a><b> &raquo; </b> Details von '.$row['name'].$extented_forum_menu_sufix;

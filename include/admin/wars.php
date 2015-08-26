@@ -194,11 +194,11 @@ switch ($um) {
 	    $_POST['txt'] = escape($_POST['txt'], 'string');
 	    $_POST['tag'] = escape($_POST['tag'], 'string');
 	    $_POST['email'] = escape($_POST['email'], 'string');
-	    $_POST['icq'] = escape($_POST['icq'], 'string');
+	    $_POST['skype'] = escape($_POST['skype'], 'string');
 	    $_POST['wo'] = escape($_POST['wo'], 'string');
 
 	    if (empty($_POST['pkey'])) {
-		db_query("INSERT INTO prefix_wars (`datime`,`status`,wlp,`owp`,`opp`,gegner,tag,page,mail,icq,wo,tid,`mod`,game,mtyp,land,txt) VALUES ('" . get_datime() . "',3,'" . $_POST['wlp'] . "','" . $_POST['sumowp'] . "','" . $_POST['sumopp'] . "','" . $_POST['gegner'] . "','" . $_POST['tag'] . "','" . $_POST['page'] . "','" . $_POST['email'] . "','" . $_POST['icq'] . "','" . $_POST['wo'] . "','" . $_POST['tid'] . "','" . $_POST['mod'] . "','" . $_POST['game'] . "','" . $_POST['mtyp'] . "','" . $_POST['land'] . "','" . $_POST['txt'] . "')");
+		db_query("INSERT INTO prefix_wars (`datime`,`status`,wlp,`owp`,`opp`,gegner,tag,page,mail,skype,wo,tid,`mod`,game,mtyp,land,txt) VALUES ('" . get_datime() . "',3,'" . $_POST['wlp'] . "','" . $_POST['sumowp'] . "','" . $_POST['sumopp'] . "','" . $_POST['gegner'] . "','" . $_POST['tag'] . "','" . $_POST['page'] . "','" . $_POST['email'] . "','" . $_POST['skype'] . "','" . $_POST['wo'] . "','" . $_POST['tid'] . "','" . $_POST['mod'] . "','" . $_POST['game'] . "','" . $_POST['mtyp'] . "','" . $_POST['land'] . "','" . $_POST['txt'] . "')");
 		$wid = db_last_id();
 		for ($i = 1; $i <= 5; $i++) {
 		    if ($_POST['map'][$i] != '' AND $_POST['opp'][$i] != '' AND $_POST['owp'][$i] != '') {
@@ -214,7 +214,7 @@ switch ($um) {
 		}
 		$msg = '<div class="alert alert-success" role="alert">Erfolgreich eingetragen</div>';
 	    } else {
-		db_query("UPDATE prefix_wars SET datime = '" . get_datime() . "', status = 3,wlp = '" . $_POST['wlp'] . "',owp = '" . $_POST['sumowp'] . "',opp = '" . $_POST['sumopp'] . "',gegner = '" . $_POST['gegner'] . "',tag = '" . $_POST['tag'] . "',page = '" . $_POST['page'] . "',mail = '" . $_POST['email'] . "',icq = '" . $_POST['icq'] . "',wo = '" . $_POST['wo'] . "',tid = '" . $_POST['tid'] . "',`mod` = '" . $_POST['mod'] . "',game = '" . $_POST['game'] . "',mtyp = '" . $_POST['mtyp'] . "',land = '" . $_POST['land'] . "',txt = '" . $_POST['txt'] . "' WHERE id = '" . $_POST['pkey'] . "'");
+		db_query("UPDATE prefix_wars SET datime = '" . get_datime() . "', status = 3,wlp = '" . $_POST['wlp'] . "',owp = '" . $_POST['sumowp'] . "',opp = '" . $_POST['sumopp'] . "',gegner = '" . $_POST['gegner'] . "',tag = '" . $_POST['tag'] . "',page = '" . $_POST['page'] . "',mail = '" . $_POST['email'] . "',skype = '" . $_POST['skype'] . "',wo = '" . $_POST['wo'] . "',tid = '" . $_POST['tid'] . "',`mod` = '" . $_POST['mod'] . "',game = '" . $_POST['game'] . "',mtyp = '" . $_POST['mtyp'] . "',land = '" . $_POST['land'] . "',txt = '" . $_POST['txt'] . "' WHERE id = '" . $_POST['pkey'] . "'");
 		$wid = $_POST['pkey'];
 		for ($i = 1; $i <= 5; $i++) {
 		    $a = db_count_query("SELECT COUNT(*) FROM prefix_warmaps WHERE mnr = " . $i . " AND wid = " . $wid);
@@ -252,7 +252,7 @@ switch ($um) {
 	    }
 	}
 	if (!empty($_GET['pkey'])) {
-	    $erg = db_query("SELECT DATE_FORMAT(datime,'%d.%m.%Y.%H.%i.%s') as datime, id,status,wlp,owp,opp,gegner,tag,page,mail,icq,tid,wo,`mod`,game,mtyp,land,txt FROM prefix_wars WHERE id = '" . $_GET['pkey'] . "'");
+	    $erg = db_query("SELECT DATE_FORMAT(datime,'%d.%m.%Y.%H.%i.%s') as datime, id,status,wlp,owp,opp,gegner,tag,page,mail,skype,tid,wo,`mod`,game,mtyp,land,txt FROM prefix_wars WHERE id = '" . $_GET['pkey'] . "'");
 	    $_ilch = db_fetch_assoc($erg);
 	    $_ilch['pkey'] = $_GET['pkey'];
 	    list($_ilch['day'], $_ilch['mon'], $_ilch['jahr'], $_ilch['stu'], $_ilch['min'], $_ilch['sek']) = explode('.', $_ilch['datime']);
@@ -272,7 +272,7 @@ switch ($um) {
 		}
 	    }
 	} else {
-	    $_ilch = array('tag' => '', 'mail' => '', 'icq' => '', 'wo' => '', 'pkey' => 0, 'wlp' => '', 'opp' => '', 'owp' => '', 'gegner' => '', 'page' => 'http://', 'mtyp' => '', 'tid' => 0, 'land' => '', 'txt' => '', 'mod' => '', 'game' => '', 'day' => date('d'), 'mon' => date('m'), 'jahr' => date('Y'), 'stu' => date('H'), 'min' => date('i'), 'sek' => date('s'), 'kalck' => '');
+	    $_ilch = array('tag' => '', 'mail' => '', 'skype' => '', 'wo' => '', 'pkey' => 0, 'wlp' => '', 'opp' => '', 'owp' => '', 'gegner' => '', 'page' => 'http://', 'mtyp' => '', 'tid' => 0, 'land' => '', 'txt' => '', 'mod' => '', 'game' => '', 'day' => date('d'), 'mon' => date('m'), 'jahr' => date('Y'), 'stu' => date('H'), 'min' => date('i'), 'sek' => date('s'), 'kalck' => '');
 	    for ($i = 1; $i <= 5; $i++) {
 		$_ilch['map' . $i] = '';
 		$_ilch['opp' . $i] = '';
@@ -344,10 +344,10 @@ switch ($um) {
 	    $_POST['txt'] = escape($_POST['txt'], 'string');
 	    $_POST['tag'] = escape($_POST['tag'], 'string');
 	    $_POST['email'] = escape($_POST['email'], 'string');
-	    $_POST['icq'] = escape($_POST['icq'], 'string');
+	    $_POST['skype'] = escape($_POST['skype'], 'string');
 	    $_POST['wo'] = escape($_POST['wo'], 'string');
 	    if (empty($_POST['pkey'])) {
-		db_query("INSERT INTO prefix_wars (datime,`status`,gegner,tag,page,mail,icq,wo,tid,`mod`,game,mtyp,land,txt) VALUES ('" . get_datime() . "',2,'" . $_POST['gegner'] . "','" . $_POST['tag'] . "','" . $_POST['page'] . "','" . $_POST['email'] . "','" . $_POST['icq'] . "','" . $_POST['wo'] . "','" . $_POST['tid'] . "','" . $_POST['mod'] . "','" . $_POST['game'] . "','" . $_POST['mtyp'] . "','" . $_POST['land'] . "','" . $_POST['txt'] . "')");
+		db_query("INSERT INTO prefix_wars (datime,`status`,gegner,tag,page,mail,skype,wo,tid,`mod`,game,mtyp,land,txt) VALUES ('" . get_datime() . "',2,'" . $_POST['gegner'] . "','" . $_POST['tag'] . "','" . $_POST['page'] . "','" . $_POST['email'] . "','" . $_POST['skype'] . "','" . $_POST['wo'] . "','" . $_POST['tid'] . "','" . $_POST['mod'] . "','" . $_POST['game'] . "','" . $_POST['mtyp'] . "','" . $_POST['land'] . "','" . $_POST['txt'] . "')");
 		$wid = db_last_id();
 		// in den kalender eintragen wenn gewuenscht
 		if (isset($_POST['kalender']) AND $_POST['kalender'] == 'yes') {
@@ -357,7 +357,7 @@ switch ($um) {
 		}
 		$msg = '<div class="alert alert-success" role="alert">Erfolgreich eingetragen</div>';
 	    } else {
-		db_query("UPDATE prefix_wars SET datime = '" . get_datime() . "', status = 2,gegner = '" . $_POST['gegner'] . "',tag = '" . $_POST['tag'] . "',page = '" . $_POST['page'] . "',mail = '" . $_POST['email'] . "',icq = '" . $_POST['icq'] . "',wo = '" . $_POST['wo'] . "',tid = '" . $_POST['tid'] . "',`mod` = '" . $_POST['mod'] . "',game = '" . $_POST['game'] . "',mtyp = '" . $_POST['mtyp'] . "',land = '" . $_POST['land'] . "',txt = '" . $_POST['txt'] . "' WHERE id = '" . $_POST['pkey'] . "'");
+		db_query("UPDATE prefix_wars SET datime = '" . get_datime() . "', status = 2,gegner = '" . $_POST['gegner'] . "',tag = '" . $_POST['tag'] . "',page = '" . $_POST['page'] . "',mail = '" . $_POST['email'] . "',skype = '" . $_POST['skype'] . "',wo = '" . $_POST['wo'] . "',tid = '" . $_POST['tid'] . "',`mod` = '" . $_POST['mod'] . "',game = '" . $_POST['game'] . "',mtyp = '" . $_POST['mtyp'] . "',land = '" . $_POST['land'] . "',txt = '" . $_POST['txt'] . "' WHERE id = '" . $_POST['pkey'] . "'");
 		$wid = $_POST['pkey'];
 		// in den kalender eintragen wenn gewuenscht
 		if (isset($_POST['kalender']) AND $_POST['kalender'] == 'yes') {
@@ -373,13 +373,13 @@ switch ($um) {
 	    }
 	}
 	if (!empty($_GET['pkey'])) {
-	    $erg = db_query("SELECT DATE_FORMAT(datime,'%d.%m.%Y.%H.%i.%s') as datime, id,status,gegner,tag,page,mail,icq,wo,tid,`mod`,game,mtyp,land,txt FROM prefix_wars WHERE id = '" . $_GET['pkey'] . "'");
+	    $erg = db_query("SELECT DATE_FORMAT(datime,'%d.%m.%Y.%H.%i.%s') as datime, id,status,gegner,tag,page,mail,skype,wo,tid,`mod`,game,mtyp,land,txt FROM prefix_wars WHERE id = '" . $_GET['pkey'] . "'");
 	    $_ilch = db_fetch_assoc($erg);
 	    list($_ilch['day'], $_ilch['mon'], $_ilch['jahr'], $_ilch['stu'], $_ilch['min'], $_ilch['sek']) = explode('.', $_ilch['datime']);
 	    $_ilch['kalck'] = (db_result(db_query("SELECT COUNT(*) FROM prefix_kalender WHERE text like '%more-" . $_GET['pkey'] . "]%'"), 0, 0) == 1 ? ' checked' : '');
 	    $_ilch['pkey'] = $_GET['pkey'];
 	} else {
-	    $_ilch = array('tag' => '', 'mail' => '', 'icq' => '', 'wo' => '', 'pkey' => '', 'wlp' => '', 'erg1' => '', 'erg2' => '', 'gegner' => '', 'page' => 'http://', 'mtyp' => '', 'tid' => 0, 'land' => '', 'txt' => '', 'mod' => '', 'game' => '', 'day' => date('d'), 'mon' => date('m'), 'jahr' => date('Y'), 'stu' => date('H'), 'min' => date('i'), 'sek' => date('s'), 'kalck' => '');
+	    $_ilch = array('tag' => '', 'mail' => '', 'skype' => '', 'wo' => '', 'pkey' => '', 'wlp' => '', 'erg1' => '', 'erg2' => '', 'gegner' => '', 'page' => 'http://', 'mtyp' => '', 'tid' => 0, 'land' => '', 'txt' => '', 'mod' => '', 'game' => '', 'day' => date('d'), 'mon' => date('m'), 'jahr' => date('Y'), 'stu' => date('H'), 'min' => date('i'), 'sek' => date('s'), 'kalck' => '');
 	}
 	$_ilch['msg'] = ( isset($msg) ? $msg : '' );
 	$_ilch['tid'] = dblistee($_ilch['tid'], "SELECT id, name FROM prefix_groups ORDER BY name");
@@ -423,7 +423,7 @@ switch ($um) {
     case 'info' :
 	$design = new design('Admins Area', 'Admins Area', 2);
 	$design->header();
-	$erg = db_query("SELECT DATE_FORMAT(datime,'%d.%m.%Y.%H.%i.%s') as datime, id,status,gegner,tag,page,mail,icq,wo,tid,`mod`,game,mtyp,land,txt FROM prefix_wars WHERE id = '" . intval($menu->get(2)) . "'");
+	$erg = db_query("SELECT DATE_FORMAT(datime,'%d.%m.%Y.%H.%i.%s') as datime, id,status,gegner,tag,page,mail,skype,wo,tid,`mod`,game,mtyp,land,txt FROM prefix_wars WHERE id = '" . intval($menu->get(2)) . "'");
 	$_ilch = db_fetch_assoc($erg);
 	list($_ilch['day'], $_ilch['mon'], $_ilch['jahr'], $_ilch['stu'], $_ilch['min'], $_ilch['sek']) = explode('.', $_ilch['datime']);
 	$tpl = new tpl('wars/info', 1);

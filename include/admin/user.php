@@ -201,7 +201,7 @@ switch ($um) {
 	} else {
 	    $uid = $menu->get(2);
 	}
-	$erg = db_query("SELECT name,email,id,recht,wohnort,homepage,aim,msn,icq,yahoo,status,staat,gebdatum,sig,opt_pm,opt_pm_popup,opt_mail,geschlecht,spezrank,avatar FROM prefix_user WHERE id = '" . $uid . "'");
+	$erg = db_query("SELECT name,email,id,recht,wohnort,homepage,skype,steam,battlenet,status,staat,gebdatum,sig,opt_pm,opt_pm_popup,opt_mail,geschlecht,spezrank,avatar FROM prefix_user WHERE id = '" . $uid . "'");
 	if (db_num_rows($erg) == 0) {
 	    die('<div class="alert alert-warning" role="alert">Fehler: Username nicht gefunden<br><br><a class="btn btn-default" href="?user">zur&uuml;ck</a></div>');
 	} else {
@@ -317,10 +317,9 @@ switch ($um) {
 		$email = escape($_POST['email'], 'string');
 		$homepage = escape($_POST['homepage'], 'string');
 		$wohnort = escape($_POST['wohnort'], 'string');
-		$icq = escape($_POST['icq'], 'string');
-		$msn = escape($_POST['msn'], 'string');
-		$yahoo = escape($_POST['yahoo'], 'string');
-		$aim = escape($_POST['aim'], 'string');
+		$skype = escape($_POST['skype'], 'string');
+		$stam = escape($_POST['steam'], 'string');
+		$battlenet = escape($_POST['battlenet'], 'string');
 		$staat = escape($_POST['staat'], 'string');
 		$spezrank = escape($_POST['spezrank'], 'integer');
 		$geschlecht = escape($_POST['geschlecht'], 'integer');
@@ -345,10 +344,9 @@ switch ($um) {
 					email = "' . $email . '",
           homepage = "' . $homepage . '",
           wohnort = "' . $wohnort . '",
-          icq = "' . $icq . '",
-          msn = "' . $msn . '",
-          yahoo = "' . $yahoo . '",
-          aim = "' . $aim . '",
+          skype = "' . $skype . '",
+          steam = "' . $steam . '",
+          battlenet = "' . $battlenet . '",
           staat = "' . $staat . '",
           spezrank = "' . $spezrank . '",
           geschlecht = "' . $geschlecht . '",

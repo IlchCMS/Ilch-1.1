@@ -490,22 +490,21 @@ CREATE TABLE `prefix_profilefields` (
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM COMMENT='powered by ilch.de';
 
-INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (1, 'msn', 12, 3);
+INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (1, 'skype', 11, 3);
 INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (2, 'opt_pm', 9, 3);
 INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (3, 'opt_mail', 8, 3);
-INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (4, 'yahoo', 13, 3);
+INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (4, 'steam', 12, 3);
 INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (5, 'sig', 6, 3);
 INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (6, 'wohnort', 4, 3);
-INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (7, 'icq', 11, 3);
+INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (7, 'battlenet', 13, 3);
 INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (8, 'gebdatum', 1, 3);
 INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (9, 'geschlecht', 2, 3);
 INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (10, 'staat', 0, 3);
 INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (11, 'status', 3, 3);
 INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (12, 'Kontakt', 7, 2);
-INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (13, 'aim', 14, 3);
-INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (14, 'homepage', 5, 3);
-INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (15, 'opt_pm_popup', 10, 3);
-INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (16, 'usergallery', 15, 3);
+INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (13, 'homepage', 5, 3);
+INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (14, 'opt_pm_popup', 10, 3);
+INSERT INTO `prefix_profilefields` (`id`,`show`,`pos`,`func`) VALUES (15, 'usergallery', 14, 3);
 
 CREATE TABLE `prefix_ranks` (
   `id` mediumint(8) unsigned NOT NULL auto_increment,
