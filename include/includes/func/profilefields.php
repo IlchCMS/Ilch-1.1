@@ -35,7 +35,7 @@ function profilefields_change_save ($uid) {
 
   $q = db_query("SELECT id, `show`, val FROM prefix_profilefields LEFT JOIN prefix_userfields ON prefix_userfields.fid = prefix_profilefields.id AND prefix_userfields.uid = ".$uid." WHERE func = 1 ORDER BY pos");
   while ( $r = db_fetch_assoc($q)) {
-    if ( isset($_REQUEST['profilefields'][$r['id']]) ) { $v = $_REQUEST['profilefields'][$r['id']]; } else { $v = ''; }
+    if ( isset($_REQUEST['profilefields'][$r['id']]) ) { $v = escape($_REQUEST['profilefields'][$r['id']], 'string'); } else { $v = ''; }
     if ( $r['val'] == '' AND $v != '' ) {
       db_query("INSERT INTO prefix_userfields (fid,uid,val) VALUES (".$r['id'].",".$uid.",'".$v."')");
     } elseif ( $r['val'] != '' AND $v == '' ) {
