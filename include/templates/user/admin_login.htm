@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+        <meta name="Copyright" content="Script Copyright by ilch.de">
+        <meta name="Page-topic" content="ilchClan - Clanscript">
+        <meta name="Audience" content="Alle">
+        <meta name="Robots" content="INDEX,FOLLOW">
+        <meta http-equiv="cache-control" content="no-cache">
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta name="Robots" content="archive">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Ilch Admin-Center</title>
+        <link rel="shortcut icon" href="include/designs/ilchClan/img/favicon.png" type="image/png">        
+        <!-- Bootstrap-CSS -->
+        <link href="include/admin/templates/bootstrap/css/bootstrap.css" rel="stylesheet">        
+        <!-- Admin Login CSS -->
+        <link href="include/includes/css/admin_login.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <div id="loginbox" class="mainbox col-md-5 col-md-offset-3 col-sm-5 col-sm-offset-3">
+                <div class="panel panel-default" >
+                    <div class="panel-heading">
+                        <div class="panel-title text-center">Admin-Center Login</div>
+                    </div>
+
+                    <div class="panel-body" >
+                        <form action="index.php?user-login" id="form" class="form-horizontal" method="POST">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input id="user" type="text" class="form-control" name="name" value="" placeholder="{_lang_nickname}">                                        
+                            </div>
+
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                <input id="password" type="password" class="form-control" name="pass" placeholder="{_lang_password}">
+                            </div>
+
+                            <div class="form-group">
+                                <!-- Button -->
+                                <div class="col-sm-12 controls">
+                                    <input type="hidden" name="wdlink" value="{WDLINK}" />
+                                    <button type="submit" name="user_login_sub" class="btn btn-primary pull-right"><i class="glyphicon glyphicon-log-in"></i> {_lang_login}</button>                          
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <a href="index.php?user-remind">{_lang_forgottenpassword}?</a> - <a href="index.php">Startseite</a>
+                </div>
+                {EXPLODE}
+                {_lang_yourareloged}!
+                {EXPLODE}
+                {_lang_login3failure}
+            </div>
+        </div>
+    </body>
+</html>
