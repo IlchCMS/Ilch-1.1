@@ -276,7 +276,7 @@ function user_has_admin_right($menu, $sl = true) {
         if (count($_SESSION['adminaccess']) < 1 OR !loggedin()) {
             if ($sl === true) {
                 if (!loggedin()) {
-                    $tpl = new tpl('user/admin_login.htm');
+                    $tpl = new tpl('user/login.htm');
                     $tpl->set_out('WDLINK', 'admin.php', 0);
                 } else {
                     echo '<strong>Keine Berechtigung!</strong> <a href="index.php">Startseite</a>';
