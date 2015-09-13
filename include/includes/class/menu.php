@@ -122,7 +122,7 @@ class menu {
       $design = new design ( $title , $hmenu );
       $design->header();
       if (loggedin()) {
-        echo 'Du hast leider nicht die n&ouml;tigen Rechte... :-S';
+        echo ' <div class="text-center"><span class="ilch_hinweis_gelb">Du hast leider nicht die n&ouml;tigen Rechte !</span></div>';
       } else {
 			  $tpl = new tpl ( 'user/login' );
 			  $tpl->set_out('WDLINK','index.php',0);

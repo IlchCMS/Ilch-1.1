@@ -72,9 +72,9 @@ while ($r = db_fetch_assoc($erg)) {
   $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite' );
   $r['class'] = $class;
   if (has_right(-8, 'kasse')) {
-    $r['verwendung'] .= '<span style="float: right;">
-    <a href="admin.php?kasse-'.$r['id'].'"><img src="include/images/icons/edit.gif" border="0" title="'.$lang['change'].'" alt="'.$lang['change'].'" /></a>
-    <a href="index.php?kasse-d'.$r['id'].'"><img src="include/images/icons/del.gif" border="0" title="'.$lang['delete'].'" alt="'.$lang['delete'].'" /></a>
+    $r['verwendung'] .= '<span class="ilch_float_r">
+    <a class="ilch_edit_icon" href="admin.php?kasse-'.$r['id'].'" title="'.$lang['change'].'"><i class="fa fa-pencil-square-o"></i></a>
+    <a class="ilch_closed_icon" href="index.php?kasse-d'.$r['id'].'" title="'.$lang['delete'].'"><i class="fa fa-times"></i></a>
     </span>';
   }
   $tpl->set_ar_out($r, 1);

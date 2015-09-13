@@ -97,10 +97,10 @@ if ( !empty ($fid) ) {
     );
 
     if ($forum_rights['view'] == false) {
-      $forum_failure[] = $lang['forumidnotfound'];
+      $forum_failure[] = '<div class="text-center"><span class="ilch_hinweis_rot">'.$lang['forumidnotfound'].'</span></div>';
     }
 	} else {
-		$forum_failure[] = $lang['forumidnotfound'];
+		$forum_failure[] = '<div class="text-center"><span class="ilch_hinweis_rot">'.$lang['forumidnotfound'].'</span></div>';
 	}
 }
 

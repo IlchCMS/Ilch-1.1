@@ -66,9 +66,9 @@ if($menu->get(1) == "phpinfo"){
         $tpl->set("class", $class);
         $tpl->set("opt", $f);
         if ( @is_writeable ( $f ) ) {
-            $val = $lang['correct'];
+            $val = '<span class="label label-success">'.$lang['correct'].'</span>';
         } else {
-            $val = '<span style="background-color: #f00;">'.$lang['incorrect'].'</span>';
+            $val = '<span class="label label-danger">'.$lang['incorrect'].'</span>';
         }
         $tpl->set("val", $val);
         $tpl->out(3);

@@ -1,20 +1,36 @@
-<div style="float:right"><a href="admin.php?user">Zur&uuml;ck zur Benutzerverwaltung</a></div>
-Benutzer, die ihre Registrierung oder &Auml;nderungen noch nicht best&auml;tigt haben:
-<table cellpadding="3" cellspacing="1" border="0" class="border">
-<tr class="Chead">
-  <td></td><td></td><td></td><td>Username</td><td>Email</td><td>Zeit</td><td>Art</td><td>Aktivierungslink</td>
-</tr>
+<a class="btn btn-primary btn-sm" href="admin.php?user">zur Benutzerverwaltung</a><br><br>
+<div class="panel panel-default">
+    <div class="panel-heading">Benutzer, die ihre Registrierung oder &Auml;nderungen noch nicht best&auml;tigt haben</div>
+    <div class="panel-body">
+        <table class="table table-bordered table-hover">
+            <tr class="success">
+                <td class="hidden-xs"></td>
+                <td class="text-center"><b>Name</b></td>
+                <td class="text-center"><b>Info</b></td>
+                <td class="text-right"><b>Option</b></td>
+            </tr>
+            {EXPLODE}
+            <tr>
+                <td class="hidden-xs"><span class="badge">{c}</span></td>
+                <td class="text-center">{name}</td>
+                <td class="text-center">
+                    <a tabindex="0" style="margin-bottom:2px;" class="btn btn-default  bs-docs-popover" role="button" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="<a href='mailto:{email}'>{email}</a>">E-Mail</a>
+                    <a tabindex="0" style="margin-bottom:2px;" class="btn btn-info  bs-docs-popover" role="button" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="<i class='fa fa-clock-o'></i> {time}">Zeit</a>
+                    <a tabindex="0"  style="margin-bottom:2px;" class="btn btn-warning  bs-docs-popover" role="button" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="{aktion}">Grund</a>
+                    <a tabindex="0" style="margin-bottom:2px;" class="btn btn-success  bs-docs-popover" role="button" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="index.php?user-confirm&check= {check}">Aktiv. Link</a>
+                </td>
+                <td class="text-right"><a style="margin-right:3px;" title="&uuml;bernehmen"  href="admin.php?puser-confirm&check={check}"><span style="color:#2D9600;" class="glyphicon glyphicon-ok" aria-hidden="true"></span></a>
+                    <a title="l&ouml;schen" href="admin.php?puser-del&check={check}"><span style="color:#AD0000;" class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+            </tr>
+            <script>
+                $("[data-toggle=popover]")
+                        .popover({html: true})
+            </script>
+            {EXPLODE}
+        </table>
+    </div>
+</div>
 {EXPLODE}
-<tr class="{class}">
-  <td align="right">{c}</td>
-  <td><a href="admin.php?puser-confirm&check={check}"><img src="include/images/icons/ok.gif" border="0" title="&uuml;bernehmen" alt="&uuml;bernehmen" /></a></td>
-  <td><a href="admin.php?puser-del&check={check}"><img src="include/images/icons/del.gif" border="0" title="l&ouml;schen" alt="l&ouml;schen" /></a></td>
-  <td>{name}</td><td><a href="mailto:{email}">{email}</a></td><td>{time}</td><td>{aktion}<td>index.php?user-confirm&check={check}</td>
-</tr>
-{EXPLODE}
-</table>
-
-{EXPLODE}
-<div style="background:#ff0000;text-align:center;padding:5px;border:#000 solid 1px;width:50%">
-Fehler:{error}
+<div class="alert alert-warning">
+    Fehler:{error}
 </div><br>

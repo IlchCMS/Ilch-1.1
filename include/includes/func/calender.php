@@ -29,10 +29,10 @@ function getCalendar($mon, $jahr, $url, $urlod, $data, $cellpadding=2) {
 
   # erstelle return string
   $return_str  = '';
-  $return_str .= '<table class="border" cellpadding="'.$cellpadding.'" cellspacing="1" border="0">';
+  $return_str .= '<table class="border ilch_kalender_box" cellpadding="'.$cellpadding.'" cellspacing="1" border="0">';
   $return_str .= '<tr class="Chead">';
   $return_str .= '<th><a href="'.str_replace('{mon}',$last_mon, str_replace('{jahr}',$last_jahr, $urlod)).'"><b>&lt;</b></a></th>';
-  $return_str .= '<th colspan="5" align="center">'.$mon.'. '.$jahr.'</th>';
+  $return_str .= '<th colspan="5" class="text-center">'.$mon.'. '.$jahr.'</th>';
   $return_str .= '<th><a href="'.str_replace('{mon}',$next_mon, str_replace('{jahr}',$next_jahr, $urlod)).'"><b>&gt;</b></a></th>';
   $return_str .= '</tr><tr class="Cdark">';
   $return_str .= '<td>Mo</td><td>Di</td><td>Mi</td><td>Do</td><td>Fr</td><td>Sa</td><td>So</td>';
@@ -44,7 +44,7 @@ function getCalendar($mon, $jahr, $url, $urlod, $data, $cellpadding=2) {
     if ($i == $ak_tag AND $mon == $ak_mon AND $jahr == $ak_jahr) { $class = 'Cmite'; } else { $class = 'Cnorm'; }
     $surl = str_replace('{mon}', $mon, str_replace('{tag}',$i, str_replace('{jahr}',$jahr, $url)));
     if (isset($data[mktime (0,0,0,$mon,$i,$jahr)])) { $out_i = '<b>'.$i.'</b>'; } else { $out_i = $i; }
-    $return_str .= '<td class="'.$class.'" align="center"><a href="'.$surl.'">'.$out_i.'</a></td>';
+    $return_str .= '<td class="'.$class.' text-center"><a href="'.$surl.'">'.$out_i.'</a></td>';
   }
 
   $return_str .= str_repeat ('<td class="Cnorm">&nbsp;</td>', (7-(($i+$fw-1) % 7)) % 7 );

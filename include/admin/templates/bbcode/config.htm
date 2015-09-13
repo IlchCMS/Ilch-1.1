@@ -1,0 +1,152 @@
+<legend><h2>BBCode 2.0  <small>Konfiguration</small></h2></legend>
+<form action="admin.php?bbcode-config" method="POST" name="form" class="form-horizontal" role="form">
+    {Message}
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <legend>YouTube / Gametrailers</legend>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Breite in Pixel</label>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" name="BBCode_YoutubeBreite" value="{BBCode_YoutubeBreite}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">H&ouml;he in Pixel</label>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" name="BBCode_YoutubeHoehe" value="{BBCode_YoutubeHoehe}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Hintergrundfarbe</label>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" name="BBCode_YoutubeHintergrundfarbe" value="{BBCode_YoutubeHintergrundfarbe}">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <legend>Videos <em>Google</em></legend>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Breite in Pixel</label>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" name="BBCode_GoogleBreite" value="{BBCode_GoogleBreite}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">H&ouml;he in Pixel</label>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" name="BBCode_GoogleHoehe" value="{BBCode_GoogleHoehe}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Hintergrundfarbe</label>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" name="BBCode_GoogleHintergrundfarbe" value="{BBCode_GoogleHintergrundfarbe}">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <legend>Videos <em>MyVideo</em></legend>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Breite in Pixel</label>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" name="BBCode_MyvideoBreite" value="{BBCode_MyvideoBreite}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">H&ouml;he in Pixel</label>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" name="BBCode_MyvideoHoehe" value="{BBCode_MyvideoHoehe}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Hintergrundfarbe</label>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" name="BBCode_MyvideoHintergrundfarbe" value="{BBCode_MyvideoHintergrundfarbe}">
+                </div>
+            </div>
+        </div></div>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <legend>Flash</legend>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Breite in Pixel</label>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" name="BBCode_FlashBreite" value="{BBCode_FlashBreite}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">H&ouml;he in Pixel</label>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" name="BBCode_FlashHoehe" value="{BBCode_FlashHoehe}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Hintergrundfarbe</label>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" name="BBCode_FlashHintergrundfarbe" value="{BBCode_FlashHintergrundfarbe}">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <legend>Zeichenkette</legend>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">max. Schriftgr&ouml;&szlig;e</label>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" name="BBCode_SizeMax" value="{BBCode_SizeMax}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">max. URL L&auml;nge</label>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" name="BBCode_UrlMaxLaenge" value="{BBCode_UrlMaxLaenge}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">max. Wortl&auml;nge</label>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" name="BBCode_WortMaxLaenge" value="{BBCode_WortMaxLaenge}">
+                    <span class="help-block"><p class="text-danger"><strong>Achtung:</strong> Maximale Wortl&auml;nge muss gr&ouml;&szlig;er sein wie Maximale URL L&auml;nge!</p></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <legend>Grafik</legend>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">max. [img] Breite</label>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" name="BBCode_ImgMaxBreite" value="{BBCode_ImgMaxBreite}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">max. [img] H&ouml;he</label>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" name="BBCode_ImgMaxHoehe" value="{BBCode_ImgMaxHoehe}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">max. [screenshot] Breite</label>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" name="BBCode_ScreenMaxBreite" value="{BBCode_ScreenMaxBreite}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">max. [screenshot] H&ouml;he</label>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" name="BBCode_ScreenMaxHoehe" value="{BBCode_ScreenMaxHoehe}">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row text-center">
+        <input class="btn btn-primary"  type="submit" value="Konfiguration Speichern" name="BB_SubmitConfig"><br><br>
+    </div>
+</form>

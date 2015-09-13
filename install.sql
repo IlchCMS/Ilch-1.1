@@ -12,7 +12,7 @@ CREATE TABLE `prefix_allg` (
 ) ENGINE=MyISAM COMMENT='powered by ilch.de';
 
 INSERT INTO `prefix_allg` (`id`,`k`,`v1`,`v2`,`v3`,`v4`,`v5`,`v6`,`t1`) VALUES (1, 'kontakt', '', '1', '1', '', '', '', '#webmaster@test.de|Allgemein');
-INSERT INTO `prefix_allg` (`id`,`k`,`v1`,`v2`,`v3`,`v4`,`v5`,`v6`,`t1`) VALUES (2, 'impressum', 'Verantwortlich für diese Seite:', 'Max Mustermann', 'Muster Str. 43', '12345 Musterhausen', '', '', '');
+INSERT INTO `prefix_allg` (`id`,`k`,`v1`,`v2`,`v3`,`v4`,`v5`,`v6`,`t1`) VALUES (2, 'impressum', 'Verantwortlich für diese Seite:', 'Max Mustermann', 'Muster Str. 43', '12345 Musterhausen', 'meine@email.de', '', '');
 INSERT INTO `prefix_allg` (`id`,`k`,`v1`,`v2`,`v3`,`v4`,`v5`,`v6`,`t1`) VALUES (3, 'kasse_kontodaten', '', '', '', '', '', '', 'Kontoinhaber: Max Mustermann\r\nBankname: Muster Sparkasse\r\nKontonummer: 123\r\nBankleitzahl: 123\r\nBIC: 123\r\nIBAN: 123\r\nVerwendungszweck: Spende für ilch.de ;-)');
 INSERT INTO `prefix_allg` (`id`,`k`,`v1`,`v2`,`v3`,`v4`,`v5`,`v6`,`t1`) VALUES (4, 'picofx', 'pic', '0', '', '', '', '', '');
 INSERT INTO `prefix_allg` (`id`,`k`,`v1`,`v2`,`v3`,`v4`,`v5`,`v6`,`t1`) VALUES (5, 'picofx', 'directory', '0', '', '', '', '', '');
@@ -21,6 +21,7 @@ INSERT INTO `prefix_allg` (`id`,`k`,`v1`,`v2`,`v3`,`v4`,`v5`,`v6`,`t1`) VALUES (
 INSERT INTO `prefix_allg` (`id`,`k`,`v1`,`v2`,`v3`,`v4`,`v5`,`v6`,`t1`) VALUES (8, 'picofx', 'picwidth', '100', '', '', '', '', '');
 INSERT INTO `prefix_allg` (`id`,`k`,`v1`,`v2`,`v3`,`v4`,`v5`,`v6`,`t1`) VALUES (9, 'trainzeiten', '', '', '', '', '', '', 'Kein Train#Kein Train#Kein Train#Kein Train#Kein Train#Kein Train#Kein Train');
 INSERT INTO `prefix_allg` (`id`,`k`,`v1`,`v2`,`v3`,`v4`,`v5`,`v6`,`t1`) VALUES (10, 'smtpconf', '', '', '', '', '', '', '');
+INSERT INTO `prefix_allg` ( `k` , `v1`, `v2`, `v3`, `v4`, `v5`, `v6`, `t1` ) VALUES ( 'news', '0', '1', '1', 'Allgemein', '', '', '');
 
 CREATE TABLE `prefix_awards` (
   `id` int(10) unsigned NOT NULL auto_increment,
@@ -357,6 +358,19 @@ INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUE
 INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (3, 6, 1, 0, 0, 'Geburtstag', 'geburtstag.php');
 INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (2, 6, 1, 0, 0, 'Online', 'online.php');
 INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (1, 18, 7, 0, -3, 'Away', 'awaycal');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (4, 0, 2, 0, 0, 'TopMenu', 'allianz.php');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (4, 1, 7, 0, 0, 'News', 'news');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (4, 2, 7, 0, 0, 'Forum', 'Forum');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (4, 3, 7, 0, 0, 'Mitglieder', 'user');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (4, 4, 7, 0, 0, 'Downloads', 'downloads');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (5, 0, 2, 0, 0, 'FooterMenu', 'allianz.php');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (5, 1, 7, 0, 0, 'Impressum', 'impressum');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (5, 2, 7, 0, 0, 'Kontakt', 'contact');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (5, 3, 7, 0, 0, 'Sitemap', 'sitemap');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (5, 4, 7, 0, 0, 'Statistik', 'statistik');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (5, 5, 9, 0, 0, 'News Archiv', 'news-archiv');
+INSERT INTO `prefix_menu` (`wo`,`pos`,`was`,`ebene`,`recht`,`name`,`path`) VALUES (5, 6, 7, 0, 0, 'Datenschutzerklärung', 'datenschutz');
+
 
 CREATE TABLE `prefix_modulerights` (
   `uid` mediumint(9) NOT NULL default '0',
@@ -386,17 +400,26 @@ INSERT INTO `prefix_modules` (`id`,`url`,`name`,`gshow`,`ashow`,`fright`) VALUES
 INSERT INTO `prefix_modules` (`id`,`url`,`name`,`gshow`,`ashow`,`fright`) VALUES (10, 'kasse', 'Kasse', 1, 0, 1);
 INSERT INTO `prefix_modules` (`id`,`url`,`name`,`gshow`,`ashow`,`fright`) VALUES (11, 'gbook', 'Gbook', 1, 0, 1);
 INSERT INTO `prefix_modules` (`id`,`url`,`name`,`gshow`,`ashow`,`fright`) VALUES (12, 'awaycal', 'Awaycal', 0, 0, 1);
+INSERT INTO `prefix_modules` (`id` ,`url` ,`name` ,`gshow` ,`ashow` ,`fright`) VALUES (NULL , 'bbcode', 'BBCode 2.0', '1', '1', '0');
 
 CREATE TABLE `prefix_news` (
-  `news_id` int(10) unsigned NOT NULL auto_increment,
-  `news_title` varchar(100) NOT NULL default '',
-  `user_id` int(11) NOT NULL default '0',
-  `news_time` datetime NOT NULL default '0000-00-00 00:00:00',
-  `news_recht` int(11) NOT NULL default '0',
-  `news_kat` varchar(100) NOT NULL default '',
+`news_id` int(10) unsigned NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `news_title` varchar(100) NOT NULL DEFAULT '',
+  `user_id` int(11) NOT NULL DEFAULT '0',
+  `news_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `editor_id` int(11) DEFAULT NULL,
+  `edit_time` datetime DEFAULT NULL,
+  `news_recht` int(11) NOT NULL DEFAULT '0',
+  `news_groups` int(11) NOT NULL DEFAULT '0',
+  `news_kat` varchar(100) NOT NULL DEFAULT '',
   `news_text` text,
-  PRIMARY KEY  (`news_id`)
+  `html` tinyint(1) NOT NULL,
+  `show` int(12) NOT NULL default '0',
+  `archiv` tinyint(1) NOT NULL DEFAULT '0',
+  `endtime` int(12) DEFAULT NULL,
+  `klicks` mediumint(9) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM COMMENT='powered by ilch.de';
+
 
 CREATE TABLE `prefix_newsletter` (
   `email` varchar(100) NOT NULL default ''
@@ -537,7 +560,7 @@ INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (5, ';)', 'Zwinker'
 INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (6, ':(', 'Traurig', '6.gif');
 INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (7, ':S', 'Grummel', '7.gif');
 INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (8, ':|', 'Sauer', '8.gif');
-INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (9, ':\'(', 'Weinen', '9.gif');
+INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (9, ':\(', 'Weinen', '9.gif');
 INSERT INTO `prefix_smilies` (`id`,`ent`,`emo`,`url`) VALUES (10, ':@', 'Veraergert', '10.gif');
 
 
@@ -664,3 +687,128 @@ CREATE TABLE `prefix_wars` (
   `txt` text,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM COMMENT='powered by ilch.de';
+
+
+CREATE TABLE `prefix_bbcode_badword` (
+    `fnBadwordNr` int(10) unsigned NOT NULL auto_increment,
+    `fcBadPatter` varchar(70) NOT NULL default '',
+    `fcBadReplace` varchar(70) NOT NULL default '',
+    PRIMARY KEY  (`fnBadwordNr`)) ENGINE=MyISAM COMMENT='powered by ilch.de';
+
+INSERT INTO `prefix_bbcode_badword` (`fcBadPatter`,`fcBadReplace`) VALUES ('Idiot', '*peep*');
+INSERT INTO `prefix_bbcode_badword` (`fcBadPatter`,`fcBadReplace`) VALUES ('Arschloch', '*peep*');
+
+CREATE TABLE `prefix_bbcode_buttons` (
+    `fnButtonNr` int(10) unsigned NOT NULL auto_increment,
+    `fnFormatB` tinyint(1) unsigned NOT NULL default '1',
+    `fnFormatI` tinyint(1) unsigned NOT NULL default '0',
+    `fnFormatU` tinyint(1) unsigned NOT NULL default '0',
+    `fnFormatS` tinyint(1) unsigned NOT NULL default '0',
+    `fnFormatEmph` tinyint(1) unsigned NOT NULL default '0',
+    `fnFormatColor` tinyint(1) unsigned NOT NULL default '0',
+    `fnFormatSize` tinyint(1) unsigned NOT NULL default '0',
+    `fnFormatUrl` tinyint(1) unsigned NOT NULL default '0',
+    `fnFormatUrlAuto` tinyint(1) unsigned NOT NULL default '0',
+    `fnFormatEmail` tinyint(1) unsigned NOT NULL default '0',
+    `fnFormatLeft` tinyint(1) unsigned NOT NULL default '0',
+    `fnFormatCenter` tinyint(1) unsigned NOT NULL default '0',
+    `fnFormatRight` tinyint(1) unsigned NOT NULL default '0',
+    `fnFormatBlock` tinyint(1) unsigned NOT NULL default '0',
+    `fnFormatSmilies` tinyint(1) unsigned NOT NULL default '0',
+    `fnFormatList` tinyint(1) unsigned NOT NULL default '0',
+    `fnFormatKtext` tinyint(1) unsigned NOT NULL default '0',
+    `fnFormatImg` tinyint(1) unsigned NOT NULL default '0',
+    `fnFormatImgUpl` tinyint(1) unsigned NOT NULL default '0',
+    `fnFormatScreen` tinyint(1) unsigned NOT NULL default '0',
+    `fnFormatVideo` tinyint(1) unsigned NOT NULL default '0',
+    `fnFormatPhp` tinyint(1) unsigned NOT NULL default '0',
+    `fnFormatCss` tinyint(1) unsigned NOT NULL default '0',
+    `fnFormatHtml` tinyint(1) unsigned NOT NULL default '0',
+    `fnFormatCode` tinyint(1) unsigned NOT NULL default '0',
+    `fnFormatQuote` tinyint(1) unsigned NOT NULL default '0',
+    `fnFormatCountdown` tinyint(1) unsigned NOT NULL default '0',
+    `fnFormatFlash` tinyint(1) unsigned NOT NULL default '0',
+    PRIMARY KEY  (`fnButtonNr`)
+    ) ENGINE=MyISAM COMMENT='powered by ilch.de';
+
+INSERT INTO `prefix_bbcode_buttons` (`fnButtonNr`, `fnFormatB`, `fnFormatI`, `fnFormatU`, `fnFormatS`, `fnFormatEmph`, `fnFormatColor`, `fnFormatSize`, `fnFormatUrl`, `fnFormatUrlAuto`, `fnFormatEmail`, `fnFormatLeft`, `fnFormatCenter`, `fnFormatRight`, `fnFormatBlock`, `fnFormatSmilies`, `fnFormatList`, `fnFormatKtext`, `fnFormatImg`, `fnFormatImgUpl`, `fnFormatScreen`, `fnFormatVideo`, `fnFormatPhp`, `fnFormatCss`, `fnFormatHtml`, `fnFormatCode`, `fnFormatQuote`, `fnFormatCountdown`) VALUES (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+
+CREATE TABLE `prefix_bbcode_config` (
+    `fnConfigNr` int(10) unsigned NOT NULL auto_increment,
+    `fnYoutubeBreite` smallint(3) unsigned NOT NULL default '0',
+    `fnYoutubeHoehe` smallint(3) unsigned NOT NULL default '0',
+    `fcYoutubeHintergrundfarbe` varchar(7) NOT NULL default '',
+    `fnGoogleBreite` smallint(3) unsigned NOT NULL default '0',
+    `fnGoogleHoehe` smallint(3) unsigned NOT NULL default '0',
+    `fcGoogleHintergrundfarbe` varchar(7) NOT NULL default '',
+    `fnMyvideoBreite` smallint(3) unsigned NOT NULL default '0',
+    `fnMyvideoHoehe` smallint(3) unsigned NOT NULL default '0',
+    `fcMyvideoHintergrundfarbe` varchar(7) NOT NULL default '',
+    `fnSizeMax` tinyint(2) unsigned NOT NULL default '0',
+    `fnImgMaxBreite` smallint(3) unsigned NOT NULL default '0',
+    `fnImgMaxHoehe` smallint(3) unsigned NOT NULL default '0',
+    `fnScreenMaxBreite` smallint(3) unsigned NOT NULL default '0',
+    `fnScreenMaxHoehe` smallint(3) unsigned NOT NULL default '0',
+    `fnUrlMaxLaenge` smallint(3) unsigned NOT NULL default '0',
+    `fnWortMaxLaenge` smallint(3) unsigned NOT NULL default '0',
+    `fnFlashBreite` smallint(3) unsigned NOT NULL default '0',
+    `fnFlashHoehe` smallint(3) unsigned NOT NULL default '0',
+    `fcFlashHintergrundfarbe` varchar(7) NOT NULL default '',
+    PRIMARY KEY  (`fnConfigNr`)
+    ) ENGINE=MyISAM COMMENT='powered by ilch.de';
+
+INSERT INTO `prefix_bbcode_config` (`fnConfigNr`, `fnYoutubeBreite`, `fnYoutubeHoehe`, `fcYoutubeHintergrundfarbe`, `fnGoogleBreite`, `fnGoogleHoehe`, `fcGoogleHintergrundfarbe`, `fnMyvideoBreite`, `fnMyvideoHoehe`, `fcMyvideoHintergrundfarbe`, `fnSizeMax`, `fnImgMaxBreite`, `fnImgMaxHoehe`, `fnScreenMaxBreite`, `fnScreenMaxHoehe`, `fnUrlMaxLaenge`, `fnWortMaxLaenge`, `fnFlashBreite`, `fnFlashHoehe`, `fcFlashHintergrundfarbe`) VALUES (1, 425, 350, '#000000', 400, 326, '#ffffff', 470, 406, '#ffffff', 20, 500, 500, 150, 150, 60, 70, 400, 300, '#ffffff');
+
+CREATE TABLE `prefix_bbcode_design` (
+    `fnDesignNr` int(10) unsigned NOT NULL auto_increment,
+    `fcQuoteRandFarbe` varchar(7) NOT NULL default '',
+    `fcQuoteTabelleBreite` varchar(7) NOT NULL default '',
+    `fcQuoteSchriftfarbe` varchar(7) NOT NULL default '',
+    `fcQuoteHintergrundfarbe` varchar(7) NOT NULL default '',
+    `fcQuoteHintergrundfarbeIT` varchar(7) NOT NULL default '',
+    `fcQuoteSchriftformatIT` varchar(6) NOT NULL default '',
+    `fcQuoteSchriftfarbeIT` varchar(7) NOT NULL default '',
+    `fcBlockRandFarbe` varchar(7) NOT NULL default '',
+    `fcBlockTabelleBreite` varchar(7) NOT NULL default '',
+    `fcBlockSchriftfarbe` varchar(7) NOT NULL default '',
+    `fcBlockHintergrundfarbe` varchar(7) NOT NULL default '',
+    `fcBlockHintergrundfarbeIT` varchar(7) NOT NULL default '',
+    `fcBlockSchriftfarbeIT` varchar(7) NOT NULL default '',
+    `fcKtextRandFarbe` varchar(7) NOT NULL default '',
+    `fcKtextTabelleBreite` varchar(7) NOT NULL default '',
+    `fcKtextRandFormat` varchar(6) NOT NULL default '',
+    `fcEmphHintergrundfarbe` varchar(7) NOT NULL default '',
+    `fcEmphSchriftfarbe` varchar(7) NOT NULL default '',
+    `fcCountdownRandFarbe` varchar(7) NOT NULL default '',
+    `fcCountdownTabelleBreite` varchar(7) NOT NULL default '',
+    `fcCountdownSchriftfarbe` varchar(7) NOT NULL default '',
+    `fcCountdownSchriftformat` varchar(7) NOT NULL default '',
+    `fnCountdownSchriftsize` smallint(2) unsigned NOT NULL default '0',
+    PRIMARY KEY  (`fnDesignNr`)
+    ) ENGINE=MyISAM COMMENT='powered by ilch.de';
+
+INSERT INTO `prefix_bbcode_design` (`fnDesignNr`, `fcQuoteRandFarbe`, `fcQuoteTabelleBreite`, `fcQuoteSchriftfarbe`, `fcQuoteHintergrundfarbe`, `fcQuoteHintergrundfarbeIT`, `fcQuoteSchriftformatIT`, `fcQuoteSchriftfarbeIT`, `fcBlockRandFarbe`, `fcBlockTabelleBreite`, `fcBlockSchriftfarbe`, `fcBlockHintergrundfarbe`, `fcBlockHintergrundfarbeIT`, `fcBlockSchriftfarbeIT`, `fcKtextRandFarbe`, `fcKtextTabelleBreite`, `fcKtextRandFormat`, `fcEmphHintergrundfarbe`, `fcEmphSchriftfarbe`, `fcCountdownRandFarbe`, `fcCountdownTabelleBreite`, `fcCountdownSchriftfarbe`, `fcCountdownSchriftformat`, `fnCountdownSchriftsize`) VALUES (1, '#f6e79d', '320', '#666666', '#f6e79d', '#faf7e8', 'italic', '#666666', '#f6e79d', '350', '#666666', '#f6e79d', '#faf7e8', '#FF0000', '#000000', '90%', 'dotted', '#ffd500', '#000000', '#FF0000', '90%', '#FF0000', 'bold', 10);
+
+CREATE TABLE IF NOT EXISTS `prefix_datenschutzerklaerung` (
+  `id` int(5) unsigned NOT NULL auto_increment,
+  `pos`  varchar(2) NOT NULL,
+  `titel`  varchar(300) NOT NULL,
+  `url` varchar(300) NOT NULL,
+  `urltitle` varchar(200) NOT NULL,
+  `txt`  text NOT NULL,
+  `einaus` varchar(1) NOT NULL,
+  PRIMARY KEY  (`id`)
+)ENGINE = MYISAM;
+ 
+INSERT INTO `prefix_datenschutzerklaerung` (`id`, `pos`, `titel`, `url`, `urltitle`, `txt`, `einaus`) VALUES (1, '0', 'Datenschutz', 'http://www.e-recht24.de/muster-datenschutzerklaerung.html', 'e-Recht24', '<p>Die Nutzung unserer Webseite ist in der Regel ohne Angabe personenbezogener Daten möglich. Soweit auf unseren Seiten personenbezogene Daten (beispielsweise Name, Anschrift oder E-Mail-Adressen) erhoben werden, erfolgt dies, soweit möglich, stets auf freiwilliger Basis. Diese Daten werden ohne Ihre ausdrückliche Zustimmung nicht an Dritte weitergegeben.</p><p>Wir weisen darauf hin, dass die Datenübertragung im Internet (z.B. bei der Kommunikation per E-Mail) Sicherheitslücken aufweisen kann. Ein lückenloser Schutz der Daten vor dem Zugriff durch Dritte ist nicht möglich.</p><p>Der Nutzung von im Rahmen der Impressumspflicht veröffentlichten Kontaktdaten durch Dritte zur Übersendung von nicht ausdrücklich angeforderter Werbung und Informationsmaterialien wird hiermit ausdrücklich widersprochen. Die Betreiber der Seiten behalten sich ausdrücklich rechtliche Schritte im Falle der unverlangten Zusendung von Werbeinformationen, etwa durch Spam-Mails, vor.</p>', '1');
+INSERT INTO `prefix_datenschutzerklaerung` (`id`, `pos`, `titel`, `url`, `urltitle`, `txt`, `einaus`) VALUES (2, '1', 'Datenschutzerklärung für die Nutzung von Facebook-Plugins (Like-Button)', 'http://www.e-recht24.de/artikel/datenschutz/6590-facebook-like-button-datenschutz-disclaimer.html', 'eRecht24 Facebook Datenschutzerklärung', '<p>Auf unseren Seiten sind Plugins des sozialen Netzwerks Facebook, 1601 South California Avenue, Palo Alto, CA 94304, USA integriert. Die Facebook-Plugins erkennen Sie an dem Facebook-Logo oder dem "Like-Button" ("Gefällt mir") auf unserer Seite. Eine Übersicht über die Facebook-Plugins finden Sie hier: <a href="http://developers.facebook.com/docs/plugins/" target="_blank">http://developers.facebook.com/docs/plugins/</a>.</p><p>Wenn Sie unsere Seiten besuchen, wird über das Plugin eine direkte Verbindung zwischen Ihrem Browser und dem Facebook-Server hergestellt. Facebook erhält dadurch die Information, dass Sie mit Ihrer IP-Adresse unsere Seite besucht haben. Wenn Sie den Facebook "Like-Button" anklicken während Sie in Ihrem Facebook-Account eingeloggt sind, können Sie die Inhalte unserer Seiten auf Ihrem Facebook-Profil verlinken. Dadurch kann Facebook den Besuch unserer Seiten Ihrem Benutzerkonto zuordnen.</p><p>Wir weisen darauf hin, dass wir als Anbieter der Seiten keine Kenntnis vom Inhalt der übermittelten Daten sowie deren Nutzung durch Facebook erhalten.<br />Weitere Informationen hierzu finden Sie in der Datenschutzerklärung von facebook unter <a href="http://de-de.facebook.com/policy.php" target="_blank">http://de-de.facebook.com/policy.php</a>.</p><p>Wenn Sie nicht wünschen, dass Facebook den Besuch unserer Seiten Ihrem Facebook-Nutzerkonto zuordnen kann, loggen Sie sich bitte aus Ihrem Facebook-Benutzerkonto aus.</p>', '1');
+INSERT INTO `prefix_datenschutzerklaerung` (`id`, `pos`, `titel`, `url`, `urltitle`, `txt`, `einaus`) VALUES (3, '2', 'Datenschutzerklärung für die Nutzung von Google +1', 'https://developers.google.com/+/web/buttons-policy', 'Datenschutzerklärung Google +1', '<h4>Erfassung und Weitergabe von Informationen:</h4><p>Mithilfe der Google +1-Schaltfläche können Sie Informationen weltweit veröffentlichen. über die Google +1-Schaltfläche erhalten Sie und andere Nutzer personalisierte Inhalte von Google und unseren Partnern. Google speichert sowohl die Information, dass Sie für einen Inhalt +1 gegeben haben, als auch Informationen über die Seite, die Sie beim Klicken auf +1 angesehen haben. Ihre +1 können als Hinweise zusammen mit Ihrem Profilnamen und Ihrem Foto in Google-Diensten, wie etwa in Suchergebnissen oder in Ihrem Google-Profil, oder an anderen Stellen auf Websites und Anzeigen im Internet eingeblendet werden.</p><p>Google zeichnet Informationen über Ihre +1-Aktivitäten auf, um die Google-Dienste für Sie und andere zu verbessern. Um die Google +1-Schaltfläche verwenden zu können, benötigen Sie ein weltweit sichtbares, öffentliches Google-Profil, das zumindest den für das Profil gewählten Namen enthalten muss. Dieser Name wird in allen Google-Diensten verwendet. In manchen Fällen kann dieser Name auch einen anderen Namen ersetzen, den Sie beim Teilen von Inhalten über Ihr Google-Konto verwendet haben. Die Identität Ihres Google-Profils kann Nutzern angezeigt werden, die Ihre E-Mail-Adresse kennen oder über andere identifizierende Informationen von Ihnen verfügen.</p><h4>Verwendung der erfassten Informationen:</h4><p>Neben den oben erläuterten Verwendungszwecken werden die von Ihnen bereitgestellten Informationen gemäß den geltenden Google-Datenschutzbestimmungen genutzt. Google veröffentlicht möglicherweise zusammengefasste Statistiken über die +1-Aktivitäten der Nutzer bzw. gibt diese an Nutzer und Partner weiter, wie etwa Publisher, Inserenten oder verbundene Websites.</p>', '1');
+INSERT INTO `prefix_datenschutzerklaerung` (`id`, `pos`, `titel`, `url`, `urltitle`, `txt`, `einaus`) VALUES (4, '3', 'Datenschutzerklärung für die Nutzung von Google Analytics', 'https://support.google.com/analytics/answer/6004245?hl=de', 'Datenschutzerklärung für Google Analytics', '<p>Diese Website benutzt Google Analytics, einen Webanalysedienst der Google Inc. ("Google"). Google Analytics verwendet sog. "Cookies", Textdateien, die auf Ihrem Computer gespeichert werden und die eine Analyse der Benutzung der Website durch Sie ermöglichen. Die durch den Cookie erzeugten Informationen über Ihre Benutzung dieser Website werden in der Regel an einen Server von Google in den USA übertragen und dort gespeichert. Im Falle der Aktivierung der IP-Anonymisierung auf dieser Webseite wird Ihre IP-Adresse von Google jedoch innerhalb von Mitgliedstaaten der Europäischen Union oder in anderen Vertragsstaaten des Abkommens über den Europäischen Wirtschaftsraum zuvor gekürzt.</p><p>Nur in Ausnahmefällen wird die volle IP-Adresse an einen Server von Google in den USA übertragen und dort gekürzt. Im Auftrag des Betreibers dieser Website wird Google diese Informationen benutzen, um Ihre Nutzung der Website auszuwerten, um Reports über die Websiteaktivitäten zusammenzustellen und um weitere mit der Websitenutzung und der Internetnutzung verbundene Dienstleistungen gegenüber dem Websitebetreiber zu erbringen. Die im Rahmen von Google Analytics von Ihrem Browser übermittelte IP-Adresse wird nicht mit anderen Daten von Google zusammengeführt.<p><p>Sie können die Speicherung der Cookies durch eine entsprechende Einstellung Ihrer Browser-Software verhindern; wir weisen Sie jedoch darauf hin, dass Sie in diesem Fall gegebenenfalls nicht sämtliche Funktionen dieser Website vollumfänglich werden nutzen können. Sie können darüber hinaus die Erfassung der durch das Cookie erzeugten und auf Ihre Nutzung der Website bezogenen Daten (inkl. Ihrer IP-Adresse) an Google sowie die Verarbeitung dieser Daten durch Google verhindern, indem sie das unter dem folgenden Link verfügbare Browser-Plugin herunterladen und installieren: <a href="http://tools.google.com/dlpage/gaoptout?hl=de" target="_blank">http://tools.google.com/dlpage/gaoptout?hl=de</a>.</p>', '0');
+INSERT INTO `prefix_datenschutzerklaerung` (`id`, `pos`, `titel`, `url`, `urltitle`, `txt`, `einaus`) VALUES (5, '4', 'Datenschutzerklärung für die Nutzung von Google Adsense', 'http://www.e-recht24.de/artikel/datenschutz/6635-datenschutz-rechtliche-risiken-bei-der-nutzung-von-google-analytics-und-googleadsense.html', 'Datenschutzerklärung für Google Adsense', '<p>Diese Website benutzt Google AdSense, einen Dienst zum Einbinden von Werbeanzeigen der Google Inc. ("Google"). Google AdSense verwendet sog. "Cookies", Textdateien, die auf Ihrem Computer gespeichert werden und die eine Analyse der Benutzung der Website ermöglicht. Google AdSense verwendet auch so genannte Web Beacons (unsichtbare Grafiken). Durch diese Web Beacons können Informationen wie der Besucherverkehr auf diesen Seiten ausgewertet werden.</p><p>Die durch Cookies und Web Beacons erzeugten Informationen über die Benutzung dieser Website (einschließlich Ihrer IP-Adresse) und Auslieferung von Werbeformaten werden an einen Server von Google in den USA übertragen und dort gespeichert. Diese Informationen können von Google an Vertragspartner von Google weiter gegeben werden. Google wird Ihre IP-Adresse jedoch nicht mit anderen von Ihnen gespeicherten Daten zusammenführen.</p><p>Sie können die Installation der Cookies durch eine entsprechende Einstellung Ihrer Browser Software verhindern; wir weisen Sie jedoch darauf hin, dass Sie in diesem Fall gegebenenfalls nicht sämtliche Funktionen dieser Website voll umfänglich nutzen können. Durch die Nutzung dieser Website erklären Sie sich mit der Bearbeitung der über Sie erhobenen Daten durch Google in der zuvor beschriebenen Art und Weise und zu dem zuvor benannten Zweck einverstanden.</p>', '1');
+INSERT INTO `prefix_datenschutzerklaerung` (`id`, `pos`, `titel`, `url`, `urltitle`, `txt`, `einaus`) VALUES (6, '5', 'Datenschutzerklärung für die Nutzung von Twitter', 'https://twitter.com/privacy?lang=de', 'Datenschutzerklärung für Twitter', '<p>Auf unseren Seiten sind Funktionen des Dienstes Twitter eingebunden. Diese Funktionen werden angeboten durch die Twitter Inc., Twitter, Inc. 1355 Market St, Suite 900, San Francisco, CA 94103, USA. Durch das Benutzen von Twitter und der Funktion "Re-Tweet" werden die von Ihnen besuchten Webseiten mit Ihrem Twitter-Account verknüpft und anderen Nutzern bekannt gegeben. Dabei werden auch Daten an Twitter übertragen.</p><p>Wir weisen darauf hin, dass wir als Anbieter der Seiten keine Kenntnis vom Inhalt der übermittelten Daten sowie deren Nutzung durch Twitter erhalten. Weitere Informationen hierzu finden Sie in der Datenschutzerklärung von Twitter unter <a href="http://twitter.com/privacy" target="_blank">http://twitter.com/privacy</a>.</p><p>Ihre Datenschutzeinstellungen bei Twitter können Sie in den Konto-Einstellungen unter <a href="http://twitter.com/account/settings" target="_blank">http://twitter.com/account/settings</a> ändern.</p>', '1');
+INSERT INTO `prefix_datenschutzerklaerung` (`id`, `pos`, `titel`, `url`, `urltitle`, `txt`, `einaus`) VALUES (7, '6', 'Datenschutzerklärung für die Nutzung von Piwik', '', '', '<p>Diese Webseite nutzt den Open-Source-Webanalysedienst Piwik. Piwik verwendet sog. "Cookies", Textdateien, die auf Ihrem Computer gespeichert werden und die eine Analyse der Benutzung der Website durch Sie ermöglicht.</p><p>Auf dieser Webseite  werden die IP-Adressen anonymisiert, so dass kein Rückschluss auf eine Person möglich ist. Die von Piwik erfassten Daten werden nicht und niemals auf andere Server übertragen oder an Dritte weitergegeben, sondern in anonymisierter Form dazu verwendet, unser Angebot zu verbessern. Sie können die Installation der Cookies durch eine entsprechende Einstellung Ihrer Browser Software unterbinden; Sofern Ihr Browser die "Do-Not-Track"-Technik unterstützt und Sie diese aktiviert haben, wird ihr Besuch automatisch ignoriert.</p><p>Durch die Nutzung dieser Website erklären Sie sich mit der Verarbeitung der über Sie erhobenen Daten durch Piwik in der zuvor beschriebenen Art und Weise und zu dem zuvor benannten Zweck einverstanden.</p><p>Weitere Informationen zu Piwik finden Sie unter <a href="http://piwik.org" target="_blank">http://piwik.org</a></p>', '0');
+INSERT INTO `prefix_datenschutzerklaerung` (`id`, `pos`, `titel`, `url`, `urltitle`, `txt`, `einaus`) VALUES (8, '7', 'Auskunft, Löschung, Sperrung', '', '', '<p>Sie haben jederzeit das Recht auf unentgeltliche Auskunft über Ihre gespeicherten personenbezogenen Daten, deren Herkunft und Empfänger und den Zweck der Datenverarbeitung sowie ein Recht auf Berichtigung, Sperrung oder Löschung dieser Daten. Hierzu sowie zu weiteren Fragen zum Thema personenbezogene Daten können Sie sich jederzeit über die im Impressum angegeben Adresse des Webseitenbetreibers an uns wenden.</p>', '0');
+
+INSERT INTO `prefix_modules` (`url` ,`name` ,`gshow` ,`ashow` ,`fright`) VALUES ('datenschutz', 'Datenschutzerklärung', '1', '1', '0');
+
+

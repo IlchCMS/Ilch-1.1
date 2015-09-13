@@ -1,42 +1,41 @@
 <html>
-<head>
-<link rel="stylesheet" type="text/css" href="include/admin/templates/style.css">
-<script language="JavaScript" type="text/javascript">
-<!--
-function closeThisWindow() {
-  opener.location.reload();
-  opener.focus();
-  window.close();
-}
-//-->
-</script>
-</head>
-<body>
-<table border="0" cellpadding="5" cellspacing="1" class="border" width="100%">
-  <tr>
-    <td class="Callg">
-<form action="admin.php?user-gruppen-{userid}" method="POST">
+    <head>
+        <link href="include/admin/templates/bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="include/admin/templates/bootstrap/css/style.css" rel="stylesheet">
+        <script language="JavaScript" type="text/javascript">
+            <!--
+        function closeThisWindow() {
+                opener.location.reload();
+                opener.focus();
+                window.close();
+            }
+            //-->
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <form action="admin.php?user-gruppen-{userid}" method="POST" role="form" class="form-horizontal">
 
-	<input type="hidden" name="usergroups" value="sub">
-  <table cellpadding="3" cellspacing="1" border="0" class="border">
-    <tr class="Chead">
-      <td colspan="2"><b>Gruppen f&uuml;r {username}</b></td>
-    </tr>
-    {EXPLODE}
-    <tr class="{class}">
-	    <td><label for="{id}ID">{name}</label></td>
-		  <td align="center"><input id="{id}ID" type="checkbox" name="grprhave[{id}][{userid}]" {ck} value="t"></td>
-	  </tr>
-    {EXPLODE}
-    <tr>
-	    <td colspan="2" class="Cdark"><input type="submit" name="chuserr" value="Speichern"> <input type="button" value="Schlie&szlig;en" onClick="closeThisWindow()" /></td>
-		</tr>
-  </table>
-</form>
-
-
-    </td>
-  </tr>
-</table>
-</body>
+                    <input type="hidden" name="usergroups" value="sub">
+                    <div class="bs-example">
+                        <div class="alert alert-success fade in" role="alert">
+                            <h4>Gruppen f&uuml;r {username}</h4>
+                            {EXPLODE}
+                            <div class="checkbox">
+  <label for="{id}ID">
+    <input id="{id}ID" type="checkbox" name="grprhave[{id}][{userid}]" {ck} value="t">
+    {name}
+  </label>
+</div>
+                            {EXPLODE}    
+                            <br>
+                                <input type="submit" name="chuserr" class="btn btn-info" value="Speichern">
+                                <input type="button" class="btn btn-default" value="Schlie&szlig;en" onClick="closeThisWindow()">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
 </html>

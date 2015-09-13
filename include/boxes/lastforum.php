@@ -1,6 +1,6 @@
 <?php 
-#   Copyright by Manuel
-#   Support www.ilch.de
+//   Copyright by Manuel
+//  Support www.ilch.de
 
 defined ('main') or die ( 'no direct access' );
 
@@ -20,12 +20,21 @@ WHERE ((".$_SESSION['authright']." <= b.view AND b.view < 1)
 	 OR -9 >= ".$_SESSION['authright'].")
 ORDER BY c.time DESC
 LIMIT 0,5";
-echo '<table>';
 $resultID = db_query($query);
+if (loggedin()) {
+    $admin = '';
+    if (user_has_admin_right($menu, false)) {
+        $admin = '<br><a class="box" href="admin.php?forum">'.$lang['createnewforum'].'</a>';
+    }
+}
+if ( @db_num_rows($resultID) == 0 ) {
+	echo '<div class="text-center smalfont">'.$lang['noentry'].' '.$admin.'</div>';
+} 
+echo '<div class="tdweight100">';
 while ($row = db_fetch_assoc($resultID)) {
 	$row['date'] = date('d.m.y - H:i',$row['time']);
 	$row['page'] = ceil ( ($row['rep']+1)  / $allgAr['Fpanz'] );
-  echo '<tr><td valign="top"><b> &raquo; </b></td><td><a href="?forum-showposts-'.$row['id'].'-p'.$row['page'].'#'.$row['pid'].'" title="'.$row['date'].'">'.((strlen($row['name'])<18) ? $row['name'] : substr($row['name'],0,15).'...').'<br /><span class="smalfont"> von '.$row['last'].'</span></a></td></tr>';
+  echo '<div class="tdweight10 text-left ilch_float_l"><strong>&raquo;</strong></div><div class="text-left"><a href="?forum-showposts-'.$row['id'].'-p'.$row['page'].'#'.$row['pid'].'" title="'.$row['name'].'">'.((strlen($row['name'])<23) ? $row['name'] : substr($row['name'],0,23).'...').'</a><br><span class="ilchmarginleft10 smalfont" title="'.$lang['lastpost'].' '.$lang['from'].' '.$row['last'].' / '.$row['date'].' '.$lang['oclock'].'">'.$lang['lastfrom'].' '.((strlen($row['last'])<12) ? $row['last'] : substr($row['last'],0,12).'...').'</span></div>';
 }
-echo '</table>';
+echo '</div>';
 ?>

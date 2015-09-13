@@ -1,68 +1,67 @@
-<form action="?forum-{ak}Forum" method="POST" name="form">
-<input type="hidden" name="fid" value="{fid}" />					
-		  <table cellpadding="3" cellspacing="1" border="0" class="border">
-<tr class="Chead">
-<td colspan="2"><b>Neues Forum erstellen</b></td>
-</tr><tr>
-			  <td width="120" class="Cmite">Name</td>
-			  <td width="250" class="Cnorm"><input type="text" name="name" value="{name}"></td>
-			</tr><tr class="Cdark">
-<td colspan="2"><b>Forum Rechte</b></td>
-</tr><tr class="Cnorm">
-<td colspan="2">
-<table cellpadding="3" cellspacing="1" border="0" class="border">
-  <tr class="Cmite">
-	  <td>lesen/sehen</td>
-		<td>antworten</td>
-		<td>themen erstellen</td>
-	</tr>
-	<tr class="Cnorm">
-				<td>
-				  <select name="view">
-					  {_list_view@<option%1 value="%2">%3</option>}
-					 </select>
-				</td>
-				<td class="Cnorm">
-				  <select name="reply">
-					  {_list_reply@<option%1 value="%2">%3</option>}
-					 </select>
-				</td>
-				<td class="Cnorm">
-				  <select name="start">
-					  {_list_start@<option%1 value="%2">%3</option>}
-					 </select>
-				</td>
-	</tr>
-</table>
-</td>
-</tr><tr>
-			  <td class="Cmite">Kategorie</td>
-				<td class="Cnorm">
-				  <select name="cid" onchange="sichtbar()">
-					  <!--{_list_kats@<option%1 value="%2">%3</option>}-->
-					  {kats}
-					 </select>
-				</td>
-			</tr><tr>
-			  <td class="Cmite">Beschreibung</td>
-				<td class="Cnorm"><textarea cols="40" rows="2" name="text">{text}</textarea></td>
-			</tr><tr>
-			  <td class="Cdark"></td>
-				<td class="Cdark"><input type="submit" value="{sub}" name="sub"></td>
-			</tr>
-		</table>
- 
-</form>
-
-
-<br /><br />
-<div class="info_box">
-<p>Hier k&ouml;nnen Sie ein Forum &auml;ndern oder ein neues erstellen.</p>
-<p>Bitte stellen Sie die Rechte des Forums sorgf&auml;lltig ein und
-      beachten Sie dabei bitte das die Rechte sich absteigend vererben.
-      Wenn also alle Leader ein Thema erstellen d&uuml;rfen k&ouml;nnen
-      die nat&uuml;rlich auch das Forum sehen/lesen und antworten. usw...
-      </p>
-      <p>
-<p>Benutzer mit dem Recht "siteAdmin" oder h&ouml;her k&ouml;nnen in allen Foren moderieren.</p>
+<a class="btn btn-primary btn-sm" href="admin.php?forum">zur&uuml;ck</a><br>
+<div class="cont_loose">
+    <form action="?forum-{ak}Forum" method="POST" name="form" class="form-horizontal" role="form">
+        <input type="hidden" name="fid" value="{fid}">	
+        <legend><h2>Neues Forum erstellen</h2></legend>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Name</label>
+            <div class="col-xs-6">
+                <input type="text" name="name" value="{name}" class="form-control">
+            </div>
+        </div>
+        <legend>Forum Rechte</legend>
+        <table class="table table-bordered">
+            <tr class="warning">
+                <td class="text-center">lesen/sehen ab</td>
+                <td class="text-center">antworten ab</td>
+                <td class="text-center">Themen erstellen ab</td>
+            </tr>
+            <tr>
+                <td>
+                    <select class="form-control" name="view">
+                        {_list_view@<option%1 value="%2">%3</option>}
+                    </select>
+                </td>
+                <td>
+                    <select class="form-control" name="reply">
+                        {_list_reply@<option%1 value="%2">%3</option>}
+                    </select>
+                </td>
+                <td>
+                    <select class="form-control" name="start">
+                        {_list_start@<option%1 value="%2">%3</option>}
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Kategorie</label>
+            <div class="col-xs-6">
+                <select class="form-control" name="cid" onchange="sichtbar()">
+                    <!--{_list_kats@<option%1 value="%2">%3</option>}-->
+                    {kats}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Beschreibung</label>
+            <div class="col-xs-6">
+                <textarea rows="3" class="form-control" name="text">{text}</textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"></label>
+            <div class="col-xs-6">
+                <input class="btn btn-primary" type="submit" value="{sub}" name="sub">
+            </div>
+        </div>
+    </form>
+    <div class="alert alert-info" role="alert">
+        Hier k&ouml;nnen Sie ein Forum &auml;ndern oder ein neues erstellen.
+        Bitte stellen Sie die Rechte des Forums <strong>sorgf&auml;lltig</strong> ein und
+        beachten Sie dabei bitte das die Rechte sich absteigend vererben.
+        Wenn also alle Leader ein Thema erstellen d&uuml;rfen k&ouml;nnen
+        die nat&uuml;rlich auch das Forum sehen/lesen und antworten. usw...<br>
+        Benutzer mit dem Recht "SiteAdmin" oder h&ouml;her k&ouml;nnen in allen Foren moderieren.
+    </div>
 </div>

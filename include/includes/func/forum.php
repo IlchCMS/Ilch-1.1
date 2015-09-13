@@ -9,7 +9,7 @@ function getmods ($fid) {
   
 	$erg = db_query("SELECT b.id,b.name FROM prefix_forummods a LEFT JOIN prefix_user b ON b.id = a.uid WHERE a.fid = ".$fid);
 	if ( db_num_rows($erg) > 0 ) {
-	  $mods = '<br /><u>Moderators:</u> ';
+	  $mods = '<br><span class="ilchforummoterator">Moderatoren:</span> ';
 	  while($row = db_fetch_assoc($erg) ) {
 		  $mods .= '<a class="smalfont" href="index.php?user-details-'.$row['id'].'">'.$row['name'].'</a>, ';
 	  }
@@ -51,21 +51,18 @@ function check_for_pm_popup () {
   # opt_pm_popup
   if (1 == db_result(db_query("SELECT COUNT(*) FROM prefix_user where id = ".$_SESSION['authid']." AND opt_pm_popup = 1"),0,0) AND 1 <= db_result(db_query("SELECT COUNT(*) FROM prefix_pm WHERE gelesen = 0 AND status < 1 AND eid = ".$_SESSION['authid'] ),0) ) {
     $x = <<< html
-    <script language="JavaScript" type="text/javascript"><!--
+    <script type="text/javascript"><!--
     function closeNewPMdivID () { document.getElementById("newPMdivID").style.display = "none"; }
     //--></script>
-    <div id="newPMdivID" style="position:absolute; top:200px; left:300px; display:inline; width:200px;">
-    <table width="100%" class="border" border="0" cellspacing="1" cellpadding="4">
-      <tr>
-        <td class="Cdark" align="left">
-        <a href="javascript:closeNewPMdivID()"><img style="float:right; border: 0" src="include/images/icons/del.gif" alt="schliessen" title="schliessen"></a>
-        <b>neue private Nachricht</b>
-        bitte deinen <a href="?forum-privmsg">Posteingang</a> kontrolieren. 
+    <div id="newPMdivID">
+    <div class="border small_index_ilch">
+    <div class="ilch_case">
+        <div class="Chead">neue private Nachricht<span class="ilch_float_r"><a href="javascript:closeNewPMdivID()"><img src="include/images/icons/del.gif" alt="schliessen" title="Fenster schliessen" border="none"></a></span></div>
+        <div class="ilch_case_in Cnorm">Bitte deinen <a href="?forum-privmsg">Posteingang</a> kontrollieren. 
         Damit dieses Fenster dauerhaft verschwindet musst du alle neuen Nachrichten
-        lesen, oder die Option in deinem <a href="?user-profil">Profil</a> abschalten.
-        </td>
-      </tr>
-    </table>
+        lesen, oder die Option in deinem <a href="?user-profil">Profil</a> abschalten.</div>
+    </div>
+</div>
     </div>
 html;
     return ($x);
@@ -89,11 +86,11 @@ function check_forum_failure($ar) {
     $title  = 'Forum : Fehler aufgetreten';
     $design = new design ( $title , $hmenu );
 	  $design->header();
-	  echo '<b>Es ist/sind folgende(r) Fehler aufgetreten</b><br />';
+	  echo '<div class="text-center"><span class="ilch_hinweis_rot"><strong>Es ist/sind folgende(r) Fehler aufgetreten :</strong><br><br>';
 	  foreach($ar as $v) {
-	    echo $v.'<br />';
+	    echo $v.'<br>';
 	  }
-    echo '<br /><a href="javascript:history.back(-1)">zur&uuml;ck</a>';
+    echo '<br><a href="javascript:history.back(-1)">zur&uuml;ck</a></span></div>';
 		$design->footer();
 	  exit();
 	}

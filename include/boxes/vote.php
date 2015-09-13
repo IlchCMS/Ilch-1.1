@@ -44,9 +44,9 @@ $stunden = 24;
 		  $inTextAr = $_SERVER['REMOTE_ADDR'];
 		}
 		
-		echo '<b>'.$fraRow->frage.'</b>';
+		echo '<strong>'.$fraRow->frage.'</strong><br><br>';
 		if ( in_array ( $inTextAr , $textAr ) OR $fraRow->stat == 0) {
-			  echo '<table width="100%" cellpadding="0">';
+			  echo '<div class="tdweight100">';
 		    $imPollArrayDrin = true;
 		} else {
 			  echo '<form action="index.php?vote-W'.$fraRow->poll_id.'" method="POST">';
@@ -56,22 +56,22 @@ $stunden = 24;
     $pollErg = db_query('SELECT antw, res, sort FROM `prefix_poll_res` WHERE poll_id = "'.$fraRow->poll_id.'" ORDER BY sort');
 		while ( $pollRow = db_fetch_object($pollErg) ) {
 		    if ( $imPollArrayDrin ) {
-						echo '<tr><td>'.$pollRow->antw.'</td><td align="right">'.$pollRow->res.'</td></tr>';
+						echo '<div class="tdweight100 text-left">'.$pollRow->antw.'<span class="ilch_float_r"><strong>'.$pollRow->res.'</strong></span></div>';
 		    } else {
 			      $i++;
-            echo '<input type="radio" id="vote'.$i.'" name="radio" value="'.$pollRow->sort.'"><label for="vote'.$i.'"> '.$pollRow->antw.'</label><br>';
+            echo '<div class="tdweight100 text-left"><input type="radio" id="vote'.$i.'" name="radio" value="'.$pollRow->sort.'"><label for="vote'.$i.'"> '.$pollRow->antw.'</label></div>';
 		    }
 		} 
 		if ( $imPollArrayDrin ) {
-			  echo '<tr><td colspan="2" align="right">'.$lang['whole'].': &nbsp; '.$ges.'</td></tr></table>';
+			  echo '<div class="tdweight100 text-right tablebordertop">'.$lang['whole'].': &nbsp;<strong>'.$ges.'</strong></div></div>';
 		} else {
-		    echo '<p align="center"><input type="submit" value="'.$lang['formsub'].'"></p></form>';
+		    echo '<div class="tdweight100 text-center tablebordertop"><input type="submit" value="'.$lang['formsub'].'"></div></form>';
 		}   
 		} else {
-		  echo $lang['nowvoteavailable'];
+		  echo '<span class="smalfont">'.$lang['nowvoteavailable'].'</span>';
 		}
 		} else {
-		  echo $lang['nowvoteavailable'];
+		  echo '<span class="smalfont">'.$lang['nowvoteavailable'].'</span>';
 		}
 
 ?>

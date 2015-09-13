@@ -1,0 +1,44 @@
+<div id="loginilchdesigndd">
+    <ul>
+        <li><a href="#">{AVATAR}</a>
+            <ul class="dropdown">
+                <li><a href="index.php?user-8">{_lang_profilbear}</a></li>
+                <li class="c1"><br></li>
+                {PROFILANSICHT}
+                {NACHRICHTEN}
+                <li><a href="?search-aeit">{_lang_mypost} <sup>{POSTS}</sup></a></li>
+                <li class="c1"><br></li>
+                <li><a href="index.php?forum-augt">{_lang_newposts} <sup>{LPOSTS}</sup></a></li>
+                <li class="c1"><br></li>
+                {UGALLERY}
+                <li class="c3"><a href="index.php?user-3"><strong>{_lang_logoutnew}</strong></a></li>
+                {ADMIN}
+            </ul>
+        </li>
+    </ul>
+</div>
+{EXPLODE}
+<div class="ilchclandesignloginm">
+<a class="ilchclantopinlog" href = "javascript:void(0)" onclick = "document.getElementById('lightlogin').style.display = 'block';
+        document.getElementById('fadelogin').style.display = 'block'" title="User Login">{_lang_sigins}</a>{regist}
+        </div>
+<form action="index.php?" method="POST">
+    <div id="lightlogin" class="white_contentlogin">
+        <a class="ilchdesignloginclose" href="javascript:void(0)" onclick="document.getElementById('lightlogin').style.display = 'none';
+                document.getElementById('fadelogin').style.display = 'none'" title="{_lang_winclose}">X</a><br>
+        <label class="ilchdesignloginlabel smalfont">{_lang_nickname} :</label><input type="text" name="name" size="13" value="{NAME}" onFocus="if (value == '{NAME}') {
+                    value = ''
+                }" onBlur="if (value == '') {
+                            value = '{NAME}'
+                        }" maxlength="15"><br>
+        <label class="ilchdesignloginlabel smalfont">{_lang_password} :</label><input type="password" name="pass" size="13" value="{PASS}" onFocus="if (value == '{PASS}') {
+                    value = ''
+                }" onBlur="if (value == '') {
+                            value = '{PASS}'
+                        }" maxlength="20"><br>
+        <input type="hidden" name="wdlink" value="{wdlink}">
+        <label class="ilchdesignloginlabel"></label><input type="submit" name="user_login_sub" value="{_lang_regist}"><br>
+        <label class="ilchdesignloginlabel"></label><a href="index.php?user-remind">{_lang_lostpw}</a>
+    </div>
+</form>
+<div id="fadelogin" class="black_overlaylogin"></div>

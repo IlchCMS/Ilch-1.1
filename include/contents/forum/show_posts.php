@@ -50,15 +50,15 @@ while($row = db_fetch_assoc($erg)) {
 	$class = ( $class == 'Cnorm' ? 'Cmite' : 'Cnorm' );
 
 	# define some vars.
-	$row['sig'] = ( empty($row['sig']) ? '' : '<br /><hr style="width: 50%;" align="left">'.bbcode($row['sig']) );
+	$row['sig'] = ( empty($row['sig']) ? '' : '<br><hr class="tdweight50 ilch_float_l"><br>'.bbcode($row['sig']) );
 	$row['TID'] = $tid;
 	$row['class'] = $class;
 	$row['date'] = date ('d.m.Y - H:i:s', $row['time'] );
 	$row['delete'] = '';
 	$row['change'] = '';
 	if (!is_numeric($row['geschlecht'])) { $row['geschlecht'] = 0; }
-	if (file_exists($row['avatar'])) { $row['avatar'] = '<br /><br /><img src="'.$row['avatar'].'" alt="User Pic" border="0" /><br />'; }
-	elseif ($allgAr['forum_default_avatar']) { $row['avatar'] = '<br /><br /><img src="include/images/avatars/'.$ges_ar[$row['geschlecht']].'.jpg" alt="User Pic" border="0" /><br />'; }
+	if (file_exists($row['avatar'])) { $row['avatar'] = '<br><br><img src="'.$row['avatar'].'" alt="User Pic" class="ilchbordernone"><br>'; }
+	elseif ($allgAr['forum_default_avatar']) { $row['avatar'] = '<br><br><img src="include/images/avatars/'.$ges_ar[$row['geschlecht']].'.jpg" alt="User Pic" class="ilchbordernone"><br>'; }
  	else { $row['avatar'] = ''; }
     $row['rang']   = userrang ($row['posts'],$row['erstid']);
 	$row['txt']    = (isset($_GET['such']) ? markword(bbcode ($row['txt']),$_GET['such']) : bbcode ($row['txt']) );
@@ -77,7 +77,7 @@ while($row = db_fetch_assoc($erg)) {
 	if ( $forum_rights['reply'] == TRUE AND loggedin() ) {
 	  $row['change'] = '&nbsp;<a href="index.php?forum-editpost-'.$tid.'-'.$row['id'].'">'.$lang['change'].'</a>';
 	}
-	$row['posts']  = ($row['posts']?'<br />Posts: '.$row['posts']:'').'<br />';
+	$row['posts']  = ($row['posts']?'<br>Posts: '.$row['posts']:'').'<br>';
 	$tpl->set_ar_out($row,1);
 
   $i++;
@@ -96,9 +96,9 @@ if (loggedin()) {
 
   echo 'Optionen:';
   if (1 == db_result(db_query("SELECT COUNT(*) FROM prefix_topic_alerts WHERE uid = ".$_SESSION['authid']." AND tid = ".$tid),0)) {
-    echo '<br />- <a href="index.php?forum-showposts-'.$tid.'-topicalert">'.$lang['nomailonreply'].'</a><br />';
+    echo '<br>- <a href="index.php?forum-showposts-'.$tid.'-topicalert">'.$lang['nomailonreply'].'</a><br>';
   } else {
-    echo '<br />- <a href="index.php?forum-showposts-'.$tid.'-topicalert">'.$lang['mailonreply'].'</a><br />';
+    echo '<br>- <a href="index.php?forum-showposts-'.$tid.'-topicalert">'.$lang['mailonreply'].'</a><br>';
   }
 }
 

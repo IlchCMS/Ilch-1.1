@@ -1,0 +1,59 @@
+<legend><h2>BBCode 2.0  <small>Badword Liste</small></h2></legend>
+{Message}
+<div class="alert alert-info" role="alert">
+    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Schlie&szlig;en</span></button>
+    Hier k&ouml;nnen W&ouml;rter eingetragen werden, die in Beiträgen unterbunden, bzw. ersetzt werden sollen.
+    Als Beispiel Idiot = <strong>*peep*</strong></div>
+<form action="admin.php?bbcode-badword" method="POST" name="form" class="form-horizontal" role="form">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Badword eintragen</h3>
+        </div>
+        <div class="panel-body"> 
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Badword</label>
+                <div class="col-sm-6">
+                    <input class="form-control" type="text" name="BBCode_BadPatter">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Ersetzen durch?</label>
+                <div class="col-sm-6">
+                    <input class="form-control" type="text" name="BBCode_BadReplace">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label"></label>
+                <div class="col-sm-6">
+                    <input class="btn btn-primary" type="submit" value="Badword eintragen" name="BB_SubmitBadword">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<legend>Badword List</legend>
+{MPL}
+<table class="table">
+    <tr>
+        <td>
+            <table class="table table-condensed table-striped">
+                <tr class="warning">
+                    <td class="text-center"><strong>Badword</strong></td>
+                    <td class="text-center"><strong>Ersetzt durch</strong></td>
+                    <td></td>
+                </tr>
+                {EXPLODE}
+                <tr>
+                    <td class="text-center">{dbBadword}</td>
+                    <td class="text-center">{dbReplace}</td>
+                    <td class="text-right"><a href="admin.php?bbcode-badword-delete-{dbId}" rel="tooltip" title="Badword l&ouml;schen"><span style="color:#AD0000;" class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+                </tr>
+                {EXPLODE}
+                <tr class="warning">
+                    <td colspan="3">&nbsp;</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+{MPL}
