@@ -1,0 +1,22 @@
+<!-- CSS -->
+<link href="include/includes/css/admin_login.css" rel="stylesheet"> 
+<link href="include/includes/css/ilch_default.css" rel="stylesheet">
+<!-- END CSS -->
+
+<div class="admin-login-login_container">
+    <div class="admin-login-form_container">
+        <img class="admin-login-logo" src="include/images/etc/ilch_logo.png">
+        <form method="POST" action="index.php?user-login-admin">
+            <input type="text" name="name" class="admin-login-form-control" placeholder="{_lang_nickname}" value="">
+            <input type="password" name="pass" class="admin-login-form-control" placeholder="{_lang_password}">
+            <div class="admin-login-btn-box"><button class="admin-login-btn" type="submit" name="user_login_sub">{_lang_login}</button></div>
+            <div class="admin-login-link-box"><a href="index.php?user-remind-admin">{_lang_forgottenpassword}?</a></div>
+            <br>
+        </form>
+    </div>
+</div>
+
+{EXPLODE}
+{_lang_yourareloged}!
+{EXPLODE}
+{_lang_login3failure}
