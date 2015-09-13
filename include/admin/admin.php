@@ -11,7 +11,7 @@ $design = new design('Admins Area', 'Admins Area', 2);
 $design->header();
 
 # script version
-$scriptVersion = 11;
+$scriptVersion = 1.1;
 $scriptUpdate = 'Q';
 
 # statistik wird bereinigt.
