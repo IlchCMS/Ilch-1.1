@@ -24,10 +24,14 @@ function profilefields_functions () {
 
 # Felder zum aendern anzeigen.
 function profilefields_change ($uid) {
-  $q = db_query("SELECT id, `show`, val FROM prefix_profilefields LEFT JOIN prefix_userfields ON prefix_userfields.fid = prefix_profilefields.id AND prefix_userfields.uid = ".$uid." WHERE func = 1 ORDER BY pos");
-  while ( $r = db_fetch_assoc($q)) {
-    echo '<label class="ilch_float_l label_120">'.$r['show'].'</label><input type="text" name="profilefields['.$r['id'].']" value="'.$r['val'].'"><br>';
-  }
+  $q = db_query("SELECT id, `show`, func, val FROM prefix_profilefields LEFT JOIN prefix_userfields ON prefix_userfields.fid = prefix_profilefields.id AND prefix_userfields.uid = ".$uid." WHERE func <= 2 ORDER BY pos");
+    while ( $r = db_fetch_assoc($q)) {
+        if ( $r['func'] == 1 ) {
+            echo '<label style="float:left; width:35%;">'.$r['show'].'</label><input type="text" name="profilefields['.$r['id'].']" value="'.$r['val'].'"><br />';
+        } elseif ( $r['func'] == 2 AND $r['show'] != 'Kontakt') {
+            echo '<label style="float:left; width:90%; margin-top:5px;"><b>'.$r['show'].'</b></label><br />';
+        }
+    }
 }
 
 # Felder die uebermittelt wurden speichern.
