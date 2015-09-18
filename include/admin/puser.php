@@ -42,7 +42,7 @@ if ($menu->get(1) == "confirm" AND isset($_GET['check'])) {
 		break;
 	    # join us
 	    case 4 :
-		echo '<br>Joinus kann &uuml;ber diese Liste nicht akzeptiert werden, mache diese &uuml;ber <a style="color:red;" href="http://' . $_SERVER['HTTP_HOST'] . '/admin.php?groups-joinus">Joinus Anfragen bearbeiten</a><br><br>';
+		echo '<br>Joinus kann &uuml;ber diese Liste nicht akzeptiert werden, mache diese &uuml;ber <a style="color:red;" href="admin.php?groups-joinus">Joinus Anfragen bearbeiten</a><br><br>';
 		break;
 	    # ak 5 remove account
 	    case 5:

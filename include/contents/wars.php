@@ -169,7 +169,7 @@ if ($menu->get(2) == '' OR $menu->getA(2) == 'p') {
 	DATE_FORMAT(datime,'%d.%m.%Y') as datum,
 	tid, status, owp, opp, wlp,
 	DATE_FORMAT(datime,'%H:%i:%s') as zeit,
-	gegner, tag, page, mail, icq, wo, prefix_wars.`mod`, mtyp,
+	gegner, tag, page, mail, skype, wo, prefix_wars.`mod`, mtyp,
 	game, land, txt, prefix_wars.id,
 	name as team
 	FROM prefix_wars
@@ -191,11 +191,11 @@ if ($menu->get(2) == '' OR $menu->getA(2) == 'p') {
         $row['tag'] = (empty($row['tag']) ? $row['gegner'] : $row['tag']);
         if ($_SESSION['authright'] <= - 3) {
             $row['mail'] = $row['mail'];
-            $row['icq'] = $row['icq'];
+            $row['skype'] = $row['skype'];
             $row['wo'] = $row['wo'];
             $row['txt'] = $row['txt'];
         } else {
-            $row['icq'] = '<i class="fa fa-lock"></i>';
+            $row['skype'] = '<i class="fa fa-lock"></i>';
             $row['mail'] = '<i class="fa fa-lock"></i>';
             $row['wo'] = '<i class="fa fa-lock"></i>';
             $row['txt'] = '<i class="fa fa-lock"></i>';

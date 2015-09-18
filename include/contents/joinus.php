@@ -1,8 +1,8 @@
 <?php
 #   Copyright by: Manuel
 #   Support: www.ilch.de
+
 defined ('main') or die ( 'no direct access' );
-//-----------------------------------------------------------|
 
 $title = $allgAr['title'].' :: Joinus';
 $hmenu = 'Joinus';
@@ -10,31 +10,31 @@ $design = new design ( $title , $hmenu );
 $design->header();
 
 if ( 0 == db_count_query("SELECT COUNT(*) FROM prefix_groups WHERE show_joinus = 1") ) {
-	echo $lang['noteamthere'];
-	$design->footer();
-	exit ();
+    echo $lang['noteamthere'];
+    $design->footer();
+    exit ();
 }
 
 $skill_ar = array (
-  1 => $lang['verybad'],
-  2 => $lang['bad'],
-	3 => $lang['middle'],
-	4 => $lang['good'],
-	5 => $lang['verygood'],
+    1 => $lang['verybad'],
+    2 => $lang['bad'],
+    3 => $lang['middle'],
+    4 => $lang['good'],
+    5 => $lang['verygood'],
 );
 
 $far = array (
-		'name',
-		'skill',
-		'icqnumber',
-		'favmap',
-		'mail',
-		'age',
-		'hometown',
-		'squad',
-		'ground',
-    'rules'
-	);
+        'name',
+        'skill',
+        'skype',
+        'favmap',
+        'mail',
+        'age',
+        'hometown',
+        'squad',
+        'ground',
+        'rules'
+);
 $x = 0;
 foreach ($far as $v) {
 	if (!empty($_POST[$v])) {
@@ -116,7 +116,7 @@ if (count($far) <> $x OR $ch_name == false OR !chk_antispam('joinus')) {
     $mail,
     $hometown,
     $age,
-    $icqnumber,
+    $skype,
     $favmap,
     $ground,
     $rulz,

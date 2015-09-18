@@ -1,21 +1,20 @@
 Changelog:
 ==========
-+ neue Funktionen       * Änderungen/Bugfixes
++ neue Funktionen       * Aenderungen/Bugfixes
 
 Version 1.1 Q
 -------------
-* Sicherheitsupdates im Bezug auf mögliche SQL-Injections
-* Integration SSL / TLS beim Mail-Versand (Transportverschlüsselung)
-* PHP Versionscheck während der Installation
+* Sicherheitsupdates im Bezug auf moegliche SQL-Injections
+* Integration SSL / TLS beim Mail-Versand (Transportverschluesselung)
+* PHP Versionscheck waehrend der Installation
 * Bugfix Forum verschieben
-* Korrektur ungültiger Links
-* Kontakt Formular improved --> Absenden des Formulars nur dann, wenn alle felder gefüllt sind.
+* Korrektur ungueltiger Links
+* Kontakt Formular improved --> Absenden des Formulars nur dann, wenn alle Felder gefuellt sind.
+* Aenderungen der Kontaktmoeglichkeiten - Skype, Steam und Battle.net
 + Integration des BBCode
 + Integration von News Extended
-+ Komplette überarbeitung des Backends -- Integration Bootstrap
-+ Frontend Templates alle tabellen durch divs ersetzt
-
-
++ Komplette Ueberarbeitung des Backends -- Integration Bootstrap
++ Frontend Templates alle unnoetigen Tabellen durch divs ersetzt
 
 Version 1.1 P
 -------------

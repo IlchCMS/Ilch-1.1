@@ -2,34 +2,36 @@
 #   Copyright by Manuel
 #   Support www.ilch.de
 
-
 defined ('main') or die ( 'no direct access' );
 
 function profilefields_functions2 () {
-  $ar = array (
-	  1 => 'Feld',
-		2 => 'Kategorie'
-	);
-	return ($ar);
+    $ar = array (
+        1 => 'Feld',
+        2 => 'Kategorie'
+    );
+    return ($ar);
 }
 
 function profilefields_functions () {
-  $ar = array (
-	  1 => 'Feld',
-		2 => 'Kategorie',
-		3 => 'Angezeigt',
-		4 => 'Versteckt'
-	);
-	return ($ar);
+    $ar = array (
+        1 => 'Feld',
+        2 => 'Kategorie',
+        3 => 'Angezeigt',
+        4 => 'Versteckt'
+    );
+    return ($ar);
 }
-
 
 # Felder zum aendern anzeigen.
 function profilefields_change ($uid) {
-  $q = db_query("SELECT id, `show`, val FROM prefix_profilefields LEFT JOIN prefix_userfields ON prefix_userfields.fid = prefix_profilefields.id AND prefix_userfields.uid = ".$uid." WHERE func = 1 ORDER BY pos");
-  while ( $r = db_fetch_assoc($q)) {
-    echo '<label class="ilch_float_l label_120">'.$r['show'].'</label><input type="text" name="profilefields['.$r['id'].']" value="'.$r['val'].'"><br>';
-  }
+  $q = db_query("SELECT id, `show`, func, val FROM prefix_profilefields LEFT JOIN prefix_userfields ON prefix_userfields.fid = prefix_profilefields.id AND prefix_userfields.uid = ".$uid." WHERE func <= 2 ORDER BY pos");
+    while ( $r = db_fetch_assoc($q)) {
+        if ( $r['func'] == 1 ) {
+            echo '<label style="float:left; width:35%;">'.$r['show'].'</label><input type="text" name="profilefields['.$r['id'].']" value="'.$r['val'].'"><br />';
+        } elseif ( $r['func'] == 2 AND $r['show'] != 'Kontakt') {
+            echo '<label style="float:left; width:90%; margin-top:5px;"><b>'.$r['show'].'</b></label><br />';
+        }
+    }
 }
 
 # Felder die uebermittelt wurden speichern.
@@ -37,7 +39,7 @@ function profilefields_change_save ($uid) {
 
   $q = db_query("SELECT id, `show`, val FROM prefix_profilefields LEFT JOIN prefix_userfields ON prefix_userfields.fid = prefix_profilefields.id AND prefix_userfields.uid = ".$uid." WHERE func = 1 ORDER BY pos");
   while ( $r = db_fetch_assoc($q)) {
-    if ( isset($_REQUEST['profilefields'][$r['id']]) ) { $v = $_REQUEST['profilefields'][$r['id']]; } else { $v = ''; }
+    if ( isset($_REQUEST['profilefields'][$r['id']]) ) { $v = escape($_REQUEST['profilefields'][$r['id']], 'string'); } else { $v = ''; }
     if ( $r['val'] == '' AND $v != '' ) {
       db_query("INSERT INTO prefix_userfields (fid,uid,val) VALUES (".$r['id'].",".$uid.",'".$v."')");
     } elseif ( $r['val'] != '' AND $v == '' ) {
@@ -109,6 +111,14 @@ function profilefields_show_spez_opt_mail ($value,$uid) {
 function profilefields_show_spez_opt_pm ($value,$uid) {
   global $lang;
   return ( profilefields_show_echo_standart ( $lang['privatemessages'], ($value?'<a href="index.php?forum-privmsg-new=0&amp;empfid='.$uid.'">'.$lang['send'].'</a>':'') ) );
+}
+function profilefields_show_spez_skype ($value,$uid) {
+  global $lang;
+  return ( profilefields_show_echo_standart ( $lang['skype'], ($value?'<a href="skype:'.$value.'?userinfo" title="'.$value.'">'.$value.'</a>':'') ) );
+}
+function profilefields_show_spez_steam ($value,$uid) {
+  global $lang;
+  return ( profilefields_show_echo_standart ( $lang['steam'], ($value?'<a href="http://steamcommunity.com/id/'.$value.'/" title="'.$value.'" target="_blank">'.$value.'</a>':'') ) );
 }
 function profilefields_show_spez_sig ($value,$uid) {
   global $lang;

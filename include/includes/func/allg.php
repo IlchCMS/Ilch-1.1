@@ -460,7 +460,7 @@ function get_antispam($m, $t, $nopictures = false) {
     }
     $img = '<img width="' . $imagewidth . '" height="' . $imageheight . '" src="include/includes/captcha/captchaimg.php?id='
 	    . $id . '&nocache=' . time() . '" alt="captchaimg" title="' . $helpText . '" class="captchaImage">'
-	    . $seperator . '<input class="captcha_code" name="captcha_code" type="text" maxlength="5" size="8" title="Geben Sie die Zeichen aus dem Bild ein">'
+	    . $seperator . '<input class="captcha_code" name="captcha_code" type="text" maxlength="' . $passphraselenght . '" size="8" title="Geben Sie die Zeichen aus dem Bild ein">'
 	    . '<input type="hidden" name="captcha_id" value="' . $id . '">';
     ;
 
