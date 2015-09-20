@@ -11,11 +11,11 @@ function forum_admin_showcats ( $id , $stufe ) {
 	$erg = db_query($q);
 	if ( db_num_rows($erg) > 0 ) {
  	  while ($row = db_fetch_object($erg) ) {
-	    echo '<tr class="Cmite"><td>'.$stufe.'- <a href="?forum-S'.$row->id.'">'.$row->name.'</a></td>';
-      echo '<td><a href="admin.php?forum-changeCategorie-'.$row->id.'"><img src="include/images/icons/edit.gif" border="0" alt="&auml;ndern" title="&auml;ndern"></a></td>';
-      echo '<td><a href="javascript:delCcheck('.$row->id.')"><img src="include/images/icons/del.gif" border="0" alt="l&ouml;schen" title="l&ouml;schen"></a></td>';
-      echo '<td><a href="admin.php?forum-moveCategorie-0-'.$row->id.'-'.$row->pos.'"><img src="include/images/icons/pfeilo.gif" border="0" title="hoch" alt="hoch"></a></td>';
-      echo '<td><a href="admin.php?forum-moveCategorie-1-'.$row->id.'-'.$row->pos.'"><img src="include/images/icons/pfeilu.gif" border="0" title="runter" alt="runter"></a></td></tr>';
+	    echo '<tr><td>'.$stufe.' <span class="glyphicon glyphicon-send" aria-hidden="true"></span> <a href="?forum-S'.$row->id.'">'.$row->name.'</a></td>';
+      echo '<td class="text-right" nowrap><a style="margin-right:5px;" href="admin.php?forum-changeCategorie-'.$row->id.'" rel="tooltip" title="Kategorie &auml;ndern"><span style="color:#2D9600;" class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+<a style="margin-right:5px;" href="javascript:delCcheck('.$row->id.')" rel="tooltip" title="Kategorie l&ouml;schen"><span style="color:#AD0000;" class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+<a style="margin-right:5px;" href="admin.php?forum-moveCategorie-0-'.$row->id.'-'.$row->pos.'" rel="tooltip" title="nach oben verschieben"><span style="color:#C64F00;" class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></a>
+<a href="admin.php?forum-moveCategorie-1-'.$row->id.'-'.$row->pos.'" rel="tooltip" title="nach unten verschieben"><span style="color:#C64F00;" class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></a></a></td></tr>';
 		  forum_admin_showcats($row->id, $stufe.' &nbsp; &nbsp;' );
 	  }
 	}

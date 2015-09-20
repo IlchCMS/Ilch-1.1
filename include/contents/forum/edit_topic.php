@@ -33,8 +33,8 @@ switch($uum) {
 	case 2 : # delete topic
 	  if (empty($_POST['sub'])) {
       echo '<form action="index.php?forum-edittopic-'.$tid.'-2" method="POST">';
-      echo 'Begr&uuml;ndung an den Ersteller (freiwillig)<br /><textarea cols="50" rows="2" name="reason"></textarea>';
-      echo '<br /><br ><input type="submit" value="'.$lang['delete'].'" name="sub">';
+      echo 'Begr&uuml;ndung an den Ersteller (freiwillig)<br><textarea cols="50" rows="2" name="reason"></textarea>';
+      echo '<br><br><input type="submit" value="'.$lang['delete'].'" name="sub">';
       echo '</form>';
     } else {
       # autor benachrichtigen
@@ -60,8 +60,8 @@ switch($uum) {
 	  break;
   case 3 : # move topic in another forum
 		if ( empty ( $_POST['sub'] ) OR $_POST['nfid'] == 'cat' ) {
-			echo '<form action="index.php?forum-edittopic-'.$tid.'-3" method="POST">';
-			echo '<input type="hidden" name="afid" value="'.$fid.'">neues Forum ausw&auml;hlen<br />';
+			echo '<form action="index.php?forum-edittopic-'.$tid.'-3" method="POST"><div>';
+			echo '<input type="hidden" name="afid" value="'.$fid.'">neues Forum ausw&auml;hlen<br>';
 			echo '<select name="nfid">';
 
       function stufe($anz, $t = 'f') {
@@ -91,7 +91,7 @@ switch($uum) {
       }
 
       forum_admin_selectcats(0,0,$fid);
-      echo '</select><br /><input type="checkbox" name="alertautor" value="yes" /> Den Autor &uuml;ber das verschieben informieren?<br /><input type="submit" value="Verschieben" name="sub"></form>';
+      echo '</select><br><input type="checkbox" name="alertautor" value="yes"> Den Autor &uuml;ber das verschieben informieren?<br><input type="submit" value="Verschieben" name="sub"></div></form>';
     } else {
       $_POST['nfid'] = escape($_POST['nfid'], 'integer');
       $_POST['afid'] = escape($_POST['afid'], 'integer');

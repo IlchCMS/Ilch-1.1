@@ -1,0 +1,39 @@
+<!-- Copyright
+Newsletterverwaltung by Felix Hohlwegler
+
+Version 0.1 vom 12.07.2014
+
+Hilfe und Support &Uuml;ber www.felix-hohlwegler.de
+
+-->
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script language="JavaScript" type="text/javascript">
+<!--
+//Content-Löschen
+    function del(email) {
+	var x = confirm("wirklich loeschen?");
+	if (x) {
+	    document.location.href = "admin.php?newsletterverwaltung&delete=" + email;
+	}
+    }
+//-->
+</script>
+<!-- Logo-->
+<legend><h2><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>  Newsletter Verwaltung</h2></legend>
+<!-- Eingabe Felder -->
+<!-- Listen -->
+<h4>Eingetragene Email-Adressen</h4>
+<div class="row">
+    <div class="col-md-6">
+        <ul class="list-group">
+            {EXPLODE}
+            <li class="list-group-item">
+                <span class="pull-right"><a href="javascript:del('{email}')" title="Email l&ouml;schen"><span class="glyphicon glyphicon-remove colorred" aria-hidden="true"></span></a></span>
+                {email}
+            </li>
+            {EXPLODE}
+        </ul>
+    </div></div>
+<div class="row">
+    <div class="text-center">Newsletter-Verwaltung entwickelt von Felix Hohlwegler <a href="http://www.felix-hohlwegler.de" target="_blank">www.felix-hohlwegler.de</a></div>
+</div>

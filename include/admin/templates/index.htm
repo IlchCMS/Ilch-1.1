@@ -1,53 +1,61 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-      <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-<html>
-  <head>
-    <title>ilch AdminMenu</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-    <meta name="Copyright" content="Script Copyright by ilch.de" />
-    <meta name="Page-topic" content="ilchClan - Clanscript" />
-    <meta name="Audience" content="Alle" />
-    <meta name="Robots" content="INDEX,FOLLOW" />
-    <meta http-equiv="cache-control" content="no-cache" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta name="Robots" content="archive" />
-    <link rel="stylesheet" type="text/css" href="include/admin/templates/style.css" />
-    <script type="text/javascript" src="include/includes/js/JSCookMenu.js"></script>
-    <link rel="stylesheet" href="include/admin/templates/JSCookMenu/theme.css" type="text/css" />
-    <script type="text/javascript" src="include/admin/templates/JSCookMenu/theme.js"></script>
-    
-    <style type="text/css">
-    
-    ul.admix  {list-style: none;}
-    ul.admix li ul { margin: 0; padding: 0; }
-
-    ul.admix li ul li { display:block; float: left; padding: 5px; height: 76px; width: 80px; text-align: center; outline: 0px solid #faa;}
-    ul.admix li ul li a {text-align:center;display: table-cell; display: inline-block; font-weight: bold; font-size: 11px; text-decoration: none;}
-    ul.admix li ul li a img {display:block; margin: 0 auto 4px auto; width: 48px; height: 48px; }
-
-    ul.admix  li.admix_box {width: 780px; font-size: 14px; font-weight: bold; border:1px solid #555753; text-align: center; margin-top: 10px; background: #eeeeec url(include/images/icons/admin/box_header.png) repeat-x left top; color: #eeeeec;}
-
-    ul.admix_n li ul li a img {display:inline; width: 0px; height: 0px; }
-
-    ul.admix li ul br.admix_last {clear: both; }
-    ul.admix_n li ul br.admix_last {display: inline; margin:0; height:0; padding: 0;}
-    
-    </style>
-    
-	</head>
-  <body style="margin:0; padding: 0;">
-    {_boxes_ADMINMENU}
-  
-    <div class="Cmite" ID="myMenuID"></div>
-  
-    <div style="padding: 10px" class="Callg">{EXPLODE}</div>
-
-    <center class="Cmite"><a href="http://www.ilch.de" target="_blank">Bereitgestellt von ilch.de</a></center>
-
-    <a href="#" name="bot"></a>
-    <SCRIPT LANGUAGE="JavaScript"><!--
-      cmDraw ('myMenuID', myMenu, 'hbr', cmThemePanel, 'ThemePanel');
-    --></SCRIPT>
-  </body>
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+        <meta name="Copyright" content="Script Copyright by ilch.de">
+        <meta name="Page-topic" content="ilchClan - Clanscript">
+        <meta name="Audience" content="Alle">
+        <meta name="Robots" content="INDEX,FOLLOW">
+        <meta http-equiv="cache-control" content="no-cache">
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta name="Robots" content="archive">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Ilch Admin-Center</title>
+        <!-- Bootstrap-CSS -->
+        <link href="include/admin/templates/bootstrap/css/bootstrap.css" rel="stylesheet">
+        <!-- Ilch-CSS -->
+        <link href="include/admin/templates/bootstrap/css/style.css" rel="stylesheet">
+        <!-- Unterstuetzung fuer Media Queries und HTML5-Elemente in IE8 ueber HTML5 shim und Respond.js -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="include/admin/templates/bootstrap/js/bootstrap.min.js"></script>
+        <script src="include/admin/templates/bootstrap/js/bootstrap-tooltip.js"></script>
+        <script src="include/admin/templates/bootstrap/js/bootstrap.file-input.js"></script>
+        <!-- IE10-Anzeigefenster-Hack fuer Fehler auf Surface und Desktop-Windows-8 -->
+        <script src="include/admin/templates/bootstrap/js/ie10-viewport-bug-workaround.js"></script> 
+        <script src="include/admin/templates/bootstrap/js/scroll-top.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.top').UItoTop();
+            });
+        </script>
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Navigation ein-/ausblenden</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    {_boxes_adminmenu}
+                </div>
+            </div>
+        </nav>
+        <div class="container ilch_cont">
+            {EXPLODE}
+        </div>
+        <footer class="footer">
+            <div class="container">
+                <p class="text-muted ilch_footer text-center"><img class="ilch_label" src="include/admin/templates/bootstrap/css/ilch_label.png">  <a href="http://www.ilch.de" target="_blank">Bereitgestellt von ilch.de</a></p>
+            </div>
+        </footer>
+    </body>
 </html>

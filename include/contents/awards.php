@@ -1,6 +1,6 @@
 <?php 
-#   Copyright by: Manuel
-#   Support: www.ilch.de
+//   Copyright by: Manuel
+//   Support: www.ilch.de
 
 
 defined ('main') or die ( 'no direct access' );
@@ -17,9 +17,9 @@ $erg = db_query("SELECT platz, text, wofur, team, bild, DATE_FORMAT(time, '%d.%m
 while($row = db_fetch_assoc($erg) ) {
   $class = ( $class == 'Cmite' ? 'Cnorm' : 'Cmite' );
   if ($row['bild'] != '' AND trim($row['bild']) != 'http://') {
-    $row['bildutime'] = '<span style="float: left; margin-right: 10px;"><img src="'.$row['bild'].'" alt="'.$row['wofur'].'" title="'.$row['wofur'].'"/><br /><font class="smalfont">'.$row['time'].'</font></span><br />';
+    $row['bildutime'] = '<img class="ilchbordernone" src="'.$row['bild'].'" alt=""><span class="smalfont">'.$row['time'].'</span><br><br>';
   } else {
-    $row['bildutime'] = $lang['date'].': '.$row['time'].'<br />';
+    $row['bildutime'] = '<span class="smalfont">'.$lang['date'].': '.$row['time'].'</span><br><br>';
   }
 	$row['class'] = $class;
 	$tpl->set_ar_out($row,1);

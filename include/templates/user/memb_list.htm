@@ -1,19 +1,25 @@
-<table width="100%" border="0" cellpadding="3" cellspacing="1" class="border">
-  <tr class="Chead" >
-    <th height="30" width="30%">{_lang_name}</th>
-		<th align="center" width="20%">{_lang_rank}</th>
-		<th align="center" width="20%">{_lang_group}</th>
-		<th width="15%">{_lang_regtime}</th>
-		<th width="15%" align="center">{_lang_posts}</th>
-  </tr>{EXPLODE}<tr class="{CLASS}">
-    <td><a href="index.php?user-details-{UID}">{NAME}</a></td>
-		<td align="center"><font style="font-size: 10px">{RANG}</font></td>
-		<td align="center">{GRUPE}</td>
-		<td>{DATE}</td>
-		<td align="center">{POSTS}</td>
-  </tr>{EXPLODE}
+<table class="border">
+    <tr class="Chead">
+        <th class="text-left">{_lang_name}</th>
+        <th class="text-center">{_lang_rank}</th>
+        <th class="text-center">{_lang_group}</th>
+        <th class="text-center">{_lang_regtime}</th>
+        <th class="text-center">{_lang_posts}</th>
+    </tr>
+    {EXPLODE}
+    <tr class="{CLASS}">
+        <td class="text-left"><a href="index.php?user-details-{UID}">{NAME}</a></td>
+        <td class="text-center ilch_small_font">{RANG}</td>
+        <td class="text-center">{GRUPE}</td>
+        <td class="text-center">{DATE}</td>
+        <td class="text-center">{POSTS}</td>
+    </tr>{EXPLODE}
 </table>
-<br />
-<div align="center">{SITELINK}
-<form method="GET" action="index.php"><input type="hidden" name="user" value="" /><input type="text" name="filtername" size="15" value="{filtername}" /> <input type="submit" value="{_lang_filter}" /></form>
+<div class="text-center">
+    {SITELINK}
+    <form method="GET" action="index.php">
+        <div>
+        <input type="hidden" name="user" value=""><input type="text" name="filtername" size="15" value="{filtername}"> <input type="submit" value="{_lang_filter}">
+        </div>
+    </form>
 </div>

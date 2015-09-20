@@ -1,13 +1,24 @@
-<div style="float:left;">
-<div style="float:right;height:18px;background-color:#ccc;padding:3px;border:solid 1px #000">
-    <a href="admin.php?checkconf-phpinfo"><strong>PHPinfo()</strong></a>
+<a class="btn btn-warning" href="admin.php?checkconf-phpinfo">PHPinfo ()</a><br><br>
+<div class="row">
+    {EXPLODE}
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <legend>{head}</legend>
+                {EXPLODE}
+            </div>
+        </div>
+    </div>
+    {EXPLODE}
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-warning">
+            <table width="100%"><tr>
+                    <td>{opt}</td>
+                    <td class="text-right"><strong>{val}</strong></td>
+                </tr>
+            </table>
+        </li>
+    </ul>
+    {EXPLODE}
 </div>
-{EXPLODE}
-<table cellpadding="3" cellspacing="1" border="0" class="border" style="margin-bottom:2em; float:left; margin: 10px;">
-<tr class="Chead"><td colspan="2"><b>{head}</b></tr>
-{EXPLODE}
-</table>
-{EXPLODE}
-<tr class="{class}"><td>{opt}</td><td>{val}</td></tr>
-{EXPLODE}
-</div><div style="clear:both;"></div>
+<div style="clear:both;"></div>

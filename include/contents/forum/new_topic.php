@@ -40,7 +40,7 @@ if (($_SESSION['klicktime'] + 15) > $dppk_time OR empty($topic) OR empty($txt) O
 
   $name = '';
   if ( !loggedin() ) {
-    $name  = '<tr><td class="Cmite"0><b>'.$lang['name'].'</b></td>';
+    $name  = '<tr><td class="Cmite"><b>'.$lang['name'].'</b></td>';
     $name .= '<td class="Cnorm"><input type="text" value="'.unescape($xnn).'" maxlength="15" name="Gname"></td></tr>';
   }
 

@@ -6,7 +6,7 @@
 defined ('main') or die ( 'no direct access' );
 
 if ( $forum_rights['mods'] == FALSE ) {
-  $forum_failure[] = 'Keine Berechtigung dieses Forum zu moderiren';
+  $forum_failure[] = 'Keine Berechtigung dieses Forum zu moderieren';
 }
 
 check_forum_failure($forum_failure);
@@ -106,15 +106,16 @@ if ((isset($_POST['del']) OR isset($_POST['shift']) OR isset($_POST['status'])) 
 	) , 'Thema erfolgreich verschoben' , 3 );
 
 } elseif ($csrfCheck AND (isset($_POST['del']) OR isset($_POST['shift']))) {
-  echo '<form action="index.php?forum-editforum-'.$fid.'" method="POST">';
+  echo '<form action="index.php?forum-editforum-'.$fid.'" method="POST"><div>';
   foreach ($_POST['in'] as $k => $v) {
-    echo '<input type="hidden" name="in['.$k.']" value="'.$v.'" />';
+    echo '<input type="hidden" name="in['.$k.']" value="'.$v.'">';
   }
   if (isset($_POST['del'])) {
-    echo '<input type="hidden" name="dely" value="yes" />';
-    echo 'Sicher die ausgewahlten Themen loeschen? <input type="submit" value="'.$lang['yes'].'" name="del" />';
+    echo '<input type="hidden" name="dely" value="yes">';
+    echo 'Sicher die ausgewahlten Themen loeschen? <input type="submit" value="'.$lang['yes'].'" name="del">';
   } elseif (isset($_POST['shift']) AND $_POST['nfid'] != 'cat') {
-    echo '<input type="hidden" name="afid" value="'.$fid.'">neues Forum ausw&auml;hlen<br />';
+    echo get_antispam('forum_edit_forum', 0, true);
+    echo '<input type="hidden" name="afid" value="'.$fid.'">neues Forum ausw&auml;hlen<br>';
     echo '<select name="nfid">';
       function stufe($anz, $t = 'f') {
         $z = ($t == 'f'?'&nbsp;&nbsp;':'&raquo;');
@@ -143,10 +144,10 @@ if ((isset($_POST['del']) OR isset($_POST['shift']) OR isset($_POST['status'])) 
       }
 
       forum_admin_selectcats(0,0,$fid);
-		echo '</select><br /><input type="checkbox" name="alertautor" value="yes" /> Die Autoren &uuml;ber das verschieben informieren?<br /><input type="submit" value="'.$lang['shift'].'" name="shift">';
+		echo '</select><br><input type="checkbox" name="alertautor" value="yes"> Die Autoren &uuml;ber das verschieben informieren?<br><input type="submit" value="'.$lang['shift'].'" name="shift">';
   }
 
-  echo '</form>';
+  echo '</div></form>';
 }
 
 $design->footer();

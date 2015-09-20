@@ -2,13 +2,13 @@
 #   Copyright by Manuel
 #   Support www.ilch.de
 $tpl_alianz = <<< tpl
-<div align="center">
+<div class="text-center allianzilchbanner">
 {EXPLODE}
 </div>
 {EXPLODE}
-<a class="box" href="{link}" target="_blank">{title}</a><br />
+<a target="_blank" href="{link}" title="{name}">{title}</a><br>
 {EXPLODE}
-<img src="{banner}" alt="{name}" border="0">
+<img src="{banner}" alt="{name}">
 tpl;
 
 defined ('main') or die ( 'no direct access' );

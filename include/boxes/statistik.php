@@ -15,11 +15,11 @@ if (empty($_GET['sum'])) {
 	$ges_gestern = @db_result(db_query('SELECT count FROM prefix_counter WHERE date < "'.$heute.'" ORDER BY date DESC LIMIT 1'),0);
 
 	
-  echo $lang['whole'].': '.$ges_visits.'<br />';
-	echo $lang['today'].': '.$ges_heute.'<br />';
-	echo $lang['yesterday'].': '.$ges_gestern.'<br />';
-	echo 'Online: '.ges_online().'<br />';
-	echo '<a class="box" href="index.php?statistik"><b>... '.$lang['more'].'</b></a>';
+  echo $lang['whole'].': '.$ges_visits.'<br>';
+	echo $lang['today'].': '.$ges_heute.'<br>';
+	echo $lang['yesterday'].': '.$ges_gestern.'<br>';
+	echo 'Online: '.ges_online().'<br>';
+	echo '<a class="box" href="index.php?statistik"><strong>... '.$lang['more'].'</strong></a>';
 	
 } else {
 
@@ -30,9 +30,9 @@ $design->header();
 
 	$anzahlShownTage = 7;
 	
-	echo '<br /><table width=90%" align="center" class="border" cellpadding="0" cellspacing="1" border="0"><tr><td>';
-  echo '<table width="100%" border="0" cellpadding="5" cellspacing="0">';
-  echo '<tr class="Chead"><td colspan="3" align="center"><b>Site Statistik</b></td></tr>';
+	echo '<table class="border tdweight90"><tr><td>';
+  echo '<table>';
+  echo '<tr class="Chead text-center"><strong>Site Statistik</strong></td></tr>';
 	
 	$max_in = 0;
 	$ges = 0;
@@ -56,9 +56,9 @@ $design->header();
 		
 		echo '<tr class="Cnorm">';
 	  echo '<td>'.$row[1].'</td>';
-		echo '<td><table width="'.$bwidth.'" border="0" cellpadding="0" cellspacing="0">';
-		echo '<tr><td height="2" class="border"></td></tr></table>';		
-		echo '</td><td align="right">'.$value.'</td></tr>';
+		echo '<td><table width="'.$bwidth.'">';
+		echo '<tr><td class="border ilchstatistikheight"></td></tr></table>';		
+		echo '</td><td class="text-right">'.$value.'</td></tr>';
 	  
 		$ges += $value;
 	}
@@ -66,12 +66,11 @@ $design->header();
 	$gesBesucher = db_query('SELECT SUM(count) FROM prefix_counter');
 	$gesBesucher = @db_result($gesBesucher,0);
 	
-	echo '<tr class="Cmite"><td colspan="3"><div align="right">';
-	echo 'Wochen Summe: '.$ges.'</div>';
-	echo 'Besucher Gesamt '.$gesBesucher.' &nbsp; Maximal '.$max_in.'<br /><br />';
-	echo '</td></tr><tr class="Cdark">';
-	echo '<td colspan="3" align="center">[ <a href="javascript:window.close()">Fenster Schliesen</a> ]</td>';
-	echo '</tr></table></td></tr></table><br />';
+  echo '<tr class="Cmite"><td colspan="3" class="text-center">';
+  echo $lang['weeksum'].': <strong>'.$ges.'&nbsp;&nbsp;</strong>';
+  echo $lang['wholevisitor'].': <strong>'.$gesBesucher.'</strong> &nbsp;&nbsp; '.$lang['max'].': <strong>'.$max_in.'</strong><br><br>';
+	echo '</td></tr></table></td></tr></table>';
+  
 	
 	$design->footer();
 	

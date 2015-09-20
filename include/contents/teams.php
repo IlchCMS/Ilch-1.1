@@ -21,13 +21,13 @@ function show_members ($gid,$tpl) {
 		$class = ( $class == 'Cmite' ? 'Cnorm' : 'Cmite' );
 		$row['class'] = $class;
         if ( $row['staat'] != '' ) {
-			$row['staat'] = '<img src="include/images/flags/'.$row['staat'].'" alt="" border="0">';
+			$row['staat'] = '<img class="ilchbordernone" src="include/images/flags/'.$row['staat'].'" alt="">';
 		} else {
             $row['staat'] = 'n/a';
         }
 		$row['status'] = ($row['status']? 'aktiv' : 'inaktiv' );
 		if(!empty($row['icq'])){
-            $row['icq'] = '<a href="http://www.icq.com/whitepages/cmd.php?uin='.$row['icq'].'&action=add"><img src="http://wwp.icq.com/scripts/online.dll?icq='.$row['icq'].'&img='.$teams_show_icq_pic.'" valign="bottom"  border="0"></a>';
+            $row['icq'] = '<a href="http://www.icq.com/whitepages/cmd.php?uin='.$row['icq'].'&action=add"><img src="http://wwp.icq.com/scripts/online.dll?icq='.$row['icq'].'&img='.$teams_show_icq_pic.'" class="ilchbordernone ilch_vertikal_bottom"></a>';
 		} else {
 			$row['icq'] = 'n/a';
 		}
@@ -35,7 +35,7 @@ function show_members ($gid,$tpl) {
 			if(empty($row['avatar'])){
 				$row['avatar'] = 'n/a';
 			} else {
-				$row['avatar'] = '<img src="'.$row['avatar'].'" alt="Avatar von '.$row['name'].'" border="0" >';
+				$row['avatar'] = '<img src="'.$row['avatar'].'" alt="" class="ilchbordernone">';
 			}
 			$tpl->set_ar_out($row,2);
 		} else {
@@ -65,9 +65,9 @@ if ($menu->get(1) == 'show') {
   	$design->header();
   	$tpl = new tpl ('teams');
   	if (!empty($bild) ) {
-      $show = '<img src="'.$bild.'" title="'.$name.'" alt="'.$name.'" border="0"></a>';
+      $show = '<img src="'.$bild.'" title="'.$name.'" alt="'.$name.'" class="ilchbordernone"></a>';
     } else {
-  	  $show = '<b>'.$name.'</b>';
+  	  $show = '<strong>'.$name.'</strong>';
     }
     $tpl->set_out('show', $show,0);
     show_members ($gid,$tpl);
@@ -86,9 +86,9 @@ if ($menu->get(1) == 'show') {
       }
       $row = db_fetch_assoc ($sql);
       if (!empty($row['img']) ) {
-        $show = '<img src="'.$row['img'].'" title="'.$row['name'].'" alt="'.$row['name'].'" border="0"></a>';
+        $show = '<img src="'.$row['img'].'" title="'.$row['name'].'" alt="'.$row['name'].'" class="ilchbordernone"></a>';
       } else {
-    	  $show = '<b>'.$row['name'].'</b>';
+    	  $show = '<strong>'.$row['name'].'</strong>';
       }
       $tpl->set_out('show', $show,0);
       show_members ($gid,$tpl);
@@ -105,7 +105,7 @@ if ($menu->get(1) == 'show') {
   $erg1 = db_query("SELECT name,img,id as gid FROM prefix_groups WHERE zeigen = 1 ORDER BY pos");
 	while ($row = db_fetch_assoc($erg1) ) {
 	  if (!empty($row['img']) ) {
-  		$row['show'] = '<a href="index.php?teams-show-'.$row['gid'].'"><img src="'.$row['img'].'" title="'.$row['name'].'" alt="'.$row['name'].'" border="0"></a>';
+  		$row['show'] = '<a href="index.php?teams-show-'.$row['gid'].'"><img src="'.$row['img'].'" title="'.$row['name'].'" alt="'.$row['name'].'" class="ilchbordernone"></a>';
 		} else {
 	  	$row['show'] = '<a href="index.php?teams-show-'.$row['gid'].'"><b>'.$row['name'].'</b></a>';
 		}

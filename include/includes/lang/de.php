@@ -1,12 +1,65 @@
 <?php
-#   Copyright by Manuel
-#   Support www.ilch.de
+//   Copyright by Manuel
+//   Support www.ilch.de
 
 
 defined ('main') or die ( 'no direct access' );
 
 $lang = array
 (
+'newtopicoverview' => 'neue Themen &Uuml;bersicht',
+'oldtopicoverview' => 'alte Themen &Uuml;bersicht',
+'movedsuccesstopic' => 'Thema erfolgreich verschoben',
+'choosenewforum' => 'neues Forum ausw&auml;hlen',
+'nomessegetitle' => 'kein Nachrichtentitel',
+'thereare' => 'Es wurden',
+'doyouwant' => 'Wollen sie die',
+'touser' => 'an Benutzer',
+'nomailmessage' => 'Bitte eine Nachricht angeben',
+'nomailadress' => 'Bitte eine eMail angeben',
+'Pleasenotwemails' => 'Bitte nicht so schnell eMails schreiben',
+'pleasespecify' => 'Bitte einen Betreff angeben',
+'nowcreatenews' => 'jetzt eine News erstellen',
+'createnewforum' => 'neues Forum erstellen',
+'datenschutz' => 'Datenschutzerkl&auml;rung',
+'nowar' => 'kein War geplant',
+'noentry' => 'kein Eintrag vorhanden',
+'lookat' => 'ansehen',
+'selectrecipient' => 'Empf&auml;nger ausw&auml;hlen',
+'contribution' => 'Beitrag',
+'hdse' => 'Hier den Suchbegriff eingeben',
+'startseite' => 'Start',
+'nachoben' => 'nach oben',
+'sigins' => 'Anmelden',
+'noneavatar' => 'Kein Avatar eingetragen',
+'orregist' => 'oder',
+'newmessage' => 'neue Nachrichten',
+'usergallery' => 'Meine Gallery',
+'userprofil' => 'Profil ansehen',
+'winclose' => 'Fenster schlie&szlig;en',
+'logoutnew' => 'Abmelden',
+'mypost' => 'meine Beitr&auml;ge',
+'profilbear' => 'Profil bearbeiten',
+'lostpw' => 'Passwort vergessen?',
+'submitnews' => 'News einsenden',
+'titlen' => 'Titel',
+'year' => 'Jahr',
+'showall' => 'alle anzeigen',
+'topicforum' => 'Thema',
+'writtenby' => 'Geschrieben von',
+'personalyremarks' => 'Pers&ouml;nliche Erg&auml;nzungen dazu',
+'emailaddressofyourfriend' => 'E-mail Adresse des Freundes',
+'nameofyourfriend' => 'Name des Freundes',
+'youemail' => 'Ihre E-Mail',
+'youname' => 'Ihr Name',
+'yousendthenews' => 'Sie versenden die News',
+'alle' => 'alle',
+'definitetime' => 'Zeitlich eingrenzen',
+'bankdata' => 'Kontodaten',
+'reservat' => 'Buchungen',
+'clancashregister' => 'Clan Kasse',
+'changepersonaldetails' => 'Pers&ouml;nliche Daten &auml;ndern',
+'selectedentries' => 'markierte Eintr&auml;ge',
 'active' => 'aktiv',
 'administrattopic' => 'Thema Administrieren',
 'adminarea' => 'Admin Bereich',
@@ -157,6 +210,7 @@ $lang = array
 'newpassword' => 'neues Passwort',
 'newposts' => 'neue Beitr&auml;ge',
 'new' => 'Neues',
+'newmess' => 'Neu',
 'newpost' => 'neuer Beitrag',
 'news' => 'News',
 'nextwars' => 'Next Wars',
@@ -207,7 +261,7 @@ $lang = array
 'regsince' => 'Dabei seit',
 'regtime' => 'Anmeldedatum',
 'reject' => 'ablehnen',
-'realydelete' => 'wirklich löschen?',
+'realydelete' => 'wirklich l&ouml;schen?',
 'rejected' => 'abgelehnt',
 'removeaccount' => 'Account l&ouml;schen',
 'remark' => 'Bemerkung',
@@ -286,20 +340,30 @@ $lang = array
 'verybad' => 'sehr schlecht',
 
 
-## Forum - Buttons für Textformatierungen
+## Forum - Buttons f&uuml;r Textformatierungen
 
 
 
 ## laengere saetzte
+'forumauthorinform' => 'Die Autoren &uuml;ber das verschieben informieren?',
+'pmsystemhome' => 'zum Nachrichten Eingang',
+'pmsystemdelmore' => 'Nachrichten erfolgreich gel&ouml;scht.',
+'pmsystemdelone' => 'Es wurde eine Nachricht erfolgreich gel&ouml;scht.',
+'pmnoclear' => 'Es wurde keine Nachricht zum l&ouml;schen gew&auml;hlt.',
+'pmsendmessage' => 'Die Nachricht wurde erfolgreich gesendet.',
+'notreceiver' => 'Dieser Empf&auml;nger konnte nicht gefunden werden.',
+'pmsystemon' => 'Im <a href="index.php?user-profil">Profil</a> einstellen das du die PrivMsg Funktion nutzen m&ouml;chtest.',
+'closeprivatpm' => 'Private Nachrichten wurden von dem Administrator komplett gesperrt',
+'guestsnotsend' => 'G&auml;ste d&uuml;rfen keine privaten Nachrichten verschicken!',
 'addcomment' => 'Kommentar hinzuf&uuml;gen',
 'afteryoureceivedthemail' => 'Nachdem du die E-Mail erhalten hast kannst du dich',
 'amailhasbeensenttoyouwithmailandpass' => 'Dir wurde eine E-Mail mit dem Passwort und allem weiteren geschickt',
 'avatarisnopicture' => 'Bitte nur Bilder als Avatar hochladen.',
 'avatarcannotupload' => 'Das Bild ist entweder zu hoch zu breit oder zu gro&szlig;.',
-'awaycalnewenquiry' => 'Es ist ein neuer Away-Termin eingetragen worden, bitte prüfen!!!',
-'awaycalchangedenquiry' => 'Ein Away Termin wurde bearbeitet, bitte prüfen',
-'awaycalstatuschanged' => 'Der Status deines Antrags wurde geändert, bitte prüfen!',
-'changedthemail' => "Hallo,\nSie haben gerade Ihre eMail-Adresse geändert. Diese bitte mit dem nachfolgenden Link bestätigen...\n\n",
+'awaycalnewenquiry' => 'Es ist ein neuer Away-Termin eingetragen worden, bitte pr&uuml;fen!!!',
+'awaycalchangedenquiry' => 'Ein Away Termin wurde bearbeitet, bitte pr&uuml;fen',
+'awaycalstatuschanged' => 'Der Status deines Antrags wurde ge&auml;ndert, bitte pr&uuml;fen!',
+'changedthemail' => "Hallo,\nSie haben gerade Ihre eMail-Adresse geändert. Diese bitte mit dem nachfolgenden Link best&auml;tigen...\n\n",
 'confirmfailure' => 'Kein Eintrag gefunden. Evtl. ist es schon zu lange her und der Eintrag wurde gel&ouml;scht oder du bist einfach zweimal mit dem selben Link auf diese Seite gekommen.',
 'confirmpassword' => 'Das neue Passwort wurde erfolgreich best&auml;tigt, du kannst dich jetzt damit <a href="index.php?user-login">einloggen</a>.',
 'confirmemail' => 'Die eMail wurde erfolgreich best&auml;tigt...',
@@ -315,7 +379,7 @@ $lang = array
 'edityoutpost' => 'deinen Beitrag ver&auml;ndern',
 'emailsuccessfullsend' => 'Die E-Mail wurde erfolgreich versendet.',
 'emailcouldnotsend' => 'Die eMail konnte nicht verschickt werden. Die Angaben werden ganz simpel gep&uuml;eft, stimmt irgendwas nicht wird die eMail nicht verschickt.',
-'fightusrequest' => "\n\ndie Anfrage kannst du im Adminbereich, als Nextwar übernehmen... Vergiss aber nicht, Kontakt mit dem Clan aufzunehmen ;)",
+'fightusrequest' => "\n\ndie Anfrage kannst du im Adminbereich, als Nextwar &uuml;bernehmen... Vergiss aber nicht, Kontakt mit dem Clan aufzunehmen ;)",
 'guestsonline,ofthem' => 'Besucher online, davon',
 'wholevisitor' => 'Besucher gesamt',
 'weeksum' => 'Wochen Summe',
@@ -347,7 +411,7 @@ $lang = array
 'postsin' => 'Beitr&auml;ge in',
 'readandok' => 'gelesen und einverstanden',
 'readwholenews' => 'ganzen Artikel lesen',
-'registconfirm' => 'Damit Sie sich endgültig anmelden können müssen Sie noch den folgenden Link bestätigen:',
+'registconfirm' => 'Damit Sie sich endgütig anmelden können müssen Sie noch den folgenden Link bestätigen:',
 'registconfirmlink' => 'http://%s?user-confirm&check=%s',
 'registredand' => 'registrierter und',
 'registrededand' => 'registrierte und',
@@ -356,7 +420,7 @@ $lang = array
 'sitemapfordownloads' => 'Sitemap f&uuml;r Downloads',
 'sitemapforlinks' => 'Sitemap f&uuml;r Links',
 'sitemapfornews' => 'Sitemap f&uuml;r News',
-'thedelwassuccessful' => 'Der Beitrag wurde erfolgreich gel&ouml;scht<br /><br />Zur&uuml;ck zum &raquo;',
+'thedelwassuccessful' => 'Der Beitrag wurde erfolgreich gel&ouml;scht<br><br>Zur&uuml;ck zum &raquo;',
 'topics' => 'Themen geschrieben',
 'topicwithnoreply' => 'unbeantwortete Themen',
 'ownposts' => 'eigene Beitr&auml;ge',
@@ -375,7 +439,7 @@ $lang = array
 'yourareloged' => 'Du bist eingeloggt',
 'yourregistrationwassuccessful' => 'Deine Anmeldung war erfolgreich',
 'topicalertmessage' => "Hallo %s\n\nIm Thema \"%s\" ist gerade ein neuer Beitrag geschrieben worden...\n\nLink zum Thema: http://%s?forum-showposts-%s-topicalert\n\nWenn du keine neuen eMails bei einer Antwort erhalten möchtest kannst du dich in dem Beitrag ganz unten austragen (wenn du eingeloggt bist)",
-'registemail' => "Hallo %s,\n\nWillkommen auf dieser Seite!\n\n%s\n\nIhre Zugangsdaten:\n- - - - - - - -\nName     : %s\nPassword : %s\n- - - - - - - -\n\nDa Ihr Passwort nur verschlüsselt in der Datenbank gespeichert wurde, heben Sie es bitte gut auf.\n\nMit freundlichen Grüssen\nAdministrator",
+'registemail' => "Hallo %s,\n\nWillkommen auf dieser Seite!\n\n%s\n\nIhre Zugangsdaten:\n- - - - - - - -\nName     : %s\nPasswort : %s\n- - - - - - - -\n\nDa Ihr Passwort nur verschlüsselt in der Datenbank gespeichert wurde, heben Sie es bitte gut auf.\n\nMit freundlichen Grüssen\nAdministrator",
 'newpasswordmail' => "Hallo %s,\n\num das neue Passwort zu bestätigen einfach auf den folgenden Link klicken\n\n%s\n\nDein neues Passwort: %s\n\nWenn das Passwort nicht gewünscht ist, kann diese eMail einfach ignoriert werden.\n\nAdministrator",
 'nowvoteavailable' => 'keine Umfrage vorhanden',
 'vote' => 'Umfrage',
@@ -392,7 +456,7 @@ $lang = array
 'lastwars' => 'Lastwars',
 'yourdata' => 'Deine Daten',
 
-'rulzreaded' => 'Ja ich habe die <a target="_blank" href="index.php?rules">Regeln</a> gelesen und akzeptiere sie!',
+'rulzreaded' => 'Ja ich habe die <a href="index.php?rules">Regeln</a> gelesen und akzeptiere sie!',
 'joininfo' => 'Hinweise',
 
 'basicinfo'=>'Basis Informationen',
@@ -400,7 +464,7 @@ $lang = array
 'otherinfo'=>'Sonstige Informationen',
 'clantag'=>'Clank&uuml;rzel',
 
-'joinusprivmsg' => "Hallo,\n%s möchte %s beitreten.\n\nFolgende Angaben hat er gemacht:\nSkill: %s\neMail: %s\nWohnort: %s\nAlter: %s\nICQ: %s\nFav.Map: %s\nGrund: %s\n\nEr hat die Regeln akzeptiert: %s\n\nWurde direkt als User registriert: %s\nWenn dort nein steht dann war er zum Zeitpunkt der Anfrage schon User.\n\nIm Adminmenu unter Teams kannst du ihn freischalten, oder die Anfrage löschen. Wenn er als User registriert wurde, muss er die Registrierung jenach Einstellung erst bestätigen.",
+'joinusprivmsg' => "Hallo,\n%s m&ouml;chte %s beitreten.\n\nFolgende Angaben hat er gemacht:\nSkill: %s\neMail: %s\nWohnort: %s\nAlter: %s\nICQ: %s\nFav.Map: %s\nGrund: %s\n\nEr hat die Regeln akzeptiert: %s\n\nWurde direkt als User registriert: %s\nWenn dort nein steht dann war er zum Zeitpunkt der Anfrage schon User.\n\nIm Adminmenu unter Teams kannst du ihn freischalten, oder die Anfrage l&ouml;schen. Wenn er als User registriert wurde, muss er die Registrierung jenach Einstellung erst best&auml;tigen.",
 
 'ende' => 'ende',
 
@@ -410,7 +474,7 @@ $lang = array
 'incorrect' => 'Falsch',
 
 'wrongcaptchaentered' => 'Eingegebener Antispam war nicht korrekt',
-'entereddataincomplete' => 'Eingegebene Daten sind unvollständig'
+'entereddataincomplete' => 'Eingegebene Daten sind unvollst&auml;ndig'
 );
 
 #$x = array();
