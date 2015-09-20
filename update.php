@@ -163,7 +163,13 @@ if ($rows > 45)
 			    }
 
 			    //Update 1.1q
-			    $qry = db_query('SHOW TABLES LIKE `prefix_bbcode_badword`');
+			    
+                            if (db_count_query('SELECT COUNT(*) FROM `prefix_config` WHERE `schl` = "wartung"') == 0) {
+				$sql_statements[] = "INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('wartung', 'r2', 'Allgemeine Optionen', 'Soll auf Bearbeitungs Modus gestellt werden ?', '0')";
+				$sql_statements[] = "INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('wartungs_information', 'textarea', 'Allgemeine Optionen', 'Information zum Wartungsvorgang (bbcode)', 'Wartungsmodus')";
+                            }
+                            
+                            $qry = db_query('SHOW TABLES LIKE `prefix_bbcode_badword`');
 			    if (!$qry) {
 				$sql_statements[] = '-- UPDATE 1.1Q';
 				$sql_statements[] = " CREATE TABLE `prefix_bbcode_badword` (

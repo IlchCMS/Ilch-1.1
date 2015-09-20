@@ -17,7 +17,17 @@ $menu = new menu();
 user_identification();
 site_statistic();
 
-require_once ('include/contents/'.$menu->get_url());
+if (is_admin()) { 
+  require_once ('include/contents/'.$menu->get_url());
+} 
+
+$lol = 1;
+
+if ( /*$allgAr['wartung']*/  $lol == 1) {
+  require_once ('include/contents/wartung.php');
+} else {
+  require_once ('include/contents/'.$menu->get_url());
+}
 
 db_close();
 if (FALSE) { //debugging aktivieren
