@@ -1,26 +1,30 @@
-<br><br><table width="60%" border="0" align="center" cellpadding="0" cellspacing="0">
-    <tr>
-        <td width="49%"><div align="center">
-                <p><img src="include/images/websiteoffline.gif" alt="" height="300" width="205" border="0"></p>
-                <p><a href="admin.php?admin"><u><font size="1">Admin Zugang</font></u></a></p>
-            </div></td>
 
-        <td width="41%"><table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
-                <tr>
-                    <td><div align="right"><h3><b><font color="#CC0000">Wartungsmodus</font></b></h3></div></td>
-                </tr>
-                <tr>
-                    <td height="80" valign="top"><font size="1">Grund für den Wartungsmodus</font><br> {grund} </td>
-                </tr>
-                <tr>
-                    <td>&nbsp;</td>
-                </tr>
+<link href="include/includes/css/wartung.css" rel="stylesheet">
 
-                <tr>
-                    <td><br><h4><b>Wir bitten um Verständnis ihr </b><br>
-                            {title} Team</h4><br><font size="1">Kontakt</font><br>
-                        <a href='.$eMail.'>{email}</a></td>
-                </tr>
-            </table></td>
-    </tr>
-</table>
+<script>
+    $(function () {
+        $(".meter > span").each(function () {
+            $(this)
+                    .data("origWidth", $(this).width())
+                    .width(0)
+                    .animate({
+                        width: $(this).data("origWidth")
+                    }, 1200);
+        });
+    });
+</script>
+
+<div class="wartung_container">
+    <div class="wartung-form_container">
+        <img class="wartung-logo" src="include/images/etc/ilch_logo.png">
+        <div style="margin: 0 auto; max-width: 600px;">
+
+            <div style="text-align: center; font-size: 18px; font-weight: bold;">Die Seite befindet sich aktuell Wartungsmodus</div>
+            <div style=" margin-top: 10px; text-align: center; font-size: 14px;">{grund}</div>
+            <div class="meter red">
+                <span style="width: 80%"></span>
+            </div>
+
+        </div>
+    </div>
+</div>
