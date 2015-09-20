@@ -65,8 +65,6 @@ INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('gallery_preview_width', 'input', 'Gallery Optionen', 'Breite der Vorschaubilder', '80');
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('Fpmf', 'r2', 'Forum Optionen', 'Nachrichten Function', '1');
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('gfx', 's', 'Allgemeine Optionen', 'Standard Design', 'ilchClan');
-INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('wartung', 'r2', 'Allgemeine Optionen', 'Soll auf Bearbeitungs Modus gestellt werden ?', '0');
-INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('wartungs_information', 'textarea', 'Allgemeine Optionen', 'Information zum Wartungsvorgang (bbcode)', 'Wartungsmodus');
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('adminMail', 'input', 'Allgemeine Optionen', 'Administrator eMail', 'test');
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('smodul', 's', 'Allgemeine Optionen', 'Start Modul der Seite', 'news');
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('title', 'input', 'Allgemeine Optionen', 'Titel der Seite', 'Das Clanscript für jeden!');
@@ -91,7 +89,7 @@ INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('gallery_img_koms', 'r2', 'Gallery Optionen', 'Kommentare für Bilder zulassen?', '1');
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('forum_max_sig', 'input', 'Forum Optionen', 'max. Anzahl Zeichen in der Signatur', '200');
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('gbook_koms_for_inserts', 'r2', 'G&auml;stebuch Optionen', 'Kommentare f&uuml;r G&auml;stebucheintr&auml;ge?', '1');
-INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('allg_regeln', 'textarea', 'Allgemeine Optionen', 'Die Regeln für die Seite (bbcode erlaubt)', '[list]\r\n[*]Die Registrierung ist völlig Kostenlos\r\n[*]Die Betreiber der Seite übernehmen keine Haftung.\r\n[*]Bitte verhalten Sie sich angemessen und mit Respekt gegenüber den anderen Community Mitgliedern.\r\n[/list]');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert`, `pos` ) VALUES ('allg_regeln', 'textarea', 'Allgemeine Optionen', 'Die Regeln für die Seite (bbcode erlaubt)', '[list]\r\n[*]Die Registrierung ist völlig Kostenlos\r\n[*]Die Betreiber der Seite übernehmen keine Haftung.\r\n[*]Bitte verhalten Sie sich angemessen und mit Respekt gegenüber den anderen Community Mitgliedern.\r\n[/list]', '3');
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('teams_show_list', 'r2', 'Team Optionen', 'Avatar bei den Usern?', '0');
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('teams_show_cat', 'r2', 'Team Optionen', 'Sollen die Squads als Kategorie angezeigt werden?', '1');
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('allg_bbcode_max_img_width', 'input', 'Allgemeine Optionen', 'Wie Breit solle ein Bild maximal sein (in Pixeln)?', '230');
@@ -104,6 +102,9 @@ INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('joinus_rules', 'r2', 'Team Optionen', 'Regeln bei Joinus vollst&auml;ndig anzeigen?', '0');
 INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert` ) VALUES ('groups_forall', 'r2', 'Team Optionen', 'Modulrecht <i>Gruppen</i> auf eigene Gruppe beschr&auml;nken?', '1');
 INSERT INTO `prefix_config` (`schl`, `typ`, `kat`, `frage`, `wert`, `pos`) VALUES('mail_smtp', 'r2', 'Allgemeine Optionen', 'SMTP für den Mailversand verwenden? <a href="admin.php?smtpconf" class="smalfont">weitere Einstellungen</a>', '0', 0);
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert`, `pos` ) VALUES ('wartung', 'r2', 'Allgemeine Optionen', 'Soll auf Bearbeitungs Modus gestellt werden ?', '0', '1');
+INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert`, `pos` ) VALUES ('wartungs_information', 'textarea', 'Allgemeine Optionen', 'Information zum Wartungsvorgang (bbcode)', 'Wartungsmodus', '2');
+
 
 
 CREATE TABLE `prefix_counter` (

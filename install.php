@@ -713,10 +713,10 @@ config;
 
 
         // Loeschen der Installationsdateien
-        $installfile = __FILE__;
+        /*$installfile = __FILE__;
         $installsqlfile = "install.sql";
         $updatefile = "update.php";
-        $installcss = "install.css";
+        $installcss = "install.css";*/
         ?>
 
         <div class="installcontent">
