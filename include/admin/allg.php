@@ -125,6 +125,8 @@ if (empty($_POST['submit']) || !$csrfCheck) {
 	echo '<div class="col-sm-6">';
 	if ($row['typ'] == 'input') {
 	    echo '<input class="form-control" type="text" name="' . $row['schl'] . '" value="' . $row['wert'] . '">';
+	} if ($row['typ'] == 'range') {
+	    echo '<div class="range_in"><input type="range" name="' . $row['schl'] . '" min="1" max="100" value="' . $row['wert'] . '" step="1" onchange="rangevalue.value=value" /></div><div class="range_out"><output id="rangevalue">' . $row['wert'] . '%</output></div>';
 	} elseif ($row['typ'] == 'r2') {
 	    $checkedj = '';
 	    $checkedn = '';

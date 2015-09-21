@@ -167,7 +167,7 @@ if ($rows > 45)
                                 $sql_statements[] = 'UPDATE `prefix_config` SET `pos` = "5" WHERE `schl` = "allg_regeln"';
 				$sql_statements[] = "INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert`, `pos`) VALUES ('wartung', 'r2', 'Allgemeine Optionen', 'Wartungsmodus aktiv?', '0', '1')";
                                 $sql_statements[] = "INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert`, `pos` ) VALUES ('wartungs_alert', 'r2', 'Allgemeine Optionen', 'Wartungshinweis auf der Seite anzeigen?', '0', '2')";
-				$sql_statements[] = "INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert`, `pos` ) VALUES ('wartungs_progress', 'input', 'Allgemeine Optionen', 'Wartungsfortschritt in Prozent', '0', '3')";
+				$sql_statements[] = "INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert`, `pos` ) VALUES ('wartungs_progress', 'range', 'Allgemeine Optionen', 'Wartungsfortschritt in Prozent', '0', '3')";
                                 $sql_statements[] = "INSERT INTO `prefix_config` ( `schl` , `typ` , `kat` , `frage` , `wert`, `pos` ) VALUES ('wartungs_information', 'textarea', 'Allgemeine Optionen', 'Information zum Wartungsvorgang (bbcode)', 'Wartungsmodus', '4')";
                             }
                             
