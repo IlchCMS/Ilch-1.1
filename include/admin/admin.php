@@ -95,7 +95,7 @@ switch ($um) {
                                                     if ($allgAr['wartung'] == 0) {
                                                         echo '<span class="label label-success">Seite Online</span>';
                                                     } else {
-                                                        echo '<span class="label label-warning">Wartungs Modus</span>';
+                                                        echo '<span class="label label-warning">Wartungsmodus</span>';
                                                     }
                                                     ?></strong></td>
                                         </tr></table>

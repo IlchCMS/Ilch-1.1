@@ -22,7 +22,7 @@ if (!is_admin()) {
 } else {
 
     if ($allgAr['wartungs_alert'] == '1') {
-        echo '<div style="position:absolute; left: 0px; top: 0px; width:100%; display: block; background-color: #a94442;"><br><b>Diese Seite befindet sich im Wartungsmodus</b><br><a href="admin.php?allg">Wartungsmodus beenden</a></div>';
+        echo '<div style="position:absolute; left: 0px; top: 0px; width:100%; display: block; background-color: #a94442;"><br><b>Seite befindet sich im Wartungsmodus</b><br><a href="admin.php?allg">Wartungsmodus beenden</a></div>';
         exit();
     }
 }
