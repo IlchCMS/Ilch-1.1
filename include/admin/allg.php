@@ -130,16 +130,21 @@ if (empty($_POST['submit']) || !$csrfCheck) {
 	} elseif ($row['typ'] == 'r2') {
 	    $checkedj = '';
 	    $checkedn = '';
-	    if ($allgAr[$row['schl']] == 1) {
-		$checkedj = 'checked';
+	    if ($row['wert'] == 1) {
+		$checkedj = 'checked="checked"';
 		$checkedn = '';
 	    } else {
-		$checkedn = 'checked';
+		$checkedn = 'checked="checked"';
 		$checkedj = '';
 	    }
-	    echo '<label class="radio-inline"><input type="radio" name="' . $row['schl'] . '" value="1" ' . $checkedj . ' > ja</label>';
-	    echo '<label class="radio-inline"><input type="radio" name="' . $row['schl'] . '" value="0" ' . $checkedn . ' > nein</label>';
-	} elseif ($row['typ'] == 's') {
+            echo '<div class="flipswitch">';
+	    echo '<input type="radio" class="flipswitch-input" name="' . $row['schl'] . '" value="1" id="' . $row['schl'] . '-yes"  ' .$checkedj .' />';
+            echo '<label for="' . $row['schl'] . '-yes" class="flipswitch-label flipswitch-label-on">Ja</label>';
+            echo '<input type="radio" class="flipswitch-input" name="' . $row['schl'] . '" value="0" id="' . $row['schl'] . '-no"  ' .$checkedn .' />';
+            echo '<label for="' . $row['schl'] . '-no" class="flipswitch-label flipswitch-label-off">Nein</label>';
+            echo '<span class="flipswitch-selection"></span> ';
+            echo '</div>';
+         } elseif ($row['typ'] == 's') {
 	    $vname = $row['schl'];
 	    echo '<div class="col-sm-6"><select class="form-control" name="' . $row['schl'] . '">' . $$vname . '</select></div>';
 	} elseif ($row['typ'] == 'textarea') {
