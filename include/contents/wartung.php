@@ -9,20 +9,21 @@ $title = ':: Wartungsmodus ::';
 
 if (!is_admin()) {
 
-$tpl = new tpl('wartung');
+    $tpl = new tpl('wartung');
 
     $ar = array(
         'title' => $allgAr['title'],
+        'progress' => $allgAr['wartungs_progress'],
         'email' => $allgAr['adminMail'],
         'grund' => bbcode($allgAr['wartungs_information'])
     );
 
     $tpl->set_ar_out($ar, 0);
-    
 } else {
 
-    echo '<div style="position:absolute; left: 0px; top: 0px; width:100%; display: block; background-color: #FFFFFF; border: 2px solid #ff0000;"><b>! ! Diese Seite befindet sich im Wartungsmodus ! ! </b><br> Seite nur für Administratoren sichtbar. <br><a href="admin.php?allg">Wartungsmodus beenden</a></div>';
-
-    exit();
+    if ($allgAr['wartungs_alert'] == '1') {
+        echo '<div style="position:absolute; left: 0px; top: 0px; width:100%; display: block; background-color: #a94442;"><br><b>Diese Seite befindet sich im Wartungsmodus</b><br><a href="admin.php?allg">Wartungsmodus beenden</a></div>';
+        exit();
+    }
 }
 ?>

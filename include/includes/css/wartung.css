@@ -38,28 +38,22 @@
 }
 
 .wartung-btn-box {
-    width: 50%; 
-    float: left;
+    width: 100%; 
+    margin-top: 20px;
+    text-align: center;
 }
 
-.wartung-link-box {
-    width: 50%;
-    float: left;
-    margin-top: 8px;  
-    text-align: right;
-}
-
-.meter { 
-    height: 20px;  /* Can be anything */
+.progress { 
+    height: 20px;  
     position: relative;
-    margin-top: 40px; /* Just for demo spacing */
+    margin-top: 40px; 
     background: #555;
     padding: 5px;
     -webkit-box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
     -moz-box-shadow   : inset 0 -1px 1px rgba(255,255,255,0.3);
     box-shadow        : inset 0 -1px 1px rgba(255,255,255,0.3);
 }
-.meter > span {
+.progress > span {
     display: block;
     height: 100%;
 
@@ -89,7 +83,7 @@
     overflow: hidden;
 }
 
-.meter > span:after, .animate > span > span {
+.progress > span:after, .animate > span > span {
     content: "";
     position: absolute;
     top: 0; left: 0; bottom: 0; right: 0;
@@ -132,7 +126,7 @@
     }
 }
 
-.red > span {
+.bar > span {
     background-color: #f0a3a3;
     background-image: -moz-linear-gradient(top, #f0a3a3, #f42323);
     background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #f0a3a3),color-stop(1, #f42323));
