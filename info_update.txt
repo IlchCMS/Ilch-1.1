@@ -1,9 +1,9 @@
-ilchClan 1.1 Update P (von ilchClan 1.1 O)
+ilchClan 1.1 Update Q (von ilchClan 1.1 P)
 
-24. April 2013
+TODO: 13. April 2015
 
 Copyright (c) 2005 by Manuel
-Copyright (c) 2005 - 2013 by ilch.de
+Copyright (c) 2005 - 2015 by ilch.de
 
 
 i n s t a l l a t i o n

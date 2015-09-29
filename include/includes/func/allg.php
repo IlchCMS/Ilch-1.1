@@ -175,7 +175,7 @@ function getsmilies() {
 	}
 	$i++;
     }
-    $b .= ' x.document.write("<br><br><div class="text-center"><a href=\"javascript:window.close();\">' . $lang['close'] . '</a></div>"); x.document.close(); }</script>';
+    $b .= ' x.document.write("<br><br><div class=\"text-center\"><a href=\"javascript:window.close();\">' . $lang['close'] . '</a></div>"); x.document.close(); }</script>';
     if ($i > 12) {
 	$a .= '<br><br><div class="text-center"><a href="javascript:moreSmilies();">' . $lang['more'] . '</a></div>';
     }

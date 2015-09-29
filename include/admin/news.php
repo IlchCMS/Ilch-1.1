@@ -5,8 +5,8 @@
 defined ('main') or die ('no direct access');
 defined ('admin') or die ('only admin access');
 
-if (!isset($_SESSION['allowFCKUpload'])) {
-	$_SESSION['allowFCKUpload'] = true;
+if (!isset($_SESSION['allowCKUpload'])) {
+	$_SESSION['allowCKUpload'] = true;
 }
 
 // -----------------------------------------------------------|

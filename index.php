@@ -9,10 +9,11 @@ session_start ();
 require_once ('include/includes/config.php');
 require_once ('include/includes/loader.php');
 
+//TODO: move to design class!
 $ILCH_HEADER_ADDITIONS .= '<link rel="stylesheet" type="text/css" href="include/includes/css/ilch_default.css">';
 
 db_connect();
-$allgAr = getAllgAr ();
+$allgAr = getAllgAr();
 $menu = new menu();
 user_identification();
 site_statistic();

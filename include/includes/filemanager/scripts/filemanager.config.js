@@ -1,7 +1,7 @@
 {
-		"_comment": "IMPORTANT : go to the wiki page to know about options configuration https://github.com/simogeo/Filemanager/wiki/Filemanager-configuration-file",
+    "_comment": "IMPORTANT : go to the wiki page to know about options configuration https://github.com/simogeo/Filemanager/wiki/Filemanager-configuration-file",
     "options": {
-        "culture": "en",
+        "culture": "de",
         "lang": "php",
         "theme": "flat-dark",
         "defaultViewMode": "grid",
@@ -18,9 +18,10 @@
         "chars_only_latin": true,
         "dateFormat": "d M Y H:i",
         "serverRoot": true,
-        "fileRoot": false,
-        "relPath": "/include/images/filemanager",
-        "logger": false,
+        "fileRoot": "include/images/filemanager/",
+        "relPath": "/include/images/filemanager/",
+        "baseUrl": "/ilch/include/images/filemanager/",
+        "logger": true,
         "capabilities": ["select", "download", "rename", "delete", "replace"],
         "plugins": []
     },

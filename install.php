@@ -736,26 +736,14 @@ config;
                 <p>Die Seite kann jetzt unter <a href="index.php">Aufgerufen</a> werden.</p>
                 <br>
                 <?php
-                if (file_exists($updatefile)) {
-                    if (!unlink($updatefile)) {
-                        echo '<p class="errorunlink">update.php konnte nicht automatisch gel&ouml;scht werden.</p>';
-                    }
-                }
-
-                if (file_exists($installfile)) {
-                    if (!unlink($installfile)) {
-                        echo '<p class="errorunlink">install.php konnte nicht automatisch gel&ouml;scht werden.</p>';
-                    }
-                }
-
-                if (file_exists($installsqlfile)) {
-                    if (!unlink($installsqlfile)) {
-                        echo '<p class="errorunlink">install.sql konnte nicht automatisch gel&ouml;scht werden.</p>';
-                    }
-                }
-                if (file_exists($installcss)) {
-                    if (!unlink($installcss)) {
-                        echo '<p class="errorunlink">install.css konnte nicht automatisch gel&ouml;scht werden.</p>';
+                if (!is_dir('.git')) {
+                    $filesToRemove = array('update.php', 'install.php', 'install.sql', 'install.css');
+                    foreach ($filesToRemove as $fileToRemove) {
+                        if (file_exists($fileToRemove) && is_writeable($fileToRemove)) {
+                            if (!unlink($fileToRemove)) {
+                                echo '<p class="errorunlink">' . $filesToRemove . ' konnte nicht automatisch gel&ouml;scht werden.</p>';
+                            }
+                        }
                     }
                 }
                 ?>

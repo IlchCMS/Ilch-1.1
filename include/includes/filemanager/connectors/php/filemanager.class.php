@@ -26,7 +26,7 @@ class Filemanager {
 	protected $dynamic_fileroot = ''; // Only set if setFileRoot() is called. Second part of the path : '/Filemanager/assets/' ( doc_root - $_SERVER['DOCUMENT_ROOT'])
 	protected $path_to_files = ''; // path to FM userfiles folder - automatically computed by the PHP class, something like '/var/www/Filemanager/userfiles'
 	protected $logger = false;
-	protected $logfile = '/tmp/filemanager.log';
+	protected $logfile = '';
 	protected $cachefolder = '_thumbs/';
 	protected $thumbnail_width = 64;
 	protected $thumbnail_height = 64;
@@ -51,6 +51,10 @@ class Filemanager {
 		if(!empty($extraConfig)) {
 			$this->setup($extraConfig);
 		}
+		
+		// set logfile path according to system if not set into config file
+		if(!isset($this->config['options']['logfile']))
+			$this->config['options']['logfile'] = sys_get_temp_dir(). '/filemanager.log';
 
 		$this->root = dirname(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR;
 		$this->properties = array(
@@ -1140,33 +1144,32 @@ private function sortFiles($array) {
 
 }
 
-private function startsWith($haystack, $needle) {
-    // search backwards starting from haystack length characters from the end
-    return $needle === "" || strrpos($haystack, $needle, -strlen($haystack)) !== FALSE;
-}
+// @todo to remove
+// private function startsWith($haystack, $needle) {
+//     // search backwards starting from haystack length characters from the end
+//     return $needle === "" || strrpos($haystack, $needle, -strlen($haystack)) !== FALSE;
+// }
 
 private function is_valid_path($path) {
-		
-
-  // $this->__log('[startsWith] path : ' .$path. ' - this->path_to_files : ' . $this->path_to_files . '');
-  // if($this->startsWith($path, $this->path_to_files)) $var = 'success'; else $var ='failed';
-  // $this->__log('[startsWith] returned value  : ' . $var );
 	
-	// $this->__log('compare : ' .$this->getFullPath(). '($this->getFullPath())  and ' . $path . '(path)');
-	// $this->__log('strncmp() returned value : ' .strncmp($path, $this->getFullPath(), strlen($this->getFullPath())));
-	
-	// return !strncmp($path, $this->getFullPath(), strlen($this->getFullPath()));
-	
+	//  @todo to remove
   // if(!$this->startsWith(realpath($path), realpath($this->path_to_files))) return false;
   // @see https://github.com/simogeo/Filemanager/issues/332
   // @see http://stackoverflow.com/questions/5642785/php-a-good-way-to-universalize-paths-across-oss-slash-directions
   
-	$givenpath = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $path);
-	$rootpath = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $this->path_to_files);
+	// $givenpath = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $path);
+	// $rootpath = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $this->path_to_files);
+	// $this->__log('substr doc_root : ' . substr(realpath($path) . DIRECTORY_SEPARATOR, 0, strlen($this->doc_root)));
+	// $this->__log('doc_root : ' . realpath($this->doc_root) . DIRECTORY_SEPARATOR);
 	
-	if(!$this->startsWith($givenpath, $rootpath)) return false;
-	return true;
-
+	// return $this->startsWith($givenpath, $rootpath);
+	
+	$this->__log('substr path_to_files : ' . substr(realpath($path) . DIRECTORY_SEPARATOR, 0, strlen($this->path_to_files)));
+	$this->__log('path_to_files : ' . realpath($this->path_to_files) . DIRECTORY_SEPARATOR);
+	
+	return substr(realpath($path) . DIRECTORY_SEPARATOR, 0, strlen($this->path_to_files)) == (realpath($this->path_to_files) . DIRECTORY_SEPARATOR);
+	
+	
 }
 
 private function unlinkRecursive($dir,$deleteRootToo=true) {
@@ -1204,10 +1207,7 @@ private function is_allowed_file_type($file) {
 	// if there is no extension
 	if (! isset ( $path_parts ['extension'] )) {
 		// we check if no extension file are allowed
-		if ($this->config ['security'] ['allowNoExtension'] == true)
-			return true;
-		else 
-			return false;
+		return (bool) $this->config['security']['allowNoExtension'];
 	}
 	
 	$exts = array_map('strtolower', $this->config['security']['uploadRestrictions']);
@@ -1278,12 +1278,7 @@ private function cleanString($string, $allowed = array()) {
  * @return boolean
  */
 private function has_permission($action) {
-
-	if(in_array($action, $this->allowed_actions))
-			return true;
-	
-	return false;
-
+	return in_array($action, $this->allowed_actions);
 }
 
 /**
@@ -1292,8 +1287,10 @@ private function has_permission($action) {
  * @param string $path
  */
 private function get_thumbnail_path($path) {
-		
-	$a = explode($this->separator, $path);
+	
+	$pos = strrpos($path, $this->separator);
+	$a[0] = substr($path,0,$pos);
+	$a[1] = substr($path,$pos+strlen($this->separator));
 
 	$path_parts = pathinfo($path);
 
@@ -1401,20 +1398,11 @@ private function is_image($path) {
 	$a = getimagesize($path);
 	$image_type = $a[2];
 
-	if(in_array($image_type , array(IMAGETYPE_GIF , IMAGETYPE_JPEG ,IMAGETYPE_PNG , IMAGETYPE_BMP))) {
-		return true;
-	}
-	return false;
+	return in_array($image_type , array(IMAGETYPE_GIF , IMAGETYPE_JPEG ,IMAGETYPE_PNG , IMAGETYPE_BMP));
 }
 
 private function is_root_folder($path) {
-
-	if( rtrim($this->path_to_files,"/") ==  rtrim($path,"/") ) {
-		return true;
-	}
-	
-	return false;
-	
+	return rtrim($this->path_to_files,"/") == rtrim($path,"/");
 }
 
 private function is_editable($file) {
@@ -1423,17 +1411,7 @@ private function is_editable($file) {
 	
 	$exts = array_map('strtolower', $this->config['edit']['editExt']);
 	
-	if(in_array($path_parts['extension'], $exts)) {
-		
-		return true;
-		
-	} else {
-		
-		return false;
-		
-	}
-
-	
+	return in_array($path_parts['extension'], $exts);
 }
 
 

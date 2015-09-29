@@ -1,6 +1,10 @@
-ilchClan 1.1 P
+ilchClan 1.1 Q
 
-24. April 2013
+TODO: 13. April 2015
+
+TODO: wenn ilch nicht im root verzeichnis läuft muss für ckeditor die Option baseUrl gesetzt werden
+      "baseUrl": "/VERZEICHNISSE/include/images/filemanager/"
+      Dies sollte im Adminbereich irgendwo als Hinweis oder ggf. sogar per Schalter änderbar sein (Datei muss dafür schreibbar sein)
 
 Copyright (c) 2005 by Manuel
 Copyright (c) 2005 - 2013 by ilch.de
@@ -33,10 +37,10 @@ Benutzung von anderen Open Source Bibliotheken
         - copyright (c) 2008-2009 by Joseph Woolley, Steffen Konerow, Jared White & J. Max Wilson
         - Licence: http://www.xajax-project.org/bsd_license.txt
 
-  - PHPMailer - PHP email class - Version: 2.0.4
+  - PHPMailer - PHP email class - Version: 5.2.9
         - Copyright und Lizenzinformationen in den Dateien im include/includes/class/phpmailer Verzeichnis
 
-  - BigDump ver. 0.34b from 2011-09-04
+  - BigDump ver. 0.34b from 2011-09-04 TODO: use newer Version 0.36b
         - Copyright und Lizenzinformationen in der backup/bigdump.php
 
   - Small AzDGCrypt class under GPL Licence (Downloaded from www.phpclasses.net // authors website: http://www.azdg.com/)

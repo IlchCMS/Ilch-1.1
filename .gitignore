@@ -1,6 +1,13 @@
-/nbproject
+# files of ilch
 /include/includes/config.php
+/include/images/filemanager/*
+/include/images/avatars/*
+/include/images/smiles/*
+
+# tools
+/nbproject
 run.bat
 .sonar
 /.sonar
-/images/filemanager/*
+.vagrant
+Vagrantfile
