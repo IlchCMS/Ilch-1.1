@@ -4,6 +4,8 @@
 #   Support: www.ilch.de
 
 
+//TODO: Remove wysiwyg values, ckeditor is used instead (imagebrowser can be removed too)
+
 defined('main') or die('no direct access');
 defined('admin') or die('only admin access');
 
@@ -16,7 +18,7 @@ function get_properties($t) {
 
     $properties = array();
     foreach ($out as $x) {
-	$properties[$x[name]] = htmlspecialchars($x[value], ILCH_ENTITIES_FLAGS, ILCH_CHARSET);
+	$properties[$x['name']] = htmlspecialchars($x['value'], ILCH_ENTITIES_FLAGS, ILCH_CHARSET);
     }
     unset($out);
     return $properties;
@@ -261,6 +263,12 @@ if (isset($_POST['bbwy']) AND isset($_POST['filename']) AND isset($_POST['akl'])
 $design->header();
 
 $tpl = new tpl('selfbp', 1);
+
+$result = fileManagerInit();
+if (is_string($result)) {
+    $tpl->set('errorMsg', $result);
+}
+
 $akl = '';
 if (isset($_REQUEST['akl'])) {
     $akl = $_REQUEST['akl'];
@@ -287,6 +295,7 @@ $text = edit_text($text, false);
 $filename = get_filename($akl);
 $akl = get_akl($akl);
 $view = get_view($properties['view']);
+
 $tpl->set_ar_out(array('akl' => $akl, 'text' => $text, 'filename' => $filename, 'exfilename' => $filename, 'wysiwyg' => $properties['wysiwyg'],
     'title' => $properties['title'], 'hmenu' => $properties['hmenu'], 'view' => $view, 'viewoptions' => $properties['viewoptions'],
     'wysiwyg_editor' => $properties['wysiwyg'] == 1 ? '<script type="text/javascript">buttonPath = "include/images/icons/editor/"; imageBrowse = "admin.php?selfbp-imagebrowser"; makeWhizzyWig("bbwy", "all");</script>' : '')

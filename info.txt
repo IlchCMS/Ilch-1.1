@@ -2,10 +2,6 @@ ilchClan 1.1 Q
 
 TODO: 13. April 2015
 
-TODO: wenn ilch nicht im root verzeichnis läuft muss für ckeditor die Option baseUrl gesetzt werden
-      "baseUrl": "/VERZEICHNISSE/include/images/filemanager/"
-      Dies sollte im Adminbereich irgendwo als Hinweis oder ggf. sogar per Schalter änderbar sein (Datei muss dafür schreibbar sein)
-
 Copyright (c) 2005 by Manuel
 Copyright (c) 2005 - 2013 by ilch.de
 

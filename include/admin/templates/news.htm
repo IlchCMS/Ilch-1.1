@@ -107,6 +107,12 @@ function delcheck (DELID) {
 //--></script>
 {xajax}
 <script type="text/javascript" src="include/includes/js/bbcode.js"></script>
+{_if_{errorMsg}!=''}
+<div class="alert alert-danger" role="alert">
+    <h4>Fehler aufgetreten</h4>
+    {errorMsg}
+</div>
+{/_endif}
 <legend><h2>News <small>Newsartikel erstellen <a href="#hilfe"><span rel="tooltip" title="zu den Hilfestellungen" class="glyphicon glyphicon-question-sign text-muted" aria-hidden="true"></span></a></small><span class="pull-right"><a class="btn btn-info btn-sm" href="index.php?news-archiv">News Archiv einsehen</a></span></h2></legend>
 <div class="panel panel-default" id="vorschau" style="display:none;">
     <div class="panel-heading text-center"><strong>Vorschau der News</strong></div>
@@ -165,26 +171,26 @@ function delcheck (DELID) {
                 </tr>
                 <tr>
                     <td><strong>HTML:</strong></td>
-                    <td><label for="html" class="radio-inline"><input type="radio" name="html" value="0" onchange="switch_html();" {sel0} > BBCode</label><label for="html" class="radio-inline"><input type="radio" name="html" value="1" onchange="switch_html();" {sel1} > HTML (FCKEditor)</label></td>
+                    <td><label class="radio-inline"><input type="radio"  name="html" value="0" onchange="switch_html();" {sel0} > BBCode</label><label class="radio-inline"><input type="radio" name="html" value="1" onchange="switch_html();" {sel1} > HTML (CKEditor)</label></td>
                 </tr>
                 <tr>
                     <td><strong>gesperrt:</strong></td>
-                    <td><label for="datum"  title="Zeitpunkt ab dem die News sichtbar ist, falls die News nicht gesperrt wird" rel="tooltip" class="checkbox-inline"><input type="checkbox" name="gesperrt" {sel_gesperrt} onchange="switch_datum_zeit();" > <strong>Datum (TT:MM.YYYY)</strong></label><input class="form-control" type="input" name="datum" value="{datum}"><br><label for="zeit">Uhrzeit (HH:MM)</label><input class="form-control" type="input" name="zeit" value="{zeit}"><br>
+                    <td><label title="Zeitpunkt ab dem die News sichtbar ist, falls die News nicht gesperrt wird" rel="tooltip" class="checkbox-inline"><input type="checkbox" name="gesperrt" {sel_gesperrt} onchange="switch_datum_zeit();" > <strong>Datum (TT:MM.YYYY)</strong></label><input class="form-control" type="input" name="datum" value="{datum}"><br><label>Uhrzeit (HH:MM)</label><input class="form-control" type="input" name="zeit" value="{zeit}"><br>
                         <label for="set_time" class="checkbox-inline"><input type="checkbox" name="set_time" id="set_time"> Erstellungszeit der News auf Erscheinungszeit setzen</label><span class="help-block">( beim &Auml;ndern einer News mit dieser Option wird der Username vom Editierenden und die Editierzeit gel&ouml;scht )</span>
                     </td>
                 </tr>
                 <tr>
                     <td><strong>l&auml;uft aus:</strong></td>
-                    <td><label for="close" class="radio-inline"><input type="radio" name="close" value="0" {csel0} > nein</label><label for="close" class="radio-inline"><input type="radio" name="close" value="1" {csel1} > sperren</label><label for="close" class="radio-inline"><input type="radio" name="close" value="2" {csel2} > Archiv</label>
+                    <td><label class="radio-inline"><input type="radio" name="close" value="0" {csel0} > nein</label><label class="radio-inline"><input type="radio" name="close" value="1" {csel1} > sperren</label><label class="radio-inline"><input type="radio" name="close" value="2" {csel2} > Archiv</label>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" for="cdatum">Datum</label>
+                            <label class="col-sm-2 control-label">Datum</label>
                             <div class="col-sm-10">
                                 <input class="form-control" type="input" name="cdatum" value="{cdatum}">
                             </div>
                         </div>
                         <br>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" for="czeit">Uhrzeit</label>
+                            <label class="col-sm-2 control-label">Uhrzeit</label>
                             <div class="col-sm-6">
                                 <input class="form-control" type="input" name="czeit" value="{czeit}">
                             </div>

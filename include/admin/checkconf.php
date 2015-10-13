@@ -48,17 +48,8 @@ if($menu->get(1) == "phpinfo"){
     #chmod
     $tpl->set_out('head',$lang['filesystemrights'], 1);
 
-    $files = array('include/backup',
-                  'include/images/avatars',
-                  'include/images/gallery',
-                  'include/images/usergallery',
-                  'include/downs/downloads',
-                  'include/downs/downloads/user_upload',
-                  'include/images/wars',
-                  'include/contents/selfbp/selfp',
-                  'include/contents/selfbp/selfb',
-                  'include/images/smiles'
-                  );
+    $files = array_keys(include 'include/includes/file_rights.php');
+
     asort($files);
     $class = 'Cmite';
     foreach($files as $f){

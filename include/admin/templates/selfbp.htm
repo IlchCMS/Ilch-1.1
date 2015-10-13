@@ -25,6 +25,12 @@
 
 //-->
 </script>
+{_if_{errorMsg}!=''}
+<div class="alert alert-danger" role="alert">
+    <h4>Fehler aufgetreten</h4>
+    {errorMsg}
+</div>
+{/_endif}
 <form name="form" action="?selfbp" method="POST" class="form-horizontal" role="form">
     <div class="panel panel-warning">
         <div class="panel-heading text-center"><h4>Eigene Box/Page <small>eigene Seiten und Boxen erstellen  <a href="#hilfe"><span rel="tooltip" title="zu den Hilfestellungen" class="glyphicon glyphicon-question-sign text-warning" aria-hidden="true"></span></a></small></h4></div>

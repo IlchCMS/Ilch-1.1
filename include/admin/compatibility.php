@@ -47,6 +47,7 @@ $ignoredFiles = array(
     'include/backup/bigdump.php',
     'include/includes/class/xajax.php4.inc.php',
     'include/includes/class/xajax.php5.inc.php',
+	'include/includes/filemanager/connectors/php/filemanager.class.php',
     'include/admin/compatibility.php',
     'update.php'
 );

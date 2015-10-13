@@ -187,7 +187,7 @@ class tpl
   function parse_if ($pos) {
     $toout = $this->parts[$pos];
 
-    $toout = preg_replace_callback ("/\{_if_\{([^\}]+)\}(==|!=|<>|<|>|<=|>=)'([^']+)'\}(.*)(\{_else_\}(.*))?\{\/_endif\}/Us", array(&$this, 'parse_if_do') , $toout);
+    $toout = preg_replace_callback ("/\{_if_\{([^\}]+)\}(==|!=|<>|<|>|<=|>=)'([^']*)'\}(.*)(\{_else_\}(.*))?\{\/_endif\}/Us", array(&$this, 'parse_if_do') , $toout);
 
     return ($toout);
   }

@@ -20,7 +20,7 @@
         "serverRoot": true,
         "fileRoot": "include/images/filemanager/",
         "relPath": "/include/images/filemanager/",
-        "baseUrl": "/ilch/include/images/filemanager/",
+        "baseUrl": false,
         "logger": true,
         "capabilities": ["select", "download", "rename", "delete", "replace"],
         "plugins": []

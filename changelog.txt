@@ -9,11 +9,12 @@ Version 1.1 Q
 * PHP Versionscheck während der Installation
 * Bugfix Forum verschieben
 * Korrektur ungültiger Links
-* Kontakt Formular improved --> Absenden des Formulars nur dann, wenn alle felder gefüllt sind.
-+ Integration des BBCode
+* Kontakt Formular improved --> Absenden des Formulars nur dann, wenn alle Felder gefüllt sind.
+* tpl {_if_... Funktion kann nun mit '' (also leeren Werten) arbeiten
++ Integration des BBCode Moduls (bekannt als BBCode 2.0)
 + Integration von News Extended
-+ Komplette überarbeitung des Backends -- Integration Bootstrap
-+ Frontend Templates alle tabellen durch divs ersetzt
++ Komplette Überarbeitung des Backends -- Integration Bootstrap
++ Frontend Templates alle Tabellen durch divs ersetzt
 
 
 

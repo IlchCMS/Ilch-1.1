@@ -524,4 +524,40 @@ function nicebytes($bytes) {
     }
 }
 
-?>
+/**
+ * Gibt die URL der Seite zurück, um z.B. Links zu erstellen
+ *
+ * @param boolean $endslash URL mit abschließendem Slash
+ * @return string URL der Seite
+ */
+function getSiteURL($endslash = true)
+{
+    $site = (isset($_SERVER['REQUEST_SCHEME']) ? $_SERVER['REQUEST_SCHEME'] : 'http') . '://' . $_SERVER['HTTP_HOST'];
+    $dir = dirname($_SERVER['SCRIPT_NAME']);
+    if (strlen($dir) == 1) {
+        if ($endslash) {
+            $site .= '/';
+        }
+    } else {
+        $site .= $dir . ($endslash ? '/' : '');
+    }
+    return $site;
+}
+
+/**
+ * Setzt Session Variablen für die Nutzung des Filemanager für den CKEditor und passt die Konfiguration an
+ * @param bool $allowUpload
+ * @return bool|string gibt fehlermeldung als string zurück oder true
+ */
+function fileManagerInit($allowUpload = true) {
+    require_once __DIR__ . '/../class/FileManagerConfigurator.php';
+
+    $fileManagerConfigurator = new \Ilch\FileManagerConfigurator();
+    if (!$fileManagerConfigurator->configureFileManager($allowUpload)) {
+        return 'Die FileManager Konfiguration für den CKEditor entspricht nicht dem erwarteten Wert und'
+            . ' die Konfiguration konnte nicht automatisch angepasst werden.'
+            . ' Es können keine Bilder mit dem FileManager hochgeladen oder verwaltet werden.';
+        //todo: FAQ Eintrag für Hilfe
+    }
+    return true;
+}

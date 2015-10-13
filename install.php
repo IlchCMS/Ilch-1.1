@@ -433,117 +433,21 @@
                         ?>
                     </td>
                 </tr>
-
+            <?php
+            $requiredFileRights = include 'include/includes/file_rights.php';
+            foreach ($requiredFileRights as $fileOrDir => $chmod) { ?>
                 <tr>
-                    <td class = "Cmite">"include/includes/config.php" (CHMOD 666)</td>
-                    <td class = "Cnorm">
+                    <td class="Cmite">"<?php echo $fileOrDir;?>" (CHMOD <?php echo $chmod; ?>)</td>
+                    <td class="Cnorm">
                         <?php
-                        if (@is_writeable('include/includes/config.php')) {
-                            echo '<span class="pruefungrichtig">Richtig</span>';
-                        } else {
-                            echo '<span class="pruefungfalsch">Falsch</span>';
-                        }
-                        ?></td>
-                </tr><tr>
-                    <td class="Cmite">"include/backup" Schreibrechte (CHMOD 777)</td>
-                    <td class="Cnorm"><?php
-                        if (@is_writeable('include/backup')) {
-                            echo '<span class="pruefungrichtig">Richtig</span>';
-                        } else {
-                            echo '<span class="pruefungfalsch">Falsch</span>';
-                        }
-                        ?></td>
-                </tr><tr>
-                    <td class="Cmite">"include/contents/selfbp/selfp" Schreibrechte (CHMOD 777)</td>
-                    <td class="Cnorm"><?php
-                        if (@is_writeable('include/contents/selfbp/selfp')) {
-                            echo '<span class="pruefungrichtig">Richtig</span>';
-                        } else {
-                            echo '<span class="pruefungfalsch">Falsch</span>';
-                        }
-                        ?></td>
-                </tr><tr>
-                    <td class="Cmite">"include/contents/selfbp/selfb" Schreibrechte (CHMOD 777)</td>
-                    <td class="Cnorm"><?php
-                        if (@is_writeable('include/contents/selfbp/selfb')) {
-                            echo '<span class="pruefungrichtig">Richtig</span>';
-                        } else {
-                            echo '<span class="pruefungfalsch">Falsch</span>';
-                        }
-                        ?></td>
-                </tr><tr>
-                    <td class="Cmite">"include/images/avatars" Schreibrechte (CHMOD 777)</td>
-                    <td class="Cnorm"><?php
-                        if (@is_writeable('include/images/avatars')) {
-                            echo '<span class="pruefungrichtig">Richtig</span>';
-                        } else {
-                            echo '<span class="pruefungfalsch">Falsch</span>';
-                        }
-                        ?></td>
-                </tr><tr>
-                    <td class="Cmite">"include/images/filemanager" Schreibrechte (CHMOD 777)</td>
-                    <td class="Cnorm"><?php
-                        if (@is_writeable('include/images/filemanager')) {
-                            echo '<span class="pruefungrichtig">Richtig</span>';
-                        } else {
-                            echo '<span class="pruefungfalsch">Falsch</span>';
-                        }
-                        ?></td>
-                </tr><tr>
-                    <td class="Cmite">"include/images/gallery" Schreibrechte (CHMOD 777)</td>
-                    <td class="Cnorm"><?php
-                        if (@is_writeable('include/images/gallery')) {
-                            echo '<span class="pruefungrichtig">Richtig</span>';
-                        } else {
-                            echo '<span class="pruefungfalsch">Falsch</span>';
-                        }
-                        ?></td>
-                </tr><tr>
-                    <td class="Cmite">"include/images/smiles" Schreibrechte (CHMOD 777)</td>
-                    <td class="Cnorm"><?php
-                        if (@is_writeable('include/images/smiles')) {
-                            echo '<span class="pruefungrichtig">Richtig</span>';
-                        } else {
-                            echo '<span class="pruefungfalsch">Falsch</span>';
-                        }
-                        ?></td>
-                </tr><tr>
-                    <td class="Cmite">"include/images/usergallery" Schreibrechte (CHMOD 777)</td>
-                    <td class="Cnorm"><?php
-                        if (@is_writeable('include/images/usergallery')) {
-                            echo '<span class="pruefungrichtig">Richtig</span>';
-                        } else {
-                            echo '<span class="pruefungfalsch">Falsch</span>';
-                        }
-                        ?></td>
-                </tr><tr>
-                    <td class="Cmite">"include/images/wars" Schreibrechte (CHMOD 777)</td>
-                    <td class="Cnorm"><?php
-                        if (@is_writeable('include/images/wars')) {
-                            echo '<span class="pruefungrichtig">Richtig</span>';
-                        } else {
-                            echo '<span class="pruefungfalsch">Falsch</span>';
-                        }
-                        ?></td>
-                </tr><tr>
-                    <td class="Cmite">"include/downs/downloads" Schreibrechte (CHMOD 777)</td>
-                    <td class="Cnorm"><?php
-                        if (@is_writeable('include/downs/downloads')) {
-                            echo '<span class="pruefungrichtig">Richtig</span>';
-                        } else {
-                            echo '<span class="pruefungfalsch">Falsch</span>';
-                        }
-                        ?></td>
-                </tr><tr>
-                    <td class="Cmite">"include/downs/downloads/user_upload" Schreibrechte (CHMOD 777)</td>
-                    <td class="Cnorm"><?php
-                        if (@is_writeable('include/downs/downloads/user_upload')) {
+                        if (@is_writeable($fileOrDir)) {
                             echo '<span class="pruefungrichtig">Richtig</span>';
                         } else {
                             echo '<span class="pruefungfalsch">Falsch</span>';
                         }
                         ?></td>
                 </tr>
+            <?php } ?>
             </table>
         </div>
         <div class="installbut">

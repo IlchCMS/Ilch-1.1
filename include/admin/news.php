@@ -5,10 +5,6 @@
 defined ('main') or die ('no direct access');
 defined ('admin') or die ('only admin access');
 
-if (!isset($_SESSION['allowCKUpload'])) {
-	$_SESSION['allowCKUpload'] = true;
-}
-
 // -----------------------------------------------------------|
 // #
 // ##
@@ -233,6 +229,13 @@ if ($menu->getA(1) == 't') {
 // ##
 // #
 
+$tpl = new tpl ('news', 1);
+
+$result = fileManagerInit();
+if (is_string($result)) {
+    $tpl->set('errorMsg', $result);
+}
+
 // #
 // ##
 // ###
@@ -305,7 +308,6 @@ if (empty ($doNoIn)) {
         $cdatum = date('d.m.Y', $row->endtime);
         $czeit = date('H:i', $row->endtime);
     }
-    $tpl = new tpl ('news', 1);
 
     $ar = array (
         'NEWSID' => $FnewsID,

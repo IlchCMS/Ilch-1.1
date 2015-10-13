@@ -27,9 +27,16 @@ date_default_timezone_set('Europe/Berlin');
  *	@return boolean true if access granted, false if no access
  */
 function auth() {
-  return (isset($_SESSION['allowCKUpload']) && $_SESSION['allowCKUpload']);
+  return (isset($_SESSION['ic_CKEditor']['allowUpload']) && $_SESSION['ic_CKEditor']['allowUpload']);
 }
 
+//set absolute or relative baseUrl if necessary
+$config = array('options' => array());
+if (isset($_SESSION['ic_CKEditor']['baseUrl'])) {
+  $fileManagerConfig = json_decode(file_get_contents(__DIR__ . '/../../scripts/filemanager.config.js'), true);
+
+  $config['options']['baseUrl'] = $_SESSION['ic_CKEditor']['baseUrl'] . $fileManagerConfig['options']['relPath'];
+}
 
 // we instantiate the Filemanager
-$fm = new Filemanager();
+$fm = new Filemanager($config);
