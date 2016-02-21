@@ -138,12 +138,12 @@ code {
     vertical-align: top;
 }
 .Chead{
-   background: #16639b;
-   color: #9dbdd4;
+    background: #16639b;
+    color: #9dbdd4;
 }
 .Cdark{
-   background-color: #9AB1C8;
-   color:#000;
+    background-color: #9AB1C8;
+    color:#000;
 }
 .Cnorm{
     background:#e5e5e5;
@@ -312,9 +312,9 @@ code {
 .border input[type=button]{
     height:30px;
     line-height:25px;
-      color: #333;
-  background-color: #fff;
-  border:1px solid  #ccc;
+    color: #333;
+    background-color: #fff;
+    border:1px solid  #ccc;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
@@ -328,8 +328,8 @@ code {
     height:30px;
     line-height:25px;
     color: #333;
-  background-color: #e6e6e6;
-  border: 1px solid #adadad;
+    background-color: #e6e6e6;
+    border: 1px solid #adadad;
 }
 .border select,
 .border input[type=file] {
@@ -447,45 +447,155 @@ clear {
     outline:none;
 }
 hr{
-border: 1px solid #bcbcbc;
+    border: 1px solid #bcbcbc;
 }
 .ilch_float_l{
-float:left
+    float:left
 }
 .label_120{
-width:120px;
-margin: 5px 5px 0px 0px 
+    width:120px;
+    margin: 5px 5px 0px 0px 
 }
 
 /* BBCode */
 
 .bbcodephpblock {
-color: #0000BB;
+    color: #0000BB;
 }
 .bbcodetransparentgif {
-border:none;
-height:10px;
-width:10px;
+    border:none;
+    height:10px;
+    width:10px;
 }
 .ilchbbcodebuttons {
-border:none;
-width:23px;
-height:22px;
+    border:none;
+    width:23px;
+    height:22px;
 }
 .ilchpositionabsolute {
-position:absolute;
+    position:absolute;
 }
 .ilchbbcodefarbwahl {
-display:none;
-position:relative;
-top:-30px;
-left:100px;
-z-index:100;
-box-shadow: 0px 0px 0px 4px rgba(0,0,0,0.5); 
+    display:none;
+    position:relative;
+    top:-30px;
+    left:100px;
+    z-index:100;
+    box-shadow: 0px 0px 0px 4px rgba(0,0,0,0.5); 
 }
 .ilchbbcodedropdown {
-font-family:Verdana;
-font-size:10px;
-margin-bottom:6px;
-z-index:0;
+    font-family:Verdana;
+    font-size:10px;
+    margin-bottom:6px;
+    z-index:0;
+}
+
+input[type='range'] {
+    -webkit-appearance: none;
+    box-shadow: inset 0 0 5px #333;
+    background-color: #999;
+    height: 10px;
+    vertical-align: middle;
+}
+input[type='range']::-moz-range-track {
+    -moz-appearance: none;
+    box-shadow: inset 0 0 5px #333;
+    background-color: #999;
+    height: 10px;
+}
+input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none !important;
+    background-color: #FFF;
+    box-shadow:inset 0 0 10px rgba(000,000,000,0.5);
+    border: 1px solid #999;
+    height: 20px;
+    width: 20px;
+}
+input[type='range']::-moz-range-thumb {
+    -moz-appearance: none;
+    background-color: #FFF;
+    box-shadow:inset 0 0 10px rgba(000,000,000,0.5);
+    border: 1px solid #999;
+    height: 20px;
+    width: 20px;
+}
+
+.range_in {float: left; 
+           width: 90%; 
+           margin-top: 9px;
+}
+
+.range_out {
+    float: left;
+    width: 10%;
+    padding-left: 5px;
+}
+
+.flipswitch {
+    position: relative;
+    height: 34px;
+    width: 120px;
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.flipswitch-label {
+    position: relative;
+    z-index: 2;
+    float: left;
+    width: 58px;
+    line-height: 36px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.35);
+    text-align: center;
+    cursor: pointer;
+}
+
+.flipswitch-label:active {
+    font-weight: bold;
+}
+
+.flipswitch-label-on {
+    padding-left: 2px;
+}
+
+.flipswitch-label-off {
+    padding-left: 3px;
+}
+
+.flipswitch-input {
+    display: none;
+}
+
+.flipswitch-input:checked + .flipswitch-label {
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    -webkit-transition: 0.15s ease-out;
+    -moz-transition: 0.15s ease-out;
+    -o-transition: 0.15s ease-out;
+    transition: 0.15s ease-out;
+}
+
+.flipswitch-input:checked + .flipswitch-label-off ~ .flipswitch-selection {
+    left: 60px;
+}
+
+.flipswitch-selection {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    top: 2px;
+    left: 2px;
+    width: 58px;
+    height: 30px;
+    background-color: rgb(153, 153, 153);
+    border-radius: 3px;
+    -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.5), 0 0 2px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.5), 0 0 2px rgba(0, 0, 0, 0.2);
+    -webkit-transition: left 0.15s ease-out;
+    -moz-transition: left 0.15s ease-out;
+    -o-transition: left 0.15s ease-out;
+    transition: left 0.15s ease-out;
 }
