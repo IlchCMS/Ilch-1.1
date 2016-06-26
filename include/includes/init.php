@@ -2,10 +2,14 @@
 #   Copyright by Manuel
 #   Support www.ilch.de
 defined('main') or die('no direct access');
+
+if (!version_compare(phpversion(), '5.3.0', '>=')) {
+    die('Ilch 1.1Q benötigt mindestens PHP in Version 5.3.0, Deine Version: ' . phpversion());
+}
+
 /*
  * Hier werden globale Einstellungen (Konstanten, php Einstellungen etc.) gesetzt, die ggf. versionsabhängige sind
  */
-
 // define some script wide constants
 define('ILCH_TIMEZONE', 'Europe/Berlin'); // http://php.net/manual/en/timezones.php
 define('ILCH_CHARSET', 'ISO-8859-1');

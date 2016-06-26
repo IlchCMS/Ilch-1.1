@@ -11,16 +11,10 @@ require_once('include/includes/init.php');
 require_once('include/includes/class/tpl.php');
 require_once('include/includes/class/design.php');
 require_once('include/includes/class/menu.php');
-if (version_compare(PHP_VERSION, '5.0') > -1) {
-    require_once('include/includes/class/pwcrypt.php');
-}
+require_once('include/includes/class/pwcrypt.php');
 
 # fremde classes laden
-if (version_compare(PHP_VERSION, '5.3') == -1) {
-    require_once('include/includes/class/xajax.php4.inc.php');
-} else {
-    require_once('include/includes/class/xajax.php5.inc.php');
-}
+require_once('include/includes/class/xajax.php5.inc.php');
 
 # load all needed func
 require_once('include/includes/func/db/mysql.php');

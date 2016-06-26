@@ -38,7 +38,9 @@
 								"#000000",
 								//> Default farbe für nicht definierten Code.
 								$CodeColor);
-		
+
+		$pattern = $replace = $callbackPatterns = $callbacks = array();
+
 		//> Tags farblich hervorheben!
 		while(list($tag,$color) = each($parse_tags)) {
 			if(substr($tag,0,1) == "*" && $tag != "#") {
@@ -61,45 +63,70 @@
 		$replace[] = "<font color=\"".$parse_elements[0]."\"><b><i>&amp;$1;</i></b></font>";
 		
 		//> Formatierung farblich hervorheben Beispiel: 'xxxx'
-		$pattern[] = "%'(.*)'%esiU";
-		$replace[] = "_html_quotes('\$1','\'','".$parse_elements[1]."')";
-		
+		$callbackPatterns[] = "%'(.*)'%siU";
+		$callbacks[] = function(array $matches) use ($parse_elements) {
+			return _html_quotes($matches[1], '\'', $parse_elements[1]);
+		};
+
 		//> Formatierung farblich hervorheben Beispiel: "xxxx"
-		$pattern[] = "%&quot;(.*)&quot;%esiU";
-		$replace[] = "_html_quotes('\$1','&quot;','".$parse_elements[1]."')";
-		
+		$callbackPatterns[] = "%&quot;(.*)&quot;%siU";
+		$callbacks[] = function(array $matches) use ($parse_elements) {
+			return _html_quotes($matches[1], '&quot;', $parse_elements[1]);
+		};
+
 		//> Kommentar farblich hervorheben Beispiel: <!-- xxxx -->;
-		$pattern[] = "%&lt;!--(.*)--&gt;%esiU";
-		$replace[] = "_html_comments('\$1','".$parse_elements[3]."')";
+		$callbackPatterns[] = "%&lt;!--(.*)--&gt;%siU";
+		$callbacks[] = function(array $matches) use ($parse_elements) {
+			return _html_comments($matches[1], $parse_elements[3]);
+		};
+
 		
 		//> Ausführungszeichen in style- Tags farblich hervorheben.
-		$pattern[] = "%&lt;style(.*)&gt;%esiU";
-		$replace[] = "_html_styletag('\$1','".$parse_elements[4]."')";
-		
+		$callbackPatterns[] = "%&lt;style(.*)&gt;%siU";
+		$callbacks[] = function(array $matches) use ($parse_elements) {
+			return _html_styletag($matches[1], $parse_elements[4]);
+		};
+
 		//> Ausführungszeichen in script- Tags farblich hervorheben.
-		$pattern[] = "%&lt;script(.*)&gt;%esiU";
-		$replace[] = "_html_scripttag('\$1','".$parse_elements[5]."')";
-		
+		$callbackPatterns[] = "%&lt;script(.*)&gt;%siU";
+		$callbacks[] = function(array $matches) use ($parse_elements) {
+			return _html_scripttag($matches[1],  $parse_elements[5]);
+		};
+
 		//> CSS Code inerhalb eines Tags entsprechend hervorheben.
-		$pattern[] = "%style( =| = |= |=)(.+)</font>%esiU";
-		$replace[] = "_html_style('\$2')";
-		
+		$callbackPatterns[] = "%style( =| = |= |=)(.+)</font>%siU";
+		$callbacks[] = function(array $matches) {
+			return _html_style($matches[2]);
+		};
+
 		//> CSS Code farblich hervorheben. (ggf. an Modul weiterleiten.)
 		if(function_exists("highlight_css")) {
-			$pattern[] = "%(&lt;style)(.*)(&gt;</font>)(.*)(<font color=\"".$parse_tags['style']."\">&lt;\/style&gt;)%esiU";
-			$replace[] = "highlight_css('\$4','\$1\$2\$3','\$5')";
+			$callbackPatterns[] = "%(&lt;style)(.*)(&gt;</font>)(.*)(<font color=\"".$parse_tags['style']."\">&lt;\/style&gt;)%siU";
+			$callbacks[] = function(array $matches) {
+				return highlight_css($matches[4], $matches[1] . $matches[2] . $matches[3], $matches[5]);
+			};
 		} else {
-			$pattern[] = "%(&lt;style)(.*)(&gt;</font>)(.*)(<font color=\"".$parse_tags['style']."\">&lt;\/style&gt;)%esiU";
-			$replace[] = "_html_defaultcode('\$4','\$1\$2\$3','\$5','".$parse_elements[6]."')";
+			$callbackPatterns[] = "%(&lt;style)(.*)(&gt;</font>)(.*)(<font color=\"".$parse_tags['style']."\">&lt;\/style&gt;)%siU";
+			$callbacks[] = function(array $matches) use ($parse_elements) {
+				return _html_defaultcode($matches[4], $matches[1] . $matches[2] . $matches[3], $matches[5],
+					$parse_elements[6]);
+			};
 		}
 		
 		//> JavaScript Code farblich hervorheben. (ggf. an Modul weiterleiten. Dazu bitte selber if bedingung basteln!!!)
-		$pattern[] = "%(&lt;script)(.*)(&gt;</font>)(.*)(<font color=\"".$parse_tags['script']."\">&lt;\/script&gt;)%esiU";
-		$replace[] = "_html_defaultcode('\$4','\$1\$2\$3','\$5','".$parse_elements[6]."')";
+		$callbackPatterns[] = "%(&lt;script)(.*)(&gt;</font>)(.*)(<font color=\"".$parse_tags['script']."\">&lt;\/script&gt;)%siU";
+		$callbacks[] = function(array $matches) use ($parse_elements) {
+			return _html_defaultcode($matches[4], $matches[1] . $matches[2] . $matches[3], $matches[5],
+				$parse_elements[6]);
+		};
 		
 		$string = str_replace("&lt;","<font color=\"".$parse_elements[2]."\">&lt;",$string);
 		$string = str_replace("&gt;","&gt;</font>",$string);
 		$string = preg_replace($pattern,$replace,$string);
+
+		foreach ($callbackPatterns as $key => $callbackPattern) {
+			$string = preg_replace_callback($callbackPattern, $callbacks[$key], $string);
+		}
 		return stripslashes($string);
 	}
 	
@@ -202,4 +229,3 @@
 		
 		return $stag."<font color=\"".$color."\">".$string."</font>".$etag;
 	}
-?>

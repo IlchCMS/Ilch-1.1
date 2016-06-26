@@ -4,7 +4,7 @@
 defined ('main') or die ('no direct access');
 
 if (!isset($ILCH_HEADER_ADDITIONS)) {
-    $ILCH_HEADER_ADDITIONS = '';
+    $ILCH_HEADER_ADDITIONS = '<link rel="stylesheet" type="text/css" href="include/includes/css/ilch_default.css">';
 }
 if (!isset($ILCH_BODYEND_ADDITIONS)) {
     $ILCH_BODYEND_ADDITIONS = '';
@@ -335,5 +335,3 @@ class design extends tpl {
         return($buffer);
     }
 }
-
-?>

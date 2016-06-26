@@ -33,9 +33,10 @@
 		$replace[] = "<font color=\"".$parse_elements[1]."\">:</font><font color=\"".$parse_elements[3]."\">$1</font><font color=\"".$parse_elements[1]."\">;</font>";
 		
 		//> Kommentare einfärben
-		$pattern[] = "%\/\*(.*)\*\/%esiU";
-		$replace[] = "_css_comments('\$1','".$parse_elements[0]."')";
-		
+		preg_replace_callback("%\/\*(.*)\*\/%siU", function(array $matches) use ($parse_elements) {
+			return _css_comments($matches[1], $parse_elements[0]);
+		}, $string);
+
 		//> Einleitungs- Tags hervorheben.
 		$pattern[] = "%(&lt;!--|--&gt;)%siU";
 		$replace[] = "<font color=\"".$parse_elements[0]."\">$1</font>";
@@ -62,4 +63,3 @@
 		
 		return "<font color=\"".$color."\">/*".$string."*/</font>";
 	}
-?>

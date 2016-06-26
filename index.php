@@ -9,9 +9,6 @@ session_start ();
 require_once ('include/includes/config.php');
 require_once ('include/includes/loader.php');
 
-//TODO: move to design class!
-$ILCH_HEADER_ADDITIONS .= '<link rel="stylesheet" type="text/css" href="include/includes/css/ilch_default.css">';
-
 db_connect();
 $allgAr = getAllgAr();
 $menu = new menu();
@@ -21,8 +18,7 @@ site_statistic();
 require_once ('include/contents/'.$menu->get_url());
 
 db_close();
-if (FALSE) { //debugging aktivieren
+if (false) { //debugging aktivieren
 	debug('anzahl sql querys: '.$count_query_xyzXYZ);
 	debug('',1,true);
 }
-?>

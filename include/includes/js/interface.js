@@ -140,7 +140,7 @@ function bbcode_insert(tag, boxtext) {
 			}
 		}
 	} else {
-		if(selection == null || selection == '') {
+		if(boxtext && (selection == null || selection == '')) {
 			prompt_box = prompt(boxtext, "");
 		} else {
 			bbcode_insert_into_textarea(begin_tag + selection + end_tag);
