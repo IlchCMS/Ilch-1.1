@@ -1,5 +1,4 @@
 <?php
-
 // Copyright by: Manuel
 // Support: www.ilch.de
 defined('main') or die('no direct access');
@@ -124,28 +123,28 @@ class BackupWriter {
 
 }
 
-function get_def($dbname, $table, $writer) {
+function get_def($table, $writer) {
+	$dbname = DBDATE;
     $def = "\r\n-- ----------------------------------------------------------\r\n--\r\n";
     $def .= "-- structur for table '$table'\r\n--\r\n";
     if (isset($_POST['drop'])) {
 	$def .= "DROP TABLE IF EXISTS `$table`;\n";
     }
-    mysql_select_db($dbname);
     $def .= "CREATE TABLE `$table` (\n";
-    $result = mysql_query("SHOW FIELDS FROM `$table`", CONN);
-    while ($row = mysql_fetch_array($result)) {
-	$def .= "    `" . $row['Field'] . "` " . $row['Type'];
-	if ($row["Default"] != "")
-	    $def .= " DEFAULT '" . $row['Default'] . "'";
-	if ($row["Null"] != "YES")
-	    $def .= " NOT NULL";
-	if ($row['Extra'] != "")
-	    $def .= " " . $row['Extra'];
-	$def .= ",\r\n";
+    $result = db_query("SHOW FIELDS FROM `$table`");
+    while ($row = db_fetch_assoc($result)) {
+		$def .= "    `" . $row['Field'] . "` " . $row['Type'];
+		if ($row["Default"] != "")
+			$def .= " DEFAULT '" . $row['Default'] . "'";
+		if ($row["Null"] != "YES")
+			$def .= " NOT NULL";
+		if ($row['Extra'] != "")
+			$def .= " " . $row['Extra'];
+		$def .= ",\r\n";
     }
     $def = preg_replace('%,\r\n$%', '', $def);
-    $result = mysql_query("SHOW KEYS FROM `$table`", CONN);
-    while ($row = mysql_fetch_array($result)) {
+    $result = db_query("SHOW KEYS FROM `$table`");
+    while ($row = db_fetch_assoc($result)) {
 	$kname = $row['Key_name'];
 	if (($kname != "PRIMARY") && ($row['Non_unique'] == 0))
 	    $kname = "UNIQUE|$kname";
@@ -161,29 +160,28 @@ function get_def($dbname, $table, $writer) {
 	else
 	    $def .= "   KEY $x (" . implode($columns, ", ") . ")";
     }
-    $result = mysql_query("SHOW TABLE STATUS FROM `$dbname` LIKE '$table'", CONN);
-    $auto_inc = mysql_result($result, 0, 'Auto_increment');
+    $result = db_query("SHOW TABLE STATUS FROM `$dbname` LIKE '$table'");
+    $auto_inc = db_result($result, 0, 'Auto_increment');
     $def .= "\r\n)" . ($auto_inc != '' ? " AUTO_INCREMENT=$auto_inc" : '') . ";";
     $def .= "\r\n\r\n";
     stripslashes($def);
     $writer->write($def);
 }
 
-function get_content($dbname, $table, $writer) {
-    mysql_select_db($dbname);
+function get_content($table, $writer) {
     $writer->write("--\r\n-- data for table '$table'\r\n--\r\n");
-    $result = mysql_query("SHOW FIELDS FROM `$table`", CONN);
+    $result = db_query("SHOW FIELDS FROM `$table`");
     $fields = '(';
-    while ($row = mysql_fetch_row($result)) {
+    while ($row = db_fetch_row($result)) {
 	$fields .= '`' . $row[0] . '`,';
     }
     $fields = substr($fields, 0, - 1) . ')';
-    $result = mysql_query("SELECT * FROM `$table`", CONN);
+    $result = db_query("SELECT * FROM `$table`");
     $insert_begin = "INSERT INTO `$table` $fields VALUES ";
     $i = 0;
-    while ($row = mysql_fetch_row($result)) {
+    while ($row = db_fetch_row($result)) {
 	$insert = '(';
-	for ($j = 0; $j < mysql_num_fields($result); $j++) {
+	for ($j = 0; $j < db_num_fields($result); $j++) {
 	    if (!isset($row[$j]))
 		$insert .= "NULL,";
 	    else if ($row[$j] != "")
@@ -229,18 +227,17 @@ if (!empty($_POST['sendBackup']) AND $_POST['sendBackup'] == 'yes' AND isset($_P
 	$version = "0.4 beta";
 	$cur_time = date("Y-m-d H:i");
 	$writer->write("-- Dump created with 'phpMyBackup v.$version' on $cur_time\r\n");
-	mysql_select_db(DBDATE);
 	$tables = array();
-	$qry = mysql_query('SHOW TABLES');
-	while ($row = mysql_fetch_array($qry)) {
+	$qry = db_query('SHOW TABLES');
+	while ($row = db_fetch_row($qry)) {
 	    $tables[] = $row[0];
 	}
 	foreach ($tables as $table) {
 	    if (isset($_POST['prefix']) AND strpos($table, DBPREF) === false) {
 		continue;
 	    }
-	    get_def(DBDATE, $table, $writer);
-	    get_content(DBDATE, $table, $writer);
+	    get_def($table, $writer);
+	    get_content($table, $writer);
 	}
 	$writer->close();
     }
@@ -251,4 +248,3 @@ if (!empty($_POST['sendBackup']) AND $_POST['sendBackup'] == 'yes' AND isset($_P
     $tpl->out(0);
     $design->footer();
 }
-?>

@@ -54,7 +54,7 @@ if (isset($_POST['subform']) and chk_antispam('smtpconf', true)) {
 
     $smtpsql = escape(serialize($smtp), 'textarea');
     db_query('UPDATE `prefix_allg` SET `t1` = "' . $smtpsql . '" WHERE `k` = "smtpconf"');
-    if (mysql_affected_rows() == 0) {
+    if (db_affected_rows() == 0) {
 	echo '<div class="alert alert-warning" role="alert">Es wurden keine &Auml;nderungen vorgenommen!</div>';
     } else {
 	echo '<div class="alert alert-success" role="alert">&Auml;nderungen gespeichert</div>';

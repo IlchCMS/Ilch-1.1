@@ -70,7 +70,7 @@ switch ($um) {
                                             <td class="text-right"><strong><?php
                                                     $result = db_query("SHOW TABLE STATUS");
                                                     $dbsize = 0;
-                                                    while ($row = mysql_fetch_assoc($result)) {
+                                                    while ($row = db_fetch_assoc($result)) {
                                                         $dbsize += $row['Data_length'];
                                                     }echo nicebytes($dbsize);
                                                     ?></strong></td>

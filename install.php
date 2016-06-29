@@ -605,7 +605,7 @@ config;
                 $result = db_query($sql_statement);
                 if (!$result) {
                     echo 'W&auml;hrend der Installation ist ein Fehler aufgetreten: <br>';
-                    echo mysql_error();
+                    echo db_error();
                     die;
                 }
             }

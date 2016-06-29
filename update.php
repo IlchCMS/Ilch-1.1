@@ -74,9 +74,9 @@ if ($rows > 45)
 			    //Update 1.1f
 			    $old = array();
 			    $qry = db_query('SHOW FULL COLUMNS FROM `prefix_forumcats`');
-			    echo mysql_error();
+			    echo db_error();
 			    while ($r = db_fetch_assoc($qry)) {
-				echo mysql_error();
+				echo db_error();
 				$old[] = $r['Field'];
 			    }
 			    if (!in_array('cid', $old)) {
@@ -132,7 +132,7 @@ if ($rows > 45)
 					    break;
 				    }
 				}
-				$smtpser = mysql_real_escape_string(serialize($smtp));
+				$smtpser = db_escape_string(serialize($smtp));
 				$sql_statements[] = '-- UPDATE 1.1N';
 				$sql_statements[] = 'INSERT INTO `prefix_allg` ( `k` , `v1`, `v2`, `v3`, `v4`, `t1`) VALUES ( "smtpconf", "", "", "", "", "' . $smtpser . '" )';
 				$sql_statements[] = 'DELETE FROM `prefix_config` WHERE `schl` IN ("mail_smtp_login", "mail_smtp_password", "mail_smtp_host", "mail_smtp_email")';
@@ -362,9 +362,9 @@ if ($rows > 45)
 				if (trim($sql_statement) != '') {
 				    echo '<pre>' . htmlentities($sql_statement, ENT_COMPAT, 'ISO-8859-1') . '</pre>';
 				    $e = db_query($sql_statement);
-				    echo mysql_error();
+				    echo db_error();
 				    if (!$e) {
-					echo '<br><br><span style="color:#ff0000; font-weight: bold" color="#FF0000">Es ist ein Fehler aufgetreten</span>,<br> bitte alles auf dieser Seite kopieren und auf ilch.de im Forum fragen...:<br><br><div style="border: 1px dashed grey; padding: 5px; background-color: #EEEEEE">' . mysql_error() . '<hr>' . $sql_statement . '</div><br><b>Es sei denn,</b> es ist ein Fehler mit <i>duplicate entry</i> aufgetreten, das liegt einfach nur daran, dass du die Updatedatei mehrmals ausgef?hrt hast.<br>';
+					echo '<br><br><span style="color:#ff0000; font-weight: bold" color="#FF0000">Es ist ein Fehler aufgetreten</span>,<br> bitte alles auf dieser Seite kopieren und auf ilch.de im Forum fragen...:<br><br><div style="border: 1px dashed grey; padding: 5px; background-color: #EEEEEE">' . db_error() . '<hr>' . $sql_statement . '</div><br><b>Es sei denn,</b> es ist ein Fehler mit <i>duplicate entry</i> aufgetreten, das liegt einfach nur daran, dass du die Updatedatei mehrmals ausgef?hrt hast.<br>';
 				    }
 				    echo '<hr>';
 				}

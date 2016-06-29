@@ -3,6 +3,7 @@
 /include/images/filemanager/*
 /include/images/avatars/*
 /include/images/smiles/*
+/include/backup/*.sql
 
 # tools
 /nbproject

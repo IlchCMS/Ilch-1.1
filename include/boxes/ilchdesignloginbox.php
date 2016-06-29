@@ -13,12 +13,12 @@ if ( loggedin() ) {
     $tpl->set ( 'ADMIN', '' );
   }
   $posts = db_query('SELECT posts from `prefix_user` WHERE id= "' . $_SESSION['authid'].'"' );
-  if($posts = mysql_fetch_row($posts))
+  if($posts = db_fetch_row($posts))
       $posts = $posts[0];
       else
       $posts = 0;     
       $galerie = db_query('SELECT count(id) from `prefix_usergallery` WHERE uid= "' . $_SESSION['authid'].'"' );
-  if($galerie = mysql_fetch_row($galerie))
+  if($galerie = db_fetch_row($galerie))
       $galerie = $galerie[0];
       else
       $galerie = 0;
@@ -44,7 +44,7 @@ $q = "SELECT COUNT(DISTINCT a.id) FROM prefix_topics a
      AND c.time >= ". (time() - (3600 * 24 * 360)) ." AND c.time >= {$_SESSION['lastlogin']}
   ORDER BY c.time DESC";       
       $lpost = db_query($q);
-      if($lpost = mysql_fetch_row($lpost))
+      if($lpost = db_fetch_row($lpost))
       $lpost = $lpost[0];
       else
       $lpost = 0;

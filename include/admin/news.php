@@ -92,7 +92,7 @@ function tn_koms() {
 function saveopts($newsempf, $kat) {
     $resp = new xajaxResponse();
     if (!db_query("UPDATE prefix_allg SET v3 = '$newsempf', v4 = '$kat' WHERE k = 'News'")) {
-        $resp->alert("Fehler aufgetreten:\n" . mysql_error());
+        $resp->alert("Fehler aufgetreten:\n" . db_error());
     }
     return $resp;
 }
@@ -103,7 +103,7 @@ function setArchiv($id, $old) {
     if (db_query("UPDATE prefix_news SET archiv = $new WHERE news_id = '$id'")) {
         $resp->assign('archiv_link_' . $id, 'innerHTML' , $old == 'A' ? 'N' : 'A');
     } else {
-        $resp->alert("Fehler:\n" . mysql_error());
+        $resp->alert("Fehler:\n" . db_error());
     }
     return $resp;
 }

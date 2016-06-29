@@ -36,7 +36,7 @@ $erg = db_query('SELECT * FROM `prefix_shoutbox` ORDER BY id DESC LIMIT ' . (is_
 $class = 'Cnorm';
 while ($row = db_fetch_object($erg)) {
     $class = ($class == 'Cmite' ? 'Cnorm' : 'Cmite');
-    echo '<div class="'. $class .' ilch_shoutbox_in"><strong>'.$row->nickname.' :</strong>'.preg_replace('/([^\s]{' . $allgAr['sb_maxwordlength'] . '})(?=[^\s])/', "$1\n", $row->textarea).'</div>';
+    echo '<div class="'. $class .' ilch_shoutbox_in"><strong>'.$row->nickname.':</strong> '.preg_replace('/([^\s]{' . $allgAr['sb_maxwordlength'] . '})(?=[^\s])/', "$1\n", $row->textarea).'</div>';
 }
 echo '</div></div><a class="box" href="index.php?shoutbox">'.$lang['archiv'].'</a>';
 

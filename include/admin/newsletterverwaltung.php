@@ -25,10 +25,10 @@ $tpl->out(0);
 
 #Abfrage der Eingetragenen Email-Adressen
 $countABF = db_query('SELECT COUNT(*) as zahl FROM prefix_newsletter');
-$erg = db_query('SELECT * FROM `prefix_newsletter` ORDER BY email');
 $count = db_fetch_assoc($countABF);
 
 if ($count['zahl'] > 0) {
+    $erg = db_query('SELECT * FROM `prefix_newsletter` ORDER BY email');
     #ausgabe der Mail-Adressen
     while ($row = db_fetch_assoc($erg)) {
 	$tpl->set_ar_out($row, 1);
@@ -37,6 +37,4 @@ if ($count['zahl'] > 0) {
     echo "<div class=\"alert alert-warning\" role=\"alert\">Keine Eintragungen vorhanden</div>";
 }
 $tpl->out(2);
-echo mysql_error();
 $design->footer();
-?>

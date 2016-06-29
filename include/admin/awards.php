@@ -45,7 +45,7 @@ if (isset($_POST['ins'])) {
 	$id = $menu->getE(1);
 	db_query("UPDATE `prefix_awards` SET time = '$datum', platz = '$platz',
               team = '$team', wofur = '$wofur', bild = '$bild', text = '$text' WHERE id = $id");
-	echo mysql_error();
+	echo db_error();
 	$menu->set_url(1, '');
     } else {
 	db_query("INSERT INTO `prefix_awards` (time, platz, team, wofur, bild, text) VALUES

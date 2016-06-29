@@ -17,7 +17,13 @@ require_once('include/includes/class/pwcrypt.php');
 require_once('include/includes/class/xajax.php5.inc.php');
 
 # load all needed func
-require_once('include/includes/func/db/mysql.php');
+if (extension_loaded('mysqli')) {
+    require_once('include/includes/func/db/mysqli.php');
+} elseif (extension_loaded('mysql')) {
+    require_once('include/includes/func/db/mysql.php');
+} else {
+    die('PHP Extension for MySQL access is missing');
+}
 
 require_once('include/includes/func/calender.php');
 require_once('include/includes/func/user.php');
