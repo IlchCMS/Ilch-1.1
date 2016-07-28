@@ -399,13 +399,22 @@ if (!$error && isset($_REQUEST["delete"]) && $_REQUEST["delete"]!=basename($_SER
 if (!$error && !TESTMODE)
 { $mysqli = new mysqli($db_server, $db_username, $db_password, $db_name);
   
-  if (mysqli_connect_error()) 
+  if (mysqli_connect_error())
   { echo ("<p class=\"error\">Database connection failed due to ".mysqli_connect_error()."</p>\n");
     echo ("<p>Edit the database settings in BigDump configuration, or contact your database provider.</p>\n");
     $error=true;
   }
   if (!$error && $db_connection_charset!=='')
     $mysqli->query("SET NAMES $db_connection_charset");
+
+  if (!$error && version_compare($mysqli->get_server_info(), '5.7.0')) {
+    $result = $mysqli->query('SELECT @@SESSION.sql_mode')->fetch_row();
+	$sqlMode = $result[0];
+	if (strpos($sqlMode, 'NO_ZERO_IN_DATE') !== false || strpos($sqlMode, 'NO_ZERO_DATE') !== false) {
+	  $newSqlMode = preg_replace('~\b(NO_ZERO_IN_DATE|NO_ZERO_DATE)\b,?~', '', $sqlMode);
+      $mysqli->query('SET sql_mode="' . $newSqlMode . '"');
+    }
+  }
 
   if (!$error && isset ($pre_query) && sizeof ($pre_query)>0)
   { reset($pre_query);

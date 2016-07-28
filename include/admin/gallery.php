@@ -163,7 +163,7 @@ if ($menu->get(1) == 'uploadImages') {
 		$id = db_result(db_query("SHOW TABLE STATUS FROM `" . DBDATE . "` LIKE 'prefix_gallery_imgs'"), 0, 'Auto_increment');
 		$bild_url = 'include/images/gallery/img_' . $id . '.' . $endung;
 
-		// START: Geï¿½ndert seit Ilch 1.1 Patchlevel 15
+		// START: Geändert seit Ilch 1.1 Patchlevel 15
 		if (image_valid($_FILES['file']['type'][$k])) {
 		    if (@move_uploaded_file($_FILES['file']['tmp_name'][$k], $bild_url)) {
 			@chmod($bild_url, 0777);

@@ -26,7 +26,7 @@ function getPhpFiles($dir = '.') {
 }
 
 /**
- * Gibt kompletten Pfad (mit / als Directory Separator) zurï¿½ck und entfernt ggf. ./ am Anfang
+ * Gibt kompletten Pfad (mit / als Directory Separator) zurück und entfernt ggf. ./ am Anfang
  *
  * @param string $dir
  * @param string $entry

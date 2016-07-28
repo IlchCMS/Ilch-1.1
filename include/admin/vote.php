@@ -164,7 +164,7 @@ echo '<tr class="active"><td><strong>Vote verwalten</strong></td></tr>';
 <!--
 
     function delcheck(DELID) {
-	var frage = confirm("Willst du diesen Eintrag wirklich lï¿½schen?");
+	var frage = confirm("Willst du diesen Eintrag wirklich löschen?");
 	if (frage == true) {
 	    document.location.href = "?vote-del&del=" + DELID;
 	}

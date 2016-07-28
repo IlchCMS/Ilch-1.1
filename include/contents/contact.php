@@ -91,10 +91,10 @@ if (isset($_POST['submit'])) {
 		AND strlen($name) <= 50 AND strlen($mail) <= 50
 		AND strlen($text) <= 5000
 		AND $mail != $name AND $name != $text AND $text != $mail) {
-	    $subject = "Kontakt Ã¼ber " . $_SERVER['HTTP_HOST'];
-	    $inhalt = $name . " hat Ihnen eine Nachricht Ã¼ber " . $_SERVER['HTTP_HOST'] . " gesendet. \n\n";
+	    $subject = "Kontakt über " . $_SERVER['HTTP_HOST'];
+	    $inhalt = $name . " hat Ihnen eine Nachricht über " . $_SERVER['HTTP_HOST'] . " gesendet. \n\n";
 	    $inhalt .= "Betreff: " . $betreff . " \n\n";
-	    $text .= " \n\nViele GrÃ¼ÃŸe von \n";
+	    $text .= " \n\nViele Grüße von \n";
 	    $text .= $name . " (" . $mail . ") ";
 	    $text = $inhalt . $text;
 	    icmail($wer, $subject, $text, $name . " <" . $mail . ">");

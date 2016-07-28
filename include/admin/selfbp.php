@@ -55,7 +55,7 @@ function rteSafe($strText) {
     return $tmpString;
 }
 
-# gibt die  options fï¿½r die Dateiauswahl zurï¿½ck
+# gibt die  options für die Dateiauswahl zurück
 
 function get_akl($ak) {
     $ar_l = array();
@@ -127,7 +127,7 @@ function get_nametosave($n) {
     return ($n);
 }
 
-#gibt den inhalt der ausgewï¿½hlten Datei als String zurï¿½ck
+#gibt den inhalt der ausgewählten Datei als String zurück
 
 function get_text($akl) {
     $f = substr($akl, 0, 1);
@@ -274,7 +274,7 @@ if (isset($_REQUEST['akl'])) {
     $akl = $_REQUEST['akl'];
 }
 
-#lï¿½schen
+#löschen
 if (isset($_REQUEST['del'])) {
     $del = $_REQUEST['del'];
     $a = substr($del, 0, 1);

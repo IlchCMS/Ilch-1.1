@@ -105,7 +105,7 @@ if (isset($_POST['u'])) {
 	    $name = $_FILES['ar']['name'][$k];
 	    $bild_url = 'include/images/smiles/' . $name;
 
-	    // START: Ge√§ndert seit Ilch 1.1 Patchlevel 15
+	    // START: Ge‰ndert seit Ilch 1.1 Patchlevel 15
 	    if (image_valid($_FILES['ar']['type'][$k])) {
 		if (@move_uploaded_file($_FILES['ar']['tmp_name'][$k], $bild_url)) {
 		    @chmod($bild_url, 0777);
@@ -116,7 +116,7 @@ if (isset($_POST['u'])) {
 	    } else {
 		echo '<div class="alert alert-warning" role="alert"><strong>Achtung!</strong> Falsches Dateiformat</div>';
 	    }
-	    // END: Ge√§ndert seit Ilch 1.1 Patchlevel 15
+	    // END: Ge‰ndert seit Ilch 1.1 Patchlevel 15
 
 	    echo '';
 	    echo '';

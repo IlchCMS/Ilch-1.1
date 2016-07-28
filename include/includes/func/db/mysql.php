@@ -21,19 +21,32 @@ function db_connect () {
   if ( !$db ) {
     die ('Kann Datenbank "'.DBDATE.'" nicht benutzen : ' . mysql_error(CONN));
   }
-  if (function_exists('mysql_set_charset') and version_compare(mysql_get_server_info(CONN), '5.0.7') !== -1) {
-      //Für ältere Installation die init.php nachladen
-      if (!defined('ILCH_DB_CHARSET') && file_exists('include/includes/init.php')) {
-          require_once 'include/includes/init.php';
-      }
-      mysql_set_charset(ILCH_DB_CHARSET, CONN);
+
+  $mysqlServerVersion = mysql_get_server_info(CONN);
+  if (function_exists('mysql_set_charset') and version_compare($mysqlServerVersion, '5.0.7') !== -1) {
+    //Für ältere Installation die init.php nachladen
+    if (!defined('ILCH_DB_CHARSET') && file_exists('include/includes/init.php')) {
+      require_once 'include/includes/init.php';
+    }
+    mysql_set_charset(ILCH_DB_CHARSET, CONN);
+  } else {
+    mysql_query('SET NAMES ' . ILCH_DB_CHARSET);
   }
-  $timeZoneSetted = false;
+
+  if (version_compare($mysqlServerVersion, '5.7.0')) {
+    $sqlMode = mysql_result(mysql_query('SELECT @@SESSION.sql_mode'), 0);
+    if (strpos($sqlMode, 'NO_ZERO_IN_DATE') !== false || strpos($sqlMode, 'NO_ZERO_DATE') !== false) {
+      $newSqlMode = preg_replace('~\b(NO_ZERO_IN_DATE|NO_ZERO_DATE)\b,?~', '', $sqlMode);
+      mysql_query('SET sql_mode="' . $newSqlMode . '"');
+    }
+  }
+
+  $timeZoneSet = false;
   if (function_exists('date_default_timezone_get')) {
-    $timeZoneSetted = mysql_query('SET time_zone = "' . date_default_timezone_get() . '"');
+    $timeZoneSet = mysql_query('SET time_zone = "' . date_default_timezone_get() . '"');
   }
-  if (!$timeZoneSetted && version_compare(PHP_VERSION, '5.1.3')) {
-    $timeZoneSetted = mysql_query('SET time_zone = "' . date('P') . '"');
+  if (!$timeZoneSet && version_compare(PHP_VERSION, '5.1.3')) {
+    $timeZoneSet = mysql_query('SET time_zone = "' . date('P') . '"');
   }
 }
 
@@ -43,7 +56,6 @@ function db_close () {
 
 function db_check_error (&$r, $q) {
   if (!$r AND mysql_errno(CONN) <> 0 AND function_exists('is_coadmin') AND is_coadmin()) {
-  	// var_export (debug_backtrace(), true)
     echo('<font color="#FF0000">MySQL Error:</font><br>'.mysql_errno(CONN).' : '.mysql_error(CONN).'<br>in Query:<br>'.$q.'<pre>'.debug_bt().'</pre>');
   }
   return ($r);
@@ -87,31 +99,21 @@ function db_num_rows ($erg) {
 }
 
 function db_last_id () {
-	return ( mysql_insert_id (CONN));
-}
-
-function db_count_query ( $query ) {
-  return (db_result(db_query($query),0));
-}
-
-function db_check_erg ($erg) {
-  if ($erg == false OR @db_num_rows($erg) == 0) {
-    exit ('Es ist ein Fehler aufgetreten');
-  }
+  return (mysql_insert_id (CONN));
 }
 
 function db_num_fields($erg) {
-    return mysql_num_fields($erg);
+  return mysql_num_fields($erg);
 }
 
 function db_affected_rows() {
-    return mysql_affected_rows(CONN);
+  return mysql_affected_rows(CONN);
 }
 
 function db_error() {
-    return mysql_error(CONN);
+  return mysql_error(CONN);
 }
 
 function db_escape_string($unescaped) {
-    return mysql_real_escape_string($unescaped, CONN);
+  return mysql_real_escape_string($unescaped, CONN);
 }

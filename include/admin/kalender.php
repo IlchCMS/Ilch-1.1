@@ -1,6 +1,6 @@
 <?php
 
-# Kalender Script ï¿½ by Nickel
+# Kalender Script © by Nickel
 # ueberarbeitet von Manuel
 
 defined('main') or die('no direct access');

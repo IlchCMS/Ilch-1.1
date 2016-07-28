@@ -107,7 +107,7 @@ function setArchiv($id, $old) {
     }
     return $resp;
 }
-// xajax fÃ¼r vorschau
+// xajax für vorschau
 $xajax = new xajax();
 $xajax->configureMany(array('decodeUTF8Input' => true ,'characterEncoding' => 'ISO-8859-1', 'requestURI' => 'admin.php?news-ajax'));
 
@@ -184,7 +184,7 @@ if (!empty($_REQUEST['um'])) {
         }
 
         db_query("INSERT INTO `prefix_news` (news_title,user_id,news_time,news_recht,news_groups,news_kat,news_text,html,`show`,archiv,endtime)
-		VALUES ('" . $_POST['titel'] . "'," . $_SESSION['authid'] . ",FROM_UNIXTIME(".$newscreatetime.")," . $grecht . "," . $groups . ",'" . $_POST['katLis'] . "','" . $text . "','" . $_POST['html'] . "',$show,$archiv,$endtime)");
+		VALUES ('" . escape($_POST['titel'], 'string') . "'," . $_SESSION['authid'] . ",FROM_UNIXTIME(".$newscreatetime.")," . $grecht . "," . $groups . ",'" . escape($_POST['katLis'], 'string') . "','" . $text . "','" . $_POST['html'] . "',$show,$archiv,$endtime)");
         // insert
     } elseif ($um == 'change') {
         // edit
@@ -199,7 +199,7 @@ if (!empty($_REQUEST['um'])) {
 				edit_time  = NOW(),
 				news_recht = "' . $grecht . '",
 				news_groups = "' . $groups . '",
-				news_kat   = "' . $_POST['katLis'] . '",
+				news_kat   = "' . escape($_POST['katLis'], 'string') . '",
 				html       = "' . $_POST['html'] . '",
 				`show`     = ' . $show . ',
 				archiv     = ' . $archiv . ',
@@ -380,7 +380,7 @@ if (empty ($doNoIn)) {
                 ) , 4);
     }
     // e d i t , d e l e t e
-    // MÃ¶gliche PM-EmpfÃ¤nger
+    // Mögliche PM-Empfänger
     $pmq = db_query("SELECT a.id, a.name FROM prefix_user a LEFT JOIN prefix_modulerights b ON b.mid = 2 AND b.uid = a.id WHERE a.recht <= -8 OR b.mid IS NOT NULL");
     $pmempf = '';
     $pmar = explode('#', $opts->pmempf);

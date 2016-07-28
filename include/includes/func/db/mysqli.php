@@ -21,18 +21,28 @@ function db_connect () {
         die ('Kann Datenbank "' . DBDATE . '" nicht benutzen : ' . mysqli_error($mysqliConnection));
     }
 
-    if (function_exists('mysqli_set_charset') and version_compare(mysqli_get_server_version($mysqliConnection), '5.0.7') !== -1) {
+    $mysqlServerVersion = mysqli_get_server_version($mysqliConnection);
+    if (version_compare($mysqlServerVersion, '5.0.7') !== -1) {
         //Für ältere Installation die init.php nachladen
         if (!defined('ILCH_DB_CHARSET') && file_exists('include/includes/init.php')) {
             require_once 'include/includes/init.php';
         }
         mysqli_set_charset($mysqliConnection, ILCH_DB_CHARSET);
     }
-    $timeZoneSetted = false;
-    if (function_exists('date_default_timezone_get')) {
-        $timeZoneSetted = mysqli_query($mysqliConnection, 'SET time_zone = "' . date_default_timezone_get() . '"');
+
+    if (version_compare($mysqlServerVersion, '5.7.0')) {
+        $sqlMode = db_result(mysqli_query($mysqliConnection, 'SELECT @@SESSION.sql_mode'), 0);
+        if (strpos($sqlMode, 'NO_ZERO_IN_DATE') !== false || strpos($sqlMode, 'NO_ZERO_DATE') !== false) {
+            $newSqlMode = preg_replace('~\b(NO_ZERO_IN_DATE|NO_ZERO_DATE)\b,?~', '', $sqlMode);
+            mysqli_query($mysqliConnection, 'SET sql_mode="' . $newSqlMode . '"');
+        }
     }
-    if (!$timeZoneSetted && version_compare(PHP_VERSION, '5.1.3')) {
+
+    $timeZoneSet = false;
+    if (function_exists('date_default_timezone_get')) {
+        $timeZoneSet = mysqli_query($mysqliConnection, 'SET time_zone = "' . date_default_timezone_get() . '"');
+    }
+    if (!$timeZoneSet && version_compare(PHP_VERSION, '5.1.3')) {
         mysqli_query($mysqliConnection, 'SET time_zone = "' . date('P') . '"');
     }
 }
@@ -45,7 +55,6 @@ function db_close () {
 function db_check_error (&$r, $q) {
     global $mysqliConnection;
   if (!$r AND mysqli_errno($mysqliConnection) != 0 AND function_exists('is_coadmin') AND is_coadmin()) {
-  	// var_export (debug_backtrace(), true)
     echo('<span style="color:#FF0000">MySQL Error:</span><br>'.mysqli_errno($mysqliConnection).' : '
         .mysqli_error($mysqliConnection).'<br>in Query:<br>'.$q.'<pre>'.debug_bt().'</pre>');
   }
@@ -130,4 +139,3 @@ function db_escape_string($unescaped) {
     global $mysqliConnection;
     return mysqli_real_escape_string($mysqliConnection, $unescaped);
 }
-    

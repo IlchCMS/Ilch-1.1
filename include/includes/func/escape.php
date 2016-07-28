@@ -14,23 +14,23 @@ function unescape ( $var ) {
 # - integer
 # - string
 # - textarea
-function escape ($var, $type) {
-  switch ( $type ) {
-	  case 'integer' :
-      $var = intval ($var);
-      break;
-    case 'string' :
-			$var = (get_magic_quotes_gpc() ? stripslashes($var) : $var );
-      $var = strip_tags ($var);
-      $var = addslashes ($var);
-		break;
-		case 'textarea' :
-      $var = (get_magic_quotes_gpc() ? stripslashes($var) : $var );
-			$var = addslashes ($var);
+function escape($var, $type) {
+    switch ($type) {
+        case 'integer' :
+            $var = intval($var);
+            break;
+        case 'string' :
+            $var = (get_magic_quotes_gpc() ? stripslashes($var) : $var);
+            $var = strip_tags($var);
+            $var = db_escape_string($var);
+            break;
+        case 'textarea' :
+            $var = (get_magic_quotes_gpc() ? stripslashes($var) : $var);
+            $var = db_escape_string($var);
 
-		break;
-	}
-	return ( $var );
+            break;
+    }
+    return ($var);
 }
 
 function escape_nickname ($t) {
@@ -66,4 +66,3 @@ function escape_email_to_show ($str) {
   }
   return $ret;
 }
-?>

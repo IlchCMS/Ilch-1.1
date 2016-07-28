@@ -282,7 +282,7 @@ switch ($um) {
 		if (isset($_POST['passw'])) {
 		    $newPass = genkey(8);
 		    $newPassHash = user_pw_crypt($newPass);
-		    icmail($row->email, 'neues Password', "Hallo\n\nDein Password wurde soeben von einem Administrator gï¿½endert es ist nun:\n\n$newPass\n\nGruï¿½ der Administrator");
+		    icmail($row->email, 'neues Password', "Hallo\n\nDein Password wurde soeben von einem Administrator gäendert es ist nun:\n\n$newPass\n\nGruß der Administrator");
 		    db_query('UPDATE `prefix_user` SET pass = "' . $newPassHash . '" WHERE id = "' . escape($_POST['uID'], 'integer') . '"');
 		}
 		// avatar speichern START
@@ -330,7 +330,7 @@ switch ($um) {
 		$opt_pm_popup = escape($_POST['opt_pm_popup'], 'integer');
 		$gebdatum = escape($_POST['gebdatum'], 'string');
 		$sig = escape($_POST['sig'], 'string');
-		// Name im Forum ï¿½ndern
+		// Name im Forum ändern
 		if ($_POST['forumname'] == 'on') {
 		    $oldname = db_count_query("SELECT name FROM `prefix_user` WHERE id =" . $uid);
 		    if ($oldname != $usaName1) {

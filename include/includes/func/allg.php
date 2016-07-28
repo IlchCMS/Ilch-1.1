@@ -96,7 +96,7 @@ function getAllgAr() {
     # v1 = schluessel
     # v2 = wert
     # v3 = feldtyp
-    # v4 = kurze beschreibung wenn nï¿½tig
+    # v4 = kurze beschreibung wenn nötig
 
     $ar = array();
     $abf = "SELECT schl, wert FROM `prefix_config`";
@@ -382,12 +382,12 @@ function iurlencode($s) {
 }
 
 /**
- * Prï¿½ft, ob der Antispamcode richtig eingegeben wurde
- * Der NoPictureMode fï¿½gt ein Hidden Feld ein, um Cross Site Request Forgery Attacken zu unterbinden, der NoPictureMode
+ * Prüft, ob der Antispamcode richtig eingegeben wurde
+ * Der NoPictureMode fügt ein Hidden Feld ein, um Cross Site Request Forgery Attacken zu unterbinden, der NoPictureMode
  * wird automatisch genutzt, wenn kein Bildabfrage statt findet, kann aber auch erzwungen werden
  *
  * @global array $allgAr
- * @param string $m Modulname, um unterschiedliche Antispamfelder auf einer Seite zu ermï¿½glichen
+ * @param string $m Modulname, um unterschiedliche Antispamfelder auf einer Seite zu ermöglichen
  * @param boolean $nopictures NoPictureMode erzwingen
  * @return boolean
  */
@@ -416,12 +416,12 @@ function chk_antispam($m, $nopictures = false) {
 }
 
 /**
- * Erzeugt HTML Code fï¿½r ein Formularfeld, welches fï¿½r einen Antibot-Schutz dienen oder vor CSFR Attacken schï¿½tzen soll
+ * Erzeugt HTML Code für ein Formularfeld, welches für einen Antibot-Schutz dienen oder vor CSFR Attacken schützen soll
  * Beschreibung zum NoPictureMode bitte der chk_antispam Funktion entnehmen
  *
  * @global array $allgAr
  * @param string $m Modulname
- * @param integer $t Type, der angibt wie das Formularfeld formatiert wird (0, 1 oder > 10 als Breite fï¿½r das label) siehe Code :P
+ * @param integer $t Type, der angibt wie das Formularfeld formatiert wird (0, 1 oder > 10 als Breite für das label) siehe Code :P
  * @param boolean $nopictures Erzwing NoPictureMode
  * @return string
  */
@@ -472,7 +472,7 @@ function get_antispam($m, $t, $nopictures = false) {
     return $img;
 }
 
-// Funktion scandir fï¿½r PHP 4
+// Funktion scandir für PHP 4
 if (version_compare(phpversion(), '5.0.0') == -1) {
 
     function scandir($dir) {
@@ -498,7 +498,7 @@ if (version_compare(phpversion(), '5.2.0') == -1) {
 
 }
 
-// Funktion, die die GrÃ¶ÃŸe aller Dateien im Ordner zusammenrechnet
+// Funktion, die die Größe aller Dateien im Ordner zusammenrechnet
 function dirsize($dir) {
     if (!is_dir($dir)) {
 	return -1;
@@ -525,9 +525,9 @@ function nicebytes($bytes) {
 }
 
 /**
- * Gibt die URL der Seite zurÃ¼ck, um z.B. Links zu erstellen
+ * Gibt die URL der Seite zurück, um z.B. Links zu erstellen
  *
- * @param boolean $endslash URL mit abschlieÃŸendem Slash
+ * @param boolean $endslash URL mit abschließendem Slash
  * @return string URL der Seite
  */
 function getSiteURL($endslash = true)
@@ -545,19 +545,19 @@ function getSiteURL($endslash = true)
 }
 
 /**
- * Setzt Session Variablen fÃ¼r die Nutzung des Filemanager fÃ¼r den CKEditor und passt die Konfiguration an
+ * Setzt Session Variablen für die Nutzung des Filemanager für den CKEditor und passt die Konfiguration an
  * @param bool $allowUpload
- * @return bool|string gibt fehlermeldung als string zurÃ¼ck oder true
+ * @return bool|string gibt fehlermeldung als string zurück oder true
  */
 function fileManagerInit($allowUpload = true) {
     require_once __DIR__ . '/../class/FileManagerConfigurator.php';
 
     $fileManagerConfigurator = new \Ilch\FileManagerConfigurator();
     if (!$fileManagerConfigurator->configureFileManager($allowUpload)) {
-        return 'Die FileManager Konfiguration fÃ¼r den CKEditor entspricht nicht dem erwarteten Wert und'
+        return 'Die FileManager Konfiguration für den CKEditor entspricht nicht dem erwarteten Wert und'
             . ' die Konfiguration konnte nicht automatisch angepasst werden.'
-            . ' Es kÃ¶nnen keine Bilder mit dem FileManager hochgeladen oder verwaltet werden.';
-        //todo: FAQ Eintrag fÃ¼r Hilfe
+            . ' Es können keine Bilder mit dem FileManager hochgeladen oder verwaltet werden.';
+        //todo: FAQ Eintrag für Hilfe
     }
     return true;
 }
