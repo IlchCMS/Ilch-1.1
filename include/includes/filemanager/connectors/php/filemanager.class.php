@@ -91,10 +91,10 @@ class Filemanager {
 			$this->path_to_files = $this->root . $this->separator .'/' ;
 		}
 
-		$this->__log(__METHOD__ . ' $this->root value ' . $this->root);
-		$this->__log(__METHOD__ . ' $this->path_to_files ' . $this->path_to_files);
-		$this->__log(__METHOD__ . ' $this->doc_root value ' . $this->doc_root);
-		$this->__log(__METHOD__ . ' $this->separator value ' . $this->separator);
+		$this->_log(__METHOD__ . ' $this->root value ' . $this->root);
+		$this->_log(__METHOD__ . ' $this->path_to_files ' . $this->path_to_files);
+		$this->_log(__METHOD__ . ' $this->doc_root value ' . $this->doc_root);
+		$this->_log(__METHOD__ . ' $this->separator value ' . $this->separator);
 
 		$this->setParams();
 		$this->setPermissions();
@@ -129,10 +129,10 @@ class Filemanager {
 		$this->path_to_files = $this->doc_root;
 		$this->separator = basename($this->doc_root);
 		
-		$this->__log(__METHOD__ . ' $this->doc_root value overwritten : ' . $this->doc_root);
-		$this->__log(__METHOD__ . ' $this->dynamic_fileroot value ' . $this->dynamic_fileroot);
-		$this->__log(__METHOD__ . ' $this->path_to_files ' . $this->path_to_files);
-		$this->__log(__METHOD__ . ' $this->separator value ' . $this->separator);
+		$this->_log(__METHOD__ . ' $this->doc_root value overwritten : ' . $this->doc_root);
+		$this->_log(__METHOD__ . ' $this->dynamic_fileroot value ' . $this->dynamic_fileroot);
+		$this->_log(__METHOD__ . ' $this->path_to_files ' . $this->path_to_files);
+		$this->_log(__METHOD__ . ' $this->separator value ' . $this->separator);
 	}
 
 	public function error($string,$textarea=false) {
@@ -142,7 +142,7 @@ class Filemanager {
 				'Properties'=>$this->properties
 		);
 
-		$this->__log( __METHOD__ . ' - error message : ' . $string);
+		$this->_log( __METHOD__ . ' - error message : ' . $string);
 
 		if($textarea) {
 			echo '<textarea>' . json_encode($array) . '</textarea>';
@@ -321,7 +321,7 @@ class Filemanager {
 			$this->error("No way.");
 		}
 
-		$this->__log(__METHOD__ . ' - editing file '. $current_path);
+		$this->_log(__METHOD__ . ' - editing file '. $current_path);
 
 		$content = file_get_contents($current_path);
 		$content = htmlspecialchars($content);
@@ -352,7 +352,7 @@ class Filemanager {
 			$this->error(sprintf($this->lang('ERROR_WRITING_PERM')));
 		}
 		
-		$this->__log(__METHOD__ . ' - saving file '. $current_path);
+		$this->_log(__METHOD__ . ' - saving file '. $current_path);
 		
 		$content =  htmlspecialchars_decode($this->post['content']);
 		$r = file_put_contents($current_path, $content, LOCK_EX);
@@ -404,7 +404,7 @@ class Filemanager {
 			$this->error(sprintf($this->lang('INVALID_FILE_TYPE')));
 		}
 
-		$this->__log(__METHOD__ . ' - renaming '. $old_file. ' to ' . $new_file);
+		$this->_log(__METHOD__ . ' - renaming '. $old_file. ' to ' . $new_file);
 
 		if(file_exists ($new_file)) {
 			if($suffix=='/' && is_dir($new_file)) {
@@ -497,7 +497,7 @@ class Filemanager {
 		}
 
 		// move
-		$this->__log(__METHOD__ . ' - moving '. $oldPath. ' to directory ' . $newPath);
+		$this->_log(__METHOD__ . ' - moving '. $oldPath. ' to directory ' . $newPath);
 
 		if(!rename($oldPath,$newPath . $fileName)) {
 			if(is_dir($oldPath)) {
@@ -543,7 +543,7 @@ class Filemanager {
 			$this->unlinkRecursive($current_path);
 			
 			// we remove thumbnails if needed
-			$this->__log(__METHOD__ . ' - deleting thumbnails folder '. $thumbnail_path);
+			$this->_log(__METHOD__ . ' - deleting thumbnails folder '. $thumbnail_path);
 			$this->unlinkRecursive($thumbnail_path);
 			
 			$array = array(
@@ -552,7 +552,7 @@ class Filemanager {
 					'Path'=>$this->formatPath($this->get['path'])
 			);
 
-			$this->__log(__METHOD__ . ' - deleting folder '. $current_path);
+			$this->_log(__METHOD__ . ' - deleting folder '. $current_path);
 			return $array;
 
 		} else if(file_exists($current_path)) {
@@ -560,7 +560,7 @@ class Filemanager {
 			unlink($current_path);
 			
 			// delete thumbail if exists
-			$this->__log(__METHOD__ . ' - deleting thumbnail file '. $thumbnail_path);
+			$this->_log(__METHOD__ . ' - deleting thumbnail file '. $thumbnail_path);
 			if(file_exists($thumbnail_path)) unlink($thumbnail_path);
 			
 			$array = array(
@@ -569,7 +569,7 @@ class Filemanager {
 					'Path'=>$this->formatPath($this->get['path'])
 			);
 
-			$this->__log(__METHOD__ . ' - deleting file '. $current_path);
+			$this->_log(__METHOD__ . ' - deleting file '. $current_path);
 			return $array;
 
 		} else {
@@ -586,7 +586,7 @@ class Filemanager {
 			// if fileSize limit set by the user is greater than size allowed in php.ini file, we apply server restrictions
 			// and log a warning into file
 			if($this->config['upload']['fileSizeLimit'] > $this->getMaxUploadFileSize()) {
-				$this->__log(__METHOD__ . ' [WARNING] : file size limit set by user is greater than size allowed in php.ini file : '. $this->config['upload']['fileSizeLimit']. $this->lang('mb') .' > '. $this->getMaxUploadFileSize(). $this->lang('mb'). '.');
+				$this->_log(__METHOD__ . ' [WARNING] : file size limit set by user is greater than size allowed in php.ini file : '. $this->config['upload']['fileSizeLimit']. $this->lang('mb') .' > '. $this->getMaxUploadFileSize(). $this->lang('mb'). '.');
 				$this->config['upload']['fileSizeLimit'] = $this->getMaxUploadFileSize();
 				$this->error(sprintf($this->lang('UPLOAD_FILES_SMALLER_THAN'),$this->config['upload']['fileSizeLimit'] . $this->lang('mb')),true);
 			}
@@ -655,7 +655,7 @@ class Filemanager {
 					$resized = $image->resize($this->config['images']['resize']['maxWidth'], $this->config['images']['resize']['maxHeight'], 'inside');
 					$resized->saveToFile($imagePath);
 					
-					$this->__log(__METHOD__ . ' - resizing image : '. $current_path);
+					$this->_log(__METHOD__ . ' - resizing image : '. $current_path);
 				}
 			}
 		}
@@ -669,7 +669,7 @@ class Filemanager {
 				'Code'=>0
 		);
 
-		$this->__log(__METHOD__ . ' - replacing file '. $current_path);
+		$this->_log(__METHOD__ . ' - replacing file '. $current_path);
 
 		echo '<textarea>' . json_encode($response) . '</textarea>';
 		die();
@@ -684,7 +684,7 @@ class Filemanager {
 			// if fileSize limit set by the user is greater than size allowed in php.ini file, we apply server restrictions
 			// and log a warning into file
 			if($this->config['upload']['fileSizeLimit'] > $this->getMaxUploadFileSize()) {
-				$this->__log(__METHOD__ . ' [WARNING] : file size limit set by user is greater than size allowed in php.ini file : '. $this->config['upload']['fileSizeLimit'] . 'Mb > '. $this->getMaxUploadFileSize() .'Mb.');
+				$this->_log(__METHOD__ . ' [WARNING] : file size limit set by user is greater than size allowed in php.ini file : '. $this->config['upload']['fileSizeLimit'] . 'Mb > '. $this->getMaxUploadFileSize() .'Mb.');
 				$this->config['upload']['fileSizeLimit'] = $this->getMaxUploadFileSize();
 				$this->error(sprintf($this->lang('UPLOAD_FILES_SMALLER_THAN'),$this->config['upload']['fileSizeLimit'] . $this->lang('mb')),true);
 			}
@@ -738,7 +738,7 @@ class Filemanager {
 					$resized = $image->resize($this->config['images']['resize']['maxWidth'], $this->config['images']['resize']['maxHeight'], 'inside');
 					$resized->saveToFile($imagePath);
 					
-					$this->__log(__METHOD__ . ' - resizing image : '. $_FILES['newfile']['name']. ' into '. $current_path);
+					$this->_log(__METHOD__ . ' - resizing image : '. $_FILES['newfile']['name']. ' into '. $current_path);
 				}
 			}
 		}
@@ -752,7 +752,7 @@ class Filemanager {
 				'Code'=>0
 		);
 
-		$this->__log(__METHOD__ . ' - adding file '. $_FILES['newfile']['name']. ' into '. $current_path);
+		$this->_log(__METHOD__ . ' - adding file '. $_FILES['newfile']['name']. ' into '. $current_path);
 
 		echo '<textarea>' . json_encode($response) . '</textarea>';
 		die();
@@ -779,7 +779,7 @@ class Filemanager {
 				'Error'=>"",
 				'Code'=>0
 		);
-		$this->__log(__METHOD__ . ' - adding folder '. $current_path . $newdir);
+		$this->_log(__METHOD__ . ' - adding folder '. $current_path . $newdir);
 
 		return $array;
 	}
@@ -889,7 +889,7 @@ class Filemanager {
 			header('Content-Type: application/octet-stream');
 			header('Content-Disposition: attachment; filename="' . basename($current_path) . '"');
 			readfile($current_path);
-			$this->__log(__METHOD__ . ' - downloading '. $current_path);
+			$this->_log(__METHOD__ . ' - downloading '. $current_path);
 			exit();
 		} else {
 			$this->error(sprintf($this->lang('FILE_DOES_NOT_EXIST'),$current_path));
@@ -931,7 +931,7 @@ class Filemanager {
 
 		$upload_mb = min($max_upload, $max_post, $memory_limit);
 
-		$this->__log(__METHOD__ . ' - max upload file size is '. $upload_mb. 'Mb');
+		$this->_log(__METHOD__ . ' - max upload file size is '. $upload_mb. 'Mb');
 
 		return $upload_mb;
 	}
@@ -1164,8 +1164,8 @@ private function is_valid_path($path) {
 	
 	// return $this->startsWith($givenpath, $rootpath);
 	
-	$this->__log('substr path_to_files : ' . substr(realpath($path) . DIRECTORY_SEPARATOR, 0, strlen($this->path_to_files)));
-	$this->__log('path_to_files : ' . realpath($this->path_to_files) . DIRECTORY_SEPARATOR);
+	$this->_log('substr path_to_files : ' . substr(realpath($path) . DIRECTORY_SEPARATOR, 0, strlen($this->path_to_files)));
+	$this->_log('path_to_files : ' . realpath($this->path_to_files) . DIRECTORY_SEPARATOR);
 	
 	return substr(realpath($path) . DIRECTORY_SEPARATOR, 0, strlen($this->path_to_files)) == (realpath($this->path_to_files) . DIRECTORY_SEPARATOR);
 	
@@ -1332,7 +1332,7 @@ private function get_thumbnail($path) {
 		$resized = $image->resize($this->thumbnail_width, $this->thumbnail_height, 'outside')->crop('center', 'center', $this->thumbnail_width, $this->thumbnail_height);
 		$resized->saveToFile($thumbnail_fullpath);
 
-		$this->__log(__METHOD__ . ' - generating thumbnail :  '. $thumbnail_fullpath);
+		$this->_log(__METHOD__ . ' - generating thumbnail :  '. $thumbnail_fullpath);
 		
 	}
 	
@@ -1438,7 +1438,7 @@ private function get_user_ip()
 }
 
 
-private function __log($msg) {
+private function _log($msg) {
 		
 	if($this->logger == true) {
 
@@ -1458,7 +1458,7 @@ public function enableLog($logfile = '') {
 		$this->logfile = $logfile;
 	}
 		
-	$this->__log(__METHOD__ . ' - Log enabled (in '. $this->logfile. ' file)');
+	$this->_log(__METHOD__ . ' - Log enabled (in '. $this->logfile. ' file)');
 		
 }
 
@@ -1466,7 +1466,7 @@ public function disableLog() {
 
 	$this->logger = false;
 
-	$this->__log(__METHOD__ . ' - Log disabled');
+	$this->_log(__METHOD__ . ' - Log disabled');
 }
 
 /**

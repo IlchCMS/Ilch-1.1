@@ -13,7 +13,7 @@ class tpl
 	var $lang;
     var $ort;
 
-	function tpl ($file, $ort = 0) {
+	public function __construct($file, $ort = 0) {
 
 		$this->parts = array();
 		$this->keys  = array();

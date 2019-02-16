@@ -10,5 +10,5 @@
 run.bat
 .sonar
 /.sonar
-.vagrant
-Vagrantfile
+/.vagrant
+/Vagrantfile

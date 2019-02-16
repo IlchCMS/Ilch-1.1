@@ -648,11 +648,12 @@ class bbcode {
     private function formatVideo(array $matches) {
         $id = $matches['id'];
         switch (strtolower($matches['type'])) {
+            //TODO: revisite / change to configurable
             case 'google':
                 $str = "<embed style=\"width:" . $this->info['GoogleBreite'] . "px; height:" . $this->info['GoogleHoehe'] . "px;\" id=\"VideoPlayback\" align=\"middle\" type=\"application/x-shockwave-flash\" src=\"http://video.google.com/googleplayer.swf?docId=" . $id . "\" allowScriptAccess=\"sameDomain\" quality=\"best\" bgcolor=\"" . $this->info['GoogleHintergrundfarbe'] . "\" scale=\"noScale\" salign=\"TL\" FlashVars=\"playerMode=embedded\"/>";
                 break;
             case 'youtube':
-                $str = "<object width=\"" . $this->info['YoutubeBreite'] . "\" height=\"" . $this->info['YoutubeHoehe'] . "\"><param name=\"movie\" value=\"http://www.youtube.com/v/" . $id . "\"></param><embed src=\"http://www.youtube.com/v/" . $id . "\" type=\"application/x-shockwave-flash\"  width=\"" . $this->info['YoutubeBreite'] . "\" height=\"" . $this->info['YoutubeHoehe'] . "\" bgcolor=\"" . $this->info['YoutubeHintergrundfarbe'] . "\"></embed></object>";
+                $str = "<iframe width=\"".$this->info['YoutubeBreite']."\" height=\"".$this->info['YoutubeHoehe']."\" src=\"https://www.youtube.com/embed/".$id."?rel=0\" frameborder=\"0\" allowfullscreen></iframe>";
                 break;
             case 'myvideo':
                 $str = "<object classid=\"clsid:d27cdb6e-ae6d-11cf-96b8-444553540000\" width=\"" . $this->info['MyvideoBreite'] . "\" height=\"" . $this->info['MyvideoHoehe'] . "\"><param name=\"movie\" value=\"http://www.myvideo.de/movie/" . $id . "\"></param><embed src=\"http://www.myvideo.de/movie/" . $id . "\" width=\"" . $this->info['MyvideoBreite'] . "\" height=\"" . $this->info['MyvideoHoehe'] . "\" type=\"application/x-shockwave-flash\"></embed></object>";

@@ -406,7 +406,7 @@ CREATE TABLE `prefix_news` (
 `news_id` int(10) unsigned NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `news_title` varchar(100) NOT NULL DEFAULT '',
   `user_id` int(11) NOT NULL DEFAULT '0',
-  `news_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `news_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `editor_id` int(11) DEFAULT NULL,
   `edit_time` datetime DEFAULT NULL,
   `news_recht` int(11) NOT NULL DEFAULT '0',

@@ -33,17 +33,17 @@ class Captcha
     var $addagrid = true;
     var $character = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'Q', 'J', 'K', 'L', 'M', 'N', 'P', 'R', 'S', 'T', 'U', 'V', 'Y', 'W', '2', '3', '4', '5', '6', '7');
 
-    function Captcha()
+    public function __construct()
     {
         $this->memory = new MemorySession();
     }
 
-    function isValid($number, $captchaId)
+    public function isValid($number, $captchaId)
     {
         return $this->memory->checkCode($number, $captchaId);
     }
 
-    function checkTypeSupport()
+    protected function checkTypeSupport()
     {
         $get_info = gd_info();
         $Version = preg_replace('%[^\d\.]+%', '', $get_info['GD Version']);
@@ -55,7 +55,7 @@ class Captcha
         }
     }
 
-    function openCaptchaImage()
+    protected function openCaptchaImage()
     {
         // Grafik anlegen
         $gd_lib_version = $this->checkTypeSupport();
@@ -65,7 +65,7 @@ class Captcha
             return ImageCreate($this->width, $this->height);
     }
 
-    function setUseRandomColors($useRandomColors = false)
+    public function setUseRandomColors($useRandomColors = false)
     {
         $this->fontColor['r'] = 0;
         $this->fontColor['g'] = 0;

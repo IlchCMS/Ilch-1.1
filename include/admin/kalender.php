@@ -94,7 +94,7 @@ $design = new design('Admins Area', 'Admins Area', 2);
 $design->header();
 
 # AJAX ausgabe
-echo $xajax->printJavascript();
+$xajax->printJavascript();
 
 if (!empty($_REQUEST['um'])) {
     $sar = explode('-', $_POST['begind']);

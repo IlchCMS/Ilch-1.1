@@ -43,7 +43,7 @@ if(isset($_POST['submit'])) {
         }
         if(empty($_POST['mail']))  {
             $fehler .= "Bitte geben Sie ihre <strong>Emailadresse</strong> an.<br>";
-        } elseif(!empty($_POST['mail']) && !empty($_POST['mail']) && !eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@([a-z0-9-]+\.){1,3}([a-z0-9-]{2,3})$",$_POST['mail'])) {
+        } elseif(!empty($_POST['mail']) && !empty($_POST['mail']) && preg_match("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@([a-z0-9-]+\.){1,3}([a-z0-9-]{2,3})$", $_POST['mail']) !== 1) {
             $fehler .= "Die <strong>eMail-Adresse</strong> entspricht nicht der korrekten Syntax.<br>\n";
         }
         if(empty($_POST['fname']))  {
@@ -53,7 +53,7 @@ if(isset($_POST['submit'])) {
         }
         if(empty($_POST['fmail']))  {
             $fehler .= "Bitte geben Sie die <strong>Emailadresse</strong> ihres Freundes an.<br>";
-        } elseif(!empty($_POST['fmail']) && !empty($_POST['fmail']) && !eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@([a-z0-9-]+\.){1,3}([a-z0-9-]{2,3})$",$_POST['fmail'])) {
+        } elseif(!empty($_POST['fmail']) && !empty($_POST['fmail']) && preg_match("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@([a-z0-9-]+\.){1,3}([a-z0-9-]{2,3})$",$_POST['fmail']) !== 1) {
             $fehler .= "Die <strong>eMail-Adresse</strong> entspricht nicht der korrekten Syntax.<br>\n";
         }
         if(empty($_POST['txt']))  {

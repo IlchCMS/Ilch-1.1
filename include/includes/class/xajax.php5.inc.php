@@ -1,5 +1,5 @@
 <?php 
-class xajaxCall{var $sFunction;var $sReturnValue;var $aParameters;var $sMode;var $sRequestType;var $sResponseProcessor;var $sRequestURI;var $sContentType;function xajaxCall($sFunction=''){$this->sFunction=$sFunction;$this->aParameters=array();$this->sMode='';$this->sRequestType='';$this->sResponseProcessor='';$this->sRequestURI='';$this->sContentType='';}
+class xajaxCall{var $sFunction;var $sReturnValue;var $aParameters;var $sMode;var $sRequestType;var $sResponseProcessor;var $sRequestURI;var $sContentType;function __construct($sFunction=''){$this->sFunction=$sFunction;$this->aParameters=array();$this->sMode='';$this->sRequestType='';$this->sResponseProcessor='';$this->sRequestURI='';$this->sContentType='';}
 function setFunction($sFunction){$this->sFunction=$sFunction;return $this;}
 function clearParameters(){$this->aParameters=array();}
 function addParameter($sParameter,$bUseQuotes=true){$this->aParameters[]=array($sParameter,$bUseQuotes);return $this;}
@@ -23,7 +23,7 @@ $output .='}); ';if(0 < strlen($this->sReturnValue)){$output .='return ';$output
 return $output;}
 }
 
-class xajaxPluginManager{var $aRequestPlugins;var $aResponsePlugins;var $aConfigurable;var $aRegistrars;var $aProcessors;var $aClientScriptGenerators;function xajaxPluginManager(){$this->aRequestPlugins=array();$this->aResponsePlugins=array();$this->aConfigurable=array();$this->aRegistrars=array();$this->aProcessors=array();$this->aClientScriptGenerators=array();}
+class xajaxPluginManager{var $aRequestPlugins;var $aResponsePlugins;var $aConfigurable;var $aRegistrars;var $aProcessors;var $aClientScriptGenerators;function __construct(){$this->aRequestPlugins=array();$this->aResponsePlugins=array();$this->aConfigurable=array();$this->aRegistrars=array();$this->aProcessors=array();$this->aClientScriptGenerators=array();}
 static function getInstance(){static $obj;if(!$obj){$obj=new xajaxPluginManager();}
 return $obj;}
 function loadPlugins($aFolders){foreach($aFolders as $sFolder){if(is_dir($sFolder))
@@ -68,7 +68,7 @@ return $this->aResponsePlugins[$sKey];$bFailure=false;return $bFailure;}
 }
 
 
-class xajaxResponseManager{var $objResponse;var $sCharacterEncoding;var $bOutputEntities;var $aDebugMessages;function xajaxResponseManager(){$this->objResponse=NULL;$this->aDebugMessages=array();}
+class xajaxResponseManager{var $objResponse;var $sCharacterEncoding;var $bOutputEntities;var $aDebugMessages;function __construct(){$this->objResponse=NULL;$this->aDebugMessages=array();}
 static function getInstance(){static $obj;if(!$obj){$obj=new xajaxResponseManager();}
 return $obj;}
 function configure($sName,$mValue){if('characterEncoding'==$sName){$this->sCharacterEncoding=$mValue;if(isset($this->objResponse))
@@ -100,7 +100,7 @@ function getCharacterEncoding(){return $this->sCharacterEncoding;}
 function getOutputEntities(){return $this->bOutputEntities;}
 }
 
-class xajaxLanguageManager{var $aMessages;var $sLanguage;function xajaxLanguageManager(){$this->aMessages=array();$this->aMessages['en']=array(
+class xajaxLanguageManager{var $aMessages;var $sLanguage;function __construct(){$this->aMessages=array();$this->aMessages['en']=array(
 'LOGHDR:01'=> '** xajax Error Log - ',
 'LOGHDR:02'=> " **\n",
 'LOGHDR:03'=> "\n\n\n",
@@ -234,7 +234,7 @@ $this->argumentDecodeUTF8_utf8_decode($mArg[$sKey]);}
 }
 else if(is_string($mArg))
 $mArg=utf8_decode($mArg);}
-function xajaxArgumentManager(){$this->aArgs=array();$this->bDecodeUTF8Input=false;$this->sCharacterEncoding='UTF-8';$this->nMethod=XAJAX_METHOD_UNKNOWN;$this->aSequence=array(
+function __construct(){$this->aArgs=array();$this->bDecodeUTF8Input=false;$this->sCharacterEncoding='UTF-8';$this->nMethod=XAJAX_METHOD_UNKNOWN;$this->aSequence=array(
 '<'.'k'.'>'=> array(array(
 '<'.'/k'.'>'=> 4
 ),3),
@@ -290,7 +290,7 @@ return $this->aArgs;}
 }
 
 
-if(false==defined('XAJAX_HTML_CONTROL_DOCTYPE_FORMAT'))define('XAJAX_HTML_CONTROL_DOCTYPE_FORMAT','XHTML');if(false==defined('XAJAX_HTML_CONTROL_DOCTYPE_VERSION'))define('XAJAX_HTML_CONTROL_DOCTYPE_VERSION','1.0');if(false==defined('XAJAX_HTML_CONTROL_DOCTYPE_VALIDATION'))define('XAJAX_HTML_CONTROL_DOCTYPE_VALIDATION','TRANSITIONAL');class xajaxControl{var $sTag;var $sEndTag;var $aAttributes;var $aEvents;var $sClass;function xajaxControl($sTag,$aConfiguration=array()){$this->sTag=$sTag;$this->clearAttributes();if(isset($aConfiguration['attributes']))
+if(false==defined('XAJAX_HTML_CONTROL_DOCTYPE_FORMAT'))define('XAJAX_HTML_CONTROL_DOCTYPE_FORMAT','XHTML');if(false==defined('XAJAX_HTML_CONTROL_DOCTYPE_VERSION'))define('XAJAX_HTML_CONTROL_DOCTYPE_VERSION','1.0');if(false==defined('XAJAX_HTML_CONTROL_DOCTYPE_VALIDATION'))define('XAJAX_HTML_CONTROL_DOCTYPE_VALIDATION','TRANSITIONAL');class xajaxControl{var $sTag;var $sEndTag;var $aAttributes;var $aEvents;var $sClass;function __construct($sTag,$aConfiguration=array()){$this->sTag=$sTag;$this->clearAttributes();if(isset($aConfiguration['attributes']))
 if(is_array($aConfiguration['attributes']))
 foreach($aConfiguration['attributes'] as $sKey=> $sValue)
 $this->setAttribute($sKey,$sValue);$this->clearEvents();if(isset($aConfiguration['event']))
@@ -335,7 +335,7 @@ return '<div><div>Backtrace:</div><pre>'
 . print_r(debug_backtrace(),true)
 . '</pre></div>';return '';}
 }
-class xajaxControlContainer extends xajaxControl{var $aChildren;var $sChildClass;function xajaxControlContainer($sTag,$aConfiguration=array()){xajaxControl::xajaxControl($sTag,$aConfiguration);$this->clearChildren();if(isset($aConfiguration['child']))
+class xajaxControlContainer extends xajaxControl{var $aChildren;var $sChildClass;function __construct($sTag,$aConfiguration=array()){xajaxControl::xajaxControl($sTag,$aConfiguration);$this->clearChildren();if(isset($aConfiguration['child']))
 $this->addChild($aConfiguration['child']);else if(isset($aConfiguration['children']))
 $this->addChildren($aConfiguration['children']);$this->sEndTag='required';}
 function getClass(){$sClass=xajaxControl::getClass();if(0 < count($this->aChildren)&&'%flow'==$sClass)
@@ -386,7 +386,7 @@ function getName(){}
 function process(){}
 }
 
-if(!defined('XAJAX_DEFAULT_CHAR_ENCODING'))define('XAJAX_DEFAULT_CHAR_ENCODING','utf-8');if(!defined('XAJAX_PROCESSING_EVENT'))define('XAJAX_PROCESSING_EVENT','xajax processing event');if(!defined('XAJAX_PROCESSING_EVENT_BEFORE'))define('XAJAX_PROCESSING_EVENT_BEFORE','beforeProcessing');if(!defined('XAJAX_PROCESSING_EVENT_AFTER'))define('XAJAX_PROCESSING_EVENT_AFTER','afterProcessing');if(!defined('XAJAX_PROCESSING_EVENT_INVALID'))define('XAJAX_PROCESSING_EVENT_INVALID','invalidRequest');class xajax{var $aSettings;var $bErrorHandler;var $aProcessingEvents;var $bExitAllowed;var $bCleanBuffer;var $sLogFile;var $sCoreIncludeOutput;var $objPluginManager;var $objArgumentManager;var $objResponseManager;var $objLanguageManager;function xajax($sRequestURI=null,$sLanguage=null){$this->bErrorHandler=false;$this->aProcessingEvents=array();$this->bExitAllowed=true;$this->bCleanBuffer=true;$this->sLogFile='';$this->__wakeup();$this->configureMany(
+if(!defined('XAJAX_DEFAULT_CHAR_ENCODING'))define('XAJAX_DEFAULT_CHAR_ENCODING','utf-8');if(!defined('XAJAX_PROCESSING_EVENT'))define('XAJAX_PROCESSING_EVENT','xajax processing event');if(!defined('XAJAX_PROCESSING_EVENT_BEFORE'))define('XAJAX_PROCESSING_EVENT_BEFORE','beforeProcessing');if(!defined('XAJAX_PROCESSING_EVENT_AFTER'))define('XAJAX_PROCESSING_EVENT_AFTER','afterProcessing');if(!defined('XAJAX_PROCESSING_EVENT_INVALID'))define('XAJAX_PROCESSING_EVENT_INVALID','invalidRequest');class xajax{var $aSettings;var $bErrorHandler;var $aProcessingEvents;var $bExitAllowed;var $bCleanBuffer;var $sLogFile;var $sCoreIncludeOutput;var $objPluginManager;var $objArgumentManager;var $objResponseManager;var $objLanguageManager;function __construct($sRequestURI=null,$sLanguage=null){$this->bErrorHandler=false;$this->aProcessingEvents=array();$this->bExitAllowed=true;$this->bCleanBuffer=true;$this->sLogFile='';$this->__wakeup();$this->configureMany(
 array(
 'characterEncoding'=> XAJAX_DEFAULT_CHAR_ENCODING,
 'decodeUTF8Input'=> false,
@@ -598,7 +598,7 @@ else if(defined('E_STRICT')&&$errno==E_STRICT){return;}
 else{$errTypeStr='UNKNOWN: ' . $errno;}
 $sCrLf="\n";ob_start();echo $GLOBALS['xajaxErrorHandlerText'];echo $sCrLf;echo '----';echo $sCrLf;echo '[';echo $errTypeStr;echo '] ';echo $errstr;echo $sCrLf;echo 'Error on line ';echo $errline;echo ' of file ';echo $errfile;$GLOBALS['xajaxErrorHandlerText']=ob_get_clean();}
 
-class xajaxResponse{var $aCommands;var $sCharacterEncoding;var $bOutputEntities;var $returnValue;var $objPluginManager;function xajaxResponse(){if(0 < func_num_args()){$objLanguageManager=xajaxLanguageManager::getInstance();trigger_error(
+class xajaxResponse{var $aCommands;var $sCharacterEncoding;var $bOutputEntities;var $returnValue;var $objPluginManager;function __construct(){if(0 < func_num_args()){$objLanguageManager=xajaxLanguageManager::getInstance();trigger_error(
 $objLanguageManager->getText('XJXRSP:EDERR:01')
 ,E_USER_ERROR
 );}
@@ -962,7 +962,7 @@ $aData[]=array(
 'v'=>$this->_encodeArray($mData[$sKey])
 );return $aData;}
 }
-class xajaxCustomResponse{var $sOutput;var $sContentType;var $sCharacterEncoding;var $bOutputEntities;function xajaxCustomResponse($sContentType){$this->sOutput='';$this->sContentType=$sContentType;$objResponseManager=xajaxResponseManager::getInstance();$this->sCharacterEncoding=$objResponseManager->getCharacterEncoding();$this->bOutputEntities=$objResponseManager->getOutputEntities();}
+class xajaxCustomResponse{var $sOutput;var $sContentType;var $sCharacterEncoding;var $bOutputEntities;function __construct($sContentType){$this->sOutput='';$this->sContentType=$sContentType;$objResponseManager=xajaxResponseManager::getInstance();$this->sCharacterEncoding=$objResponseManager->getCharacterEncoding();$this->bOutputEntities=$objResponseManager->getOutputEntities();}
 function setCharacterEncoding($sCharacterEncoding){$this->sCharacterEncoding=$sCharacterEncoding;}
 function setOutputEntities($bOutputEntities){$this->bOutputEntities=$bOutputEntities;}
 function clear(){$this->sOutput='';}
@@ -991,7 +991,7 @@ function getOutput(){return $this->sOutput;}
 function printOutput(){$sContentType=$this->sContentType;$sCharacterSet=$this->sCharacterEncoding;header("content-type: {$sContentType}; charset={$sCharacterSet}");echo $this->sOutput;}
 }
 
-if(!defined('XAJAX_FUNCTION'))define('XAJAX_FUNCTION','function');class xajaxFunctionPlugin extends xajaxRequestPlugin{var $aFunctions;var $sXajaxPrefix;var $sDefer;var $bDeferScriptGeneration;var $sRequestedFunction;function xajaxFunctionPlugin(){$this->aFunctions=array();$this->sXajaxPrefix='xajax_';$this->sDefer='';$this->bDeferScriptGeneration=false;$this->sRequestedFunction=NULL;if(isset($_GET['xjxfun']))$this->sRequestedFunction=$_GET['xjxfun'];if(isset($_POST['xjxfun']))$this->sRequestedFunction=$_POST['xjxfun'];}
+if(!defined('XAJAX_FUNCTION'))define('XAJAX_FUNCTION','function');class xajaxFunctionPlugin extends xajaxRequestPlugin{var $aFunctions;var $sXajaxPrefix;var $sDefer;var $bDeferScriptGeneration;var $sRequestedFunction;function __construct(){$this->aFunctions=array();$this->sXajaxPrefix='xajax_';$this->sDefer='';$this->bDeferScriptGeneration=false;$this->sRequestedFunction=NULL;if(isset($_GET['xjxfun']))$this->sRequestedFunction=$_GET['xjxfun'];if(isset($_POST['xjxfun']))$this->sRequestedFunction=$_POST['xjxfun'];}
 function configure($sName,$mValue){if('wrapperPrefix'==$sName){$this->sXajaxPrefix=$mValue;}else if('scriptDefferal'==$sName){if(true===$mValue)$this->sDefer='defer ';else $this->sDefer='';}else if('deferScriptGeneration'==$sName){if(true===$mValue||false===$mValue)
 $this->bDeferScriptGeneration=$mValue;else if('deferred'===$mValue)
 $this->bDeferScriptGeneration=$mValue;}
@@ -1015,7 +1015,7 @@ return false;$objArgumentManager=xajaxArgumentManager::getInstance();$aArgs=$obj
 return 'Invalid function request received; no request processor found with this name.';}
 }
 $objPluginManager= xajaxPluginManager::getInstance();$objPluginManager->registerPlugin(new xajaxFunctionPlugin(),100);
-class xajaxCallableObject{var $obj;var $aConfiguration;function xajaxCallableObject(&$obj){$this->obj=&$obj;$this->aConfiguration=array();}
+class xajaxCallableObject{var $obj;var $aConfiguration;function __construct(&$obj){$this->obj=&$obj;$this->aConfiguration=array();}
 function getName(){return get_class($this->obj);}
 function configure($sMethod,$sName,$sValue){$sMethod=strtolower($sMethod);if(false==isset($this->aConfiguration[$sMethod]))
 $this->aConfiguration[$sMethod]=array();$this->aConfiguration[$sMethod][$sName]=$sValue;}
@@ -1046,7 +1046,7 @@ $aArgs
 );}
 }
 
-class xajaxEvent{var $sName;var $aConfiguration;var $aHandlers;function xajaxEvent($sName){$this->sName=$sName;$this->aConfiguration=array();$this->aHandlers=array();}
+class xajaxEvent{var $sName;var $aConfiguration;var $aHandlers;function __construct($sName){$this->sName=$sName;$this->aConfiguration=array();$this->aHandlers=array();}
 function getName(){return $this->sName;}
 function configure($sName,$mValue){$this->aConfiguration[$sName]=$mValue;}
 function addHandler(&$xuf){$this->aHandlers[]=&$xuf;}
@@ -1060,7 +1060,7 @@ function fire($aArgs){$objResponseManager=xajaxResponseManager::getInstance();fo
 $this->aHandlers[$sKey]->call($aArgs);}
 }
 
-class xajaxUserFunction{var $sAlias;var $uf;var $sInclude;var $aConfiguration;function xajaxUserFunction($uf,$sInclude=NULL,$aConfiguration=array()){$this->sAlias='';$this->uf=&$uf;$this->sInclude=$sInclude;$this->aConfiguration=array();foreach($aConfiguration as $sKey=> $sValue)
+class xajaxUserFunction{var $sAlias;var $uf;var $sInclude;var $aConfiguration;function __construct($uf,$sInclude=NULL,$aConfiguration=array()){$this->sAlias='';$this->uf=&$uf;$this->sInclude=$sInclude;$this->aConfiguration=array();foreach($aConfiguration as $sKey=> $sValue)
 $this->configure($sKey,$sValue);if(is_array($this->uf)&&2 < count($this->uf)){$this->sAlias=$this->uf[0];$this->uf=array_slice($this->uf,1);}
 }
 function getName(){if(is_array($this->uf))
@@ -1077,7 +1077,7 @@ function call($aArgs=array()){$objResponseManager=xajaxResponseManager::getInsta
 $mFunction=$this->uf;$objResponseManager->append(call_user_func_array($mFunction,$aArgs));}
 }
 
-if(!defined('XAJAX_EVENT'))define('XAJAX_EVENT','xajax event');if(!defined('XAJAX_EVENT_HANDLER'))define('XAJAX_EVENT_HANDLER','xajax event handler');class xajaxEventPlugin extends xajaxRequestPlugin{var $aEvents;var $sXajaxPrefix;var $sEventPrefix;var $sDefer;var $bDeferScriptGeneration;var $sRequestedEvent;function xajaxEventPlugin(){$this->aEvents=array();$this->sXajaxPrefix='xajax_';$this->sEventPrefix='event_';$this->sDefer='';$this->bDeferScriptGeneration=false;$this->sRequestedEvent=NULL;if(isset($_GET['xjxevt']))$this->sRequestedEvent=$_GET['xjxevt'];if(isset($_POST['xjxevt']))$this->sRequestedEvent=$_POST['xjxevt'];}
+if(!defined('XAJAX_EVENT'))define('XAJAX_EVENT','xajax event');if(!defined('XAJAX_EVENT_HANDLER'))define('XAJAX_EVENT_HANDLER','xajax event handler');class xajaxEventPlugin extends xajaxRequestPlugin{var $aEvents;var $sXajaxPrefix;var $sEventPrefix;var $sDefer;var $bDeferScriptGeneration;var $sRequestedEvent;function __construct(){$this->aEvents=array();$this->sXajaxPrefix='xajax_';$this->sEventPrefix='event_';$this->sDefer='';$this->bDeferScriptGeneration=false;$this->sRequestedEvent=NULL;if(isset($_GET['xjxevt']))$this->sRequestedEvent=$_GET['xjxevt'];if(isset($_POST['xjxevt']))$this->sRequestedEvent=$_POST['xjxevt'];}
 function configure($sName,$mValue){if('wrapperPrefix'==$sName){$this->sXajaxPrefix=$mValue;}else if('eventPrefix'==$sName){$this->sEventPrefix=$mValue;}else if('scriptDefferal'==$sName){if(true===$mValue)$this->sDefer='defer ';else $this->sDefer='';}else if('deferScriptGeneration'==$sName){if(true===$mValue||false===$mValue)
 $this->bDeferScriptGeneration=$mValue;else if('deferred'===$mValue)
 $this->bDeferScriptGeneration=$mValue;}
@@ -1105,7 +1105,7 @@ return false;$objArgumentManager=xajaxArgumentManager::getInstance();$aArgs=$obj
 return 'Invalid event request received; no event was registered with this name.';}
 }
 $objPluginManager=xajaxPluginManager::getInstance();$objPluginManager->registerPlugin(new xajaxEventPlugin(),103);
-class xajaxIncludeClientScriptPlugin extends xajaxRequestPlugin{var $sJsURI;var $aJsFiles;var $sDefer;var $sRequestURI;var $sStatusMessages;var $sWaitCursor;var $sVersion;var $sDefaultMode;var $sDefaultMethod;var $bDebug;var $bVerboseDebug;var $nScriptLoadTimeout;var $bUseUncompressedScripts;var $bDeferScriptGeneration;var $sLanguage;var $nResponseQueueSize;function xajaxIncludeClientScriptPlugin(){$this->sJsURI='';$this->aJsFiles=array();$this->sDefer='';$this->sRequestURI='';$this->sStatusMessages='false';$this->sWaitCursor='true';$this->sVersion='unknown';$this->sDefaultMode='asynchronous';$this->sDefaultMethod='POST';$this->bDebug=false;$this->bVerboseDebug=false;$this->nScriptLoadTimeout=2000;$this->bUseUncompressedScripts=false;$this->bDeferScriptGeneration=false;$this->sLanguage=null;$this->nResponseQueueSize=null;}
+class xajaxIncludeClientScriptPlugin extends xajaxRequestPlugin{var $sJsURI;var $aJsFiles;var $sDefer;var $sRequestURI;var $sStatusMessages;var $sWaitCursor;var $sVersion;var $sDefaultMode;var $sDefaultMethod;var $bDebug;var $bVerboseDebug;var $nScriptLoadTimeout;var $bUseUncompressedScripts;var $bDeferScriptGeneration;var $sLanguage;var $nResponseQueueSize;function __construct(){$this->sJsURI='';$this->aJsFiles=array();$this->sDefer='';$this->sRequestURI='';$this->sStatusMessages='false';$this->sWaitCursor='true';$this->sVersion='unknown';$this->sDefaultMode='asynchronous';$this->sDefaultMethod='POST';$this->bDebug=false;$this->bVerboseDebug=false;$this->nScriptLoadTimeout=2000;$this->bUseUncompressedScripts=false;$this->bDeferScriptGeneration=false;$this->sLanguage=null;$this->nResponseQueueSize=null;}
 function configure($sName,$mValue){if('javascript URI'==$sName){$this->sJsURI=$mValue;}else if("javascript files"==$sName){$this->aJsFiles=$mValue;}else if("scriptDefferal"==$sName){if(true===$mValue)$this->sDefer="defer ";else $this->sDefer="";}else if("requestURI"==$sName){$this->sRequestURI=$mValue;}else if("statusMessages"==$sName){if(true===$mValue)$this->sStatusMessages="true";else $this->sStatusMessages="false";}else if("waitCursor"==$sName){if(true===$mValue)$this->sWaitCursor="true";else $this->sWaitCursor="false";}else if("version"==$sName){$this->sVersion=$mValue;}else if("defaultMode"==$sName){if("asynchronous"==$mValue||"synchronous"==$mValue)
 $this->sDefaultMode=$mValue;}else if("defaultMethod"==$sName){if("POST"==$mValue||"GET"==$mValue)
 $this->sDefaultMethod=$mValue;}else if("debug"==$sName){if(true===$mValue||false===$mValue)
@@ -1136,7 +1136,7 @@ function _getScriptFilename($sFilename){if($this->bUseUncompressedScripts){retur
 return $sFilename;}
 }
 $objPluginManager=xajaxPluginManager::getInstance();$objPluginManager->registerPlugin(new xajaxIncludeClientScriptPlugin(),99);
-if(!defined('XAJAX_CALLABLE_OBJECT'))define('XAJAX_CALLABLE_OBJECT','callable object');class xajaxCallableObjectPlugin extends xajaxRequestPlugin{var $aCallableObjects;var $sXajaxPrefix;var $sDefer;var $bDeferScriptGeneration;var $sRequestedClass;var $sRequestedMethod;function xajaxCallableObjectPlugin(){$this->aCallableObjects=array();$this->sXajaxPrefix='xajax_';$this->sDefer='';$this->bDeferScriptGeneration=false;$this->sRequestedClass=NULL;$this->sRequestedMethod=NULL;if(!empty($_GET['xjxcls']))$this->sRequestedClass=$_GET['xjxcls'];if(!empty($_GET['xjxmthd']))$this->sRequestedMethod=$_GET['xjxmthd'];if(!empty($_POST['xjxcls']))$this->sRequestedClass=$_POST['xjxcls'];if(!empty($_POST['xjxmthd']))$this->sRequestedMethod=$_POST['xjxmthd'];}
+if(!defined('XAJAX_CALLABLE_OBJECT'))define('XAJAX_CALLABLE_OBJECT','callable object');class xajaxCallableObjectPlugin extends xajaxRequestPlugin{var $aCallableObjects;var $sXajaxPrefix;var $sDefer;var $bDeferScriptGeneration;var $sRequestedClass;var $sRequestedMethod;function __construct(){$this->aCallableObjects=array();$this->sXajaxPrefix='xajax_';$this->sDefer='';$this->bDeferScriptGeneration=false;$this->sRequestedClass=NULL;$this->sRequestedMethod=NULL;if(!empty($_GET['xjxcls']))$this->sRequestedClass=$_GET['xjxcls'];if(!empty($_GET['xjxmthd']))$this->sRequestedMethod=$_GET['xjxmthd'];if(!empty($_POST['xjxcls']))$this->sRequestedClass=$_POST['xjxcls'];if(!empty($_POST['xjxmthd']))$this->sRequestedMethod=$_POST['xjxmthd'];}
 function configure($sName,$mValue){if('wrapperPrefix'==$sName){$this->sXajaxPrefix=$mValue;}else if('scriptDefferal'==$sName){if(true===$mValue)$this->sDefer='defer ';else $this->sDefer='';}else if('deferScriptGeneration'==$sName){if(true===$mValue||false===$mValue)
 $this->bDeferScriptGeneration=$mValue;else if('deferred'===$mValue)
 $this->bDeferScriptGeneration=$mValue;}
@@ -1164,7 +1164,7 @@ return false;$objArgumentManager=xajaxArgumentManager::getInstance();$aArgs=$obj
 return 'Invalid request for a callable object.';}
 }
 $objPluginManager=xajaxPluginManager::getInstance();$objPluginManager->registerPlugin(new xajaxCallableObjectPlugin(),102);
-class xajaxScriptPlugin extends xajaxRequestPlugin{var $sRequest;var $sHash;var $sRequestURI;var $bDeferScriptGeneration;var $bValidateHash;var $bWorking;function xajaxScriptPlugin(){$this->sRequestURI='';$this->bDeferScriptGeneration=false;$this->bValidateHash=true;$this->bWorking=false;$this->sRequest='';$this->sHash=null;if(isset($_GET['xjxGenerateJavascript'])){$this->sRequest='script';$this->sHash=$_GET['xjxGenerateJavascript'];}
+class xajaxScriptPlugin extends xajaxRequestPlugin{var $sRequest;var $sHash;var $sRequestURI;var $bDeferScriptGeneration;var $bValidateHash;var $bWorking;function __construct(){$this->sRequestURI='';$this->bDeferScriptGeneration=false;$this->bValidateHash=true;$this->bWorking=false;$this->sRequest='';$this->sHash=null;if(isset($_GET['xjxGenerateJavascript'])){$this->sRequest='script';$this->sHash=$_GET['xjxGenerateJavascript'];}
 if(isset($_GET['xjxGenerateStyle'])){$this->sRequest='style';$this->sHash=$_GET['xjxGenerateStyle'];}
 }
 function configure($sName,$mValue){if('requestURI'==$sName){$this->sRequestURI=$mValue;}else if('deferScriptGeneration'==$sName){if(true===$mValue||false===$mValue)
@@ -1190,7 +1190,7 @@ return 'Invalid script or style request.';trigger_error('Hash mismatch: ' . $thi
 }
 }
 $objPluginManager=xajaxPluginManager::getInstance();$objPluginManager->registerPlugin(new xajaxScriptPlugin(),9999);
-if(!defined('XAJAX_FORM_VALUES'))define('XAJAX_FORM_VALUES','get form values');if(!defined('XAJAX_INPUT_VALUE'))define('XAJAX_INPUT_VALUE','get input value');if(!defined('XAJAX_CHECKED_VALUE'))define('XAJAX_CHECKED_VALUE','get checked value');if(!defined('XAJAX_ELEMENT_INNERHTML'))define('XAJAX_ELEMENT_INNERHTML','get element innerHTML');if(!defined('XAJAX_QUOTED_VALUE'))define('XAJAX_QUOTED_VALUE','quoted value');if(!defined('XAJAX_JS_VALUE'))define('XAJAX_JS_VALUE','unquoted value');class xajaxRequest{var $sName;var $sQuoteCharacter;var $aParameters;function xajaxRequest($sName){$this->aParameters=array();$this->sQuoteCharacter='"';$this->sName=$sName;}
+if(!defined('XAJAX_FORM_VALUES'))define('XAJAX_FORM_VALUES','get form values');if(!defined('XAJAX_INPUT_VALUE'))define('XAJAX_INPUT_VALUE','get input value');if(!defined('XAJAX_CHECKED_VALUE'))define('XAJAX_CHECKED_VALUE','get checked value');if(!defined('XAJAX_ELEMENT_INNERHTML'))define('XAJAX_ELEMENT_INNERHTML','get element innerHTML');if(!defined('XAJAX_QUOTED_VALUE'))define('XAJAX_QUOTED_VALUE','quoted value');if(!defined('XAJAX_JS_VALUE'))define('XAJAX_JS_VALUE','unquoted value');class xajaxRequest{var $sName;var $sQuoteCharacter;var $aParameters;function __construct($sName){$this->aParameters=array();$this->sQuoteCharacter='"';$this->sName=$sName;}
 function useSingleQuote(){$this->sQuoteCharacter="'";}
 function useDoubleQuote(){$this->sQuoteCharacter='"';}
 function clearParameters(){$this->aParameters=array();}
@@ -1234,7 +1234,7 @@ function getScript(){ob_start();$this->printScript();return ob_get_clean();}
 function printScript(){echo $this->sName;echo '(';$sSeparator='';foreach($this->aParameters as $sParameter){echo $sSeparator;echo $sParameter;$sSeparator=', ';}
 echo ')';}
 }
-class xajaxCustomRequest extends xajaxRequest{var $aVariables;var $sScript;function xajaxCustomRequest($sScript){$this->aVariables=array();$this->sScript=$sScript;}
+class xajaxCustomRequest extends xajaxRequest{var $aVariables;var $sScript;function __construct($sScript){$this->aVariables=array();$this->sScript=$sScript;}
 function clearVariables(){$this->aVariables=array();}
 function setVariable($sName,$sValue){$this->aVariables[$sName]=$sValue;}
 function printScript(){$sScript=$this->sScript;foreach($this->aVariables as $sKey=> $sValue)

@@ -7,7 +7,7 @@ defined ('main') or die ( 'no direct access' );
 class menu {
   var $menu_ar;
 
-  function menu () {
+  function __construct() {
     $this->set_menu_ar();
   }
 

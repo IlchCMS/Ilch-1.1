@@ -16,111 +16,101 @@ if (!is_admin()) {
 }
 
 class AbstractBackupWriter {
-
-    function isValid() {
-	return true;
+    public function isValid() {
+	    return true;
     }
 
-    function write($msg) {
+    public abstract function write($msg);
 
-    }
-
-    function close() {
-
-    }
-
+    public abstract function close();
 }
 
 class FileBackupWriter extends AbstractBackupWriter {
 
-    var $handle;
-    var $filename;
-    var $valid;
+    private $handle;
+    private $filename;
+    private $valid;
 
-    function FileBackupWriter($filename) {
-	if (!is_writable('include/backup/')) {
-	    if (!headers_sent()) {
-		echo '<div class="alert alert-danger" role="alert">Backupverzeichnis ist schreibgesch&uuml;tzt, es wird keine Datei geschrieben.<br>';
-		echo '<a class="btn btn-default" href="admin.php?backup">zur&uuml;ck</a></div>';
-	    }
-	    $this->valid = false;
-	} else {
-	    $this->filename = 'include/backup/' . $filename;
-	    $this->handle = fopen($this->filename, 'w');
-	    $this->valid = true;
-	}
+    public function __construct($filename) {
+        if (!is_writable('include/backup/')) {
+            if (!headers_sent()) {
+            echo '<div class="alert alert-danger" role="alert">Backupverzeichnis ist schreibgesch&uuml;tzt, es wird keine Datei geschrieben.<br>';
+            echo '<a class="btn btn-default" href="admin.php?backup">zur&uuml;ck</a></div>';
+            }
+            $this->valid = false;
+        } else {
+            $this->filename = 'include/backup/' . $filename;
+            $this->handle = fopen($this->filename, 'w');
+            $this->valid = true;
+        }
     }
 
-    function isValid() {
-	return $this->valid;
+    public function isValid() {
+	    return $this->valid;
     }
 
-    function write($msg) {
-	fwrite($this->handle, $msg, strlen($msg));
+    public function write($msg) {
+	    fwrite($this->handle, $msg, strlen($msg));
     }
 
-    function close() {
-	fclose($this->handle);
-	@chmod('include/backup/' . $this->filename, 0777);
-	if (!headers_sent()) {
-	    echo '<div class="alert alert-success" role="alert">Backupdatei ' . $this->filename . ' erfolgreich angelegt.<br>';
-	    echo '<a class="btn btn-default" href="admin.php?backup">zur&uuml;ck</a></div>';
-	}
+    public function close() {
+        fclose($this->handle);
+        @chmod('include/backup/' . $this->filename, 0777);
+        if (!headers_sent()) {
+            echo '<div class="alert alert-success" role="alert">Backupdatei ' . $this->filename . ' erfolgreich angelegt.<br>';
+            echo '<a class="btn btn-default" href="admin.php?backup">zur&uuml;ck</a></div>';
+        }
     }
-
 }
 
 class BrowserBackupWriter extends AbstractBackupWriter {
-
-    function BrowserBackupWriter($filename) {
-	header("Content-type: application/octet-stream");
-	header("Content-disposition: attachment; filename=" . $filename);
-	header("Pragma: no-cache");
-	header("Expires: 0");
+    public function __construct($filename) {
+        header("Content-type: application/octet-stream");
+        header("Content-disposition: attachment; filename=" . $filename);
+        header("Pragma: no-cache");
+        header("Expires: 0");
     }
 
-    function write($msg) {
-	print $msg;
+    public function write($msg) {
+	    print $msg;
     }
-
 }
 
 class BackupWriter {
 
-    var $writers;
-    var $useUtf8;
+    private $writers;
+    private $useUtf8;
 
-    function BackupWriter($utf8) {
-	$this->writers = array();
-	$this->useUtf8 = (bool) $utf8;
+    public function __construct($utf8) {
+        $this->writers = array();
+        $this->useUtf8 = (bool) $utf8;
     }
 
-    function addWriter($writer) {
-	if ($writer->isValid()) {
-	    $this->writers[] = $writer;
-	}
+    public function addWriter($writer) {
+        if ($writer->isValid()) {
+            $this->writers[] = $writer;
+        }
     }
 
-    function close() {
-	foreach ($this->writers as $writer) {
-	    $writer->close();
-	}
-	unset($this);
+    public function close() {
+        foreach ($this->writers as $writer) {
+            $writer->close();
+        }
+        unset($this);
     }
 
-    function write($msg) {
-	if ($this->useUtf8) {
-	    $msg = utf8_encode($msg);
-	}
-	foreach ($this->writers as $writer) {
-	    $writer->write($msg);
-	}
+    public function write($msg) {
+        if ($this->useUtf8) {
+            $msg = utf8_encode($msg);
+        }
+        foreach ($this->writers as $writer) {
+            $writer->write($msg);
+        }
     }
 
-    function countWriters() {
-	return count($this->writers);
+    public function countWriters() {
+	    return count($this->writers);
     }
-
 }
 
 function get_def($table, $writer) {

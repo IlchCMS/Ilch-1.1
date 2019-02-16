@@ -220,7 +220,7 @@ function icmail($mail, $bet, $txt, $from = '', $html = false) {
 	} else {
 	    $smtp = unserialize($smtpser);
 
-	    $mailer->IsSMTP();
+	    $mailer->isSMTP();
 	    $mailer->Host = $smtp['smtp_host'];
 	    $mailer->SMTPAuth = ($smtp['smtp_auth'] == 'no' ? false : true);
 	    if ($smtp['smtp_auth'] == 'ssl' or $smtp['smtp_auth'] == 'tls') {
@@ -229,7 +229,7 @@ function icmail($mail, $bet, $txt, $from = '', $html = false) {
 	    if (!empty($smtp['smtp_port'])) {
 		$mailer->Port = $smtp['smtp_port'];
 	    }
-	    $mailer->AddReplyTo($mailer->From, $mailer->FromName);
+	    $mailer->addReplyTo($mailer->From, $mailer->FromName);
 
 	    if ($smtp['smtp_changesubject'] and $mailer->From != $smtp['smtp_email']) {
 		$bet = '(For ' . $mailer->FromName . ' - ' . $mailer->From . ') ' . $bet;
@@ -245,35 +245,35 @@ function icmail($mail, $bet, $txt, $from = '', $html = false) {
 	    if ($smtp['smtp_pop3beforesmtp'] == 1) {
 		$pop = new POP3();
 		$pop3port = !empty($smpt['smtp_pop3port']) ? $smpt['smtp_pop3port'] : 110;
-		$pop->Authorise($smpt['smtp_pop3host'], $pop3port, 5, $mailer->Username, $mailer->Password, 1);
+		$pop->authorise($smpt['smtp_pop3host'], $pop3port, 5, $mailer->Username, $mailer->Password, 1);
 	    }
 	}
-	//$mailer->SMTPDebug = true;
+
     }
     if (is_array($mail)) {
 	if ($mail[0] != 'bcc') {
 	    array_shift($mail);
 	    foreach ($mail as $m) {
-		$mailer->AddBCC(escape_for_email($m));
+		$mailer->addBCC(escape_for_email($m));
 	    }
-	    $mailer->AddAddress($mailer->From);
+	    $mailer->addAddress($mailer->From);
 	} else {
 	    foreach ($mail as $m) {
-		$mailer->AddAddress(escape_for_email($m));
+		$mailer->addAddress(escape_for_email($m));
 	    }
 	}
     } else {
-	$mailer->AddAddress(escape_for_email($mail));
+	$mailer->addAddress(escape_for_email($mail));
     }
     $mailer->Subject = escape_for_email($bet, true);
     $txt = str_replace("\r", "\n", str_replace("\r\n", "\n", $txt));
     if ($html) {
-	$mailer->IsHTML(true);
+	$mailer->isHTML(true);
 	$mailer->AltBody = strip_tags($txt);
     }
     $mailer->Body = $txt;
 
-    if ($mailer->Send()) {
+    if ($mailer->send()) {
 	return true;
     } else {
 	if (is_coadmin()) {
@@ -470,32 +470,6 @@ function get_antispam($m, $t, $nopictures = false) {
 	$img = '<label style="float:left;width:'.$t.'px; ">Antispam</label>&nbsp;' . $img . '<br>';
     }
     return $img;
-}
-
-// Funktion scandir für PHP 4
-if (version_compare(phpversion(), '5.0.0') == -1) {
-
-    function scandir($dir) {
-	$dh = opendir($dir);
-	while (false !== ($filename = readdir($dh)))
-	    $files[] = $filename;
-	sort($files);
-	return $files;
-    }
-
-}
-// Funktion array_fill_keys < PHP 5.2
-if (version_compare(phpversion(), '5.2.0') == -1) {
-
-    function array_fill_keys($target, $value = '') {
-	if (is_array($target)) {
-	    foreach ($target as $key => $val) {
-		$filledArray[$val] = is_array($value) ? $value[$key] : $value;
-	    }
-	}
-	return $filledArray;
-    }
-
 }
 
 // Funktion, die die Größe aller Dateien im Ordner zusammenrechnet

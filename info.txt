@@ -3,7 +3,7 @@ ilchClan 1.1 Q
 TODO: 13. April 2015
 
 Copyright (c) 2005 by Manuel
-Copyright (c) 2005 - 2013 by ilch.de
+Copyright (c) 2005 - 2019 by ilch.de
 
 i n s t a l l a t i o n
   - alle Dateien hochladen.
@@ -36,7 +36,7 @@ Benutzung von anderen Open Source Bibliotheken
   - PHPMailer - PHP email class - Version: 5.2.9
         - Copyright und Lizenzinformationen in den Dateien im include/includes/class/phpmailer Verzeichnis
 
-  - BigDump ver. 0.34b from 2011-09-04 TODO: use newer Version 0.36b
+  - BigDump ver. 0.36b from 2015-04-30
         - Copyright und Lizenzinformationen in der backup/bigdump.php
 
   - Small AzDGCrypt class under GPL Licence (Downloaded from www.phpclasses.net // authors website: http://www.azdg.com/)

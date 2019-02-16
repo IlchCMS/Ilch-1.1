@@ -28,7 +28,7 @@
 
 class AzDGCrypt{
    var $k;
-   function AzDGCrypt($m){
+   function __construct($m){
       $this->k = $m;
    }
    function ed($t) {

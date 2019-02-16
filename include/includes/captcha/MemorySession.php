@@ -19,7 +19,7 @@ class MemorySession
      * @param boolean $startSession session_start wird ausgeführt
      * @param string $sessionId SessionId die dabei verwendet wird
      */
-    function MemorySession($startSession = true, $sessionId = 'sid')
+    public function __construct($startSession = true, $sessionId = 'sid')
     {
         if ($startSession) {
             session_name($sessionId);
@@ -39,7 +39,7 @@ class MemorySession
      * @param string $captchaId
      * @return boolean
      */
-    function checkCode($captchaCode, $captchaId)
+    public function checkCode($captchaCode, $captchaId)
     {
         if (isset($_SESSION['antispam_numbers'][$captchaId])
             && $_SESSION['antispam_numbers'][$captchaId]['captcha_code'] == $captchaCode
@@ -53,7 +53,7 @@ class MemorySession
     /**
      * Löscht alte Einträge aus dem Speicher
      */
-    function updateMemory()
+    public function updateMemory()
     {
         $tooOld = time() - 60 * 30; //30 Minuten
         foreach ($_SESSION['antispam_numbers'] as $captchaId => $values) {
@@ -69,7 +69,7 @@ class MemorySession
      * @param string $captchaCode
      * @param string $captchaId
      */
-    function saveCode($captchaCode, $captchaId)
+    public function saveCode($captchaCode, $captchaId)
     {
         $_SESSION['antispam_numbers'][$captchaId] = array(
                 'captcha_code' => $captchaCode,

@@ -9,6 +9,7 @@ Version 1.0
 */
 
 function ic_mime_type ($file) {
+  static $mimeData;
   if (!file_exists($file)) {
     return ('application/x-object');
   }
@@ -36,7 +37,7 @@ function ic_mime_type ($file) {
               $indicator = str_replace('\>', '>', $indicator);
               $indicator = str_replace('\r', "\r", $indicator);
               $indicator = str_replace('\n', "\n", $indicator);
-              $indicator = preg_replace('/\\\\([0-9]{3})/e', 'chr($1);', $indicator);
+              $indicator = preg_replace_callback('/\\\\([0-9]{3})/', function(array $matches) { return chr($matches[1]); }, $indicator);
               break;
             case 'byte':
               $indicator = pack('c', @eval('return '.$indicator.';'));
@@ -88,4 +89,3 @@ function ic_mime_type ($file) {
   }
   return $retVal;
 }
-?>

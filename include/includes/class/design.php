@@ -16,7 +16,7 @@ class design extends tpl {
     var $was;
     var $file;
 
-    function design ($title, $hmenu, $was = 1, $file = null)
+    function __construct($title, $hmenu, $was = 1, $file = null)
     {
         global $allgAr;
 

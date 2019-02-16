@@ -35,8 +35,9 @@ function db_connect () {
 
   if (version_compare($mysqlServerVersion, '5.7.0')) {
     $sqlMode = mysql_result(mysql_query('SELECT @@SESSION.sql_mode'), 0);
-    if (strpos($sqlMode, 'NO_ZERO_IN_DATE') !== false || strpos($sqlMode, 'NO_ZERO_DATE') !== false) {
-      $newSqlMode = preg_replace('~\b(NO_ZERO_IN_DATE|NO_ZERO_DATE)\b,?~', '', $sqlMode);
+    $modesToRemove = array('NO_ZERO_IN_DATE', 'NO_ZERO_DATE', 'STRICT_ALL_TABLES');
+    $newSqlMode = preg_replace('~\b(' . implode('|', $modesToRemove) . ')\b,?~', '', $sqlMode);
+    if ($newSqlMode !== $sqlMode) {
       mysql_query('SET sql_mode="' . $newSqlMode . '"');
     }
   }
